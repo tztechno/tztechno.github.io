@@ -11,8 +11,7 @@ The skill libraries are [here](https://amzn.to/2X4JqEN).
 ![trump200.png](https://tztechno.github.io/img/trump200.png)
 ![othelloking200.png](https://tztechno.github.io/img/othelloking200.png)
 
-<p>
-<p>
+<br/>
   
 <a href="https://github.com/tztechno/github-readme-stats">
   <img align="left" src="https://github-readme-stats.vercel.app/api?username=tztechno&theme=gotham&show_icons=true&hide_border=true" />
