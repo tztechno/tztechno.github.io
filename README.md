@@ -13,10 +13,10 @@ The skill libraries are [here](https://amzn.to/2X4JqEN).
 
 <br/>
   
-<a href="https://github.com/tztechno/github-readme-stats">
+<a href="https://github.com/anuraghazra/github-readme-stats">
   <img align="left" src="https://github-readme-stats.vercel.app/api?username=tztechno&theme=gotham&show_icons=true&hide_border=true" />
 </a>
-<a href="https://github.com/tztechno/github-readme-stats">
+<a href="https://github.com/anuraghazra/github-readme-stats">
   <img align="left" src="https://github-readme-stats.vercel.app/api/top-langs/?username=tztechno&theme=gotham&hide_border=true" />
 </a>
 
