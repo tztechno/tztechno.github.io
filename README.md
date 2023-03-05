@@ -1,7 +1,5 @@
 # tztechno.github.io
 
-
-
 <br/>
   
 <a href="https://github.com/anuraghazra/github-readme-stats">
@@ -13,3 +11,7 @@
 </a>
 
 <br/>
+
+---
+
+---
