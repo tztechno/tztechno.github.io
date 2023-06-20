@@ -12,6 +12,6 @@
 
 <br/>
 
-<a href="[https://example.com](https://www.kaggle.com/stpeteishii)https://www.kaggle.com/stpeteishii">[リンクのテキスト](https://www.kaggle.com/stpeteishii)https://www.kaggle.com/stpeteishii</a>
+<a href="https://www.kaggle.com/stpeteishii">https://www.kaggle.com/stpeteishii</a>
 
 <br/>
