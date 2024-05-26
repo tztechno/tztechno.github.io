@@ -1,15 +1,14 @@
 # tztechno.github.io
 
-
 [tztechno.github.io](https://tztechno.github.io)
 
 [repositories](https://github.com/tztechno?tab=repositories)
 
-[owners](https://kenkoooo.com/atcoder/#/lang)
-
 [kaggle](https://www.kaggle.com/stpeteishii)
 
 [atcoder](https://atcoder.jp/users/stpete)
+
+[owners](https://kenkoooo.com/atcoder/#/lang)
 
 # my products
 
