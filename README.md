@@ -4,11 +4,11 @@
 
 [repositories](https://github.com/tztechno?tab=repositories)
 
-[kaggle](https://www.kaggle.com/stpeteishii)
+[kaggle/stpete_ishii](https://www.kaggle.com/stpeteishii)
 
-[atcoder](https://atcoder.jp/users/stpete)
+[atcoder/stpete](https://atcoder.jp/users/stpete)
 
-[owners](https://kenkoooo.com/atcoder/#/lang)
+[owners/stpete](https://kenkoooo.com/atcoder/#/lang)
 
 # my products
 
