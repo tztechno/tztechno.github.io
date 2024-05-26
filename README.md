@@ -4,8 +4,6 @@ https://tztechno.github.io
 
 https://atcoder.jp/users/stpete
 
-@IshiiStpete
-
 <br/>
 
 # my products
