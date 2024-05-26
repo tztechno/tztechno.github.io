@@ -13,9 +13,8 @@
 
 [clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
 
-[tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
-
 [here i am](https://tztechno.github.io/tz_js_20240301_map/trial3.html)
 
 [tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
 
+[tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
