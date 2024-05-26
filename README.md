@@ -1,6 +1,6 @@
 # tztechno.github.io
 
-<a href="https://www.kaggle.com/stpeteishii">https://www.kaggle.com/stpeteishii</a>
+https://tztechno.github.io
 
 <br/>
 
