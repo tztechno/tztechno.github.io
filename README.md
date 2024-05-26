@@ -2,9 +2,9 @@
 
 https://tztechno.github.io
 
-https://atcoder.jp/users/stpete
+https://www.kaggle.com/stpeteishii
 
-<br/>
+https://atcoder.jp/users/stpete
 
 # my products
 
