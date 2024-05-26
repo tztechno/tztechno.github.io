@@ -5,7 +5,7 @@
 
 [repositories](https://github.com/tztechno?tab=repositories)
 
-[owners][(https://kenkoooo.com/atcoder/#/lang)
+[owners](https://kenkoooo.com/atcoder/#/lang)
 
 [kaggle](https://www.kaggle.com/stpeteishii)
 
