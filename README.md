@@ -22,4 +22,4 @@
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
-[abc053a](https://tztechno.github.io/tz_atcoder_web/abc053a_js2_slide.html)
+[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c_bingo_js.html)
