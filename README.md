@@ -1,26 +1,4 @@
 
-<div style="display: flex;">
-  <div style="flex: 1; padding: 10px;">
-    <!-- 左側のコンテンツ -->
-    ### 左の見出し
-    - 左のリストアイテム1
-    - 左のリストアイテム2
-    - 左のリストアイテム3
-    - 左のリストアイテム4
-  </div>
-  <div style="flex: 1; padding: 10px;">
-    <!-- 右側のコンテンツ -->
-    ### 右の見出し
-    - 右のリストアイテム1
-    - 右のリストアイテム2
-    - 右のリストアイテム3
-    - 右のリストアイテム4
-  </div>
-</div>
-
-
----
-
 # tztechno.github.io
 
 [tztechno.github.io](https://tztechno.github.io)
