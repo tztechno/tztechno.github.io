@@ -23,5 +23,5 @@
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
-[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c_bingo_js.html)
+[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
