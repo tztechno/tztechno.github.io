@@ -25,4 +25,6 @@
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
-[exe time flask](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
+[scrape js](https://tztechno.github.io/tz_html_works/scraping_fda_static/scrape_fda.html)
+
+[exe time python](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
