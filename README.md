@@ -22,11 +22,15 @@
 
 [scrape js](https://tztechno.github.io/tz_html_works/scraping_fda_static/scrape_fda.html)
 
+[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
+
 ## python
 [tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
-[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
-
 [exe time python](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
+
+## blog
+
+[Lngages 64](https://tztechno.github.io/tz_blog_pelican/)
