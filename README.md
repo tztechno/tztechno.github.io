@@ -11,6 +11,10 @@
 
 [owners/stpete](https://kenkoooo.com/atcoder/#/lang)
 
+[qiita/stpete_ishii](https://qiita.com/stpete_ishii)
+
+[zenn/stpete_ishii](https://zenn.dev/stpete_ishii)
+
 # my products
 
 ## js
@@ -32,5 +36,6 @@
 [exe time python](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
 
 ## blog
+[Languages 64](https://tztechno.github.io/tz_blog_pelican/)
 
-[Lngages 64](https://tztechno.github.io/tz_blog_pelican/)
+
