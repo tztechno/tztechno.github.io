@@ -36,13 +36,16 @@
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
 ## vercel
-html
+* html
 [todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
-nextjs
+
+* nextjs
 [lucas](https://vercel-lucas.vercel.app/)
-fkask
+
+* flask
 [runtime calculator](https://vercel-runtime-python.vercel.app/)
-blog
+
+* blog
 [Languages 64](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
 
 
