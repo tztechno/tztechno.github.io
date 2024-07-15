@@ -37,18 +37,24 @@
 
 ## vercel
 
-html<br/>
-[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)<br/>
+html
+
+[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
+
 [HIMAWARI](https://vercel-clouds-sage.vercel.app/)
 
-nextjs<br/>
-[lucas](https://vercel-lucas.vercel.app/)<br/>
+nextjs
+
+[lucas](https://vercel-lucas.vercel.app/)
+
 [scraping](https://vercel-scrape-lvq7zua7b-stpetes-projects.vercel.app/)
 
-flask<br/>
+flask
+
 [runtime calculator](https://vercel-runtime-python.vercel.app/)
 
-blog<br/>
+blog
+
 [Languages 64](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
 
 
