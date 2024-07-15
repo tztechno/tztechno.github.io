@@ -17,7 +17,7 @@
 
 # my products
 
-## js
+## github pages
 [earthquake](https://tztechno.github.io/tz_js_20240217_leaflet/emap_now4.html)
 
 [clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
@@ -28,15 +28,20 @@
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
-## python streamlit
+## flask
+[atcoder runtime](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
+
+## streamlit
 [tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
-## python flask
-[atcoder exe time](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
+## vercel
+[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
+
+[lucas](https://vercel-lucas.vercel.app/)
 
 ## blog
-[Languages 64](https://tztechno.github.io/tz_blog_pelican/)
+[Languages 64](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
 
 
