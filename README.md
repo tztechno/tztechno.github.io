@@ -28,12 +28,13 @@
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
-## python
+## python streamlit
 [tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
-[exe time](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
+## python flask
+[atcoder exe time](https://github.com/tztechno/tz_flask/tree/main/6_exe_time2)
 
 ## blog
 [Languages 64](https://tztechno.github.io/tz_blog_pelican/)
