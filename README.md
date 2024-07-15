@@ -38,10 +38,12 @@
 ## vercel
 
 html<br/>
-[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
+[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)<br/>
+[HIMAWARI](https://vercel-clouds-sage.vercel.app/)
 
 nextjs<br/>
-[lucas](https://vercel-lucas.vercel.app/)
+[lucas](https://vercel-lucas.vercel.app/)<br/>
+[scraping](https://vercel-scrape-lvq7zua7b-stpetes-projects.vercel.app/)
 
 flask<br/>
 [runtime calculator](https://vercel-runtime-python.vercel.app/)
