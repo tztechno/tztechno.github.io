@@ -25,8 +25,6 @@
 
 [here i am](https://tztechno.github.io/tz_js_20240301_map/trial3.html)
 
-[scraping](https://tztechno.github.io/tz_html_works/scraping_fda_static/scrape_fda.html)
-
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
 ## streamlit
@@ -41,20 +39,20 @@ html
 
 [todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
 
-[HIMAWARI](https://vercel-clouds-sage.vercel.app/)
+[clouds](https://vercel-clouds-sage.vercel.app/)
 
 nextjs
 
 [lucas](https://vercel-lucas.vercel.app/)
 
-[scraping](https://vercel-scrape-lvq7zua7b-stpetes-projects.vercel.app/)
+[scrape](https://vercel-scrape-lvq7zua7b-stpetes-projects.vercel.app/)
 
 flask
 
-[runtime calculator](https://vercel-runtime-python.vercel.app/)
+[runtime](https://vercel-runtime-python.vercel.app/)
 
 blog
 
-[Languages 64](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
+[languages](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
 
 
