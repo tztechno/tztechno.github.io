@@ -35,24 +35,24 @@ html
 
 [earthquake](https://vercel-earthquake.vercel.app/)
 
-[location map](https://vercel-map2.vercel.app/)
-
-[todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
-
 [clouds](https://vercel-clouds-sage.vercel.app/)
 
-nextjs
+[location map](https://vercel-map2.vercel.app/)
 
-[lucas](https://vercel-lucas.vercel.app/)
-
-[scrape](https://vercel-scrape-lvq7zua7b-stpetes-projects.vercel.app/)
+[todo](https://vercel-todo-eight.vercel.app/)
 
 flask
 
 [runtime](https://vercel-runtime-python.vercel.app/)
 
+nextjs
+
+[lucas](https://vercel-lucas.vercel.app/)
+
+[scrape](https://vercel-scrape-fda.vercel.app/)
+
 blog
 
-[languages](https://tz-blog-pelican-git-master-stpetes-projects.vercel.app/)
+[languages](https://vercel-pelican.vercel.app/)
 
 
