@@ -39,10 +39,6 @@ nextjs
 
 [scrape example](https://vercel-scrape-fda.vercel.app/)
 
-blog
-
-[languages 64](https://vercel-pelican.vercel.app/)
-
 
 ## streamlit
 
