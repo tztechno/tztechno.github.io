@@ -17,18 +17,6 @@
 
 # my products
 
-## github pages
-
-[clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
-
-[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
-
-## streamlit
-
-[tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
-
-[tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
-
 ## vercel
 
 html
@@ -56,3 +44,15 @@ blog
 [languages 64](https://vercel-pelican.vercel.app/)
 
 
+## streamlit
+
+[tarot reading](https://app-tarrot-reading-mlnessbppgllzg2dns5pfc.streamlit.app/)
+
+[tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
+
+
+## github pages
+
+[clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
+
+[bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
