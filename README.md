@@ -53,6 +53,6 @@ blog
 
 ## github pages
 
-[clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
+[world clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
