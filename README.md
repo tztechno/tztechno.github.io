@@ -37,7 +37,7 @@ nextjs
 
 [lucas calculator](https://vercel-lucas.vercel.app/)
 
-[scrape example](https://vercel-scrape-fda.vercel.app/)
+[scraping example](https://vercel-scrape-fda.vercel.app/)
 
 
 ## streamlit
