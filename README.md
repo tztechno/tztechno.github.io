@@ -19,11 +19,7 @@
 
 ## github pages
 
-[earthquake](https://tztechno.github.io/tz_js_20240217_leaflet/emap_now4.html)
-
 [clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
-
-[here i am](https://tztechno.github.io/tz_js_20240301_map/trial3.html)
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
 
@@ -36,6 +32,10 @@
 ## vercel
 
 html
+
+[earthquake](https://vercel-earthquake.vercel.app/)
+
+[location map](https://vercel-map2.vercel.app/)
 
 [todo](https://vercel-todo-g9ozzihav-stpetes-projects.vercel.app/)
 
