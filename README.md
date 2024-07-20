@@ -35,24 +35,24 @@ html
 
 [earthquake](https://vercel-earthquake.vercel.app/)
 
-[clouds](https://vercel-clouds-sage.vercel.app/)
+[clouds slide](https://vercel-clouds-sage.vercel.app/)
 
 [location map](https://vercel-map2.vercel.app/)
 
-[todo](https://vercel-todo-eight.vercel.app/)
+[todo list](https://vercel-todo-eight.vercel.app/)
 
 flask
 
-[runtime](https://vercel-runtime-python.vercel.app/)
+[runtime calculator](https://vercel-runtime-python.vercel.app/)
 
 nextjs
 
-[lucas](https://vercel-lucas.vercel.app/)
+[lucas calculator](https://vercel-lucas.vercel.app/)
 
-[scrape](https://vercel-scrape-fda.vercel.app/)
+[scrape example](https://vercel-scrape-fda.vercel.app/)
 
 blog
 
-[languages](https://vercel-pelican.vercel.app/)
+[languages 64](https://vercel-pelican.vercel.app/)
 
 
