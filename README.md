@@ -46,9 +46,13 @@ nextjs
 
 [tags remover](https://app-tags-remover-sbkxegmeb9kavsurgowb6d.streamlit.app/)
 
+[image resizer](https://image-resize-deu3sheevuvmqerlgfyqdh.streamlit.app/)
+
 
 ## github pages
 
 [world clock](https://tztechno.github.io/tz_html_20230222_clock/index3.html)
 
 [bingo](https://tztechno.github.io/tz_atcoder_web/abc355c/abc355c_bingo_js.html)
+
+[iss tracker](https://tztechno.github.io/tz_html_works/f_iss_map/index.html)
