@@ -34,6 +34,7 @@ flask
 [runtime calculator](https://vercel-runtime-python.vercel.app/)
 
 nextjs
+
 [realtime earthquake](https://vercel-realtime-earthquake.vercel.app/)
 
 [lucas calculator](https://vercel-lucas.vercel.app/)
