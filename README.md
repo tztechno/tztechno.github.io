@@ -21,7 +21,7 @@
 
 html
 
-[earthquake](https://vercel-earthquake.vercel.app/)
+[earthquake japan](https://vercel-earthquake.vercel.app/)
 
 [clouds slide](https://vercel-clouds-sage.vercel.app/)
 
@@ -34,6 +34,7 @@ flask
 [runtime calculator](https://vercel-runtime-python.vercel.app/)
 
 nextjs
+[realtime earthquake](https://vercel-realtime-earthquake.vercel.app/)
 
 [lucas calculator](https://vercel-lucas.vercel.app/)
 
