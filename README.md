@@ -50,6 +50,8 @@ nextjs
 
 [image resizer](https://image-resize-deu3sheevuvmqerlgfyqdh.streamlit.app/)
 
+[bowling](https://bowling-nuzxgt33vsaumpmpuxxdad.streamlit.app/)
+
 
 ## github pages
 
