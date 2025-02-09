@@ -52,6 +52,8 @@ nextjs
 
 [bowling](https://bowling-nuzxgt33vsaumpmpuxxdad.streamlit.app/)
 
+[chat bot](https://chatbot-8rfa3vwpdjesabndwpnkyh.streamlit.app/)
+
 
 ## github pages
 
