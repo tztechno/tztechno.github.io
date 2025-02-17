@@ -54,6 +54,8 @@ nextjs
 
 [chat bot](https://chatbot-8rfa3vwpdjesabndwpnkyh.streamlit.app/)
 
+[ai othello](https://othello-3mof6qt36idyjk7xzespxt.streamlit.app/)
+
 
 ## github pages
 
