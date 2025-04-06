@@ -67,8 +67,6 @@ nextjs
 
 ## kaggle notebooks
 
-My Notebooks
-
 https://www.kaggle.com/code/stpeteishii/wine-rag-approach-deepseek-r1-w-grpo
 
 https://www.kaggle.com/code/stpeteishii/squad1-1-rl-approach-w-deepseek-grpo
@@ -78,3 +76,4 @@ https://www.kaggle.com/code/stpeteishii/notebooks-related-to-sl-rl-for-seq2seq-d
 https://www.kaggle.com/code/stpeteishii/notebooks-related-to-reinforcement-learning
 
 https://www.kaggle.com/code/stpeteishii/covid19-tokyo-8th-wave-future-prediction
+
