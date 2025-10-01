@@ -7,10 +7,6 @@
 
 [kaggle/stpete_ishii](https://www.kaggle.com/stpeteishii)
 
-[atcoder/stpete](https://atcoder.jp/users/stpete)
-
-[owners/stpete](https://kenkoooo.com/atcoder/#/lang)
-
 [qiita/stpete_ishii](https://qiita.com/stpete_ishii)
 
 [zenn/stpete_ishii](https://zenn.dev/stpete_ishii)
