@@ -25,7 +25,7 @@ html
 
 [todo list](https://vercel-todo-eight.vercel.app/)
 
-[gaussian splatting viewer](splat-three.vercel.app/)
+[gaussian splat viewer](https://splat-three.vercel.app/)
 
 flask
 
