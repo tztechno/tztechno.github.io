@@ -63,6 +63,14 @@ nextjs
 
 [iss tracker](https://tztechno.github.io/tz_html_works/f_iss_map/index.html)
 
+## note
+
+https://tztechno.github.io/note01/
+
+https://tztechno.github.io/note02/
+
+https://tztechno.github.io/note03/
+
 ## kaggle notebooks
 
 https://www.kaggle.com/code/stpeteishii/wine-rag-approach-deepseek-r1-w-grpo
