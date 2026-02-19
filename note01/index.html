@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASt3RシーンからCOLMAPへの変換：3つのパイプラインの比較</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        h1 {
+            font-size: 2.2em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h2 {
+            font-size: 1.6em;
+            border-left: 5px solid #2cb696;
+            padding-left: 15px;
+            margin-top: 50px;
+            background: #f9f9f9;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        h3 {
+            font-size: 1.3em;
+            margin-top: 30px;
+            color: #2cb696;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table th {
+            background-color: #f2f2f2;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .case-box {
+            background-color: #f0f7f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .footer-links {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        strong {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MASt3RシーンからCOLMAPへの変換：3つのパイプラインの比較</h1>
+        <div class="meta">
+            投稿者: stpete | 投稿日: 2026年2月1日
+        </div>
+    </header>
+
+    <section id="introduction">
+        <h2>序文</h2>
+        <p>
+            MASt3Rは、カメラのキャリブレーションや撮影位置といった事前情報を必要とせず、少数の困難な画像ペアから数千枚規模の大規模画像集合までを一貫して高精度に3D再構成できる次世代のマルチビューネットワークである。
+        </p>
+        <p>
+            本レポートは、MASt3Rによって生成された3Dシーンデータを、3D Gaussian Splatting（3DGS）などの後続タスクで広く利用されるCOLMAPフォーマットへ変換するための手法3種類（process1, process2, process3）の技術的アプローチを比較・評価することを目的としています。
+        </p>
+    </section>
+
+    <section id="approach-overview">
+        <h2>1. アプローチ別 主要手法の概要</h2>
+        <p>各スクリプトが採用するアプローチの全体像を把握することで、設計思想の違いを理解します。</p>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>process1</th>
+                    <th>process2</th>
+                    <th>process3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>重視する点</td>
+                    <td>速度と効率</td>
+                    <td>忠実性と品質のバランス</td>
+                    <td>データの豊富さと自己完結</td>
+                </tr>
+                <tr>
+                    <td>フィルタリング</td>
+                    <td>なし（高速）</td>
+                    <td>信頼度スコアに基づく</td>
+                    <td>信頼度＋局所サンプリング</td>
+                </tr>
+                <tr>
+                    <td>出力ファイル</td>
+                    <td>標準3ファイル</td>
+                    <td>標準3ファイル</td>
+                    <td>デプス・ノーマルマップ等を含む豊富</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="technical-details">
+        <h2>2. 詳細技術比較</h2>
+        
+        <h3>2.1. カメラパラメータの処理</h3>
+        <p><strong>process1 と process2:</strong> MASt3Rが提供する焦点距離と主点を信頼し、元画像の解像度に合わせてスケーリングする「データ駆動型の変換」を採用しています。</p>
+        <p><strong>process3:</strong> MASt3Rの内部パラメータを無視し、画像サイズからヒューリスティックに推定します。これは「データ由来のab initio推定」という哲学に基づいています。</p>
+
+        <h3>2.2. 3D点群と色情報の生成プロセス</h3>
+        <ul>
+            <li><strong>process1:</strong> 全体の点群からグローバルなランダムサンプリングを行い、高速化を図ります。</li>
+            <li><strong>process2:</strong> 信頼度スコアに基づき低品質な点を除去。3D点と色情報の一貫性を厳密に保証します。</li>
+            <li><strong>process3:</strong> 画像単位でのサンプリングと、内部テンソルからの直接的な色取得により効率性を高めています。</li>
+        </ul>
+    </section>
+
+    <section id="use-cases">
+        <h2>3. ユースケース別 最適アプローチの考察</h2>
+        
+        <div class="case-box">
+            <h3>3.1. process1: 速度とメモリ効率を優先</h3>
+            <p>大量のシーンを迅速にバッチ処理する必要がある場合や、プロトタイピング段階での高速プレビューに最適です。</p>
+        </div>
+
+        <div class="case-box">
+            <h3>3.2. process2: 標準的3DGS向けの高品質な疎な点群</h3>
+            <p>高品質でノイズの少ない再構築モデルを必要とする、標準的なビジュアライゼーションに最も信頼性の高い選択肢です。</p>
+        </div>
+
+        <div class="case-box">
+            <h3>3.3. process3: 密な再構築（MVS）も視野に入れた構築</h3>
+            <p>デプスマップやノーマルマップを活用する高度なパイプライン向け。ただし、パラメータ推定に伴うリスクも併せ持ちます。</p>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <h2>4. 結論</h2>
+        <p>
+            分析の結果、各パイプラインの選択は最終的な3DGSの像に甚大な影響を及ぼすことが分かりました。
+            「速度重視」のprocess1、「品質バランス」のprocess2、「データ豊富性」のprocess3と、目的に応じた使い分けが重要です。
+        </p>
+    </section>
+
+    <footer class="footer-links">
+        <h2>5. 関連資料</h2>
+        <ul>
+            <li><a href="https://www.kaggle.com/code/stpeteishii/3d-reconstruction-mast3r-w-ps1">Kaggle: process1 implementation</a></li>
+            <li><a href="https://www.kaggle.com/code/stpeteishii/3d-reconstruction-mast3r-w-ps2">Kaggle: process2 implementation</a></li>
+            <li><a href="https://www.kaggle.com/code/stpeteishii/3d-reconstruction-mast3r-w-ps3">Kaggle: process3 implementation</a></li>
+            <li><a href="https://github.com/naver/mast3r">MASt3R GitHub Repository</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>
