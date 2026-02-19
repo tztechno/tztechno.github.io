@@ -65,11 +65,11 @@ nextjs
 
 ## note
 
-https://tztechno.github.io/note01/
+https://tztechno.github.io/note01/  https://note.com/stpeteishii/n/n8d5cb0a4c77c
 
-https://tztechno.github.io/note02/
+https://tztechno.github.io/note02/  https://note.com/stpeteishii/n/n869b4e5896c7
 
-https://tztechno.github.io/note03/
+https://tztechno.github.io/note03/  https://note.com/stpeteishii/n/n1c6cc89f0ba6
 
 ## kaggle notebooks
 
