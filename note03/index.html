@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Gaussian Splatting and Conversion to Its Major Variants</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fcfcfc;
+        }
+        header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        .meta {
+            color: #777;
+            font-size: 0.9em;
+        }
+        h2 {
+            font-size: 1.7em;
+            color: #2c3e50;
+            border-left: 6px solid #2cb696;
+            padding-left: 15px;
+            margin-top: 45px;
+        }
+        h3 {
+            font-size: 1.3em;
+            color: #2cb696;
+            margin-top: 30px;
+        }
+        p {
+            margin-bottom: 18px;
+        }
+        ul {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 12px;
+        }
+        .tech-box {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .conversion-links {
+            background-color: #f0f7f5;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #2cb696;
+        }
+        strong {
+            color: #000;
+        }
+        .footer {
+            margin-top: 60px;
+            font-size: 0.9em;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .image-placeholder {
+            background: #eee;
+            color: #888;
+            padding: 40px;
+            text-align: center;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>3D Gaussian Splatting and Conversion to Its Major Variants</h1>
+        <div class="meta">
+            By stpete | Published: February 17, 2026
+        </div>
+    </header>
+
+    <section id="introduction">
+        <p>
+            <strong>3D Gaussian Splatting (3DGS)</strong> is a revolutionary technique that renders photorealistic, real-time environments by scattering tens of thousands of Gaussian distributions in 3D space. Despite its success, 3DGS faces several structural challenges:
+        </p>
+        <ul>
+            <li>"Popping" artifacts during viewpoint transitions.</li>
+            <li>Visible "thickness" of Gaussians when viewed from specific angles.</li>
+            <li>Structural instability when initialized from sparse point clouds.</li>
+        </ul>
+        <p>To address these issues, several variants have been developed. In this article, we explain the concepts and implementation methods for <strong>2DGS, Mip-Splatting,</strong> and <strong>Scaffold-GS</strong>.</p>
+    </section>
+
+    <section id="technical-features">
+        <h2>Technical Features</h2>
+
+        <div class="tech-box">
+            <h3>1. 3D Gaussian Splatting (3DGS)</h3>
+            <p>The baseline method achieving a balance between real-time rendering and fast training.</p>
+            <ul>
+                <li><strong>3D Gaussian Primitives:</strong> Represents the scene using millions of overlapping, semi-transparent 3D ellipsoids (blobs).</li>
+                <li><strong>Core Parameters:</strong> Each Gaussian holds position (center), a covariance matrix (defining shape/orientation), opacity (alpha), and <strong>Spherical Harmonics (SH)</strong> for view-dependent color.</li>
+                <li><strong>Tile-based Rasterization:</strong> Projects Gaussians onto a 2D screen space and uses optimized GPU kernels for high-speed alpha blending.</li>
+                <li><strong>No Ray Marching:</strong> By avoiding the heavy computation required for NeRF, it enables real-time rendering at 100+ FPS.</li>
+            </ul>
+        </div>
+
+        <div class="tech-box">
+            <h3>2. 2D Gaussian Splatting (2DGS)</h3>
+            <p>Focuses on accurate surface representation and better adaptability for meshing.</p>
+            <ul>
+                <li><strong>2D Gaussian Surfels:</strong> Replaces 3D ellipsoids with oriented 2D disks.</li>
+                <li><strong>Ray-Surfel Intersection:</strong> Directly calculates intersections between rays and 2D disks, enabling precise depth estimation and significantly reducing "floating artifacts."</li>
+                <li><strong>Defined Normals:</strong> Since each primitive has a clear orientation, it allows for high-quality <strong>normal map</strong> generation.</li>
+                <li><strong>Ease of Meshing:</strong> Because of the flat geometry and defined normals, conversion to standard 3D formats (.obj/.ply) is straightforward.</li>
+            </ul>
+            
+        </div>
+
+        <div class="tech-box">
+            <h3>3. Mip-Splatting</h3>
+            <p>Designed specifically to eliminate quality degradation caused by changes in camera distance (aliasing).</p>
+            <ul>
+                <li><strong>3D Smoothing Filter:</strong> Introduces 3D space filtering techniques inspired by the concepts of Mip-NeRF 360.</li>
+                <li><strong>Frequency Constraints:</strong> Limits Gaussian frequencies based on pixel size, preventing background objects from becoming overly detailed.</li>
+                <li><strong>Scale-Adaptive Rendering:</strong> Applies "blur" appropriately so that Gaussians do not become smaller than a single pixel, suppressing "salt-and-pepper noise" and flickering.</li>
+            </ul>
+        </div>
+
+        <div class="tech-box">
+            <h3>4. Scaffold-GS</h3>
+            <p>Enhances memory efficiency and scalability for large-scale scenes.</p>
+            <ul>
+                <li><strong>Anchor Point Structure:</strong> Organizes the scene with a sparse voxel grid and links Gaussians to specific anchor points.</li>
+                <li><strong>Neural Gaussians:</strong> Uses a small MLP (Multi-Layer Perceptron) at each anchor point to dynamically generate Gaussian attributes from neighboring information.</li>
+                <li><strong>Growing Strategy:</strong> Adaptively adds or removes anchor points during training to optimize density based on scene complexity.</li>
+                <li><strong>Storage Efficiency:</strong> Reduces memory usage by over 50% compared to original 3DGS, making city-level scale rendering possible.</li>
+            </ul>
+            
+        </div>
+    </section>
+
+    <section id="conversion">
+        <h2>Converting from 3DGS to Variants</h2>
+        <h3>1. Repository and Environment Setup</h3>
+        <p>For each variant, you must switch to the specific repository and rebuild the environment.</p>
+        <ul>
+            <li><strong>3DGS:</strong> <a href="https://github.com/graphdeco-inria/gaussian-splatting">Original Repo</a></li>
+            <li><strong>2DGS:</strong> <a href="https://github.com/hbb1/2d-gaussian-splatting">2DGS Repo</a></li>
+            <li><strong>Mip-Splatting:</strong> <a href="https://github.com/autonomousvision/mip-splatting">Mip-Splatting Repo</a></li>
+            <li><strong>Scaffold-GS:</strong> <a href="https://github.com/city-super/Scaffold-GS">Scaffold-GS Repo</a></li>
+        </ul>
+
+        <h3>2. Rasterizer Updates</h3>
+        <p>The core rasterizer (<code>diff-gaussian-rasterization</code>) must be replaced with the version tailored for the specific variant.</p>
+
+        <h3>3. Code Modifications and Hyperparameters</h3>
+        <p>When running the training scripts (<code>train.py</code>), you must specify new regularization or control parameters that were not present in the original 3DGS.</p>
+
+        <div class="conversion-links">
+            <strong>Conversion Guides (Kaggle):</strong>
+            <ul>
+                <li><a href="https://www.kaggle.com/code/stpeteishii/3dgs-to-2dgs-conversion-guide">3DGS → 2DGS Guide</a></li>
+                <li><a href="https://www.kaggle.com/code/stpeteishii/3dgs-to-mipgs-conversion-guide">3DGS → Mip-Splatting Guide</a></li>
+                <li><a href="https://www.kaggle.com/code/stpeteishii/conversion-guide-3dgs-to-scaffold-gs">3DGS → Scaffold-GS Guide</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="implementation">
+        <h2>Implementation Notes</h2>
+        <p>Testing was conducted using the same image set (20 images) and identical preprocessing, with iterations fixed at 3000.</p>
+        <div class="image-placeholder">PLP File Previews: 3DGS | 2DGS | Mip-Splatting</div>
+    </section>
+
+    <section id="viewing">
+        <h2>How to View the Results</h2>
+        <ul>
+            <li><strong>3DGS / Mip-Splatting:</strong> Standard PLY files can be viewed in standard 3DGS viewers like <a href="https://splat-three.vercel.app/">Splat-Three</a> or <a href="https://antimatter15.com/splat/">Antimatter15</a>.</li>
+            <li><strong>2DGS:</strong> Requires a viewer that supports 2DGS primitives, such as <a href="https://superspl.at/editor">SuperSplat</a>.</li>
+            <li><strong>Scaffold-GS:</strong> Requires a dedicated viewer. Currently, Windows-based SIBR viewers are available, but Mac/Web support is limited.</li>
+        </ul>
+    </section>
+
+    <section id="closing">
+        <h2>Conclusion</h2>
+        <p>
+            The quality of Gaussian Splatting is influenced by image data quality, preprocessing, and the specific GS algorithm used. In this study, differences between methods were subtle due to the small dataset size. However, given that each method has distinct characteristics, the choice of variant should be strategically decided based on the specific requirements of your data.
+        </p>
+    </section>
+
+    <footer class="footer">
+        <h3>References</h3>
+        <ul>
+            <li>3DGS: "3D Gaussian Splatting for Real-Time Radiance Field Rendering" (SIGGRAPH 2023)</li>
+            <li>2DGS: "2D Gaussian Splatting for Geometrically Accurate Radiance Fields" (SIGGRAPH 2024)</li>
+            <li>Mip-Splatting: "Mip-Splatting: Alias-free 3D Gaussian Splatting" (CVPR 2024)</li>
+            <li>Scaffold-GS: "Scaffold-GS: Structured 3D Gaussians for View-Adaptive Rendering" (CVPR 2024)</li>
+        </ul>
+    </footer>
+
+</body>
+</html>
