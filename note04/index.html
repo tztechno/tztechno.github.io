@@ -1,1 +1,96 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovations and Limitations of VGGT: An Implementation Comparison with MASt3R</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h2 { border-bottom: 1px solid #eee; margin-top: 40px; }
+        h3 { color: #444; margin-top: 30px; }
+        code { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; font-weight: bold; }
+        .highlight { background-color: #fff3cd; padding: 10px; border-left: 5px solid #ffeeba; margin: 20px 0; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 40px 0; }
+        a { color: #0066cc; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .footer { font-size: 0.9em; color: #777; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <h1>Innovations and Limitations of VGGT: An Implementation Comparison with MASt3R</h1>
+
+    <h3>Introduction</h3>
+    <p><strong>VGGT (Visual Geometry Grounded Transformer)</strong> was announced in March 2025 and subsequently received the prestigious <strong>Best Paper Award</strong> at <strong>CVPR 2025</strong>.</p>
+    <p>In the original research paper, VGGT is claimed to hold several advantages over its predecessor, MASt3R, in terms of accuracy, processing speed, and architectural efficiency.</p>
+
+    <h2>1. Overwhelming Speed and Efficiency</h2>
+    <ul>
+        <li><strong>Inference Time:</strong> When processing a set of 10 images, MASt3R takes approximately 9 seconds, whereas VGGT is remarkably fast, completing the task in about <code>0.2 seconds</code>.</li>
+        <li><strong>Batch Processing Capability:</strong> MASt3R can only process two images (a pair) at a time, requiring a high-cost post-processing step called "Global Alignment" to integrate multiple images. In contrast, VGGT can reconstruct anywhere from one to hundreds of images directly in a single feed-forward pass, eliminating the need for complex post-processing.</li>
+    </ul>
+
+    <h2>2. Improved 3D Reconstruction and Camera Estimation</h2>
+    <ul>
+        <li><strong>Point Cloud Accuracy:</strong> Evaluations on the ETH3D dataset show that VGGT significantly outperforms MASt3R in point cloud generation accuracy.</li>
+        <li><strong>Camera Pose Estimation:</strong> On datasets such as RealEstate10K and CO3Dv2, VGGT recorded higher AUC@30 scores, outperforming MASt3R "by a large margin."</li>
+        <li><strong>Generalization Performance:</strong> VGGT demonstrates superior performance even on unseen datasets, proving its robust versatility.</li>
+    </ul>
+
+    <h2>3. Architectural Flexibility and Comprehensiveness</h2>
+    <ul>
+        <li><strong>Direct Attribute Output:</strong> While MASt3R primarily estimates point maps, VGGT simultaneously outputs camera parameters, depth maps, point maps, and 3D point tracks from a single network.</li>
+        <li><strong>Single-View Support:</strong> MASt3R requires duplicating an image to create a "pair," but VGGT natively supports reconstruction from a single image with impressive results.</li>
+        <li><strong>Bundle Adjustment (BA) Compatibility:</strong> Since VGGT’s initial predictions are highly accurate, they serve as excellent starting values for additional Bundle Adjustment, allowing optimization to finish much faster and more accurately than traditional SfM (Structure from Motion) methods.</li>
+    </ul>
+
+    <hr>
+
+    <h2>Experimental Verification</h2>
+    <p>While the literature emphasizes the benefits of processing all images in a single batch—claiming the ability to handle up to 200 images—this was achieved using NVIDIA H100 GPUs. Batch processing requires VRAM proportional to the number of images.</p>
+    <p>I implemented both VGGT and MASt3R in a standard GPU environment (such as a T4) to compare their 3D reconstruction performance in real-world constraints.</p>
+
+    <h3>Case 1: Cyprus (30 images)</h3>
+    <p>This dataset has few images, making 3D reconstruction difficult for traditional SfM. VGGT was able to handle this count in a single batch. Its 3D construction capability was overwhelming. In contrast, MASt3R could only reconstruct a small portion of the scene.</p>
+
+    <h3>Case 2: Stone Steps (20 frames)</h3>
+    <p>I attempted 3D reconstruction using frames extracted from a video at 1-second intervals. VGGT succeeded, but MASt3R failed to obtain valid 3D points, resulting in a failed reconstruction.</p>
+
+    <h3>Case 3: Grand Place (40 images)</h3>
+    <p>Using two T4 GPUs, VGGT was able to process up to 40 images in a single batch. Attempting to process more than this resulted in an <strong>OOM (Out of Memory)</strong> error.</p>
+
+    <hr>
+
+    <h2>Attempts to Handle Large Image Sets in VGGT</h2>
+    <p>I explored whether VGGT could handle sequences of 100+ images despite memory limits.</p>
+    <ul>
+        <li><strong>VGGT Batch Processing:</strong> I set the batch size to 20 (the limit to avoid OOM) and ran 5 batches for a total of 100 images. The result was that each batch constructed its own independent 3D coordinate system, and they were merged at arbitrary, disconnected positions.</li>
+        <li><strong>VGGT Frame-by-Frame Mode:</strong> This resulted in a messy overlap of individual frames without global consistency.</li>
+    </ul>
+
+    <h2>Summary</h2>
+    <div class="highlight">
+        <p>Within the range of images that can be processed in a single batch, <strong>VGGT demonstrates 3D reconstruction performance superior to MASt3R.</strong> However, because VGGT is designed on the premise of processing all images simultaneously, its VRAM requirement grows almost linearly with the number of images. In scenarios involving many images, it is prone to OOM errors, revealing a clear limitation in <strong>scalability</strong>.</p>
+    </div>
+    <p>On the other hand, <strong>MASt3R</strong> allows users to control the number of pairs processed, ensuring the computation stays within the limits of the GPU memory. This gives MASt3R a practical advantage in terms of stability when dealing with large-scale image sets.</p>
+    <p>At present, the most realistic choice is to use both models selectively based on the number of images and the available computational environment.</p>
+
+    <hr>
+
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://arxiv.org/abs/2503.11651" target="_blank">VGGT: Visual Geometry Grounded Transformer (arXiv:2503.11651)</a></li>
+        <li><a href="https://www.kaggle.com/code/stpeteishii/cyprus-3d-reconstruction-vggt-wo-biplet" target="_blank">Kaggle Notebook: Cyprus 3D Reconstruction (VGGT)</a></li>
+        <li><a href="https://www.kaggle.com/code/stpeteishii/cyprus-3d-reconstruction-mast3r-wo-biplet" target="_blank">Kaggle Notebook: Cyprus 3D Reconstruction (MASt3R)</a></li>
+    </ul>
+
+    <div class="footer">
+        <p>#VGGT #MASt3R</p>
+    </div>
+
+</body>
+</html>
