@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cp311 → cp312 Migration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --border: #1e2230;
+    --accent: #c8f135;
+    --accent2: #5b8cff;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --code-bg: #0a0c10;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── hero ── */
+  .hero {
+    position: relative;
+    padding: 80px 48px 64px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(200,241,53,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,241,53,0.08);
+    border: 1px solid rgba(200,241,53,0.2);
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .badge span { opacity: 0.5; }
+
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 600px;
+    font-style: italic;
+  }
+
+  .arrow-label {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+  /* ── layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── section headers ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 64px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── change cards ── */
+  .cards {
+    display: grid;
+    gap: 2px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    transition: border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover { border-color: rgba(200,241,53,0.25); }
+
+  .card-inner {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    padding-top: 4px;
+    line-height: 1;
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+  }
+
+  .card-body {}
+
+  .card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .tag-break { background: rgba(255,107,107,0.12); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+  .tag-compat { background: rgba(91,140,255,0.12); color: var(--accent2); border: 1px solid rgba(91,140,255,0.2); }
+  .tag-robust { background: rgba(255,209,102,0.12); color: var(--accent4); border: 1px solid rgba(255,209,102,0.2); }
+  .tag-rewrite { background: rgba(200,241,53,0.1); color: var(--accent); border: 1px solid rgba(200,241,53,0.2); }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  /* ── diff blocks ── */
+  .diff {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+
+  .diff-header {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .diff-tab {
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-right: 1px solid var(--border);
+  }
+
+  .diff-tab.del { color: var(--accent3); }
+  .diff-tab.add { color: var(--accent); }
+
+  .diff-body { padding: 14px 16px; }
+
+  .diff-row {
+    display: flex;
+    gap: 10px;
+    padding: 2px 0;
+    line-height: 1.5;
+  }
+
+  .diff-sign {
+    width: 14px;
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+
+  .diff-row.del { color: rgba(255,107,107,0.75); }
+  .diff-row.add { color: rgba(200,241,53,0.85); }
+  .diff-row.ctx { color: var(--muted); }
+
+  .diff-sep {
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0;
+  }
+
+  /* ── pipeline section ── */
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 8px;
+  }
+
+  .pipe-step {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+  }
+
+  .pipe-step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    padding: 12px 16px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    min-width: 42px;
+  }
+
+  .pipe-step-content {
+    padding: 12px 16px;
+    flex: 1;
+  }
+
+  .pipe-step-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .pipe-step-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .pipe-step-badge {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .same { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent2); }
+  .diff-indicator { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent3); }
+
+  .pipe-arrow {
+    text-align: center;
+    color: var(--border);
+    font-size: 18px;
+    padding: 2px 0;
+    line-height: 1;
+  }
+
+  /* ── summary table ── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    margin-top: 8px;
+  }
+
+  .summary-table th {
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 2px solid var(--border);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .summary-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .summary-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .summary-table td:first-child { color: var(--accent); }
+  .summary-table td:nth-child(2) { color: #9ca3af; }
+  .summary-table td:nth-child(3) { color: #9ca3af; }
+
+  .ok { color: var(--accent) !important; }
+  .warn { color: var(--accent4) !important; }
+  .fail { color: var(--accent3) !important; }
+
+  /* ── footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ── stagger animation delays ── */
+  .card:nth-child(1)  { animation-delay: 0.05s; }
+  .card:nth-child(2)  { animation-delay: 0.10s; }
+  .card:nth-child(3)  { animation-delay: 0.15s; }
+  .card:nth-child(4)  { animation-delay: 0.20s; }
+  .card:nth-child(5)  { animation-delay: 0.25s; }
+  .card:nth-child(6)  { animation-delay: 0.30s; }
+  .card:nth-child(7)  { animation-delay: 0.35s; }
+  .card:nth-child(8)  { animation-delay: 0.40s; }
+  .card:nth-child(9)  { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.50s; }
+  .card:nth-child(11) { animation-delay: 0.55s; }
+
+  @media (max-width: 640px) {
+    .hero, .container, footer { padding-left: 20px; padding-right: 20px; }
+    .card-inner { grid-template-columns: 1fr; gap: 8px; }
+    .card-num { border-right: none; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge"><span>●</span> MASt3R IMC2025 Notebook</div>
+  <h1>cp311<em> →</em><br>cp312</h1>
+  <p class="hero-sub">
+    A technical migration guide — what changed, why it changed,<br>
+    and what stayed exactly the same.
+  </p>
+</div>
+
+<div class="container">
+
+  <!-- Pipeline Overview -->
+  <div class="section-label">Conversion Pipeline — what stays the same</div>
+
+  <div style="font-size:0.92rem; color:var(--muted); margin-bottom:20px; font-style:italic;">
+    The 6-stage pipeline converting MASt3R outputs into COLMAP poses is architecturally identical in both versions. Only the implementation of Stage 5 and a minor API call in Stage 6 differ.
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-step-num">01</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">extract_correspondences_nonsym()</div>
+        <div class="pipe-step-desc">MASt3R inference → dense descriptors → confidence-filtered pixel matches</div>
+      </div>
+      <div class="pipe-step-badge"><span class="same">✓ same</span></div>
+    </div>
+    <div class="pipe-arrow">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-step-num">02</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">transform_keypoints_to_original()</div>
+        <div class="pipe-step-desc">Back-project from DUST3R crop/resize space → original image coordinates</div>
+      </div>
+      <div class="pipe-step-badge"><span class="same">✓ same</span></div>
+    </div>
+    <div class="pipe-arrow">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-step-num">03</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">unify_keypoints_and_matches()</div>
+        <div class="pipe-step-desc">Deduplicate keypoints across pairs → assign global integer IDs</div>
+      </div>
+      <div class="pipe-step-badge"><span class="same">✓ same</span></div>
+    </div>
+    <div class="pipe-arrow">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-step-num">04</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">save_unified_keypoints_and_matches()</div>
+        <div class="pipe-step-desc">Serialize to keypoints.h5 / matches.h5 / pairs.txt</div>
+      </div>
+      <div class="pipe-step-badge"><span class="same">✓ same</span></div>
+    </div>
+    <div class="pipe-arrow">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-step-num">05</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">import_into_colmap()</div>
+        <div class="pipe-step-desc">Write HDF5 data into a COLMAP SQLite database</div>
+      </div>
+      <div class="pipe-step-badge"><span class="diff-indicator">✗ rewritten</span></div>
+    </div>
+    <div class="pipe-arrow">↓</div>
+    <div class="pipe-step">
+      <div class="pipe-step-num">06</div>
+      <div class="pipe-step-content">
+        <div class="pipe-step-name">verify_matches() + incremental_mapping()</div>
+        <div class="pipe-step-desc">RANSAC geometric verification → pycolmap SfM reconstruction</div>
+      </div>
+      <div class="pipe-step-badge"><span class="warn">⚠ api fix</span></div>
+    </div>
+  </div>
+
+  <!-- Changes -->
+  <div class="section-label">All Changes</div>
+
+  <div class="cards">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">01</div>
+        <div class="card-body">
+          <div class="card-title">
+            Python Wheel &amp; pycolmap Version
+            <span class="tag tag-compat">compat</span>
+          </div>
+          <div class="card-desc">
+            The cp311 notebook uses <code style="color:var(--accent3)">pycolmap 3.11.1</code> installed from the <code>/kaggle/input/pycolmap3-11/</code> dataset.
+            cp312 upgrades to <code style="color:var(--accent)">pycolmap 4.0.3</code> installed from a user notebook dataset, with a cp312-compiled wheel.
+            All MASt3R source paths are also migrated from <code>/kaggle/input/mast3r-fix/</code> to <code>/kaggle/input/notebooks/stpeteishii/mast3r-cp312/</code>.
+            <code style="color:var(--accent2)">print(sys.version)</code> is also added early on to explicitly verify the active Python version.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span>pycolmap-3.11.1-cp311-cp311-manylinux_2_28_x86_64.whl</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>pycolmap-4.0.3-cp312-cp312-manylinux_2_28_x86_64.whl</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">02</div>
+        <div class="card-body">
+          <div class="card-title">
+            Explicit FAISS CUDA Wheel Installation
+            <span class="tag tag-compat">compat</span>
+          </div>
+          <div class="card-desc">
+            cp311 installs <code>faiss-gpu-cu12</code> in a single command from the mast3r wheels folder.
+            cp312 installs three separate wheels explicitly — <code>faiss_gpu_cu12</code>, <code>nvidia_cublas_cu12</code>, and <code>nvidia_cuda_runtime_cu12</code> — from a dedicated dataset, ensuring correct CUDA runtime linkage for cp312.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span>!pip install faiss-gpu-cu12 --no-index --find-links=.../mast3r-wheels</span></div>
+              <div class="diff-sep"></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>!pip install faiss_gpu_cu12-1.14.1.post1-cp312-...whl</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>!pip install nvidia_cublas_cu12-12.6.4.1-...whl</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>!pip install nvidia_cuda_runtime_cu12-12.9.79-...whl</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">03</div>
+        <div class="card-body">
+          <div class="card-title">
+            ASMK .so Extension Loading
+            <span class="tag tag-compat">compat</span>
+          </div>
+          <div class="card-desc">
+            ASMK's compiled C-extensions (<code>hamming</code>, etc.) are built per Python version. cp312 adds explicit manual loading of the cp312-compiled <code>.so</code> files using <code>importlib.util.spec_from_file_location</code>, since the cp311 binaries cannot be used.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span><em>(no explicit .so loading — relied on cp311 binary)</em></span></div>
+              <div class="diff-sep"></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>_load_so("asmk.hamming", ".../hamming.cpython-312-x86_64-linux-gnu.so")</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>_load_so("asmk.functional", ".../functional.py")</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">04</div>
+        <div class="card-body">
+          <div class="card-title">
+            ASMK / FAISS Monkey-Patches
+            <span class="tag tag-compat">compat</span>
+          </div>
+          <div class="card-desc">
+            Two monkey-patches are added in cp312 to fix FAISS compatibility issues.
+            <br><br>
+            <strong style="color:var(--text)">① FaissGpuL2Index patch</strong> — <code>create_index</code> is overridden to return a CPU <code>IndexFlatL2</code>, bypassing GPU initialization that fails in the cp312 environment.
+            <br><br>
+            <strong style="color:var(--text)">② Codebook.quantize patch</strong> — Rebuilds the FAISS index on demand and unifies the return signature: 3-tuple <code>(des, word_ids, image_ids)</code> for <code>build_ivf</code> and 2-tuple <code>(des, word_ids)</code> for <code>query_ivf</code>, fixing an argument mismatch that would crash ASMK retrieval.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab add">cp312 only</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row add"><span class="diff-sign">+</span><span>asmk_index.FaissGpuL2Index.create_index = lambda self, pts: faiss.IndexFlatL2(pts.shape[1])</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>asmk_codebook.Codebook.quantize = _fixed_quantize</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">05</div>
+        <div class="card-body">
+          <div class="card-title">
+            torch.serialization Safe Globals
+            <span class="tag tag-compat">compat</span>
+          </div>
+          <div class="card-desc">
+            Newer PyTorch versions require explicit whitelisting of classes used during <code>torch.load()</code>.
+            cp312 adds <code>torch.serialization.add_safe_globals([argparse.Namespace])</code> before loading the MASt3R checkpoint, preventing a <code>WeightsOnlyError</code> that would occur silently in cp311's older torch version.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span>mast3r_model = load_model(local_model_directory, device=device)</span></div>
+              <div class="diff-sep"></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>import argparse</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>torch.serialization.add_safe_globals([argparse.Namespace])</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>mast3r_model = load_model(local_model_directory, device=device)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">06</div>
+        <div class="card-body">
+          <div class="card-title">
+            import_into_colmap — Full Rewrite
+            <span class="tag tag-rewrite">rewrite</span>
+            <span class="tag tag-break">breaking</span>
+          </div>
+          <div class="card-desc">
+            This is the most significant change. The pycolmap 4.0.3 <code>Database</code> high-level API changed incompatibly, so cp311's approach of importing and calling the function from the external <code>h5_to_db</code> utility no longer works.
+            <br><br>
+            cp312 reimplements <code>import_into_colmap</code> from scratch using raw <code>sqlite3</code>:
+          </div>
+          <div style="margin-top:8px; display:flex; flex-direction:column; gap:4px;">
+            <div style="background:var(--code-bg); border:1px solid var(--border); padding:12px 16px; font-family:'DM Mono',monospace; font-size:11.5px; color:#9ca3af;">
+              <span style="color:var(--accent)">①</span> &nbsp;CREATE TABLE IF NOT EXISTS <span style="color:var(--accent2)">cameras, images, keypoints, matches, two_view_geometries, descriptors</span>
+            </div>
+            <div style="background:var(--code-bg); border:1px solid var(--border); padding:12px 16px; font-family:'DM Mono',monospace; font-size:11.5px; color:#9ca3af;">
+              <span style="color:var(--accent)">②</span> &nbsp;Read <span style="color:var(--accent2)">keypoints.h5</span> → INSERT INTO cameras (SIMPLE_RADIAL, f=max(w,h), cx=w/2, cy=h/2) + INSERT INTO images + keypoints blob
+            </div>
+            <div style="background:var(--code-bg); border:1px solid var(--border); padding:12px 16px; font-family:'DM Mono',monospace; font-size:11.5px; color:#9ca3af;">
+              <span style="color:var(--accent)">③</span> &nbsp;Read <span style="color:var(--accent2)">matches.h5</span> → compute pair_id = id1 × 2147483647 + id2 → INSERT INTO matches blob (uint32)
+            </div>
+          </div>
+          <div class="card-desc" style="margin-top:12px;">
+            The resulting database schema is identical to what pycolmap's own writer would produce — the difference is only in how it is created.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">07</div>
+        <div class="card-body">
+          <div class="card-title">
+            pycolmap API — cam_from_world()
+            <span class="tag tag-break">breaking</span>
+          </div>
+          <div class="card-desc">
+            In pycolmap 3.x, <code>cam_from_world</code> was a plain attribute holding the pose object.
+            In pycolmap 4.x it became a method that returns the pose. The call site in <code>reconstruct_from_db</code> must be updated accordingly.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311 — attribute</div>
+              <div class="diff-tab add">cp312 — method call</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span>image.cam_from_world.rotation.matrix().tolist()</span></div>
+              <div class="diff-row del"><span class="diff-sign">−</span><span>image.cam_from_world.translation.tolist()</span></div>
+              <div class="diff-sep"></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>image.cam_from_world().rotation.matrix().tolist()</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>image.cam_from_world().translation.tolist()</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">08</div>
+        <div class="card-body">
+          <div class="card-title">
+            Empty Pair Guard in run_one_dataset
+            <span class="tag tag-robust">robustness</span>
+          </div>
+          <div class="card-desc">
+            cp312 adds an early-exit check after shortlisting: if no valid image pairs were found, the dataset is skipped cleanly with an informative message rather than passing an empty list into <code>match_with_mast3r_and_save</code> and potentially crashing downstream.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab add">cp312 only</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row add"><span class="diff-sign">+</span><span>if len(indexed_pairs) == 0:</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>&nbsp;&nbsp;&nbsp;&nbsp;print(f'⏭️ No pairs for "{dataset}", skipping.')</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>&nbsp;&nbsp;&nbsp;&nbsp;return f'Dataset "{dataset}" → skipped.', timings</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">09</div>
+        <div class="card-body">
+          <div class="card-title">
+            traceback.print_exc() in Error Handler
+            <span class="tag tag-robust">robustness</span>
+          </div>
+          <div class="card-desc">
+            The <code>except</code> block in <code>run_one_dataset</code> now calls <code>traceback.print_exc()</code> in addition to printing the error message string, making failures significantly easier to diagnose since the full stack trace is shown.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row ctx"><span class="diff-sign"> </span><span>except Exception as e:</span></div>
+              <div class="diff-row ctx"><span class="diff-sign"> </span><span>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Error in dataset {dataset}: {e}")</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>&nbsp;&nbsp;&nbsp;&nbsp;traceback.print_exc()</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">10</div>
+        <div class="card-body">
+          <div class="card-title">
+            Verbose Logging in reconstruct_from_db
+            <span class="tag tag-robust">robustness</span>
+          </div>
+          <div class="card-desc">
+            cp312 introduces a <code>log()</code> helper with <code>sys.stdout.flush()</code> and wraps every major step — <code>import_into_colmap</code>, <code>run_verify_matches_safe</code>, <code>incremental_mapping</code> — with entry/exit log lines. This makes it easy to pinpoint where a hang or crash occurs during reconstruction.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-num">11</div>
+        <div class="card-body">
+          <div class="card-title">
+            ThreadPoolExecutor max_workers: 2 → 1
+            <span class="tag tag-robust">robustness</span>
+          </div>
+          <div class="card-desc">
+            <code>run_mast3r_pipeline</code> reduces the thread pool from 2 workers to 1. With the heavier memory footprint of the cp312 stack (larger pycolmap, explicit CUDA wheels), running two datasets concurrently risks OOM errors on Kaggle's GPU instances.
+          </div>
+          <div class="diff">
+            <div class="diff-header">
+              <div class="diff-tab del">cp311</div>
+              <div class="diff-tab add">cp312</div>
+            </div>
+            <div class="diff-body">
+              <div class="diff-row del"><span class="diff-sign">−</span><span>ThreadPoolExecutor(max_workers=2)</span></div>
+              <div class="diff-row add"><span class="diff-sign">+</span><span>ThreadPoolExecutor(max_workers=1)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cards -->
+
+  <!-- Summary Table -->
+  <div class="section-label">Summary</div>
+
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>cp311</th>
+        <th>cp312</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>pycolmap</td>
+        <td>3.11.1 (cp311 wheel)</td>
+        <td>4.0.3 (cp312 wheel)</td>
+        <td class="tag tag-compat" style="white-space:nowrap">upgraded</td>
+      </tr>
+      <tr>
+        <td>FAISS install</td>
+        <td>single find-links install</td>
+        <td>3 explicit wheel installs</td>
+        <td class="tag tag-compat" style="white-space:nowrap">upgraded</td>
+      </tr>
+      <tr>
+        <td>ASMK .so loading</td>
+        <td>implicit (cp311 binary)</td>
+        <td>explicit importlib loading</td>
+        <td class="tag tag-compat" style="white-space:nowrap">new</td>
+      </tr>
+      <tr>
+        <td>ASMK monkey-patches</td>
+        <td>none</td>
+        <td>FaissGpuL2Index + Codebook.quantize</td>
+        <td class="tag tag-compat" style="white-space:nowrap">new</td>
+      </tr>
+      <tr>
+        <td>torch.serialization</td>
+        <td>not needed</td>
+        <td>add_safe_globals([argparse.Namespace])</td>
+        <td class="tag tag-compat" style="white-space:nowrap">new</td>
+      </tr>
+      <tr>
+        <td>import_into_colmap</td>
+        <td>h5_to_db helper</td>
+        <td>raw sqlite3 rewrite</td>
+        <td class="tag tag-rewrite" style="white-space:nowrap">rewritten</td>
+      </tr>
+      <tr>
+        <td>cam_from_world</td>
+        <td>.rotation (attribute)</td>
+        <td>().rotation (method)</td>
+        <td class="tag tag-break" style="white-space:nowrap">api break</td>
+      </tr>
+      <tr>
+        <td>Empty pair guard</td>
+        <td>absent</td>
+        <td>early-exit + skip message</td>
+        <td class="tag tag-robust" style="white-space:nowrap">improved</td>
+      </tr>
+      <tr>
+        <td>Error reporting</td>
+        <td>message only</td>
+        <td>message + traceback.print_exc()</td>
+        <td class="tag tag-robust" style="white-space:nowrap">improved</td>
+      </tr>
+      <tr>
+        <td>Reconstruct logging</td>
+        <td>minimal</td>
+        <td>step-by-step log() with flush</td>
+        <td class="tag tag-robust" style="white-space:nowrap">improved</td>
+      </tr>
+      <tr>
+        <td>ThreadPoolExecutor</td>
+        <td>max_workers=2</td>
+        <td>max_workers=1</td>
+        <td class="tag tag-robust" style="white-space:nowrap">reduced</td>
+      </tr>
+      <tr>
+        <td>MASt3R pipeline logic</td>
+        <td colspan="2" style="text-align:center; color:var(--accent2)">identical — stages 1–4 unchanged</td>
+        <td class="ok">✓</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div><!-- /container -->
+
+<footer>
+  <span>MASt3R IMC2025 · cp311 → cp312 migration</span>
+  <span>scene_graph: retrieval-20-25</span>
+</footer>
+
+</body>
+</html>
