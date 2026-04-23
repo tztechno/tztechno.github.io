@@ -75,7 +75,7 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 ## project
 
-https://tztechno.github.io/project00/  template
+https://tztechno.github.io/proj01/  template
 
 ## kaggle notebooks
 
