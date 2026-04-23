@@ -77,6 +77,8 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Pedestrian Movie SLAM with Dual GPUs](https://tztechno.github.io/proj01/)
 
+[MASt3R IMC2025 cp311→cp312](https://tztechno.github.io/proj02/)
+
 ## kaggle notebooks
 
 https://www.kaggle.com/code/stpeteishii/pedestrain-movie-slam-3d-recon-vggt-slam
