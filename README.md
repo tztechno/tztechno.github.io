@@ -73,6 +73,10 @@ https://tztechno.github.io/note03/  https://note.com/stpeteishii/n/n1c6cc89f0ba6
 
 https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
+## project
+
+https://tztechno.github.io/project00/  template
+
 ## kaggle notebooks
 
 https://www.kaggle.com/code/stpeteishii/wine-rag-approach-deepseek-r1-w-grpo
