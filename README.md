@@ -1,6 +1,13 @@
 
 # 🤖 Developer Profile
 
+## 🏆 Key Achievements
+* **Ranked #1 on Image Matching Challenge 2025 (Ongoing)**
+  * Achieved the top leaderboard spot by consciously setting a benchmark to **surpass the official IMC 2025 flagship competition's top score**, successfully breaking through the baseline of previously published top solutions.
+  * Deployed a highly optimized, custom 3D reconstruction and matching pipeline originally prepared for IMC 2026.
+    
+https://www.kaggle.com/competitions/image-matching-challenge-2025-ongoing/leaderboard
+
 ## 🛠 Tech Stack & Implementation Experience
 * **Physical AI & Simulation**
   * Environment configuration and physical simulation using **MuJoCo** (e.g., HalfCheetah, inverted pendulum tasks).
@@ -15,7 +22,7 @@
 ## 💻 Hardware & Infrastructure
 * **Primary Machine:** MacBook Pro (M5 Apple Silicon) — Local inference and optimization leveraging the **MLX framework**.
 * **Secondary Machine:** Lenovo ThinkPad X1 Carbon Gen 3 (**Linux Mint**) — OS-level configuration and systems automation using Bash scripting.
-* **Cloud Infrastructure:** Management of on-demand GPU resources for Kaggle competitions and active preparation for the Image Matching Challenge (IMC 2025 Ong).
+* **Cloud Infrastructure:** Management of on-demand GPU resources for Kaggle competitions and continuous performance benchmarking.
 
 ---
 
