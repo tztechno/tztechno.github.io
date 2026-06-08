@@ -1,4 +1,24 @@
 
+# 🤖 Developer Profile
+
+## 🛠 Tech Stack & Implementation Experience
+* **Physical AI & Simulation**
+  * Environment configuration and physical simulation using **MuJoCo** (e.g., HalfCheetah, inverted pendulum tasks).
+  * Validation of robot control and autonomous driving scenarios leveraging Vision-Language-Action (VLA) pipelines such as `vLLM`, Qwen2.5-VL, and Gemma 3.
+* **3D Reconstruction & SLAM**
+  * Implementation of 3D pipelines utilizing **DUSt3R / MASt3R** (by NAVER LABS Europe) and **VGGT-SLAM**.
+  * Pipeline integration converting point cloud data into STL format 3D polygon meshes via **Poisson Surface Reconstruction**.
+* **Computer Vision & Optimization**
+  * Object detection tasks using YOLO11 / YOLO12. Implemented neutral traffic analysis logic tracking "Involved Vehicles" to avoid fault bias before signal verification.
+  * Performance-focused code optimization under strict execution time (avoiding TLE) and memory limits in Kaggle.
+
+## 💻 Hardware & Infrastructure
+* **Primary Machine:** MacBook Pro (M5 Apple Silicon) — Local inference and optimization leveraging the **MLX framework**.
+* **Secondary Machine:** Lenovo ThinkPad X1 Carbon Gen 3 (**Linux Mint**) — OS-level configuration and systems automation using Bash scripting.
+* **Cloud Infrastructure:** Management of on-demand GPU resources for Kaggle competitions and active preparation for the Image Matching Challenge (IMC 2025 Ong).
+
+---
+
 # tztechno.github.io
 
 [tztechno.github.io](https://tztechno.github.io)
