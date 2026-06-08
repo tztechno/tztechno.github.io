@@ -8,6 +8,8 @@
     
     https://www.kaggle.com/competitions/image-matching-challenge-2025-ongoing/leaderboard
 
+    https://www.kaggle.com/competitions/image-matching-challenge-2025/leaderboard
+
 ## 🛠 Tech Stack & Implementation Experience
 * **Physical AI & Simulation**
   * Environment configuration and physical simulation using **MuJoCo** (e.g., HalfCheetah, inverted pendulum tasks).
