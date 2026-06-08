@@ -6,7 +6,7 @@
   * Achieved the top leaderboard spot by consciously setting a benchmark to **surpass the official IMC 2025 flagship competition's top score**, successfully breaking through the baseline of previously published top solutions.
   * Deployed a highly optimized, custom 3D reconstruction and matching pipeline originally prepared for IMC 2026.
     
-https://www.kaggle.com/competitions/image-matching-challenge-2025-ongoing/leaderboard
+    https://www.kaggle.com/competitions/image-matching-challenge-2025-ongoing/leaderboard
 
 ## 🛠 Tech Stack & Implementation Experience
 * **Physical AI & Simulation**
