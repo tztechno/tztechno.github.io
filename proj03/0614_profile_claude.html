@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Portfolio and Project Showcase of Shun Ishii - Computer Vision, 3D Reconstruction, and Physical AI Researcher.">
+    <meta name="keywords" content="Shun Ishii, 3D Reconstruction, SLAM, Physical AI, IMC 2025, Computer Vision, MuJoCo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shun Ishii | Developer & Researcher Profile</title>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <style>
+        .hero.is-dark-custom {
+            background-color: #333331;
+            color: #fefefe;
+        }
+        .hero.is-dark-custom .title { color: #fefefe; }
+        .hero.is-dark-custom .subtitle { color: #cc7e61; }
+        .tag-container {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tag-container .tag {
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 0.5rem;
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+        .product-link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .product-btn {
+            background-color: #fefefe;
+            color: #333331;
+            border: 1px solid #fefefe;
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            transition: all 0.2s;
+        }
+        .product-btn:hover {
+            background-color: #cc7e61;
+            color: white;
+            border-color: #cc7e61;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero is-dark-custom">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <h1 class="title is-1 publication-title">
+                        🤖 Shun Ishii
+                    </h1>
+                    <p class="subtitle is-4">Computer Vision & Physical AI Researcher / Software Developer</p>
+                    
+                    <div class="is-size-5 tag-container">
+                        <span class="tag is-info is-light">3D Reconstruction</span>
+                        <span class="tag is-info is-light">SLAM</span>
+                        <span class="tag is-info is-light">Physical AI</span>
+                        <span class="tag is-info is-light">Optimization</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <span class="link-block">
+                                <a target="_blank" rel="noopener noreferrer" href="https://tztechno.github.io" class="external-link button is-normal is-rounded is-light is-outlined">
+                                    <span class="icon"><i class="fas fa-globe"></i></span>
+                                    <span>tztechno.github.io</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/stpete_ishii" class="external-link button is-normal is-rounded is-light is-outlined">
+                                    <span class="icon"><i class="fab fa-kaggle"></i></span>
+                                    <span>Kaggle</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a target="_blank" rel="noopener noreferrer" href="https://qiita.com/stpete_ishii" class="external-link button is-normal is-rounded is-light is-outlined">
+                                    <span class="icon"><i class="fas fa-search"></i></span>
+                                    <span>Qiita</span>
+                                </a>
+                            </span>
+                            <span class="link-block">
+                                <a target="_blank" rel="noopener noreferrer" href="https://zenn.dev/stpete_ishii" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"><i class="fas fa-book"></i></span>
+                                    <span>Zenn</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-3">🏆 Key Achievements</h2>
+                <div class="box" style="border-left: 5px solid #cc7e61;">
+                    <h3 class="title is-4 mb-2">Ranked #1 on Image Matching Challenge 2025 (Ongoing)</h3>
+                    <p class="content">
+                        Achieved the top leaderboard spot by consciously setting a benchmark to surpass the official IMC 2025 flagship competition's top score, successfully breaking through the baseline of previously published top solutions. Deployed a highly optimized, custom 3D reconstruction and matching pipeline originally prepared for IMC 2026.
+                    </p>
+                    <div class="buttons">
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/competitions/image-matching-challenge-2025-ongoing/leaderboard" class="button is-small is-warning is-light">IMC 2025 Ongoing Leaderboard</a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/competitions/image-matching-challenge-2025/leaderboard" class="button is-small is-warning is-light">IMC 2025 Flagship Leaderboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section is-light">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered mb-6">🛠 Tech Stack & Implementation Experience</h2>
+        
+        <div class="columns is-multiline">
+            <div class="column is-one-third">
+                <div class="project-card">
+                    <h3 class="title is-5"><i class="fas fa-robot"></i> Physical AI & Simulation</h3>
+                    <div class="content is-small">
+                        <ul>
+                            <li>Environment configuration and physical simulation using <strong>MuJoCo</strong> (e.g., HalfCheetah, inverted pendulum tasks).</li>
+                            <li>Validation of robot control and autonomous driving scenarios leveraging <strong>Vision-Language-Action (VLA)</strong> pipelines such as vLLM, Qwen2.5-VL, and Gemma 3.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="project-card">
+                    <h3 class="title is-5"><i class="fas fa-cubes"></i> 3D Reconstruction & SLAM</h3>
+                    <div class="content is-small">
+                        <ul>
+                            <li>Implementation of 3D pipelines utilizing <strong>DUSt3R / MASt3R</strong> (by NAVER LABS Europe) and <strong>VGGT-SLAM</strong>.</li>
+                            <li>Pipeline integration converting point cloud data into STL format 3D polygon meshes via <strong>Poisson Surface Reconstruction</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="project-card">
+                    <h3 class="title is-5"><i class="fas fa-bolt"></i> Vision & Optimization</h3>
+                    <div class="content is-small">
+                        <ul>
+                            <li>Object detection tasks using <strong>YOLO11 / YOLO12</strong>.</li>
+                            <li>Implemented neutral traffic analysis logic tracking "Involved Vehicles" to avoid fault bias before signal verification.</li>
+                            <li>Performance-focused code optimization under strict execution time (avoiding <strong>TLE</strong>) and memory limits in Kaggle.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box mt-5">
+            <h3 class="title is-4"><i class="fas fa-server"></i> Hardware & Infrastructure</h3>
+            <div class="columns">
+                <div class="column">
+                    <p><strong>Primary Machine:</strong> MacBook Pro (M5 Apple Silicon)</p>
+                    <p class="is-size-7 text-muted">Local inference and optimization leveraging the Apple MLX framework.</p>
+                </div>
+                <div class="column">
+                    <p><strong>Secondary Machine:</strong> Lenovo ThinkPad X1 Carbon Gen 3</p>
+                    <p class="is-size-7 text-muted">Linux Mint environment / OS-level configuration and systems automation using Bash scripting.</p>
+                </div>
+                <div class="column">
+                    <p><strong>Cloud Infrastructure:</strong> Kaggle GPU Resources</p>
+                    <p class="is-size-7 text-muted">Management of on-demand GPU resources for competitions and continuous performance benchmarking.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3">💻 My Products & Projects</h2>
+        
+        <div class="columns is-multiline">
+            <div class="column is-6">
+                <div class="box">
+                    <h3 class="title is-4">🚀 Key Projects</h3>
+                    <div class="content">
+                        <p><strong>Pedestrian Movie SLAM with Dual GPUs</strong></p>
+                        <p><strong>MASt3R IMC2025 cp311 &rarr; cp312 Configuration</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <div class="box">
+                    <h3 class="title is-4">📝 Technical Notes & Research Insights</h3>
+                    <div class="content is-small">
+                        <ul>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://tztechno.github.io/note01/">Technical Note 01</a> / <a target="_blank" rel="noopener noreferrer" href="https://note.com/stpeteishii/n/n8d5cb0a4c77c">Note.com article</a></li>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://tztechno.github.io/note02/">Technical Note 02</a> / <a target="_blank" rel="noopener noreferrer" href="https://note.com/stpeteishii/n/n869b4e5896c7">Note.com article</a></li>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://tztechno.github.io/note03/">Technical Note 03</a> / <a target="_blank" rel="noopener noreferrer" href="https://note.com/stpeteishii/n/n1c6cc89f0ba6">Note.com article</a></li>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://tztechno.github.io/note04/">Technical Note 04</a> / <a target="_blank" rel="noopener noreferrer" href="https://note.com/stpeteishii/n/n8e072e7b3f53">Note.com article</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3 class="title is-4">🌐 Web Applications & Tools</h3>
+            
+            <h4 class="title is-6 mb-2" style="color: #cc7e61;">Vercel Deployed</h4>
+            <div class="product-link-grid mb-4">
+                <span class="product-btn">Earthquake Japan</span>
+                <span class="product-btn">Clouds Slide</span>
+                <span class="product-btn">Location Map</span>
+                <span class="product-btn">Todo List</span>
+                <span class="product-btn">Gaussian Splat Viewer</span>
+            </div>
+
+            <h4 class="title is-6 mb-2" style="color: #cc7e61;">Flask App</h4>
+            <div class="product-link-grid mb-4">
+                <span class="product-btn">Runtime Calculator</span>
+            </div>
+
+            <h4 class="title is-6 mb-2" style="color: #cc7e61;">Next.js & Streamlit Apps</h4>
+            <div class="product-link-grid mb-4">
+                <span class="product-btn">Realtime Earthquake</span>
+                <span class="product-btn">Lucas Calculator</span>
+                <span class="product-btn">Scraping Example</span>
+                <span class="product-btn">Tarot Reading</span>
+                <span class="product-btn">Tags Remover</span>
+                <span class="product-btn">Image Resizer</span>
+                <span class="product-btn">Bowling</span>
+                <span class="product-btn">Chat Bot</span>
+                <span class="product-btn">AI Othello</span>
+            </div>
+
+            <h4 class="title is-6 mb-2" style="color: #333331;">GitHub Pages</h4>
+            <div class="product-link-grid">
+                <span class="product-btn">World Clock</span>
+                <span class="product-btn">Bingo</span>
+                <span class="product-btn">ISS Tracker</span>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3 class="title is-4"><i class="fab fa-kaggle"></i> Featured Kaggle Notebooks</h3>
+            <div class="content is-small">
+                <ul>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/pedestrain-movie-slam-3d-recon-vggt-slam">Pedestrian Movie SLAM 3D Reconstruction (VGGT-SLAM)</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/wine-rag-approach-deepseek-r1-w-grpo">Wine RAG Approach with DeepSeek-R1 (w/ GRPO)</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/squad1-1-rl-approach-w-deepseek-grpo">SQuAD 1.1 RL Approach with DeepSeek GRPO</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/notebooks-related-to-sl-rl-for-seq2seq-data">Notebooks related to SL/RL for Seq2Seq Data</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/notebooks-related-to-reinforcement-learning">Notebooks related to Reinforcement Learning</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://www.kaggle.com/code/stpete_ishii/covid19-tokyo-8th-wave-future-prediction">COVID-19 Tokyo 8th Wave Future Prediction</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8 has-text-centered">
+                <div class="content">
+                    <p>
+                        &copy; 2026 Shun Ishii. Built using the template open-sourced by <a target="_blank" rel="noopener noreferrer" href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
