@@ -110,7 +110,7 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 ## profile
 
-[profile](https://github.com/tztechno/tztechno.github.io/blob/master/profile/)
+[profile](https://tztechno.github.io/profile/)
 
 ## kaggle notebooks
 
