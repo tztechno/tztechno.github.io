@@ -104,6 +104,8 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [MASt3R IMC2025 cp311→cp312](https://tztechno.github.io/proj02/)
 
+[Cyber Othello](https://tztechno.github.io/proj03/)
+
 ## profile
 
 [profile](https://tztechno.github.io/profile/)
