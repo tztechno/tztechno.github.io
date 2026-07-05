@@ -34,6 +34,10 @@
 
 # my products
 
+## netlify
+
+[cyber othello](https://othello-ai-game.netlify.app/)
+
 ## vercel
 
 html
