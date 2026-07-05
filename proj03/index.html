@@ -122,7 +122,82 @@
             color: var(--text-secondary);
             font-size: 12pt;
             max-width: 700px;
-            margin: 0 auto 25px auto;
+            margin: 0 auto 20px auto;
+        }
+
+        /* Futuristic holographic preview container */
+        .game-preview-monitor {
+            position: relative;
+            max-width: 500px;
+            margin: 25px auto 30px auto;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+            overflow: hidden;
+            background: #000;
+            aspect-ratio: 16 / 10;
+        }
+
+        /* Hologram scanline effect overlay */
+        .game-preview-monitor::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 6px 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Aesthetic HUD corner brackets */
+        .hud-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: var(--neon-pink);
+            border-style: solid;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .corner-tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+        .corner-tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+        .corner-bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+        .corner-br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+        /* Scanning laser line animation */
+        .scanner-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            box-shadow: 0 0 8px var(--neon-cyan);
+            opacity: 0.5;
+            z-index: 3;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        /* Display the GIF inside the monitor */
+        .preview-media {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.85;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+        }
+
+        .game-preview-monitor:hover .preview-media {
+            opacity: 1;
+            transform: scale(1.02);
         }
 
         /* Futuristic glowing call-to-action button */
@@ -202,7 +277,7 @@
 
         .grid-cell:hover {
             border-color: rgba(0, 240, 255, 0.4);
-            transform: translateY(-1s);
+            transform: translateY(-1px);
         }
 
         .feature-icon {
@@ -319,10 +394,22 @@
             <p>Tactical AI Hologram Simulation</p>
         </div>
 
-        <!-- Terminal-like Game Invitation -->
+        <!-- Terminal-like Game Invitation & Holographic Preview -->
         <div class="main-intro">
             <h2>Challenge the Synthetic Minds</h2>
             <p>A zero-installation, browser-based tactical simulation. Enter a fully reactive battleground optimized for modern intelligence. Access the neural network and dominate the grid anytime, anywhere.</p>
+            
+            <!-- Holographic Interactive Monitor for GIF -->
+            <div class="game-preview-monitor">
+                <div class="hud-corner corner-tl"></div>
+                <div class="hud-corner corner-tr"></div>
+                <div class="hud-corner corner-bl"></div>
+                <div class="hud-corner corner-br"></div>
+                <div class="scanner-bar"></div>
+                <!-- Automatically fallbacks to othello.jpg if GIF is absent -->
+                <img src="othello.gif" alt="Cyber Othello Gameplay Preview" class="preview-media" onerror="this.src='othello.jpg';">
+            </div>
+
             <a href="https://othello-ai-game.netlify.app/" class="url-box" target="_blank">
                 &gt; INITIALIZE SIMULATION
             </a>
