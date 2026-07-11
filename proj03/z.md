@@ -1,12 +1,12 @@
 2026/07/04 release 
 
-# cyber othello
+### **cyber othello**
 
 https://othello-ai-game.netlify.app/
 
 ---
 
-## related works
+### **related works**
 
 https://tztechno.github.io/proj03/
 
