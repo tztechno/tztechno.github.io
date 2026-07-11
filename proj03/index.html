@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER OTHELLO - 戦術的AIホログラム</title>
+    <!-- 未来的なGoogle Fontsをインポート -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* 一貫したサイバーパンクスタイルのためのCSS変数 */
+        :root {
+            --bg-color: #080b11;
+            --panel-bg: rgba(17, 22, 37, 0.85);
+            --border-color: rgba(6, 182, 212, 0.2);
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff007f;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(18, 24, 38, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 24, 38, 0.5) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px, 32px 32px;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            font-size: 11pt;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* "CYBER OTHELLO" ブランディングに合わせたヘッダーデザイン */
+        .header-banner {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding: 40px 20px;
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+        }
+
+        .header-banner h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32pt;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-cyan), #ffffff, var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+        }
+
+        .header-banner p {
+            font-size: 14pt;
+            margin: 0;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* 中央の紹介カード */
+        .main-intro {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 30px;
+            background-color: var(--panel-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 127, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.05);
+        }
+
+        .main-intro h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16pt;
+            color: var(--neon-cyan);
+            margin-top: 0;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .main-intro p {
+            color: var(--text-secondary);
+            font-size: 12pt;
+            max-width: 700px;
+            margin: 0 auto 25px auto;
+        }
+
+        /* 未来的な光るコールトゥアクションボタン */
+        .url-box {
+            display: inline-block;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 11pt;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            position: relative;
+        }
+
+        .url-box:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* セクションタイトルスタイル */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14pt;
+            color: var(--neon-cyan);
+            border-left: 4px solid var(--neon-cyan);
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+        }
+
+        /* 機能グリッド */
+        .grid-table {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .grid-row {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .grid-cell {
+            flex: 1;
+            background-color: var(--panel-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .grid-cell::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid var(--neon-cyan);
+            border-right: 2px solid var(--neon-cyan);
+            opacity: 0.6;
+        }
+
+        .grid-cell:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .feature-icon {
+            font-size: 20pt;
+            margin-bottom: 10px;
+            display: inline-block;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.5));
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 12pt;
+            margin-bottom: 8px;
+            color: var(--neon-pink);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .grid-cell p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 10.5pt;
+        }
+
+        /* システム情報リストコンテナ */
+        .tech-stack {
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .tech-stack::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            border-bottom: 2px solid var(--neon-pink);
+            border-left: 2px solid var(--neon-pink);
+            opacity: 0.6;
+        }
+
+        .tech-stack p {
+            margin-top: 0;
+            color: var(--text-secondary);
+            font-size: 11pt;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        li::before {
+            content: '▲';
+            position: absolute;
+            left: -20px;
+            top: 2px;
+            font-size: 8pt;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        li strong {
+            font-family: 'Orbitron', sans-serif;
+            color: #ffffff;
+            font-size: 10.5pt;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        /* 未来的なフッター */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 9pt;
+            color: #475569;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* 小画面用レスポンシブスタイル */
+        @media (max-width: 600px) {
+            .grid-row {
+                flex-direction: column;
+            }
+            .header-banner h1 {
+                font-size: 22pt;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- ヘッダーセクション（戦術的AIホログラムのテーマを模倣） -->
+        <div class="header-banner">
+            <h1>Cyber Othello</h1>
+            <p>戦術的AIホログラム・シミュレーション</p>
+        </div>
+
+        <!-- ターミナル風ゲーム招待 -->
+        <div class="main-intro">
+            <h2>人工知能に挑戦せよ</h2>
+            <p>インストール不要、ブラウザベースの戦術シミュレーション。現代のインテリジェンス向けに最適化された完全なリアクティブ・バトルフィールドへ。ニューラル・ネットワークにアクセスし、いつでもどこでもグリッドを支配せよ。</p>
+            <a href="https://othello-ai-game.netlify.app/" class="url-box" target="_blank">
+                &gt; シミュレーションを起動
+            </a>
+        </div>
+
+        <!-- コア機能マトリックス -->
+        <div class="section-title">戦術能力</div>
+        
+        <div class="grid-table">
+            <div class="grid-row">
+                <div class="grid-cell">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-title">ニューラル論理ヒューリスティック</div>
+                    <p>ミニマックス・ヒューリスティックで訓練された高度な合成エンジンと対戦。初心者は選択肢をマッピングし、ベテランは深い分岐をテストできます。</p>
+                </div>
+                <div class="grid-cell">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">クアンタム・エッジ展開</div>
+                    <p>軽量スクリプトモジュールで構築され、Netlifyの高速グローバル配信ノードを介して即座に提供され、遅延ゼロの運用を実現します。</p>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">ホログラフィック・グリッド・スケーリング</div>
+                    <p>モバイル端末、タブレット、ワイドスクリーンデスクトップモニター間で戦術レイアウトの整合性を確保する適応型レスポンシブ・ビューポート書式。</p>
+                </div>
+                <div class="grid-cell">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">サイバネティック・ビジュアル</div>
+                    <p>プレイヤーが有効なターゲット座標を容易に追跡し、空間的な戦場に集中できるようにする、印象的なハイコントラスト・ダークアートスタイル。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 戦術指令 -->
+        <div class="section-title">作戦プロトコル</div>
+        <div class="tech-stack">
+            <ul>
+                <li><strong>グリッド起動:</strong> インターフェースに接続すると、ホストは標準のコアアラインメントで自動的にマトリックスを初期化します。</li>
+                <li><strong>マトリックス迎撃:</strong> 敵の駒を挟んで獲得・反転できる輝く目的地ノードをターゲットにせよ。</li>
+                <li><strong>状態自動化:</strong> 有効な手が完全に制限された場合、コア計算ループがパスプロトコルを自動的に処理します。</li>
+                <li><strong>ノード飽和:</strong> ボードが飽和するか、両者が完全にロックされた時点で勝利/敗北の指標が出力されます。</li>
+            </ul>
+        </div>
+
+        <!-- 技術アーキテクチャ詳細 -->
+        <div class="section-title">システムアーキテクチャ</div>
+        <div class="tech-stack">
+            <p>シームレスなクライアントサイド計算を保証する、堅牢なモダンモジュールで構築されています。</p>
+            <ul>
+                <li><strong>フロントエンドスタック:</strong> クリーンなHTML5 / CSS3レイアウト、高性能なグリッドレンダリングロジック。</li>
+                <li><strong>AIサブルーチン:</strong> カスタム重み付け評価マトリックスと状態探索アルゴリズム。</li>
+                <li><strong>ホスティンググリッド:</strong> Netlify自動配信ネットワークによる統合デプロイメント。</li>
+            </ul>
+        </div>
+
+        <!-- フッター -->
+        <div class="footer">
+            &copy; 2026 CYBER OTHELLO PROJECT. 全システム稼働中。
+        </div>
+
+    </div>
+
+</body>
+</html>
