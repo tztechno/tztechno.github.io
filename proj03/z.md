@@ -10,6 +10,8 @@ https://othello-ai-game.netlify.app/
 
 https://tztechno.github.io/proj03/
 
+https://tztechno.github.io/proj03/cyber_othello_landing.html
+
 https://note.com/stpeteishii/n/n401c515ffd06
 
 https://zenn.dev/articles/022390dedba06f
