@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイバー・ポケモン（Cyber Pokémon）| 知略を競う現代のホログラム戦場</title>
+    <style>
+        /* Custom Fonts & Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-dark: #0a0b10;
+            --bg-card: #121420;
+            --accent-glow: #00f0ff; /* Glowing Cyan for Pokemon */
+            --accent-pink: #ff007f; /* Glowing Pink for Pokemon */
+            --accent-blue: #0088ff;
+            --text-main: #f0f2f5;
+            --text-muted: #a0aec0;
+            --border-color: #1e293b;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Hero / Header Section */
+        header {
+            position: relative;
+            padding: 80px 20px 60px 20px;
+            background: radial-gradient(circle at center, #112233 0%, var(--bg-dark) 70%);
+            border-bottom: 1px solid var(--border-color);
+        }
+        h1 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .hero-lead {
+            max-width: 700px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        /* Container & Main Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+        /* Call To Action Button */
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .btn-primary {
+            display: inline-block;
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #05050a;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-pink) 100%);
+            padding: 18px 45px;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1.5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.6);
+            filter: brightness(1.1);
+        }
+        .btn-subtext {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        /* Grid Layout for Features */
+        .grid-section {
+            margin-bottom: 70px;
+        }
+        .section-title {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .section-title span {
+            color: var(--accent-glow);
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-pink);
+        }
+        .feature-card.glow::before {
+            background-color: var(--accent-glow);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .feature-card h3 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        /* Bottom Hero Callout */
+        .final-callout {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(10, 11, 16, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            padding: 50px 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 60px;
+            box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.05);
+        }
+        .final-callout h2 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .final-callout p {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+            color: #556275;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #050608;
+        }
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .final-callout {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero Section (2-column layout for PC) -->
+    <header style="text-align: left;">
+        <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center;">
+            
+            <!-- Left Column: Marketing Copy -->
+            <div style="flex: 1 1 500px; min-width: 300px;">
+                <h1 style="text-align: left; margin-bottom: 20px;">👾 CYBER POKÉMON</h1>
+                <p class="subtitle" style="margin-bottom: 25px;">知略を競う現代の戦場 — A Modern Holographic Arena for Strategic Battle</p>
+                
+                <p class="hero-lead" style="margin: 0 0 35px 0; text-align: left; font-size: 1rem;">
+                    浅薄なデジタル体験に退屈していませんか？ あなたの知性は、計算の複雑さと精密さによって進化し続ける戦術的戦場を求めてはいませんか？<br><br>
+                    これは単なるゲームではありません。洗練されたブラウザ技術と強化学習（TD-Learning）によって実現した、ディープなタクティカル・カードバトルの世界です。ダウンロード不要で今すぐアクセス。デジタルのグリッドを支配しましょう。
+                </p>
+                
+                <div class="cta-container" style="text-align: left; margin: 0;">
+                    <!-- REPLACE WITH YOUR ACTUAL NETLIFY URL -->
+                    <a href="https://YOUR-POKEMON-GAME.netlify.app/" class="btn-primary" target="_blank">START SIMULATION NOW</a>
+                    <span class="btn-subtext" style="text-align: left;">（ブラウザを開き、グローバルな戦術グリッドを支配せよ。）</span>
+                </div>
+            </div>
+
+            <!-- Right Column: Vertical Shorts Player -->
+            <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
+                <div style="position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);">
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/ZmurqYfC9F8" 
+                        title="育成型AIゲーム『サイバー・ポケモン』" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Section 1: The Opponent -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🧠</span> 対峙する宿敵：計算され尽くした知性</h2>
+            <div class="feature-grid">
+                <div class="feature-card glow">
+                    <h3>ディープ・チャレンジ・スペクトラム</h3>
+                    <p>初心者が基礎的な戦略マッピングをマスターするための適度な難易度から、強化学習モデル（TD-Learning）による高度な意思決定ツリーまで、あらゆるレベルに応じた圧倒的な戦術的深みを提供します。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>極限までスムーズな計算パフォーマンス</h3>
+                    <p>ミニマックス法と高度なニューラル論理ヒューリスティクスを搭載したAIエンジン。軽量なスクリプトモジュールで構築され、NetlifyのグローバルCDNネットワークを通じて瞬時に、遅延やストレスのない完璧な動作環境を提供します。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: The Experience -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🌐</span> ユーザー体験：認知支配のための最適化</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>レスポンシブな盤面（グリッド）</h3>
+                    <p>モバイル端末でのスマートな操作から、デスクトップの大画面モニターによる俯瞰まで、レスポンシブデザインが常に美しいUIを維持。あらゆる画面サイズに対応します。</p>
+                </div>
+                <div class="feature-card glow">
+                    <h3>ハイコントラストな視覚的明瞭さ</h3>
+                    <p>ドラマチックなダークアートスタイル。美しさと機能性を両立させ、発光するターゲットノードが瞬時に有効な座標を示し、戦いの要所に戦略的フォーカスをロックし続けます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Engineering -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🛠️</span> 精密なエンジニアリング：コア・メカニズム</h2>
+            <div class="feature-grid">
+                <div class="feature-card glow">
+                    <h3>直感的なゲームプレイ・プロトコル</h3>
+                    <p>エネルギーの自動管理や進化条件の整合性判定、気絶（KO）判定など、複雑なゲームプロトコルをバックグラウンドで完全自動処理。思考のノイズを完全に排除しました。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>信頼のクライアントサイド動作</h3>
+                    <p>ReactおよびTailwind CSSによるクリーンでモダンな技術スタックを採用。外部サーバーの負荷を気にすることなく、終局までミリ秒単位のレスポンスでプレイいただけます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Callout -->
+        <div class="final-callout">
+            <h2>単にプレイするのではない。システムそのものを支配せよ。</h2>
+            <p>
+                「サイバー・ポケモン」は、思考と行動の間にある技術的な摩擦をすべて排除します。最先端のウェブ技術がもたらす、純粋で妥協のない知の激突をお楽しみください。あなたのすべての常識を試す準備はできています。
+            </p>
+            <div class="cta-container" style="margin-bottom: 0;">
+                <!-- REPLACE WITH YOUR ACTUAL NETLIFY URL -->
+                <a href="https://YOUR-POKEMON-GAME.netlify.app/" class="btn-primary" target="_blank">ENTER THE SIMULATION</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 CYBER POKÉMON. ALL RIGHTS RESERVED. OPERATIONAL BATTLE SIMULATOR.
+    </footer>
+</body>
+</html>
