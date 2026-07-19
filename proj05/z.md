@@ -1,6 +1,6 @@
 
 
+https://cyber-pokemon-battle.netlify.app/
 
-LP
 https://tztechno.github.io/proj05/ 
 
