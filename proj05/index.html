@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>サイバー・ポケモン（Cyber Pokémon）| 知略を競う現代のホログラム戦場</title>
+    <title>サイバー・ポケモン(Cyber Pokémon)| 知略を競う現代のホログラム戦場</title>
     <style>
         /* Custom Fonts & Reset */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
@@ -220,28 +220,35 @@
                 <p class="subtitle" style="margin-bottom: 25px;">知略を競う現代の戦場 — A Modern Holographic Arena for Strategic Battle</p>
                 
                 <p class="hero-lead" style="margin: 0 0 35px 0; text-align: left; font-size: 1rem;">
-                    浅薄なデジタル体験に退屈していませんか？ あなたの知性は、計算の複雑さと精密さによって進化し続ける戦術的戦場を求めてはいませんか？<br><br>
-                    これは単なるゲームではありません。洗練されたブラウザ技術と強化学習（TD-Learning）によって実現した、ディープなタクティカル・カードバトルの世界です。ダウンロード不要で今すぐアクセス。デジタルのグリッドを支配しましょう。
+                    浅薄なデジタル体験に退屈していませんか? あなたの知性は、計算の複雑さと精密さによって進化し続ける戦術的戦場を求めてはいませんか?<br><br>
+                    これは単なるゲームではありません。洗練されたブラウザ技術と強化学習(TD-Learning)によって実現した、ディープなタクティカル・カードバトルの世界です。ダウンロード不要で今すぐアクセス。デジタルのグリッドを支配しましょう。
                 </p>
                 
                 <div class="cta-container" style="text-align: left; margin: 0;">
                     <!-- REPLACE WITH YOUR ACTUAL NETLIFY URL -->
                     <a href="https://cyber-pokemon-battle.netlify.app/" class="btn-primary" target="_blank">START SIMULATION NOW</a>
-                    <span class="btn-subtext" style="text-align: left;">（ブラウザを開き、グローバルな戦術グリッドを支配せよ。）</span>
+                    <span class="btn-subtext" style="text-align: left;">(ブラウザを開き、グローバルな戦術グリッドを支配せよ。)</span>
                 </div>
             </div>
 
             <!-- Right Column: Vertical Shorts Player -->
+            <!-- Using a clickable thumbnail instead of an <iframe> embed. YouTube Shorts iframes
+                 are frequently blocked by ad blockers, browser extensions, or host-side CSP rules
+                 even when the video owner has embedding enabled. A thumbnail link that opens the
+                 video on YouTube in a new tab always works regardless of embed restrictions. -->
             <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
-                <div style="position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);">
-                    <iframe 
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                        src="https://youtube.com/shorts/bL2CEuREK1c" 
-                        title="育成型AIゲーム『サイバー・ポケモン』" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <a href="https://www.youtube.com/shorts/bL2CEuREK1c" target="_blank" rel="noopener"
+                   style="display: block; position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); text-decoration: none;">
+                    <img src="https://i.ytimg.com/vi/bL2CEuREK1c/hqdefault.jpg"
+                         alt="育成型AIゲーム『サイバー・ポケモン』"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                    <!-- Play button overlay -->
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25);">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);">
+                            <div style="width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-left: 22px solid #ffffff; margin-left: 5px;"></div>
+                        </div>
+                    </div>
+                </a>
             </div>
 
         </div>
@@ -252,11 +259,11 @@
 
         <!-- Section 1: The Opponent -->
         <div class="grid-section">
-            <h2 class="section-title"><span>🧠</span> 対峙する宿敵：計算され尽くした知性</h2>
+            <h2 class="section-title"><span>🧠</span> 対峙する宿敵:計算され尽くした知性</h2>
             <div class="feature-grid">
                 <div class="feature-card glow">
                     <h3>ディープ・チャレンジ・スペクトラム</h3>
-                    <p>初心者が基礎的な戦略マッピングをマスターするための適度な難易度から、強化学習モデル（TD-Learning）による高度な意思決定ツリーまで、あらゆるレベルに応じた圧倒的な戦術的深みを提供します。</p>
+                    <p>初心者が基礎的な戦略マッピングをマスターするための適度な難易度から、強化学習モデル(TD-Learning)による高度な意思決定ツリーまで、あらゆるレベルに応じた圧倒的な戦術的深みを提供します。</p>
                 </div>
                 <div class="feature-card">
                     <h3>極限までスムーズな計算パフォーマンス</h3>
@@ -267,10 +274,10 @@
 
         <!-- Section 2: The Experience -->
         <div class="grid-section">
-            <h2 class="section-title"><span>🌐</span> ユーザー体験：認知支配のための最適化</h2>
+            <h2 class="section-title"><span>🌐</span> ユーザー体験:認知支配のための最適化</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>レスポンシブな盤面（グリッド）</h3>
+                    <h3>レスポンシブな盤面(グリッド)</h3>
                     <p>モバイル端末でのスマートな操作から、デスクトップの大画面モニターによる俯瞰まで、レスポンシブデザインが常に美しいUIを維持。あらゆる画面サイズに対応します。</p>
                 </div>
                 <div class="feature-card glow">
@@ -282,11 +289,11 @@
 
         <!-- Section 3: Engineering -->
         <div class="grid-section">
-            <h2 class="section-title"><span>🛠️</span> 精密なエンジニアリング：コア・メカニズム</h2>
+            <h2 class="section-title"><span>🛠️</span> 精密なエンジニアリング:コア・メカニズム</h2>
             <div class="feature-grid">
                 <div class="feature-card glow">
                     <h3>直感的なゲームプレイ・プロトコル</h3>
-                    <p>エネルギーの自動管理や進化条件の整合性判定、気絶（KO）判定など、複雑なゲームプロトコルをバックグラウンドで完全自動処理。思考のノイズを完全に排除しました。</p>
+                    <p>エネルギーの自動管理や進化条件の整合性判定、気絶(KO)判定など、複雑なゲームプロトコルをバックグラウンドで完全自動処理。思考のノイズを完全に排除しました。</p>
                 </div>
                 <div class="feature-card">
                     <h3>信頼のクライアントサイド動作</h3>
