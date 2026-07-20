@@ -237,11 +237,15 @@
                  even when the video owner has embedding enabled. A thumbnail link that opens the
                  video on YouTube in a new tab always works regardless of embed restrictions. -->
             <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
-                <a href="https://www.youtube.com/shorts/bL2CEuREK1c" target="_blank" rel="noopener"
-                   style="display: block; position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); text-decoration: none;">
-                    <img src="https://i.ytimg.com/vi/bL2CEuREK1c/hqdefault.jpg"
+                <a href="https://www.youtube.com/shorts/2nEWhWdJ94I" target="_blank" rel="noopener"
+                   style="display: block; position: relative; aspect-ratio: 9 / 16; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; box-shadow: 0 0 25px rgba(0, 240, 255, 0.25); text-decoration: none; background-color: var(--bg-card);">
+                    <!-- Fixed: thumbnail video ID now matches the link's video ID (2nEWhWdJ94I).
+                         Also added onerror fallback chain: try maxresdefault -> mqdefault -> a plain
+                         placeholder, in case a given resolution isn't available for this video. -->
+                    <img src="https://i.ytimg.com/vi/2nEWhWdJ94I/hqdefault.jpg"
                          alt="育成型AIゲーム『サイバー・ポケモン』"
-                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                         onerror="this.onerror=null; this.src='https://i.ytimg.com/vi/2nEWhWdJ94I/mqdefault.jpg';">
                     <!-- Play button overlay -->
                     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.25);">
                         <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);">
