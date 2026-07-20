@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイバー・インベーダー（Cyber Invaders）| 覚醒するアタリレトロ・ネオンシューター</title>
+    <style>
+        /* Custom Fonts & Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-dark: #020205;
+            --bg-card: #0a0b14;
+            --accent-glow: #06b6d4; /* Neon Cyan for Player */
+            --accent-pink: #ec4899; /* Neon Pink for 2P Cannon / Telemetry */
+            --accent-amber: #f59e0b; /* Amber for Retro Cabinet detail */
+            --text-main: #f0f2f5;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Scanlines Overlay effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Hero / Header Section */
+        header {
+            position: relative;
+            padding: 100px 20px 80px 20px;
+            background: radial-gradient(circle at center, #082f49 0%, var(--bg-dark) 80%);
+            border-bottom: 1px solid var(--border-color);
+        }
+        h1 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .hero-lead {
+            max-width: 700px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        /* Container & Main Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+        /* Call To Action Button */
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .btn-primary {
+            display: inline-block;
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #020205;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-pink) 100%);
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.7);
+            filter: brightness(1.15);
+        }
+        .btn-subtext {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        /* Grid Layout for Features */
+        .grid-section {
+            margin-bottom: 80px;
+        }
+        .section-title {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .section-title span {
+            color: var(--accent-glow);
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-pink);
+        }
+        .feature-card.glow::before {
+            background-color: var(--accent-glow);
+        }
+        .feature-card.amber::before {
+            background-color: var(--accent-amber);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        /* Bottom Hero Callout */
+        .final-callout {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(2, 2, 5, 0.9) 100%);
+            border: 1px solid var(--border-color);
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 60px;
+            box-shadow: inset 0 0 35px rgba(6, 182, 212, 0.05);
+        }
+        .final-callout h2 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .final-callout p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid var(--border-color);
+            color: #475569;
+            font-size: 0.85rem;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #010103;
+        }
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .final-callout {
+                padding: 40px 20px;
+            }
+            header {
+                padding: 60px 20px 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero Section (2-column layout for PC) -->
+    <header style="text-align: left;">
+        <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center;">
+            
+            <!-- Left Column: Marketing Copy -->
+            <div style="flex: 1 1 500px; min-width: 300px;">
+                <h1 style="text-align: left; margin-bottom: 20px;">👾 CYBER INVADERS</h1>
+                <p class="subtitle" style="margin-bottom: 25px;">覚醒するレトロテクノロジー — Precise Atari 2600 Emulation with Cyber-Neon Visage</p>
+                
+                <p class="hero-lead" style="margin: 0 0 35px 0; text-align: left; font-size: 1rem;">
+                    Web上に数多ある「ありきたり」なシューティングクローンに飽きていませんか？<br><br>
+                    アタリ2600の物理エンジンと往年の挙動を完璧に再現した上で、圧倒的なネオン・グラフィックとリアルタイム音響合成を施した本格的なアーケードシミュレーターが誕生しました。<br>
+                    全7種のゲームモード、同時連射可能なダブル砲台モード、そして自律AI観戦回路。ダウンロード一切不要、あなたのブラウザを極限の戦術キャビネットへと変貌させます。
+                </p>
+                
+                <div class="cta-container" style="text-align: left; margin: 0;">
+                    <!-- REPLACE WITH YOUR ACTUAL NETLIFY URL -->
+                    <a href="https://cyber-invader.netlify.app/" class="btn-primary" target="_blank">INSERT COIN & START</a>
+                    <span class="btn-subtext" style="text-align: left;">（別ウィンドウでゲーム画面を開き、インベントリを起動せよ。）</span>
+                </div>
+            </div>
+
+            <!-- Right Column: Vertical Shorts Player -->
+            <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
+                <div style="position: relative; aspect-ratio: 9 / 16; border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(6, 182, 212, 0.3);">
+                    <!-- IMPORTANT: use the /embed/ path, not /shorts/ - shorts URLs set X-Frame-Options and cannot be iframed -->
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/IAV4TDPh5Po" 
+                        title="サイバー・インベーダー 筐体映像" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Section 1: Core Mechanics -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🚀</span> 精密な物理＆アーケードエミュレーション</h2>
+            <div class="feature-grid">
+                <div class="feature-card glow">
+                    <h3>アタリ2600規格の挙動再現</h3>
+                    <p>インベーダーの段階的移動速度アップや、シールド破壊のビットマップ判定、レーザー速度などを原作に基づいて完全再現。古き良きハードウェアの緻密なゲームプレイ体験をブラウザで提供します。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>完全Web Audioプロセッサ音響合成</h3>
+                    <p>静的な音声ファイルを読み込むのではなく、ブラウザのAudioContextをコードで直接変調。発振器（オシレーター）とホワイトノイズから、ビーム発射音、爆発音、エイリアンの足音をリアルタイムで生成します。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Advanced Features -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🧠</span> 新たな可能性を解き放つ戦術レイヤー</h2>
+            <div class="feature-grid">
+                <div class="feature-card amber">
+                    <h3>自律演算AI観戦回路（HUD搭載）</h3>
+                    <p>自律AIが自動でゲームを攻略する様子を鑑賞できるAI Observationモードを搭載。画面上にはレーザー予測線やターゲットベクトル等の高度なHUDが展開され、ニューラルな戦術データを視覚的に堪能できます。</p>
+                </div>
+                <div class="feature-card glow">
+                    <h3>限界を超えるダブル砲台モード</h3>
+                    <p>キーボードの左側（A/D/Space）と右側（←/→/Enter）を同時に使用し、2つの砲台を並列制御。1人の限界に挑むもよし、並んで座った2人で共闘するもよし、レトロアーケードを超越する同時連射が可能です。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Game Modes -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🎯</span> 7次元の特異ゲームモード</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>多様なタクティカル仕様</h3>
+                    <p>シールドが左右に動く「MOVING SHIELDS」、レーザーを曲げられる「GUIDED LASERS」、敵が見えない「INVISIBLE INVADERS」、敵の速さが1.5倍の「FAST & FURIOUS」など、往年のプレイをハックする7種の異なるゲーム規則を搭載。</p>
+                </div>
+                <div class="feature-card amber">
+                    <h3>Stripe決済とSupabaseによるライセンス管理</h3>
+                    <p>本格的な商用ライセンス制限を搭載。3回のフリープレイを超過するとアクセス制限がかかり、Stripe決済と連携して永久プレイ権を解禁できます（Othelloライセンスと連動可能）。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Callout -->
+        <div class="final-callout">
+            <h2>懐かしき防衛網を守り抜け。システムをハックせよ。</h2>
+            <p>
+                「サイバー・インベーダー」は、単なるクローンではありません。コード、デザイン、そして強化学習AIが融合した次世代のレトロ体験です。アタリの歴史への愛が生み出した、純粋な電子の激突をお楽しみください。
+            </p>
+            <div class="cta-container" style="margin-bottom: 0;">
+                <!-- REPLACE WITH YOUR ACTUAL NETLIFY URL -->
+                <a href="https://cyber-invader.netlify.app/" class="btn-primary" target="_blank">INSERT COIN & START GAME</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 CYBER INVADERS. ALL RIGHTS RESERVED. OPERATIONAL ARCADE SIMULATOR.
+    </footer>
+</body>
+</html>
