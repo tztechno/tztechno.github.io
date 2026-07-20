@@ -110,6 +110,8 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Pokemon](https://tztechno.github.io/proj05/)
 
+[Cyber Invader](https://tztechno.github.io/proj06/)
+
 ## profile
 
 [profile](https://tztechno.github.io/profile/)
