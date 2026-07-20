@@ -106,6 +106,10 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Othello](https://tztechno.github.io/proj03/)
 
+[Cyber Chess](https://tztechno.github.io/proj04/)
+
+[Cyber Pokemon](https://tztechno.github.io/proj05/)
+
 ## profile
 
 [profile](https://tztechno.github.io/profile/)
