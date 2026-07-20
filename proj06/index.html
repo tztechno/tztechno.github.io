@@ -255,10 +255,10 @@
             <!-- Right Column: Vertical Shorts Player -->
             <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
                 <div style="position: relative; aspect-ratio: 9 / 16; border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(6, 182, 212, 0.3);">
-                    <!-- REPLACE src WITH YOUR ACTUAL YOUTUBE SHORTS EMBED URL -->
+                    <!-- IMPORTANT: use the /embed/ path, not /shorts/ - shorts URLs set X-Frame-Options and cannot be iframed -->
                     <iframe 
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                        src="https://www.youtube.com/shorts/IAV4TDPh5Po" 
+                        src="https://www.youtube.com/embed/IAV4TDPh5Po" 
                         title="サイバー・インベーダー 筐体映像" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
