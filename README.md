@@ -114,6 +114,8 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Checkers](https://tztechno.github.io/proj07/)
 
+[Cyber Shogi](https://tztechno.github.io/proj08/)
+
 ## profile
 
 [profile](https://tztechno.github.io/profile/)
