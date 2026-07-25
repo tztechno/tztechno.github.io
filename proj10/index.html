@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER TETRIS - TACTICAL BLOCK MATRIX</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="AI vs 人間、そして究極の進化を遂げたSFテトリス・シミュレーター。3D/2D表示、シンセサイザー音響、自己学習AIを搭載したサイバーパンク・テトリス。">
+  <meta property="og:title" content="CYBER TETRIS - TACTICAL BLOCK MATRIX">
+  <meta property="og:description" content="AI vs 人間、そして究極の進化を遂げたSFテトリス・シミュレーター。3D/2D表示、シンセサイザー音響、自己学習AIを搭載したサイバーパンク・テトリス。">
+  <meta property="og:image" content="https://cyber-tetris-playground.netlify.app/favicon.ico">
+  <meta property="og:url" content="https://cyber-tetris-playground.netlify.app/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Custom CSS Variables & Reset */
+    :root {
+      --bg-dark: #020617;
+      --bg-panel: rgba(15, 23, 42, 0.6);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --cyan-glow: #06b6d4;
+      --cyan-dim: rgba(6, 182, 212, 0.2);
+      --magenta-glow: #d946ef;
+      --magenta-dim: rgba(217, 70, 239, 0.2);
+      --purple-glow: #8b5cf6;
+      --purple-dim: rgba(139, 92, 246, 0.2);
+      --amber-glow: #f59e0b;
+      --amber-dim: rgba(245, 158, 11, 0.2);
+      --glow-shadow-cyan: 0 0 15px rgba(6, 182, 212, 0.5), inset 0 0 10px rgba(6, 182, 212, 0.2);
+      --glow-shadow-magenta: 0 0 15px rgba(217, 70, 239, 0.5), inset 0 0 10px rgba(217, 70, 239, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #f1f5f9;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Matrix Grid Background */
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: 
+        linear-gradient(rgba(18, 24, 38, 0.95), rgba(2, 6, 23, 0.98)),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 60%);
+    }
+
+    .grid-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: 
+        linear-gradient(to right, rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(6, 182, 212, 0.3) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: scrollGrid 120s linear infinite;
+    }
+
+    @keyframes scrollGrid {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 1000px 1000px;
+      }
+    }
+
+    /* Typography & Utilities */
+    .font-orbitron {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .font-mono {
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .neon-text-cyan {
+      text-shadow: 0 0 10px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.3);
+    }
+
+    .neon-text-magenta {
+      text-shadow: 0 0 10px rgba(217, 70, 239, 0.6), 0 0 20px rgba(217, 70, 239, 0.3);
+    }
+
+    /* Navbar */
+    header {
+      background-color: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .logo-glow {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--cyan-glow);
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 2px;
+      padding: 3px;
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    .logo-glow span {
+      background-color: var(--cyan-glow);
+      border-radius: 2px;
+    }
+
+    .logo-glow span:nth-child(3) {
+      background-color: var(--magenta-glow);
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .logo-text span {
+      color: var(--cyan-glow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan-glow);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 16px;
+      border-radius: 100px;
+      color: var(--cyan-glow);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 24px;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+    }
+
+    .hero-badge i {
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .hero-title {
+      font-size: 72px;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      background: linear-gradient(to right, #fff 30%, #a5f3fc 70%, var(--cyan-glow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 36px;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan-glow), #0891b2);
+      color: #020617;
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 35px rgba(6, 182, 212, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      border: 1px solid var(--border-color);
+      margin-left: 16px;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Video Section / Tactical Display */
+    .showcase {
+      padding: 40px 0 100px;
+    }
+
+    .tactical-frame {
+      background: var(--bg-panel);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(6, 182, 212, 0.05);
+      position: relative;
+    }
+
+    .tactical-frame::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--cyan-glow), transparent);
+    }
+
+    .tactical-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 16px;
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .tactical-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--cyan-glow);
+    }
+
+    .tactical-indicator span {
+      width: 6px;
+      height: 6px;
+      background-color: var(--cyan-glow);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan-glow);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background-color: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Game Modes Section */
+    .modes {
+      padding: 100px 0;
+      background-color: rgba(2, 6, 23, 0.4);
+      position: relative;
+    }
+
+    .section-title-wrapper {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 40px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .mode-card {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .mode-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: transparent;
+      transition: background-color 0.3s;
+    }
+
+    /* Custom Theme Glows for each Card */
+    .mode-card.card-solo:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.1), 0 0 25px rgba(6, 182, 212, 0.05);
+      transform: translateY(-5px);
+    }
+    .mode-card.card-solo:hover::after { background-color: var(--cyan-glow); }
+
+    .mode-card.card-match:hover {
+      border-color: rgba(217, 70, 239, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(217, 70, 239, 0.1), 0 0 25px rgba(217, 70, 239, 0.05);
+      transform: translateY(-5px);
+    }
+    .mode-card.card-match:hover::after { background-color: var(--magenta-glow); }
+
+    .mode-card.card-vsai:hover {
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.1), 0 0 25px rgba(139, 92, 246, 0.05);
+      transform: translateY(-5px);
+    }
+    .mode-card.card-vsai:hover::after { background-color: var(--purple-glow); }
+
+    .mode-card.card-aivsai:hover {
+      border-color: rgba(245, 158, 11, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.1), 0 0 25px rgba(245, 158, 11, 0.05);
+      transform: translateY(-5px);
+    }
+    .mode-card.card-aivsai:hover::after { background-color: var(--amber-glow); }
+
+    .mode-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card-solo .mode-icon { color: var(--cyan-glow); background: rgba(6, 182, 212, 0.06); border-color: rgba(6, 182, 212, 0.2); }
+    .card-match .mode-icon { color: var(--magenta-glow); background: rgba(217, 70, 239, 0.06); border-color: rgba(217, 70, 239, 0.2); }
+    .card-vsai .mode-icon { color: var(--purple-glow); background: rgba(139, 92, 246, 0.06); border-color: rgba(139, 92, 246, 0.2); }
+    .card-aivsai .mode-icon { color: var(--amber-glow); background: rgba(245, 158, 11, 0.06); border-color: rgba(245, 158, 11, 0.2); }
+
+    .mode-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .mode-desc {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .mode-spec {
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 16px;
+    }
+
+    .mode-spec li {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mode-spec li i {
+      font-size: 10px;
+    }
+    .card-solo .mode-spec li i { color: var(--cyan-glow); }
+    .card-match .mode-spec li i { color: var(--magenta-glow); }
+    .card-vsai .mode-spec li i { color: var(--purple-glow); }
+    .card-aivsai .mode-spec li i { color: var(--amber-glow); }
+
+    /* Control Mapping Section */
+    .controls {
+      padding: 100px 0;
+    }
+
+    .panel-controls {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 40px;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+    }
+
+    @media (max-width: 480px) {
+      .controls-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .control-col-title {
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-col-title.p1-title { color: var(--cyan-glow); }
+    .control-col-title.p2-title { color: var(--magenta-glow); }
+
+    .key-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .key-label {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .key-caps {
+      display: flex;
+      gap: 6px;
+    }
+
+    .key-cap {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 3px 0 #0f172a;
+      text-transform: uppercase;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .p1-caps .key-cap {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 3px 0 rgba(6, 182, 212, 0.2);
+    }
+
+    .p2-caps .key-cap {
+      border-color: rgba(217, 70, 239, 0.3);
+      box-shadow: 0 3px 0 rgba(217, 70, 239, 0.2);
+    }
+
+    /* Feature List Section */
+    .features {
+      padding: 100px 0 140px;
+      background-image: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+    }
+
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 20px;
+    }
+
+    .feature-icon-wrapper {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan-glow);
+      font-size: 16px;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
+    }
+
+    .feature-info h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .feature-info p {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      background-color: #020617;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .footer-brand-text {
+      font-size: 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-brand-text span {
+      color: var(--cyan-glow);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      color: #475569;
+      font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 48px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero {
+        padding: 80px 0 60px;
+      }
+      .btn {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-bottom: 12px;
+      }
+      .btn-secondary {
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Background Layers -->
+  <div class="matrix-bg"></div>
+  <div class="grid-pattern"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo">
+        <div class="logo-glow">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="logo-text font-orbitron">CYBER <span>TETRIS</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#video">SHOWCASE</a></li>
+        <li><a href="#modes">GAME MODES</a></li>
+        <li><a href="#controls">OPERATIONS</a></li>
+        <li><a href="#features">FEATURES</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://cyber-tetris-playground.netlify.app/" target="_blank" class="btn btn-primary font-orbitron" style="padding: 10px 24px; font-size: 12px; border-radius: 8px;">
+          LAUNCH GAME <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge font-orbitron">
+        <i class="fa-solid fa-circle-dot"></i> LIVE DEMO AVAILABLE ON NETLIFY
+      </div>
+      <h1 class="hero-title font-orbitron">TACTICAL BLOCK<br>MATRIX</h1>
+      <p class="hero-subtitle">
+        AI vs 人間、そして究極の進化を遂げたSFテトリス・シミュレーター。<br>
+        3D表示、シンセサイザーオーディオ、強化学習思考エンジンを統合した次世代のブロックパズル。
+      </p>
+      <div class="hero-buttons">
+        <a href="https://cyber-tetris-playground.netlify.app/" target="_blank" class="btn btn-primary font-orbitron">
+          <i class="fa-solid fa-play"></i> PLAY SYSTEM NOW
+        </a>
+        <a href="#video" class="btn btn-secondary font-orbitron">
+          <i class="fa-solid fa-circle-play"></i> WATCH SHOWCASE
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Showcase Section -->
+  <section id="video" class="showcase">
+    <div class="container">
+      <div class="tactical-frame">
+        <div class="tactical-header font-mono">
+          <div class="tactical-indicator">
+            <span></span> MONITOR STATUS: ACTIVE
+          </div>
+          <div>SYSTEM_COORDS // 35.6762° N, 139.6503° E</div>
+        </div>
+        <div class="video-container">
+          <iframe 
+            src="https://youtube.com/embed/UzXEbAZM4HQ" 
+            title="Cyber Tetris Video Showcase" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Modes Section -->
+  <section id="modes" class="modes">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <span class="section-tag font-orbitron">SELECT SIMULATION</span>
+        <h2 class="section-title font-orbitron">4 GAME MODES</h2>
+      </div>
+      <div class="modes-grid">
+        <!-- Solo Mode -->
+        <div class="mode-card card-solo">
+          <div class="mode-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+          <h3 class="mode-title font-orbitron">SOLO MATRIX</h3>
+          <p class="mode-desc">純粋にハイスコアを目指すシングルプレイ。開始レベル設定で最初から最高難易度（スピード）に挑戦可能。</p>
+          <ul class="mode-spec font-mono">
+            <li><i class="fa-solid fa-check"></i> START LEVEL (1-10)</li>
+            <li><i class="fa-solid fa-check"></i> PROGRESSIVE GRAVITY</li>
+            <li><i class="fa-solid fa-check"></i> HIGH SCORE RECORD</li>
+          </ul>
+        </div>
+        <!-- PvP Match Mode -->
+        <div class="mode-card card-match">
+          <div class="mode-icon"><i class="fa-solid fa-users"></i></div>
+          <h3 class="mode-title font-orbitron">LOCAL MATCH</h3>
+          <p class="mode-desc">キーボードを分け合い、1台のPCで熱いバトルを繰り広げるローカル2P対戦モード。攻撃を送り相殺しろ。</p>
+          <ul class="mode-spec font-mono">
+            <li><i class="fa-solid fa-check"></i> 1VS1 SPLIT GRID</li>
+            <li><i class="fa-solid fa-check"></i> GARBAGE ATTACK & COUNTER</li>
+            <li><i class="fa-solid fa-check"></i> KEYBOARD SPLIT SCHEME</li>
+          </ul>
+        </div>
+        <!-- vs AI Mode -->
+        <div class="mode-card card-vsai">
+          <div class="mode-icon"><i class="fa-solid fa-microchip"></i></div>
+          <h3 class="mode-title font-orbitron">VS CYBER AI</h3>
+          <p class="mode-desc">ダイクストラ探索アルゴリズムに基づいた高速評価AIと対戦。難易度の壁に打ち勝て。</p>
+          <ul class="mode-spec font-mono">
+            <li><i class="fa-solid fa-check"></i> REAL-TIME DECISION ENGINE</li>
+            <li><i class="fa-solid fa-check"></i> DYNAMIC HEURISTIC CPU</li>
+            <li><i class="fa-solid fa-check"></i> COUNTERPLAY CHALLENGE</li>
+          </ul>
+        </div>
+        <!-- AI vs AI Mode -->
+        <div class="mode-card card-aivsai">
+          <div class="mode-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="mode-title font-orbitron">AI VS AI DEMO</h3>
+          <p class="mode-desc">AI同士のハイスピードな自己学習型マッチを観戦。最適配置の挙動をヒートマップで確認可能。</p>
+          <ul class="mode-spec font-mono">
+            <li><i class="fa-solid fa-check"></i> NEURAL WEIGHTS VISUALIZER</li>
+            <li><i class="fa-solid fa-check"></i> ULTRA-FAST HEURISTIC COMBAT</li>
+            <li><i class="fa-solid fa-check"></i> STRATEGY OBSERVATION</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operations/Control Section -->
+  <section id="controls" class="controls">
+    <div class="container">
+      <div class="panel-controls">
+        <div class="section-title-wrapper" style="margin-bottom: 40px; text-align: left;">
+          <span class="section-tag font-orbitron">OPERATIONAL PROTOCOLS</span>
+          <h2 class="section-title font-orbitron">CONTROLS</h2>
+        </div>
+        <div class="controls-grid">
+          
+          <!-- Player 1 Keyboard Controls -->
+          <div>
+            <h3 class="control-col-title p1-title font-orbitron">
+              <i class="fa-solid fa-user"></i> PLAYER 1 (Left Screen in PvP)
+            </h3>
+            <div class="key-row">
+              <span class="key-label">MOVE LEFT</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">A</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">MOVE RIGHT</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">D</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">SOFT DROP</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">S</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">HARD DROP</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">W</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">ROTATE LEFT (CCW)</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">Q</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">ROTATE RIGHT (CW)</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono">E</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">HOLD BLOCK</span>
+              <div class="key-caps p1-caps"><kbd class="key-cap font-mono" style="min-width: 70px;">SPACE</kbd></div>
+            </div>
+            <div style="font-size: 11px; color: #475569; margin-top: 12px;" class="font-mono">
+              ※シングルプレイ（SOLO）時は、上記の他に方向キー・Z/Xキー・C/Shiftキーも同様に使えます。
+            </div>
+          </div>
+
+          <!-- Player 2 Keyboard Controls -->
+          <div>
+            <h3 class="control-col-title p2-title font-orbitron">
+              <i class="fa-solid fa-computer"></i> PLAYER 2 / AI (Right Screen in PvP)
+            </h3>
+            <div class="key-row">
+              <span class="key-label">MOVE LEFT</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">←</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">MOVE RIGHT</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">→</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">SOFT DROP</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">↓</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">HARD DROP</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">↑</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">ROTATE LEFT (CCW)</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">.</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">ROTATE RIGHT (CW)</span>
+              <div class="key-caps p2-caps"><kbd class="key-cap font-mono">/</kbd></div>
+            </div>
+            <div class="key-row">
+              <span class="key-label">HOLD BLOCK</span>
+              <div class="key-caps p2-caps">
+                <kbd class="key-cap font-mono" style="min-width: 48px;">R-SHIFT</kbd>
+                <kbd class="key-cap font-mono">ENTER</kbd>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-title-wrapper">
+        <span class="section-tag font-orbitron">HARDWARE SPECS</span>
+        <h2 class="section-title font-orbitron">SYSTEM FEATURES</h2>
+      </div>
+      <div class="features-list">
+        
+        <!-- Feature 1 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-cube"></i></div>
+          <div class="feature-info">
+            <h3 class="font-orbitron">3D / 2D VIEW SWITCH</h3>
+            <p>ボタンひとつで2D（フラットビュー）と立体的な3Dビューに切り替え可能。近未来の立体マトリクスでの没入体験をその手に。</p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-sliders"></i></div>
+          <div class="feature-info">
+            <h3 class="font-orbitron">START LEVEL SELECTION</h3>
+            <p>新たに搭載された難易度セレクトにより、最初から高速落下するレベル10など任意の速度でスタート。10消去ごとに難易度が上昇します。</p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-volume-high"></i></div>
+          <div class="feature-info">
+            <h3 class="font-orbitron">CYBER SYNTH AUDIO</h3>
+            <p>ブラウザでリアルタイム生成されるWeb AudioベースのFMシンセサイザーを実装。ブロックの設置や回転のアクションを、独特の電子音響で彩ります。</p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-item">
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="feature-info">
+            <h3 class="font-orbitron">GHOST POSITION INDICATOR</h3>
+            <p>落下地点の予測線（ゴーストエディット）を表示。高速落下環境でもミスを最小限に抑えるナビゲーションシステム。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <a href="#" class="footer-brand">
+        <div class="logo-glow" style="width: 24px; height: 24px; padding: 2px;">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="footer-brand-text font-orbitron">CYBER <span>TETRIS</span></div>
+      </a>
+      <ul class="footer-links font-mono">
+        <li><a href="https://cyber-tetris-playground.netlify.app/" target="_blank">LAUNCH APP</a></li>
+        <li><a href="https://youtube.com/embed/UzXEbAZM4HQ" target="_blank">PROMO VIDEO</a></li>
+      </ul>
+      <p class="copyright font-mono">&copy; 2026 CYBER TETRIS LAB. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
