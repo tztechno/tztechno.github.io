@@ -204,7 +204,26 @@
     .hero {
       position: relative;
       padding: 120px 0 80px;
-      text-align: center;
+    }
+
+    .hero-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .hero-content {
+      flex: 1 1 500px;
+    }
+
+    .hero-video-wrapper {
+      flex: 0 1 320px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
     }
 
     .hero-badge {
@@ -248,8 +267,7 @@
     .hero-subtitle {
       font-size: 18px;
       color: #94a3b8;
-      max-width: 650px;
-      margin: 0 auto 40px;
+      margin-bottom: 40px;
       font-weight: 400;
     }
 
@@ -297,26 +315,22 @@
       transform: translateY(-2px);
     }
 
-    /* Video Section / Tactical Display */
-    .showcase {
-      padding: 40px 0 100px;
-    }
-
-    .tactical-frame {
+    /* Video Showcase - Tactical Display for Shorts */
+    .tactical-frame-short {
       background: var(--bg-panel);
       border: 1px solid rgba(6, 182, 212, 0.2);
-      border-radius: 24px;
-      padding: 16px;
-      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 50px rgba(6, 182, 212, 0.05);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(6, 182, 212, 0.05);
       position: relative;
     }
 
-    .tactical-frame::before {
+    .tactical-frame-short::before {
       content: '';
       position: absolute;
       top: -1px;
-      left: 10%;
-      right: 10%;
+      left: 15%;
+      right: 15%;
       height: 1px;
       background: linear-gradient(to right, transparent, var(--cyan-glow), transparent);
     }
@@ -325,10 +339,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 12px;
+      padding-bottom: 8px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      margin-bottom: 16px;
-      font-size: 11px;
+      margin-bottom: 12px;
+      font-size: 10px;
       color: #64748b;
       text-transform: uppercase;
     }
@@ -354,22 +368,23 @@
       50% { opacity: 1; }
     }
 
-    .video-container {
+    .video-container-short {
       position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
+      aspect-ratio: 9 / 16;
+      width: 100%;
       overflow: hidden;
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.05);
       background-color: #000;
     }
 
-    .video-container iframe {
+    .video-container-short iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      border: none;
     }
 
     /* Game Modes Section */
@@ -694,6 +709,13 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .hero-container {
+        text-align: center;
+        justify-content: center;
+      }
+      .hero-video-wrapper {
+        margin-top: 32px;
+      }
       .hero-title {
         font-size: 48px;
       }
@@ -746,48 +768,48 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-badge font-orbitron">
-        <i class="fa-solid fa-circle-dot"></i> LIVE DEMO AVAILABLE ON NETLIFY
+  <!-- Hero Section (Two-Column Layout with Vertical Shorts Video) -->
+  <section class="hero" id="hero">
+    <div class="container hero-container">
+      
+      <!-- Left Column: Marketing Copy & CTA -->
+      <div class="hero-content">
+        <div class="hero-badge font-orbitron">
+          <i class="fa-solid fa-circle-dot"></i> LIVE DEMO AVAILABLE ON NETLIFY
+        </div>
+        <h1 class="hero-title font-orbitron">TACTICAL BLOCK<br>MATRIX</h1>
+        <p class="hero-subtitle">
+          AI vs 人間、そして究極の進化を遂げたSFテトリス・シミュレーター。<br>
+          3D表示、シンセサイザーオーディオ、強化学習思考エンジンを統合した次世代のブロックパズル。
+        </p>
+        <div class="hero-buttons">
+          <a href="https://cyber-tetris-playground.netlify.app/" target="_blank" class="btn btn-primary font-orbitron">
+            <i class="fa-solid fa-play"></i> PLAY SYSTEM NOW
+          </a>
+        </div>
       </div>
-      <h1 class="hero-title font-orbitron">TACTICAL BLOCK<br>MATRIX</h1>
-      <p class="hero-subtitle">
-        AI vs 人間、そして究極の進化を遂げたSFテトリス・シミュレーター。<br>
-        3D表示、シンセサイザーオーディオ、強化学習思考エンジンを統合した次世代のブロックパズル。
-      </p>
-      <div class="hero-buttons">
-        <a href="https://cyber-tetris-playground.netlify.app/" target="_blank" class="btn btn-primary font-orbitron">
-          <i class="fa-solid fa-play"></i> PLAY SYSTEM NOW
-        </a>
-        <a href="#video" class="btn btn-secondary font-orbitron">
-          <i class="fa-solid fa-circle-play"></i> WATCH SHOWCASE
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Video Showcase Section -->
-  <section id="video" class="showcase">
-    <div class="container">
-      <div class="tactical-frame">
-        <div class="tactical-header font-mono">
-          <div class="tactical-indicator">
-            <span></span> MONITOR STATUS: ACTIVE
+      <!-- Right Column: Vertical Shorts Player -->
+      <div class="hero-video-wrapper" id="video">
+        <div class="tactical-frame-short">
+          <div class="tactical-header font-mono">
+            <div class="tactical-indicator">
+              <span></span> MONITOR: ACTIVE
+            </div>
+            <div>COORDS // 35.67°N, 139.65°E</div>
           </div>
-          <div>SYSTEM_COORDS // 35.6762° N, 139.6503° E</div>
-        </div>
-        <div class="video-container">
-          <iframe 
-            src="https://youtube.com/embed/UzXEbAZM4HQ" 
-            title="Cyber Tetris Video Showcase" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-          </iframe>
+          <div class="video-container-short">
+            <iframe 
+              src="https://youtube.com/embed/UzXEbAZM4HQ" 
+              title="Cyber Tetris Video Showcase" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -987,10 +1009,8 @@
     </div>
   </section>
 
-<div class="keyword-tag-container" style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 20px 0 30px 0;">
-    <!-- Minimalist tag using existing CSS variables for seamless background fit -->
-    <span class="tag" style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Orbitron', sans-serif; opacity: 0.7;">#cybertetris</span>
-</div>
+
+
   
   <!-- Footer -->
   <footer>
@@ -1014,3 +1034,4 @@
 
 </body>
 </html>
+
