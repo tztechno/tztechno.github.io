@@ -315,6 +315,44 @@
       transform: translateY(-2px);
     }
 
+    .btn-magenta {
+      background: linear-gradient(135deg, var(--magenta-glow), #c084fc);
+      color: #020617;
+      box-shadow: 0 0 25px rgba(217, 70, 239, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-left: 16px;
+    }
+
+    .btn-magenta:hover {
+      box-shadow: 0 0 35px rgba(217, 70, 239, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .btn-card-unlock {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: var(--purple-glow);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      margin-top: auto;
+    }
+
+    .btn-card-unlock:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+    }
+
     /* Video Showcase - Tactical Display for Shorts */
     .tactical-frame-short {
       background: var(--bg-panel);
@@ -786,6 +824,9 @@
           <a href="https://cyber-tetris-playground.netlify.app/" target="_blank" class="btn btn-primary font-orbitron">
             <i class="fa-solid fa-play"></i> PLAY SYSTEM NOW
           </a>
+          <a href="https://cyber-tetris-playground.netlify.app/vsAI?checkout=true" target="_blank" class="btn btn-magenta font-orbitron">
+            <i class="fa-solid fa-unlock-keyhole"></i> UNLOCK VS AI (¥300)
+          </a>
         </div>
       </div>
 
@@ -847,12 +888,15 @@
         <div class="mode-card card-vsai">
           <div class="mode-icon"><i class="fa-solid fa-microchip"></i></div>
           <h3 class="mode-title font-orbitron">VS CYBER AI</h3>
-          <p class="mode-desc">ダイクストラ探索アルゴリズムに基づいた高速評価AIと対戦。難易度の壁に打ち勝て。</p>
-          <ul class="mode-spec font-mono">
+          <p class="mode-desc">ダイクストラ探索アルゴリズムに基づいた高速評価AIと対戦。難易度の壁に打ち勝て。（※最初2回は無料お試しが可能）</p>
+          <ul class="mode-spec font-mono" style="margin-bottom: 20px;">
             <li><i class="fa-solid fa-check"></i> REAL-TIME DECISION ENGINE</li>
             <li><i class="fa-solid fa-check"></i> DYNAMIC HEURISTIC CPU</li>
             <li><i class="fa-solid fa-check"></i> COUNTERPLAY CHALLENGE</li>
           </ul>
+          <a href="https://cyber-tetris-playground.netlify.app/vsAI?checkout=true" target="_blank" class="btn-card-unlock">
+            UNLOCK VS AI MODE (¥300)
+          </a>
         </div>
         <!-- AI vs AI Mode -->
         <div class="mode-card card-aivsai">
@@ -1009,12 +1053,6 @@
     </div>
   </section>
 
-<div class="keyword-tag-container" style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 20px 0 30px 0;">
-    <!-- Minimalist tag using existing CSS variables for seamless background fit -->
-    <span class="tag" style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Orbitron', sans-serif; opacity: 0.7;">#cybertetris</span>
-</div>
-
-  
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -1034,6 +1072,10 @@
       <p class="copyright font-mono">&copy; 2026 CYBER TETRIS LAB. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
+
+</body>
+</html>
+
 
 </body>
 </html>
