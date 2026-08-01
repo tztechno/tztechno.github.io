@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Shogi V3 - サポート & よくあるご質問 (FAQ)</title>
+  <meta name="description" content="Cyber Shogi V3 Desktop Editionのインストール・起動方法や、警告画面が出た際の対処法、よくあるご質問（FAQ）を掲載しています。">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+  
+  <style>
+    /* Support Page Specific Adjustments */
+    .support-hero {
+      padding: 120px 0 60px;
+      text-align: center;
+    }
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 100px;
+    }
+    .os-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 600px) {
+      .os-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .os-tab-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 15px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 12px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .os-tab-btn:hover {
+      border-color: #06b6d4;
+      color: #06b6d4;
+      background: rgba(6, 182, 212, 0.05);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+    }
+    .support-section {
+      margin-bottom: 50px;
+      scroll-margin-top: 100px; /* Offset for sticky header */
+    }
+    .support-card {
+      padding: 30px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+    .support-card h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      color: #f8fafc;
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 12px;
+    }
+    .support-card h2 i {
+      font-size: 1.25rem;
+    }
+    .os-mac h2 i { color: #ec4899; }
+    .os-win h2 i { color: #3b82f6; }
+    .os-linux h2 i { color: #f59e0b; }
+    .os-android h2 i { color: #84cc16; }
+    .os-faq h2 i { color: #06b6d4; }
+    
+    .instruction-step {
+      margin-bottom: 25px;
+    }
+    .instruction-step h3 {
+      font-size: 1rem;
+      color: #e2e8f0;
+      margin-bottom: 10px;
+    }
+    .instruction-step ol {
+      margin-left: 20px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .instruction-step ol li {
+      margin-bottom: 8px;
+    }
+    .instruction-step ol li strong {
+      color: #f1f5f9;
+    }
+    .warning-box {
+      background: rgba(239, 68, 68, 0.05);
+      border-left: 3px solid #ef4444;
+      padding: 15px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: #fca5a5;
+      line-height: 1.5;
+    }
+    .warning-box strong {
+      color: #ef4444;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .code-span {
+      font-family: monospace;
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #cbd5e1;
+      font-size: 0.85rem;
+    }
+    .code-block {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: #38bdf8;
+      font-size: 0.85rem;
+      margin: 10px 0;
+      display: block;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 20px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: #f1f5f9;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+    }
+    .faq-question span {
+      color: #06b6d4;
+    }
+    .faq-answer {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      padding-left: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Grid & Effects -->
+  <div class="grid-overlay"></div>
+  <div class="blur-orb-1"></div>
+  <div class="blur-orb-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-microchip"></i>
+        <span>CYBER SHOGI <span class="text-gradient">V3</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-arrow-left text-xs mr-1"></i> メインページに戻る</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero / Title -->
+  <section class="support-hero">
+    <div class="container">
+      <div class="tagline">
+        <span class="tagline-dot"></span>
+        <span>SUPPORT & FAQ PORTAL</span>
+      </div>
+      <h1 class="hero-title" style="font-size: 2.8rem; margin-bottom: 10px;">
+        サポート & <span class="text-gradient">よくあるご質問</span>
+      </h1>
+      <p class="hero-description" style="max-width: 600px; margin: 0 auto;">
+        インストールでエラー画面や警告が出た場合の対処法、および各種トラブルシューティングを掲載しています。
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <div class="support-container">
+    
+    <!-- OS Selection Tabs -->
+    <div class="os-tabs">
+      <a href="#macos" class="os-tab-btn">
+        <i class="fa-brands fa-apple text-xl" style="color: #ec4899;"></i>
+        <span>macOS (Mac)</span>
+      </a>
+      <a href="#windows" class="os-tab-btn">
+        <i class="fa-brands fa-windows text-xl" style="color: #3b82f6;"></i>
+        <span>Windows (Win)</span>
+      </a>
+      <a href="#linux" class="os-tab-btn">
+        <i class="fa-brands fa-linux text-xl" style="color: #f59e0b;"></i>
+        <span>Linux</span>
+      </a>
+      <a href="#android" class="os-tab-btn">
+        <i class="fa-brands fa-android text-xl" style="color: #84cc16;"></i>
+        <span>Android (スマホ)</span>
+      </a>
+    </div>
+
+    <!-- macOS Section -->
+    <section id="macos" class="support-section">
+      <div class="glass-card support-card os-mac">
+        <h2><i class="fa-brands fa-apple"></i> <span>1. macOS版のインストールと起動手順</span></h2>
+        
+        <div class="warning-box">
+          <strong>表示される警告メッセージ:</strong>
+          「Appleは、“CyberShogi”にMacに損害を与えたり、プライバシーを侵害する可能性のあるマルウェアが含まれていないことを検証できませんでした。」
+        </div>
+        
+        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+          この警告は、Appleの年間開発者署名（有料）を行っていない個人開発のアプリに対して、Macの「Gatekeeper」という保護機能が自動的に表示するものです。アプリに問題があるわけではなく、安全に許可を与えることができます。
+        </p>
+
+        <div class="instruction-step">
+          <h3>【方法A】右クリック（副ボタン）から開く（最も簡単）</h3>
+          <ol>
+            <li>ダウンロードした <strong>`CyberShogi.dmg`</strong> をダブルクリックして開き、アプリのアイコンを <strong>「アプリケーション (Applications)」フォルダ</strong> にドラッグ＆ドロップしてコピーします。</li>
+            <li>アプリケーションフォルダを開き、`CyberShogi` アプリを <strong>キーボードの `control` キーを押しながらクリック（または右クリック）</strong> します。</li>
+            <li>表示されたメニューから <strong>「開く」</strong> を選択します。</li>
+            <li>再度警告が出ますが、今度は右下に <strong>「開く」</strong> ボタンが表示されますので、それをクリックします。</li>
+            <li>一度この手順で開くと、次回からは通常通りダブルクリックするだけで起動するようになります。</li>
+          </ol>
+        </div>
+
+        <div class="instruction-step">
+          <h3>【方法B】システム設定から許可する</h3>
+          <ol>
+            <li>アプリを通常通りダブルクリックし、警告画面が出たら一度「キャンセル」で閉じます。</li>
+            <li>Macの画面左上のアップルマークから <strong>「システム設定」</strong> を開きます。</li>
+            <li>左メニューから <strong>「プライバシーとセキュリティ」</strong> を選び、下方向へ少しスクロールします。</li>
+            <li>「セキュリティ」項目に <strong>「"CyberShogi"は開発元を確認できないため、開くことがブロックされました。」</strong> という表示があります。</li>
+            <li>その横にある <strong>「このまま開く」</strong> をクリックし、パスワード等を入力して許可します。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Windows Section -->
+    <section id="windows" class="support-section">
+      <div class="glass-card support-card os-win">
+        <h2><i class="fa-brands fa-windows"></i> <span>2. Windows版のインストールと起動手順</span></h2>
+        
+        <div class="warning-box" style="border-left-color: #3b82f6; color: #93c5fd; background: rgba(59, 130, 246, 0.05);">
+          <strong>表示される警告メッセージ:</strong>
+          「WindowsによってPCが保護されました」（Windows Defender SmartScreen は認識されないアプリの起動を停止しました。）
+        </div>
+        
+        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+          この画面は、Windowsの保護機能が、リリースされて間もない個人開発アプリ（ダウンロード実績数が少ないもの）に対して自動的に表示するものです。
+        </p>
+
+        <div class="instruction-step">
+          <h3>インストールと許可の手順</h3>
+          <ol>
+            <li>ダウンロードした <strong>`CyberShogi_Setup.exe`</strong> を実行します。</li>
+            <li>青い警告画面が表示されたら、文章の中にある <strong>「詳細情報」</strong> という白い文字（リンク）をクリックします。</li>
+            <li>発行元とアプリ名が表示され、画面右下に <strong>「実行」</strong> ボタンが出現します。</li>
+            <li><strong>「実行」</strong> ボタンをクリックすると、セットアップウィザードが起動し、インストールが開始されます。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Linux Section -->
+    <section id="linux" class="support-section">
+      <div class="glass-card support-card os-linux">
+        <h2><i class="fa-brands fa-linux"></i> <span>3. Linux版のインストールと起動手順</span></h2>
+        
+        <div class="warning-box" style="border-left-color: #f59e0b; color: #fde047; background: rgba(245, 158, 11, 0.05);">
+          <strong>注意点:</strong>
+          Linux版は `CyberShogi.AppImage` という単一の実行可能ファイル形式です。起動させるには「実行権限」の付与が必要です。
+        </div>
+
+        <div class="instruction-step">
+          <h3>【方法A】デスクトップ（GUI）で設定する場合</h3>
+          <ol>
+            <li>ダウンロードした <strong>`CyberShogi.AppImage`</strong> を右クリックし、<strong>「プロパティ (Properties)」</strong> を開きます。</li>
+            <li><strong>「アクセス権 (Permissions)」</strong> タブを選択します。</li>
+            <li><strong>「プログラムとして実行することを許可する (Allow executing file as program)」</strong> のチェックボックスにチェックを入れます。</li>
+            <li>プロパティを閉じ、ファイルをダブルクリックするとアプリが起動します。</li>
+          </ol>
+        </div>
+
+        <div class="instruction-step">
+          <h3>【方法B】ターミナル（CUI）で設定する場合</h3>
+          <ol>
+            <li>ターミナルを起動し、ダウンロードしたフォルダへ移動します。</li>
+            <li>以下のコマンドを実行してファイルに実行権限を付与します。
+              <code class="code-block">chmod +x CyberShogi.AppImage</code>
+            </li>
+            <li>その後、ファイルをダブルクリックするか、ターミナルから <code class="code-span">./CyberShogi.AppImage</code> を実行します。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Android Section -->
+    <section id="android" class="support-section">
+      <div class="glass-card support-card os-android">
+        <h2><i class="fa-brands fa-android"></i> <span>4. Android版のインストール手順</span></h2>
+        
+        <div class="warning-box" style="border-left-color: #84cc16; color: #d9f99d; background: rgba(132, 204, 22, 0.05);">
+          <strong>表示される警告メッセージ:</strong>
+          「セキュリティ上の理由から、この提供元からの不明なアプリをインストールすることはできません。」
+        </div>
+
+        <div class="instruction-step">
+          <h3>インストールと許可の手順</h3>
+          <ol>
+            <li>ダウンロードした <strong>`CyberShogi.apk`</strong> ファイルをタップして開きます。</li>
+            <li>警告画面が表示されたら、<strong>「設定」</strong> ボタンをタップします。</li>
+            <li>「不明なアプリのインストール」という設定項目が開くので、ダウンロードに使用したアプリ（Chromeブラウザやファイル管理アプリ）の横にある <strong>「この提供元のアプリを許可」</strong> のスイッチをオン（有効）にします。</li>
+            <li>元の画面に戻り、再度 `.apk` ファイルをタップすると、インストールが正常に進みます。</li>
+            <li>※インストール完了後は、必要に応じて「この提供元のアプリを許可」の設定をオフに戻していただいて問題ありません。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="support-section">
+      <div class="glass-card support-card os-faq">
+        <h2><i class="fa-solid fa-circle-question"></i> <span>5. よくあるご質問 (FAQ)</span></h2>
+        
+        <div class="faq-item">
+          <div class="faq-question"><span>Q.</span> オフライン（インターネットがない場所）でも対局や解析はできますか？</div>
+          <div class="faq-answer">
+            <strong>A. はい、完全にオフラインで動作します。</strong><br>
+            本アプリは将棋思考エンジン（WASM版）をすべてアプリ内部に内蔵しているため、対局や解析の実行時にインターネット通信を行いません。飛行機の中や地下、電波の届かない外出先でも、PCやスマホのバッテリーがある限りすべての機能をご利用いただけます。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><span>Q.</span> アプリのアップデートはどうすればいいですか？</div>
+          <div class="faq-answer">
+            <strong>A. 最新版のインストーラーをダウンロードし、上書きインストールを行ってください。</strong><br>
+            新しいバージョンがリリースされた際は、ストアのダウンロードリンクから最新のファイルを再度ダウンロードし、既存のアプリに上書きする形で再度インストールを行ってください。過去の対戦履歴や設定内容が消去されることはありません。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><span>Q.</span> 起動した後にAI思考エンジンが「loading...」のまま動きません</div>
+          <div class="faq-answer">
+            <strong>A. 初回起動時のみ、エンジンの初期化に最大で数秒〜十数秒程度かかる場合があります。</strong><br>
+            特に最初の対局開始時などは、WebAssemblyエンジンの初期化処理およびメモリの確保が走るため、ロード時間が長くなることがあります。少しお待ちいただいてもロードが終わらない場合は、一度アプリを再起動してお試しください。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><span>Q.</span> 問い合わせや不具合の報告はどこから行えますか？</div>
+          <div class="faq-answer">
+            <strong>A. ストアの問い合わせ、または管理者宛てにお気軽にご連絡ください。</strong><br>
+            今後もユーザーの皆様からいただいたフィードバックや質問を、このFAQページに順次追加し、アプリの品質向上に努めてまいります。不具合やご意見がございましたら、いつでもお問い合わせ窓口までお知らせください。
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <a href="index.html" class="footer-logo">
+        CYBER SHOGI <span class="text-gradient">V3</span>
+      </a>
+      <p>&copy; 2026 Cyber Shogi Store Matrix. Designed for Immersive Entertainment.</p>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">メインページに戻る</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
