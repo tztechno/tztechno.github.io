@@ -118,6 +118,10 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber TwixT](https://tztechno.github.io/proj09/)
 
+[Cyber Tetris](https://tztechno.github.io/proj10/)
+
+[Cyber Shogi V3](https://tztechno.github.io/proj11/)
+
 ## profile & portfolio
 
 [profile](https://tztechno.github.io/profile/)
