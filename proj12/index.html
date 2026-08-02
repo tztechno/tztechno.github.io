@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Chess V3 Desktop Edition - 極限のチェスシミュレーター</title>
+  <meta name="description" content="時間的差分学習によるニューラル評価モデルと、美しいネオンマトリックス空間で対峙する新次元チェス。オフラインでの高速深層探索に対応。Mac, Windows, Linux, Android対応。">
+  <meta name="keywords" content="サイバーチェス, CyberChess, チェスAI, Stockfish, チェスアプリ, 棋譜解析, pgn棋譜">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj12/">
+  <meta property="og:title" content="Cyber Chess V3 Desktop Edition - 極限のチェスシミュレーター">
+  <meta property="og:description" content="超高速ネイティブエンジン搭載。3D空間で強豪AIとの対局、AI同士の対局観戦、PGN形式の棋譜記録・再現に対応。">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+
+  <style>
+    /* Hologram Chessboard Mockup Container */
+    .chess-mockup-container {
+      width: 100%;
+      max-width: 290px;
+      aspect-ratio: 1 / 1;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      border: 1px solid var(--border-slate);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--pink-glow);
+      background: rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      perspective: 1000px;
+    }
+    
+    .chess-mockup-container:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(236, 72, 153, 0.4);
+    }
+    
+    .chess-board-grid {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      border: 2px solid var(--pink);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+      transform: rotateX(25deg) rotateZ(-15deg);
+      transform-style: preserve-3d;
+      background: #020617;
+      border-radius: 4px;
+    }
+    
+    .chess-square {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      position: relative;
+    }
+    
+    .chess-square.dark {
+      background: rgba(15, 23, 42, 0.95);
+    }
+    
+    .chess-square.light {
+      background: rgba(236, 72, 153, 0.04);
+      border: 1px solid rgba(236, 72, 153, 0.08);
+    }
+    
+    .piece-cyan {
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--cyan);
+      animation: float 2.5s ease-in-out infinite alternate;
+      transform: translateZ(5px);
+    }
+    
+    .piece-pink {
+      color: var(--pink);
+      text-shadow: 0 0 8px var(--pink);
+      animation: float 2.5s ease-in-out infinite alternate-reverse;
+      transform: translateZ(5px);
+    }
+    
+    @keyframes float {
+      0% { transform: translateZ(2px) translateY(0); }
+      100% { transform: translateZ(12px) translateY(-2px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Grid & Effects -->
+  <div class="grid-overlay"></div>
+  <div class="blur-orb-1" style="background-color: rgba(236, 72, 153, 0.08);"></div>
+  <div class="blur-orb-2" style="background-color: rgba(34, 211, 238, 0.08);"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo logo-pink">
+        <i class="fa-solid fa-chess-knight"></i>
+        <span>CYBER CHESS <span class="text-gradient">V3</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features" class="nav-link nav-link-pink">特徴</a>
+        <a href="#comparison" class="nav-link nav-link-pink">機能比較</a>
+        <a href="#gpl" class="nav-link nav-link-pink">オープンソース</a>
+        <a href="support.html" class="nav-link nav-link-pink">サポート (FAQ)</a>
+        <a href="https://cyber-matrix.netlify.app/products/chess" class="btn btn-pink btn-sm">ストアを見る</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <!-- Left content -->
+      <div class="hero-content">
+        <div class="tagline">
+          <span class="tagline-dot"></span>
+          <span>CYBER CHESS MATRIX PORTAL</span>
+        </div>
+        <h1 class="hero-title">
+          Cyber Chess <br>
+          <span class="text-gradient neon-text-pink">Desktop Edition</span>
+        </h1>
+        <p class="hero-description">
+          PCの極限パワーを引き出す。3Dホログラム空間と超高速・最強チェスAI（Stockfish & Fairy-Stockfish）が融合した究極のデスクトップチェスシミュレーター。<br><br>
+          デスクトップ型（Mac, Win, Linux, Android対応）で、強豪AIとの対戦だけでなく、AI同士のリアルタイム対局観戦や、PGN形式の棋譜記録・再現など多彩な機能を搭載しています。
+        </p>
+        <div class="hero-cta">
+          <a href="https://cyber-matrix.netlify.app/products/chess" class="btn btn-pink">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>ダウンロード・購入ページへ</span>
+          </a>
+          <a href="#features" class="btn btn-outline btn-outline-pink">
+            <span>機能をもっと見る</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Hologram preview mockup -->
+      <div class="video-wrapper">
+        <div class="chess-mockup-container">
+          <div class="chess-board-grid">
+            <!-- Row 8 -->
+            <div class="chess-square light"><i class="fa-solid fa-chess-rook piece-pink"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-king piece-pink"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-rook piece-pink"></i></div>
+            
+            <!-- Row 7 -->
+            <div class="chess-square dark"><i class="fa-solid fa-chess-pawn piece-pink"></i></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-pink"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-pink"></i></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-pawn piece-pink"></i></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-pink"></i></div>
+
+            <!-- Row 6 -->
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-knight piece-pink"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+
+            <!-- Row 5 -->
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-queen piece-pink"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+
+            <!-- Row 4 -->
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+
+            <!-- Row 3 -->
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-knight piece-cyan"></i></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-bishop piece-cyan"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+
+            <!-- Row 2 -->
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-pawn piece-cyan"></i></div>
+
+            <!-- Row 1 -->
+            <div class="chess-square dark"><i class="fa-solid fa-chess-rook piece-cyan"></i></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"><i class="fa-solid fa-chess-king piece-cyan"></i></div>
+            <div class="chess-square light"></div>
+            <div class="chess-square dark"></div>
+            <div class="chess-square light"><i class="fa-solid fa-chess-rook piece-cyan"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="section-features">
+    <div class="container">
+      <div class="section-header">
+        <h2>デスクトップアプリならではのメリット</h2>
+        <p>完全オフラインに対応し、PCならではの安定した動作環境を提供します。</p>
+      </div>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon feature-icon-pink">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3>軽快で安定したチェスAI</h3>
+          <p>アプリ環境に最適化された内蔵WebAssembly（WASM）エンジンにより、ブラウザの通信状況に左右されない、安定した快適な思考探索を実現。</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon feature-icon-pink">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <h3>大画面に最適化した3D UI</h3>
+          <p>近未来 of 3Dホログラムを模した没入型盤面。画面ズーム機能やスプリットレイアウトにより、検討・観戦時にも視線のブレや崩れが発生しません。</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon feature-icon-pink">
+            <i class="fa-solid fa-file-code"></i>
+          </div>
+          <h3>PGN棋譜記録・再現</h3>
+          <p>標準的なチェス棋譜フォーマットであるPGN形式のインポート/エクスポートに対応。過去の対局再現や、他ソフトで記録した棋譜の研究がスムーズに行えます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section id="comparison" class="section-comparison">
+    <div class="container">
+      <div class="section-header">
+        <h2>他チェスアプリとの機能比較</h2>
+        <p>一般的なモバイル向けチェスアプリと本製品の主な機能・仕様の比較表です。</p>
+      </div>
+      
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="highlight-col highlight-col-pink">サイバーチェス V3 (本製品)</th>
+              <th>一般的なモバイル向けチェスアプリ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>対象プラットフォーム</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> PC (Mac / Win / Linux) + Android</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> モバイル (iOS / Android)</td>
+            </tr>
+            <tr>
+              <td><strong>思考エンジンの動作性能</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> <strong>内蔵WASMエンジン</strong> (アプリ環境に最適化され、PCならではの安定した思考探索)</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> クラウド通信または端末依存の簡易探索</td>
+            </tr>
+            <tr>
+              <td><strong>UIデザイン</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> 没入感ある3DマトリックスUI (ズーム・スプリット搭載)</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> フラットな2Dモバイル特化UI</td>
+            </tr>
+            <tr>
+              <td><strong>対局・観戦モード</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> <strong>AI vs AI (リアルタイム観戦)</strong>、Player vs AI、完全オフライン対応</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> AI対戦のみ、またはオンライン対戦前提</td>
+            </tr>
+            <tr>
+              <td><strong>UCIエンジンの動作規格</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> <strong>UCIプロトコル準拠</strong>。標準的な思考プロトコルによる信頼性の高い挙動</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> アプリ内独自の不透明なエンジン実装</td>
+            </tr>
+            <tr>
+              <td><strong>料金形態</strong></td>
+              <td class="highlight-col highlight-col-pink"><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> <strong>買い切り一括 ¥2,980</strong> (追加課金・サブスクなし)</td>
+              <td><i class="fa-solid fa-circle-check check-icon check-icon-pink"></i> サブスクリプションまたは広告表示あり</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source GPL Section -->
+  <section id="gpl" class="section-gpl">
+    <div class="container">
+      <div class="glass-card gpl-card" style="border-left-color: var(--pink); box-shadow: 0 4px 20px rgba(236, 72, 153, 0.05);">
+        <div class="gpl-title-area">
+          <span class="gpl-badge">GPL v3 Compliance</span>
+          <h2 class="neon-text-pink">オープンソースライセンスへの準拠</h2>
+        </div>
+          <p class="gpl-text">
+            本製品は、GNU General Public License v3 (GPLv3) に基づいて公開されている、世界最高峰のチェス思考エンジン「Stockfish」および「Fairy-Stockfish」のWebAssembly（WASM）プログラムを内蔵しています。<br><br>
+            GPLv3の規約に基づき、これらのエンジンプログラム自体のソースコードは自由に入手・改変・配布可能です。また、UIおよび決済連携部分のプログラムは別スレッド（WebWorker）上で疎結合として動作しているため、本ショップ提供元の独占的所有物（クローズドソース）として法的に保護されています。
+          </p>
+        <div class="source-links">
+          <a href="https://github.com/official-stockfish/Stockfish" target="_blank" rel="noopener noreferrer" class="source-btn">
+            <i class="fa-brands fa-github"></i>
+            <span>Stockfish Source Code</span>
+          </a>
+          <a href="https://github.com/fairy-stockfish/Fairy-Stockfish" target="_blank" rel="noopener noreferrer" class="source-btn">
+            <i class="fa-brands fa-github"></i>
+            <span>Fairy-Stockfish Source Code</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-card" style="border-color: rgba(236, 72, 153, 0.3); box-shadow: 0 0 30px rgba(236, 72, 153, 0.1);">
+        <h2>本格AIのパワーを、あなたのデスクトップに</h2>
+        <p>ご購入後、即座に暗号化された安全なダウンロードURLが発行され、インストールできます。PCならではの安定したシミュレーションをご体感ください。</p>
+        <a href="https://cyber-matrix.netlify.app/products/chess" class="btn btn-pink btn-lg">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>ダウンロード・購入ページへ進む</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <a href="#" class="footer-logo">
+        CYBER CHESS <span class="text-gradient">V3</span>
+      </a>
+      <p>&copy; 2026 Cyber Chess Store Matrix. Designed for Immersive Entertainment.</p>
+      <div class="footer-links">
+        <a href="support.html" class="footer-link footer-link-pink" style="margin-right: 20px;">インストールガイド・Q&A</a>
+        <a href="https://cyber-matrix.netlify.app/products/chess" class="footer-link footer-link-pink">ダウンロード・購入ページへ</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
