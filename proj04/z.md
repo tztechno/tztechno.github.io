@@ -1,7 +1,7 @@
 
 2026/07/04 release
 
-cyber othello
+cyber chess
 https://chess-ai-studio.netlify.app/
 
 related works
