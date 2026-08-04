@@ -118,6 +118,10 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Shogi V3](https://tztechno.github.io/proj11/)
 
+[Cyber Chess V3](https://tztechno.github.io/proj12/)
+
+[Cyber Igo](https://tztechno.github.io/proj13/)
+
 ## profile & portfolio
 
 [profile](https://tztechno.github.io/profile/)
