@@ -1,4 +1,4 @@
-# CyberChessiV3
+# CyberChessV3
 
 https://cyber-matrix.netlify.app/
 
