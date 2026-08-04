@@ -1,246 +1,360 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cyber Igo - 3D電子ホログラム × AI超知能囲碁シミュレーター</title>
-  <meta name="description" content="ホログラムのように輝く3D電子盤面。深層探査ロジックを搭載した超知能MCTS AI。あらゆる囲碁体験を過去にする、最先端のタクティカル・シミュレーター「Cyber Igo」のランディングページ。">
-  
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイバー囲碁（Cyber Igo）| 覚醒するホログラム・ネオン囲碁</title>
+    <style>
+        /* Custom Fonts & Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg-dark: #020205;
+            --bg-card: #0a0b14;
+            --accent-glow: #06b6d4; /* Neon Cyan */
+            --accent-pink: #ec4899; /* Neon Pink */
+            --accent-amber: #f59e0b; /* Amber */
+            --text-main: #f0f2f5;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Scanlines Overlay effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Hero / Header Section */
+        header {
+            position: relative;
+            padding: 100px 20px 80px 20px;
+            background: radial-gradient(circle at center, #083344 0%, var(--bg-dark) 80%);
+            border-bottom: 1px solid var(--border-color);
+        }
+        h1 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .hero-lead {
+            max-width: 700px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        /* Container & Main Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+        /* Call To Action Button */
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .btn-primary {
+            display: inline-block;
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #020205;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-pink) 100%);
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.7);
+            filter: brightness(1.15);
+        }
+        .btn-subtext {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        /* Grid Layout for Features */
+        .grid-section {
+            margin-bottom: 80px;
+        }
+        .section-title {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        .section-title span {
+            color: var(--accent-glow);
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-glow), transparent);
+        }
+        .feature-card.amber::before {
+            background: linear-gradient(to bottom, var(--accent-amber), transparent);
+        }
+        .feature-card.glow {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 5px 25px rgba(6, 182, 212, 0.15);
+        }
+        .feature-card.amber:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 5px 25px rgba(245, 158, 11, 0.15);
+        }
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .feature-card a {
+            color: var(--accent-glow);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .feature-card a:hover {
+            color: var(--accent-pink);
+            text-shadow: 0 0 8px rgba(256, 0, 128, 0.3);
+        }
+        
+        /* Final Callout */
+        .final-callout {
+            text-align: center;
+            background: radial-gradient(circle at center, #0f172a 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 60px 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+        .final-callout h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .final-callout p {
+            max-width: 650px;
+            margin: 0 auto 35px auto;
+            color: var(--text-muted);
+        }
+        
+        /* Tags & Footer */
+        .tag {
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .final-callout {
+                padding: 40px 20px;
+            }
+            header {
+                padding: 60px 20px 40px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Background Glow Effects -->
-  <div class="glow-orb glow-orb-cyan"></div>
-  <div class="glow-orb glow-orb-pink"></div>
+    <!-- Header / Hero Section (2-column layout for PC) -->
+    <header style="text-align: left;">
+        <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center;">
+            
+            <!-- Left Column: Marketing Copy -->
+            <div style="flex: 1 1 500px; min-width: 300px;">
+                <h1 style="text-align: left; margin-bottom: 20px;">☖ CYBER IGO</h1>
+                <p class="subtitle" style="margin-bottom: 25px;">量子盤面と深層知性が織りなす極限のシミュレータ — High-Tech Holographic Tactical Grid</p>
+                
+                <p class="hero-lead" style="margin: 0 0 35px 0; text-align: left; font-size: 1rem;">
+                    Web上にある単なる2Dの囲碁盤に退屈していませんか？<br><br>
+                    ホログラムのように輝く美しいネオン盤面と、深層探査ロジックを搭載した超知能AIが融合した本格的なサイバー・囲碁・シミュレーターが誕生しました。<br>
+                    難易度選択や自己強化学習脳を搭載したAI対戦、自律演算AI同士の自動対局HUD、さらには棋譜データをロードして一手ずつ分析・再現できるSGF棋譜再生プレイヤー。ダウンロード一切不要、あなたのブラウザを極限の戦術キャビネットへと変貌させます。
+                </p>
+                
+                <div class="cta-container" style="text-align: left; margin: 0;">
+                    <!-- Netlifyデプロイ先URL。適宜実際のものへ変更してください -->
+                    <a href="https://cyber-igo.netlify.app/" class="btn-primary" target="_blank">INITIALIZE SYSTEM & START</a>
+                    <span class="btn-subtext" style="text-align: left;">（別ウィンドウでゲーム画面を開き、量子演算盤を起動せよ。）</span>
+                </div>
+            </div>
 
-  <!-- Header -->
-  <header>
-    <div class="container header-container">
-      <a href="#" class="logo">
-        <div class="logo-icon">
-          <i class="fa-solid fa-circle-nodes"></i>
-        </div>
-        <div class="logo-text">
-          <h1>CYBER IGO</h1>
-          <span>Tactical AI Hologram</span>
-        </div>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="#features">特長</a></li>
-          <li><a href="#showcase">動画デモ</a></li>
-          <li><a href="#pricing">プラン料金</a></li>
-          <li><a href="#license">ライセンス</a></li>
-          <li><a href="https://cyber-igo.netlify.app/" target="_blank" class="nav-btn"><i class="fa-solid fa-gamepad"></i> ゲーム起動</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+            <!-- Right Column: Vertical Shorts Player -->
+            <div style="flex: 0 1 320px; width: 100%; max-width: 320px;">
+                <div style="position: relative; aspect-ratio: 9 / 16; border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(6, 182, 212, 0.3);">
+                    <!-- Showcase Video Embed -->
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/TToZCq09Jew" 
+                        title="サイバー囲碁 筐体映像" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <div class="container">
-      <div class="hero-badges">
-        <div class="badge badge-cyan">SYSTEM ONLINE</div>
-        <div class="badge badge-pink">V3-ENGINE LOADED</div>
-      </div>
-      <h2>未体験の<br><span class="neon-text-gradient">サイバー囲碁</span>へようこそ</h2>
-      <p>
-        ホログラムのように輝く3D電子盤面。深層探査ロジックを搭載した超知能MCTS AI。<br>
-        あらゆる囲碁体験を過去にする、Web/デスクトップ対応の極限タクティカル・シミュレーター。
-      </p>
-      <div class="hero-ctas">
-        <a href="https://cyber-igo.netlify.app/" target="_blank" class="btn btn-primary">
-          <i class="fa-solid fa-play"></i> 無料版をプレイする
-        </a>
-        <a href="https://cyber-igo.netlify.app/shop" target="_blank" class="btn btn-secondary">
-          <i class="fa-solid fa-crown"></i> PRO版ライセンス購入
-        </a>
-        <a href="https://github.com/tztechno/igo_ai_game" target="_blank" class="btn btn-outline">
-          <i class="fa-brands fa-github"></i> GitHubリポジトリ
-        </a>
-      </div>
+
+        <!-- Section 1: Core Mechanics -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🛡️</span> 伝統的ルールシミュレーションと着手禁止判定</h2>
+            <div class="feature-grid">
+                <div class="feature-card glow">
+                    <h3>完全再現された囲碁ルールとアゲハマ判定</h3>
+                    <p>黒番（先手/青）と白番（後手/赤）の交互着手、上下左右の呼吸点（Liberties）喪失による石の捕獲（アゲハマ）を完全シミュレート。着手禁止点やコウの同形反復制限、Tromp-Taylorルールによる終局時の地（ territory）の集計・コミ（6.5目）の加算もサポートします。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>リアルタイムWeb Audio音響合成</h3>
+                    <p>外部のサウンドファイルを読み込むのではなく、ブラウザのAudioContextをコードで直接制御。石を置いた時の打撃音や、王手・終局警告などの効果音をミリ秒単位で発振生成（シンセサイズ）します。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Advanced Features -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🧠</span> 自己対局強化学習と知能の可視化</h2>
+            <div class="feature-grid">
+                <div class="feature-card amber">
+                    <h3>AI vs AI 観戦 ＆ 思考HUDモニター</h3>
+                    <p>自律演算モデル同士が対戦するAI対戦モードを搭載。強化学習脳による自己学習と極限バトルの推移をリアルタイムHUDで観戦・モニタリングできます。</p>
+                </div>
+                <div class="feature-card glow">
+                    <h3>SGF棋譜再生プレイヤー (Replay)</h3>
+                    <p>プロ棋戦などのSGF（Smart Game Format）形式で記録された棋譜ファイルをドラッグ＆ドロップまたはテキスト読み込みでロードし、一手ずつ巻き戻し・早送り再生できる鑑賞・研究システムを実装。最高峰の戦術パターンをトレースできます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Game Modes -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🌐</span> プレイヤーを支援するインターフェース</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>多彩な思考レベルを持つAIエンジン</h3>
+                    <p>「普通」「強い」「極み（Expert）」、そして時間的差分学習（TD法）を用いた「自己強化学習モデル」まで搭載。プレイヤーの棋力に合わせて対局難易度を自在に切り替えられます。</p>
+                </div>
+                <div class="feature-card amber">
+                    <h3>ライセンス構成とGitHubオープンソース</h3>
+                    <p>本製品のAIエンジン統合システムは、高度な高速動作と商用ライセンス遵守のために<strong>GPLv3非対応エンジン（非オープンソース / 独自統合モジュール）</strong>として設計されています。一方で、フロントエンドのUIおよび統合コード部分はMITライセンスのオープンソースとして公開されています。<br><br><a href="https://github.com/tztechno/igo_ai_game" target="_blank">GitHubリポジトリを見る &rarr;</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Callout -->
+        <div class="final-callout">
+            <h2>ネオンきらめく電子の戦場で、深層知性に勝利せよ。</h2>
+            <p>
+                「サイバー囲碁」は、単なるボードゲームのクローンではありません。現代のWebフロントエンドテクノロジー、WebGLによる3D変形、リアルタイム音響処理、そして強化学習AIが融合した次世代のレトロSF体験です。純粋な電子の激突をお楽しみください。
+            </p>
+            <div class="cta-container" style="margin-bottom: 0;">
+                <a href="https://cyber-igo.netlify.app/" class="btn-primary" target="_blank">ACCESS TERMINAL & START</a>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <!-- Video Showcase Section -->
-  <section id="showcase" class="showcase">
-    <div class="container">
-      <div class="showcase-grid">
-        <div class="showcase-text">
-          <div class="badge badge-pink">GAMEPLAY SHOWCASE</div>
-          <h3>次元を超える、<br><span style="color: var(--pink-primary); text-shadow: 0 0 10px var(--pink-glow);">視覚的囲碁シミュレーター</span></h3>
-          <p>
-            ブラウザで滑らかに動作する、ネオンエフェクト満載の3D対局画面をショート動画で公開中。
-            リアルタイムの石の呼吸点（呼吸点・Liberties）インジケータ、3D回転盤面、AI思考ログなどの近未来UIをその目でご確認ください。
-          </p>
-          <div class="showcase-bullets">
-            <div class="bullet-item">
-              <div class="bullet-icon"><i class="fa-solid fa-rotate"></i></div>
-              <div>ドラッグ操作による自在な3Dアングル回転・ズーム対応</div>
-            </div>
-            <div class="bullet-item bullet-pink">
-              <div class="bullet-icon"><i class="fa-solid fa-bolt"></i></div>
-              <div>石を置いた瞬間に広がるネオンウェーブ・エフェクト</div>
-            </div>
-            <div class="bullet-item">
-              <div class="bullet-icon"><i class="fa-solid fa-microchip"></i></div>
-              <div>KataGoによる勝率評価と次の一手候補の可視化</div>
-            </div>
-          </div>
-        </div>
-        <div class="phone-mockup-wrapper">
-          <div class="phone-mockup">
-            <div class="phone-notch"></div>
-            <!-- Embedded YouTube Short in Portrait -->
-            <iframe 
-              src="https://www.youtube.com/embed/TToZCq09Jew?autoplay=1&mute=1&loop=1&playlist=TToZCq09Jew&controls=0&rel=0" 
-              title="Cyber Igo Demo video" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              allowfullscreen>
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="keyword-tag-container" style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 20px 0 30px 0;">
+    <!-- Minimalist tag using existing CSS variables for seamless background fit -->
+    <span class="tag" style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Orbitron', sans-serif; opacity: 0.7;">#cyberigo</span>
+</div>
 
-  <!-- Features Grid Section -->
-  <section id="features">
-    <div class="container">
-      <div class="section-title">
-        <span>CAPABILITIES</span>
-        <h2>FEATURES / 特長とシステム構成</h2>
-      </div>
-      <div class="features-grid">
-        <!-- Card 1 -->
-        <div class="feature-card">
-          <div>
-            <div class="feature-icon"><i class="fa-solid fa-cube"></i></div>
-            <h3>3Dホログラム盤面</h3>
-            <p>3D空間でダイナミックに回転・傾斜する電子盤面。視点を自在に調整でき、ネオンとグリッドが織りなす圧倒的なビジュアル表現。</p>
-          </div>
-          <div class="feature-tag">VISUAL SYSTEM</div>
-        </div>
-        <!-- Card 2 -->
-        <div class="feature-card pink">
-          <div>
-            <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
-            <h3>WASM思考エンジン</h3>
-            <p>MITライセンスのKataGo（6-block & 20-block）をブラウザ内で超高速実行。ローカルで動作するため、通信遅延なしで高精度の探索が可能です。</p>
-          </div>
-          <div class="feature-tag">INTELLIGENCE</div>
-        </div>
-        <!-- Card 3 -->
-        <div class="feature-card purple">
-          <div>
-            <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
-            <h3>多彩な対局モード</h3>
-            <p>1台の端末で交互に打つローカル戦、AI対戦（3つの強さ＋強化学習モデル）、AI同士の自律対局を観察するシミュレータ、SGF棋譜再生を搭載。</p>
-          </div>
-          <div class="feature-tag">GAME MODES</div>
-        </div>
-        <!-- Card 4 -->
-        <div class="feature-card amber">
-          <div>
-            <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
-            <h3>ビジュアル＆サウンド</h3>
-            <p>サイバーネオン、宇宙ギャラクシー、ミニマルダーク、クラシックウッドの4つのテーマに変更可能。未来感あふれる効果音やBGMで対局を演出。</p>
-          </div>
-          <div class="feature-tag">CUSTOMIZATION</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing">
-    <div class="container">
-      <div class="section-title">
-        <span>LICENSING & PRICING</span>
-        <h2>PLANS / ライセンスと料金</h2>
-      </div>
-      <div class="pricing-grid">
-        <!-- Free Plan -->
-        <div class="pricing-card">
-          <div>
-            <div class="pricing-card-header">
-              <h3>FREE / フリー版</h3>
-              <span class="plan-badge plan-badge-free">無料でお試し</span>
-            </div>
-            <div class="pricing-price">
-              <span class="price">¥0</span>
-              <div class="price-sub">初期費用・月額なし</div>
-            </div>
-            <hr>
-            <ul class="pricing-list">
-              <li><i class="fa-solid fa-check"></i> <span>人間同士のローカル対戦 (無制限)</span></li>
-              <li><i class="fa-solid fa-check"></i> <span>SGF棋譜再生プレイヤー (無制限)</span></li>
-              <li><i class="fa-solid fa-check"></i> <span>対AI対戦 (最大3局までお試し可能)</span></li>
-              <li><i class="fa-solid fa-xmark"></i> <span>KataGo 高精度版 (20-block) 思考</span></li>
-            </ul>
-          </div>
-          <a href="https://cyber-igo.netlify.app/" target="_blank" class="btn btn-outline pricing-btn">無料版をプレイ</a>
-        </div>
-        
-        <!-- PRO Plan -->
-        <div class="pricing-card premium">
-          <div>
-            <div class="pricing-card-header">
-              <h3>PRO / プロ版</h3>
-              <span class="plan-badge plan-badge-pro">買い切りライセンス</span>
-            </div>
-            <div class="pricing-price">
-              <span class="price">¥980</span>
-              <div class="price-sub">一回のみの決済（追加料金なし）</div>
-            </div>
-            <hr>
-            <ul class="pricing-list">
-              <li class="active"><i class="fa-solid fa-check"></i> <strong>対AI対戦を無制限でプレイ可能</strong></li>
-              <li class="active"><i class="fa-solid fa-check"></i> <strong>KataGo (高精度版) 全思考の解放</strong></li>
-              <li class="active"><i class="fa-solid fa-check"></i> <strong>ヒント＆形勢分析＆候補手表示の無制限化</strong></li>
-              <li><i class="fa-solid fa-check"></i> <span>今後の全アップデート（新盤面・新AI）の無料適用</span></li>
-            </ul>
-          </div>
-          <a href="https://cyber-igo.netlify.app/shop" target="_blank" class="btn btn-secondary pricing-btn">PRO版を購入 (Stripe)</a>
-        </div>
-      </div>
-
-      <!-- License & Open Source Banner -->
-      <div id="license" class="license-banner">
-        <h4>ENGINE & CODE LICENSE / ライセンス設計について</h4>
-        <p>
-          本製品のAIエンジン統合システムは、高度な高速動作と商用ライセンス遵守のために<strong>GPLv3非対応エンジン（非オープンソース / 独自統合モジュール）</strong>として設計・実装されています。
-          これにより、コピーレフトライセンスの感染を防ぎ、商用ソフトウェアとしての確かな運用を実現しています。
-        </p>
-        <p>
-          一方で、フロントエンドのUIコンポーネントおよびパッケージラッパー部分については、透明性の確保とコミュニティへの還元の観点から、<strong>MITライセンスのオープンソース</strong>としてGitHub上に公開されています。
-        </p>
-        <a href="https://github.com/tztechno/igo_ai_game" target="_blank" class="license-github-btn">
-          <i class="fa-brands fa-github"></i>
-          <span>GitHubリポジトリ: tztechno/igo_ai_game</span>
-          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>Cyber Igo Matrix Simulator &copy; 2026. Designed for Immersive Entertainment.</p>
-      <div class="footer-links">
-        <a href="https://github.com/tztechno/igo_ai_game" target="_blank">GitHub</a>
-        <a href="https://cyber-igo.netlify.app/" target="_blank">ゲーム起動</a>
-        <a href="https://cyber-igo.netlify.app/shop" target="_blank">PRO版購入</a>
-      </div>
-    </div>
-  </footer>
-
+    
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 CYBER IGO. ALL RIGHTS RESERVED. OPERATIONAL HOLOGRAM TACTICAL GRID.
+    </footer>
 </body>
 </html>
