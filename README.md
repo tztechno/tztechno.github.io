@@ -126,7 +126,9 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [profile](https://tztechno.github.io/profile/)
 
-[portfolio](https://tztechno.github.io/portfolio/)
+[webapp portfolio](https://tztechno.github.io/portfolio/)
+
+[desktop app portfolio](https://cyber-matrix.netlify.app/)
 
 ## kaggle notebooks
 
