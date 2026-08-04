@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Igo - 3D電子ホログラム × AI超知能囲碁シミュレーター</title>
+  <meta name="description" content="ホログラムのように輝く3D電子盤面。深層探査ロジックを搭載した超知能MCTS AI。あらゆる囲碁体験を過去にする、最先端のタクティカル・シミュレーター「Cyber Igo」のランディングページ。">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Glow Effects -->
+  <div class="glow-orb glow-orb-cyan"></div>
+  <div class="glow-orb glow-orb-pink"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <i class="fa-solid fa-circle-nodes"></i>
+        </div>
+        <div class="logo-text">
+          <h1>CYBER IGO</h1>
+          <span>Tactical AI Hologram</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#features">特長</a></li>
+          <li><a href="#showcase">動画デモ</a></li>
+          <li><a href="#pricing">プラン料金</a></li>
+          <li><a href="#license">ライセンス</a></li>
+          <li><a href="https://cyber-igo.netlify.app/" target="_blank" class="nav-btn"><i class="fa-solid fa-gamepad"></i> ゲーム起動</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badges">
+        <div class="badge badge-cyan">SYSTEM ONLINE</div>
+        <div class="badge badge-pink">V3-ENGINE LOADED</div>
+      </div>
+      <h2>未体験の<br><span class="neon-text-gradient">サイバー囲碁</span>へようこそ</h2>
+      <p>
+        ホログラムのように輝く3D電子盤面。深層探査ロジックを搭載した超知能MCTS AI。<br>
+        あらゆる囲碁体験を過去にする、Web/デスクトップ対応の極限タクティカル・シミュレーター。
+      </p>
+      <div class="hero-ctas">
+        <a href="https://cyber-igo.netlify.app/" target="_blank" class="btn btn-primary">
+          <i class="fa-solid fa-play"></i> 無料版をプレイする
+        </a>
+        <a href="https://cyber-igo.netlify.app/shop" target="_blank" class="btn btn-secondary">
+          <i class="fa-solid fa-crown"></i> PRO版ライセンス購入
+        </a>
+        <a href="https://github.com/tztechno/igo_ai_game" target="_blank" class="btn btn-outline">
+          <i class="fa-brands fa-github"></i> GitHubリポジトリ
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Showcase Section -->
+  <section id="showcase" class="showcase">
+    <div class="container">
+      <div class="showcase-grid">
+        <div class="showcase-text">
+          <div class="badge badge-pink">GAMEPLAY SHOWCASE</div>
+          <h3>次元を超える、<br><span style="color: var(--pink-primary); text-shadow: 0 0 10px var(--pink-glow);">視覚的囲碁シミュレーター</span></h3>
+          <p>
+            ブラウザで滑らかに動作する、ネオンエフェクト満載の3D対局画面をショート動画で公開中。
+            リアルタイムの石の呼吸点（呼吸点・Liberties）インジケータ、3D回転盤面、AI思考ログなどの近未来UIをその目でご確認ください。
+          </p>
+          <div class="showcase-bullets">
+            <div class="bullet-item">
+              <div class="bullet-icon"><i class="fa-solid fa-rotate"></i></div>
+              <div>ドラッグ操作による自在な3Dアングル回転・ズーム対応</div>
+            </div>
+            <div class="bullet-item bullet-pink">
+              <div class="bullet-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div>石を置いた瞬間に広がるネオンウェーブ・エフェクト</div>
+            </div>
+            <div class="bullet-item">
+              <div class="bullet-icon"><i class="fa-solid fa-microchip"></i></div>
+              <div>KataGoによる勝率評価と次の一手候補の可視化</div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-mockup-wrapper">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <!-- Embedded YouTube Short in Portrait -->
+            <iframe 
+              src="https://www.youtube.com/embed/TToZCq09Jew?autoplay=1&mute=1&loop=1&playlist=TToZCq09Jew&controls=0&rel=0" 
+              title="Cyber Igo Demo video" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid Section -->
+  <section id="features">
+    <div class="container">
+      <div class="section-title">
+        <span>CAPABILITIES</span>
+        <h2>FEATURES / 特長とシステム構成</h2>
+      </div>
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card">
+          <div>
+            <div class="feature-icon"><i class="fa-solid fa-cube"></i></div>
+            <h3>3Dホログラム盤面</h3>
+            <p>3D空間でダイナミックに回転・傾斜する電子盤面。視点を自在に調整でき、ネオンとグリッドが織りなす圧倒的なビジュアル表現。</p>
+          </div>
+          <div class="feature-tag">VISUAL SYSTEM</div>
+        </div>
+        <!-- Card 2 -->
+        <div class="feature-card pink">
+          <div>
+            <div class="feature-icon"><i class="fa-solid fa-microchip"></i></div>
+            <h3>WASM思考エンジン</h3>
+            <p>MITライセンスのKataGo（6-block & 20-block）をブラウザ内で超高速実行。ローカルで動作するため、通信遅延なしで高精度の探索が可能です。</p>
+          </div>
+          <div class="feature-tag">INTELLIGENCE</div>
+        </div>
+        <!-- Card 3 -->
+        <div class="feature-card purple">
+          <div>
+            <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <h3>多彩な対局モード</h3>
+            <p>1台の端末で交互に打つローカル戦、AI対戦（3つの強さ＋強化学習モデル）、AI同士の自律対局を観察するシミュレータ、SGF棋譜再生を搭載。</p>
+          </div>
+          <div class="feature-tag">GAME MODES</div>
+        </div>
+        <!-- Card 4 -->
+        <div class="feature-card amber">
+          <div>
+            <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
+            <h3>ビジュアル＆サウンド</h3>
+            <p>サイバーネオン、宇宙ギャラクシー、ミニマルダーク、クラシックウッドの4つのテーマに変更可能。未来感あふれる効果音やBGMで対局を演出。</p>
+          </div>
+          <div class="feature-tag">CUSTOMIZATION</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <span>LICENSING & PRICING</span>
+        <h2>PLANS / ライセンスと料金</h2>
+      </div>
+      <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="pricing-card">
+          <div>
+            <div class="pricing-card-header">
+              <h3>FREE / フリー版</h3>
+              <span class="plan-badge plan-badge-free">無料でお試し</span>
+            </div>
+            <div class="pricing-price">
+              <span class="price">¥0</span>
+              <div class="price-sub">初期費用・月額なし</div>
+            </div>
+            <hr>
+            <ul class="pricing-list">
+              <li><i class="fa-solid fa-check"></i> <span>人間同士のローカル対戦 (無制限)</span></li>
+              <li><i class="fa-solid fa-check"></i> <span>SGF棋譜再生プレイヤー (無制限)</span></li>
+              <li><i class="fa-solid fa-check"></i> <span>対AI対戦 (最大3局までお試し可能)</span></li>
+              <li><i class="fa-solid fa-xmark"></i> <span>KataGo 高精度版 (20-block) 思考</span></li>
+            </ul>
+          </div>
+          <a href="https://cyber-igo.netlify.app/" target="_blank" class="btn btn-outline pricing-btn">無料版をプレイ</a>
+        </div>
+        
+        <!-- PRO Plan -->
+        <div class="pricing-card premium">
+          <div>
+            <div class="pricing-card-header">
+              <h3>PRO / プロ版</h3>
+              <span class="plan-badge plan-badge-pro">買い切りライセンス</span>
+            </div>
+            <div class="pricing-price">
+              <span class="price">¥980</span>
+              <div class="price-sub">一回のみの決済（追加料金なし）</div>
+            </div>
+            <hr>
+            <ul class="pricing-list">
+              <li class="active"><i class="fa-solid fa-check"></i> <strong>対AI対戦を無制限でプレイ可能</strong></li>
+              <li class="active"><i class="fa-solid fa-check"></i> <strong>KataGo (高精度版) 全思考の解放</strong></li>
+              <li class="active"><i class="fa-solid fa-check"></i> <strong>ヒント＆形勢分析＆候補手表示の無制限化</strong></li>
+              <li><i class="fa-solid fa-check"></i> <span>今後の全アップデート（新盤面・新AI）の無料適用</span></li>
+            </ul>
+          </div>
+          <a href="https://cyber-igo.netlify.app/shop" target="_blank" class="btn btn-secondary pricing-btn">PRO版を購入 (Stripe)</a>
+        </div>
+      </div>
+
+      <!-- License & Open Source Banner -->
+      <div id="license" class="license-banner">
+        <h4>ENGINE & CODE LICENSE / ライセンス設計について</h4>
+        <p>
+          本製品のAIエンジン統合システムは、高度な高速動作と商用ライセンス遵守のために<strong>GPLv3非対応エンジン（非オープンソース / 独自統合モジュール）</strong>として設計・実装されています。
+          これにより、コピーレフトライセンスの感染を防ぎ、商用ソフトウェアとしての確かな運用を実現しています。
+        </p>
+        <p>
+          一方で、フロントエンドのUIコンポーネントおよびパッケージラッパー部分については、透明性の確保とコミュニティへの還元の観点から、<strong>MITライセンスのオープンソース</strong>としてGitHub上に公開されています。
+        </p>
+        <a href="https://github.com/tztechno/igo_ai_game" target="_blank" class="license-github-btn">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHubリポジトリ: tztechno/igo_ai_game</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Cyber Igo Matrix Simulator &copy; 2026. Designed for Immersive Entertainment.</p>
+      <div class="footer-links">
+        <a href="https://github.com/tztechno/igo_ai_game" target="_blank">GitHub</a>
+        <a href="https://cyber-igo.netlify.app/" target="_blank">ゲーム起動</a>
+        <a href="https://cyber-igo.netlify.app/shop" target="_blank">PRO版購入</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
