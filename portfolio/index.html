@@ -729,7 +729,7 @@
         </div>
         <div class="terminal-body" id="log-body">
           <div class="log-line"><span class="log-time">[13:36:01]</span> <span class="log-tag">SYS:</span> INITIALIZING QUANTUM LINK MANAGER... <span class="log-success">OK</span></div>
-          <div class="log-line"><span class="log-time">[13:36:02]</span> <span class="log-tag">NET:</span> SCANNED LOCAL MATRIX NETWORK: 6 GATES FOUND.</div>
+          <div class="log-line"><span class="log-time">[13:36:02]</span> <span class="log-tag">NET:</span> SCANNED LOCAL MATRIX NETWORK: 9 GATES FOUND.</div>
           <div class="log-line"><span class="log-time">[13:36:03]</span> <span class="log-tag">SYS:</span> ACCESS AUTHORIZATION GRANTED (ID: SHUN_ISHII).</div>
           <div class="log-line"><span class="log-time">[13:36:04]</span> <span class="log-tag">SYS:</span> DEPLOYING COGNITIVE HOST PROTOCOLS...</div>
         </div>
@@ -739,13 +739,63 @@
       <main class="node-grid-container">
         
         <div class="grid-header">
-          <span>HOST NODE DIRECTORY (6 ACTIVE NODES)</span>
+          <span>HOST NODE DIRECTORY (9 ACTIVE NODES)</span>
           <span>SELECT A SIMULATION PROTOCOL</span>
         </div>
 
         <div class="portfolio-grid">
 
-          <!-- Card 1: Cyber Chess (proj04) -->
+          <!-- Card 1: Cyber Othello (proj03) -->
+          <article class="node-card">
+            <div class="card-meta">
+              <span class="node-id">NODE-03 // CYBER OTHELLO</span>
+              <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
+            </div>
+            <div class="holo-display">
+              <div class="radar-sweep"></div>
+              <div class="scan-line"></div>
+              <!-- Othello SVG Hologram -->
+              <svg class="holo-graphic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="9" r="2.5" fill="currentColor"></circle>
+                <circle cx="15" cy="9" r="2.5"></circle>
+                <circle cx="9" cy="15" r="2.5"></circle>
+                <circle cx="15" cy="15" r="2.5" fill="currentColor"></circle>
+                <rect x="4" y="4" width="16" height="16" rx="1"></rect>
+              </svg>
+            </div>
+            <div class="node-details">
+              <div class="node-info-text">
+                <h2 class="node-title">CYBER OTHELLO</h2>
+                <p class="node-desc">盤上の反転美学。AIと戦うリアルタイム解析機能つきオセロ・シミュレーター。漆黒のグリッド上で知略を競う現代の戦場。</p>
+              </div>
+              
+              <div class="node-metrics">
+                <div class="metric-item">
+                  <span class="metric-lbl">CLASS:</span>
+                  <span class="metric-val">BOARD MATRIX</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">LATENCY:</span>
+                  <span class="metric-val ping-val" data-node="3" data-base-ping="13">13ms</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">IP ADDR:</span>
+                  <span class="metric-val">192.168.103.33</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">CPU LOAD:</span>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="3" data-base-load="40" style="width: 40%;"></div></div>
+                </div>
+              </div>
+
+              <div class="node-actions">
+                <a href="https://tztechno.github.io/proj03/" class="console-btn btn-connect" target="_blank" rel="noopener noreferrer">Connect LP</a>
+                <a href="https://othello-ai-game.netlify.app/" class="console-btn btn-launch" target="_blank" rel="noopener noreferrer">Launch Game</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Cyber Chess (proj04) -->
           <article class="node-card">
             <div class="card-meta">
               <span class="node-id">NODE-04 // CYBER CHESS</span>
@@ -765,7 +815,7 @@
             <div class="node-details">
               <div class="node-info-text">
                 <h2 class="node-title">CYBER CHESS</h2>
-                <p class="node-desc">盤上の論理戦 — 64のマス目が織りなす無限の演算。AIによるリアルタイム盤面解析を搭載した戦術シミュレーター。</p>
+                <p class="node-desc">盤上の論理戦 — 64のマス目が織りなす無限 of 演算。AIによるリアルタイム盤面解析を搭載した戦術シミュレーター。</p>
               </div>
               
               <div class="node-metrics">
@@ -775,7 +825,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="4">15ms</span>
+                  <span class="metric-val ping-val" data-node="4" data-base-ping="15">15ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -783,7 +833,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="4" style="width: 25%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="4" data-base-load="25" style="width: 25%;"></div></div>
                 </div>
               </div>
 
@@ -794,7 +844,7 @@
             </div>
           </article>
 
-          <!-- Card 2: Cyber Pokémon (proj05) -->
+          <!-- Card 3: Cyber Pokémon (proj05) -->
           <article class="node-card">
             <div class="card-meta">
               <span class="node-id">NODE-05 // CYBER POKEMON</span>
@@ -824,7 +874,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="5">18ms</span>
+                  <span class="metric-val ping-val" data-node="5" data-base-ping="18">18ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -832,7 +882,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="5" style="width: 45%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="5" data-base-load="45" style="width: 45%;"></div></div>
                 </div>
               </div>
 
@@ -843,7 +893,7 @@
             </div>
           </article>
 
-          <!-- Card 3: Cyber Invaders (proj06) -->
+          <!-- Card 4: Cyber Invaders (proj06) -->
           <article class="node-card">
             <div class="card-meta">
               <span class="node-id">NODE-06 // CYBER INVADERS</span>
@@ -872,7 +922,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="6">12ms</span>
+                  <span class="metric-val ping-val" data-node="6" data-base-ping="12">12ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -880,7 +930,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="6" style="width: 60%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="6" data-base-load="60" style="width: 60%;"></div></div>
                 </div>
               </div>
 
@@ -891,9 +941,9 @@
             </div>
           </article>
 
-          <!-- Card 4: Cyber Checkers (proj07) -->
+          <!-- Card 5: Cyber Checkers (proj07) -->
           <article class="node-card">
-            <div class="node-meta">
+            <div class="card-meta">
               <span class="node-id">NODE-07 // CYBER CHECKERS</span>
               <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
             </div>
@@ -922,7 +972,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="7">20ms</span>
+                  <span class="metric-val ping-val" data-node="7" data-base-ping="20">20ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -930,7 +980,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="7" style="width: 30%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="7" data-base-load="30" style="width: 30%;"></div></div>
                 </div>
               </div>
 
@@ -941,9 +991,9 @@
             </div>
           </article>
 
-          <!-- Card 5: Cyber Shogi (proj08) -->
+          <!-- Card 6: Cyber Shogi (proj08) -->
           <article class="node-card">
-            <div class="node-meta">
+            <div class="card-meta">
               <span class="node-id">NODE-08 // CYBER SHOGI</span>
               <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
             </div>
@@ -969,7 +1019,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="8">14ms</span>
+                  <span class="metric-val ping-val" data-node="8" data-base-ping="14">14ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -977,7 +1027,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="8" style="width: 35%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="8" data-base-load="35" style="width: 35%;"></div></div>
                 </div>
               </div>
 
@@ -988,9 +1038,9 @@
             </div>
           </article>
 
-          <!-- Card 6: Cyber TwixT (proj09) -->
+          <!-- Card 7: Cyber TwixT (proj09) -->
           <article class="node-card">
-            <div class="node-meta">
+            <div class="card-meta">
               <span class="node-id">NODE-09 // CYBER TWIXT</span>
               <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
             </div>
@@ -1014,7 +1064,7 @@
             <div class="node-details">
               <div class="node-info-text">
                 <h2 class="node-title">CYBER TWIXT</h2>
-                <p class="node-desc">量子盤面と接続ルート探索アルゴリズムが織りなす極限のシミュレータ。ペグを連結し敵の妨害を潜り抜ける知略戦。</p>
+                <p class="node-desc">量子盤面と接続ルート探索アルゴリズムが織りなす極限 of シミュレータ。ペグを連結し敵の妨害を潜り抜ける知略戦。</p>
               </div>
               
               <div class="node-metrics">
@@ -1024,7 +1074,7 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">LATENCY:</span>
-                  <span class="metric-val ping-val" data-node="9">17ms</span>
+                  <span class="metric-val ping-val" data-node="9" data-base-ping="17">17ms</span>
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">IP ADDR:</span>
@@ -1032,13 +1082,118 @@
                 </div>
                 <div class="metric-item">
                   <span class="metric-lbl">CPU LOAD:</span>
-                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="9" style="width: 50%;"></div></div>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="9" data-base-load="50" style="width: 50%;"></div></div>
                 </div>
               </div>
 
               <div class="node-actions">
                 <a href="https://tztechno.github.io/proj09/" class="console-btn btn-connect" target="_blank" rel="noopener noreferrer">Connect LP</a>
                 <a href="https://cyber-twixt.netlify.app/" class="console-btn btn-launch" target="_blank" rel="noopener noreferrer">Launch Game</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 8: Cyber Tetris (proj10) -->
+          <article class="node-card">
+            <div class="card-meta">
+              <span class="node-id">NODE-10 // CYBER TETRIS</span>
+              <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
+            </div>
+            <div class="holo-display">
+              <div class="radar-sweep"></div>
+              <div class="scan-line"></div>
+              <!-- Tetris Blocks SVG Hologram -->
+              <svg class="holo-graphic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 6h4v12H6z"></path>
+                <path d="M10 14h8v4h-8z"></path>
+                <path d="M14 6h4v8h-4z"></path>
+                <path d="M6 10h12M10 6v12M14 6v12"></path>
+              </svg>
+            </div>
+            <div class="node-details">
+              <div class="node-info-text">
+                <h2 class="node-title">CYBER TETRIS</h2>
+                <p class="node-desc">AI vs 人間、そして進化を遂げたSFテトリス。自己学習AI、3D/2D表示、シンセサイザー音響を搭載したサイバー・ブロック・マトリクス。</p>
+              </div>
+              
+              <div class="node-metrics">
+                <div class="metric-item">
+                  <span class="metric-lbl">CLASS:</span>
+                  <span class="metric-val">BLOCK STACK</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">LATENCY:</span>
+                  <span class="metric-val ping-val" data-node="10" data-base-ping="16">16ms</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">IP ADDR:</span>
+                  <span class="metric-val">192.168.110.10</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">CPU LOAD:</span>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="10" data-base-load="70" style="width: 70%;"></div></div>
+                </div>
+              </div>
+
+              <div class="node-actions">
+                <a href="https://tztechno.github.io/proj10/" class="console-btn btn-connect" target="_blank" rel="noopener noreferrer">Connect LP</a>
+                <a href="https://cyber-tetris-playground.netlify.app/" class="console-btn btn-launch" target="_blank" rel="noopener noreferrer">Launch Game</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 9: Cyber Igo (proj13) -->
+          <article class="node-card">
+            <div class="card-meta">
+              <span class="node-id">NODE-13 // CYBER IGO</span>
+              <span class="node-status"><span class="pulse-dot"></span>ACTIVE</span>
+            </div>
+            <div class="holo-display">
+              <div class="radar-sweep"></div>
+              <div class="scan-line"></div>
+              <!-- Igo Board SVG Hologram -->
+              <svg class="holo-graphic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="6" y1="6" x2="18" y2="6"></line>
+                <line x1="6" y1="12" x2="18" y2="12"></line>
+                <line x1="6" y1="18" x2="18" y2="18"></line>
+                <line x1="6" y1="6" x2="6" y2="18"></line>
+                <line x1="12" y1="6" x2="12" y2="18"></line>
+                <line x1="18" y1="6" x2="18" y2="18"></line>
+                <circle cx="12" cy="12" r="2" fill="currentColor"></circle>
+                <circle cx="6" cy="12" r="2"></circle>
+                <circle cx="12" cy="6" r="2"></circle>
+                <circle cx="18" cy="12" r="2" fill="currentColor"></circle>
+                <circle cx="12" cy="18" r="2"></circle>
+              </svg>
+            </div>
+            <div class="node-details">
+              <div class="node-info-text">
+                <h2 class="node-title">CYBER IGO</h2>
+                <p class="node-desc">量子盤面と深層知性が織りなす極限のシミュレータ。ホログラムのように輝く美しいネオン盤面と、自己強化学習脳を搭載したAI対戦囲碁。</p>
+              </div>
+              
+              <div class="node-metrics">
+                <div class="metric-item">
+                  <span class="metric-lbl">CLASS:</span>
+                  <span class="metric-val">TERRITORY</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">LATENCY:</span>
+                  <span class="metric-val ping-val" data-node="13" data-base-ping="19">19ms</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">IP ADDR:</span>
+                  <span class="metric-val">192.168.113.13</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-lbl">CPU LOAD:</span>
+                  <div class="metric-val load-bar-container"><div class="load-bar" data-node="13" data-base-load="85" style="width: 85%;"></div></div>
+                </div>
+              </div>
+
+              <div class="node-actions">
+                <a href="https://tztechno.github.io/proj13/" class="console-btn btn-connect" target="_blank" rel="noopener noreferrer">Connect LP</a>
+                <a href="https://cyber-igo.netlify.app/" class="console-btn btn-launch" target="_blank" rel="noopener noreferrer">Launch Game</a>
               </div>
             </div>
           </article>
@@ -1140,10 +1295,9 @@
     const loadBarEls = document.querySelectorAll('.load-bar');
 
     setInterval(() => {
-      // Flucluate Latency values
+      // Fluctuate Latency values
       pingEls.forEach(el => {
-        const basePing = el.getAttribute('data-node') === '6' ? 12 : 
-                         el.getAttribute('data-node') === '4' ? 15 : 18;
+        const basePing = parseInt(el.getAttribute('data-base-ping') || '15', 10);
         const delta = Math.floor((Math.random() - 0.4) * 5); // skew positive a bit
         const newPing = Math.max(8, basePing + delta);
         el.textContent = `${newPing}ms`;
@@ -1157,8 +1311,7 @@
 
       // Fluctuate CPU loads
       loadBarEls.forEach(el => {
-        const baseLoad = el.getAttribute('data-node') === '6' ? 60 : 
-                         el.getAttribute('data-node') === '5' ? 45 : 30;
+        const baseLoad = parseInt(el.getAttribute('data-base-load') || '30', 10);
         const delta = Math.floor((Math.random() - 0.5) * 15);
         const newLoad = Math.min(Math.max(baseLoad + delta, 10), 95);
         el.style.width = `${newLoad}%`;
