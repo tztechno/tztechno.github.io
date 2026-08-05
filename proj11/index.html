@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Shogi V3 Desktop Edition - 極限の将棋シミュレーター</title>
+  <meta name="description" content="3Dホログラム空間と超高速・最強将棋AI（やねうら王 & Fairy-Stockfish）が融合した極限のデスクトップ将棋シミュレーター。Mac, Windows, Linux, Android対応。">
+  <meta name="keywords" content="サイバー将棋, CyberShogi, 将棋AI, やねうら王, Stockfish, 将棋アプリ, 棋譜解析, csa棋譜">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj11/">
+  <meta property="og:title" content="Cyber Shogi V3 Desktop Edition - 極限の将棋シミュレーター">
+  <meta property="og:description" content="超高速ネイティブエンジン搭載。3D空間で強豪AIとの対局、AI同士の対局観戦、CSA形式の棋譜記録・再現に対応。">
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Background Grid & Effects -->
+  <div class="grid-overlay"></div>
+  <div class="blur-orb-1"></div>
+  <div class="blur-orb-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-microchip"></i>
+        <span>CYBER SHOGI <span class="text-gradient">V3</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#comparison" class="nav-link">機能比較</a>
+        <a href="#gpl" class="nav-link">オープンソース</a>
+        <a href="support.html" class="nav-link">サポート (FAQ)</a>
+        <a href="https://cyber-matrix.netlify.app/products/shogi" class="btn btn-cyan btn-sm">ストアを見る</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <!-- Left content -->
+      <div class="hero-content">
+        <div class="tagline">
+          <span class="tagline-dot"></span>
+          <span>CYBER SHOGI MATRIX PORTAL</span>
+        </div>
+        <h1 class="hero-title">
+          Cyber Shogi <br>
+          <span class="text-gradient neon-text-cyan">Desktop Edition</span>
+        </h1>
+        <p class="hero-description">
+          PCの極限パワーを引き出す。3Dホログラム空間と超高速・最強将棋AI（やねうら王 & Fairy-Stockfish）が融合した究極のデスクトップ将棋シミュレーター。<br><br>
+          デスクトップ型（Mac, Win, Linux, Android対応）で、強豪AIとの対戦だけでなく、AI同士のリアルタイム対局観戦や、CSA形式の棋譜記録・再現など多彩な機能を搭載しています。
+        </p>
+        <div class="hero-cta">
+          <a href="https://cyber-matrix.netlify.app/products/shogi" class="btn btn-cyan">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>ダウンロード・購入ページへ</span>
+          </a>
+          <a href="#features" class="btn btn-outline">
+            <span>機能をもっと見る</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right video embed -->
+      <div class="video-wrapper">
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/1jbdX6lwHGI" 
+            title="『サイバー将棋 V3』対局観戦" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="section-features">
+    <div class="container">
+      <div class="section-header">
+        <h2>デスクトップアプリならではのメリット</h2>
+        <p>完全オフラインに対応し、PCならではの安定した動作環境を提供します。</p>
+      </div>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+            <h3>軽快で安定した将棋AI</h3>
+            <p>アプリ環境に最適化された内蔵WebAssembly（WASM）エンジンにより、ブラウザの通信状況に左右されない、安定した快適な思考探索を実現。</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-display"></i>
+          </div>
+          <h3>大画面に最適化した3D UI</h3>
+          <p>近未来の3Dホログラムを模した没入型盤面。画面ズーム機能やスプリットレイアウトにより、検討・観戦時にも視線のブレや崩れが発生しません。</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-file-code"></i>
+          </div>
+          <h3>CSA棋譜記録・再現</h3>
+          <p>標準的な将棋棋譜フォーマットであるCSA形式のインポート/エクスポートに対応。過去の対局再現や、他ソフトで記録した棋譜の研究がスムーズに行えます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Section -->
+  <section id="comparison" class="section-comparison">
+    <div class="container">
+      <div class="section-header">
+        <h2>他将棋アプリとの機能比較</h2>
+        <p>モバイル特化アプリ「きふみAI (kifumiai.com)」との主な機能・仕様の比較表です。</p>
+      </div>
+      
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>項目</th>
+              <th class="highlight-col">サイバー将棋 V3 (本製品)</th>
+              <th>きふみAI (kifumiai.com)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>対象プラットフォーム</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> PC (Mac / Win / Linux) + Android</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> モバイル (iOS / iPadOS)</td>
+            </tr>
+            <tr>
+              <td><strong>思考エンジンの動作性能</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> <strong>内蔵WASMエンジン</strong> (アプリ環境に最適化され、PCならではの安定した思考探索)</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> モバイルデバイス内動作 (端末依存の制限あり)</td>
+            </tr>
+            <tr>
+              <td><strong>UIデザイン</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> 没入感ある3DマトリックスUI (ズーム・スプリット搭載)</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> フラットな2Dモバイル特化UI</td>
+            </tr>
+            <tr>
+              <td><strong>対局・観戦モード</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> <strong>AI vs AI (リアルタイム観戦)</strong>、Player vs AI、完全オフライン対応</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> AI棋譜解析、最善手シミュレーション、棋風レポート等</td>
+            </tr>
+            <tr>
+              <td><strong>USIエンジンの動作規格</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> <strong>USIプロトコル準拠</strong>。標準的な思考プロトコルによる信頼性の高い挙動</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> アプリ内蔵エンジンに固定</td>
+            </tr>
+            <tr>
+              <td><strong>料金形態</strong></td>
+              <td class="highlight-col"><i class="fa-solid fa-circle-check check-icon"></i> <strong>買い切り一括 ¥2,980</strong> (追加課金・サブスクなし)</td>
+              <td><i class="fa-solid fa-circle-check check-icon"></i> 基本無料＋アプリ内Pro課金（買い切り）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <!-- Open Source GPL Section -->
+  <section id="gpl" class="section-gpl">
+    <div class="container">
+      <div class="glass-card gpl-card">
+        <div class="gpl-title-area">
+          <span class="gpl-badge">GPL v3 Compliance</span>
+          <h2 class="neon-text-pink">オープンソースライセンスへの準拠</h2>
+        </div>
+          <p class="gpl-text">
+            本製品は、GNU General Public License v3 (GPLv3) に基づいて公開されている、世界最高峰の将棋/チェス思考エンジン「やねうら王」および「Fairy-Stockfish」のWebAssembly（WASM）プログラムを内蔵しています。<br><br>
+            GPLv3の規約に基づき、これらのエンジンプログラム自体のソースコードは自由に入手・改変・配布可能です。また、UIおよび決済連携部分のプログラムは別スレッド（WebWorker）上で疎結合として動作しているため、本ショップ提供元の独占的所有物（クローズドソース）として法的に保護されています。
+          </p>
+        <div class="source-links">
+          <a href="https://github.com/yaneurao/YaneuraOu" target="_blank" rel="noopener noreferrer" class="source-btn">
+            <i class="fa-brands fa-github"></i>
+            <span>やねうら王 (YaneuraOu) Source Code</span>
+          </a>
+          <a href="https://github.com/fairy-stockfish/Fairy-Stockfish" target="_blank" rel="noopener noreferrer" class="source-btn">
+            <i class="fa-brands fa-github"></i>
+            <span>Fairy-Stockfish Source Code</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <!-- Call to Action Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-card">
+        <h2>本格AIのパワーを、あなたのデスクトップに</h2>
+        <p>ご購入後、即座に暗号化された安全なダウンロードURLが発行され、インストールできます。PCならではの安定したシミュレーションをご体感ください。</p>
+        <a href="https://cyber-matrix.netlify.app/products/shogi" class="btn btn-cyan btn-lg">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>ダウンロード・購入ページへ進む</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <a href="#" class="footer-logo">
+        CYBER SHOGI <span class="text-gradient">V3</span>
+      </a>
+      <p>&copy; 2026 Cyber Shogi Store Matrix. Designed for Immersive Entertainment.</p>
+      <div class="footer-links">
+        <a href="support.html" class="footer-link" style="margin-right: 20px;">インストールガイド・Q&A</a>
+        <a href="https://cyber-matrix.netlify.app/products/shogi" class="footer-link">ダウンロード・購入ページへ</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
