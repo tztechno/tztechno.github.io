@@ -179,7 +179,6 @@
   </section>
 
 
-  
   <!-- Open Source GPL Section -->
   <section id="gpl" class="section-gpl">
     <div class="container">
@@ -205,6 +204,49 @@
       </div>
     </div>
   </section>
+
+  
+
+  
+<!-- GPLv3 License & Loose Coupling Section (Shogi) -->
+<section id="license-gplv3" style="padding: 40px 20px; max-width: 800px; margin: 40px auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #e0e0e0; background-color: #0d1117; border: 1px solid #30363d; border-radius: 8px;">
+  <h3 style="font-size: 20px; color: #58a6ff; margin-top: 0; margin-bottom: 15px; border-left: 4px solid #58a6ff; padding-left: 12px; font-weight: 600;">オープンソース・ライセンスについて (GPLv3 Compliance)</h3>
+  
+  <p style="margin-bottom: 16px;">
+    本アプリの思考演算部には、GNU General Public License version 3 (GPL v3) に基づき配布されているオープンソースの将棋エンジン 
+    <strong>yaneuraou（やねうら王）</strong> および <strong>Fairy-Stockfish</strong> をWebAssembly形式にコンパイルして内蔵しています。
+  </p>
+  
+  <p style="margin-bottom: 16px;">
+    GPLv3の規定に基づき、本アプリに同梱されているWASM思考エンジンのソースコード、および同一のバイナリをユーザー自身が再現できるコンパイル手順（Makefile等）一式を、以下のパブリックリポジトリにて一般公開しています。
+  </p>
+  
+  <ul style="margin-bottom: 24px; padding-left: 20px;">
+    <li style="margin-bottom: 8px;">
+      <strong>本アプリ内蔵WASMエンジンのソース＆ビルド手順:</strong> <br>
+      <a href="https://github.com/tztechno/cyber_shogi_v3_desktop_engines" target="_blank" rel="noopener noreferrer" style="color: #58a6ff; text-decoration: underline; font-weight: 500;">cyber_shogi_v3_desktop_engines (GitHub)</a>
+    </li>
+    <li style="margin-bottom: 8px;">
+      <strong>上流（オリジナル）プロジェクト:</strong> <br>
+      <a href="https://github.com/fairy-stockfish/Fairy-Stockfish" target="_blank" rel="noopener noreferrer" style="color: #58a6ff; text-decoration: underline;">Fairy-Stockfish (GitHub)</a> | 
+      <a href="https://github.com/yaneurao/YaneuraOu" target="_blank" rel="noopener noreferrer" style="color: #58a6ff; text-decoration: underline;">やねうら王 (GitHub)</a>
+    </li>
+  </ul>
+
+  <h4 style="font-size: 16px; color: #c9d1d9; margin-top: 24px; margin-bottom: 10px; font-weight: 600;">独自UI部分のクローズドソース（非公開）に関する技術的説明</h4>
+  
+  <p style="margin-bottom: 12px;">
+    本アプリのグラフィックス、3D描画、対局管理UI（Next.jsおよびTauriで構築されたフロントエンド部分）は、Web Workerスレッドを介してWASM思考エンジンとメモリを一切共有せず、物理的に完全に隔離されたドメインで動作する「別個の独立したプログラム」です。
+  </p>
+  
+  <p style="margin-bottom: 12px;">
+    両コンポーネント間の通信は、業界標準規格である <strong>USI (Universal Shogi Interface) プロトコル</strong>によるテキストメッセージの非同期送受信（<code>postMessage</code>）のみで疎結合化されています。
+  </p>
+  
+  <p style="margin-bottom: 0; color: #8b949e; font-size: 14px;">
+    したがって、GPLv3の規定（Mere Aggregation: 単なる集合体）に基づき、独自UI側のソースコードの開示義務は一切発生せず、プロプライエタリな商用コードとして安全に保護されています。
+  </p>
+</section>
 
 
   
@@ -235,6 +277,9 @@
       </div>
     </div>
   </footer>
+
+</body>
+</html>
 
 </body>
 </html>
