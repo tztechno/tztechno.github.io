@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サイバーシュートアウト（Cyber Shootout）| 覚醒するレトロサイバー・デュエル</title>
+    <meta name="description" content="Atari風レトロビジュアルと現代タクティカル要素が融合した1vs1バレットアリーナ。角度エイムとバウンドショットで偏差射撃AIを撃破せよ。">
+    <meta property="og:title" content="サイバーシュートアウト（Cyber Shootout）| 覚醒するレトロサイバー・デュエル">
+    <meta property="og:description" content="Atari風レトロビジュアルと現代タクティカル要素が融合した1vs1バレットアリーナ。角度エイムとバウンドショットで偏差射撃AIを撃破せよ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cyber-shootout.netlify.app/">
+    <link rel="icon" href="data:,">
+    <style>
+        /* Custom Fonts & Reset */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-dark: #020205;
+            --bg-card: #0a0b14;
+            --accent-glow: #06b6d4;
+            /* Neon Cyan */
+            --accent-pink: #ec4899;
+            /* Neon Pink */
+            --accent-amber: #f59e0b;
+            /* Amber */
+            --text-main: #f0f2f5;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines Overlay effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Hero / Header Section */
+        header {
+            position: relative;
+            padding: 100px 20px 80px 20px;
+            background: radial-gradient(circle at center, #0c2b35 0%, var(--bg-dark) 80%);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero-lead {
+            max-width: 700px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Container & Main Layout */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+        }
+
+        /* Call To Action Button */
+        .cta-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #020205;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, var(--accent-pink) 100%);
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 0 35px rgba(6, 182, 212, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.7);
+            filter: brightness(1.15);
+        }
+
+        .btn-subtext {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Grid Layout for Features */
+        .grid-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .section-title span {
+            color: var(--accent-glow);
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-glow), transparent);
+        }
+
+        .feature-card.amber::before {
+            background: linear-gradient(to bottom, var(--accent-amber), transparent);
+        }
+
+        .feature-card.glow {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.1);
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .feature-card a {
+            color: var(--accent-glow);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .feature-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Final Callout */
+        .final-callout {
+            background: radial-gradient(circle at center, #1e1b4b 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.1);
+        }
+
+        .final-callout h2 {
+            font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+        }
+
+        .final-callout p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 35px auto;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-family: 'Orbitron', sans-serif;
+            border-top: 1px solid var(--border-color);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Utilities */
+        @media (max-width: 992px) {
+            header>div {
+                flex-direction: column;
+                text-align: center !important;
+            }
+
+            h1,
+            .subtitle,
+            .hero-lead,
+            .cta-container,
+            .btn-subtext {
+                text-align: center !important;
+            }
+
+            .hero-lead {
+                margin: 0 auto 35px auto !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .btn-primary {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+            }
+
+            .final-callout {
+                padding: 40px 20px;
+            }
+
+            header {
+                padding: 60px 20px 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Hero Section (2-column layout for PC) -->
+    <header style="text-align: left;">
+        <div
+            style="max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center;">
+
+            <!-- Left Column: Marketing Copy -->
+            <div style="flex: 1 1 500px; min-width: 300px;">
+                <h1 style="text-align: left; margin-bottom: 20px;">⚡ CYBER SHOOTOUT</h1>
+                <p class="subtitle" style="margin-bottom: 25px;">覚醒するレトロサイバー・デュエル — High-Tech Tactical Bullet Arena</p>
+
+                <p class="hero-lead" style="margin: 0 0 35px 0; text-align: left; font-size: 1rem;">
+                    単調なシューティングゲームに飽きていませんか？<br><br>
+                    Atari風の懐かしいネオンビジュアルと、現代のタクティカル要素が融合した1vs1アリーナバトル。「左右への移動」に加え、「大砲の向きを斜めに傾ける角度エイム」を実装しました。<br>
+                    左右の壁でのバウンド（跳ね返り）を駆使し、障害物を避けながら、偏差射撃やカバーアクションをこなす超演算AIを撃破せよ！プレイ回数制限＆Stripeによるシームレスな決済システムを備えた最先端のWebアプリとして降臨。
+                </p>
+
+                <div class="cta-container" style="text-align: left; margin: 0;">
+                    <a href="https://cyber-shootout.netlify.app/" class="btn-primary" target="_blank"
+                        rel="noopener noreferrer">INITIALIZE SYSTEM
+                        & START</a>
+                    <span class="btn-subtext" style="text-align: left;">（別ウィンドウでアリーナ画面を開き、ゲームを起動せよ。）</span>
+                </div>
+            </div>
+
+            <!-- Right Column: Landscape Showcase Video Player (16:9) -->
+            <div style="flex: 1 1 400px; width: 100%; max-width: 480px;">
+                <div
+                    style="position: relative; aspect-ratio: 16 / 9; border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(6, 182, 212, 0.3);">
+                    <!-- Showcase Video Embed -->
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                        src="https://www.youtube.com/embed/zuthbER0MXk" title="サイバーシュートアウト プレイ映像"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Section 1: Core Mechanics -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🛡️</span> 反射物理演算と3Dアングル・エイミング</h2>
+            <div class="feature-grid">
+                <div class="feature-card glow">
+                    <h3>跳ね返りを計算するバウンドショット</h3>
+                    <p>発射されたレーザー弾は、左右の壁に当たると正確に跳ね返ります。正面に設置された破壊可能な防壁シールドや中央の巨大ブロックを避けて、相手の死角や背後から弾を滑り込ませるバウンドショットが勝負の鍵です。
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <h3>-60度〜60度の可変角度調節</h3>
+                    <p>大砲は左右に移動するだけでなく、キー操作または画面タップで砲塔の向きを無段階に傾けることができます。斜めに発射された弾は、壁への反射角が変わり、敵にとって極めて回避困難な弾道を描きます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Advanced Features -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🧠</span> 高度な予測射撃と自律型思考AI</h2>
+            <div class="feature-grid">
+                <div class="feature-card amber">
+                    <h3>AI vs AI HUD シミュレーター</h3>
+                    <p>最高レベルの思考モデル同士が完全自律で激突する「AI観戦モード」を搭載。ターゲットロックや敵の弾の軌道予測（スレット・ベクトル）などをリアルタイムでマッピングするHUDテレメトリにより、AIの頭脳戦を観戦・分析できます。</p>
+                </div>
+                <div class="feature-card glow">
+                    <h3>偏差射撃・カバーアクション</h3>
+                    <p>AIは単にプレイヤーの現在地を狙うだけでなく、移動先を予測する「偏差射撃」や、飛んでくる弾の進路から緊急回避するアクションを繰り出します。さらに、破壊可能な遮蔽物に身を隠すカバー動作も実行します。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Business Model & Tech -->
+        <div class="grid-section">
+            <h2 class="section-title"><span>🌐</span> Web決済統合と課金システム</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>無料プレイ制限 & Stripe連携</h3>
+                    <p>ユーザーは10回まで無料でゲームをプレイできます。残りプレイ数はHUDでカウントされ、プレイ制限に達すると自動的にStripe
+                        Checkout連携による決済モーダルへとシームレスに誘導されます。</p>
+                </div>
+                <div class="feature-card amber">
+                    <h3>無制限アクセス解放 (¥300)</h3>
+                    <p>Stripe
+                        Checkoutを通じたクレジットカード決済（¥300）により、対AI戦の無制限アクセス権が永続的にアンロックされます。最新のウェブペイメント仕様とローカルストレージ状態永続化を組み合わせた、商業化モデルの実証を実装しています。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Callout -->
+        <div class="final-callout">
+            <h2>ネオンきらめく電子の戦場で、深層知性に勝利せよ。</h2>
+            <p>
+                「サイバーシュートアウト」は、単なる懐かしのレトロゲームではありません。現代のWebフロントエンドテクノロジー、精密なバウンド物理、自律回避AI、そしてStripeによるWeb決済システムが美しく融合した極限のアリーナゲームです。
+            </p>
+            <div class="cta-container" style="margin-bottom: 0;">
+                <a href="https://cyber-shootout.netlify.app/" class="btn-primary" target="_blank"
+                    rel="noopener noreferrer">ACCESS TERMINAL &
+                    START</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hashtag -->
+    <div class="keyword-tag-container"
+        style="display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin: 20px 0 30px 0;">
+        <span class="tag"
+            style="color: var(--text-muted); font-size: 0.85rem; font-family: 'Orbitron', sans-serif; opacity: 0.7;">#cybershootout</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 CYBER SHOOTOUT. ALL RIGHTS RESERVED. OPERATIONAL HOLOGRAM TACTICAL GRID.
+    </footer>
+</body>
+
+</html>
