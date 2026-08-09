@@ -122,6 +122,12 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Igo](https://tztechno.github.io/proj13/)
 
+[Cyber Shootout](https://tztechno.github.io/proj14/)
+
+[Cyber Xiangqi V3](https://tztechno.github.io/proj15/)
+
+[Cyber Tarot](https://tztechno.github.io/proj16/)
+
 ## profile & portfolio
 
 [profile](https://tztechno.github.io/profile/)
