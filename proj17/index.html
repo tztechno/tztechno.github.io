@@ -164,23 +164,20 @@
       
       <div class="demo-selector-tabs">
         <button class="tab-btn active" id="btn-mock-mode">⚡ 疑似体験（即時・DLなし）</button>
-        <button class="tab-btn" id="btn-real-mode">🤖 本物AI（モデルDL・約1GB）</button>
+        <button class="tab-btn" id="btn-real-mode">🤖 本物AI（モデルDL・約2GB）</button>
       </div>
 
       <!-- Real AI Status & Loader (Initially Hidden) -->
       <div class="real-ai-setup-panel hidden" id="real-ai-setup">
         <div class="setup-header">
           <span class="warning-tag">INFO</span>
-          <p>ブラウザ上で直接AIモデルを実行するため、約1GBのダウンロードと初期化が走ります。高速なWi-Fi環境を推奨します。</p>
+          <p>ブラウザ上で直接AIモデルを実行するため、約2.0GBのダウンロードと初期化が走ります。高速なWi-Fi環境を推奨します。</p>
         </div>
         
         <div class="setup-controls">
           <div class="control-group">
-            <label for="model-select">使用モデル:</label>
-            <select id="model-select" class="cyber-select">
-              <option value="qwen-1.5b" selected>Qwen2.5-1.5B (軽量版: 約986MB)</option>
-              <option value="qwen-3b">Qwen2.5-3B (高品質版: 約2.0GB)</option>
-            </select>
+            <span class="model-label" style="font-size: 0.9rem; color: var(--text-dim);">使用モデル:</span>
+            <span class="model-value" style="font-size: 0.9rem; color: var(--color-cyan); font-weight: bold; font-family: var(--font-cyber);">Qwen2.5-3B (高品質版: 約2.0GB)</span>
           </div>
           <button class="btn-cyber btn-magenta" id="btn-load-engine">エンジンを初期化する</button>
         </div>
@@ -371,9 +368,9 @@
           <p class="pricing-desc">買い切り型・追加料金なし</p>
           
           <ul class="pricing-features">
-            <li>無料制限なし（いつでも何度でも実行可能）</li>
-            <li>より高度な 3B / 7B モデルの使用権限</li>
-            <li>モデルのブラウザキャッシュによる2回目以降の超高速起動</li>
+            <li>制限なしのフル機能アクセス（何度でも実行可能）</li>
+            <li>対策データの無制限CSVエクスポート機能</li>
+            <li>対話型AIアドバイザーによる無制限の追加相談・深掘り</li>
             <li>商用利用可能・将来のアップデートも永続無料</li>
           </ul>
           
@@ -413,7 +410,7 @@
           </button>
           <div class="faq-content">
             <p>
-              「本物AIモード」の実行時には、初回のみ1GB〜2GB程度のAIモデルデータをダウンロードする必要があるためです。ダウンロードしたモデルはブラウザのストレージ（IndexedDB/Cache Storage）にキャッシュされるため、2回目以降はダウンロードなしで即時起動します。
+              「本物AIモード」の実行時には、初回のみ約2.0GBのAIモデルデータをダウンロードする必要があるためです。ダウンロードしたモデルはブラウザのストレージ（IndexedDB/Cache Storage）にキャッシュされるため、2回目以降はダウンロードなしで即時起動します。
             </p>
           </div>
         </div>

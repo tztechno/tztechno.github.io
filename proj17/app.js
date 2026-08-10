@@ -202,7 +202,6 @@ const engineProgressContainer = document.getElementById('engine-progress-contain
 const engineProgressBar = document.getElementById('engine-progress-bar');
 const engineProgressText = document.getElementById('engine-progress-text');
 const engineProgressPercent = document.getElementById('engine-progress-percent');
-const selectModel = document.getElementById('model-select');
 const terminalModeIndicator = document.getElementById('terminal-mode-indicator');
 
 const termInputSection = document.getElementById('term-input-section');
@@ -318,17 +317,8 @@ btnLoadEngine.addEventListener('click', async () => {
     
     wllamaInstance = new Wllama(configPaths);
     
-    const selectedModelId = selectModel.value;
-    let modelUrl = '';
-    let modelName = '';
-    
-    if (selectedModelId === 'qwen-1.5b') {
-      modelUrl = 'https://huggingface.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf';
-      modelName = 'Qwen2.5 1.5B (約986MB)';
-    } else {
-      modelUrl = 'https://huggingface.co/bartowski/Qwen2.5-3B-Instruct-GGUF/resolve/main/Qwen2.5-3B-Instruct-Q4_K_M.gguf';
-      modelName = 'Qwen2.5 3B (約2.0GB)';
-    }
+    const modelUrl = 'https://huggingface.co/bartowski/Qwen2.5-3B-Instruct-GGUF/resolve/main/Qwen2.5-3B-Instruct-Q4_K_M.gguf';
+    const modelName = 'Qwen2.5 3B (約2.0GB)';
     
     engineProgressText.textContent = `${modelName} モデルを読み込んでいます...`;
     
