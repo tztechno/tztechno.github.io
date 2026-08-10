@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>CYBER SELFDESIGN // 完全ローカルAI課題設計・対策構築システム</title>
+  <meta name="title" content="CYBER SELFDESIGN // 完全ローカルAI課題設計・対策構築システム">
+  <meta name="description" content="ブラウザ内ローカルLLM（wllama + Qwen2.5）と自己進化プロンプト設計エンジンによる、完全プライベートで超高度な課題設計・対策構築システム。あなたのデータはデバイス外へ送信されません。">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj17/">
+  <meta property="og:title" content="CYBER SELFDESIGN // 完全ローカルAI課題設計・対策構築システム">
+  <meta property="og:description" content="ブラウザ内ローカルLLM（wllama + Qwen2.5）と自己進化プロンプト設計エンジンによる、完全プライベートで超高度な課題設計・対策構築システム。あなたのデータはデバイス外へ送信されません。">
+  <meta property="og:image" content="https://tztechno.github.io/proj17/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tztechno.github.io/proj17/">
+  <meta property="twitter:title" content="CYBER SELFDESIGN // 完全ローカルAI課題設計・対策構築システム">
+  <meta property="twitter:description" content="ブラウザ内ローカルLLM（wllama + Qwen2.5）と自己進化プロンプト設計エンジンによる、完全プライベートで超高度な課題設計・対策構築システム。あなたのデータはデバイス外へ送信されません。">
+  <meta property="twitter:image" content="https://tztechno.github.io/proj17/assets/og-image.jpg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        CYBER <em>SELFDESIGN</em>
+      </a>
+      
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">特徴</a></li>
+        <li><a href="#demo" class="nav-link">体験版端末</a></li>
+        <li><a href="#tech" class="nav-link">技術構成</a></li>
+        <li><a href="#pricing" class="nav-link">料金</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+      
+      <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+      <a href="https://cyber-selfdesign.netlify.app/" class="btn-cyber" id="nav-launch-btn" target="_blank">
+        ターミナル起動
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left: 2px;">
+          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          LOCAL NEURAL ENGINE ONLINE
+        </div>
+        
+        <h1 class="hero-title">
+          CYBER <em>SELFDESIGN</em>
+          <span>AUTO PROMPT CORE</span>
+        </h1>
+        
+        <p class="hero-desc">
+          「サイバーセルフデザイン」は、ブラウザ単体で動作する次世代のAI課題設計・対策構築システムです。<br>
+          WebAssemblyを用いてデバイス上にローカルLLMを直接展開し、入力された相談内容に対して最適なプロンプトを「自己設計」します。データは外部サーバーに一切送信されず、完全なプライバシーを保証します。
+        </p>
+        
+        <div class="hero-ctas">
+          <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+          <a href="https://cyber-selfdesign.netlify.app/" class="btn-cyber" target="_blank">
+            フル機能版を起動する
+          </a>
+          <a href="#demo" class="btn-cyber btn-magenta">
+            簡易体験をする
+          </a>
+        </div>
+        
+        <div class="hero-tech-pills">
+          <div class="tech-pill">
+            <span class="tech-pill-val">Qwen 2.5 1.5B/3B</span>
+            <span class="tech-pill-label">ローカル言語モデル</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">WebAssembly</span>
+            <span class="tech-pill-label">推論制御 (wllama)</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">100% Local</span>
+            <span class="tech-pill-label">プライバシー保護</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="visual-backdrop"></div>
+        <div class="cyber-ring"></div>
+        <div class="cyber-ring-inner"></div>
+
+        <!-- Short video slot (proj16 short as a dummy placeholder) -->
+        <div style="flex: 0 1 320px; width: 100%; max-width: 320px; z-index: 10;">
+          <div style="position: relative; aspect-ratio: 9 / 16; border: 2px solid var(--border-color, #00f0ff); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(0, 240, 255, 0.3);">
+            <iframe 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+              src="https://youtube.com/embed/y-MRWLlHnQQ" 
+              title="サイバー・セルフデザイン" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2>SYSTEM FEATURES // 主な特徴</h2>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>完全ローカル実行（漏洩ゼロ）</h3>
+          <p>
+            Hugging Faceからモデルを初回ダウンロードした後は、すべての文章生成（解釈）処理があなたのブラウザ内で行われます。外部のAPIサーバーにデータを送信しないため、機密情報や極めてプライベートな悩みでも安全に入力可能です。
+          </p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>プロンプトの自己設計 (Step 0)</h3>
+          <p>
+            入力された相談内容（EVENT）をAI自身がメタ分析し、その相談がどのような分野のものかを判定。それに最適化された「課題特定用プロンプト」と「対策生成用プロンプト」をその場で自動生成し、後続のステップで実行します。
+          </p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>課題の構造化 ＆ チャット対話</h3>
+          <p>
+            AIが抽出した複数の課題とそれぞれの対策案を、直感的なテーブル（表）形式で美しく整理。さらに、生成されたコンテキストを引き継いだままAIチャットでアイデアをさらに深掘り・壁打ちすることができます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo / Terminal Section -->
+  <section class="demo-section" id="demo">
+    <div class="container">
+      <h2>TERMINAL EXPERIENCE // 体験版端末</h2>
+      <p class="section-subtitle">ブラウザ上で直接動作するセルフデザインエンジンを体験してください。</p>
+      
+      <div class="demo-selector-tabs">
+        <button class="tab-btn active" id="btn-mock-mode">⚡ 疑似体験（即時・DLなし）</button>
+        <button class="tab-btn" id="btn-real-mode">🤖 本物AI（モデルDL・約1GB）</button>
+      </div>
+
+      <!-- Real AI Status & Loader (Initially Hidden) -->
+      <div class="real-ai-setup-panel hidden" id="real-ai-setup">
+        <div class="setup-header">
+          <span class="warning-tag">INFO</span>
+          <p>ブラウザ上で直接AIモデルを実行するため、約1GBのダウンロードと初期化が走ります。高速なWi-Fi環境を推奨します。</p>
+        </div>
+        
+        <div class="setup-controls">
+          <div class="control-group">
+            <label for="model-select">使用モデル:</label>
+            <select id="model-select" class="cyber-select">
+              <option value="qwen-1.5b" selected>Qwen2.5-1.5B (軽量版: 約986MB)</option>
+              <option value="qwen-3b">Qwen2.5-3B (高品質版: 約2.0GB)</option>
+            </select>
+          </div>
+          <button class="btn-cyber btn-magenta" id="btn-load-engine">エンジンを初期化する</button>
+        </div>
+
+        <div class="progress-container hidden" id="engine-progress-container">
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar" id="engine-progress-bar" style="width: 0%;"></div>
+          </div>
+          <div class="progress-status">
+            <span id="engine-progress-text">準備中...</span>
+            <span id="engine-progress-percent">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Main Window -->
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="terminal-title">CYBER_SELFDESIGN_SHELL v2.0</div>
+          <div class="terminal-indicator" id="terminal-mode-indicator">MOCK RUN MODE</div>
+        </div>
+
+        <div class="terminal-body">
+          <!-- Input Form Section -->
+          <div class="terminal-input-section" id="term-input-section">
+            <div class="prompt-text">SELFDESIGN_CORE > 相談したいテーマ、解決したい課題を入力してください:</div>
+            
+            <div class="preset-buttons">
+              <button class="btn-preset" data-text="現在沢山の地震被災者が避難所に身を寄せています。また避難所に行かず車中泊を続けている人も多くいます。自治体は今後どういう対策を行うべきですか。">🎒 災害避難所対策</button>
+              <button class="btn-preset" data-text="商店街の小さな喫茶店ですが、最近大手チェーン店やコンビニコーヒーに押されて売上が落ちています。生き残りのための具体的な独自化・集客アイデアを提案してください。">☕ 個人カフェ集客</button>
+              <button class="btn-preset" data-text="現在30代前半のITエンジニアです。技術スペシャリストとしてキャリアを歩むべきか、マネジメント職に転向すべきか悩んでいます。それぞれの論点と対策を整理してください。">💻 エンジニアキャリア</button>
+            </div>
+
+            <textarea id="event-input" placeholder="ここに課題やテーマを詳しく入力してください...（例：新規事業のアイデア出し、個人的な引っ越しの悩み、業務プロセスの改善など）">現在沢山の地震被災者が避難所に身を寄せています。また避難所に行かず車中泊を続けている人も多くいます。自治体は今後どういう対策を行うべきですか。</textarea>
+            
+            <div class="input-controls">
+              <div class="issues-count-group">
+                <label for="num-issues">抽出する論点数:</label>
+                <select id="num-issues" class="cyber-select-small">
+                  <option value="3">3件</option>
+                  <option value="5" selected>5件</option>
+                  <option value="7">7件</option>
+                </select>
+              </div>
+              <button class="btn-cyber" id="btn-run-pipeline">
+                <span class="btn-text">セルフデザイン実行</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Executing Console Logs -->
+          <div class="terminal-logs-section hidden" id="term-logs-section">
+            <div class="logs-header">
+              <span>SYSTEM LOGS:</span>
+              <button class="btn-cancel-pipeline hidden" id="btn-cancel-pipeline">実行中止</button>
+            </div>
+            <div class="logs-container" id="logs-container">
+              <!-- Logs will be inserted dynamically -->
+            </div>
+            <div class="logs-loader-line" id="logs-loader-line">
+              <span class="blink-cursor">_</span>
+            </div>
+          </div>
+
+          <!-- Results Section (Tabs & Output) -->
+          <div class="terminal-results-section hidden" id="term-results-section">
+            <div class="results-tabs">
+              <button class="result-tab active" id="tab-table">📊 構造化テーブル</button>
+              <button class="result-tab" id="tab-chat">💬 壁打ちチャット</button>
+              <button class="result-tab" id="tab-prompts">🔍 生成プロンプト</button>
+              <button class="btn-reset-terminal" id="btn-reset-terminal">↩ もう一度行う</button>
+            </div>
+
+            <!-- Tab content: Table -->
+            <div class="tab-pane active" id="pane-table">
+              <div class="domain-badge-wrapper">
+                判定分野: <span class="domain-badge" id="result-domain">-</span>
+              </div>
+              <div class="table-responsive">
+                <table class="results-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 35%;">特定された論点・課題</th>
+                      <th style="width: 65%;">取るべき具体的な対策・対処法</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                    <!-- Rows inserted dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab content: Chat -->
+            <div class="tab-pane" id="pane-chat">
+              <div class="chat-wrapper">
+                <div class="chat-messages" id="chat-messages">
+                  <div class="chat-message assistant">
+                    <div class="avatar">AI</div>
+                    <div class="chat-content">
+                      セルフデザイン結果に対する深掘りや、追加の質問をお受けします。
+                      「〜についてもっと詳しく教えてください」「この状況で別の対策はありますか？」など、お気軽にどうぞ。
+                    </div>
+                  </div>
+                </div>
+                <div class="chat-input-area">
+                  <input type="text" id="chat-input" placeholder="AIへ質問や指示を入力..." disabled>
+                  <button class="btn-chat-send" id="btn-chat-send" disabled>送信</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab content: Prompts -->
+            <div class="tab-pane" id="pane-prompts">
+              <div class="prompt-view-card">
+                <h4>[Step 0] が自己設計したシステムプロンプト</h4>
+                <div class="prompt-box">
+                  <h5>Step1用プロンプト (課題抽出):</h5>
+                  <pre id="prompt-step1-code"></pre>
+                  
+                  <h5 style="margin-top: 1.5rem;">Step2用プロンプト (対策生成):</h5>
+                  <pre id="prompt-step2-code"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Section -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <h2>TECHNOLOGY STACK // 技術構成</h2>
+      <p class="section-subtitle">Webブラウザ上で安全かつ高度なAI推論を実現する技術群</p>
+      
+      <div class="tech-grid">
+        <!-- Tech item 1 -->
+        <div class="tech-card">
+          <div class="tech-logo">Wasm</div>
+          <h3>WebAssembly 推論制御</h3>
+          <p>
+            <code>wllama.js</code> を活用し、本来デスクトップアプリやクラウド上でしか動作しない <code>llama.cpp</code> の推論エンジンをWebAssemblyにコンパイル。ブラウザ上で極めて高速なニューラル推論を実行します。
+          </p>
+        </div>
+
+        <!-- Tech item 2 -->
+        <div class="tech-card">
+          <div class="tech-logo">Qwen</div>
+          <h3>Qwen2.5 ニューラルモデル</h3>
+          <p>
+            Alibaba Groupが開発し、高い日本語性能と合理性を誇るオープンモデル <code>Qwen2.5-Instruct</code> のGGUF量子化モデル（4bit）を使用。高い精度を保ちながらスマートな容量でダウンロード可能です。
+          </p>
+        </div>
+
+        <!-- Tech item 3 -->
+        <div class="tech-card">
+          <div class="tech-logo">Worker</div>
+          <h3>Web Workers 非同期並列</h3>
+          <p>
+            重いAIモデルの読み込みや文章の推論計算をUIスレッドとは別のバックグラウンドスレッド（Web Worker）で実行。AIの動作中もブラウザの描画やユーザーのキー入力が一切重くなりません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>LICENSE PRICING // 料金プラン</h2>
+      
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card">
+          <div class="pricing-badge">BEST VALUE</div>
+          <h3>フル機能ライセンス</h3>
+          <div class="price">
+            <span class="currency">¥</span>
+            <span class="amount">500</span>
+            <span class="tax">（税込）</span>
+          </div>
+          <p class="pricing-desc">買い切り型・追加料金なし</p>
+          
+          <ul class="pricing-features">
+            <li>無料制限なし（いつでも何度でも実行可能）</li>
+            <li>より高度な 3B / 7B モデルの使用権限</li>
+            <li>モデルのブラウザキャッシュによる2回目以降の超高速起動</li>
+            <li>商用利用可能・将来のアップデートも永続無料</li>
+          </ul>
+          
+          <!-- REPLACE URL: Stripe決済用のURLに差し替えてください -->
+          <a href="https://cyber-selfdesign.netlify.app/" class="btn-cyber btn-magenta" target="_blank" style="width: 100%; text-align: center; justify-content: center;">
+            ライセンスを購入する
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2>FAQ // よくある質問</h2>
+      
+      <div class="faq-accordion-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>なぜサーバー送信なしでAIが動くのですか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content">
+            <p>
+              本システムは最新のWeb標準技術「WebAssembly」を採用しています。クラウドにデータを送信して推論する従来のAI（ChatGPTなど）とは異なり、AIモデル自体をブラウザにダウンロードし、あなたのPCのCPUやGPUだけで動かすため、データを完全にローカルに留めることができます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>初回のロードに時間がかかるのはなぜですか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content">
+            <p>
+              「本物AIモード」の実行時には、初回のみ1GB〜2GB程度のAIモデルデータをダウンロードする必要があるためです。ダウンロードしたモデルはブラウザのストレージ（IndexedDB/Cache Storage）にキャッシュされるため、2回目以降はダウンロードなしで即時起動します。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>スマートフォンのブラウザでも動作しますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content">
+            <p>
+              「疑似体験モード」はスマートフォンでも快適に動作します。「本物AIモード」は、メモリ容量が少ない一部のスマートフォンやタブレットではブラウザがクラッシュする恐れがあります。快適にご利用いただくためには、メモリ（RAM）が8GB以上搭載されたPCのブラウザ（Chrome / Edge / Safari）での実行を推奨します。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-trigger">
+            <span>購入後のライセンス認証はどのように行われますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-content">
+            <p>
+              決済完了後、購入確認画面からアプリへ自動的に戻ります。その際、決済トークンが自動的にブラウザ（ローカルストレージ）に記録され、制限なしでフル機能をご利用いただけるようになります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        CYBER <em>SELFDESIGN</em>
+      </div>
+      <p class="copyright">&copy; 2026 CYBER SELFDESIGN PROJECT. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
