@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>CYBER FOUR PILLARS // 完全ローカルAI四柱推命鑑定</title>
+  <meta name="title" content="CYBER FOUR PILLARS // 完全ローカルAI四柱推命鑑定">
+  <meta name="description" content="生年月日時から導く命式（四柱）と運勢をもとに、ブラウザ内のローカルLLM（wllama + Qwen2.5-3B）があなたの悩みに寄り添い鑑定する、近未来的四柱推命占いシステム。あなたの悩みはデバイス外へ送信されません。">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj18/">
+  <meta property="og:title" content="CYBER FOUR PILLARS // 完全ローカルAI四柱推命鑑定">
+  <meta property="og:description" content="生年月日時から導く命式（四柱）と運勢をもとに、ブラウザ内のローカルLLM（wllama + Qwen2.5-3B）があなたの悩みに寄り添い鑑定する、近未来的四柱推命占いシステム。あなたの悩みはデバイス外へ送信されません。">
+  <meta property="og:image" content="https://tztechno.github.io/proj18/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tztechno.github.io/proj18/">
+  <meta property="twitter:title" content="CYBER FOUR PILLARS // 完全ローカルAI四柱推命鑑定">
+  <meta property="twitter:description" content="生年月日時から導く命式（四柱）と運勢をもとに、ブラウザ内のローカルLLM（wllama + Qwen2.5-3B）があなたの悩みに寄り添い鑑定する、近未来的四柱推命占いシステム。あなたの悩みはデバイス外へ送信されません。">
+  <meta property="twitter:image" content="https://tztechno.github.io/proj18/assets/og-image.jpg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        CYBER <em>4 PILLARS</em>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">特徴</a></li>
+        <li><a href="#demo" class="nav-link">体験版端末</a></li>
+        <li><a href="#tech" class="nav-link">技術構成</a></li>
+        <li><a href="#pricing" class="nav-link">料金</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+      <a href="https://cyber-fourpillars.netlify.app/" class="btn-cyber" id="nav-launch-btn" target="_blank">
+        鑑定ターミナル起動
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left: 2px;">
+          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          LOCAL NEURAL ENGINE ONLINE
+        </div>
+
+        <h1 class="hero-title">
+          CYBER <em>FOUR PILLARS</em>
+          <span>QUANTUM HOROSCOPE SYSTEM</span>
+        </h1>
+
+        <p class="hero-desc">
+          「サイバー四柱推命」は、ブラウザ単体で動作する次世代のAI占いシステムです。<br>
+          生年月日時から命式（年柱・月柱・日柱・時柱）を自動展開し、WebAssemblyを用いてデバイス上にローカルLLMを直接展開。あなたの悩みと命式を高度に調和させます。入力データは一切外部のサーバーに送信されず、完全なプライバシーを保証します。
+        </p>
+
+        <div class="hero-ctas">
+          <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+          <a href="https://cyber-fourpillars.netlify.app/" class="btn-cyber" target="_blank">
+            鑑定ターミナルを起動する
+          </a>
+          <a href="#demo" class="btn-cyber btn-magenta">
+            簡易体験をする
+          </a>
+        </div>
+
+        <div class="hero-tech-pills">
+          <div class="tech-pill">
+            <span class="tech-pill-val">Qwen 2.5 3B</span>
+            <span class="tech-pill-label">ローカル言語モデル</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">WebAssembly</span>
+            <span class="tech-pill-label">推論制御 (wllama)</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">100% Local</span>
+            <span class="tech-pill-label">プライバシー保護</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-backdrop"></div>
+        <div class="cyber-ring"></div>
+        <div class="cyber-ring-inner"></div>
+
+        <!-- Short video slot (proj16 short as a dummy placeholder until the Four Pillars short is ready) -->
+        <div style="flex: 0 1 320px; width: 100%; max-width: 320px; z-index: 10;">
+          <div style="position: relative; aspect-ratio: 9 / 16; border: 2px solid var(--border-color, #00f0ff); border-radius: 16px; overflow: hidden; box-shadow: 0 0 35px rgba(6, 182, 212, 0.3);">
+            <iframe
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+              src="https://youtube.com/embed/y-MRWLlHnQQ"
+              title="サイバー・四柱推命"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2>SYSTEM FEATURES // 主な特徴</h2>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>完全ブラウザ実行AI</h3>
+          <p>
+            Hugging Faceからモデルを初回ダウンロードした後は、すべての文章生成（鑑定文）処理があなたのブラウザ内で行われます。外部のAPIサーバーに依存しないため、回線混雑やサーバーエラーによるフリーズがありません。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🀄</div>
+          <h3>命式（四柱八字）の自動展開</h3>
+          <p>
+            生年月日時を入力するだけで、年柱・月柱・日柱・時柱の干支と五行・十神を自動計算。あなたの生まれ持った命式を数秒でチャート化し、量子命式として可視化します。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>リアルタイム対話型鑑定</h3>
+          <p>
+            一度展開した命式に対して、さらに質問を重ねることができます。「日柱が示す私の本質は？」「今年の運勢を活かす行動は？」など、納得いくまで問いかけられます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Simulator Section -->
+  <section class="demo-section" id="demo">
+    <div class="container demo-layout">
+      <div class="demo-info">
+        <h2 class="demo-title">INTERACTIVE PREVIEW // 量子命式展開体験</h2>
+        <p class="demo-desc">
+          右側の簡易シミュレーター端末で、サイバー四柱推命の動作フローを体験できます。
+          生年月日時を打ち込み、量子同期ボタンをクリックしてください。
+          デバイスに負担をかけることなく、命式がランダムに展開され、疑似ローカルAIが鑑定ログを出力します。
+        </p>
+
+        <ul class="demo-instructions">
+          <li>テキスト入力欄に生年月日時を入力（例：「1990年5月15日 14時30分生まれ」）</li>
+          <li>【SYNC】をクリックして、命式と量子同調させます。</li>
+          <li>年柱・月柱・日柱・時柱の四本柱が順番に3D展開されます。</li>
+          <li>AIによる鑑定ログがリアルタイムにストリーミング出力されます。</li>
+        </ul>
+
+        <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+        <a href="https://cyber-fourpillars.netlify.app/" class="btn-cyber btn-gold" target="_blank">
+          実機を無制限で体験する (無料枠あり)
+        </a>
+      </div>
+
+      <!-- Simulator Terminal UI -->
+      <div class="simulator-board">
+        <div class="sim-header">
+          <div class="sim-status">
+            <span class="sim-indicator"></span>
+            CYBER_4PILLARS_PREVIEW // PORT_04K
+          </div>
+          <div>STATUS: READY</div>
+        </div>
+
+        <div class="sim-body">
+          <!-- Slots for the 4 pillars -->
+          <div class="sim-slots">
+            <!-- Pillar 1: Year -->
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">YEAR (年柱)</div>
+              <div class="sim-card">
+                <!-- Back Face -->
+                <div class="sim-card-face sim-card-back"></div>
+                <!-- Front Face (Populated dynamically) -->
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-num">木</div>
+                  <div class="front-art"><div class="front-kanji">甲子</div></div>
+                  <div class="front-title">きのえ ね</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pillar 2: Month -->
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">MONTH (月柱)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-num">火</div>
+                  <div class="front-art"><div class="front-kanji">丙寅</div></div>
+                  <div class="front-title">ひのえ とら</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pillar 3: Day -->
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">DAY (日柱)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-num">土</div>
+                  <div class="front-art"><div class="front-kanji">戊辰</div></div>
+                  <div class="front-title">つちのえ たつ</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pillar 4: Hour -->
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">HOUR (時柱)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-num">金</div>
+                  <div class="front-art"><div class="front-kanji">庚午</div></div>
+                  <div class="front-title">かのえ うま</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terminal Display Console -->
+          <div class="sim-console">
+            <div class="console-text" id="console-text-display">
+              <div class="system-log">&gt; CYBER FOUR PILLARS // QUANTUM CORE v1.0.4 ACTIVE</div>
+              <p>「サイバー四柱推命システム」プレビュー端末です。あなたの生年月日時と量子同調を行います。生まれた日時を入力し、[SYNC]を実行してください。</p>
+            </div>
+          </div>
+
+          <!-- Input Form -->
+          <div id="console-action-row">
+            <form class="sim-form" style="width: 100%;">
+              <div class="sim-input-box">
+                <input type="text" id="sim-worry-input" class="sim-input" placeholder="例: 1990年5月15日 14時30分生まれ" required>
+                <button type="submit" id="sim-submit-btn" class="sim-submit">SYNC</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Section -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <h2>TECHNICAL SPEC // 技術構成</h2>
+      <p style="text-align: center; max-width: 700px; margin: -2rem auto 3rem; font-size: 0.95rem;">
+        サイバー四柱推命は、高度なブラウザ内実行基盤を設計することにより、サーバーコストを極限まで削減し、ユーザーの絶対的なプライバシー保護とローカルならではの低レイテンシを実現しています。
+      </p>
+
+      <div class="tech-diagram-container">
+        <div class="tech-flow">
+          <!-- Node 1 -->
+          <div class="flow-node">
+            <div class="node-title">BIRTH DATA</div>
+            <div class="node-desc">生年月日時の入力。Web UIからの自然言語・日時入力。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 2 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">WASM INTERACTION</div>
+            <div class="node-desc">wllamaライブラリがWeb Worker（バックグラウンドスレッド）上でWASMを稼働。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 3 -->
+          <div class="flow-node">
+            <div class="node-title">GGUF MODEL</div>
+            <div class="node-desc">Qwen2.5-3B (約2GBに量子化) をブラウザキャッシュからオンメモリで推論。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 4 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">STREAM RESPONSE</div>
+            <div class="node-desc">トークン毎のストリーミング描画により、待機時間なく鑑定結果を出力。</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; font-size: 0.95rem; line-height: 1.8;">
+        <div>
+          <h4 style="color: var(--color-cyan); margin-bottom: 0.5rem; font-family: var(--font-cyber);">wllama + WebAssembly</h4>
+          <p>
+            C++で記述された超高速推論エンジン「llama.cpp」をWebAssemblyにコンパイルし、ブラウザ上でネイティブに近い処理速度を実現。Web Workerで推論スレッドを完全に独立させることで、AIが複雑な鑑定文を作成している最中も、ブラウザの命式展開演出やチャット操作が一切カクつくことなくスムーズに動作します。
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--color-magenta); margin-bottom: 0.5rem; font-family: var(--font-cyber);">GGUFモデルのスマートキャッシュ</h4>
+          <p>
+            初回起動時にのみ、Hugging FaceのパブリックCDNから量子化された約2GBのモデルファイル（Qwen2.5-3B-Instruct-Q4_K_M）をダウンロードします。ダウンロードされたモデルはブラウザ内のキャッシュストレージに自動的に保存されるため、2回目以降のアクセスではロードをスキップし、一瞬で鑑定システムが起動します。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>PRICING // ライセンス料金</h2>
+
+      <div class="pricing-box">
+        <div class="pricing-title">無制限ライセンス</div>
+        <div class="pricing-subtitle">UNLIMITED READINGS LICENSE</div>
+
+        <div class="pricing-price">
+          ¥300 <span>(税込)</span>
+        </div>
+        <div class="pricing-limit-info">買い切り / 月額固定費なし</div>
+
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            無料鑑定枠（3回）の上限を完全に解除
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            AIへの無限の追加の問いかけ・対話機能
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            ライセンスの永久付与 (同一PC・ブラウザ)
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Stripe決済による安全なワンタイム決済
+          </li>
+        </ul>
+
+        <!-- REPLACE URL: 実際のNetlify Next.jsアプリのURLに差し替えてください -->
+        <a href="https://cyber-fourpillars.netlify.app/" class="btn-cyber btn-gold" style="width: 100%; justify-content: center;" target="_blank">
+          アプリを起動してライセンスを購入する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2>FAQ // よくある質問</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: なぜ3回しか無料で鑑定できないのですか？</div>
+          <div class="faq-answer">
+            <p>
+              本アプリケーションは完全に個人のデバイス上で推論を行いますが、初回起動時にパブリックネットワークからモデル（約2GB）をロードします。また、開発やシステムの品質維持のため、無制限鑑定を行う場合には300円のワンタイムライセンス（買い切り）の購入をお願いしております。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 入力した生年月日時や悩みのデータは運営側に送信されますか？</div>
+          <div class="faq-answer">
+            <p>
+              いいえ、送信されません。本システムは、ブラウザ内のローカルニューラルネットワークで推論モデルを稼働させており、一切の生年月日時、会話テキスト、鑑定結果をサーバーへ送信したり、データ収集に利用したりすることはございません。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: スマートフォンでも動作しますか？</div>
+          <div class="faq-answer">
+            <p>
+              はい、比較的新しいスペックのiOSまたはAndroid端末のChromeやSafariブラウザであれば動作可能です。ただし、3B（30億パラメータ）のモデルを展開するため、端末の物理メモリ（RAM）が最低でも4GB以上（推奨8GB以上）あるとスムーズに動きます。古いスマートフォンではメモリ不足によりブラウザが強制終了する場合があります。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: オフラインでも鑑定できますか？</div>
+          <div class="faq-answer">
+            <p>
+              はい、一度モデルをダウンロードし、キャッシュへの保存が完了すれば、その後は完全に機内モードなどのインターネット環境のない「オフライン」の状態でも命式を展開し、AIの鑑定を生成することができます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-layout">
+        <div class="footer-info">
+          <div class="logo">
+            CYBER <em>4 PILLARS</em>
+          </div>
+          <p>量子コグニティブ・AI四柱推命ターミナル</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://github.com/tztechno" target="_blank" style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-dim);">
+            <!-- GitHub Icon SVG -->
+            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            GitHub Profile
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        &copy; 2026 CYBER FOUR PILLARS Project. All rights reserved. Powered by wllama & Qwen2.5.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
