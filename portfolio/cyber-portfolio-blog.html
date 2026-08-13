@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ブラウザだけで完結する16のサイバー空間——石井シュン氏のWebアプリ作品群を歩く</title>
+<style>
+  :root{
+    --bg:#0a0a12;
+    --bg-panel:#12121f;
+    --border:#2a2a44;
+    --text:#dcdce8;
+    --text-dim:#9494ad;
+    --accent:#00e5ff;
+    --accent2:#ff2fd6;
+    --accent3:#7c4dff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(124,77,255,0.18), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(0,229,255,0.14), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:64px 24px 96px;
+  }
+  header.hero{
+    text-align:center;
+    margin-bottom:56px;
+    padding-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid rgba(0,229,255,0.4);
+    border-radius:999px;
+    padding:6px 16px;
+    margin-bottom:24px;
+    background:rgba(0,229,255,0.06);
+  }
+  h1{
+    font-size:clamp(24px,4vw,36px);
+    line-height:1.5;
+    margin:0 0 16px;
+    background:linear-gradient(90deg,var(--accent),var(--accent3) 55%,var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-weight:800;
+    letter-spacing:0.01em;
+  }
+  .lede{
+    color:var(--text-dim);
+    font-size:15px;
+  }
+  .lede a{color:var(--accent);}
+  h2{
+    font-size:20px;
+    color:#f0f0ff;
+    margin:56px 0 8px;
+    padding-left:14px;
+    border-left:3px solid var(--accent2);
+    letter-spacing:0.02em;
+  }
+  h2 .sub{
+    display:block;
+    font-size:12px;
+    color:var(--text-dim);
+    font-weight:400;
+    letter-spacing:0.08em;
+    margin-top:4px;
+  }
+  h3{
+    font-size:16px;
+    margin:0 0 4px;
+    color:var(--accent);
+    letter-spacing:0.02em;
+  }
+  p{
+    color:var(--text);
+    font-size:15.5px;
+    margin:0 0 18px;
+  }
+  a{color:var(--accent2); text-decoration:none; border-bottom:1px solid rgba(255,47,214,0.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+    margin:22px 0 18px;
+  }
+  @media(min-width:640px){
+    .grid{grid-template-columns:1fr 1fr;}
+  }
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 22px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent3),var(--accent2));
+    opacity:0.8;
+  }
+  .card .node{
+    font-size:10.5px;
+    letter-spacing:0.12em;
+    color:var(--text-dim);
+    margin-bottom:6px;
+  }
+  .card .tag{
+    display:inline-block;
+    font-size:10.5px;
+    letter-spacing:0.05em;
+    color:var(--accent3);
+    border:1px solid rgba(124,77,255,0.4);
+    border-radius:6px;
+    padding:2px 8px;
+    margin-top:10px;
+    margin-right:6px;
+  }
+  .card p{margin:8px 0 0; font-size:14px; color:var(--text-dim);}
+  .card .links{margin-top:12px; font-size:12.5px;}
+  .card .links a{margin-right:14px; border-bottom-color:rgba(0,229,255,0.35); color:var(--accent);}
+  .lead-in{color:var(--text-dim); font-size:14.5px; margin:-4px 0 4px;}
+  .divider{
+    text-align:center;
+    color:var(--border);
+    letter-spacing:0.5em;
+    margin:52px 0;
+    font-size:12px;
+  }
+  .cta{
+    text-align:center;
+    margin-top:56px;
+    padding:32px 20px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(0,229,255,0.05),rgba(124,77,255,0.05));
+  }
+  .cta a.btn{
+    display:inline-block;
+    margin-top:14px;
+    padding:12px 28px;
+    border-radius:999px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:0.03em;
+    text-decoration:none;
+  }
+  .cta a.btn:hover{
+    background:rgba(0,229,255,0.1);
+  }
+  footer{
+    text-align:center;
+    margin-top:64px;
+    color:var(--text-dim);
+    font-size:12px;
+    letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <span class="kicker">Portfolio Spotlight</span>
+    <h1>ブラウザだけで完結する16のサイバー空間<br>——石井シュン氏のWebアプリ作品群を歩く</h1>
+    <p class="lede">ボードゲームから占い、音声認識まで。すべてブラウザ内で動くAI搭載Webアプリのポートフォリオ「<a href="https://tztechno.github.io/portfolio/" target="_blank" rel="noopener">CYBER NET CONTROL PANEL</a>」を紹介する。</p>
+  </header>
+
+  <p>前回、オフライン動作の買い切り型デスクトップアプリ「Cyber Matrix」を紹介したが、同じ制作者(石井シュン氏)には、ブラウザだけで完結するWebアプリ版の作品群も存在する。ポートフォリオサイト「<a href="https://tztechno.github.io/portfolio/" target="_blank" rel="noopener">CYBER NET CONTROL PANEL</a>」は、まるで管制パネルのようなUIで16のプロジェクト(ノード)を並べ、それぞれに擬似IPアドレスやレイテンシまで表示するという凝った演出がされている。</p>
+
+  <p>ジャンルはボードゲームのAI対戦から、レトロアーケードの再現、ブラウザ内で動くローカルLLMを使った占い・音声認識ツールまで幅広い。以下、カテゴリ別に紹介する。</p>
+
+  <h2>ボードゲーム編<span class="sub">頭脳戦をネオンの盤上で</span></h2>
+  <p class="lead-in">将棋・チェス・囲碁・オセロといった伝統ゲームを、AI対戦とホログラム風ビジュアルで再構築したシリーズ。</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="node">NODE-03 · BOARD MATRIX</div>
+      <h3>CYBER OTHELLO</h3>
+      <p>ネオンブラックのグリッドを舞台にした盤面美学の反転。リアルタイムAI解析付きオセロシミュレーター。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj03/" target="_blank" rel="noopener">Landing</a><a href="https://othello-ai-game.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-04 · LOGIC WAR</div>
+      <h3>CYBER CHESS</h3>
+      <p>64マスに繰り広げられる無限計算のロジック戦。リアルタイム盤面解析付きタクティカルシミュレーター。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj04/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-chess-studio.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-07 · GRID TACTIC</div>
+      <h3>CYBER CHECKERS</h3>
+      <p>量子盤面と深層知能が織りなす極限シミュレーション。ホログラフィックグリッド上で最適かつ俊敏なチェッカー戦略を展開。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj07/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-checkers.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-08 · INTELLECT</div>
+      <h3>CYBER SHOGI</h3>
+      <p>量子演算がもたらす伝統戦略の最前線。サイバーネオンで彩られた将棋盤でCPUの知能と対峙するタクティカル空間。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj08/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-shogi.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-09 · ROUTE FINDING</div>
+      <h3>CYBER TWIXT</h3>
+      <p>量子盤面と経路探索アルゴリズムが織りなす極限シミュレーション。敵の妨害を掻い潜りながらペグを繋ぐ戦略ゲーム。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj09/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-twixt.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-13 · TERRITORY</div>
+      <h3>CYBER IGO</h3>
+      <p>量子盤面と深層知能が生み出す極限シミュレーション。ホログラムのように美しいネオン碁盤と、自己強化学習AIの囲碁対戦。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj13/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-igo.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+  </div>
+
+  <h2>レトロ・アーケード編<span class="sub">80年代の記憶を高速再起動する</span></h2>
+  <p class="lead-in">Atari世代のクラシックゲームを、AIとネオンビジュアルで再解釈したシリーズ。</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="node">NODE-06 · EMULATION</div>
+      <h3>CYBER INVADERS</h3>
+      <p>覚醒するレトロテクノロジー。Atari 2600のエミュレーションを内包した、ネオン顔の高速シューティング。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj06/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-invader.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-10 · BLOCK STACK</div>
+      <h3>CYBER TETRIS</h3>
+      <p>進化したSF風テトリスでAI対人間が激突。自己学習AI、3D/2D表示、シンセサイザーサウンドを備えたサイバーブロックマトリクス。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj10/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-tetris-playground.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-14 · BULLET ARENA</div>
+      <h3>CYBER SHOOTOUT</h3>
+      <p>覚醒するレトロサイバー決闘。Atari風ビジュアルと現代的な戦術要素が融合した、弾道計算AI搭載の1対1バレットアリーナ。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj14/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-shootout.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+  </div>
+
+  <h2>デッキバトル&カード編<span class="sub">通信対戦とソリティアの夜</span></h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="node">NODE-05 · DECK BATTLE</div>
+      <h3>CYBER POKÉMON</h3>
+      <p>現代的なホログラムバトルアリーナ。WebSocket技術によるリアルタイム通信で、洗練されたデッキ構築バトルを実現。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj05/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-pokemon-battle.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-20 · CARD MATRIX</div>
+      <h3>CYBER SOLITIA</h3>
+      <p>ブラウザで遊べるフル機能のクロンダイク・ソリティア。自動プレイデモやデッドロック検出を搭載。サイバーパンク調のカードゲームで、買い切り¥100という価格設定も特徴的。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj20/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-solitia.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+  </div>
+
+  <h2>AIツール・占い編<span class="sub">ブラウザ内ローカルLLMという選択</span></h2>
+  <p class="lead-in">このカテゴリーの共通点は、外部サーバーに一切データを送らず、ブラウザ内でLLMや音声認識モデル(wllama + Qwen2.5シリーズ、Whisper large-v3-turboなど)を動かしている点だ。プライバシーを保ちながら本格的なAI体験を提供する、技術的にも野心的なラインナップになっている。</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="node">NODE-16 · AI DIVINATION</div>
+      <h3>CYBER TAROT</h3>
+      <p>ブラウザ内ローカルLLM(wllama + Qwen2.5-1.5B)による量子同期三枚引きシステム。完全プライベートな次世代タロット占い。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj16/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-tarot.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-17 · AI SELF-DESIGN</div>
+      <h3>CYBER SELFDESIGN</h3>
+      <p>ブラウザ内ローカルLLMを用いた自己進化型プロンプト設計エンジン。問題設計や戦略構築を支援する完全プライベートシステム。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj17/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-selfdesign.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-18 · AI FORTUNE</div>
+      <h3>CYBER FOUR PILLARS</h3>
+      <p>生年月日時から命式を導く近未来の四柱推命システム。ブラウザ内ローカルLLM(wllama + Qwen2.5-3B)がパーソナライズされた鑑定を提供。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj18/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-fourpillars.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-19 · AI FORTUNE</div>
+      <h3>CYBER HOLOSCOPE</h3>
+      <p>生年月日・時刻・出生地から出生図を導く近未来の西洋占星術システム。日々のトランジット解析も含め、ローカルLLM(wllama + Qwen2.5-3B)がパーソナル鑑定を行う。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj19/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-holoscope.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+    <div class="card">
+      <div class="node">NODE-21 · AI AUDIO</div>
+      <h3>CYBER TRANSCRIPTION</h3>
+      <p>マイクからのリアルタイム音声テキスト変換。Whisper large-v3-turboが完全にブラウザ内で動作し、外部サーバーへ一切データを送らないプライベート音声認識端末。</p>
+      <div class="links"><a href="https://tztechno.github.io/proj21/" target="_blank" rel="noopener">Landing</a><a href="https://cyber-transcription.netlify.app/" target="_blank" rel="noopener">Play</a></div>
+    </div>
+  </div>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <h2>ポートフォリオ全体を眺めて</h2>
+  <p>16のノードを一望すると、いくつかの一貫した設計思想が見えてくる。ひとつは「ブラウザだけで完結させる」というこだわりだ。WebAssemblyや軽量LLM(Qwen2.5シリーズ)、Whisperのブラウザ内推論など、インストール不要かつサーバー非依存で本格的なAI体験を提供する技術選定が随所に見られる。占い系アプリでプライバシーを謳っている点も、この設計思想と結びついている。</p>
+  <p>もうひとつは徹底した世界観統一だ。将棋からタロット占いまで、扱うテーマはバラバラでありながら、ネオン・ホログラム・量子演算といったサイバーパンクのビジュアル言語と「Cyber ○○」という命名規則で全プロジェクトが束ねられている。ポートフォリオサイト自体も擬似的な管制パネルUIになっており、単なる作品一覧を超えて、それ自体が一つの作品として設計されている。</p>
+
+  <div class="cta">
+    <p style="margin-bottom:0;">全16ノードの詳細は、ぜひ管制パネルから直接アクセスしてみてほしい。</p>
+    <a class="btn" href="https://tztechno.github.io/portfolio/" target="_blank" rel="noopener">CYBER NET CONTROL PANEL を開く →</a>
+  </div>
+
+  <footer>© 2026 GAME LP PORTFOLIO — CYBER NET CONTROL PANEL v2.8.5</footer>
+
+</div>
+</body>
+</html>
