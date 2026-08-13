@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>CYBER TRANSCRIPTION // 完全ローカルAIリアルタイム音声文字起こし</title>
+  <meta name="title" content="CYBER TRANSCRIPTION // 完全ローカルAIリアルタイム音声文字起こし">
+  <meta name="description" content="ブラウザだけで動くリアルタイム音声文字起こし「CyberTranscription」。Whisper large-v3-turboをWeb Worker上でONNX実行し、音声データは一切外部送信しません。ログイン不要、無料5回、以降は買い切り¥100。">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj21/">
+  <meta property="og:title" content="CYBER TRANSCRIPTION // 完全ローカルAIリアルタイム音声文字起こし">
+  <meta property="og:description" content="マイクの音声をリアルタイムに文字起こし。Whisper large-v3-turboがブラウザ内で完結して動作し、外部サーバーには何も送信されないプライベートな音声認識ターミナル。">
+  <meta property="og:image" content="https://tztechno.github.io/proj21/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tztechno.github.io/proj21/">
+  <meta property="twitter:title" content="CYBER TRANSCRIPTION // 完全ローカルAIリアルタイム音声文字起こし">
+  <meta property="twitter:description" content="マイクの音声をリアルタイムに文字起こし。Whisper large-v3-turboがブラウザ内で完結して動作し、外部サーバーには何も送信されないプライベートな音声認識ターミナル。">
+  <meta property="twitter:image" content="https://tztechno.github.io/proj21/assets/og-image.jpg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        CYBER <em>TRANSCRIPTION</em>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">特徴</a></li>
+        <li><a href="#demo" class="nav-link">体験デモ</a></li>
+        <li><a href="#tech" class="nav-link">技術構成</a></li>
+        <li><a href="#pricing" class="nav-link">料金</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <a href="https://cyber-transcription.netlify.app/" class="btn-cyber" id="nav-launch-btn" target="_blank">
+        アプリを起動する
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left: 2px;">
+          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          WHISPER ENGINE ONLINE
+        </div>
+
+        <h1 class="hero-title">
+          CYBER <em>TRANSCRIPTION</em>
+          <span>REALTIME VOICE ENGINE</span>
+        </h1>
+
+        <p class="hero-desc">
+          「サイバートランスクリプション」は、ブラウザだけで完結する次世代のリアルタイム音声文字起こしシステムです。<br>
+          マイクの音声をWhisper large-v3-turboがその場で認識し、テキストへ変換。音声データは一切外部サーバーへ送信されず、Web Worker上でのローカル推論だけで処理が完結する、完全プライベートな文字起こしターミナルです。
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://cyber-transcription.netlify.app/" class="btn-cyber" target="_blank">
+            アプリを起動する
+          </a>
+          <a href="#demo" class="btn-cyber btn-magenta">
+            体験デモを見る
+          </a>
+        </div>
+
+        <div class="hero-tech-pills">
+          <div class="tech-pill">
+            <span class="tech-pill-val">Whisper v3-turbo</span>
+            <span class="tech-pill-label">ブラウザ内ONNX推論</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">Zero Upload</span>
+            <span class="tech-pill-label">音声データ外部送信なし</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">No Login</span>
+            <span class="tech-pill-label">登録不要・買い切り課金</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-backdrop"></div>
+        <div class="cyber-ring"></div>
+        <div class="cyber-ring-inner"></div>
+
+        <!-- Voice Waveform Core Visual -->
+        <div class="voice-core">
+          <div class="eq-bars">
+            <span class="eq-bar" style="--i:0"></span>
+            <span class="eq-bar" style="--i:1"></span>
+            <span class="eq-bar" style="--i:2"></span>
+            <span class="eq-bar" style="--i:3"></span>
+            <span class="eq-bar" style="--i:4"></span>
+            <span class="eq-bar" style="--i:5"></span>
+            <span class="eq-bar" style="--i:6"></span>
+          </div>
+          <div class="voice-core-label">16kHz MONO<br>WHISPER STT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2>SYSTEM FEATURES // 主な特徴</h2>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎙️</div>
+          <h3>ブラウザ完結のローカル音声認識</h3>
+          <p>
+            Whisper large-v3-turboをONNX形式でブラウザ内に展開し、Web Worker上で推論を実行。UIスレッドをブロックせず、マイクの音声データはデバイスの外に一切送信されません。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>自然な発話区切りでの高精度認識</h3>
+          <p>
+            固定時間ではなく発話の「間（ポーズ）」を検知して音声をチャンク分割し、Whisperの30秒コンテキストに最適化。「ご視聴ありがとうございました」のような定番の空耳（ハルシネーション）も自動でフィルタリングします。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔓</div>
+          <h3>登録不要・買い切り課金</h3>
+          <p>
+            アカウント登録やサブスクリプションは一切なし。まずは無料で5回文字起こしを試せて、続けて使いたい場合のみStripe決済で¥100（税込）の買い切りライセンスを購入するだけのシンプル設計です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Simulator Section -->
+  <section class="demo-section" id="demo">
+    <div class="container demo-layout">
+      <div class="demo-info">
+        <h2 class="demo-title">MIC INPUT PREVIEW // 体験デモ端末</h2>
+        <p class="demo-desc">
+          右側のプレビュー端末で、CyberTranscriptionの文字起こしの雰囲気を体験できます。
+          【MIC DEMO】ボタンをクリックすると、疑似波形エンジンがマイク入力を模したウェーブフォームを描き、Whisperエンジンが認識したテキストを1文字ずつ生成していきます。
+        </p>
+
+        <ul class="demo-instructions">
+          <li>【MIC DEMO】ボタンをクリックしてエンジンを起動します。</li>
+          <li>波形パネルがマイク入力を模してリアルタイムに変動します。</li>
+          <li>コンソールログに認識エンジンの進行状況が出力されます。</li>
+          <li>実機では実際のマイク音声がWhisperでその場でテキスト化されます。</li>
+        </ul>
+
+        <a href="https://cyber-transcription.netlify.app/" class="btn-cyber btn-gold" target="_blank">
+          実機で無料文字起こしを試す（無料枠あり）
+        </a>
+      </div>
+
+      <!-- Simulator Terminal UI -->
+      <div class="simulator-board">
+        <div class="sim-header">
+          <div class="sim-status">
+            <span class="sim-indicator"></span>
+            CYBER_TRANSCRIPTION_PREVIEW // PORT_04K
+          </div>
+          <div>STATUS: READY</div>
+        </div>
+
+        <div class="sim-body">
+          <!-- Waveform Visualizer -->
+          <div class="sim-waveform" id="sim-waveform"></div>
+
+          <!-- Terminal Display Console -->
+          <div class="sim-console">
+            <div class="console-text" id="console-text-display">
+              <div class="system-log">&gt; CYBER TRANSCRIPTION // WHISPER ENGINE v1.0 STANDBY</div>
+              <p>「サイバートランスクリプション」プレビュー端末です。【MIC DEMO】を押すと疑似波形とともに文字起こしのデモが再生されます。</p>
+            </div>
+          </div>
+
+          <!-- Input Form -->
+          <div id="console-action-row" class="console-action-row">
+            <button type="button" id="sim-demo-btn" class="btn-cyber" style="width: 100%; justify-content: center;">
+              MIC DEMO を実行
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Section -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <h2>TECHNICAL SPEC // 技術構成</h2>
+      <p style="text-align: center; max-width: 700px; margin: -2rem auto 3rem; font-size: 0.95rem;">
+        CyberTranscriptionはNext.js + React製のクライアントサイド・音声処理パイプラインと、Netlify Functionsによるサーバーレスな決済処理を組み合わせ、サーバーコストを抑えつつ音声データを一切サーバーに送らない構成で動作しています。
+      </p>
+
+      <div class="tech-diagram-container">
+        <div class="tech-flow">
+          <!-- Node 1 -->
+          <div class="flow-node">
+            <div class="node-title">MIC CAPTURE</div>
+            <div class="node-desc">getUserMediaで音声取得し、自然な発話ポーズでチャンク分割。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 2 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">RESAMPLE 16kHz</div>
+            <div class="node-desc">Whisperが要求する16kHzモノラルへリアルタイム変換。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 3 -->
+          <div class="flow-node">
+            <div class="node-title">WHISPER WORKER</div>
+            <div class="node-desc">large-v3-turboをWeb Worker上でONNX実行し、UIをブロックしない。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 4 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">STRIPE CHECKOUT</div>
+            <div class="node-desc">Netlify Functionsがワンタイム決済セッションを発行・検証。</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; font-size: 0.95rem; line-height: 1.8;">
+        <div>
+          <h4 style="color: var(--color-cyan); margin-bottom: 0.5rem; font-family: var(--font-cyber);">Next.js 16 + React 19 + Web Worker</h4>
+          <p>
+            録音・波形処理を担うUIコンポーネントと、Whisperモデルのロード・チャンク推論を行うロジックをWeb Workerとして明確に分離。すべての推論はブラウザ内で完結し、音声データが外部サーバーへ送信されることはありません。
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--color-magenta); margin-bottom: 0.5rem; font-family: var(--font-cyber);">Stripe + Netlify Functions</h4>
+          <p>
+            買い切りライセンスの決済はStripe Checkoutで処理し、Netlify Functions上のサーバーレス関数が決済セッションの発行・検証を担当。利用回数と購入状態はブラウザのlocalStorageに保存され、余計な個人情報を保持しません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>PRICING // ライセンス料金</h2>
+
+      <div class="pricing-box">
+        <div class="pricing-title">フルアクセスライセンス</div>
+        <div class="pricing-subtitle">UNLIMITED TRANSCRIPTION ACCESS</div>
+
+        <div class="pricing-price">
+          ¥100 <span>(税込)</span>
+        </div>
+        <div class="pricing-limit-info">買い切り / 月額固定費なし</div>
+
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            無料利用（5回）の上限を完全に解除
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            録音時間を気にせず何度でも文字起こし
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            ワンクリックでのテキストコピー機能
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Stripeによる安全なワンタイム決済
+          </li>
+        </ul>
+
+        <a href="https://cyber-transcription.netlify.app/" class="btn-cyber btn-gold" style="width: 100%; justify-content: center;" target="_blank">
+          アプリを起動してライセンスを購入する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2>FAQ // よくある質問</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 無料で何回使えますか？</div>
+          <div class="faq-answer">
+            <p>
+              ブラウザごとに5回まで無料で文字起こしできます。上限に達すると、¥100（税込）の買い切りライセンスを購入することで無制限に利用できるようになります。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 録音した音声はサーバーに送信されますか？</div>
+          <div class="faq-answer">
+            <p>
+              いいえ。音声認識はすべてブラウザ内のWeb Worker上でWhisperモデルを実行することで完結しており、音声データが外部サーバーへ送信されることはありません。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 日本語の認識精度はどのくらいですか？</div>
+          <div class="faq-answer">
+            <p>
+              軽量なwhisper-baseモデルは日本語の精度が不十分なため採用せず、large-v3のエンコーダをそのまま活かしつつデコーダを4層に軽量化した「whisper-large-v3-turbo」を採用しています。精度とブラウザ内での速度のバランスを重視した構成です。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: アカウント登録は必要ですか？</div>
+          <div class="faq-answer">
+            <p>
+              不要です。利用回数や購入状態はブラウザのlocalStorageに保存される仕組みのため、メールアドレスやパスワードの登録なしでそのまま利用できます。ブラウザや端末を変更すると無料利用回数はリセットされます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: スマートフォンでも使えますか？</div>
+          <div class="faq-answer">
+            <p>
+              はい、Chrome や Safari などの標準的なモバイルブラウザで動作します。ただし初回はWhisperモデル（数百MB）のダウンロードが発生するため、Wi-Fi環境でのご利用を推奨します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-layout">
+        <div class="footer-info">
+          <div class="logo">
+            CYBER <em>TRANSCRIPTION</em>
+          </div>
+          <p>近未来リアルタイム音声文字起こしターミナル</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://github.com/tztechno" target="_blank" style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-dim);">
+            <!-- GitHub Icon SVG -->
+            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            GitHub Repository
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        &copy; 2026 CYBER TRANSCRIPTION Project. All rights reserved. Powered by Whisper &amp; Stripe.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
