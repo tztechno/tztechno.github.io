@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オフラインで動く「本気」のAI対戦ゲーム——Cyber Matrixのデスクトップアプリ群を紹介する</title>
+<style>
+  :root{
+    --bg:#0a0a12;
+    --bg-panel:#12121f;
+    --border:#2a2a44;
+    --text:#dcdce8;
+    --text-dim:#9494ad;
+    --accent:#00e5ff;
+    --accent2:#ff2fd6;
+    --accent3:#7c4dff;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(124,77,255,0.18), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(0,229,255,0.14), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:760px;
+    margin:0 auto;
+    padding:64px 24px 96px;
+  }
+  header.hero{
+    text-align:center;
+    margin-bottom:56px;
+    padding-bottom:40px;
+    border-bottom:1px solid var(--border);
+  }
+  .kicker{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--accent);
+    border:1px solid rgba(0,229,255,0.4);
+    border-radius:999px;
+    padding:6px 16px;
+    margin-bottom:24px;
+    background:rgba(0,229,255,0.06);
+  }
+  h1{
+    font-size:clamp(26px,4.2vw,38px);
+    line-height:1.5;
+    margin:0 0 16px;
+    background:linear-gradient(90deg,var(--accent),var(--accent3) 55%,var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-weight:800;
+    letter-spacing:0.01em;
+  }
+  .lede{
+    color:var(--text-dim);
+    font-size:15px;
+  }
+  .lede a{color:var(--accent);}
+  h2{
+    font-size:20px;
+    color:#f0f0ff;
+    margin:52px 0 18px;
+    padding-left:14px;
+    border-left:3px solid var(--accent2);
+    letter-spacing:0.02em;
+  }
+  h3{
+    font-size:16px;
+    margin:30px 0 10px;
+    color:var(--accent);
+    letter-spacing:0.02em;
+  }
+  p{
+    color:var(--text);
+    font-size:15.5px;
+    margin:0 0 18px;
+  }
+  a{color:var(--accent2); text-decoration:none; border-bottom:1px solid rgba(255,47,214,0.35);}
+  a:hover{border-bottom-color:var(--accent2);}
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    margin:18px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent3),var(--accent2));
+    opacity:0.8;
+  }
+  .card .price{
+    display:inline-block;
+    margin-top:6px;
+    font-size:13px;
+    color:var(--accent);
+    background:rgba(0,229,255,0.08);
+    border:1px solid rgba(0,229,255,0.3);
+    border-radius:6px;
+    padding:3px 10px;
+    letter-spacing:0.03em;
+  }
+  .card p{margin-bottom:0; margin-top:10px;}
+  .soon{
+    display:inline-block;
+    font-size:11px;
+    letter-spacing:0.1em;
+    color:var(--accent3);
+    border:1px solid rgba(124,77,255,0.4);
+    border-radius:6px;
+    padding:2px 8px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  ul.feature-list{
+    margin:0 0 18px;
+    padding-left:0;
+    list-style:none;
+  }
+  ul.feature-list li{
+    position:relative;
+    padding-left:22px;
+    margin-bottom:12px;
+    font-size:15px;
+    color:var(--text);
+  }
+  ul.feature-list li::before{
+    content:"▹";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+  }
+  ul.feature-list b{color:#f0f0ff;}
+  .quote{
+    font-style:normal;
+    color:var(--text-dim);
+    border-left:2px solid var(--border);
+    padding:2px 0 2px 14px;
+    font-size:14px;
+  }
+  .divider{
+    text-align:center;
+    color:var(--border);
+    letter-spacing:0.5em;
+    margin:48px 0;
+    font-size:12px;
+  }
+  .cta{
+    text-align:center;
+    margin-top:56px;
+    padding:32px 20px;
+    border:1px solid var(--border);
+    border-radius:16px;
+    background:linear-gradient(180deg,rgba(0,229,255,0.05),rgba(124,77,255,0.05));
+  }
+  .cta a.btn{
+    display:inline-block;
+    margin-top:14px;
+    padding:12px 28px;
+    border-radius:999px;
+    border:1px solid var(--accent);
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:0.03em;
+    text-decoration:none;
+  }
+  .cta a.btn:hover{
+    background:rgba(0,229,255,0.1);
+  }
+  footer{
+    text-align:center;
+    margin-top:64px;
+    color:var(--text-dim);
+    font-size:12px;
+    letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <span class="kicker">Product Spotlight</span>
+    <h1>オフラインで動く「本気」のAI対戦ゲーム<br>——Cyber Matrixのデスクトップアプリ群を紹介する</h1>
+    <p class="lede">ネオンとホログラムの世界観で、将棋・チェス・シャンチーを本格AIエンジンごとオフライン化したデスクトップストア「<a href="https://cyber-matrix.netlify.app/" target="_blank" rel="noopener">Cyber Matrix</a>」を紹介する。</p>
+  </header>
+
+  <p>ネットに繋がっていなくても、飛行機の中でも、電波の悪い場所でも——本格的なAIと盤上で殴り合いたい。そんな願いに応えるデスクトップストア「<a href="https://cyber-matrix.netlify.app/" target="_blank" rel="noopener">Cyber Matrix</a>」を見つけたので、今回はその作品群を紹介したい。</p>
+
+  <p>コンセプトは一貫している。将棋・チェス・シャンチー(中国将棋)といった伝統的なボードゲームを、ネオンとホログラムをまとったサイバーパンク/シンセウェイヴの世界観で包み、ブラウザの制約を超えてPCのローカルリソースをフル活用する対戦AIとして仕立て直す、というものだ。ストアのトップには「Tactical AI Hologram Simulator Desktop Edition」というキャッチコピーが掲げられ、「ブラウザのサンドボックス制限を超え、PCのローカルリソースを100%引き出す」という一文がその狙いを端的に語っている。</p>
+
+  <h2>ラインナップ</h2>
+  <p>現在購入可能なタイトルは3本、開発中のタイトルが2本という構成だ。</p>
+
+  <div class="card">
+    <h3>Cyber Shogi Desktop Edition <span class="price">¥2,980</span></h3>
+    <p>将棋エンジンのYaneuraOuとFairy-Stockfishを組み合わせ、「3Dホログラム空間と超高速AIが融合した究極の将棋シミュレーター」を謳う一本。両エンジンともNNUE(ニューラルネットワーク評価関数)を有効にした状態で動作し、対局も検討もオフラインで完結する。</p>
+  </div>
+
+  <div class="card">
+    <h3>Cyber Chess Desktop Edition <span class="price">¥2,980</span></h3>
+    <p>「新次元チェス」というコピーの通り、ニューラル評価モデルとネオンマトリックスの世界観を掛け合わせたチェスシミュレーター。エンジンにはStockfishとFairy-StockfishのWebAssembly実装を採用している。</p>
+  </div>
+
+  <div class="card">
+    <h3>Cyber Xiangqi Desktop Edition <span class="price">¥2,980</span></h3>
+    <p>中国将棋(シャンチー)版。こちらもFairy-Stockfishをベースに、ニューラル評価を組み込んだローカルCPU最適化エンジンで動く。「飛行機の中でもストレスなく対局・検討できる」ことを売りにしている。</p>
+  </div>
+
+  <h3 style="margin-top:36px;">開発中の2タイトル</h3>
+  <div class="card">
+    <p><b style="color:#f0f0ff;">Cyber Othello Desktop Edition</b><span class="soon">COMING SOON</span><br>自己対戦によるTD(Temporal Difference)強化学習で自律進化するオセロAI。</p>
+  </div>
+  <div class="card">
+    <p><b style="color:#f0f0ff;">Cyber Tetris Desktop Edition</b><span class="soon">COMING SOON</span><br>レトロフューチャーなシンセウェイヴ世界観のパズルゲーム。</p>
+  </div>
+
+  <div class="divider">◆ ◆ ◆</div>
+
+  <h2>技術的な見どころ</h2>
+  <p>単なる見た目のリブランドではなく、アーキテクチャにもこだわりが見える。</p>
+
+  <ul class="feature-list">
+    <li><b>オフラインファースト設計</b> — すべてのタイトルがWebAssemblyエンジンをローカルに内蔵しており、通信環境に依存しない。<span class="quote">「ネット環境がなくても対局・検討が可能」</span>という点は、ブラウザ版のオンライン対戦AIとは一線を画す設計思想だ。</li>
+    <li><b>Tauriによるネイティブ化</b> — UIコードをTauri技術で強力に難読化し、ネイティブバイナリとして格納。WebWorkerでエンジン部分と疎結合にすることで、ブラウザの通信状況に左右されない安定した思考探索を実現している。</li>
+    <li><b>オープンソースとの共存</b> — 将棋・チェス・シャンチーのエンジン(YaneuraOu、Stockfish、Fairy-Stockfish)はいずれもGPLv3ライセンスのソフトウェアで、エンジンのソースコードは仕様通り自由に入手・改変・再配布が可能なまま公開されている。一方でUIや決済まわりのコードは、WebWorkerによる分離アーキテクチャによってプロプライエタリ(非公開)に保たれている。オープンソースのライセンス要件を守りながら独自の付加価値を守る、実務的なバランス感覚がうかがえる。</li>
+  </ul>
+
+  <h2>価格と購入方法</h2>
+  <p>3タイトルとも税込¥2,980の買い切り。追加課金のない永続ライセンスで、決済はStripeによる暗号化処理、購入後は即座にダウンロードURLが発行される仕組みだ。対応プラットフォームはWindows、macOS、Linux、Androidと幅広い。</p>
+
+  <h2>まとめ</h2>
+  <p>「本格AIエンジン × オフライン動作 × サイバーパンクな世界観」という組み合わせは、ボードゲーム好きにも、ガジェット好きにも刺さりそうな企画だ。特に、ブラウザ版にありがちな通信遅延や環境依存の不安定さを、ネイティブ化とローカル完結の設計で解消しようとしている点は実用面でも評価できる。</p>
+
+  <div class="cta">
+    <p style="margin-bottom:0;">気になった方はストアページを覗いてみてほしい。</p>
+    <a class="btn" href="https://cyber-matrix.netlify.app/" target="_blank" rel="noopener">Cyber Matrix を見る →</a>
+  </div>
+
+  <footer>CYBER MATRIX — Tactical AI Hologram Simulator Desktop Edition</footer>
+
+</div>
+</body>
+</html>
