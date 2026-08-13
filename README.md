@@ -100,33 +100,33 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [MASt3R IMC2025 cp311→cp312](https://tztechno.github.io/proj02/)
 
-[Cyber Othello](https://tztechno.github.io/proj03/)
+03[Cyber Othello](https://tztechno.github.io/proj03/)
 
-[Cyber Chess](https://tztechno.github.io/proj04/)
+04[Cyber Chess](https://tztechno.github.io/proj04/)
 
-[Cyber Pokemon](https://tztechno.github.io/proj05/)
+05[Cyber Pokemon](https://tztechno.github.io/proj05/)
 
-[Cyber Invaders](https://tztechno.github.io/proj06/)
+06[Cyber Invaders](https://tztechno.github.io/proj06/)
 
-[Cyber Checkers](https://tztechno.github.io/proj07/)
+07[Cyber Checkers](https://tztechno.github.io/proj07/)
 
-[Cyber Shogi](https://tztechno.github.io/proj08/)
+08[Cyber Shogi](https://tztechno.github.io/proj08/)
 
-[Cyber TwixT](https://tztechno.github.io/proj09/)
+09[Cyber TwixT](https://tztechno.github.io/proj09/)
 
-[Cyber Tetris](https://tztechno.github.io/proj10/)
+10[Cyber Tetris](https://tztechno.github.io/proj10/)
 
-[Cyber Shogi V3](https://tztechno.github.io/proj11/)
+11[Cyber Shogi V3](https://tztechno.github.io/proj11/)
 
-[Cyber Chess V3](https://tztechno.github.io/proj12/)
+12[Cyber Chess V3](https://tztechno.github.io/proj12/)
 
-[Cyber Igo](https://tztechno.github.io/proj13/)
+13[Cyber Igo](https://tztechno.github.io/proj13/)
 
-[Cyber Shootout](https://tztechno.github.io/proj14/)
+14[Cyber Shootout](https://tztechno.github.io/proj14/)
 
-[Cyber Xiangqi V3](https://tztechno.github.io/proj15/)
+15[Cyber Xiangqi V3](https://tztechno.github.io/proj15/)
 
-[Cyber Tarot](https://tztechno.github.io/proj16/)
+16[Cyber Tarot](https://tztechno.github.io/proj16/)
 
 17[Cyber Selfdesign](https://tztechno.github.io/proj17/)
 
