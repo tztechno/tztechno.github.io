@@ -128,6 +128,16 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [Cyber Tarot](https://tztechno.github.io/proj16/)
 
+17[Cyber Selfdesign](https://tztechno.github.io/proj17/)
+
+18[Cyber Four Pillars](https://tztechno.github.io/proj18/)
+
+19[Cyber Holoscope](https://tztechno.github.io/proj19/)
+
+20[Cyber Solitia](https://tztechno.github.io/proj20/)
+
+21[Cyber Transcription](https://tztechno.github.io/proj21/)
+
 ## profile & portfolio
 
 [profile](https://tztechno.github.io/profile/)
