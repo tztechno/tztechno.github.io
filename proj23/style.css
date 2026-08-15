@@ -407,9 +407,9 @@ a {
    4. HERO SECTION
    ------------------------------------------ */
 .hero {
-  min-height: 100vh;
-  padding-top: 140px;
-  padding-bottom: 80px;
+  min-height: 80vh;
+  padding-top: 110px;
+  padding-bottom: 50px;
   display: flex;
   align-items: center;
   position: relative;
@@ -768,13 +768,13 @@ a {
    6. CORE SYSTEMS (FEATURES)
    ------------------------------------------ */
 .features {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 36px;
 }
 
 .section-title {
@@ -848,15 +848,15 @@ a {
    7. INTERACTIVE TRAINER SECTION
    ------------------------------------------ */
 .trainer {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
   background: rgba(6, 4, 15, 0.3);
 }
 
 .trainer-layout {
   display: grid;
-  grid-template-cols: 0.35fr 0.65fr;
-  gap: 32px;
+  grid-template-cols: 0.32fr 0.68fr;
+  gap: 20px;
   z-index: 1;
   position: relative;
 }
@@ -1199,7 +1199,7 @@ a {
    8. AI ALGORITHM & MONTE CARLO SIMULATOR
    ------------------------------------------ */
 .ai-tech {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
 }
 
@@ -1399,7 +1399,7 @@ a {
    9. PRICING SECTION (STRIPE)
    ------------------------------------------ */
 .pricing {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
 }
 
@@ -1563,16 +1563,23 @@ a {
    10. FAQ SECTION
    ------------------------------------------ */
 .faq {
-  padding: 100px 0;
+  padding: 60px 0;
   position: relative;
 }
 
 .faq-list {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-cols: 1fr;
   gap: 16px;
+}
+
+@media (min-width: 992px) {
+  .faq-list {
+    grid-template-cols: 1fr 1fr;
+    gap: 20px;
+  }
 }
 
 .faq-item {
