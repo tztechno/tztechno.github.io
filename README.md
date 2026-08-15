@@ -138,6 +138,8 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 21[Cyber Transcription](https://tztechno.github.io/proj21/)
 
+22[Cyber Majong](https://tztechno.github.io/proj22/)
+
 ## profile & portfolio
 
 [profile](https://tztechno.github.io/profile/)
