@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>CYBER POKER // 次世代AI搭載ヘッズアップ・テキサスホールデム・ポーカーシミュレーター</title>
+  <meta name="title" content="CYBER POKER // 次世代AI搭載ヘッズアップ・テキサスホールデム・ポーカーシミュレーター">
+  <meta name="description" content="ブラウザで動作する3Dサイバー・ヘッズアップポーカー。モンテカルロ勝率推定による本格思考AIを搭載。Stripe連携による安心ワンタイム決済(100円)で無制限対局解放。">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj23/">
+  <meta property="og:title" content="CYBER POKER // 次世代AI搭載ヘッズアップ・ポーカーシミュレーター">
+  <meta property="og:description" content="ブラウザで動作する3Dサイバー・ヘッズアップポーカー。モンテカルロ勝率推定による本格思考AIを搭載。">
+  <meta property="og:image" content="https://tztechno.github.io/proj23/og-image.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scanlines theme-cyber">
+
+  <!-- Matrix Grid Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Matrix Canvas Background -->
+  <canvas id="particle-canvas" class="particle-background"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo font-orbitron">
+        CYBER <span class="logo-accent">POKER</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#trainer" class="nav-link">トレーナー</a>
+        <a href="#ai-engine" class="nav-link">AIアルゴリズム</a>
+        <a href="#pricing" class="nav-link">料金・Stripe</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+      
+      <div class="header-controls">
+        <!-- Floating Theme Selector -->
+        <div class="theme-switcher-wrapper">
+          <button class="theme-btn active" data-theme="cyber" title="サイバーネオン">Cyber</button>
+          <button class="theme-btn" data-theme="classic" title="クラシックカジノ">Classic</button>
+          <button class="theme-btn" data-theme="dark" title="ミッドナイトダーク">Dark</button>
+        </div>
+
+        <a href="https://cyber-poker.netlify.app/" class="btn-cyber btn-nav-launch" target="_blank">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>起動する</span>
+          <i class="fa-solid fa-arrow-up-right-from-square icon-small"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-radial-glow"></div>
+    <div class="hero-glow-cyan"></div>
+    <div class="hero-glow-pink"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          DECISION MODULE: ACTIVE // SECURE PAYWALL
+        </div>
+        
+        <h1 class="hero-title font-orbitron">
+          極限の対局。<br>
+          次世代の<span class="gradient-text">サイバー・ポーカー</span><br>
+          へ挑め
+        </h1>
+        
+        <p class="hero-desc">
+          「サイバーポーカー」は、SF映画のホログラムを想起させる美しい3Dインターフェースと、モンテカルロ推定による本格思考AIを組み合わせた、2人対戦（ヘッズアップ）テキサスホールデム・シミュレーターです。100%覗き見なしのAIが繰り出す緻密なベットレンジやブラフ、フォールド戦略に立ち向かいましょう。
+        </p>
+        
+        <div class="hero-ctas">
+          <a href="https://cyber-poker.netlify.app/" class="btn-cyber btn-glow-cyan" target="_blank">
+            <i class="fa-solid fa-play"></i> 今すぐプレイ (3回無料)
+          </a>
+          <a href="#trainer" class="btn-cyber btn-outline-pink">
+            <i class="fa-solid fa-graduation-cap"></i> 戦術トレーナー
+          </a>
+        </div>
+        
+        <div class="hero-pills font-orbitron">
+          <div class="tech-pill">
+            <span class="pill-value text-cyan">Monte Carlo</span>
+            <span class="pill-label">勝率推定AI</span>
+          </div>
+          <div class="tech-pill">
+            <span class="pill-value text-pink">CSS 3D Felt</span>
+            <span class="pill-label">3D傾斜テーブル</span>
+          </div>
+          <div class="tech-pill">
+            <span class="pill-value text-gold">Stripe Ready</span>
+            <span class="pill-label">安全ワンタイム決済</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Visual Display Card -->
+      <div class="hero-visual">
+        <div class="visual-glass-card">
+          <div class="card-glow-pink"></div>
+          <div class="visual-header">
+            <span class="system-status text-cyan"><i class="fa-solid fa-microchip"></i> MONTE CARLO ENGINE: ONLINE</span>
+            <div class="window-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <div class="visual-body">
+            <!-- Simulated 3D Poker Table -->
+            <div class="poker-3d-scene">
+              <div class="poker-table-3d">
+                <!-- Opponent Card Backs -->
+                <div class="table-opponent-area">
+                  <div class="table-card-back"></div>
+                  <div class="table-card-back"></div>
+                </div>
+                
+                <!-- Pot Info -->
+                <div class="table-pot-marker">
+                  POT: 45 BB
+                </div>
+
+                <!-- Community Cards: Flop (A♣ K♣ Q♣) and Turn (10♣) -->
+                <div class="table-community-area">
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">A</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">A</span>
+                  </div>
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">K</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">K</span>
+                  </div>
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">Q</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">Q</span>
+                  </div>
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">10</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">10</span>
+                  </div>
+                  <!-- River (Card Back with Question Mark) -->
+                  <div class="table-card-back" style="width:34px; height:52px; background:linear-gradient(135deg, var(--neon-cyan), var(--bg-dark)); border-color: var(--neon-cyan);">&nbsp;</div>
+                </div>
+                
+                <!-- Player Hole Cards: J♣ 9♣ (Royal Flush draw) -->
+                <div class="table-player-area">
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">J</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">J</span>
+                  </div>
+                  <div class="table-card-front">
+                    <span class="card-num-suit suit-black">9</span>
+                    <span class="card-center-suit suit-black">♣</span>
+                    <span class="card-num-suit suit-black" style="transform: rotate(180deg); align-self: flex-end;">9</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Metadata bottom row -->
+            <div class="visual-meta font-orbitron">
+              <span class="active-mode">HEADS-UP: ACTIVE</span>
+              <span class="dora-indicator">STREET: <strong class="text-pink">TURN</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">CORE SYSTEMS</h2>
+        <p class="section-subtitle">サイバー・ポーカーに組み込まれた4つの革新的モジュール</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon text-cyan">
+            <i class="fa-solid fa-cube"></i>
+          </div>
+          <h3 class="feature-title">3Dホログラフィック卓</h3>
+          <p class="feature-desc">
+            CSS 3D変形を利用したサイバーテーブル。立体的かつ未来的なテーブル上でトランプが舞います。カジノ風クラシック、サイバーネオン、ミッドナイトダークの3種のカラーテーマをいつでも切替可能です。
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon text-pink">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <h3 class="feature-title">モンテカルロ勝率推定AI</h3>
+          <p class="feature-desc">
+            AIは「モンテカルロ木探索」のようにメモリ上で何百回もの対局ロールアウトを行い、自らの手牌のエクイティ（勝率）をミリ秒単位で算出。ポットオッズと照合し、フォールド/コール/レイズを判断します。
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon text-emerald">
+            <i class="fa-solid fa-eye-slash"></i>
+          </div>
+          <h3 class="feature-title">覗き見なしの公平性</h3>
+          <p class="feature-desc">
+            思考処理（ai.ts）はローカルで遮断されており、AIはプレイヤーの手牌を一切覗き見しません。実際の人間と同様に、手札と場札、相手のベット履歴という公開情報のみから合理的に判断します。
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon text-gold">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <h3 class="feature-title">Stripe決済 & 3対局試遊</h3>
+          <p class="feature-desc">
+            初期状態では3試合まで無料で人vsAI対戦が可能です。Stripeによる100円のワンタイム決済を行うことで、即座に無制限対局、全AI難易度、およびAI同士の「AI vs AI観戦モード」がアンロックされます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Trainer Section -->
+  <section class="trainer" id="trainer">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">CYBER TRAINER</h2>
+        <p class="section-subtitle">戦況別の最適意思決定 ＆ エクイティ判定器</p>
+      </div>
+      
+      <div class="trainer-layout">
+        <!-- Sidebar Controls -->
+        <div class="trainer-sidebar">
+          <h3 class="sidebar-title font-orbitron">SCENARIOS</h3>
+          <p class="sidebar-desc">ポーカーの局面を選択し、相手のアクションに対してあなたが取るべき最適な行動を選択してください。</p>
+          
+          <div class="scenario-buttons">
+            <button class="btn-scenario active" data-scenario="pocket_aces">
+              <span class="scenario-tag text-pink font-orbitron">Pre-flop</span>
+              <span class="scenario-name">最強スタート：ポケットAA</span>
+            </button>
+            <button class="btn-scenario" data-scenario="royal_draw">
+              <span class="scenario-tag text-cyan font-orbitron">Flop</span>
+              <span class="scenario-name">超強力ロイヤルストレートドロー</span>
+            </button>
+            <button class="btn-scenario" data-scenario="river_bluff_catch">
+              <span class="scenario-tag text-gold font-orbitron">River</span>
+              <span class="scenario-name">リバーでのブラフキャッチ判定</span>
+            </button>
+          </div>
+          
+          <div class="ai-suggestion-box">
+            <h4 class="box-title font-orbitron">AI BRAIN LEVEL</h4>
+            <div class="ai-tabs">
+              <button class="ai-tab-btn active" data-ai="easy">Lv1 緩め</button>
+              <button class="ai-tab-btn" data-ai="medium">Lv2 ミドル</button>
+              <button class="ai-tab-btn" data-ai="hard">Lv3 精密AI</button>
+            </div>
+            <div class="ai-explanation text-slate">
+              <strong>イージーAI (Lv1):</strong> コールが多く、ブラフやポットオッズを考慮しません。ここでも弱気またはランダムな判断を行う傾向があります。
+            </div>
+          </div>
+        </div>
+        
+        <!-- Main Trainer Interface -->
+        <div class="trainer-main">
+          <div class="board-indicator-row">
+            <div class="indicator-item">
+              <span class="indicator-label font-orbitron">GAME STATE</span>
+              <span class="indicator-val text-cyan" id="tr-base-info">プリフロップ</span>
+            </div>
+            <div class="indicator-item">
+              <span class="indicator-label font-orbitron">OPPONENT ACTION</span>
+              <span class="indicator-val text-pink font-orbitron" id="tr-opponent-status">RAISE TO 3BB</span>
+            </div>
+          </div>
+          
+          <!-- Community Cards (if any) -->
+          <div class="hand-display-container">
+            <div class="hand-title">場札（コミュニティカード）:</div>
+            <div class="tiles-row" id="trainer-community-cards">
+              <!-- JS-populated -->
+            </div>
+          </div>
+
+          <!-- Player Cards -->
+          <div class="hand-display-container">
+            <div class="hand-title">あなたのご手牌（ホールカード）:</div>
+            <div class="tiles-row" id="trainer-player-cards">
+              <!-- JS-populated -->
+            </div>
+          </div>
+
+          <!-- Actions Buttons (Fold / Call / Raise) -->
+          <div class="decision-actions-row">
+            <button class="btn-action-choice" data-action="fold">Fold (フォールド)</button>
+            <button class="btn-action-choice" data-action="call">Call (コール)</button>
+            <button class="btn-action-choice" data-action="raise">Raise (レイズ)</button>
+          </div>
+          
+          <!-- Results & Analysis Panel -->
+          <div class="analysis-panel">
+            <div class="panel-header">
+              <span class="panel-title text-cyan font-orbitron"><i class="fa-solid fa-chart-simple"></i> DECISION ANALYSIS</span>
+            </div>
+            <div class="panel-body" id="trainer-analysis-output">
+              <p class="neutral-message">「FOLD」「CALL」「RAISE」のいずれかを選択して、AIの判定とエクイティ評価をリアルタイム計算します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Algorithm Section -->
+  <section class="ai-tech" id="ai-engine">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">MONTE CARLO PROBABILITY ENGINE</h2>
+        <p class="section-subtitle">仮想ロールアウトによるエクイティ収束計算シミュレータ</p>
+      </div>
+      
+      <div class="ai-tech-layout">
+        <div class="ai-tech-desc">
+          <h3 class="tech-heading text-cyan font-orbitron">AI EQUITY CALCULATION</h3>
+          <p>
+            本作の「ハードAI」および「ミドルAI」は、相手の手牌を直接覗き見るチートコードは一切持っていません。その代わり、相手が持ちうる無数の手牌（ハンドレンジ）と、デッキに残された残りのカードを、メモリ上でランダムにサンプリングして繰り返し対局を行います。
+          </p>
+          <p>
+            これが「モンテカルロ法」です。例えばプリフロップでAAを持った状態で400回（ハードAIの場合）の仮想対局を走らせ、何回勝ったかをカウントします。試行回数（Iterations）が増えれば増えるほど、計算される勝率は本来の数学的確率（AA対ランダムハンドで約85.2%）へと収束していきます。
+          </p>
+          <p>
+            右側のシミュレーターで「モンテカルロ演算を開始」をクリックすると、AA vs ランダムハンドの対局が実際に走り、推定勝率（Equity）が変動しながらターゲットである 85.2% に収束していくグラフを描画します。
+          </p>
+          
+          <div class="simulation-console">
+            <div class="console-header">
+              <span class="text-cyan"><i class="fa-solid fa-terminal"></i> MONTE CARLO THREADS</span>
+              <span class="fps-counter" id="sim-speed">IDLE</span>
+            </div>
+            <div class="console-body">
+              <div class="sim-stats">
+                <div>試行回数 (N): <span id="sim-games" class="text-cyan">0</span></div>
+                <div>推定勝率 (Win): <span id="sim-win-rate" class="text-pink">0.0%</span></div>
+                <div>引き分け率 (Tie): <span id="sim-avg-pts">0.0%</span></div>
+              </div>
+              <div class="console-log" id="sim-log">
+                [SYSTEM] Equity estimator loaded. Ready to run local Monte Carlo rollout.
+              </div>
+            </div>
+            <div class="console-controls" style="margin-top: 10px;">
+              <button class="btn-sim-control" id="btn-start-sim">
+                <i class="fa-solid fa-play"></i> モンテカルロ演算を開始
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Convergence Chart Visualizer -->
+        <div class="ai-weight-visualizer">
+          <h4 class="visualizer-title text-pink font-orbitron">EQUITY CONVERGENCE</h4>
+          <p class="visualizer-desc">試行数増加に伴う勝率推定値の変動。試行が重なるほど、ばらつきが減り数学的理論値へと収束します。</p>
+          
+          <div class="graph-container">
+            <div class="graph-y-axis">
+              <span>100%</span>
+              <span>75%</span>
+              <span>50%</span>
+              <span>25%</span>
+              <span>0%</span>
+            </div>
+            <canvas id="convergence-canvas" class="graph-canvas"></canvas>
+          </div>
+          <div class="graph-x-label">試行回数 (ITERATIONS) -></div>
+          
+          <div class="graph-stats-row">
+            <div class="graph-stat-pill">標準誤差 (σ): <span id="sigma-value" class="text-cyan">0.0000</span></div>
+            <div class="graph-stat-pill">真値: <span class="text-gold">85.20%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Stripe Paywall) -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">PRICING PLAN & LICENSING</h2>
+        <p class="section-subtitle">Stripe Checkoutによる安全決済。即時プレイ制限を全解放</p>
+      </div>
+      
+      <div class="pricing-cards">
+        <!-- Free Tier -->
+        <div class="price-card">
+          <div class="card-badge text-cyan font-orbitron">TRIAL</div>
+          <h3 class="card-plan-title font-orbitron">FREE TRIAL</h3>
+          <div class="price font-orbitron"><span class="currency">¥</span>0</div>
+          <p class="price-period">3回お試しプレイライセンス</p>
+          
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check text-cyan"></i> 人間 vs AI対局（3局お試し）</li>
+            <li><i class="fa-solid fa-check text-cyan"></i> AI難易度：イージー、ミドル</li>
+            <li><i class="fa-solid fa-check text-cyan"></i> 3種のテーブルカラーテーマ</li>
+            <li><i class="fa-solid fa-xmark text-slate"></i> ハードAI（モンテカルロ400回演算）</li>
+            <li><i class="fa-solid fa-xmark text-slate"></i> AI vs AI 観戦モード（ロック）</li>
+          </ul>
+          
+          <a href="https://cyber-poker.netlify.app/" class="btn-pricing btn-cyan-outline" target="_blank">
+            無料でゲーム起動
+          </a>
+        </div>
+        
+        <!-- Premium Tier -->
+        <div class="price-card premium-card">
+          <div class="card-glow-premium"></div>
+          <div class="card-badge text-pink font-orbitron">RECOMMENDED</div>
+          <h3 class="card-plan-title font-orbitron">PREMIUM BRAIN</h3>
+          <div class="price font-orbitron"><span class="currency">¥</span>100</div>
+          <p class="price-period">買い切り・無期限ライセンス</p>
+          
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check text-pink"></i> <strong>対局回数制限なし (生涯プレイ無制限)</strong></li>
+            <li><i class="fa-solid fa-check text-pink"></i> <strong>最上位AI「ハードAI」の解放</strong></li>
+            <li><i class="fa-solid fa-check text-pink"></i> <strong>AI vs AI 観戦シミュレート機能</strong></li>
+            <li><i class="fa-solid fa-check text-pink"></i> 3D卓傾斜＆3種類テーマの自由設定</li>
+            <li><i class="fa-solid fa-check text-pink"></i> Stripe決済による安全・高速ライセンス付与</li>
+          </ul>
+          
+          <a href="https://cyber-poker.netlify.app/" class="btn-pricing btn-pink-glow" target="_blank">
+            プレミアムを即時解放
+          </a>
+          <span class="stripe-hint"><i class="fa-brands fa-stripe text-indigo"></i> セキュアなStripe Checkoutで安全に決済されます</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">FREQUENTLY ASKED QUESTIONS</h2>
+        <p class="section-subtitle">サイバー・ポーカーに関するよくある質問</p>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 無料試遊の3ゲームが終わった後は遊べなくなりますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              はい、3試合を消化すると「人vsAI」の対戦機能に制限がかかり、プレミアム購入モーダルが表示されます。ただし、料金は「100円の買い切り」ですので、一度ご購入いただければ月額費用や追加料金等は一切なく、生涯無制限でプレイ可能です。
+            </p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. AIがこちらのハンドを覗き見て不利なアクションをしていませんか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              一切覗き見していません。対局中のAIモジュール（ai.ts）は、ゲームエンジンからプレイヤーの手札データを意図的に受け取らないよう分離して設計されています。AIは自分が持つ2枚の手札と、場に公開されたコミュニティカード、および相手の賭け金という「完全に公平な公開情報」からのみ、確率計算とベット選択を行っています。
+            </p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 購入したプレミアムライセンスはどのように記録されますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              Stripe決済が完了し、完了画面（Netlify）に戻る際、URLパラメータに含まれるStripe Session IDをNetlify Serverless Functionで検証します。検証に合格すると、ブラウザの <code>localStorage</code> に永続暗号化された認証トークンが書き込まれます。そのため、同じブラウザをご利用いただく限り、次回起動時も自動的にプレミアム状態で起動します。
+            </p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. AIの強さにはどのような違いがありますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              「イージーAI」は、モンテカルロ試行数が少なく(60回)、計算結果に多くのノイズ(ランダム要素)を意図的に混入させるため、無謀なコールやフォールドが多めになります。「ミドルAI」は試行数200回でオッズ計算通りの堅実なプレイを、「ハードAI」は試行数400回かつノイズほぼゼロで動作し、ドロー時のブラフレイズや、勝率を基にした極めて的確なバリューベット、鋭いブラフキャッチを行います。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-layout">
+      <div class="footer-logo font-orbitron">
+        CYBER <span>POKER</span>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 CYBER POKER SIMULATOR. ALL RIGHTS RESERVED. <br>
+        DESIGNED FOR NEURAL REAL-TIME PROBABILITY PRACTICE.
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-poker.netlify.app/" target="_blank">ゲームをプレイ</a>
+        <a href="#hero">トップに戻る</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
