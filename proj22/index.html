@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Tags -->
+  <title>CYBER MAJONG // 次世代AIホログラム・二人麻雀シミュレーター</title>
+  <meta name="title" content="CYBER MAJONG // 次世代AIホログラム・二人麻雀シミュレーター">
+  <meta name="description"
+    content="ブラウザで動作する3Dホログラフィック二人麻雀。自己進化AI（TD学習）と盤面効率を追求した本格派思考エンジン。Stripe連携による安心ワンタイム決済で無制限プレイ。">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj22/">
+  <meta property="og:title" content="CYBER MAJONG // 次世代AIホログラム・二人麻雀シミュレーター">
+  <meta property="og:description" content="ブラウザで動作する3Dホログラフィック二人麻雀。自己進化AI（TD学習）と盤面効率を追求した本格派思考エンジン。">
+  <meta property="og:image" content="https://tztechno.github.io/proj22/og-image.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="scanlines dark-theme">
+
+  <!-- Matrix Canvas Background -->
+  <canvas id="particle-canvas" class="particle-background"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo font-orbitron">
+        CYBER <span class="logo-accent">MAJONG</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#trainer" class="nav-link">トレーナー</a>
+        <a href="#ai-tech" class="nav-link">AIアルゴリズム</a>
+        <a href="#pricing" class="nav-link">料金・Stripe</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <a href="https://cyber-majong.netlify.app/" class="btn-cyber btn-nav-launch" target="_blank">
+        <i class="fa-solid fa-gamepad"></i>
+        <span>ゲームを起動する</span>
+        <i class="fa-solid fa-arrow-up-right-from-square icon-small"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow-cyan"></div>
+    <div class="hero-glow-pink"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          CYBERNETIC CORE ONLINE // SECURE PAYWALL
+        </div>
+
+        <h1 class="hero-title font-orbitron">
+          未体験の<br>
+          <span class="gradient-text">サイバー・麻雀</span><br>
+          へようこそ
+        </h1>
+
+        <p class="hero-desc">
+          「サイバーマージャン」は、サイバーパンクなホログラフィック3D盤面と、時間的差分学習（TD(0)）による自己進化AIを融合した、次世代の2人対戦型麻雀シミュレーターです。牌効率に特化したAI、人間のような安全牌読み（オリ）を行う本格AIに挑みましょう。
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://cyber-majong.netlify.app/" class="btn-cyber btn-glow-cyan" target="_blank">
+            <i class="fa-solid fa-play"></i> 今すぐ対局開始 (3回無料)
+          </a>
+          <a href="#trainer" class="btn-cyber btn-outline-pink">
+            <i class="fa-solid fa-bolt"></i> 牌効率トレーナー
+          </a>
+        </div>
+
+        <div class="hero-pills font-orbitron">
+          <div class="tech-pill">
+            <span class="pill-value text-cyan">TD(0) Learning</span>
+            <span class="pill-label">自己進化強化学習</span>
+          </div>
+          <div class="tech-pill">
+            <span class="pill-value text-pink">3D Hologram</span>
+            <span class="pill-label">CSS 3D 傾斜盤面</span>
+          </div>
+          <div class="tech-pill">
+            <span class="pill-value text-gold">Stripe Ready</span>
+            <span class="pill-label">安全ワンタイム決済</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Display Card -->
+      <div class="hero-visual">
+        <div class="visual-glass-card">
+          <div class="card-glow-pink"></div>
+          <div class="visual-header">
+            <span class="system-status text-cyan"><i class="fa-solid fa-microchip"></i> AI BRAIN STATUS: ONLINE</span>
+            <div class="window-dots">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <div class="visual-body">
+            <!-- Simulated Mini Table -->
+            <div class="mini-board">
+              <div class="hand-row opponent-hand">
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+                <div class="tile-face-down">
+                  <div class="core-glow"></div>
+                </div>
+              </div>
+
+              <div class="river-area">
+                <div class="river-title text-cyan font-orbitron">DISCARD RIVER</div>
+                <div class="river-grid">
+                  <div class="river-tile tile-mini text-cyan font-orbitron" title="1s">1s</div>
+                  <div class="river-tile tile-mini text-cyan font-orbitron" title="東">東</div>
+                  <div class="river-tile tile-mini text-pink font-orbitron" title="中">中</div>
+                  <div class="river-tile tile-mini text-cyan font-orbitron text-dora" title="5p">5p</div>
+                </div>
+              </div>
+
+              <div class="hand-row player-hand">
+                <!-- 1p, 2p, 3p, 4p, 5p, 6p, East -->
+                <div class="mini-tile"><span class="val-p text-cyan">①</span></div>
+                <div class="mini-tile"><span class="val-p text-cyan">②</span></div>
+                <div class="mini-tile"><span class="val-p text-cyan">③</span></div>
+                <div class="mini-tile"><span class="val-p text-cyan">④</span></div>
+                <div class="mini-tile text-dora"><span class="val-p text-gold">⑤</span></div>
+                <div class="mini-tile"><span class="val-p text-cyan">⑥</span></div>
+                <div class="mini-tile"><span class="val-wind text-pink">東</span></div>
+              </div>
+            </div>
+            <div class="visual-meta font-orbitron">
+              <span class="active-mode">PVE MODE: ACTIVE</span>
+              <span class="dora-indicator">DORA INDICATOR: <strong class="text-gold">4p</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">CORE SYSTEMS</h2>
+        <p class="section-subtitle">サイバー麻雀に搭載された4つの革新的モジュール</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon text-cyan">
+            <i class="fa-solid fa-cube"></i>
+          </div>
+          <h3 class="feature-title">3Dホログラフィック卓</h3>
+          <p class="feature-desc">
+            CSS 3D変形を利用したサイバーテーブル。マウス移動やトグルによって卓がスムーズに傾斜し、SF映画のような操作感と没入感をもたらします。
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon text-pink">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <h3 class="feature-title">自律学習型 TD(0) AI</h3>
+          <p class="feature-desc">
+            時間的差分学習（Temporal Difference）を採用した自己進化型AI。AI同士で数千対局のシミュレーションを重ねて牌の重みデータを自ら更新します。
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon text-emerald">
+            <i class="fa-solid fa-eye-slash"></i>
+          </div>
+          <h3 class="feature-title">不正なしの完全思考</h3>
+          <p class="feature-desc">
+            AIは人間の手牌を覗き見しません。実際の人間と同様に「捨て牌（河）」「リーチ状況」「公開ドラ」といった公開情報のみから相手の手牌を読み、安全牌で降ります。
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon text-gold">
+            <i class="fa-solid fa-credit-card"></i>
+          </div>
+          <h3 class="feature-title">Stripe決済 & 3ゲーム試遊</h3>
+          <p class="feature-desc">
+            初期状態では3局まで無料で対戦可能です。Stripeによる300円のワンタイム決済により、即座にプレミアム制限が解除され、無制限に対戦・学習が行えます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Trainer Section -->
+  <section class="trainer" id="trainer">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">CYBER TRAINER</h2>
+        <p class="section-subtitle">AIレベル別・打牌シミュレータ＆牌効率判定器</p>
+      </div>
+
+      <div class="trainer-layout">
+        <!-- Sidebar Controls -->
+        <div class="trainer-sidebar">
+          <h3 class="sidebar-title font-orbitron">SCENARIOS</h3>
+          <p class="sidebar-desc">状況を選択し、手牌の中から「捨てる牌」をクリックしてください。</p>
+
+          <div class="scenario-buttons">
+            <button class="btn-scenario active" data-scenario="kokushi">
+              <span class="scenario-tag text-pink font-orbitron">役満</span>
+              <span class="scenario-name">国士無双 一向聴</span>
+            </button>
+            <button class="btn-scenario" data-scenario="tanyao">
+              <span class="scenario-tag text-cyan font-orbitron">中張</span>
+              <span class="scenario-name">タンヤオ平和赤ドラ</span>
+            </button>
+            <button class="btn-scenario" data-scenario="chinitsu">
+              <span class="scenario-tag text-gold font-orbitron">染手</span>
+              <span class="scenario-name">清一色多面張 聴牌</span>
+            </button>
+          </div>
+
+          <div class="ai-suggestion-box">
+            <h4 class="box-title font-orbitron">AI BRAIN SELECTOR</h4>
+            <div class="ai-tabs">
+              <button class="ai-tab-btn active" data-ai="easy">Lv1 初心者</button>
+              <button class="ai-tab-btn" data-ai="normal">Lv2 牌効率</button>
+              <button class="ai-tab-btn" data-ai="hard">Lv3 守備派</button>
+              <button class="ai-tab-btn" data-ai="reinforced">Lv4 強化脳</button>
+            </div>
+            <div class="ai-explanation text-slate">
+              <strong>Lv1 AIの思考:</strong> ランダム打牌が多く、安全や役は意識しません。
+            </div>
+            <div class="ai-star-hint">
+              <span class="star-icon">★</span>
+              <span>手牌の右上の「★」マークは、選択中のAIレベルが捨てる（打牌する）と判断した牌を示しています。AIのレベルが低いと誤った選択（悪手）をする場合があります。</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Trainer Interface -->
+        <div class="trainer-main">
+          <div class="board-indicator-row">
+            <div class="indicator-item">
+              <span class="indicator-label font-orbitron">BAZE</span>
+              <span class="indicator-val text-cyan">東一局 親</span>
+            </div>
+            <div class="indicator-item">
+              <span class="indicator-label font-orbitron">DORA INDICATOR</span>
+              <span class="indicator-val text-gold font-orbitron" id="dora-indicator-tile">中</span>
+            </div>
+            <div class="indicator-item">
+              <span class="indicator-label font-orbitron">OPPONENT STATUS</span>
+              <span class="indicator-val text-pink font-orbitron" id="opponent-status-txt">RIICHI! (立直中)</span>
+            </div>
+          </div>
+
+          <div class="hand-display-container">
+            <div class="hand-title">現在のツモ牌を含む14枚の手牌:</div>
+
+            <div class="tiles-row" id="trainer-hand">
+              <!-- Dynamically Populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Results & Analysis Panel -->
+          <div class="analysis-panel">
+            <div class="panel-header">
+              <span class="panel-title text-cyan font-orbitron"><i class="fa-solid fa-chart-simple"></i> CYBER
+                ANALYSIS</span>
+            </div>
+            <div class="panel-body" id="analysis-output">
+              <p class="neutral-message">手牌から牌を選択して、打牌した結果の向聴数（シャンテン数）と待ち牌を表示します。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Algorithm Section -->
+  <section class="ai-tech" id="ai-tech">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">AI HEURISTICS & TD-LEARNING</h2>
+        <p class="section-subtitle">時間的差分学習による強化学習と34種類牌の重み行列</p>
+      </div>
+
+      <div class="ai-tech-layout">
+        <div class="ai-tech-desc">
+          <h3 class="tech-heading text-cyan">自ら闘い、強くなる自律脳</h3>
+          <p>
+            本作に搭載された最上位AI「強化脳（TD-Learning）」は、ゲーム開始時に読み込まれる「34牌の状態価値マップ」を基に打牌を判断します。
+          </p>
+          <p>
+            「AI vs AI
+            自己対局」モードでは、ブラウザのバックグラウンド処理を利用し、AI同士が超高速で麻雀を打ち合います（1秒間に最大数百打牌）。アガり時に得られた正の報酬（得点）と、放銃時に課される負のペナルティを基に、手牌に残すべき牌の価値（重み）を自動更新します。
+          </p>
+
+          <div class="simulation-console">
+            <div class="console-header">
+              <span class="text-cyan"><i class="fa-solid fa-terminal"></i> SELF-PLAY SIMULATOR</span>
+              <span class="fps-counter" id="sim-speed">IDLE</span>
+            </div>
+            <div class="console-description">
+              <p>※自己対局シミュレータ：ブラウザ上でAI同士が超高速に対局を繰り返し、強化学習（TD学習）を行うデモ機能です。「シミュレーションを開始」すると、アガリや放銃の評価に基づいて各牌の重要度がリアルタイムに更新され、右側の「状態価値マップ」がダイナミックに変化します。</p>
+            </div>
+            <div class="console-body">
+              <div class="sim-stats">
+                <div>対局数: <span id="sim-games" class="text-cyan">0</span></div>
+                <div>アガリ率: <span id="sim-win-rate" class="text-pink">0.0%</span></div>
+                <div>平均アガリ点: <span id="sim-avg-pts">0</span></div>
+              </div>
+              <div class="console-log" id="sim-log">
+                [SYSTEM] Simulator loaded. Ready to run local TD-Learning optimization.
+              </div>
+            </div>
+            <div class="console-controls">
+              <button class="btn-sim-control" id="btn-start-sim">
+                <i class="fa-solid fa-play"></i> 自己対局シミュレーションを開始
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weight Visualizer Grid -->
+        <div class="ai-weight-visualizer">
+          <h4 class="visualizer-title text-pink font-orbitron">34-TILE LEARNING WEIGHTS</h4>
+          <p class="visualizer-desc">自己学習によって獲得された各牌の状態価値の視覚化。値が高いほど（ピンク）、AIが手牌に維持しようとします。</p>
+
+          <div class="weights-grid" id="weights-grid-container">
+            <!-- Populated by JavaScript -->
+          </div>
+
+          <div class="weights-legend font-orbitron">
+            <span>低価値 (-3.0) <span class="legend-color legend-low"></span></span>
+            <span>中立 (0.0) <span class="legend-color legend-mid"></span></span>
+            <span>高価値 (+6.0) <span class="legend-color legend-high"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section (Stripe Paywall) -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">PRICING PLAN & UNLOCK</h2>
+        <p class="section-subtitle">Stripeによる安全なワンタイム決済でフルアクセスを解放</p>
+      </div>
+
+      <div class="pricing-cards">
+        <!-- Free Tier -->
+        <div class="price-card">
+          <div class="card-badge text-cyan font-orbitron">TRIAL</div>
+          <h3 class="card-plan-title font-orbitron">FREE TRIAL</h3>
+          <div class="price font-orbitron"><span class="currency">¥</span>0</div>
+          <p class="price-period">3回対局お試し</p>
+
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check text-cyan"></i> 人間 vs AI対局（3回まで）</li>
+            <li><i class="fa-solid fa-check text-cyan"></i> AI難易度：Lv1(初心者)・Lv2(中級)</li>
+            <li><i class="fa-solid fa-check text-cyan"></i> ホログラフィック3D盤面トグル</li>
+            <li><i class="fa-solid fa-xmark text-slate"></i> AI vs AI観戦（ロック）</li>
+            <li><i class="fa-solid fa-xmark text-slate"></i> TD-Learning自律シミュレーション</li>
+          </ul>
+
+          <a href="https://cyber-majong.netlify.app/" class="btn-pricing btn-cyan-outline" target="_blank">
+            無料でプレイ開始
+          </a>
+        </div>
+
+        <!-- Premium Tier -->
+        <div class="price-card premium-card">
+          <div class="card-glow-premium"></div>
+          <div class="card-badge text-pink font-orbitron">RECOMMENDED</div>
+          <h3 class="card-plan-title font-orbitron">PREMIUM BRAIN</h3>
+          <div class="price font-orbitron"><span class="currency">¥</span>300</div>
+          <p class="price-period">買い切り・無期限ライセンス</p>
+
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check text-pink"></i> <strong>対局回数制限なし (無制限プレイ)</strong></li>
+            <li><i class="fa-solid fa-check text-pink"></i> 全AIレベル：Lv3(上級)・Lv4(強化脳)</li>
+            <li><i class="fa-solid fa-check text-pink"></i> <strong>AI vs AI 観戦シミュレート機能</strong></li>
+            <li><i class="fa-solid fa-check text-pink"></i> 自律強化学習モデルのリアルタイム保存</li>
+            <li><i class="fa-solid fa-check text-pink"></i> Stripe決済による安全なライセンス付与</li>
+          </ul>
+
+          <a href="https://cyber-majong.netlify.app/vsAI" class="btn-pricing btn-pink-glow" target="_blank">
+            プレミアム版を即時解放する
+          </a>
+          <span class="stripe-hint"><i class="fa-brands fa-stripe text-indigo"></i> セキュアなStripe Checkoutで即時処理されます</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title font-orbitron">FREQUENTLY ASKED QUESTIONS</h2>
+        <p class="section-subtitle">サイバー麻雀に関するよくある質問と回答</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 無料版の3局を消化すると、ゲームは遊べなくなりますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              はい、人間vsAI対局は3局を消化するとプレイに制限がかかり、プレミアムの購入を求めるモーダルが表示されます。ただし、料金は「300円の買い切り」ですので、一度ご購入いただければ追加料金なしで生涯無制限でプレイできます。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. AIが牌を「覗き見」して有利にプレイしていませんか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              一切覗き見していません。対局中のAI（AILogic.tsx）は、人間の手牌データを受け取らない設計となっており、完全に遮断されています。AIは自分が引いた手牌、および場に公開された安全牌・スジなどの情報のみから確率計算と降り判断を行います。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 購入したプレミアム権限は、どのように保存されますか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              決済完了後、Stripeからゲームアプリへとリダイレクトされる際に、決済成功が検証され、ブラウザの <code>localStorage</code>
+              に暗号トークンが保存されます。同一ブラウザであれば再度開いても購入済みのステータスが維持されます。
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 強化脳（TD学習）AIは、本当に強くなるのですか？</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-content">
+            <p>
+              はい。TD学習AIは、アガリにつながりやすい牌の組み合わせに徐々に高い評価（重み）を与えるように価値マップを更新します。「AI vs
+              AI」画面で「高速シミュレーション」を回すことで、何千回もの対局データが脳細胞へ蓄積され、人間のプレイヤーにとっても非常に手強い難敵へと自律進化します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-layout">
+      <div class="footer-logo font-orbitron">
+        CYBER <span>MAJONG</span>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 CYBER MAJONG SIMULATOR. ALL RIGHTS RESERVED. <br>
+        DESIGNED FOR IMMERSIVE NEURAL ENTERTAINMENT.
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-majong.netlify.app/" target="_blank">ゲームをプレイ</a>
+        <a href="#hero">トップに戻る</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+
+</html>
