@@ -1005,20 +1005,10 @@ a {
 
 .rules-showcase {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 48px;
+  align-items: start;
   margin-top: 56px;
-}
-
-.rules-visual {
-  position: relative;
-}
-
-.rules-text {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
 }
 
 .rule-block {
@@ -1489,13 +1479,8 @@ a {
   
   .rules-showcase {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 24px;
     margin-top: 36px;
-  }
-  
-  .rules-visual {
-    max-width: 500px;
-    margin: 0 auto;
   }
   
   .pricing-card-wrapper {

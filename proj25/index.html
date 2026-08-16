@@ -245,51 +245,34 @@
       </div>
 
       <div class="rules-showcase">
-        <div class="rules-visual">
-          <div class="mockup-frame">
-            <div class="mockup-header">
-              <span class="mockup-dot red"></span>
-              <span class="mockup-dot yellow"></span>
-              <span class="mockup-dot green"></span>
-              <span class="mockup-title font-orbitron">RULES_EXPLANATION</span>
-            </div>
-            <div class="mockup-body">
-              <img src="rules-preview.png" alt="Cyber Stack 55 Rules Preview" class="preview-img">
-              <div class="scanline-overlay"></div>
-            </div>
-          </div>
+        <div class="rule-block">
+          <h3 class="rule-block-title font-orbitron"><span class="bullet-num">01</span> 初期配置 & 6個目の重ね</h3>
+          <p class="rule-block-desc">
+            縦5×横5の盤面を使い、プレイヤーは青(手前)と赤(奥)に分かれます。初期状態ではそれぞれ手前の5マスに駒を置きますが、ゲーム開始直前に「6個目の駒を自分の駒のどれかに重ねた（高さ2のスタック）」状態にして、そこから交互にターンを進めます。
+          </p>
+        </div>
+        
+        <div class="rule-block">
+          <h3 class="rule-block-title font-orbitron"><span class="bullet-num">02</span> 8方向の移動と高さ制限</h3>
+          <p class="rule-block-desc">
+            自分のターンには、自分の駒を周囲8方向（縦横斜め）の隣接する1マスに動かすことができます。駒を移動させる際、空いたマスはもちろん、すでに駒が存在するマスの上にも「乗る」ことができます。スタックの制限高は<strong>最大3個</strong>までです。
+          </p>
         </div>
 
-        <div class="rules-text">
-          <div class="rule-block">
-            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">01</span> 初期配置 & 6個目の重ね</h3>
-            <p class="rule-block-desc">
-              縦5×横5の盤面を使い、プレイヤーは青(手前)と赤(奥)に分かれます。初期状態ではそれぞれ手前の5マスに駒を置きますが、ゲーム開始直前に「6個目の駒を自分の駒のどれかに重ねた（高さ2のスタック）」状態にして、そこから交互にターンを進めます。
-            </p>
-          </div>
-          
-          <div class="rule-block">
-            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">02</span> 8方向の移動と高さ制限</h3>
-            <p class="rule-block-desc">
-              自分のターンには、自分の駒を周囲8方向（縦横斜め）の隣接する1マスに動かすことができます。駒を移動させる際、空いたマスはもちろん、すでに駒が存在するマスの上にも「乗る」ことができます。スタックの制限高は<strong>最大3個</strong>までです。
-            </p>
-          </div>
+        <div class="rule-block">
+          <h3 class="rule-block-title font-orbitron"><span class="bullet-num">03</span> トラップ（拘束）ルール</h3>
+          <p class="rule-block-desc">
+            駒が重ねられた場合、動かすことができるのは<strong>一番上に乗っている駒のみ</strong>です。下に敷かれた駒は、上の駒がどくまで移動させることができません（自分の駒でも相手の駒でも同様です）。これを利用して敵の足を封じるのが基本戦術です。
+          </p>
+        </div>
 
-          <div class="rule-block">
-            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">03</span> トラップ（拘束）ルール</h3>
-            <p class="rule-block-desc">
-              駒が重ねられた場合、動かすことができるのは<strong>一番上に乗っている駒のみ</strong>です。下に敷かれた駒は、上の駒がどくまで移動させることができません（自分の駒でも相手の駒でも同様です）。これを利用して敵の足を封じるのが基本戦術です。
-            </p>
-          </div>
-
-          <div class="rule-block">
-            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">04</span> 2つの勝利条件</h3>
-            <p class="rule-block-desc">
-              勝利条件は以下のいずれかです：<br>
-              1. <strong>ゴール到達:</strong> 自分の駒を1枚でも相手側の最奥段（青なら最奥の行、赤なら手前の行）に進める。<br>
-              2. <strong>手詰まり（ブロック）:</strong> 相手が自分のターンに全く動かせる駒がない状態（すべて拘束されているか動くマスが満杯）に追い込む。
-            </p>
-          </div>
+        <div class="rule-block">
+          <h3 class="rule-block-title font-orbitron"><span class="bullet-num">04</span> 2つの勝利条件</h3>
+          <p class="rule-block-desc">
+            勝利条件は以下のいずれかです：<br>
+            1. <strong>ゴール到達:</strong> 自分の駒を1枚でも相手側の最奥段（青なら最奥の行、赤なら手前の行）に進める。<br>
+            2. <strong>手詰まり（ブロック）:</strong> 相手が自分のターンに全く動かせる駒がない状態（すべて拘束されているか動くマスが満杯）に追い込む。
+          </p>
         </div>
       </div>
     </div>
