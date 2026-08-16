@@ -331,15 +331,15 @@ function initNoccanSimulator() {
 
   // Initialize Match
   function resetSimulator() {
-    board = Array(4).fill(null).map(() => Array(4).fill(null).map(() => []));
+    board = Array(5).fill(null).map(() => Array(5).fill(null).map(() => []));
 
     // Player 2 starting row is row 0 (top)
-    for (let c = 0; c < 4; c++) {
+    for (let c = 0; c < 5; c++) {
       board[0][c] = [2];
     }
-    // Player 1 starting row is row 3 (bottom)
-    for (let c = 0; c < 4; c++) {
-      board[3][c] = [1];
+    // Player 1 starting row is row 4 (bottom)
+    for (let c = 0; c < 5; c++) {
+      board[4][c] = [1];
     }
 
     turn = 1;
@@ -350,7 +350,7 @@ function initNoccanSimulator() {
 
     logsEl.innerHTML = '';
     addLog('System reset. Awaiting P1 setup.', 'muted');
-    statusMsg.textContent = '最下段（青）の駒のどれかに5枚目の駒を重ねてください。';
+    statusMsg.textContent = '最下段（青）の駒のどれかに6枚目の駒を重ねてください。';
     statusMsg.className = 'demo-feedback';
     modeIndicator.textContent = 'P1 SETUP PHASE';
     modeIndicator.classList.remove('player2-turn');
@@ -368,10 +368,10 @@ function initNoccanSimulator() {
     logsEl.scrollTop = logsEl.scrollHeight;
   }
 
-  // Convert row/col to algebraic notation A1-D4
+  // Convert row/col to algebraic notation A1-E5
   function getCoordName(r, c) {
-    const cols = ['A', 'B', 'C', 'D'];
-    const rows = ['4', '3', '2', '1']; // row 0 is 4, row 3 is 1
+    const cols = ['A', 'B', 'C', 'D', 'E'];
+    const rows = ['5', '4', '3', '2', '1']; // row 0 is 5, row 4 is 1
     return cols[c] + rows[r];
   }
 
@@ -381,12 +381,12 @@ function initNoccanSimulator() {
 
     const isAITurn = (phase === 'playing' && turn === 2) || (phase === 'setup-p2');
 
-    for (let r = 0; r < 4; r++) {
-      for (let c = 0; c < 4; c++) {
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
         const cell = document.createElement('div');
         cell.className = 'noccan-cell-demo';
         if (r === 0) cell.classList.add('p1-goal-line');
-        if (r === 3) cell.classList.add('p2-goal-line');
+        if (r === 4) cell.classList.add('p2-goal-line');
 
         const stack = board[r][c];
 
@@ -451,12 +451,12 @@ function initNoccanSimulator() {
 
     const stack = board[r][c];
 
-    // 1. SETUP PHASE: Player 1 (Blue) stacks their 5th piece
+    // 1. SETUP PHASE: Player 1 (Blue) stacks their 6th piece
     if (phase === 'setup-p1') {
-      if (r === 3 && stack.length === 1 && stack[0] === 1) {
+      if (r === 4 && stack.length === 1 && stack[0] === 1) {
         stack.push(1);
         sounds.play('stack');
-        addLog(`P1 Setup: Stacked 5th piece on ${getCoordName(r, c)}`, 'p1');
+        addLog(`P1 Setup: Stacked 6th piece on ${getCoordName(r, c)}`, 'p1');
         phase = 'setup-p2';
         turn = 2;
         modeIndicator.textContent = 'P2 SETUP PHASE';
@@ -508,11 +508,11 @@ function initNoccanSimulator() {
 
   // AI Setup Action
   function executeAISetup() {
-    // Choose a random column on row 0 to stack the 5th piece
-    const col = Math.floor(Math.random() * 4);
+    // Choose a random column on row 0 to stack the 6th piece
+    const col = Math.floor(Math.random() * 5);
     board[0][col].push(2);
     sounds.play('stack');
-    addLog(`P2 Setup: Stacked 5th piece on ${getCoordName(0, col)}`, 'p2');
+    addLog(`P2 Setup: Stacked 6th piece on ${getCoordName(0, col)}`, 'p2');
     
     phase = 'playing';
     turn = 1;
@@ -529,8 +529,8 @@ function initNoccanSimulator() {
     isTransitioning = true;
     selectedCell = null;
 
-    const fromCellDom = boardEl.children[fromR * 4 + fromC];
-    const toCellDom = boardEl.children[toR * 4 + toC];
+    const fromCellDom = boardEl.children[fromR * 5 + fromC];
+    const toCellDom = boardEl.children[toR * 5 + toC];
     const pieceDom = fromCellDom.querySelector('.piece-layer-demo:last-child');
 
     const executeStateChange = () => {
@@ -647,7 +647,7 @@ function initNoccanSimulator() {
         const nr = r + dr;
         const nc = c + dc;
 
-        if (nr >= 0 && nr < 4 && nc >= 0 && nc < 4) {
+        if (nr >= 0 && nr < 5 && nc >= 0 && nc < 5) {
           const targetStack = stateBoard[nr][nc];
           // Height limit of 3
           if (targetStack.length < 3) {
@@ -662,8 +662,8 @@ function initNoccanSimulator() {
   // Get all legal moves for a given player on the board state
   function getAllLegalMoves(stateBoard, player) {
     const moves = [];
-    for (let r = 0; r < 4; r++) {
-      for (let c = 0; c < 4; c++) {
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
         const stack = stateBoard[r][c];
         if (stack.length > 0 && stack[stack.length - 1] === player) {
           const cellMoves = getLegalMoves(r, c, stateBoard);
@@ -681,15 +681,15 @@ function initNoccanSimulator() {
 
   // Check victory conditions
   function checkWin(stateBoard, activePlayer) {
-    // 1. Goal Check: P1 wins if reach row 0. P2 wins if reach row 3
-    for (let c = 0; c < 4; c++) {
+    // 1. Goal Check: P1 wins if reach row 0. P2 wins if reach row 4
+    for (let c = 0; c < 5; c++) {
       const stack = stateBoard[0][c];
       if (stack.length > 0 && stack[stack.length - 1] === 1) {
         return { winner: 1, cause: 'goal' };
       }
     }
-    for (let c = 0; c < 4; c++) {
-      const stack = stateBoard[3][c];
+    for (let c = 0; c < 5; c++) {
+      const stack = stateBoard[4][c];
       if (stack.length > 0 && stack[stack.length - 1] === 2) {
         return { winner: 2, cause: 'goal' };
       }
@@ -709,8 +709,8 @@ function initNoccanSimulator() {
   function evaluateBoard(stateBoard) {
     let score = 0;
 
-    for (let r = 0; r < 4; r++) {
-      for (let c = 0; c < 4; c++) {
+    for (let r = 0; r < 5; r++) {
+      for (let c = 0; c < 5; c++) {
         const stack = stateBoard[r][c];
         if (stack.length === 0) continue;
 
@@ -720,7 +720,7 @@ function initNoccanSimulator() {
           const isTop = (i === len - 1);
 
           if (player === 2) {
-            // P2 wants to move DOWN (row 3). Closer is better.
+            // P2 wants to move DOWN (row 4). Closer is better.
             let val = r * 20;
 
             if (isTop) {
@@ -734,7 +734,7 @@ function initNoccanSimulator() {
             score += val;
           } else {
             // P1 wants to move UP (row 0). Closer is better.
-            let val = (3 - r) * 20;
+            let val = (4 - r) * 20;
 
             if (isTop) {
               val += 40;

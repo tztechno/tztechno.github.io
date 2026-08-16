@@ -808,8 +808,8 @@ a {
 
 .noccan-grid-demo {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   gap: 8px;
   aspect-ratio: 1;
   background: var(--bg-dark-2);
