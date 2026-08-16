@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>CYBER NOCCANOCCA // 3Dスタック対戦ボードゲーム LP</title>
+  <meta name="title" content="CYBER NOCCANOCCA // 3Dスタック対戦ボードゲーム LP">
+  <meta name="description" content="未来のオペレーション端末を操作するような美しいUIと、深奥なる戦術。3Dスタック対戦ボードゲーム「のっかのっか」がサイバーパンクな世界観でWebゲーム化。PVP/対AI/観戦モード、Stripe決済(100円)によるプレイ制限解除。">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-noccanocca.netlify.app/">
+  <meta property="og:title" content="CYBER NOCCANOCCA // 3Dスタック対戦ボードゲーム">
+  <meta property="og:description" content="相手の上に乗っかり、重ねて、最奥行へ到達せよ！美麗なサイバーパンクUIで遊ぶ3Dスタック抽象ボードゲーム。">
+  <meta property="og:image" content="hero-preview.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scanlines theme-cyber">
+
+  <!-- Grid Background Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Ambient Particle Canvas Background -->
+  <canvas id="particle-canvas" class="particle-background"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo font-orbitron">
+        CYBER <span class="logo-accent">NOCCANOCCA</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#preview" class="nav-link">体験シミュレーター</a>
+        <a href="#rules" class="nav-link">ルール解説</a>
+        <a href="#pricing" class="nav-link">プレミアムパス</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+      
+      <div class="header-controls">
+        <!-- Floating Theme Selector -->
+        <div class="theme-switcher-wrapper">
+          <button class="theme-btn active" data-theme="cyber" title="サイバーネオン">Cyber</button>
+          <button class="theme-btn" data-theme="classic" title="クラシック">Classic</button>
+          <button class="theme-btn" data-theme="dark" title="ダーク">Dark</button>
+        </div>
+
+        <a href="https://cyber-noccanocca.netlify.app/" class="btn-cyber btn-nav-launch" target="_blank">
+          <i class="fa-solid fa-terminal"></i>
+          <span>システム起動</span>
+          <i class="fa-solid fa-arrow-up-right-from-square icon-small"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-radial-glow"></div>
+    <div class="hero-glow-cyan"></div>
+    <div class="hero-glow-pink"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          SYS.VER.1.0 // NOCCANOCCA DECRYPTION ONLINE
+        </div>
+        
+        <h1 class="hero-title font-orbitron">
+          盤上をハックし、<br>
+          天頂を制せ。<br>
+          <span class="gradient-text">CYBER NOCCANOCCA</span>
+        </h1>
+        
+        <p class="hero-desc">
+          「CYBER NOCCANOCCA」は、ITTEN社のアブストラクトボードゲーム「のっかのっか（NOCCANOCCA）」を、SFサイバーパンクのビジュアルと本格的なAI思考エンジンを搭載して再現した3D対戦パズルウェブアプリです。相手の駒の上に乗り上げて動きを封じ、相手側の最奥ラインに到達することを目指します。
+        </p>
+        
+        <div class="hero-ctas">
+          <a href="https://cyber-noccanocca.netlify.app/" class="btn-cyber btn-glow-cyan" target="_blank">
+            <i class="fa-solid fa-play"></i> 今すぐ起動 (5回無料プレイ)
+          </a>
+          <a href="#preview" class="btn-cyber btn-outline-pink">
+            <i class="fa-solid fa-gamepad"></i> 簡易体験デモ
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="mockup-frame">
+          <div class="mockup-header">
+            <span class="mockup-dot red"></span>
+            <span class="mockup-dot yellow"></span>
+            <span class="mockup-dot green"></span>
+            <span class="mockup-title font-orbitron">NOCCANOCCA_SYS_MONITOR</span>
+          </div>
+          <div class="mockup-body">
+            <img src="hero-preview.png" alt="Cyber NoccaNocca UI Preview" class="preview-img">
+            <div class="scanline-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// INTERFACE & ALGORITHMS</span>
+        <h2 class="section-title font-orbitron">ゲームのコア機能</h2>
+        <p class="section-subtitle">サイバーパンク空間で相手の駒に「乗り上げ」、スタックをハックする</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3 class="feature-title">スタック(乗っかる)システム</h3>
+          <p class="feature-desc">他の駒の上に乗ることができます（最大3段まで）。下の段の駒は乗られている間、移動できず拘束されます。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+          <h3 class="feature-title">8方向のダイナミック移動</h3>
+          <p class="feature-desc">盤上の駒は前後左右斜めの8方向に1マス進めます。動かせるのは常に「スタックの最上段の駒」のみです。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+          <h3 class="feature-title">3つの対戦モード</h3>
+          <p class="feature-desc">ローカルでの2人対戦(PVP)、強力なAIと対戦する(対AI)、そしてAI同士が競うのを見守る(AI観戦)モードがあります。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="feature-title">AI難易度選択</h3>
+          <p class="feature-desc">Easy (ランダム多め)、Medium、そして先読みアルゴリズム Minimax を実装した Hard の3つの強さから選択可能。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+          <h3 class="feature-title">快適な操作補助ツール</h3>
+          <p class="feature-desc">戻る(UNDO)・進む(REDO)の完全サポートに加え、盤面を180°反転させて逆方向から戦況を確認できる機能付き。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-music"></i></div>
+          <h3 class="feature-title">レトロ電子合成音</h3>
+          <p class="feature-desc">Web Audio APIを用いたビープ音が、SF端末でオペレーションを行っているかのような高い臨場感を提供します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo Section -->
+  <section class="preview" id="preview">
+    <div class="container">
+      <div class="preview-layout">
+        <div class="preview-info">
+          <span class="section-tag">// INTERACTIVE TERMINAL EMULATOR</span>
+          <h2 class="section-title font-orbitron">インタラクティブ体験</h2>
+          <p class="preview-text">
+            下の4x4グリッドは、LP用に最適化された簡易体験版です。駒をクリックして選択し、移動可能な緑色マスをクリックして動かしてみてください。
+          </p>
+          
+          <div class="interactive-guides">
+            <div class="guide-item">
+              <span class="guide-badge border-cyan">1</span>
+              <span><strong>セットアップ:</strong> 最下段（青）の駒のいずれかをクリックし、重ねる位置（5個目）を選んでスタート。</span>
+            </div>
+            <div class="guide-item">
+              <span class="guide-badge border-pink">2</span>
+              <span><strong>移動とスタック:</strong> 8方向に1マス進めます。敵や自分の駒の上（高さ3枚まで）にも重ねられます。</span>
+            </div>
+            <div class="guide-item">
+              <span class="guide-badge border-purple">3</span>
+              <span><strong>勝利条件:</strong> 最上段（赤のゴール行）に青の駒が到達するか、相手の全駒を動けなくすれば勝利！</span>
+            </div>
+          </div>
+
+          <div class="preview-actions">
+            <button id="demo-reset-btn" class="btn-cyber btn-outline-cyan">
+              <i class="fa-solid fa-rotate"></i> システムリセット
+            </button>
+            <button id="demo-sound-btn" class="btn-cyber btn-outline-pink">
+              <i class="fa-solid fa-volume-high"></i> <span id="demo-sound-text">Sound ON</span>
+            </button>
+          </div>
+          <div id="demo-status-message" class="demo-feedback">システム待機中...</div>
+        </div>
+
+        <div class="preview-board-container">
+          <div class="cyber-terminal-card">
+            <div class="terminal-header">
+              <span class="terminal-tag font-orbitron">// PLAYABLE_MOCKUP_V1.0</span>
+              <span id="demo-mode-indicator" class="terminal-difficulty font-orbitron">P1 SETUP PHASE</span>
+            </div>
+            <div class="terminal-body">
+              <div class="noccan-grid-wrapper">
+                <div class="noccan-grid-demo" id="demo-board">
+                  <!-- JS will generate 4x4 cells -->
+                </div>
+              </div>
+              
+              <!-- Console Log for LP Demo -->
+              <div class="demo-console-panel">
+                <div class="console-header font-orbitron">// SIMULATOR LOGS</div>
+                <div class="console-logs" id="demo-logs">
+                  <div class="log-line text-muted">Awaiting connection... Ready.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules Section -->
+  <section class="rules-section" id="rules">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// PROCEDURAL PROTOCOL</span>
+        <h2 class="section-title font-orbitron">のっかのっかのルール解説</h2>
+        <p class="section-subtitle">2人用の抽象ボードゲーム「NOCCANOCCA」の基本戦略</p>
+      </div>
+
+      <div class="rules-showcase">
+        <div class="rules-visual">
+          <div class="mockup-frame">
+            <div class="mockup-header">
+              <span class="mockup-dot red"></span>
+              <span class="mockup-dot yellow"></span>
+              <span class="mockup-dot green"></span>
+              <span class="mockup-title font-orbitron">RULES_EXPLANATION</span>
+            </div>
+            <div class="mockup-body">
+              <img src="rules-preview.png" alt="NoccaNocca Rules Preview" class="preview-img">
+              <div class="scanline-overlay"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rules-text">
+          <div class="rule-block">
+            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">01</span> 初期配置 & 5個目の重ね</h3>
+            <p class="rule-block-desc">
+              縦4×横4の盤面を使い、プレイヤーは青(手前)と赤(奥)に分かれます。初期状態ではそれぞれ手前の4マスに駒を置きますが、ゲーム開始直前に「5個目の駒を自分の駒のどれかに重ねた（高さ2のスタック）」状態にして、そこから交互にターンを進めます。
+            </p>
+          </div>
+          
+          <div class="rule-block">
+            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">02</span> 8方向の移動と高さ制限</h3>
+            <p class="rule-block-desc">
+              自分のターンには、自分の駒を周囲8方向（縦横斜め）の隣接する1マスに動かすことができます。駒を移動させる際、空いたマスはもちろん、すでに駒が存在するマスの上にも「乗る」ことができます。スタックの制限高は<strong>最大3個</strong>までです。
+            </p>
+          </div>
+
+          <div class="rule-block">
+            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">03</span> トラップ（拘束）ルール</h3>
+            <p class="rule-block-desc">
+              駒が重ねられた場合、動かすことができるのは<strong>一番上に乗っている駒のみ</strong>です。下に敷かれた駒は、上の駒がどくまで移動させることができません（自分の駒でも相手の駒でも同様です）。これを利用して敵の足を封じるのが基本戦術です。
+            </p>
+          </div>
+
+          <div class="rule-block">
+            <h3 class="rule-block-title font-orbitron"><span class="bullet-num">04</span> 2つの勝利条件</h3>
+            <p class="rule-block-desc">
+              勝利条件は以下のいずれかです：<br>
+              1. <strong>ゴール到達:</strong> 自分の駒を1枚でも相手側の最奥段（青なら最奥の行、赤なら手前の行）に進める。<br>
+              2. <strong>手詰まり（ブロック）:</strong> 相手が自分のターンに全く動かせる駒がない状態（すべて拘束されているか動くマスが満杯）に追い込む。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing / Stripe Paywall Section -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-radial-glow"></div>
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// STRIPE SECURED INTEGRATION</span>
+        <h2 class="section-title font-orbitron">プレミアム・アップグレード</h2>
+        <p class="section-subtitle">いつでもワンコインで、一生涯無限プレイが可能に</p>
+      </div>
+
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="plan-badge">LIFETIME ACCESS</div>
+            <h3 class="plan-title font-orbitron">LIFETIME UNLIMITED</h3>
+            <div class="price-container">
+              <span class="currency">¥</span>
+              <span class="price-amount">100</span>
+              <span class="price-tax">(税込)</span>
+            </div>
+            <p class="plan-caption">買い切り型・追加料金なし</p>
+          </div>
+
+          <div class="pricing-body">
+            <ul class="plan-benefits-list">
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>プレイ制限の完全解除</strong> (永久に無限プレイ可能)</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>すべてのゲームモード (対AI/観戦) の解放</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>AIのすべての難易度 (Hard/先読み) の選択制限解除</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>広告なし・追加ゲーム内課金一切なし</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span>Stripe Checkoutによる安全・強固な暗号化クレジットカード決済</span>
+              </li>
+            </ul>
+
+            <div class="pricing-cta-box">
+              <a href="https://cyber-noccanocca.netlify.app/" class="btn-pricing btn-glow-pink" target="_blank">
+                <span>システム起動 & プレミアムアップグレード</span>
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+              <span class="cta-note">* ゲーム起動後、右側の「💎 PREMIUM」カードにある「UNLOCK UNLIMITED」から決済できます。</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="trial-info-panel">
+          <div class="trial-badge">// FREE TRIAL SPECIFICATION</div>
+          <h4 class="trial-title">無料お試しプレイについて</h4>
+          <p class="trial-text">
+            初期状態では、どなたでも<strong>5回分の無料対戦プレイ枠</strong>が提供されています。まずは2人対戦やAI戦の操作性、サイバーデザインの雰囲気をしっかりとお確かめください。
+          </p>
+          <div class="trial-flow">
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">01</span>
+              <span>初回アクセスで5回の無料枠</span>
+            </div>
+            <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">02</span>
+              <span>AI戦やPVPを体験</span>
+            </div>
+            <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">03</span>
+              <span>Stripeで簡単アップグレード</span>
+            </div>
+          </div>
+
+          <div class="premium-preview-frame">
+            <img src="premium-preview.png" alt="Premium Option Screen" class="premium-preview-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accordion) -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// ARCHIVES & TROUBLESHOOTING</span>
+        <h2 class="section-title font-orbitron">よくある質問</h2>
+        <p class="section-subtitle">CYBER NOCCANOCCAの動作環境や決済に関するお問合せ</p>
+      </div>
+
+      <div class="faq-accordion-wrapper">
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. ゲームプレイの回数はどうやってカウントされますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>新しいマッチを開始（「RESET MATCH」ボタンを押して新規ゲームを生成）するごとに、1プレイ回数が消費されます。ターン中の操作を行ったり、前の状態にUNDOしたり、ブラウザをリロードするだけではプレイ回数は消費されません。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 100円のアップグレード料金は月額料金ですか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>いいえ、完全に「買い切り（ワンタイム決済）」です。一度決済を完了すれば、それ以上の追加請求は一切なく、将来のアップデートを含め無期限にゲームをご利用いただけます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. Stripe決済はどのように行われますか？安全ですか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>世界中で数百万社に導入されているオンライン決済プラットフォーム「Stripe Checkout」を使用しています。クレジットカード情報は当サイトのサーバーを通過せず、直接暗号化されてStripe社に送信・処理されるため極めて安全です。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 無料枠を使い切った後、再度お試しすることはできますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>無料プレイ枠はブラウザの `localStorage` に記録されています。基本的には5回で終了となりますが、開発検証用に決済モーダル下部に「テスト決済 (無料)」ボタンを設置しており、これを押すことで決済を行わずに全機能を解放して試用することが可能です。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. スマートフォンやタブレットでも遊べますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>はい。レスポンシブWebデザインに対応しており、iPhoneやAndroid端末、iPadなどのブラウザでも快適に遊ぶことができます。画面が自動的に最適な比率に調整され、タップ操作で快適に対戦が行えます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner Section -->
+  <section class="cta-banner">
+    <div class="cta-glow"></div>
+    <div class="container text-center">
+      <h2 class="cta-title font-orbitron">DECRYPTION READY // マトリクス起動可能</h2>
+      <p class="cta-desc">頭脳をブーストし、立体的にスタックするサイバーのっかのっかを制圧せよ。</p>
+      <a href="https://cyber-noccanocca.netlify.app/" class="btn-cyber btn-glow-pink btn-large" target="_blank">
+        <i class="fa-solid fa-bolt"></i> ACCESS NOCCANOCCA TERMINAL
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-layout">
+      <div class="footer-brand font-orbitron">
+        CYBER <span class="logo-accent">NOCCANOCCA</span>
+      </div>
+      <div class="footer-info">
+        <span>© 2026 CYBER NOCCANOCCA PROTOCOL.</span>
+        <span>POWERED BY NETLIFY & STRIPE</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-noccanocca.netlify.app/" class="footer-link" target="_blank">ゲームをプレイ</a>
+        <a href="https://github.com/tztechno/mymemo.md" class="footer-link" target="_blank">Document</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
