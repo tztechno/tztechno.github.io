@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>CYBER SUDOKU // レトロフューチャー数独デクリプター</title>
+  <meta name="title" content="CYBER SUDOKU // レトロフューチャー数独デクリプター">
+  <meta name="description" content="未来の端末を操作するような美しいUIと、快適なゲームコントロールを備えたサイバーパンク数独ゲーム。オートセーブ、3つのセーブスロット、Stripe連携決済(100円)によるプレイ制限解除。">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj24/">
+  <meta property="og:title" content="CYBER SUDOKU // レトロフューチャー数独デクリプター">
+  <meta property="og:description" content="未来の端末を操作するような美しいUIと、快適なゲームコントロールを備えたサイバーパンク数独ゲーム。">
+  <meta property="og:image" content="https://tztechno.github.io/proj24/og-image.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="scanlines theme-cyber">
+
+  <!-- Grid Background Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Ambient Particle Canvas Background -->
+  <canvas id="particle-canvas" class="particle-background"></canvas>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo font-orbitron">
+        CYBER <span class="logo-accent">SUDOKU</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#preview" class="nav-link">シミュレーター</a>
+        <a href="#system" class="nav-link">システム機能</a>
+        <a href="#pricing" class="nav-link">アップグレード</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+      
+      <div class="header-controls">
+        <!-- Floating Theme Selector -->
+        <div class="theme-switcher-wrapper">
+          <button class="theme-btn active" data-theme="cyber" title="サイバーネオン">Cyber</button>
+          <button class="theme-btn" data-theme="classic" title="クラシック">Classic</button>
+          <button class="theme-btn" data-theme="dark" title="ダーク">Dark</button>
+        </div>
+
+        <a href="https://cyber-sudoku.netlify.app/" class="btn-cyber btn-nav-launch" target="_blank">
+          <i class="fa-solid fa-terminal"></i>
+          <span>システム起動</span>
+          <i class="fa-solid fa-arrow-up-right-from-square icon-small"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-radial-glow"></div>
+    <div class="hero-glow-cyan"></div>
+    <div class="hero-glow-pink"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          SYS.VER.2.0 // DECRYPTION DECK ONLINE
+        </div>
+        
+        <h1 class="hero-title font-orbitron">
+          マトリクスを解析せよ。<br>
+          超美麗<span class="gradient-text">サイバーパンク数独</span><br>
+          降臨
+        </h1>
+        
+        <p class="hero-desc">
+          「CYBER SUDOKU」は、SF映画のオペレーション端末のような美麗UIと、快適なパズル操作性を極限まで両立した次世代の数独アプリケーションです。初心者から上級者まで楽しめる4段階の難易度と、やりこみプレイをサポートする強力なセーブ機能を搭載しています。
+        </p>
+        
+        <div class="hero-ctas">
+          <a href="https://cyber-sudoku.netlify.app/" class="btn-cyber btn-glow-cyan" target="_blank">
+            <i class="fa-solid fa-play"></i> 今すぐ起動 (5回無料)
+          </a>
+          <a href="#preview" class="btn-cyber btn-outline-pink">
+            <i class="fa-solid fa-desktop"></i> 体験デモ
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="mockup-frame">
+          <div class="mockup-header">
+            <span class="mockup-dot red"></span>
+            <span class="mockup-dot yellow"></span>
+            <span class="mockup-dot green"></span>
+            <span class="mockup-title font-orbitron">CYBER_SUDOKU_SYS_MONITOR</span>
+          </div>
+          <div class="mockup-body">
+            <img src="og-image.png" alt="Cyber Sudoku UI Preview" class="preview-img">
+            <div class="scanline-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Propositions / Features Summary -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// INTERFACE & ALGORITHMS</span>
+        <h2 class="section-title font-orbitron">ゲームのコア機能</h2>
+        <p class="section-subtitle">未来のサイバーパンク空間で思考をクリアにし、グリッドをハックする</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-sliders"></i></div>
+          <h3 class="feature-title">4段階の難易度設定</h3>
+          <p class="feature-desc">EASY、MEDIUM、HARD、そしてパズル極限のEXPERT。あらゆる難度のマトリクスに挑戦可能です。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <h3 class="feature-title">高度なノート（メモ）機能</h3>
+          <p class="feature-desc">候補の数字をセルにマークするメモモードを完備。ショートカットキー[N]でスムーズに切り替え可能です。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+          <h3 class="feature-title">UNDO / REDO サポート</h3>
+          <p class="feature-desc">思考の試行錯誤を完璧に支える履歴管理システムを搭載。いつでも前の状態に戻したりやり直せます。</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-floppy-disk"></i></div>
+          <h3 class="feature-title">クァンタムセーブスロット</h3>
+          <p class="feature-desc">常に進行状況を保持するオートセーブに加え、任意のプレイデータを残せる3つの手動保存スロットを搭載。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3 class="feature-title">リアルタイム検証 & 解決</h3>
+          <p class="feature-desc">現在入力している値が正しいかを即座に検証する機能と、どうしても解けない場合の答え表示を搭載。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-glow"></div>
+          <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
+          <h3 class="feature-title">環境演出 & 音響効果</h3>
+          <p class="feature-desc">サイバーなビープ音と、クリア時の美しいパーティクル演出が、没入感あふれるプレイ環境を提供します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Sudoku Preview / Experience Demo -->
+  <section class="preview" id="preview">
+    <div class="container">
+      <div class="preview-layout">
+        <div class="preview-info">
+          <span class="section-tag">// EXPERIENCE THE TERMINAL</span>
+          <h2 class="section-title font-orbitron">インタラクティブ体験</h2>
+          <p class="preview-text">
+            以下はLP用に用意された簡易体験グリッドです。任意のセルを選択し、数字を入力してサイバーな操作感を体験してみてください。
+          </p>
+          
+          <div class="interactive-guides">
+            <div class="guide-item">
+              <span class="guide-badge border-cyan">1</span>
+              <span>グリッドの空欄セルをクリックして選択します。</span>
+            </div>
+            <div class="guide-item">
+              <span class="guide-badge border-pink">2</span>
+              <span>画面下、またはキーボードの [1] 〜 [9] キーで数字を入力します。</span>
+            </div>
+            <div class="guide-item">
+              <span class="guide-badge border-purple">3</span>
+              <span>「CHECK」を押して入力が合っているか検証します。</span>
+            </div>
+          </div>
+
+          <div class="preview-actions">
+            <button id="demo-check-btn" class="btn-cyber btn-glow-pink">
+              <i class="fa-solid fa-shield-halved"></i> CHECK DECRYPTION
+            </button>
+            <button id="demo-reset-btn" class="btn-cyber btn-outline-cyan">
+              <i class="fa-solid fa-rotate"></i> RESET MATRIX
+            </button>
+          </div>
+          <div id="demo-status-message" class="demo-feedback">システム待機中...</div>
+        </div>
+
+        <div class="preview-board-container">
+          <div class="cyber-terminal-card">
+            <div class="terminal-header">
+              <span class="terminal-tag font-orbitron">// PLAYABLE_MOCKUP_V2.0</span>
+              <span id="demo-difficulty" class="terminal-difficulty font-orbitron">EASY MODE</span>
+            </div>
+            <div class="terminal-body">
+              <div class="sudoku-grid-wrapper">
+                <div class="sudoku-grid-demo" id="demo-grid">
+                  <!-- JS will generate 9x9 cells -->
+                </div>
+              </div>
+              
+              <!-- Keypad for LP Demo -->
+              <div class="demo-keypad-panel">
+                <div class="keypad-grid-demo">
+                  <button class="demo-key-btn" data-val="1">1</button>
+                  <button class="demo-key-btn" data-val="2">2</button>
+                  <button class="demo-key-btn" data-val="3">3</button>
+                  <button class="demo-key-btn" data-val="4">4</button>
+                  <button class="demo-key-btn" data-val="5">5</button>
+                  <button class="demo-key-btn" data-val="6">6</button>
+                  <button class="demo-key-btn" data-val="7">7</button>
+                  <button class="demo-key-btn" data-val="8">8</button>
+                  <button class="demo-key-btn" data-val="9">9</button>
+                  <button class="demo-key-btn action" id="demo-erase-btn">ERASE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed System Overview -->
+  <section class="system-section" id="system">
+    <div class="container">
+      <div class="system-showcase">
+        <div class="system-visual">
+          <div class="quantum-save-visual">
+            <div class="slot-visual-card active">
+              <div class="slot-head">SLOT_01 <span class="slot-badge border-cyan">ACTIVE</span></div>
+              <div class="slot-desc">EASY - TIME 05:23<br>2026-08-16 10:15</div>
+            </div>
+            <div class="slot-visual-card">
+              <div class="slot-head">SLOT_02 <span class="slot-badge border-muted">EMPTY</span></div>
+              <div class="slot-desc">進行中のデータはありません</div>
+            </div>
+            <div class="slot-visual-card">
+              <div class="slot-head">SLOT_03 <span class="slot-badge border-muted">EMPTY</span></div>
+              <div class="slot-desc">進行中のデータはありません</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="system-text">
+          <span class="section-tag">// SECURE DATA RETRIEVAL</span>
+          <h2 class="section-title font-orbitron">クァンタムセーブ (量子セーブ)</h2>
+          <p class="system-desc">
+            「CYBER SUDOKU」はブラウザの `localStorage` 技術を利用し、進行データを瞬時に保存します。不意のブラウザ終了やタブ閉じでも安心の<strong>オートセーブ機能</strong>はもちろん、難解な盤面の分岐を試したい時に便利な<strong>3つの手動セーブスロット</strong>を完備。
+          </p>
+          <div class="system-bullets">
+            <div class="bullet-item">
+              <i class="fa-solid fa-check text-cyan"></i>
+              <div><strong>即座にロード:</strong> ロードボタンを1つ押すだけで、盤面状態、タイマー経過時間、ミス回数を完全復元。</div>
+            </div>
+            <div class="bullet-item">
+              <i class="fa-solid fa-check text-cyan"></i>
+              <div><strong>複数スロット:</strong> 異なる難易度の途中の状態を、それぞれ保存しておくことが可能。</div>
+            </div>
+            <div class="bullet-item">
+              <i class="fa-solid fa-check text-cyan"></i>
+              <div><strong>オフライン対応:</strong> クラウド連携不要。データはすべてプレイヤー自身のブラウザ内に安全に暗号化保存されます。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing and Stripe Paywall details -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-radial-glow"></div>
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// STRIPE SECURED ACCESS</span>
+        <h2 class="section-title font-orbitron">プレミアム・アップグレード</h2>
+        <p class="section-subtitle">たったワンコインで、一生涯無限に遊べるフルアクセスへ</p>
+      </div>
+
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="plan-badge">LIFETIME PASS</div>
+            <h3 class="plan-title font-orbitron">LIFETIME UNLIMITED</h3>
+            <div class="price-container">
+              <span class="currency">¥</span>
+              <span class="price-amount">100</span>
+              <span class="price-tax">(税込)</span>
+            </div>
+            <p class="plan-caption">買い切り型・追加料金なし</p>
+          </div>
+
+          <div class="pricing-body">
+            <ul class="plan-benefits-list">
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>プレイ制限の完全解除</strong> (無限プレイ可能)</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>全難易度 (Expert含む) の無制限アクセス</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>手動・自動セーブ機能の無制限利用</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span><strong>広告なし・追加内課金一切なし</strong></span>
+              </li>
+              <li>
+                <i class="fa-solid fa-circle-check benefit-check"></i>
+                <span>Stripeによる安全かつ迅速なクレジットカード決済</span>
+              </li>
+            </ul>
+
+            <div class="pricing-cta-box">
+              <a href="https://cyber-sudoku.netlify.app/" class="btn-pricing btn-glow-pink" target="_blank">
+                <span>システム起動 ＆ 決済</span>
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+              <span class="cta-note">* ゲーム画面内「PREMIUM UPGRADE」ボタンよりStripe決済画面へ推移します。</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="trial-info-panel">
+          <div class="trial-badge">// FREE TRIAL SPEC</div>
+          <h4 class="trial-title">無料体験プレイについて</h4>
+          <p class="trial-text">
+            初期状態では<strong>5回分の無料ゲームプレイ枠</strong>が与えられます。4つの難易度や、メモ機能、チェック機能などの快適性をまずは心ゆくまでお試しください。
+          </p>
+          <div class="trial-flow">
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">01</span>
+              <span>初回起動で5プレイ枠付与</span>
+            </div>
+            <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">02</span>
+              <span>数独を自由にプレイ</span>
+            </div>
+            <div class="flow-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+            <div class="flow-step">
+              <span class="flow-num font-orbitron">03</span>
+              <span>Stripeで簡単ワンタイム解除</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accordion) -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">// INTELLIGENCE ARCHIVES</span>
+        <h2 class="section-title font-orbitron">よくある質問</h2>
+        <p class="section-subtitle">CYBER SUDOKUの動作環境や決済システムに関する情報</p>
+      </div>
+
+      <div class="faq-accordion-wrapper">
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. ゲームデータのセーブはブラウザを閉じても残りますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>はい。ゲームの進行状況やセーブスロットの内容はすべてブラウザ内の `localStorage` に保持されます。そのため、ブラウザのキャッシュクリアを明示的に行わない限り、ブラウザやPCを再起動しても続きから再開できます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. Stripe決済はどのように行われますか？安全ですか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>Stripe社が提供するグローバル標準 of 暗号化決済システム「Stripe Checkout」を使用しています。クレジットカード情報は当サイトのサーバーを通過せず、直接暗号化されてStripe社に送信されるため、極めて安全に処理されます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. 100円のアップグレード料金は月額（サブスクリプション）ですか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>いいえ、完全に「買い切り（ワンタイム決済）」です。一度決済を完了すれば、追加料金なしで無期限にゲームをご利用いただけます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. プレイ回数の「5回」はどのようにカウントされますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>新しくゲーム盤面を生成（NEW GAMEを実行）するごとに1プレイ消費されます。同じ盤面でやり直したり、セーブデータをロードしたり、ブラウザをリロードするだけではプレイ回数は消費されません。</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger font-orbitron">
+            <span>Q. モバイル端末（スマートフォンやタブレット）でも遊べますか？</span>
+            <i class="fa-solid fa-plus faq-icon"></i>
+          </button>
+          <div class="faq-panel">
+            <p>はい。レスポンシブデザインを採用しており、画面のサイズに応じて入力キーパッドやグリッドが自動で最適化されます。タッチ操作で直感的に数独をお楽しみいただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner Section -->
+  <section class="cta-banner">
+    <div class="cta-glow"></div>
+    <div class="container text-center">
+      <h2 class="cta-title font-orbitron">SYS_MATRIX // 準備完了</h2>
+      <p class="cta-desc">脳をブーストし、サイバー空間の数独をハックしましょう。</p>
+      <a href="https://cyber-sudoku.netlify.app/" class="btn-cyber btn-glow-pink btn-large" target="_blank">
+        <i class="fa-solid fa-bolt"></i> ACCESS DECRYPTION DECK
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-layout">
+      <div class="footer-brand font-orbitron">
+        CYBER <span class="logo-accent">SUDOKU</span>
+      </div>
+      <div class="footer-info">
+        <span>© 2026 CYBER SUDOKU PROTOCOL.</span>
+        <span>POWERED BY NETLIFY & STRIPE</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-sudoku.netlify.app/" class="footer-link" target="_blank">ゲーム起動</a>
+        <a href="https://github.com/tztechno/cyber_sudoku" class="footer-link" target="_blank">GitHub Repository</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js" type="module"></script>
+</body>
+</html>
