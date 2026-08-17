@@ -324,7 +324,7 @@ function initNoccanSimulator() {
   // Player 1 (Blue) = 1, Player 2 (Red) = 2
   let board = [];
   let turn = 1; // 1 for Player 1, 2 for Player 2 (AI)
-  let phase = 'setup-p1'; // 'setup-p1' | 'setup-p2' | 'playing' | 'gameover'
+  let phase = 'playing'; // 'playing' | 'gameover'
   let selectedCell = null; // { r, c }
   let logCount = 0;
   let isTransitioning = false; // block clicks during AI turn or move animations
@@ -333,26 +333,26 @@ function initNoccanSimulator() {
   function resetSimulator() {
     board = Array(5).fill(null).map(() => Array(5).fill(null).map(() => []));
 
-    // Player 2 starting row is row 0 (top)
+    // Player 2 starting row is row 0 (top) with 2-level stack
     for (let c = 0; c < 5; c++) {
-      board[0][c] = [2];
+      board[0][c] = [2, 2];
     }
-    // Player 1 starting row is row 4 (bottom)
+    // Player 1 starting row is row 4 (bottom) with 2-level stack
     for (let c = 0; c < 5; c++) {
-      board[4][c] = [1];
+      board[4][c] = [1, 1];
     }
 
     turn = 1;
-    phase = 'setup-p1';
+    phase = 'playing';
     selectedCell = null;
     logCount = 0;
     isTransitioning = false;
 
     logsEl.innerHTML = '';
-    addLog('System reset. Awaiting P1 setup.', 'muted');
-    statusMsg.textContent = '最下段（青）の駒のどれかに6枚目の駒を重ねてください。';
+    addLog('System reset. Game started.', 'muted');
+    statusMsg.textContent = 'あなたのターンです。青い駒を動かしてください。';
     statusMsg.className = 'demo-feedback';
-    modeIndicator.textContent = 'P1 SETUP PHASE';
+    modeIndicator.textContent = 'PLAYER 1 TURN';
     modeIndicator.classList.remove('player2-turn');
 
     renderBoard();
@@ -379,7 +379,7 @@ function initNoccanSimulator() {
   function renderBoard() {
     boardEl.innerHTML = '';
 
-    const isAITurn = (phase === 'playing' && turn === 2) || (phase === 'setup-p2');
+    const isAITurn = (phase === 'playing' && turn === 2);
 
     for (let r = 0; r < 5; r++) {
       for (let c = 0; c < 5; c++) {
@@ -446,36 +446,12 @@ function initNoccanSimulator() {
   // Handle cell selection and movement clicks
   function handleCellClick(r, c) {
     if (isTransitioning) return;
-    const isAITurn = (phase === 'playing' && turn === 2) || (phase === 'setup-p2');
+    const isAITurn = (phase === 'playing' && turn === 2);
     if (isAITurn) return; // block clicks on AI turn
 
     const stack = board[r][c];
 
-    // 1. SETUP PHASE: Player 1 (Blue) stacks their 6th piece
-    if (phase === 'setup-p1') {
-      if (r === 4 && stack.length === 1 && stack[0] === 1) {
-        stack.push(1);
-        sounds.play('stack');
-        addLog(`P1 Setup: Stacked 6th piece on ${getCoordName(r, c)}`, 'p1');
-        phase = 'setup-p2';
-        turn = 2;
-        modeIndicator.textContent = 'P2 SETUP PHASE';
-        modeIndicator.classList.add('player2-turn');
-        statusMsg.textContent = '相手（赤）がセットアップしています...';
-        renderBoard();
-        
-        // Trigger AI Setup
-        isTransitioning = true;
-        setTimeout(executeAISetup, 800);
-      } else {
-        sounds.play('error');
-        statusMsg.textContent = '最下段（青）のいずれか1マスを重ねてください！';
-        statusMsg.className = 'demo-feedback error';
-      }
-      return;
-    }
-
-    // 2. PLAYING PHASE
+    // 1. PLAYING PHASE
     if (phase === 'playing') {
       const topPieceOwner = stack.length > 0 ? stack[stack.length - 1] : null;
 
@@ -504,24 +480,6 @@ function initNoccanSimulator() {
         }
       }
     }
-  }
-
-  // AI Setup Action
-  function executeAISetup() {
-    // Choose a random column on row 0 to stack the 6th piece
-    const col = Math.floor(Math.random() * 5);
-    board[0][col].push(2);
-    sounds.play('stack');
-    addLog(`P2 Setup: Stacked 6th piece on ${getCoordName(0, col)}`, 'p2');
-    
-    phase = 'playing';
-    turn = 1;
-    isTransitioning = false;
-
-    modeIndicator.textContent = 'PLAYER 1 TURN';
-    modeIndicator.classList.remove('player2-turn');
-    statusMsg.textContent = 'あなたのターンです。青い駒を動かしてください。';
-    renderBoard();
   }
 
   // Move Execution
