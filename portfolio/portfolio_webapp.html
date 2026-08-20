@@ -204,17 +204,9 @@
       100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(57, 255, 20, 0); }
     }
 
-    /* Main Content Grid */
+    /* Main Content Area */
     .main-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 1024px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
+      width: 100%;
     }
 
     /* Left Sidebar: Terminal console */
@@ -349,11 +341,17 @@
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
     }
 
     @media (max-width: 1200px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
       .portfolio-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -371,7 +369,9 @@
         justify-content: space-between;
         gap: 15px;
       }
+    }
 
+    @media (max-width: 600px) {
       .portfolio-grid {
         grid-template-columns: 1fr;
       }
@@ -714,28 +714,7 @@
 
     <div class="main-grid">
       
-      <!-- Left side: Log Terminal -->
-      <aside class="sidebar-terminal">
-        <div class="terminal-header">
-          <div class="terminal-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-            SYSTEM_DIAGNOSTICS.LOG
-          </div>
-          <div class="terminal-actions">
-            <div class="terminal-dot red"></div>
-            <div class="terminal-dot yellow"></div>
-            <div class="terminal-dot green"></div>
-          </div>
-        </div>
-        <div class="terminal-body" id="log-body">
-          <div class="log-line"><span class="log-time">[13:36:01]</span> <span class="log-tag">SYS:</span> INITIALIZING QUANTUM LINK MANAGER... <span class="log-success">OK</span></div>
-          <div class="log-line"><span class="log-time">[13:36:02]</span> <span class="log-tag">NET:</span> SCANNED LOCAL MATRIX NETWORK: 22 GATES FOUND.</div>
-          <div class="log-line"><span class="log-time">[13:36:03]</span> <span class="log-tag">SYS:</span> ACCESS AUTHORIZATION GRANTED (ID: SHUN_ISHII).</div>
-          <div class="log-line"><span class="log-time">[13:36:04]</span> <span class="log-tag">SYS:</span> DEPLOYING COGNITIVE HOST PROTOCOLS...</div>
-        </div>
-      </aside>
-
-      <!-- Right side: Game Nodes Grid -->
+      <!-- Main Content Grid Area -->
       <main class="node-grid-container">
         
         <div class="grid-header">
@@ -1964,6 +1943,7 @@
     ];
 
     function appendLog(tag = 'SYS', msg = 'PING', type = 'info') {
+      if (!logBody) return;
       const line = document.createElement('div');
       line.className = 'log-line';
       
