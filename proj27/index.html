@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Syndicate | 電脳都市の支配権を奪取せよ - サイバーパンク・ボードゲーム</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="名作ボードゲームのシステムを受け継ぐ、サイバーパンク・エンジンビルドゲーム『Cyber Syndicate』。異なる難易度のAIとの対戦、ローカル対戦、観戦モードを搭載。クレジットやクォンタム資源を集め、アセットを構築し、暗号都市の覇権を握れ。">
+  <meta name="keywords" content="Cyber Syndicate, サイバーシンジケート, ボードゲーム, スプレンダー, 宝石の煌き, サイバーパンク, インディーズゲーム, ブラウザゲーム, 無料ゲーム">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-syndicate-game.netlify.app/">
+  <meta property="og:title" content="Cyber Syndicate | 電脳都市の支配権を奪取せよ - サイバーパンク・ボードゲーム">
+  <meta property="og:description" content="クレジットやクォンタムなどの暗号資源を奪い合い、電脳資産（アセット）を構築して都市を支配するサイバーパンク・ボードゲーム。">
+  <meta property="og:image" content="assets/hero.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cyber-syndicate-game.netlify.app/">
+  <meta property="twitter:title" content="Cyber Syndicate | 電脳都市の支配権を奪取せよ - サイバーパンク・ボードゲーム">
+  <meta property="twitter:description" content="クレジットやクォンタムなどの暗号資源を奪い合い、電脳資産（アセット）を構築して都市を支配するサイバーパンク・ボードゲーム。">
+  <meta property="twitter:image" content="assets/hero.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;700;800&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-cyber">
+  <!-- Particle Background Canvas -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Ambient Grid Overlay -->
+  <div class="grid-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header class="main-header" id="header-nav">
+    <div class="header-container">
+      <a href="#" class="logo" id="nav-logo">
+        <span class="logo-accent">CYBER</span>SYNDICATE
+      </a>
+      <nav class="nav-links" id="main-nav-links">
+        <a href="#lore" class="nav-link" id="link-lore">都市背景</a>
+        <a href="#features" class="nav-link" id="link-features">特徴</a>
+        <a href="#resources" class="nav-link" id="link-resources">資源ターミナル</a>
+        <a href="#cards" class="nav-link" id="link-cards">アセット</a>
+        <a href="#rules" class="nav-link" id="link-rules">ルール</a>
+        <a href="#pricing" class="nav-link" id="link-pricing">ライセンス</a>
+      </nav>
+      <div class="header-actions">
+        <a href="https://cyber-syndicate-game.netlify.app/" class="btn-play-now" id="header-btn-play">
+          <span class="btn-glow"></span>
+          LAUNCH GAME
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="scanner-line"></div>
+        <div class="status-indicator" id="status-network">
+          <span class="status-dot animate-flicker"></span> NETWORK STATUS: ONLINE [V3.14]
+        </div>
+        <h1 class="glitch-title" data-text="CYBER SYNDICATE" id="hero-main-title">CYBER SYNDICATE</h1>
+        <p class="hero-tagline">――暗号都市の支配権を奪取せよ――</p>
+        <p class="hero-description">
+          『Cyber Syndicate』は、名作エンジンビルドゲームのシステムをサイバーパンクの世界観で再構築した、2人用の電脳戦術ボードゲームです。<br>
+          ネットの海から暗号資源をハッキングし、防壁を破り、巨大企業の提携を取り付けて、暗号都市「ネオ・エデン」の頂点に君臨しましょう。
+        </p>
+        <div class="hero-buttons">
+          <a href="https://cyber-syndicate-game.netlify.app/" class="btn-primary" id="btn-hero-launch">
+            <span class="btn-text">システム起動 [START]</span>
+            <span class="btn-glitch-overlay"></span>
+          </a>
+          <a href="#rules" class="btn-secondary" id="btn-hero-rules">
+            <span class="btn-text">遊び方を解析 [INFO]</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual-wrapper">
+        <div class="cyber-frame">
+          <div class="corner corner-tl"></div>
+          <div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div>
+          <div class="corner corner-br"></div>
+          <div class="window-bar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="window-title">MAINFRAME_SCREENSHOT.JPG</span>
+          </div>
+          <img src="assets/hero.jpg" alt="Cyber Syndicate Game Terminal" class="hero-image" id="hero-preview-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lore Section -->
+  <section class="lore-section" id="lore">
+    <div class="lore-container">
+      <div class="section-header center">
+        <div class="section-pre">LORE DATABASE</div>
+        <h2 id="title-lore">電脳都市「ネオ・エデン」の覇権争い</h2>
+      </div>
+      <div class="lore-grid">
+        <div class="lore-card glass-panel" id="lore-block-1">
+          <div class="lore-icon">⚡</div>
+          <h3>インフラと暗号資源</h3>
+          <p>都市の命脈は5つの「暗号資源」によって維持されている。**クレジット**（資金）、**クォンタム**（演算）、**ナノチップ**（ハード）、**プラズマ**（動力）、そして**インテル**（機密）。これらを奪い合い、自らの処理能力を強化せよ。</p>
+        </div>
+        <div class="lore-card glass-panel" id="lore-block-2">
+          <div class="lore-icon">⛓️</div>
+          <h3>アセットの永久割引</h3>
+          <p>アセットカードを入手すると、永続的な資源割引ボーナスが発生する。最初はわずかなハッキングツールから始まり、やがては「人工知能コア」や「軌道ナノフォージ」といった巨大な資産へと拡大（エンジンビルド）していく。</p>
+        </div>
+        <div class="lore-card glass-panel" id="lore-block-3">
+          <div class="lore-icon">👥</div>
+          <h3>メガコーポ派閥の契約</h3>
+          <p>都市に君臨する10大派閥（スポンサー）たちは有能なハッカーを探している。彼らの要求するアセットを揃えることで、彼らと提携。追加の名声ポイントや、ターン上限の拡張、取引交換などの強力な「派閥効果」がアンロックされる。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="features-container">
+      <div class="section-header">
+        <div class="section-pre">GAME FEATURES</div>
+        <h2 id="title-features">ゲームの特徴とシステム</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-item-wide glass-panel" id="feature-ai-system">
+          <div class="feature-wide-image-wrapper">
+            <img src="assets/hacker.jpg" alt="Rogue AI Hacker" class="feature-wide-img">
+            <div class="img-glow-overlay"></div>
+          </div>
+          <div class="feature-wide-content">
+            <span class="badge">VS SYSTEM</span>
+            <h3>進化した3レベルのハッカーAI</h3>
+            <p>
+              1人プレイ用の「人 vs AI」モードでは、あなたの電脳戦のスキルに合わせて設計されたAIと対峙します。
+            </p>
+            <ul class="feature-list">
+              <li><strong>Easy: スクリプトキディ</strong> - 基本ルールを覚えるのに最適な、標準的な行動パターンのAI。</li>
+              <li><strong>Medium: システムハッカー</strong> - 効率的なカード購入とキープを使い分け、スキを突いてくる手強いAI。</li>
+              <li><strong>Hard: サイバーデーモン</strong> - プレイヤーの盤面を警戒し、最適なブロックと高速なアセット構築を両立する超弩級AI。</li>
+            </ul>
+            <div class="trial-hint">
+              <span class="icon">🎁</span> 人vsAIモードは最大3回まで無料で試行プレイが可能です！
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card glass-panel" id="feature-pvp">
+          <div class="feature-icon">👥</div>
+          <h3>人 vs 人（対面対戦）</h3>
+          <p>1台のデバイスを交互に操作し、目の前のライバルとリアルタイムで対決。心理戦とアセットのカットなど、対人戦ならではの奥深いスリルを楽しめます。</p>
+        </div>
+
+        <div class="feature-card glass-panel" id="feature-spec">
+          <div class="feature-icon">💻</div>
+          <h3>AI vs AI（観戦モード）</h3>
+          <p>「Rogue AI」と「Mainframe AI」が最善手を競い合うシミュレーションを観戦。超高速なゲーム処理でAIの高度な戦術やデッキビルドの挙動を学べます。</p>
+        </div>
+
+        <div class="feature-card glass-panel" id="feature-themes">
+          <div class="feature-icon">🎨</div>
+          <h3>3つのビジュアルインターフェース</h3>
+          <p>「サイバーネオン（推奨）」「ミッドナイトダーク」「クラシックカジノ風」の3テーマを搭載。気分に合わせてゲーム画面の雰囲気やフォントを瞬時に変更可能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Resource Terminal (Token Bank) Section -->
+  <section class="resources-section" id="resources">
+    <div class="resources-container">
+      <div class="section-header center">
+        <div class="section-pre">INTERACTIVE TERMINAL</div>
+        <h2 id="title-resources">資源トークン・データベース</h2>
+        <p class="section-desc">トークンをクリックして、各暗号資源の機能とフレーバーを解析します。</p>
+      </div>
+
+      <div class="terminal-layout">
+        <!-- Token Selector -->
+        <div class="token-selector-grid" id="token-db-selector">
+          <div class="token-item active" data-resource="cred" id="token-select-cred">
+            <div class="token-icon token-cred"></div>
+            <span class="token-label">クレジット (CRED)</span>
+          </div>
+          <div class="token-item" data-resource="quantum" id="token-select-quantum">
+            <div class="token-icon token-quantum"></div>
+            <span class="token-label">クォンタム (QUANTUM)</span>
+          </div>
+          <div class="token-item" data-resource="nano" id="token-select-nano">
+            <div class="token-icon token-nano"></div>
+            <span class="token-label">ナノチップ (NANO)</span>
+          </div>
+          <div class="token-item" data-resource="plasma" id="token-select-plasma">
+            <div class="token-icon token-plasma"></div>
+            <span class="token-label">プラズマ (PLASMA)</span>
+          </div>
+          <div class="token-item" data-resource="intel" id="token-select-intel">
+            <div class="token-icon token-intel"></div>
+            <span class="token-label">インテル (INTEL)</span>
+          </div>
+          <div class="token-item" data-resource="crypto" id="token-select-crypto">
+            <div class="token-icon token-crypto"></div>
+            <span class="token-label">暗号キー (CRYPTO)</span>
+          </div>
+        </div>
+
+        <!-- Terminal Screen display -->
+        <div class="terminal-screen glass-panel" id="terminal-display-screen">
+          <div class="screen-header">
+            <span class="screen-status">DECRYPTION SUCCESSFUL</span>
+            <span class="screen-code">SYS_INF_RESC_LOG</span>
+          </div>
+          <div class="screen-body">
+            <div class="resource-visual">
+              <div class="glow-circle" id="terminal-glow-circle"></div>
+              <div class="resource-large-icon" id="terminal-resource-icon">⚡</div>
+            </div>
+            <div class="resource-info">
+              <h3 class="resource-title-jp" id="terminal-resource-title">クレジット / CRED</h3>
+              <div class="resource-meta">
+                <span>システムID: <code id="terminal-resource-id">RESC_CRED_001</code></span>
+                <span>基本色: <code id="terminal-resource-color">#ff2fd0 (マゼンタ)</code></span>
+              </div>
+              <p class="resource-lore" id="terminal-resource-lore">
+                都市ネオ・エデンの基幹決済ネットワークで使用される暗号クレジット。全ての取引とハッキングの基礎となる資金源。
+              </p>
+              <div class="resource-gameplay-rules">
+                <h4>【ゲーム内での役割】</h4>
+                <p id="terminal-resource-usage">
+                  手番で3つの異なる資源を引くか、在庫が4つ以上ある場合は同種2つを同時に獲得できる。購入するカードのコストとして消費されるが、対応するアセットを所有していれば恒久的な割引ボーナスとして機能する。
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="screen-footer">
+            <span>PRESS OTHER RESOURCE TO ANALYZE</span>
+            <span>SECURE LINK v2.8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Card Showcase Section -->
+  <section class="cards-section" id="cards">
+    <div class="cards-container">
+      <div class="section-header">
+        <div class="section-pre">ASSET DATA ARCHIVES</div>
+        <h2 id="title-cards">電脳アセットカード</h2>
+        <p class="section-desc">ゲーム中に購入できる「発展アセット」。レベルが上がるほど強力になり、高い名声ポイント（勝利点）をもちます。カードにマウスを当てて、固有のネオングロー効果を確認してください。</p>
+      </div>
+
+      <div class="card-showcase-grid">
+        <!-- Level 1 Card -->
+        <div class="asset-card l1-card card-glow-quantum" id="showcase-card-l1">
+          <div class="card-inner">
+            <div class="card-top-bar">
+              <span class="card-level">LEVEL 1</span>
+              <span class="card-bonus bonus-quantum" title="クォンタムボーナス(恒久割引)">Q</span>
+            </div>
+            <div class="card-title-area">
+              <h3>SQL Injector</h3>
+              <p class="card-type-label">L1 DATA CRAWL</p>
+            </div>
+            <div class="card-visual-placeholder quantum-theme">
+              <div class="holo-pattern"></div>
+            </div>
+            <div class="card-stats">
+              <div class="card-points">0 PTS</div>
+              <div class="card-cost">
+                <span class="cost-item cred" title="クレジット: 2">2</span>
+                <span class="cost-item intel" title="インテル: 1">1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 2 Card with ICE -->
+        <div class="asset-card l2-card card-glow-plasma" id="showcase-card-l2">
+          <div class="card-inner">
+            <div class="card-top-bar">
+              <span class="card-level">LEVEL 2</span>
+              <span class="card-bonus bonus-plasma" title="プラズマボーナス(恒久割引)">P</span>
+            </div>
+            <div class="ice-badge">ICE SECURITY</div>
+            <div class="card-title-area">
+              <h3>Fusion Generator</h3>
+              <p class="card-type-label">L2 CORE REACTOR</p>
+            </div>
+            <div class="card-visual-placeholder plasma-theme">
+              <div class="holo-pattern"></div>
+            </div>
+            <div class="card-stats">
+              <div class="card-points">+3 PTS</div>
+              <div class="card-cost">
+                <span class="cost-item nano" title="ナノチップ: 6">6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 3 Card with ICE -->
+        <div class="asset-card l3-card card-glow-intel" id="showcase-card-l3">
+          <div class="card-inner">
+            <div class="card-top-bar">
+              <span class="card-level">LEVEL 3</span>
+              <span class="card-bonus bonus-intel" title="インテルボーナス(恒久割引)">I</span>
+            </div>
+            <div class="ice-badge">ICE SEGREGATED</div>
+            <div class="card-title-area">
+              <h3>Shadow Cabal Archives</h3>
+              <p class="card-type-label">L3 BLACK OPERATIVE</p>
+            </div>
+            <div class="card-visual-placeholder intel-theme">
+              <div class="holo-pattern"></div>
+            </div>
+            <div class="card-stats">
+              <div class="card-points">+5 PTS</div>
+              <div class="card-cost">
+                <span class="cost-item cred" title="クレジット: 7">7</span>
+                <span class="cost-item quantum" title="クォンタム: 3">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level 1 Card -->
+        <div class="asset-card l1-card card-glow-nano" id="showcase-card-l4">
+          <div class="card-inner">
+            <div class="card-top-bar">
+              <span class="card-level">LEVEL 1</span>
+              <span class="card-bonus bonus-nano" title="ナノチップボーナス(恒久割引)">N</span>
+            </div>
+            <div class="card-title-area">
+              <h3>Logic Gate Bypass</h3>
+              <p class="card-type-label">L1 HARDWARE HACK</p>
+            </div>
+            <div class="card-visual-placeholder nano-theme">
+              <div class="holo-pattern"></div>
+            </div>
+            <div class="card-stats">
+              <div class="card-points">0 PTS</div>
+              <div class="card-cost">
+                <span class="cost-item plasma" title="プラズマ: 2">2</span>
+                <span class="cost-item quantum" title="クォンタム: 2">2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Play (Rules) Accordion Section -->
+  <section class="rules-section" id="rules">
+    <div class="rules-container">
+      <div class="section-header center">
+        <div class="section-pre">SYSTEM DECRYPTION</div>
+        <h2 id="title-rules">ゲームルール解析</h2>
+        <p class="section-desc">『Cyber Syndicate』は、自分のターンに1アクションを選択して実行し、誰かが「15点の名声ポイント」を獲得したターンで終了トリガーとなるエンジンビルド型のボードゲームです。</p>
+      </div>
+
+      <div class="rules-accordion" id="rules-accordion-group">
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item" id="accordion-item-1">
+          <button class="accordion-trigger" aria-expanded="false" id="trigger-rule-1">
+            <span class="step-num">01</span>
+            <span class="trigger-text">資源トークンを獲得する</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="accordion-content">
+            <p>自分の手番で資源を獲得するには、以下の2通りの方法があります。</p>
+            <ul>
+              <li><strong>異なる色の資源を3枚取る:</strong> 銀行から、異なる3色の資源（クレジット、クォンタム、ナノチップ、プラズマ、インテル）を1つずつ（計3つ）獲得します。</li>
+              <li><strong>同じ色の資源を2枚取る:</strong> 銀行にその色のストックが<strong>4つ以上残っている場合のみ</strong>、同じ資源トークンを2つ獲得できます。</li>
+            </ul>
+            <p class="tip-box">※手番終了時に保持できるトークン（暗号キーを含む）は、通常<strong>最大10枚</strong>です。超えた場合は手動で破棄する必要があります。</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item" id="accordion-item-2">
+          <button class="accordion-trigger" aria-expanded="false" id="trigger-rule-2">
+            <span class="step-num">02</span>
+            <span class="trigger-text">アセットカードを保留（キープ）する</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="accordion-content">
+            <p>欲しいカードを確保し、他のプレイヤーから奪われるのを防ぎます。</p>
+            <ul>
+              <li>場にあるアセットカード、または山札の一番上から1枚を手元にキープし、自分専用の保留スペース（最大3枚まで）に退避します。</li>
+              <li>このアクションを実行した際、銀行から万能ジョーカートークンである**「暗号キー（Crypto-Key）」を1枚**獲得します。</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item" id="accordion-item-3">
+          <button class="accordion-trigger" aria-expanded="false" id="trigger-rule-3">
+            <span class="step-num">03</span>
+            <span class="trigger-text">アセットカードを購入（ビルド）する</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="accordion-content">
+            <p>手元のトークンを消費してアセットを購入し、永続割引とポイントを稼ぎます。</p>
+            <ul>
+              <li>場の表向きカード、または自身がキープしているカードのコスト（指定されたトークン）を銀行に支払って購入し、自分の前に並べます。</li>
+              <li>購入したアセットの上部に描かれたアイコンは<strong>「永久資源ボーナス（恒久割引）」</strong>となります。</li>
+              <li>以降のカード購入時、すでに自分が所持しているアセットのボーなスの数だけ、必要な支払いが恒久的に割引されます（割引で0以下になったコストは支払う必要がありません）。</li>
+            </ul>
+            <p class="ice-box"><strong>※ICE防壁（ICE Security）:</strong> 一部のアセットカード（ポイント付きカードなど）にはICE防壁（セキュリティ）が張られており、ハッキング時の警告度（アラート）が上昇する代わりに、より強力な効果をもたらします。</p>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item" id="accordion-item-4">
+          <button class="accordion-trigger" aria-expanded="false" id="trigger-rule-4">
+            <span class="step-num">04</span>
+            <span class="trigger-text">メガコーポ・スポンサーの獲得</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="accordion-content">
+            <p>条件を満たすと、自動的に巨大勢力がスポンサーとして味方に付きます。</p>
+            <ul>
+              <li>手番の終了時、自分が購入したアセットの資源ボーナスの数が、場にある「スポンサー（貴族タイル相当）」の条件を満たしている場合、自動的にそのスポンサーが訪れます（支払いは不要です）。</li>
+              <li>スポンサー1枚につき、<strong>名声ポイントが3点</strong>加算される他、手札上限を12枚に引き上げる「取引拡張（The Broker）」や、カード獲得時にボーナストークンを得る「電脳将軍の加護（Cyber Shogun）」などの<strong>強力な派閥効果</strong>が適用されます。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing / Premium Unlock Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-container">
+      <div class="section-header center">
+        <div class="section-pre">PREMIUM ACCESS</div>
+        <h2 id="title-pricing">無制限プレイ・ライセンス</h2>
+        <p class="section-desc">人vsAIモードの制限を解除し、全ての機能をフルパワーで楽しむためのパスポート。</p>
+      </div>
+
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card glass-panel" id="license-pricing-card">
+          <div class="card-badge">PREMIUM LICENSE</div>
+          <h3 class="license-title">フルアクセス権</h3>
+          <div class="price">300 <span class="currency">JPY</span></div>
+          <div class="price-desc">一度の買い切りで、今後の追加機能アップデートもすべて無料。</div>
+          <hr class="divider">
+          <ul class="benefit-list">
+            <li><span class="check">✔</span> <strong>人vsAIモード 無制限プレイ可能</strong>（無料枠3回の上限解除）</li>
+            <li><span class="check">✔</span> 全ての難易度（Easy, Medium, Hard）を完全開放</li>
+            <li><span class="check">✔</span> ストライプ連携による超高速・安全なオンライン決済</li>
+            <li><span class="check">✔</span> 今後の機能追加（対人オンライン機能、新AI難易度、カスタムルール等）への優先アクセス</li>
+          </ul>
+          <a href="https://cyber-syndicate-game.netlify.app/" class="btn-purchase" id="btn-unlock-license">
+            <span class="btn-text">ライセンスを取得する</span>
+            <span class="btn-glow"></span>
+          </a>
+          <p class="security-note">🛡️ 決済はStripeのSSL暗号化決済プラットフォームを経由するため、クレジットカード情報は安全に保護されます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="cta-play">
+    <div class="cta-container glass-panel">
+      <div class="cta-glow"></div>
+      <h2>今すぐ暗号都市の戦いに参入せよ</h2>
+      <p>すべてのシステムが起動待機中。あなたのコマンドでメインフレームが起動します。</p>
+      <a href="https://cyber-syndicate-game.netlify.app/" class="btn-primary large" id="btn-cta-launch-game">
+        <span class="btn-text">LAUNCH INTERFACE</span>
+        <span class="btn-glitch-overlay"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer" id="footer-details">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="logo-accent">CYBER</span>SYNDICATE
+        <p>暗号都市のインフラを巡る、戦術的なエンジンビルドボードゲーム。</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-column">
+          <h4>ナビゲーション</h4>
+          <a href="#lore">背景設定</a>
+          <a href="#features">ゲーム特徴</a>
+          <a href="#resources">資源一覧</a>
+          <a href="#cards">アセットリスト</a>
+        </div>
+        <div class="link-column">
+          <h4>ゲームプレイ</h4>
+          <a href="#rules">ルールブック</a>
+          <a href="#pricing">ライセンス購入</a>
+          <a href="https://cyber-syndicate-game.netlify.app/" target="_blank">ゲームを直接起動</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cyber Syndicate Project. All Rights Reserved. Powered by Netlify & Stripe.</p>
+    </div>
+  </footer>
+
+  <!-- Script File -->
+  <script src="main.js"></script>
+</body>
+</html>
