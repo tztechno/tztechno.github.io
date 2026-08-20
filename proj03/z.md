@@ -2,7 +2,7 @@
 
 ### **cyber othello**
 
-https://othello-ai-game.netlify.app/
+https://cyber-othello.netlify.app/
 
 ---
 
