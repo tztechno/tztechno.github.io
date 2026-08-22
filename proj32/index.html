@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEAR CHARGING | クマから逃げてコインを稼げ</title>
+<meta name="description" content="Godot Engine製の3Dブラウザゲーム「BEAR CHARGING」。クマの縄張りギリギリで高額コインを稼ぎ、3分間生き延びろ。インストール不要、ブラウザですぐ遊べます。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐻</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-glow bg-glow--amber"></div>
+  <div class="bg-glow bg-glow--green"></div>
+  <div class="bg-trees"></div>
+</div>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-emoji">🐻</span>
+      <span class="brand-text">BEAR<br>CHARGING</span>
+    </a>
+    <nav class="site-nav">
+      <a href="#howto">遊び方</a>
+      <a href="#levels">難易度</a>
+      <a href="#pricing">料金</a>
+      <a class="nav-cta" href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">今すぐ遊ぶ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">GODOT ENGINE製 3D ブラウザゲーム</p>
+      <h1 class="hero-title">
+        逃げろ、稼げ、<br>
+        <span class="accent">生き延びろ。</span>
+      </h1>
+      <p class="hero-sub">
+        クマの縄張りギリギリに高額コインが眠っている。<br>
+        欲張るか、安全に行くか ―― 制限時間3分のリスク&リワード・サバイバル。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">
+          <span>▶ 無料でプレイする</span>
+        </a>
+        <a class="btn btn-ghost" href="#play">プレビューを見る</a>
+      </div>
+      <ul class="hero-badges">
+        <li>🖥️ インストール不要</li>
+        <li>🆓 無料5プレイ</li>
+        <li>⏱️ 1プレイ約3分</li>
+      </ul>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="scene">
+        <div class="scene-ground"></div>
+        <div class="scene-coin scene-coin--1">🪙</div>
+        <div class="scene-coin scene-coin--2">🪙</div>
+        <div class="scene-coin scene-coin--3">🪙</div>
+        <div class="scene-runner">🏃</div>
+        <div class="scene-bear">🐻</div>
+        <div class="scene-danger">危険地帯</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="play" class="play-section wrap">
+    <h2 class="section-title">ブラウザでそのままプレイ</h2>
+    <p class="section-sub">下の画面から直接遊べます。読み込みに数十秒かかる場合があります。</p>
+    <div class="game-frame">
+      <div class="game-frame-bar">
+        <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+        <span class="game-frame-url">godot-bear-charging.netlify.app</span>
+      </div>
+      <div class="game-frame-body">
+        <iframe
+          src="https://godot-bear-charging.netlify.app/"
+          title="BEAR CHARGING ゲームプレイ"
+          loading="lazy"
+          allow="autoplay; fullscreen"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+    <a class="btn btn-primary btn-wide" href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">
+      全画面で開いてプレイする ▶
+    </a>
+  </section>
+
+  <section id="howto" class="howto-section wrap">
+    <h2 class="section-title">遊び方</h2>
+    <p class="section-sub">ルールはシンプル。3分間、クマから逃げながら1コインでも多く集めるだけ。</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🎮</div>
+        <h3>移動</h3>
+        <p>矢印キーでキャラクターを操作。マップを走り回ってコインを回収しよう。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🪙</div>
+        <h3>コインを集める</h3>
+        <p>安全地帯には10点の低額コイン、クマの縄張り付近には50点の高額コインが出現する。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🐻</div>
+        <h3>クマから逃げる</h3>
+        <p>クマに<strong>2回</strong>捕まったらゲームオーバー。時間経過とともにクマの速度は上がっていく。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧴</div>
+        <h3>熊よけスプレー</h3>
+        <p><strong>500点</strong>貯めて<strong>Eキー</strong>で購入。至近距離で<strong>Fキー</strong>を押すとクマを<strong>10秒</strong>気絶させられる。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⏱️</div>
+        <h3>制限時間</h3>
+        <p>ゲームの目標は<strong>3分間</strong>の生存。タイムアップ時点のスコアが最終結果になる。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3>ハイスコアを狙え</h3>
+        <p>安全に低額コインを集めるか、危険を冒して高額コインを狙うか。攻め方次第でスコアが変わる。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="levels" class="levels-section wrap">
+    <h2 class="section-title">3つの難易度</h2>
+    <p class="section-sub">クマの初速・最高速度・加速するまでの時間がレベルごとに変化する。</p>
+
+    <div class="level-table" role="table">
+      <div class="level-row level-row--head" role="row">
+        <span role="columnheader">難易度</span>
+        <span role="columnheader">初期速度</span>
+        <span role="columnheader">最高速度</span>
+        <span role="columnheader">最高速に達するまで</span>
+      </div>
+      <div class="level-row" role="row">
+        <span class="level-name level-name--easy" role="cell">🟢 Easy</span>
+        <span role="cell">×1.0</span>
+        <span role="cell">×3.0</span>
+        <span role="cell">180秒</span>
+      </div>
+      <div class="level-row" role="row">
+        <span class="level-name level-name--normal" role="cell">🟡 Normal</span>
+        <span role="cell">×1.5</span>
+        <span role="cell">×4.5</span>
+        <span role="cell">150秒</span>
+      </div>
+      <div class="level-row" role="row">
+        <span class="level-name level-name--hard" role="cell">🔴 Hard</span>
+        <span role="cell">×2.2</span>
+        <span role="cell">×6.5</span>
+        <span role="cell">100秒</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing-section wrap">
+    <h2 class="section-title">料金</h2>
+    <p class="section-sub">まずは無料でお試しを。もっと遊びたくなったらワンコインで解放できます。</p>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <p class="price-tag">FREE</p>
+        <p class="price-value">無料</p>
+        <p class="price-desc">5回まで無料でプレイ可能。アカウント登録は不要です。</p>
+        <ul class="price-list">
+          <li>✔ 全難易度プレイ可能</li>
+          <li>✔ インストール不要</li>
+          <li>✔ 5プレイまで無料</li>
+        </ul>
+      </div>
+      <div class="price-card price-card--highlight">
+        <p class="price-badge">おすすめ</p>
+        <p class="price-tag">UNLIMITED</p>
+        <p class="price-value">¥100<span>（買い切り）</span></p>
+        <p class="price-desc">無料プレイ回数を使い切った後も、追加料金なしで何度でも遊べます。</p>
+        <ul class="price-list">
+          <li>✔ プレイ回数無制限</li>
+          <li>✔ 一度の購入でずっと解放</li>
+          <li>✔ Stripeによる安全な決済</li>
+        </ul>
+        <a class="btn btn-primary btn-wide" href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">
+          ゲーム内で購入する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section wrap">
+    <div class="cta-box">
+      <h2>クマの縄張りが、あなたを待っている。</h2>
+      <p>今すぐブラウザで、リスクと報酬のサバイバルへ。</p>
+      <a class="btn btn-primary btn-lg" href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">
+        ▶ BEAR CHARGING を無料でプレイ
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>🐻 BEAR CHARGING — Built with <strong>Godot Engine</strong>, deployed on <strong>Netlify</strong>.</p>
+    <a href="https://godot-bear-charging.netlify.app/" target="_blank" rel="noopener">godot-bear-charging.netlify.app</a>
+  </div>
+</footer>
+
+</body>
+</html>
