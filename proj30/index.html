@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CYBER YOLO — ブラウザだけで動く物体検出ツール</title>
+    <meta
+      name="description"
+      content="YOLO11n + ONNX Runtime Web で動く、ブラウザ完結の物体検出ツール。画像・動画とも80クラスを検出。サーバー送信なし、インストール不要。無料5回、以降は¥100買い切りで無制限。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top">
+          <img src="assets/favicon.svg" alt="" />
+          CYBER<span class="dim">_</span>YOLO
+        </a>
+        <nav class="nav-links">
+          <a href="#features">機能</a>
+          <a href="#how">使い方</a>
+          <a href="#pricing">料金</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn-primary nav-cta" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">
+            ツールを開く
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="wrap">
+          <span class="eyebrow"><span class="dot"></span> 画像・動画は一切サーバーに送信されません</span>
+          <h1>ブラウザだけで動く<br /><span class="accent2">リアルタイム物体検出</span></h1>
+          <p class="lead">
+            <b>YOLO11n</b> と <b>ONNX Runtime Web</b> をブラウザ内で直接実行。インストール不要・サインアップ不要で、
+            画像・動画から80クラス（COCOデータセット）の物体を今すぐ検出できます。
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">
+              🚀 無料で試す
+            </a>
+            <a class="btn btn-ghost btn-lg" href="#features">機能を見る</a>
+          </div>
+          <p class="hero-note">無料5回まで検出可能・カード登録不要 / 以降は¥100買い切りで無制限</p>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">Features</span>
+            <h2>ひとつのツールで、画像も動画も</h2>
+            <p>すべての推論は端末のブラウザ内で完結。データは外に出ません。</p>
+          </div>
+          <div class="feature-grid">
+            <div class="card">
+              <h3><span class="feature-icon">📸</span> 画像検出</h3>
+              <p>画像をアップロードして80クラスの物体を検出。信頼度しきい値の調整、左右反転・回転・明るさ／コントラスト調整、検出結果画像のダウンロードに対応。</p>
+            </div>
+            <div class="card">
+              <h3><span class="feature-icon">🎥</span> 動画検出</h3>
+              <p>動画をアップロードし、フレームごとに検出しながらリアルタイムでオーバーレイ表示。注釈付き動画（WebM）として録画・ダウンロードでき、検出統計も確認可能。</p>
+            </div>
+            <div class="card">
+              <h3><span class="feature-icon">🔐</span> プライバシー第一</h3>
+              <p>サーバーは存在しません。推論はすべて ONNX Runtime Web によりブラウザ内で実行され、画像・動画が外部へ送信されることは一切ありません。</p>
+            </div>
+            <div class="card">
+              <h3><span class="feature-icon">⚡</span> インストール不要</h3>
+              <p>アプリのダウンロードや会員登録は不要。Chrome / Edge / Safari の最新版があれば、URLを開くだけですぐに使い始められます。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="wrap">
+          <div class="demo">
+            <div class="demo-frame reveal">
+              <div class="bbox" style="top: 18%; left: 12%; width: 34%; height: 46%;"><span class="tag">person 0.94</span></div>
+              <div class="bbox magenta" style="top: 52%; left: 52%; width: 30%; height: 30%;"><span class="tag">car 0.88</span></div>
+              <div class="bbox" style="top: 10%; left: 60%; width: 24%; height: 22%;"><span class="tag">dog 0.81</span></div>
+              <div class="scanline"></div>
+            </div>
+            <div class="demo-copy reveal">
+              <span class="section-tag">How it works</span>
+              <h3>使い方はたった4ステップ</h3>
+              <ol class="steps">
+                <li><span class="step-num">1</span> 画像または動画をアップロード</li>
+                <li><span class="step-num">2</span> YOLO11nモデルがブラウザに自動ロード（初回のみ・以後はキャッシュ）</li>
+                <li><span class="step-num">3</span> 物体をリアルタイムに検出し、バウンディングボックスで可視化</li>
+                <li><span class="step-num">4</span> 検出結果（画像／注釈付き動画）をダウンロード</li>
+              </ol>
+              <a class="btn btn-primary" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">
+                今すぐ試してみる →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap band-inner">
+          <div class="band-item reveal">
+            <span class="ico">🖥️</span>
+            <div>
+              <h4>完全クライアントサイド</h4>
+              <p>React + TypeScript + Vite 製の静的Webアプリ。バックエンドサーバーを持ちません。</p>
+            </div>
+          </div>
+          <div class="band-item reveal">
+            <span class="ico">🧠</span>
+            <div>
+              <h4>Ultralytics YOLO11n</h4>
+              <p>Ultralytics の YOLO11n を ONNX 形式にエクスポートし、ブラウザで直接推論します。</p>
+            </div>
+          </div>
+          <div class="band-item reveal">
+            <span class="ico">📴</span>
+            <div>
+              <h4>データは外部送信なし</h4>
+              <p>画像・動画ファイルはネットワークに送信されず、端末内の処理だけで完結します。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">Pricing</span>
+            <h2>シンプルな料金体系</h2>
+            <p>まずは無料でお試しください。継続して使うなら、買い切りで無制限に。</p>
+          </div>
+          <div class="pricing-grid">
+            <div class="card price-card reveal">
+              <h3>🆓 無料プラン</h3>
+              <div class="price">¥0</div>
+              <ul class="price-list">
+                <li>画像検出・動画処理あわせて5回まで無料</li>
+                <li>カード登録・会員登録不要</li>
+                <li>全ての検出機能をそのまま利用可能</li>
+              </ul>
+              <a class="btn" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">無料で始める</a>
+            </div>
+            <div class="card price-card highlight reveal">
+              <span class="price-badge">おすすめ</span>
+              <h3>💳 買い切りプラン</h3>
+              <div class="price">¥100<span> / 一度きり</span></div>
+              <ul class="price-list">
+                <li>検出回数の制限なし・無期限で利用可能</li>
+                <li>Stripe決済ですぐにアンロック</li>
+                <li>サブスクリプションなし、追加課金なし</li>
+              </ul>
+              <a class="btn btn-primary" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">無制限にアンロック</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="section-tag">FAQ</span>
+            <h2>よくある質問</h2>
+          </div>
+          <div class="faq">
+            <details>
+              <summary>本当に画像や動画は外部に送信されませんか？</summary>
+              <p>はい。このツールはサーバーを持たない静的Webアプリで、物体検出の推論はすべて ONNX Runtime Web を使ってブラウザ内（お使いの端末）で実行されます。アップロードした画像・動画がネットワーク越しに送信されることはありません。</p>
+            </details>
+            <details>
+              <summary>対応している物体の種類は？</summary>
+              <p>COCOデータセットの80クラス（人、車、犬、猫、椅子など）に対応しています。</p>
+            </details>
+            <details>
+              <summary>動画のダウンロード形式は？</summary>
+              <p>ブラウザの MediaRecorder API の制約上、処理済み動画は WebM（VP9/VP8）形式で出力されます。MP4/H.264 での出力には対応していません。</p>
+            </details>
+            <details>
+              <summary>無料枠を使い切ったらどうなりますか？</summary>
+              <p>画像検出の実行・動画処理の開始をそれぞれ1回として、合計5回まで無料で利用できます。それ以降は¥100の買い切り購入で無制限に使えるようになります。購入は無料枠を使い切る前でも後でも、いつでも可能です。</p>
+            </details>
+            <details>
+              <summary>スマートフォンでも使えますか？</summary>
+              <p>モダンブラウザであれば動作しますが、端末の処理性能により推論速度は変わります。特に動画検出は処理負荷が高いため、PCでの利用を推奨します。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="wrap">
+          <h2>今すぐブラウザで<br />物体検出を体験しよう</h2>
+          <p>インストール不要・登録不要。無料5回分から今すぐ始められます。</p>
+          <a class="btn btn-primary btn-lg" href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">
+            🚀 CYBER YOLO を開く
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-inner">
+          <a class="brand" href="#top">
+            <img src="assets/favicon.svg" alt="" />
+            CYBER<span class="dim">_</span>YOLO
+          </a>
+          <div class="footer-links">
+            <a href="https://cyber-yolo.netlify.app/" target="_blank" rel="noopener">アプリを開く</a>
+            <a href="https://github.com/tztechno/cyber_yolo" target="_blank" rel="noopener">GitHub</a>
+            <a href="#faq">FAQ</a>
+          </div>
+        </div>
+        <p class="footer-note">
+          Powered by YOLO11n (Ultralytics) + ONNX Runtime Web · すべての推論はブラウザ内で実行され、画像・動画は外部に送信されません。<br />
+          YOLO11 のモデル重み・アーキテクチャは Ultralytics により AGPL-3.0 で提供されています。
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
