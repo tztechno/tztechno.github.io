@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cyber GG44</title>
+<meta name="description" content="4×4に拡張されたGobblet Gobblers。大きいコマが小さいコマを覆い隠す、逆転だらけの2人対戦ゲーム。無料5回プレイ、その後は¥100買い切りで無制限。" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #05070d;
+    --panel: #0b101c;
+    --panel-alt: #0e1526;
+    --line: #1e2942;
+    --line-bright: #2c3c5f;
+    --ink: #d9e6ff;
+    --ink-dim: #6f80a3;
+    --cyan: #22e0ff;
+    --cyan-dim: #0f6f85;
+    --cyan-glow: rgba(34,224,255,.55);
+    --amber: #ff9d2e;
+    --amber-dim: #8a5117;
+    --amber-glow: rgba(255,157,46,.5);
+    --magenta: #ff2ea6;
+    --magenta-glow: rgba(255,46,166,.45);
+
+    --f-display: "Orbitron", "Zen Kaku Gothic New", sans-serif;
+    --f-body: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    --f-mono: "JetBrains Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+  body{
+    margin: 0;
+    background: var(--void);
+    color: var(--ink);
+    font-family: var(--f-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      linear-gradient(rgba(34,224,255,.035) 1px, transparent 1px);
+    background-size: 100% 3px;
+    mix-blend-mode: overlay;
+    opacity: .5;
+  }
+
+  ::selection{ background: var(--cyan); color: var(--void); }
+
+  a{ color: inherit; }
+  img, svg{ display: block; max-width: 100%; }
+
+  :focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: .6em;
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .eyebrow::before{
+    content: "";
+    width: 1.4em;
+    height: 1px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan-glow);
+  }
+
+  h1, h2, h3{
+    font-family: var(--f-display);
+    font-weight: 800;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p{ text-wrap: pretty; }
+
+  .lede{
+    max-width: 62ch;
+    color: var(--ink-dim);
+    font-size: clamp(1rem, .9rem + .3vw, 1.125rem);
+  }
+
+  /* ---------- micro nav ---------- */
+  .micronav{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .85rem clamp(1.25rem, 4vw, 3rem);
+    background: rgba(5,7,13,.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .micronav .mark{
+    font-family: var(--f-display);
+    font-weight: 700;
+    letter-spacing: .06em;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .micronav .mark span{ color: var(--cyan); }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    font-family: var(--f-mono);
+    font-size: .85rem;
+    letter-spacing: .04em;
+    display: inline-flex;
+    align-items: center;
+    gap: .55em;
+    padding: .8em 1.5em;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    white-space: nowrap;
+  }
+  .btn:active{ transform: translateY(1px); }
+
+  .btn-primary{
+    background: var(--cyan);
+    color: #041018;
+    font-weight: 600;
+    box-shadow: 0 0 0 1px var(--cyan), 0 0 24px -4px var(--cyan-glow);
+  }
+  .btn-primary:hover{
+    box-shadow: 0 0 0 1px var(--cyan), 0 0 36px -2px var(--cyan-glow);
+  }
+
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-bright);
+  }
+  .btn-ghost:hover{
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  .btn-sm{ padding: .55em 1.1em; font-size: .76rem; }
+
+  /* ---------- hud panel chrome ---------- */
+  .hud-panel{
+    position: relative;
+    border: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .hud-panel::before, .hud-panel::after,
+  .hud-panel .corner-tl, .hud-panel .corner-br{
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 2px solid var(--cyan);
+    opacity: .8;
+  }
+  .hud-panel::before{ top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .hud-panel::after{ bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  /* ================= HERO ================= */
+  .hero{
+    position: relative;
+    z-index: 2;
+    padding: clamp(7rem, 14vw, 9.5rem) 0 clamp(4rem, 8vw, 6rem);
+    background:
+      radial-gradient(60% 55% at 82% 18%, rgba(34,224,255,.10), transparent 60%),
+      radial-gradient(45% 40% at 8% 85%, rgba(255,157,46,.08), transparent 60%);
+  }
+  .hero .wrap{
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+  @media (max-width: 880px){
+    .hero .wrap{ grid-template-columns: 1fr; }
+  }
+
+  .hero-copy .eyebrow{ margin-bottom: 1.4rem; }
+
+  .hero h1{
+    font-size: clamp(3.6rem, 6vw + 1rem, 6.4rem);
+    line-height: .95;
+    letter-spacing: .01em;
+    color: var(--ink);
+    text-shadow: 0 0 40px rgba(34,224,255,.25);
+  }
+  .hero h1 span{ color: var(--cyan); }
+
+  .hero .sub{
+    font-family: var(--f-mono);
+    font-size: clamp(.95rem, .5vw + .8rem, 1.15rem);
+    letter-spacing: .14em;
+    color: var(--amber);
+    margin-top: .5rem;
+  }
+
+  .hero .lede{ margin: 1.6rem 0 2.2rem; }
+
+  .hero-cta{ display: flex; flex-wrap: wrap; gap: .9rem; margin-bottom: 1.6rem; }
+
+  .hero-note{
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    color: var(--ink-dim);
+    letter-spacing: .02em;
+  }
+
+  /* ---- board mockup ---- */
+  .board-stage{
+    position: relative;
+    padding: 1.5rem;
+  }
+  .board-stage .hud-label{
+    position: absolute;
+    top: -.75rem;
+    left: 1.5rem;
+    background: var(--void);
+    padding: 0 .6rem;
+    font-family: var(--f-mono);
+    font-size: .68rem;
+    letter-spacing: .16em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .board-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(6px, 1.2vw, 10px);
+    aspect-ratio: 1 / 1;
+  }
+  .cell{
+    position: relative;
+    background: var(--panel-alt);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+  }
+  .piece{
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.35);
+  }
+  .piece--cyan{ background: radial-gradient(circle at 35% 30%, #baf6ff, var(--cyan) 70%); box-shadow: 0 0 14px var(--cyan-glow); }
+  .piece--amber{ background: radial-gradient(circle at 35% 30%, #ffe1b0, var(--amber) 70%); box-shadow: 0 0 14px var(--amber-glow); }
+  .piece--lg{ width: 62%; height: 62%; }
+  .piece--md{ width: 46%; height: 46%; }
+  .piece--sm{ width: 30%; height: 30%; }
+  .piece--peek{
+    position: absolute;
+    bottom: 8%;
+    right: 8%;
+    opacity: .9;
+  }
+
+  .cell.win-cell{
+    animation: win-pulse 4.8s ease-in-out infinite;
+  }
+  .cell.win-1{ animation-delay: 0s; }
+  .cell.win-2{ animation-delay: .3s; }
+  .cell.win-3{ animation-delay: .6s; }
+  .cell.win-4{ animation-delay: .9s; }
+  @keyframes win-pulse{
+    0%, 8%{ border-color: var(--line); box-shadow: none; }
+    16%, 30%{ border-color: var(--cyan); box-shadow: 0 0 18px -2px var(--cyan-glow) inset, 0 0 14px -3px var(--cyan-glow); }
+    45%, 100%{ border-color: var(--line); box-shadow: none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cell.win-cell{ animation: none; border-color: var(--cyan); box-shadow: 0 0 14px -3px var(--cyan-glow); }
+  }
+
+  .board-caption{
+    margin-top: 1.1rem;
+    font-family: var(--f-mono);
+    font-size: .74rem;
+    color: var(--ink-dim);
+    letter-spacing: .04em;
+    text-align: center;
+  }
+  .board-caption b{ color: var(--cyan); font-weight: 600; }
+
+  /* ================= SECTION SHELL ================= */
+  section{ position: relative; z-index: 2; padding: clamp(4.5rem, 8vw, 7rem) 0; }
+  .section-head{ max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .section-head h2{
+    font-size: clamp(2.1rem, 3vw + .8rem, 3.1rem);
+    margin: .7rem 0 .8rem;
+    color: var(--ink);
+  }
+  .section-head .lede{ margin: 0; }
+
+  .divider{
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+
+  /* ================= RULES ================= */
+  .rules{ background: linear-gradient(180deg, transparent, rgba(34,224,255,.02) 40%, transparent); }
+  .rule-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 880px){ .rule-grid{ grid-template-columns: 1fr; } }
+
+  .rule-card{
+    padding: 1.8rem 1.6rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .rule-card .num{
+    font-family: var(--f-mono);
+    color: var(--cyan-dim);
+    font-size: .85rem;
+    letter-spacing: .1em;
+  }
+  .rule-card h3{
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink);
+  }
+  .rule-card p{
+    color: var(--ink-dim);
+    font-size: .95rem;
+    margin: 0;
+  }
+
+  .rule-diagram{
+    width: 100%;
+    aspect-ratio: 3 / 1.5;
+    display: grid;
+    place-items: center;
+  }
+
+  /* mini piece-size diagram */
+  .size-demo{ display: flex; align-items: flex-end; gap: 1.1rem; }
+  .size-demo .swatch{ border-radius: 50%; }
+  .size-demo .lg{ width: 46px; height: 46px; }
+  .size-demo .md{ width: 32px; height: 32px; }
+  .size-demo .sm{ width: 20px; height: 20px; }
+
+  /* mini win-line diagram */
+  .line-demo{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 100%;
+    max-width: 150px;
+  }
+  .line-demo .dot{
+    aspect-ratio: 1;
+    border: 1px solid var(--line-bright);
+  }
+  .line-demo .dot.on{
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan-glow);
+    border-color: var(--cyan);
+  }
+
+  /* mini cover diagram */
+  .cover-demo{ position: relative; width: 60px; height: 60px; }
+  .cover-demo .base{
+    position: absolute; inset: 0;
+    border-radius: 50%;
+  }
+
+  /* ================= MODES ================= */
+  .mode-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 880px){ .mode-grid{ grid-template-columns: 1fr; } }
+
+  .mode-card{
+    padding: 1.8rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+  }
+  .mode-card .tag{
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: .3em .7em;
+    border: 1px solid var(--line-bright);
+    width: fit-content;
+    color: var(--ink-dim);
+  }
+  .mode-card.blue .tag{ color: var(--cyan); border-color: var(--cyan-dim); }
+  .mode-card.orange .tag{ color: var(--amber); border-color: var(--amber-dim); }
+  .mode-card.mix .tag{ color: var(--magenta); border-color: rgba(255,46,166,.4); }
+
+  .mode-card h3{
+    font-family: var(--f-body);
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  .mode-card p{ color: var(--ink-dim); font-size: .95rem; margin: 0; }
+
+  .level-pips{ display: flex; gap: .4rem; margin-top: auto; padding-top: .6rem; }
+  .level-pips span{
+    font-family: var(--f-mono);
+    font-size: .7rem;
+    padding: .3em .6em;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+
+  /* ================= PRICING ================= */
+  .price-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 780px){ .price-grid{ grid-template-columns: 1fr; } }
+
+  .price-card{
+    padding: 2.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+  .price-card .plan{
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .price-card .amount{
+    font-family: var(--f-display);
+    font-size: clamp(2.4rem, 3vw, 3.1rem);
+    color: var(--ink);
+  }
+  .price-card .amount small{
+    font-family: var(--f-mono);
+    font-size: 1rem;
+    color: var(--ink-dim);
+    font-weight: 400;
+  }
+  .price-card ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    font-size: .92rem;
+    color: var(--ink-dim);
+  }
+  .price-card li::before{ content: "▸ "; color: var(--cyan-dim); }
+  .price-card.featured{ border-color: var(--cyan-dim); }
+  .price-card.featured .amount{ color: var(--cyan); text-shadow: 0 0 18px var(--cyan-glow); }
+  .price-card.featured li::before{ color: var(--cyan); }
+
+  /* ================= FINAL CTA ================= */
+  .final-cta{
+    text-align: center;
+    background:
+      radial-gradient(50% 70% at 50% 0%, rgba(34,224,255,.09), transparent 65%);
+  }
+  .final-cta .eyebrow{ justify-content: center; margin: 0 auto 1.2rem; }
+  .final-cta h2{
+    font-size: clamp(2.2rem, 4vw + .5rem, 3.6rem);
+    max-width: 20ch;
+    margin: 0 auto;
+  }
+  .final-cta .lede{ margin: 1.1rem auto 2.2rem; text-align: center; }
+  .final-cta .hero-cta{ justify-content: center; }
+
+  /* ================= FOOTER ================= */
+  footer{
+    position: relative; z-index: 2;
+    border-top: 1px solid var(--line);
+    padding: 2.4rem 0;
+  }
+  footer .wrap{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  footer .credit{
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    color: var(--ink-dim);
+    max-width: 46ch;
+  }
+  footer .site-link{
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px solid var(--cyan-dim);
+  }
+</style>
+</head>
+<body>
+
+  <div class="micronav">
+    <span class="mark">GG44<span>_</span></span>
+    <a class="btn btn-primary btn-sm" href="https://cyber-gg44.netlify.app/" target="_blank" rel="noopener">プレイする</a>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Browser Game / 2P Strategy</span>
+        <h1>GG<span>44</span></h1>
+        <div class="sub">CYBER EDITION — 4×4</div>
+        <p class="lede">
+          Gobblet Gobblersの盤面を4×4に拡張した対戦ゲーム。大きいコマは、自分のものでも相手のものでも、
+          自分より小さいコマの上に重ねて隠せます。盤面は最後の一手まで動き続け、形勢はいつでもひっくり返る。
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://cyber-gg44.netlify.app/" target="_blank" rel="noopener">無料でプレイする</a>
+          <a class="btn btn-ghost" href="#rules">ルールを見る</a>
+        </div>
+        <p class="hero-note">登録不要・インストール不要。今すぐブラウザで対局できます。</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="board-stage hud-panel">
+          <span class="hud-label">BOARD // LIVE</span>
+          <div class="board-grid">
+            <div class="cell win-cell win-1"></div>
+            <div class="cell"><div class="piece piece--cyan piece--sm"></div></div>
+            <div class="cell"></div>
+            <div class="cell"><div class="piece piece--amber piece--md"></div></div>
+
+            <div class="cell"><div class="piece piece--amber piece--sm"></div></div>
+            <div class="cell win-cell win-2"></div>
+            <div class="cell"><div class="piece piece--cyan piece--lg"></div></div>
+            <div class="cell"></div>
+
+            <div class="cell"></div>
+            <div class="cell">
+              <div class="piece piece--amber piece--sm piece--peek"></div>
+              <div class="piece piece--cyan piece--md"></div>
+            </div>
+            <div class="cell win-cell win-3"></div>
+            <div class="cell"><div class="piece piece--amber piece--lg"></div></div>
+
+            <div class="cell"><div class="piece piece--cyan piece--sm"></div></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell win-cell win-4"></div>
+          </div>
+          <p class="board-caption">縦・横・斜めに<b>4つ並べたら勝利</b>。コマは覆い隠して逆転できる。</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="rules" class="rules">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">// 01 Rule</span>
+        <h2>ルール</h2>
+        <p class="lede">覚えることは2つだけ。それだけで驚くほど奥深い読み合いが生まれます。</p>
+      </div>
+
+      <div class="rule-grid">
+        <article class="rule-card hud-panel">
+          <span class="num">01</span>
+          <div class="rule-diagram">
+            <div class="line-demo">
+              <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              <div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+              <div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div>
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div>
+            </div>
+          </div>
+          <h3>4×4・4つ並べたら勝ち</h3>
+          <p>盤面は4×4マス。縦・横・斜めのいずれかに自分の色のコマを4つ並べたプレイヤーの勝利です。</p>
+        </article>
+
+        <article class="rule-card hud-panel">
+          <span class="num">02</span>
+          <div class="rule-diagram">
+            <div class="size-demo">
+              <div class="swatch piece--cyan sm"></div>
+              <div class="swatch piece--cyan md"></div>
+              <div class="swatch piece--cyan lg"></div>
+            </div>
+          </div>
+          <h3>大・中・小、各5個</h3>
+          <p>手持ちのコマは大・中・小が5個ずつ、合計15個。サイズの違いが、この先の駆け引きの武器になります。</p>
+        </article>
+
+        <article class="rule-card hud-panel">
+          <span class="num">03</span>
+          <div class="rule-diagram">
+            <div class="cover-demo">
+              <div class="base piece piece--amber piece--peek" style="position:absolute; bottom:2px; right:2px; width:22px; height:22px;"></div>
+              <div class="base piece piece--cyan" style="width:46px; height:46px;"></div>
+            </div>
+          </div>
+          <h3>覆えば、消える。動けば、戻る。</h3>
+          <p>自分より小さいコマなら、色を問わず上から覆いかぶせられます。覆われたコマは効果を失うだけで、上のコマが動けば再び姿を現します。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="modes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">// 02 Mode</span>
+        <h2>モード</h2>
+        <p class="lede">ひとりでも、二人でも、観るだけでも。3つの遊び方を用意しています。</p>
+      </div>
+
+      <div class="mode-grid">
+        <article class="mode-card blue hud-panel">
+          <span class="tag">Local</span>
+          <h3>人 vs 人</h3>
+          <p>同じ画面で交互に操作するローカル対戦。目の前の相手と、その場で決着をつけよう。</p>
+        </article>
+
+        <article class="mode-card orange hud-panel">
+          <span class="tag">Vs AI</span>
+          <h3>人 vs AI</h3>
+          <p>BLUE / ORANGE、好きな色を選んでAIと対戦。実力に合わせて強さを選べます。</p>
+          <div class="level-pips"><span>弱い</span><span>普通</span><span>強い</span></div>
+        </article>
+
+        <article class="mode-card mix hud-panel">
+          <span class="tag">Spectate</span>
+          <h3>AI vs AI</h3>
+          <p>両陣営をAIに任せて観戦。強さの組み合わせを変えながら、最適な一手を研究できます。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">// 03 Price</span>
+        <h2>料金</h2>
+        <p class="lede">登録不要、まずは無料で。気に入ったら一度だけの買い切りで無制限に。</p>
+      </div>
+
+      <div class="price-grid">
+        <div class="price-card hud-panel">
+          <span class="plan">Free Trial</span>
+          <div class="amount">¥0</div>
+          <ul>
+            <li>5回まで無料でプレイ</li>
+            <li>アカウント登録不要</li>
+            <li>全モード・全難易度を利用可能</li>
+          </ul>
+        </div>
+        <div class="price-card featured hud-panel">
+          <span class="plan">Upgrade</span>
+          <div class="amount">¥100 <small>買い切り</small></div>
+          <ul>
+            <li>プレイ回数が無制限に</li>
+            <li>サブスクリプションなし・追加課金なし</li>
+            <li>一度購入すれば、その端末でずっと遊べます</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="wrap">
+      <span class="eyebrow">Ready</span>
+      <h2>対局を開始する</h2>
+      <p class="lede">ブラウザを開くだけ。インストールも登録も要りません。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://cyber-gg44.netlify.app/" target="_blank" rel="noopener">GG44をプレイする</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="credit">プレイ状況はブラウザ内にのみ保存されます。</p>
+      <a class="site-link" href="https://cyber-gg44.netlify.app/" target="_blank" rel="noopener">cyber-gg44.netlify.app</a>
+    </div>
+  </footer>
+
+</body>
+</html>
