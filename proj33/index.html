@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyberモグラ叩き | 極限の反射神経に挑むサイバーパンク・ゲーム</title>
+  <meta name="description" content="極限の反射神経に挑め！レベル1から100まで進化するスピードバトル。脳トレからプロゲーマー級の限界突破スピードまで対応した、サイバーパンク風モグラ叩きゲーム。">
+  <meta name="keywords" content="モグラ叩き, サイバーパンク, 反射神経, 脳トレ, 高齢者リハビリ, 反応速度, タイピング, Stripe, オンラインゲーム">
+  
+  <!-- OG Meta Tags -->
+  <meta property="og:title" content="Cyberモグラ叩き - Cyber Whack-A-Mole">
+  <meta property="og:description" content="極限の反射神経に挑め！レベル1から100まで進化するスピードバトル。脳トレからプロゲーマー級の限界突破スピードまで対応。">
+  <meta property="og:image" content="assets/cyber_mole.jpg">
+  <meta property="og:type" content="website">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Glowing Blobs -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-glow-3"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <a href="#" class="logo-main">CYBERモグラ叩き</a>
+      <span class="logo-sub">NEURAL SENSORY SYSTEM</span>
+    </div>
+    
+    <nav id="nav-menu">
+      <a href="#features">FEATURES</a>
+      <a href="#demo">INTERACTIVE DEMO</a>
+      <a href="#pricing">UPGRADE</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://cyber-mogura.netlify.app/" class="btn-cyber" target="_blank">LAUNCH SYSTEM</a>
+    </nav>
+
+    <div class="hamburger" id="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span>GRID SYSTEM ACTIVE</span>
+      </div>
+      <h1 class="hero-title">極限の反射神経に<br><span class="accent-cyan glitch-text" data-text="挑め。">挑め。</span></h1>
+      <p class="hero-subtitle">
+        Cyberモグラ叩きは、サイバーパンクの世界観であなたの反応速度を極限までテストするゲームです。レベル1から100までの難易度を備え、誰もが楽しめるスピードバトルを提供します。
+      </p>
+      
+      <ul class="hero-bullets">
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span><strong>100段階のスピード制御</strong> — 3秒のゆったりペースから150msの超神速まで</span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span><strong>コンボ倍率システム</strong> — ミスなく叩き続けてスコアを何倍にも跳ね上げろ</span>
+        </li>
+        <li>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span><strong>グローバル・リーダーボード</strong> — 世界中のネットランナーと反射スピードを競う</span>
+        </li>
+      </ul>
+
+      <div class="hero-ctas">
+        <a href="https://cyber-mogura.netlify.app/" class="btn-cyber" target="_blank">LAUNCH FREE PLAY</a>
+        <a href="#pricing" class="btn-cyber btn-magenta">UNLOCK PRO ACCOUNT</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-frame">
+        <img src="assets/cyber_mole.jpg" alt="Cyber Whack-A-Mole Visual Illustration" class="visual-img">
+        <div class="visual-badge">
+          <span class="mono-text">SYSTEM ONLINE v2.0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo & Simulator Section -->
+  <section id="demo">
+    <h2 class="section-title">神経リンクを<span>同期せよ</span></h2>
+    <p class="section-subtitle">ブラウザ上でゲームシステムを体感。モグラ叩きのミニデモと、レベルごとの反応速度シミュレーターをお試しください。</p>
+
+    <div class="demo-container">
+      
+      <!-- Playable Mini Game -->
+      <div class="demo-card">
+        <div class="demo-start-overlay" id="mini-game-overlay">
+          <h3>MINI SYSTEM SYNC</h3>
+          <p>3x3の簡易グリッドでゲームの基本システムを体験します。</p>
+          <button class="btn-cyber" id="btn-start-mini">ACTIVATE LINK</button>
+        </div>
+        
+        <div class="demo-stats">
+          <div class="demo-stat-box">
+            <div class="demo-stat-label">Score</div>
+            <div class="demo-stat-value" id="mini-score">0</div>
+          </div>
+          <div class="demo-stat-box">
+            <div class="demo-stat-label">Combo</div>
+            <div class="demo-stat-value" id="mini-combo">0</div>
+          </div>
+          <div class="demo-stat-box">
+            <div class="demo-stat-label">High Score</div>
+            <div class="demo-stat-value" id="mini-high-score">0</div>
+          </div>
+        </div>
+
+        <div class="mini-grid">
+          <div class="mini-cell" data-index="0"></div>
+          <div class="mini-cell" data-index="1"></div>
+          <div class="mini-cell" data-index="2"></div>
+          <div class="mini-cell" data-index="3"></div>
+          <div class="mini-cell" data-index="4"></div>
+          <div class="mini-cell" data-index="5"></div>
+          <div class="mini-cell" data-index="6"></div>
+          <div class="mini-cell" data-index="7"></div>
+          <div class="mini-cell" data-index="8"></div>
+        </div>
+        
+        <p class="sim-desc" style="margin-top: 0.5rem; color: var(--cyber-cyan); border-color: rgba(0, 240, 255, 0.2); background: rgba(0, 240, 255, 0.03);">
+          ※ デモの制限時間は20秒。ミスするとコンボが途切れスコアが減点されます。
+        </p>
+      </div>
+
+      <!-- Speed Simulator -->
+      <div class="simulator-card">
+        <div class="sim-slider-container">
+          <div class="slider-labels">
+            <span>SPEED STAGE</span>
+            <span class="sim-level-val" id="sim-level-lbl">LV. 1</span>
+          </div>
+          <input type="range" min="1" max="100" value="1" class="sim-slider" id="sim-level-slider">
+        </div>
+
+        <div class="sim-desc" id="sim-level-desc">
+          高齢者リハビリテーション級 (極めて易しい)
+        </div>
+
+        <div class="sim-speedometer">
+          <div class="sim-speed-box">
+            <div class="sim-speed-val" id="sim-speed-val">3000<span>ms</span></div>
+            <div class="sim-speed-label">Mole Duration</div>
+          </div>
+          <div class="sim-speed-box">
+            <div class="sim-speed-val" id="sim-reaction-val">--<span>ms</span></div>
+            <div class="sim-speed-label">Your Reflex</div>
+          </div>
+        </div>
+
+        <div class="sim-interactive-area" id="sim-pad">
+          <div class="sim-target" id="sim-target">WHACK!</div>
+          <div class="sim-prompt-text" id="sim-prompt">
+            ここにモグラが出現します。<br>
+            スライダーでレベルを変更し、スピードを体験してください。
+          </div>
+          <div class="sim-result" id="sim-result"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2 class="section-title">コア・アーキテクチャ<span>機能</span></h2>
+    <p class="section-subtitle">Cyberモグラ叩きは、シンプルなゲーム性に徹底的なこだわりをプラスしています。</p>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </div>
+        <h3 class="feature-card-title">1〜100レベル調整</h3>
+        <p class="feature-card-desc">
+          反応速度の理論値に近づく100段階システム。レベルが上がるにつれて、モグラの出現時間は非線形的に加速し、人間の認識能力を超えた戦闘へと昇華します。
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+        </div>
+        <h3 class="feature-card-title">コンボ倍率ブースト</h3>
+        <p class="feature-card-desc">
+          連続でターゲットの撃破に成功するとコンボが上昇。コンボに応じて1回のヒットスコアが最大2倍までブーストされます。1つのミスが致命傷となる戦略性。
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <h3 class="feature-card-title">世界スコア同期</h3>
+        <p class="feature-card-desc">
+          あなたのIDでグローバルサーバーに接続。ゲーム終了時に自動でハイスコアがクラウドに同期され、世界中のネットランナーとランキング順位を競います。
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12" y2="18"></line><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+        </div>
+        <h3 class="feature-card-title">Stripe決済によるPRO解放</h3>
+        <p class="feature-card-desc">
+          無料版でのゲーム回数制限（1回あたり5プレイまで）をいつでも解除可能。Stripe経由でのセキュアなワンタイム決済で、永久的にProライセンスを取得します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <h2 class="section-title">ライセンス選択<span>PRICING</span></h2>
+    <p class="section-subtitle">あなたのネットランナー・スキルに合わせたライセンスをご提供。</p>
+
+    <div class="pricing-grid">
+      <!-- Free Plan -->
+      <div class="pricing-card free-tier">
+        <div class="pricing-header">
+          <div class="plan-name">Free Session</div>
+          <div class="plan-price">¥0</div>
+        </div>
+        <ul class="plan-features">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            1セッションあたり最大5プレイ
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            レベル1〜100フルアクセス
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            コンボ倍率ボーナス
+          </li>
+          <li class="disabled">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            無制限プレイ (5プレイ後に制限)
+          </li>
+          <li class="disabled">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            グローバルリーダーボード保存
+          </li>
+        </ul>
+        <a href="https://cyber-mogura.netlify.app/" class="btn-cyber" target="_blank">PLAY FREE NOW</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card pro-tier">
+        <div class="pricing-badge">BEST VALUE</div>
+        <div class="pricing-header">
+          <div class="plan-name">Stripe PRO</div>
+          <div class="plan-price">¥500<span> / 一時購入</span></div>
+        </div>
+        <ul class="plan-features">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <strong>プレイ回数の制限一切なし</strong>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            レベル1〜100フルアクセス
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            コンボ倍率ボーナス
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            グローバル・ハイスコア保存機能
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            PROネットランナーのバッジ付与
+          </li>
+        </ul>
+        <a href="https://cyber-mogura.netlify.app/" class="btn-cyber btn-magenta" target="_blank">UPGRADE TO PRO</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <h2 class="section-title">よくある<span>質問</span></h2>
+    <p class="section-subtitle">Cyberモグラ叩きに関する疑問点にお答えします。</p>
+
+    <div class="faq-list">
+      <!-- Item 1 -->
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Q. スマートフォンでもプレイできますか？</h3>
+          <span class="faq-toggle-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </div>
+          <div class="faq-answer">
+            <p>はい、完全にレスポンシブ対応しており、スマートフォンやタブレットのタッチスクリーン操作でも快適にモグラ叩きをプレイできます。タッチ操作の方がマウスよりも高得点を狙いやすい場合があります！</p>
+          </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Q. Stripe PROの購入手続きはどのように行いますか？</h3>
+          <span class="faq-toggle-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </div>
+          <div class="faq-answer">
+            <p>ゲーム画面内の「Stripe PRO」ボタンをクリックすると、安全なStripe決済チェックアウトページへ移動します。決済完了後、ゲームに戻ると自動でPROライセンスが解放され、プレイ制限が解除されます。一度の購入で永久にご利用いただけます。</p>
+          </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Q. 高齢者のリハビリや脳トレにも使えますか？</h3>
+          <span class="faq-toggle-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </div>
+          <div class="faq-answer">
+            <p>はい、最適です。レベル1から10などの低難易度はモグラの出現時間が長く設定されており、ご高齢の方の認知機能の活性化や手と目のコーディネーションの維持を目的としたリハビリ・脳トレとして非常に適しています。</p>
+          </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="faq-item">
+        <div class="faq-question">
+          <h3>Q. ハイスコアがランキングに反映されません。</h3>
+          <span class="faq-toggle-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </div>
+          <div class="faq-answer">
+            <p>グローバル・リーダーボードにハイスコアを記録するには、無料セッション枠（1セッション5プレイまで）ではなく、Stripe PROライセンスの解放が必要です。PRO解放後は自動でオンラインハイスコアサーバーに結果が送信されるようになります。</p>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <a href="#" class="logo-main">CYBERモグラ叩き</a>
+          <span class="logo-sub">NEURAL SENSORY SYSTEM</span>
+        </div>
+        <p class="footer-desc">
+          サイバー空間で繰り広げられる極限の反射神経スピードバトル。ネットランナーの極地へ。
+        </p>
+        <div class="footer-status-box">
+          <div class="status-row">
+            <span>SENSORY PROTOCOL:</span>
+            <span class="accent-cyan">CONNECTED</span>
+          </div>
+          <div class="status-row">
+            <span>GRID SYNCHRONIZATION:</span>
+            <span class="accent-green">100%</span>
+          </div>
+          <div class="status-row">
+            <span>MAIN GATEWAY:</span>
+            <span class="accent-yellow">SECURE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-col-title">SYSTEM</h4>
+        <ul>
+          <li><a href="#features">FEATURES</a></li>
+          <li><a href="#demo">INTERACTIVE DEMO</a></li>
+          <li><a href="#pricing">PRICING</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-col-title">DEPLOYMENTS</h4>
+        <ul>
+          <li><a href="https://cyber-mogura.netlify.app/" target="_blank">MAIN GATEWAY (NETLIFY)</a></li>
+          <li><a href="https://github.com/tztechno/04j_mogura" target="_blank">SOURCE REPOSITORY</a></li>
+          <li><a href="#demo">SENSORY TESTING</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 CYBER WHACK-A-MOLE. ALL RIGHTS RESERVED. RUNNER_LOC: localhost // netlify</p>
+      <div class="footer-cr-links">
+        <a href="#">SYSTEM STATUS</a>
+        <a href="#">SECURITY AUDIT</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Javascript File -->
+  <script src="script.js"></script>
+</body>
+</html>
