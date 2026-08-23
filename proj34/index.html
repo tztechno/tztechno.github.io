@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber VQA — 画像に質問できるAI</title>
+    <meta
+      name="description"
+      content="画像をアップロードして質問するだけ。AIがブラウザの中だけで回答する、サーバーレスのVisual QAアプリ。画像は一切サーバーに送信されません。無料10回、以後¥100の買い切りで無制限。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <div class="nav__inner">
+        <span class="nav__logo">CYBER_VQA</span>
+        <a class="nav__cta" href="https://cyber-vqa.netlify.app/">アプリを開く →</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero__text">
+          <p class="hero__eyebrow">&gt; VISUAL_QUESTION_ANSWERING.exe</p>
+          <h1 class="hero__title">
+            <span class="glitch" data-text="画像に、聞け。">画像に、聞け。</span>
+          </h1>
+          <p class="hero__lead">
+            画像をアップロードして質問するだけ。AIがブラウザの中だけで読み取り、その場で回答します。
+            画像も質問も、サーバーには一切送信されません。
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="https://cyber-vqa.netlify.app/">今すぐ試す(無料10回)</a>
+            <a class="btn btn--ghost" href="#how">使い方を見る</a>
+          </div>
+          <p class="hero__note">インストール不要・会員登録不要・ブラウザだけで動作</p>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__glow"></div>
+          <img
+            class="hero__screenshot"
+            src="/assets/app-screenshot.png"
+            alt="Cyber VQAの実際の画面。画像をアップロードして質問を入力するチャット形式のUI"
+          />
+        </div>
+      </section>
+
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>NO SERVER UPLOAD // NO LOGIN // RUNS IN YOUR BROWSER // WEBGPU + WASM // </span>
+          <span>NO SERVER UPLOAD // NO LOGIN // RUNS IN YOUR BROWSER // WEBGPU + WASM // </span>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <h2 class="section-title">できること</h2>
+        <div class="features__grid">
+          <article class="card">
+            <span class="card__icon">🖼️</span>
+            <h3>画像+質問 → 即座に回答</h3>
+            <p>写真やスクリーンショットをアップロードし、チャット欄に質問するだけ。「これは何?」「何色?」「何が書かれている?」に自然文で回答します。</p>
+          </article>
+          <article class="card">
+            <span class="card__icon">🔒</span>
+            <h3>完全プライベート</h3>
+            <p>AIモデルはあなたのブラウザの中だけで動作します。画像も質問文も、外部サーバーには一切送信されません。</p>
+          </article>
+          <article class="card">
+            <span class="card__icon">⚡</span>
+            <h3>WebGPU / WASM 自動切替</h3>
+            <p>対応デバイスではWebGPUで高速に、非対応環境では自動的にWASM(CPU)にフォールバック。追加設定は不要です。</p>
+          </article>
+          <article class="card">
+            <span class="card__icon">🧠</span>
+            <h3>モデルを選べる</h3>
+            <p>高精度なSmolVLM-500M(推奨)と、軽量・高速なSmolVLM-256Mから選択可能。デバイスや用途に合わせて切り替えられます。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="how" id="how">
+        <h2 class="section-title">使い方</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">01</span>
+            <h3>画像を選ぶ</h3>
+            <p>クリックまたはドラッグ&ドロップで画像をアップロード。</p>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <h3>質問を入力</h3>
+            <p>チャット欄に聞きたいことを自然な文章で入力して送信。</p>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <h3>AIが回答</h3>
+            <p>ブラウザ内のAIが画像を読み取り、その場で回答を返します。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="pricing" id="pricing">
+        <h2 class="section-title">料金</h2>
+        <div class="pricing__card">
+          <p class="pricing__free">無料 10回</p>
+          <p class="pricing__then">それ以降は</p>
+          <p class="pricing__price"><span>¥100</span>買い切り・無制限</p>
+          <p class="pricing__desc">サブスクではありません。一度購入すれば、そのブラウザから無制限に使い続けられます。</p>
+          <a class="btn btn--primary btn--wide" href="https://cyber-vqa.netlify.app/">無料で試してみる</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>CYBER VQA — Powered by SmolVLM (Transformers.js) &amp; Netlify</p>
+      <a href="https://cyber-vqa.netlify.app/">https://cyber-vqa.netlify.app/</a>
+    </footer>
+  </body>
+</html>
