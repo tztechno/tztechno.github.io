@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Rubic Cube — 5x5x5パズルシミュレーター</title>
+  <meta name="description" content="ブラウザで動く5x5x5ルービックキューブ。自分で作った問題を100%正解保証で解いて見せるAI答え合わせ機能つき。無料5回、以降は¥100買い切りで無制限。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="cyber-bg"></div>
+
+  <nav class="site-nav">
+    <div class="wrap">
+      <div class="nav-logo">CYBER <span>RUBIC CUBE</span></div>
+      <a class="btn btn-primary btn-small" href="https://cyber-rubic-cube.netlify.app/" target="_blank" rel="noopener">アプリを開く</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero wrap">
+      <div>
+        <span class="hero-eyebrow">PREMIUM 5x5x5 PUZZLE SIMULATOR</span>
+        <h1>ブラウザで回せる<span class="glow">5x5x5キューブ</span>。<br>答えは、必ず合う。</h1>
+        <p class="lead">
+          好きな手数でランダムに崩し、人間モードでじっくり挑戦。行き詰まったら、
+          記録した操作をそのまま逆再生する「答えモード」で必ず揃った状態に戻せます。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://cyber-rubic-cube.netlify.app/" target="_blank" rel="noopener">今すぐ無料で遊ぶ →</a>
+          <a class="btn btn-ghost" href="#features">機能を見る</a>
+        </div>
+        <p class="hero-note">無料で <strong>5回</strong> まで答え合わせ可能・以降は <strong>¥100買い切り</strong> で無制限</p>
+      </div>
+
+      <div class="cube-stage" aria-hidden="true">
+        <div class="cube3d">
+          <div class="face face-front"></div>
+          <div class="face face-back"></div>
+          <div class="face face-right"></div>
+          <div class="face face-left"></div>
+          <div class="face face-top"></div>
+          <div class="face face-bottom"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="wrap">
+      <div class="section-head">
+        <span class="kicker">FEATURES</span>
+        <h2>ただ回すだけじゃない、3つの理由</h2>
+        <p>3D操作の気持ちよさと、絶対に裏切らない答え合わせを両立しました。</p>
+      </div>
+      <div class="feature-grid">
+        <div class="card">
+          <div class="icon">🧊</div>
+          <h3>本格5x5x5・自由な3D操作</h3>
+          <p>ドラッグで視点回転、スクロールでズーム。軸・層・回転方向を選んで、実物さながらに1面ずつ操作できます。</p>
+        </div>
+        <div class="card">
+          <div class="icon">✅</div>
+          <h3>100%正解保証のAI答え合わせ</h3>
+          <p>崩す操作をすべて記録し、逆順・逆回転で再生するだけ。推測ではなく記録の巻き戻しなので、どんな崩し方でも必ず揃います。</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎚️</div>
+          <h3>難易度は手数スライダーで調整</h3>
+          <p>スクランブル手数を5〜100手の範囲で自由に設定。初心者の練習から上級者向けの高難度問題まで対応。</p>
+        </div>
+        <div class="card">
+          <div class="icon">💾</div>
+          <h3>同じ問題を何度でも再挑戦</h3>
+          <p>スロット保存やJSONエクスポートで「問題」をそのまま保存。読み込めば同じ配置から何度でもやり直せます。</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎬</div>
+          <h3>再生速度を自由に調整</h3>
+          <p>答えモードの再生スピードはスライダーで自在に変更。じっくり手順を確認したいときにも便利です。</p>
+        </div>
+        <div class="card">
+          <div class="icon">🌐</div>
+          <h3>インストール不要・ブラウザで完結</h3>
+          <p>アプリのダウンロードは不要。リンクを開くだけでPCでもスマホでもすぐに遊べます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="wrap">
+      <div class="section-head">
+        <span class="kicker">HOW IT WORKS</span>
+        <h2>遊び方はシンプルに3ステップ</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>問題を作成</h3>
+          <p>「RANDOMIZE」で好きな手数だけランダムに崩します。崩す過程は記録され、あなただけの問題になります。</p>
+        </div>
+        <div class="step">
+          <h3>人間モードで挑戦</h3>
+          <p>面と層を選んで手動で回転。自分の力で揃えることにじっくり取り組めます。</p>
+        </div>
+        <div class="step">
+          <h3>答えモードで確認</h3>
+          <p>行き詰まったら「AI SOLVER」タブへ。記録した操作を逆再生し、必ず揃った状態まで導きます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="wrap">
+      <div class="section-head">
+        <span class="kicker">PRICING</span>
+        <h2>まずは無料で、気に入ったら買い切り</h2>
+        <p>サブスクなし。追加課金の心配もない、シンプルな買い切り制です。</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <span class="tag">FREE</span>
+          <div class="amount">¥0</div>
+          <ul>
+            <li>3D操作・人間モードは無制限</li>
+            <li>答えモードは5回まで無料</li>
+            <li>保存/読込・エクスポートも利用可</li>
+          </ul>
+          <a class="btn btn-ghost btn-small" href="https://cyber-rubic-cube.netlify.app/" target="_blank" rel="noopener">無料で始める</a>
+        </div>
+        <div class="price-card featured">
+          <span class="tag">UNLIMITED UNLOCK</span>
+          <div class="amount">¥100 <small>買い切り</small></div>
+          <ul>
+            <li>答えモードが無制限に</li>
+            <li>追加課金・期限なし</li>
+            <li>いつでも購入可能</li>
+          </ul>
+          <a class="btn btn-primary btn-small" href="https://cyber-rubic-cube.netlify.app/" target="_blank" rel="noopener">アプリでアンロック</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta wrap">
+      <h2>今の3D空間で、揃えてみませんか。</h2>
+      <p>登録不要・インストール不要。今すぐブラウザで始められます。</p>
+      <a class="btn btn-primary" href="https://cyber-rubic-cube.netlify.app/" target="_blank" rel="noopener">CYBER RUBIC CUBE を開く →</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      &copy; 2026 Cyber Rubic Cube. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
