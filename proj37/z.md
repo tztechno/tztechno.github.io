@@ -1,5 +1,5 @@
-# Cyber Freecell
+# Cyber Pyramid
 
 https://tztechno.github.io/proj37/
 
-https://cyber-freecell.netlify.app/
+https://cyber-pyramid.netlify.app/
