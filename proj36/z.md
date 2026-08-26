@@ -1,5 +1,5 @@
 # Cyber Freecell
 
-https://tztechno.github.io/proj37/
+https://tztechno.github.io/proj36/
 
 https://cyber-freecell.netlify.app/
