@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>CYBER FREECELL // 近未来トランプ・フリーセル</title>
+  <meta name="title" content="CYBER FREECELL // 近未来トランプ・フリーセル">
+  <meta name="description" content="ブラウザだけで遊べる本格フリーセル「CyberFreecell」。詰みを自動検知し全自動でクリアまで進む自動再生デモを搭載。ログイン不要、無料5プレイ、以降は買い切り¥100。サイバーパンクなUIで52枚のカードと向き合う。">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tztechno.github.io/proj20/">
+  <meta property="og:title" content="CYBER FREECELL // 近未来トランプ・フリーセル">
+  <meta property="og:description" content="ブラウザだけで遊べる本格フリーセル。自動再生デモ、詰み検知、買い切り¥100ライセンス搭載 of サイバーパンクなトランプ一人遊び。">
+  <meta property="og:image" content="https://tztechno.github.io/proj20/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tztechno.github.io/proj20/">
+  <meta property="twitter:title" content="CYBER FREECELL // 近未来トランプ・フリーセル">
+  <meta property="twitter:description" content="ブラウザだけで遊べる本格フリーセル。自動再生デモ、詰み検知、買い切り¥100ライセンス搭載のサイバーパンクなトランプ一人遊び。">
+  <meta property="twitter:image" content="https://tztechno.github.io/proj20/assets/og-image.jpg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        CYBER <em>FREECELL</em>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">特徴</a></li>
+        <li><a href="#demo" class="nav-link">体験デモ</a></li>
+        <li><a href="#tech" class="nav-link">技術構成</a></li>
+        <li><a href="#pricing" class="nav-link">料金</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <a href="https://cyber-freecell.netlify.app/" class="btn-cyber" id="nav-launch-btn" target="_blank">
+        ゲームを起動する
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left: 2px;">
+          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          KLONDIKE ENGINE ONLINE
+        </div>
+
+        <h1 class="hero-title">
+          CYBER <em>FREECELL</em>
+          <span>NEO FREECELL CARD TERMINAL</span>
+        </h1>
+
+        <p class="hero-desc">
+          「サイバーフリーセル」は、ブラウザだけで完結する近未来テイストのフリーセル（トランプ一人遊び）です。<br>
+          場札・フリーセル・ホームセルからなる本格ルールを忠実に実装し、有効な一手を自動探索し続ける「自動再生デモ」も搭載。インストール不要、アカウント登録も不要で、今すぐ52枚のカードと向き合えます。
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://cyber-freecell.netlify.app/" class="btn-cyber" target="_blank">
+            ゲームを起動する
+          </a>
+          <a href="#demo" class="btn-cyber btn-magenta">
+            自動再生デモを見る
+          </a>
+        </div>
+
+        <div class="hero-tech-pills">
+          <div class="tech-pill">
+            <span class="tech-pill-val">Freecell Rule</span>
+            <span class="tech-pill-label">本格フリーセルロジック</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">Auto Play</span>
+            <span class="tech-pill-label">全自動クリアデモ</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">No Login</span>
+            <span class="tech-pill-label">登録不要・買い切り課金</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-backdrop"></div>
+        <div class="cyber-ring"></div>
+        <div class="cyber-ring-inner"></div>
+
+        <!-- Suit Wheel Visual -->
+        <div class="suit-wheel">
+          <span class="suit-symbol" style="--i:0">♠</span>
+          <span class="suit-symbol red" style="--i:1">♥</span>
+          <span class="suit-symbol red" style="--i:2">♦</span>
+          <span class="suit-symbol" style="--i:3">♣</span>
+          <span class="suit-symbol" style="--i:4">♠</span>
+          <span class="suit-symbol red" style="--i:5">♥</span>
+          <span class="suit-symbol red" style="--i:6">♦</span>
+          <span class="suit-symbol" style="--i:7">♣</span>
+          <div class="suit-center">
+            <div class="suit-center-label">52 CARDS<br>1 PLAYER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2>SYSTEM FEATURES // 主な特徴</h2>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">🃏</div>
+          <h3>本格フリーセル・ルール実装</h3>
+          <p>
+            場札（タブロー/8列）、フリーセル（一時置き場/4枠）、ホームセル（組札/4枠）からなる標準的なフリーセルのルールをフルスクラッチで実装。カードの一時退避や、空き状況に応じた複数枚の同時移動（スーパームーブ）まで忠実に再現しています。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>自動再生デモモード</h3>
+          <p>
+            「自動再生デモ」をワンクリックで起動すると、有効な手が見つかる限りカードが自動的に進みます。詰みを検知すれば自動停止、クリアすれば紙吹雪演出で祝福。手を考えずに観賞用として眺めることもできます。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔓</div>
+          <h3>登録不要・買い切り課金</h3>
+          <p>
+            アカウント登録やサブスクリプションは一切なし。まずは無料で5回プレイでき、続けて遊びたい場合のみStripe決済で¥100（税込）の買い切りライセンスを購入するだけのシンプル設計です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Simulator Section -->
+  <section class="demo-section" id="demo">
+    <div class="container demo-layout">
+      <div class="demo-info">
+        <h2 class="demo-title">AUTO PLAY PREVIEW // 自動再生デモ体験</h2>
+        <p class="demo-desc">
+          右側のプレビュー端末で、CyberFreecellの「自動再生デモ」の雰囲気を体験できます。
+          【AUTO DEMO】ボタンをクリックすると、4つの組札（♠♥♦♣）が疑似エンジンによってA（エース）からK（キング）まで自動的に積み上がっていきます。
+        </p>
+
+        <ul class="demo-instructions">
+          <li>【AUTO DEMO】ボタンをクリックしてエンジンを起動します。</li>
+          <li>組札4スロットがA→Kの順に自動でめくれていきます。</li>
+          <li>コンソールログに進行状況がリアルタイムに出力されます。</li>
+          <li>実機では手動操作も可能。カードをクリックして選択→移動先をクリックするだけです。</li>
+        </ul>
+
+        <a href="https://cyber-freecell.netlify.app/" class="btn-cyber btn-gold" target="_blank">
+          実機で無料プレイを試す（無料枠あり）
+        </a>
+      </div>
+
+      <!-- Simulator Terminal UI -->
+      <div class="simulator-board">
+        <div class="sim-header">
+          <div class="sim-status">
+            <span class="sim-indicator"></span>
+            CYBER_FREECELL_PREVIEW // PORT_04K
+          </div>
+          <div>STATUS: READY</div>
+        </div>
+
+        <div class="sim-body">
+          <!-- Foundation pile slots -->
+          <div class="sim-slots">
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">FOUNDATION ♠</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank"></div>
+                  <div class="front-suit">♠</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">FOUNDATION ♥</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank"></div>
+                  <div class="front-suit red">♥</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">FOUNDATION ♦</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank"></div>
+                  <div class="front-suit red">♦</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">FOUNDATION ♣</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank"></div>
+                  <div class="front-suit">♣</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terminal Display Console -->
+          <div class="sim-console">
+            <div class="console-text" id="console-text-display">
+              <div class="system-log">&gt; CYBER FREECELL // AUTO PLAY ENGINE v1.0 STANDBY</div>
+              <p>「サイバーフリーセル」プレビュー端末です。【AUTO DEMO】を押すと自動再生エンジンが4つのホームセルを積み上げていきます。</p>
+            </div>
+          </div>
+
+          <!-- Input Form -->
+          <div id="console-action-row" class="console-action-row">
+            <button type="button" id="sim-demo-btn" class="btn-cyber" style="width: 100%; justify-content: center;">
+              AUTO DEMO を実行
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Section -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <h2>TECHNICAL SPEC // 技術構成</h2>
+      <p style="text-align: center; max-width: 700px; margin: -2rem auto 3rem; font-size: 0.95rem;">
+        CyberFreecellはReact + TypeScript製のクライアントサイド・ゲームエンジンと、Netlify Functionsによるサーバーレスな決済処理を組み合わせ、軽量かつサーバーコストを抑えた構成で動作しています。
+      </p>
+
+      <div class="tech-diagram-container">
+        <div class="tech-flow">
+          <!-- Node 1 -->
+          <div class="flow-node">
+            <div class="node-title">DECK &amp; DEAL</div>
+            <div class="node-desc">52枚のカードをシャッフルし、8列のタブローへ配札。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 2 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">GAME LOGIC</div>
+            <div class="node-desc">色違い降順・同スート昇順など、移動可否をクライアント側で判定。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 3 -->
+          <div class="flow-node">
+            <div class="node-title">AUTOPLAY ENGINE</div>
+            <div class="node-desc">350msごとに有効な一手を探索し、詰みを検知するまで自動進行。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 4 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">STRIPE CHECKOUT</div>
+            <div class="node-desc">Netlify Functionsがワンタイム決済セッションを発行・検証。</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; font-size: 0.95rem; line-height: 1.8;">
+        <div>
+          <h4 style="color: var(--color-cyan); margin-bottom: 0.5rem; font-family: var(--font-cyber);">React 19 + TypeScript + Vite</h4>
+          <p>
+            ゲーム盤面の描画コンポーネントと、山札シャッフル・移動判定・自動探索といったゲームロジックを明確に分離して実装。すべての演算はブラウザ内で完結し、外部サーバーへ盤面データが送信されることはありません。
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--color-magenta); margin-bottom: 0.5rem; font-family: var(--font-cyber);">Stripe + Netlify Functions</h4>
+          <p>
+            買い切りライセンスの決済はStripe Checkoutで処理し、Netlify Functions上のサーバーレス関数が決済セッションの発行・検証を担当。プレイ回数と購入状態はブラウザのlocalStorageに保存され、余計な個人情報を保持しません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>PRICING // ライセンス料金</h2>
+
+      <div class="pricing-box">
+        <div class="pricing-title">フルアクセスライセンス</div>
+        <div class="pricing-subtitle">UNLIMITED FREECELL ACCESS</div>
+
+        <div class="pricing-price">
+          ¥100 <span>(税込)</span>
+        </div>
+        <div class="pricing-limit-info">買い切り / 月額固定費なし</div>
+
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            無料プレイ（5回）の上限を完全に解除
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            詰みまで何度でも新しいゲームをプレイ自由
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            自動再生デモも無制限に利用可能
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Stripeによる安全なワンタイム決済
+          </li>
+        </ul>
+
+        <a href="https://cyber-freecell.netlify.app/" class="btn-cyber btn-gold" style="width: 100%; justify-content: center;" target="_blank">
+          アプリを起動してライセンスを購入する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2>FAQ // よくある質問</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 無料で何回遊べますか？</div>
+          <div class="faq-answer">
+            <p>
+              ブラウザごとに5回まで無料でプレイできます。上限に達すると、¥100（税込）の買い切りライセンスを購入することで無制限にプレイできるようになります。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: アカウント登録は必要ですか？</div>
+          <div class="faq-answer">
+            <p>
+              不要です。プレイ回数や購入状態はブラウザのlocalStorageに保存される仕組みのため、メールアドレスやパスワードの登録なしでそのまま遊べます。ブラウザや端末を変更すると無料プレイ回数はリセットされます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 「自動再生デモ」とは何ですか？</div>
+          <div class="faq-answer">
+            <p>
+              有効な手が見つかる限り、エンジンが自動でカードを進め続けるモードです。詰みを検知すると自動的に停止し、クリアすれば紙吹雪の演出とともにお知らせします。手動プレイの参考としても、眺めて楽しむ用途としてもお使いいただけます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: スマートフォンでも遊べますか？</div>
+          <div class="faq-answer">
+            <p>
+              はい、Chrome や Safari などの標準的なモバイルブラウザで動作します。ただし画面が小さい端末ではカードの視認性が下がる場合があるため、より快適に遊びたい場合はPCやタブレットでのプレイを推奨します。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 購入したライセンスは他の端末でも使えますか？</div>
+          <div class="faq-answer">
+            <p>
+              ライセンスの購入状態はブラウザのlocalStorageと決済セッションIDに紐づいて管理されます。別のブラウザや端末に切り替えた場合は、現状は改めて購入いただく必要があります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-layout">
+        <div class="footer-info">
+          <div class="logo">
+            CYBER <em>FREECELL</em>
+          </div>
+          <p>近未来トランプ・フリーセル・ターミナル</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://github.com/tztechno/cyber_freecell" target="_blank" style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-dim);">
+            <!-- GitHub Icon SVG -->
+            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            GitHub Repository
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        &copy; 2026 CYBER FREECELL Project. All rights reserved. Powered by React &amp; Stripe.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
