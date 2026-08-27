@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>CYBER SCHNAPSEN // 近未来2人対戦シュナップセン</title>
+  <meta name="title" content="CYBER SCHNAPSEN // 近未来2人対戦シュナップセン">
+  <meta name="description" content="ブラウザだけで遊べる本格シュナップセン「CyberSchnapsen」。結婚宣言・切り札交換・山札クローズまで再現した2人用トリックテイキングを、Lv1〜Lv4のAI相手に対戦、またはAI同士の対戦を観戦できます。ログイン不要、無料5プレイ、以降は買い切り¥100。">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-schnapsen.netlify.app/">
+  <meta property="og:title" content="CYBER SCHNAPSEN // 近未来2人対戦シュナップセン">
+  <meta property="og:description" content="結婚宣言・切り札交換・山札クローズまで再現した本格シュナップセン。Lv1〜Lv4のAI対戦、AI同士の観戦モード、買い切り¥100ライセンス搭載のサイバーパンクなカードゲーム。">
+  <meta property="og:image" content="https://cyber-schnapsen.netlify.app/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cyber-schnapsen.netlify.app/">
+  <meta property="twitter:title" content="CYBER SCHNAPSEN // 近未来2人対戦シュナップセン">
+  <meta property="twitter:description" content="結婚宣言・切り札交換・山札クローズまで再現した本格シュナップセン。Lv1〜Lv4のAI対戦、AI同士の観戦モード搭載のサイバーパンクなカードゲーム。">
+  <meta property="twitter:image" content="https://cyber-schnapsen.netlify.app/og-image.jpg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        CYBER <em>SCHNAPSEN</em>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">特徴</a></li>
+        <li><a href="#demo" class="nav-link">体験デモ</a></li>
+        <li><a href="#tech" class="nav-link">技術構成</a></li>
+        <li><a href="#pricing" class="nav-link">料金</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <a href="https://cyber-schnapsen.netlify.app/" class="btn-cyber" id="nav-launch-btn" target="_blank">
+        ゲームを起動する
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-left: 2px;">
+          <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          SCHNAPSEN ENGINE ONLINE
+        </div>
+
+        <h1 class="hero-title">
+          CYBER <em>SCHNAPSEN</em>
+          <span>NEO DUEL CARD TERMINAL</span>
+        </h1>
+
+        <p class="hero-desc">
+          「サイバーシュナップセン」は、オーストリア発祥の2人用トリックテイキングゲーム「シュナップセン」をブラウザだけで再現した近未来テイストの対戦カードターミナルです。<br>
+          結婚宣言（20/40点）・切り札交換・山札クローズなど本格ルールをフルスクラッチで実装。Lv1〜Lv4のAIと対戦したり、AI同士の対戦をただ眺めて楽しむこともできます。インストール不要、アカウント登録も不要で、今すぐ20枚のカードで66点を競り合えます。
+        </p>
+
+        <div class="hero-ctas">
+          <a href="https://cyber-schnapsen.netlify.app/" class="btn-cyber" target="_blank">
+            ゲームを起動する
+          </a>
+          <a href="#demo" class="btn-cyber btn-magenta">
+            対戦プレビューを見る
+          </a>
+        </div>
+
+        <div class="hero-tech-pills">
+          <div class="tech-pill">
+            <span class="tech-pill-val">Real Schnapsen</span>
+            <span class="tech-pill-label">本格シュナップセンロジック</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">AI Lv1–Lv4</span>
+            <span class="tech-pill-label">終盤は探索で最適プレイ</span>
+          </div>
+          <div class="tech-pill">
+            <span class="tech-pill-val">No Login</span>
+            <span class="tech-pill-label">登録不要・買い切り課金</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-backdrop"></div>
+        <div class="cyber-ring"></div>
+        <div class="cyber-ring-inner"></div>
+
+        <!-- Suit Wheel Visual -->
+        <div class="suit-wheel">
+          <span class="suit-symbol" style="--i:0">♠</span>
+          <span class="suit-symbol red" style="--i:1">♥</span>
+          <span class="suit-symbol red" style="--i:2">♦</span>
+          <span class="suit-symbol" style="--i:3">♣</span>
+          <span class="suit-symbol" style="--i:4">♠</span>
+          <span class="suit-symbol red" style="--i:5">♥</span>
+          <span class="suit-symbol red" style="--i:6">♦</span>
+          <span class="suit-symbol" style="--i:7">♣</span>
+          <div class="suit-center">
+            <div class="suit-center-label">20 CARDS<br>2 PLAYERS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2>SYSTEM FEATURES // 主な特徴</h2>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">🃏</div>
+          <h3>本格シュナップセン・ルール実装</h3>
+          <p>
+            A・10・K・Q・Jのみ20枚を使う本格ルールをフルスクラッチで実装。山札がある前半は自由フォロー、山札が尽きる／クローズされた後半はマストフォロー・マストウィンに切り替わる2フェーズ構造、結婚宣言（20/40点）、切り札交換、山札クローズ、66点到達での勝利判定・シュナイダー／シュヴァルツ判定まで忠実に再現しています。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>AI Lv1〜Lv4 & 観戦モード</h3>
+          <p>
+            Lv1の貪欲AIから、Lv2の山札クローズ判断、Lv3のカードカウンティング、そしてLv4では山札が閉じた後の完全情報フェーズをミニマックス探索でほぼ最適に解く本格AIまで4段階。人 vs AIだけでなく、AI同士のレベルを個別に選んで対戦を観戦することもできます。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔓</div>
+          <h3>登録不要・買い切り課金</h3>
+          <p>
+            アカウント登録やサブスクリプションは一切なし。まずは無料で5回プレイでき、続けて遊びたい場合のみStripe決済で¥100（税込）の買い切りライセンスを購入するだけのシンプル設計です。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Simulator Section -->
+  <section class="demo-section" id="demo">
+    <div class="container demo-layout">
+      <div class="demo-info">
+        <h2 class="demo-title">MATCH PREVIEW // 対戦プレビュー体験</h2>
+        <p class="demo-desc">
+          右側のプレビュー端末で、CyberSchnapsenの対戦の雰囲気を体験できます。
+          【AUTO DEMO】ボタンをクリックすると、切り札交換・結婚宣言を交えたトリックの応酬が疑似エンジンによって66点到達まで自動的に進んでいきます。
+        </p>
+
+        <ul class="demo-instructions">
+          <li>【AUTO DEMO】ボタンをクリックしてエンジンを起動します。</li>
+          <li>あなたとAIが交互にカードを出し合い、トリックの勝者とスコアが更新されていきます。</li>
+          <li>切り札交換や結婚宣言のタイミングもコンソールログにリアルタイムで出力されます。</li>
+          <li>実機ではAIの強さ（Lv1〜Lv4）を選択可能。カードをクリックして出すだけの簡単操作です。</li>
+        </ul>
+
+        <a href="https://cyber-schnapsen.netlify.app/" class="btn-cyber btn-gold" target="_blank">
+          実機で無料プレイを試す（無料枠あり）
+        </a>
+      </div>
+
+      <!-- Simulator Terminal UI -->
+      <div class="simulator-board">
+        <div class="sim-header">
+          <div class="sim-status">
+            <span class="sim-indicator"></span>
+            CYBER_SCHNAPSEN_PREVIEW // PORT_04K
+          </div>
+          <div>STATUS: READY</div>
+        </div>
+
+        <div class="sim-body">
+          <!-- Trick slots -->
+          <div class="sim-slots">
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">LEAD (あなた)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank" id="card-a-rank"></div>
+                  <div class="front-suit" id="card-a-suit">♠</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">FOLLOW (AI)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank" id="card-b-rank"></div>
+                  <div class="front-suit red" id="card-b-suit">♥</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">TRICK WINNER</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank" id="winner-text" style="font-size: 20px;">—</div>
+                  <div class="front-suit" id="winner-sub" style="font-size: 13px;">WIN</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-slot-container">
+              <div class="sim-slot-label">SCORE (あなた / AI)</div>
+              <div class="sim-card">
+                <div class="sim-card-face sim-card-back"></div>
+                <div class="sim-card-face sim-card-front">
+                  <div class="front-rank" id="score-text" style="font-size: 20px;">0</div>
+                  <div class="front-suit" id="score-sub" style="font-size: 13px;">AI: 0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terminal Display Console -->
+          <div class="sim-console">
+            <div class="console-text" id="console-text-display">
+              <div class="system-log">&gt; CYBER SCHNAPSEN // MATCH ENGINE v1.0 STANDBY</div>
+              <p>「サイバーシュナップセン」プレビュー端末です。【AUTO DEMO】を押すと擬似エンジンが1ラウンド分のトリックを自動的に進行します。</p>
+            </div>
+          </div>
+
+          <!-- Input Form -->
+          <div id="console-action-row" class="console-action-row">
+            <button type="button" id="sim-demo-btn" class="btn-cyber" style="width: 100%; justify-content: center;">
+              AUTO DEMO を実行
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Section -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <h2>TECHNICAL SPEC // 技術構成</h2>
+      <p style="text-align: center; max-width: 700px; margin: -2rem auto 3rem; font-size: 0.95rem;">
+        CyberSchnapsenはReact + TypeScript製のクライアントサイド・ゲームエンジンと、Netlify Functionsによるサーバーレスな決済処理を組み合わせ、軽量かつサーバーコストを抑えた構成で動作しています。
+      </p>
+
+      <div class="tech-diagram-container">
+        <div class="tech-flow">
+          <!-- Node 1 -->
+          <div class="flow-node">
+            <div class="node-title">DEAL &amp; TRUMP</div>
+            <div class="node-desc">20枚のカードを両者に5枚ずつ配札し、切り札を1枚公開。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 2 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">TRICK LOGIC</div>
+            <div class="node-desc">切り札優先・同スート判定・フェーズ2のマストフォローをクライアント側で判定。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 3 -->
+          <div class="flow-node">
+            <div class="node-title">AI ENGINE Lv1–4</div>
+            <div class="node-desc">貪欲法からカードカウンティング、終盤の完全読み（ミニマックス探索）まで4段階。</div>
+          </div>
+
+          <div class="flow-connector"></div>
+
+          <!-- Node 4 -->
+          <div class="flow-node highlighted">
+            <div class="node-title">STRIPE CHECKOUT</div>
+            <div class="node-desc">Netlify Functionsがワンタイム決済セッションを発行・検証。</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; font-size: 0.95rem; line-height: 1.8;">
+        <div>
+          <h4 style="color: var(--color-cyan); margin-bottom: 0.5rem; font-family: var(--font-cyber);">React 19 + TypeScript + Vite</h4>
+          <p>
+            対戦盤面の描画コンポーネントと、配札・トリック判定・結婚宣言・AI探索といったゲームロジックを明確に分離して実装。すべての演算はブラウザ内で完結し、外部サーバーへ手札データが送信されることはありません。
+          </p>
+        </div>
+        <div>
+          <h4 style="color: var(--color-magenta); margin-bottom: 0.5rem; font-family: var(--font-cyber);">Stripe + Netlify Functions</h4>
+          <p>
+            買い切りライセンスの決済はStripe Checkoutで処理し、Netlify Functions上のサーバーレス関数が決済セッションの発行・検証を担当。プレイ回数と購入状態はブラウザのlocalStorageに保存され、余計な個人情報を保持しません。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <h2>PRICING // ライセンス料金</h2>
+
+      <div class="pricing-box">
+        <div class="pricing-title">フルアクセスライセンス</div>
+        <div class="pricing-subtitle">UNLIMITED SCHNAPSEN ACCESS</div>
+
+        <div class="pricing-price">
+          ¥100 <span>(税込)</span>
+        </div>
+        <div class="pricing-limit-info">買い切り / 月額固定費なし</div>
+
+        <ul class="pricing-features">
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            無料プレイ（5回）の上限を完全に解除
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            何度でも新しい対戦を開始・再戦自由
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            AI Lv1〜Lv4・AI同士の観戦モードも無制限
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Stripeによる安全なワンタイム決済
+          </li>
+        </ul>
+
+        <a href="https://cyber-schnapsen.netlify.app/" class="btn-cyber btn-gold" style="width: 100%; justify-content: center;" target="_blank">
+          アプリを起動してライセンスを購入する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2>FAQ // よくある質問</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 無料で何回遊べますか？</div>
+          <div class="faq-answer">
+            <p>
+              ブラウザごとに5回まで無料でプレイできます。上限に達すると、¥100（税込）の買い切りライセンスを購入することで無制限にプレイできるようになります。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: アカウント登録は必要ですか？</div>
+          <div class="faq-answer">
+            <p>
+              不要です。プレイ回数や購入状態はブラウザのlocalStorageに保存される仕組みのため、メールアドレスやパスワードの登録なしでそのまま遊べます。ブラウザや端末を変更すると無料プレイ回数はリセットされます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 人と対戦することはできますか？</div>
+          <div class="faq-answer">
+            <p>
+              現在は「人 vs AI」と「AI vs AI（観戦）」のみに対応しています。シュナップセンは互いの手札を見せない前提のゲームのため、同じ画面を共有するローカル対戦は用意していません。まずはAI相手に本格ルールを楽しめます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: AIのレベルはどう違いますか？</div>
+          <div class="faq-answer">
+            <p>
+              Lv1は基本の貪欲戦略、Lv2は山札クローズの判断が加わり、Lv3は場に出たカードを記憶して切り札を温存するなどより戦略的に、Lv4は山札が閉じた後の完全情報になった終盤をミニマックス探索でほぼ最適に解きます。人 vs AI・AI vs AIのどちらでもレベルを選択できます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: スマートフォンでも遊べますか？</div>
+          <div class="faq-answer">
+            <p>
+              はい、Chrome や Safari などの標準的なモバイルブラウザで動作します。ただし画面が小さい端末ではカードの視認性が下がる場合があるため、より快適に遊びたい場合はPCやタブレットでのプレイを推奨します。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item">
+          <div class="faq-question">Q: 購入したライセンスは他の端末でも使えますか？</div>
+          <div class="faq-answer">
+            <p>
+              ライセンスの購入状態はブラウザのlocalStorageと決済セッションIDに紐づいて管理されます。別のブラウザや端末に切り替えた場合は、現状は改めて購入いただく必要があります。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-layout">
+        <div class="footer-info">
+          <div class="logo">
+            CYBER <em>SCHNAPSEN</em>
+          </div>
+          <p>近未来2人対戦シュナップセン・ターミナル</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://github.com/tztechno/cyber_schnapsen" target="_blank" style="display: flex; align-items: center; gap: 0.4rem; color: var(--text-dim);">
+            <!-- GitHub Icon SVG -->
+            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+            GitHub Repository
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright">
+        &copy; 2026 CYBER SCHNAPSEN Project. All rights reserved. Powered by React &amp; Stripe.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
