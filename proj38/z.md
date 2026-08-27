@@ -1,5 +1,5 @@
 
-# Cyber Schnepsen
+# Cyber Schnapsen
 
 https://tztechno.github.io/proj38/
 
