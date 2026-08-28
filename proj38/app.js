@@ -1,4 +1,4 @@
-// Cyber Schnapsen Landing Page App Logic
+// Cyber Pyramid Landing Page App Logic
 
 // Helper to delay execution
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 3. Match Preview Simulator Logic
+  // 3. Auto Play Demo Simulator Logic
   const demoBtn = document.getElementById("sim-demo-btn");
   const consoleTextEl = document.getElementById("console-text-display");
   const slotContainers = document.querySelectorAll(".sim-slot-container");
@@ -50,58 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     slotContainers.forEach(container => container.classList.remove("active"));
   }
 
-  // A single simulated round: alternating LEAD (you) / FOLLOW (AI) tricks,
-  // interspersed with log-only events (trump exchange, marriage). Illustrative
-  // only — the real engine enforces full Schnapsen rules; see the live app.
-  const simulationSteps = [
-    { type: "log", text: "DEALING 5 CARDS EACH — TRUMP SUIT: ♥ (A♥ REVEALED)" },
-    { type: "log", text: "TRUMP EXCHANGE: あなたが J♥ を場の A♥ と交換" },
-    {
-      type: "trick",
-      lead: { rank: "Q", suit: "♠", red: false },
-      follow: { rank: "J", suit: "♠", red: false },
-      winner: "you", points: 5,
-      desc: "TRICK 1: あなたが獲得 (Q♠+J♠ = 5PT)",
-    },
-    {
-      type: "trick",
-      lead: { rank: "K", suit: "♦", red: true },
-      follow: { rank: "10", suit: "♦", red: true },
-      winner: "ai", points: 14,
-      desc: "TRICK 2: AIが獲得 (K♦+10♦ = 14PT)",
-    },
-    { type: "log", text: "MARRIAGE DECLARED: AIが K♦+Q♦ を宣言 (+20PT)" },
-    {
-      type: "trick",
-      lead: { rank: "K", suit: "♦", red: true },
-      follow: { rank: "Q", suit: "♦", red: true },
-      winner: "ai", points: 7,
-      desc: "TRICK 3: AIが獲得、結婚の+20PTも確定",
-    },
-    {
-      type: "trick",
-      lead: { rank: "A", suit: "♠", red: false },
-      follow: { rank: "10", suit: "♠", red: false },
-      winner: "you", points: 21,
-      desc: "TRICK 4: あなたが獲得 (A♠+10♠ = 21PT)",
-    },
-    {
-      type: "trick",
-      lead: { rank: "Q", suit: "♥", red: true },
-      follow: { rank: "J", suit: "♣", red: false },
-      winner: "you", points: 5,
-      desc: "TRICK 5: 切り札Q♥であなたが獲得 (5PT)",
-    },
-    {
-      type: "trick",
-      lead: { rank: "10", suit: "♥", red: true },
-      follow: { rank: "A", suit: "♣", red: false },
-      winner: "you", points: 21,
-      desc: "TRICK 6: 切り札10♥であなたが獲得 (21PT)",
-    },
-    { type: "log", text: '<span style="color: var(--color-gold-bright)">&gt; あなたが66点に到達 — シュナップス宣言！ 🎉</span>' },
-  ];
-
   async function runAutoDemo() {
     if (isRunning) return;
     isRunning = true;
@@ -110,76 +58,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resetSlots();
     consoleTextEl.innerHTML = "";
+    
+    const cardARankEl = document.getElementById("card-a-rank");
+    const cardASuitEl = document.getElementById("card-a-suit");
+    const cardBRankEl = document.getElementById("card-b-rank");
+    const cardBSuitEl = document.getElementById("card-b-suit");
+    const discardCountEl = document.getElementById("discard-count");
+    
+    if (discardCountEl) discardCountEl.textContent = "0";
 
-    const leadRankEl = document.getElementById("card-a-rank");
-    const leadSuitEl = document.getElementById("card-a-suit");
-    const followRankEl = document.getElementById("card-b-rank");
-    const followSuitEl = document.getElementById("card-b-suit");
-    const winnerTextEl = document.getElementById("winner-text");
-    const winnerSubEl = document.getElementById("winner-sub");
-    const scoreTextEl = document.getElementById("score-text");
-    const scoreSubEl = document.getElementById("score-sub");
-
-    let youScore = 0;
-    let aiScore = 0;
-    if (scoreTextEl) scoreTextEl.textContent = "あなた: 0";
-    if (scoreSubEl) scoreSubEl.textContent = "AI: 0";
-
-    appendLog("&gt; MATCH ENGINE INITIALIZING...");
+    appendLog("&gt; AUTO PLAY ENGINE INITIALIZING...");
     await sleep(700);
 
-    for (const step of simulationSteps) {
-      if (step.type === "log") {
-        // Log-only events (exchange, marriage) clear the trick slots.
-        if (leadRankEl) leadRankEl.textContent = "";
-        if (followRankEl) followRankEl.textContent = "";
-        cardElements[0]?.classList.remove("drawn", "flipped");
-        cardElements[1]?.classList.remove("drawn", "flipped");
-        slotContainers[0]?.classList.remove("active");
-        slotContainers[1]?.classList.remove("active");
+    appendLog("&gt; DEALING 28 CARDS TO PYRAMID, 24 CARDS TO STOCK...");
+    await sleep(700);
 
-        appendLog(`&gt; ${step.text}`);
-        await sleep(900);
-        continue;
+    appendLog("&gt; SEARCHING FOR PAIRS SUMMING TO 13...");
+    await sleep(700);
+
+    const simulationSteps = [
+      { aRank: "K", aSuit: "♠", aRed: false, bRank: "", bSuit: "", bRed: false, desc: "DISCARDED K♠ (13)", discards: 1 },
+      { aRank: "A", aSuit: "♥", aRed: true, bRank: "Q", bSuit: "♦", bRed: true, desc: "DISCARDED A♥ + Q♦ (13)", discards: 3 },
+      { aRank: "5", aSuit: "♣", aRed: false, bRank: "8", bSuit: "♣", bRed: false, desc: "DISCARDED 5♣ + 8♣ (13)", discards: 5 },
+      { aRank: "2", aSuit: "♦", aRed: true, bRank: "J", bSuit: "♠", bRed: false, desc: "DISCARDED 2♦ + J♠ (13)", discards: 7 },
+      { aRank: "", aSuit: "", aRed: false, bRank: "", bSuit: "", bRed: false, desc: "DRAWN 7♦ FROM STOCK", discards: 7 },
+      { aRank: "6", aSuit: "♥", aRed: true, bRank: "7", bSuit: "♦", bRed: true, desc: "DISCARDED 6♥ + 7♦ (13)", discards: 9 },
+      { aRank: "K", aSuit: "♥", aRed: true, bRank: "", bSuit: "", bRed: false, desc: "DISCARDED K♥ (13)", discards: 10 },
+      { aRank: "4", aSuit: "♠", aRed: false, bRank: "9", bSuit: "♥", bRed: true, desc: "DISCARDED 4♠ + 9♥ (13)", discards: 12 },
+      { aRank: "10", aSuit: "♣", aRed: false, bRank: "3", bSuit: "♦", bRed: true, desc: "DISCARDED 10♣ + 3♦ (13)", discards: 14 },
+      { aRank: "", aSuit: "", aRed: false, bRank: "", bSuit: "", bRed: false, desc: "DRAWN Q♣ FROM STOCK", discards: 14 },
+      { aRank: "A", aSuit: "♦", aRed: true, bRank: "Q", bSuit: "♣", bRed: false, desc: "DISCARDED A♦ + Q♣ (13)", discards: 16 },
+      { aRank: "K", aSuit: "♦", aRed: true, bRank: "", bSuit: "", bRed: false, desc: "DISCARDED K♦ (13)", discards: 17 }
+    ];
+
+    for (let i = 0; i < simulationSteps.length; i++) {
+      const step = simulationSteps[i];
+      
+      // Update CARD A
+      if (cardARankEl) cardARankEl.textContent = step.aRank;
+      if (cardASuitEl) {
+        cardASuitEl.textContent = step.aSuit;
+        cardASuitEl.className = `front-suit ${step.aRed ? 'red' : ''}`;
       }
-
-      // Reveal LEAD card
-      if (leadRankEl) leadRankEl.textContent = step.lead.rank;
-      if (leadSuitEl) {
-        leadSuitEl.textContent = step.lead.suit;
-        leadSuitEl.className = `front-suit ${step.lead.red ? "red" : ""}`;
+      if (step.aRank) {
+        cardElements[0].classList.add("drawn", "flipped");
+        slotContainers[0].classList.add("active");
+      } else {
+        cardElements[0].classList.remove("drawn", "flipped");
+        slotContainers[0].classList.remove("active");
       }
-      cardElements[0]?.classList.add("drawn", "flipped");
-      slotContainers[0]?.classList.add("active");
-      await sleep(450);
-
-      // Reveal FOLLOW card
-      if (followRankEl) followRankEl.textContent = step.follow.rank;
-      if (followSuitEl) {
-        followSuitEl.textContent = step.follow.suit;
-        followSuitEl.className = `front-suit ${step.follow.red ? "red" : ""}`;
+      
+      // Update CARD B
+      if (cardBRankEl) cardBRankEl.textContent = step.bRank;
+      if (cardBSuitEl) {
+        cardBSuitEl.textContent = step.bSuit;
+        cardBSuitEl.className = `front-suit ${step.bRed ? 'red' : ''}`;
       }
-      cardElements[1]?.classList.add("drawn", "flipped");
-      slotContainers[1]?.classList.add("active");
-      await sleep(450);
-
-      // Resolve trick
-      const youWin = step.winner === "you";
-      if (winnerTextEl) winnerTextEl.textContent = youWin ? "あなた" : "AI";
-      if (winnerSubEl) winnerSubEl.textContent = `+${step.points}PT`;
-      cardElements[2]?.classList.add("drawn", "flipped");
-      slotContainers[2]?.classList.add("active");
-
-      if (youWin) youScore += step.points; else aiScore += step.points;
-      if (scoreTextEl) scoreTextEl.textContent = `あなた: ${youScore}`;
-      if (scoreSubEl) scoreSubEl.textContent = `AI: ${aiScore}`;
-      cardElements[3]?.classList.add("drawn", "flipped");
-      slotContainers[3]?.classList.add("active");
+      if (step.bRank) {
+        cardElements[1].classList.add("drawn", "flipped");
+        slotContainers[1].classList.add("active");
+      } else {
+        cardElements[1].classList.remove("drawn", "flipped");
+        slotContainers[1].classList.remove("active");
+      }
+      
+      // Activate the RESULT and DISCARD slots
+      if (step.aRank || step.bRank) {
+        slotContainers[2].classList.add("active");
+        slotContainers[3].classList.add("active");
+        cardElements[2].classList.add("drawn", "flipped");
+        cardElements[3].classList.add("drawn", "flipped");
+        if (discardCountEl) discardCountEl.textContent = step.discards;
+      } else {
+        slotContainers[2].classList.remove("active");
+        cardElements[2].classList.remove("drawn", "flipped");
+      }
 
       appendLog(`&gt; ${step.desc}`);
       await sleep(1000);
     }
 
+    appendLog('<span style="color: var(--color-gold-bright)">&gt; PYRAMID COMPLETELY CLEARED!</span>');
     await sleep(400);
 
     const winP = document.createElement("p");
