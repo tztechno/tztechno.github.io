@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER BUILDING 3D | 3Dビル倒壊物理パズルゲーム 公式サイト</title>
+  <meta name="description" content="サイバーパンクな高層ビルを爆破・解体する3D物理シミュレーションパズル『CYBER BUILDING 3D』公式サイト。重力を操り、ビルを完全崩壊に導け。">
+  
+  <!-- Google Fonts for Cyberpunk aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo logo-neon">CYBER <span class="accent-text">BUILDING 3D</span></a>
+      <nav class="nav-menu">
+        <a href="#features" class="nav-link">FEATURES</a>
+        <a href="#arenas" class="nav-link">ARENAS</a>
+        <a href="#pricing" class="nav-link">PRICING</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="https://cyber-building.netlify.app/" target="_blank" class="btn btn-primary btn-glow nav-btn">PLAY NOW</a>
+      </nav>
+      <button class="menu-toggle" id="mobile-menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">3D PHYSICS DEMOLITION PUZZLE</div>
+        <h1 class="hero-title logo-neon">COLLAPSE THE <br><span class="accent-text">NEON SKYLINE</span></h1>
+        <p class="hero-subtitle">
+          サイバーパンクな高層ビルに爆弾を仕掛け、重力による連鎖崩落を引き起こして建物を解体せよ。3D WebGL (Three.js) が描き出す圧倒的な物理シミュレーション・パズルゲーム。
+        </p>
+        <div class="hero-actions">
+          <a href="https://cyber-building.netlify.app/" target="_blank" class="btn btn-primary btn-glow large-btn">SIMULATOR START</a>
+          <a href="#features" class="btn btn-secondary large-btn">SYSTEM DETAILS</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <div class="image-glow-wrapper">
+          <img src="./assets/hero_screenshot.jpg" alt="CYBER BUILDING 3D 実際のゲーム画面。サイバーパンクなワイヤーフレーム調の高層ビルと爆破解体UI" class="hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Mechanics Section -->
+  <section id="features" class="section mechanics-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CORE SYSTEM</span>
+        <h2 class="section-title">重力と構造を読み解く「切断」戦略</h2>
+        <p class="section-desc">ビルを支える支持柱の特性を見極め、最小限の爆弾で急所を焼き切れ。</p>
+      </div>
+
+      <div class="mechanics-grid">
+        <div class="mechanic-card glass-panel border-cyan">
+          <div class="mechanic-icon color-cyan">🟦</div>
+          <h3 class="mechanic-title">破壊可能な青の支持柱</h3>
+          <p class="mechanic-text">
+            クリックで爆弾を設置可能な基本コラム。爆発させると消滅し、その上部にある床ブロックの支持を失わせます。
+          </p>
+        </div>
+
+        <div class="mechanic-card glass-panel border-yellow">
+          <div class="mechanic-icon color-yellow">🟨</div>
+          <h3 class="mechanic-title">破壊不可の黄色コア柱</h3>
+          <p class="mechanic-text">
+            ビルの強固な鉄骨・コンクリートコアを模した柱。爆風を受けても一切破壊されず、構造を維持し続けます。
+          </p>
+        </div>
+
+        <div class="mechanic-card glass-panel border-magenta">
+          <div class="mechanic-icon color-magenta">⚡</div>
+          <h3 class="mechanic-title">スライス崩落メカニクス</h3>
+          <p class="mechanic-text">
+            爆風は隣接する床ブロックも焼き切ります。黄色コアに接合されている床の「ジョイント」となる青い柱を爆破し、外周フロアごと一気に切断（スライス）して崩落させましょう。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Grid -->
+  <section class="section features-section bg-darker">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">KEY FEATURES</span>
+        <h2 class="section-title">物理エンジン × AI が魅せる破壊の美学</h2>
+      </div>
+
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-info">
+            <div class="feature-num">01</div>
+            <h3 class="feature-title">リアルタイム3D物理崩壊</h3>
+            <p class="feature-text">
+              WebGL (Three.js) と剛体物理エンジンを組み合わせたシミュレータ。爆破されたビルの各パーツが重力に従って崩れ落ち、お互いに衝突し合いながら堆積していくダイナミックなグラフィックを実現。
+            </p>
+          </div>
+          <div class="feature-preview glass-panel">
+            <img src="./assets/screenshot_physics.jpg" alt="爆破直後、支持柱と床が崩落した実際のゲーム画面" class="feature-screenshot">
+          </div>
+        </div>
+
+        <div class="feature-item reverse">
+          <div class="feature-info">
+            <div class="feature-num">02</div>
+            <h3 class="feature-title">非遮断UI・遺跡ビュー</h3>
+            <p class="feature-text">
+              ビル崩落後も画面を暗く遮るフルスクリーンモーダルは表示されません。画面下部に静かに結果HUDが出現し、瓦礫の山となったビルを自由にズーム・回転・平行移動して細部まで観察（ Ruins View ）できます。
+            </p>
+          </div>
+          <div class="feature-preview glass-panel">
+            <div class="mockup-screen">
+              <div class="mockup-header"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+              <div class="mockup-body">
+                <span class="neon-text-glow-yellow">RUINS HUDS ACTIVE</span>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">ドラッグして瓦礫を360°観察可能</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="feature-info">
+            <div class="feature-num">03</div>
+            <h3 class="feature-title">AI自動解体アシスト</h3>
+            <p class="feature-text">
+              「どの柱を壊すと最も多くの崩壊が起こるか」を内部で毎ステップリアルタイムでシミュレーションし、シナジー効果を計算する AI ソルバー。確率的探索を伴うため、ボタンを押すたびに異なる芸術的なゴールドランク（星3）解体を見せてくれます。
+            </p>
+          </div>
+          <div class="feature-preview glass-panel">
+            <img src="./assets/screenshot_ai_solver.jpg" alt="AI AUTO-SOLVER実行中の実際のゲーム画面。爆弾を自動配置していく様子" class="feature-screenshot">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arenas Showcase -->
+  <section id="arenas" class="section arenas-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">ARENAS</span>
+        <h2 class="section-title">バリエーション豊かな全10ステージ</h2>
+        <p class="section-desc">ステージごとにビルの高さ、フロア形状、黄色コア柱の配置が異なります。それぞれの特徴に合わせた爆破アプローチを考案しよう。</p>
+      </div>
+
+      <div class="arenas-grid">
+        <div class="arena-card glass-panel">
+          <div class="arena-index">STAGE 01</div>
+          <h3 class="arena-title">CYBER SPIRE</h3>
+          <div class="arena-meta">
+            <span>目標崩壊率: <span class="color-yellow">95%</span></span>
+            <span>星3基準: <span class="color-cyan">4本以下</span></span>
+          </div>
+          <p class="arena-desc">中心の黄色いコアを囲う4本の青い柱を同時に爆破して周囲をスライスする、チュートリアル的タワー。</p>
+        </div>
+
+        <div class="arena-card glass-panel">
+          <div class="arena-index">STAGE 03</div>
+          <h3 class="arena-title">SKYBRIDGE TOWERS</h3>
+          <div class="arena-meta">
+            <span>目標崩壊率: <span class="color-yellow">50%</span></span>
+            <span>星3基準: <span class="color-cyan">2本以下</span></span>
+          </div>
+          <p class="arena-desc">破壊不可の右塔と破壊可能な左塔が連絡通路で結ばれたステージ。ジョイントを切断して左塔を落とせ。</p>
+        </div>
+
+        <div class="arena-card glass-panel">
+          <div class="arena-index">STAGE 09</div>
+          <h3 class="arena-title">HANGING GARDEN</h3>
+          <div class="arena-meta">
+            <span>目標崩壊率: <span class="color-yellow">95%</span></span>
+            <span>星3基準: <span class="color-cyan">1本</span></span>
+          </div>
+          <p class="arena-desc">1階のコア部分のみが黄色く、2階以上はすべて青い柱で浮いているステージ。2階の柱を1本抜くだけで全体が連鎖倒壊します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Plan -->
+  <section id="pricing" class="section pricing-section bg-darker">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CAMPAIGN PASS</span>
+        <h2 class="section-title">解体リミットを解除せよ</h2>
+        <p class="section-desc">まずは無料プレイから体験。いつでも手軽にStripe決済（100円）で全機能アンロック可能です。</p>
+      </div>
+
+      <div class="pricing-cards">
+        <!-- Free Card -->
+        <div class="pricing-card glass-panel">
+          <h3 class="plan-name">FREE TRIAL</h3>
+          <div class="plan-price">¥0</div>
+          <ul class="plan-features">
+            <li>5回までの無料プレイ枠</li>
+            <li>基本アリーナの解体プレイ</li>
+            <li>WebGLによる本格3Dシミュレーション</li>
+            <li>カメラ操作・遺跡ビューの利用</li>
+          </ul>
+          <a href="https://cyber-building.netlify.app/" target="_blank" class="btn btn-secondary plan-btn">PLAY FOR FREE</a>
+        </div>
+
+        <!-- Premium Card -->
+        <div class="pricing-card glass-panel featured border-magenta">
+          <div class="popular-badge">RECOMMENDED</div>
+          <h3 class="plan-name">FULL ACCESS</h3>
+          <div class="plan-price">¥100 <span class="price-type">/ 一時支払</span></div>
+          <ul class="plan-features">
+            <li><strong>プレイ回数無制限</strong>（制限解除）</li>
+            <li><strong>全10ステージ</strong>の開放と選択アクセス</li>
+            <li><strong>AI自動解体（AI AUTO-SOLVER）</strong>機能</li>
+            <li>開発メンバーへのサポート</li>
+          </ul>
+          <a href="https://cyber-building.netlify.app/" target="_blank" class="btn btn-primary btn-glow plan-btn">UNLOCK EVERYTHING</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Accordion) -->
+  <section id="faq" class="section faq-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">QUESTIONS & ANSWERS</span>
+        <h2 class="section-title">よくある質問</h2>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item glass-panel">
+          <div class="faq-question">
+            <span>Q. ゲームを始めるのにインストールや登録は必要ですか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>いいえ、インストールやユーザー登録は不要です。ブラウザ（PC/スマートフォン推奨）でプレイURLにアクセスするだけで、すぐに遊べます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel">
+          <div class="faq-question">
+            <span>Q. 100円の決済は安全ですか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>はい。決済処理は世界最大級のオンライン決済サービス「Stripe」と連携して行われます。クレジットカード情報は当サイトのサーバーを通過せず、安全に暗号化処理されます。</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel">
+          <div class="faq-question">
+            <span>Q. 決済はゲーム中のどのタイミングで可能ですか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>5回の無料プレイ制限に達した際に出現する制限画面だけでなく、ゲーム画面右側の「SELECT STAGE」パネルの下にある「UNLOCK FULL ACCESS」ボタンから、いつでもご自身のタイミングで決済・フル機能の解除が可能です。</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass-panel">
+          <div class="faq-question">
+            <span>Q. 推奨される動作環境は？</span>
+            <span class="faq-toggle-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>WebGLに対応した主要ブラウザ（Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge）で動作します。3D描画と物理シミュレーションを行うため、PCやモダンなスマートフォンでのプレイを推奨します。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2 class="cta-title logo-neon">Ready to Demolish?</h2>
+      <p class="cta-text">無限の崩壊シミュレーションの世界へ飛び込みましょう。</p>
+      <a href="https://cyber-building.netlify.app/" target="_blank" class="btn btn-primary btn-glow large-btn">LAUNCH SIMULATOR NOW</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo logo-neon">CYBER <span class="accent-text">BUILDING 3D</span></a>
+        <p>Gravity-Based Demolition Simulator & Puzzle Game</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/tztechno/cyber_building" target="_blank" class="footer-link">GitHub Repository</a>
+        <a href="https://cyber-building.netlify.app/" target="_blank" class="footer-link">Play Game</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Cyber Building 3D. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./main.js" type="module"></script>
+</body>
+</html>
