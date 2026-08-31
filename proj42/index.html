@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cyber Hex Villageは、Vite + Reactで構築されたプレミアムな2人用サイバーパンク戦略ボードゲームです。ブラウザから直接HTML5版をオンラインでプレイできます。">
+  <meta name="keywords" content="サイバーパンク, ボードゲーム, ヘックスグリッド, カタン, 商人と蛮族, ネットランナー, 無料ブラウザゲーム">
+  <title>Cyber Hex Village // 2人用ネオングリッド領土占領ボードゲーム</title>
+  
+  <!-- Google Fonts: Orbitron & Rajdhani -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scanline CRT Effect Overlay -->
+  <div class="scanlines"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar" id="site-header">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="neon-text-green">CYBER_HEX_VILLAGE</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#lore" class="nav-link">世界観</a>
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#gallery" class="nav-link">プレビュー</a>
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="nav-link-cta" id="nav-play-cta">オンラインプレイ</a>
+        <a href="index_en.html" class="nav-link neon-text-cyan" style="margin-left: 10px;">EN</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <div class="glitch-wrapper">
+        <h1 class="hero-title" data-text="NETWAR_GRID_TERRITORY_WAR">NETWAR_GRID_TERRITORY_WAR</h1>
+      </div>
+      <p class="hero-subtitle">
+        ドローンノードを展開し、通信ネットワークを構築して、ヘックスグリッドのマトリクスをハックせよ。「商人と蛮族」の公式2人プレイ用ルールにインスパイアされたサイバーパンク・ボードゲーム。
+      </p>
+      
+      <div class="hero-actions">
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="btn-primary" id="hero-btn-play">
+          <span class="btn-glow"></span>
+          ウェブクライアント起動
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lore Section -->
+  <section class="lore-section" id="lore">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-cyan">01 // THE_GRID_LORE // グリッドの世界観</h2>
+        <div class="header-line"></div>
+      </div>
+      <div class="lore-grid">
+        <div class="lore-text-block">
+          <p>
+            ネオンが降り注ぐセクター『ヘックス・ビレッジ』において、2つのライバル企業が分散型リソースネットワークの支配権を巡って抗争を繰り広げている。グリッドは価値あるパケットデータノードを生成する：パケット、レンガ（ハードウェア）、セキュリティ、メモリ、プロセッサ。
+          </p>
+          <p>
+            自らの組織を率いてネットワークの交点を占拠せよ。レーザーハイウェイでノードを接続するのだ。ただし、荒野のグリッドを彷徨い、セクターをロックダウンしてパケットを盗み出す「盗賊ウイルス」プログラムには注意せよ。貿易プログラムを最適化し、デュアルネットワーククロックを回して、12勝利ポイントを獲得してグリッドを永久にハックせよ。
+          </p>
+        </div>
+        <div class="lore-card">
+          <div class="lore-stat">
+            <span class="stat-num neon-text-orange">2</span>
+            <span class="stat-lbl">PLAYERS</span>
+          </div>
+          <div class="lore-stat">
+            <span class="stat-num neon-text-cyan">12</span>
+            <span class="stat-lbl">VP_GOAL</span>
+          </div>
+          <div class="lore-stat">
+            <span class="stat-num neon-text-green">FREE</span>
+            <span class="stat-lbl">PLAYPLAY</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-green">02 // CYBER_GRID_PROTOCOLS // システムプロトコル</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card" id="feat-hex">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-green">HEXAGONAL_MATRIX</h3>
+          <p>頂点立ち（Pointy-Topped）の六角形タイルを採用したアキシアル座標系設計（19のリソースゾーン、54のノード、72のリンクベクトル）。高性能SVGグリッドレンダラーを搭載。</p>
+        </div>
+        
+        <div class="feature-card" id="feat-ai">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-cyan">AI_NEURAL_SIMULATION</h3>
+          <p>Easy、Medium、Hardの難易度を搭載したニューラルエンジンと対戦可能。Slow、Normal, Fast, Hyper速度でAI同士の戦術シミュレーションを観戦することも可能。</p>
+        </div>
+        
+        <div class="feature-card" id="feat-drone">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-orange">LINKED_DRONE_PROTOCOL</h3>
+          <p>「商人と蛮族」の2人プレイ用ルール：2つの中立ドローン勢力の開拓地や街道を代理で配置し、相手の配置をブロックしたり盤面を操作したりする戦略的駆け引き。</p>
+        </div>
+        
+        <div class="feature-card" id="feat-token">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-red">TRADE_TOKEN_HACKS</h3>
+          <p>トレードトークンを消費して相手をハック。相手のカードを強制的に奪って不要なデータを渡す「強制取引」や、盗賊ウイルスを安全な場所へ移動させるサイバーアクションを実行可能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Gallery Section -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-orange">03 // INTERNET_FEED_PREVIEW // プレビュー</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="gallery-carousel">
+        <div class="carousel-container" id="carousel-track">
+          <div class="slide active">
+            <img src="assets/gameboard.png" alt="Cyber Hex Village ゲームプレイ画面">
+            <div class="slide-caption">ネオンのヘックスタイル、ポートノード、ログパネル、HUD統計を表示するアクティブなゲームグリッド画面。</div>
+          </div>
+          <div class="slide">
+            <img src="assets/setup_modal.png" alt="Cyber Hex Village 初期設定メニュー">
+            <div class="slide-caption">初期設定画面：対戦モード（人間対AI、AI対AI）、AIコア難易度、およびリソース配置ランダム化の設定メニュー。</div>
+          </div>
+        </div>
+        
+        <!-- Controls -->
+        <button class="carousel-btn prev" id="carousel-prev-btn">&lt;</button>
+        <button class="carousel-btn next" id="carousel-next-btn">&gt;</button>
+        
+        <!-- Dots indicator -->
+        <div class="carousel-dots" id="carousel-dots-container">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="neon-text-green">CYBER_HEX_VILLAGE // NETWAR_GRID</span>
+        <p>&copy; 2026 Cyber Hex Village. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="footer-link">ゲーム起動</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

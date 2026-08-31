@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cyber Hex Village is a premium 2-player cyberpunk strategic board game built with Vite + React. Play the HTML5 version online directly from your browser.">
+  <meta name="keywords" content="cyberpunk, board game, hex grid, catan, traders and barbarians, tauri, netlify, desktop game">
+  <title>Cyber Hex Village // 2-Player Neon Grid Netwar Board Game</title>
+  
+  <!-- Google Fonts: Orbitron & Rajdhani -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scanline CRT Effect Overlay -->
+  <div class="scanlines"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="navbar" id="site-header">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="neon-text-green">CYBER_HEX_VILLAGE</span>
+      </div>
+      <nav class="nav-menu">
+        <a href="#lore" class="nav-link">PREMISE</a>
+        <a href="#features" class="nav-link">FEATURES</a>
+        <a href="#gallery" class="nav-link">PREVIEW</a>
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="nav-link-cta" id="nav-play-cta">PLAY_ONLINE</a>
+        <a href="index.html" class="nav-link neon-text-cyan" style="margin-left: 10px;">JA</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <div class="glitch-wrapper">
+        <h1 class="hero-title" data-text="NETWAR_GRID_TERRITORY_WAR">NETWAR_GRID_TERRITORY_WAR</h1>
+      </div>
+      <p class="hero-subtitle">
+        Deploy drone nodes, establish communication networks, and hack the hex-grid matrix. A 2-player cyberpunk board game inspired by Traders & Barbarians rules.
+      </p>
+      
+      <div class="hero-actions">
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="btn-primary" id="hero-btn-play">
+          <span class="btn-glow"></span>
+          LAUNCH_WEB_CLIENT
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lore Section -->
+  <section class="lore-section" id="lore">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-cyan">01 // THE_GRID_LORE</h2>
+        <div class="header-line"></div>
+      </div>
+      <div class="lore-grid">
+        <div class="lore-text-block">
+          <p>
+            In the neon-soaked sector of Hex Village, two rival Netwar corporations battle for control of the decentralized resource network. The grid generates valuable packet data nodes: raw packets, hardware bricks, security nodes, memory grains, and processor cores.
+          </p>
+          <p>
+            Command your faction to claim the intersections of the network. Connect your nodes using laser highways. Beware of the Robber Virus program wandering the wasteland grid, locking down sectors and stealing packets. Optimize your trade programs, roll the dual network clocks, and secure 12 Victory Points to hack the grid forever.
+          </p>
+        </div>
+        <div class="lore-card">
+          <div class="lore-stat">
+            <span class="stat-num neon-text-orange">2</span>
+            <span class="stat-lbl">PLAYERS</span>
+          </div>
+          <div class="lore-stat">
+            <span class="stat-num neon-text-cyan">12</span>
+            <span class="stat-lbl">VP_GOAL</span>
+          </div>
+          <div class="lore-stat">
+            <span class="stat-num neon-text-green">3.2M</span>
+            <span class="stat-lbl">CLIENT_SIZE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-green">02 // CYBER_GRID_PROTOCOLS</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card" id="feat-hex">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-green">HEXAGONAL_MATRIX</h3>
+          <p>Designed with axial coordinate math for Pointy-Topped hexagons (19 resource zones, 54 nodes, and 72 link vectors). High-performance SVG grid renderer.</p>
+        </div>
+        
+        <div class="feature-card" id="feat-ai">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-cyan">AI_NEURAL_SIMULATION</h3>
+          <p>Play Solo against Easy, Medium, or Hard difficulty neural engines. Execute full AI vs AI simulations at Slow, Normal, Fast, or Hyper speed to watch tactical algorithms battle.</p>
+        </div>
+        
+        <div class="feature-card" id="feat-drone">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-orange">LINKED_DRONE_PROTOCOL</h3>
+          <p>Traders & Barbarians 2-player rules: Place settlements and roads on behalf of two neutral drone factions to block, lock down, and manipulate the board state.</p>
+        </div>
+        
+        <div class="feature-card" id="feat-token">
+          <div class="card-glow"></div>
+          <h3 class="neon-text-red">TRADE_TOKEN_HACKS</h3>
+          <p>Spend trade tokens to hack opponents. Perform Forced Trades (steal card packages and return junk) or Displace the Robber virus program to safety.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Gallery Section -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="neon-text-orange">03 // INTERNET_FEED_PREVIEW</h2>
+        <div class="header-line"></div>
+      </div>
+      
+      <div class="gallery-carousel">
+        <div class="carousel-container" id="carousel-track">
+          <div class="slide active">
+            <img src="assets/gameboard.png" alt="Cyber Hex Village Gameplay Grid Interface">
+            <div class="slide-caption">Active Game Grid showing neon hex tiles, port nodes, development log panel, and HUD stats.</div>
+          </div>
+          <div class="slide">
+            <img src="assets/setup_modal.png" alt="Cyber Hex Village Game Initialization Menu">
+            <div class="slide-caption">System Initialization Modal: Configure Game Mode (Human vs AI, AI vs AI), AI Core difficulty, and randomized resource grids.</div>
+          </div>
+        </div>
+        
+        <!-- Controls -->
+        <button class="carousel-btn prev" id="carousel-prev-btn">&lt;</button>
+        <button class="carousel-btn next" id="carousel-next-btn">&gt;</button>
+        
+        <!-- Dots indicator -->
+        <div class="carousel-dots" id="carousel-dots-container">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer Section -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="neon-text-green">CYBER_HEX_VILLAGE // NETWAR_GRID</span>
+        <p>&copy; 2026 Cyber Hex Village. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-hex-village.netlify.app/" target="_blank" class="footer-link">Game Webapp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
