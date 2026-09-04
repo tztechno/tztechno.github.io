@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Cyber My Puzzle - 写真を自由自在に切り分けて創る次世代Webパズル</title>
+  <meta name="title" content="Cyber My Puzzle - 写真を自由自在に切り分けて創る次世代Webパズル">
+  <meta name="description" content="好きな写真をマウスで自由にスライスして世界にひとつだけのオリジナルパズルに！90°ホイール回転やマグネット吸着で快適プレイ。3回無料体験・ブラウザで今すぐ遊べます。">
+  <meta name="keywords" content="パズル, 自作パズル, 写真パズル, ジグソーパズル, オンラインゲーム, Webパズル, 無料パズル, Cyber My Puzzle">
+  <meta name="theme-color" content="#070a12">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-my-puzzle.netlify.app/">
+  <meta property="og:title" content="Cyber My Puzzle - 写真を自由自在に切り分けて創る次世代Webパズル">
+  <meta property="og:description" content="好きな写真をマウスで自由にスライスして世界にひとつだけのオリジナルパズルに！90°ホイール回転やマグネット吸着で快適プレイ。3回無料体験・ブラウザで今すぐ遊べます。">
+  <meta property="og:image" content="./assets/hero-cyber.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cyber-my-puzzle.netlify.app/">
+  <meta property="twitter:title" content="Cyber My Puzzle - 写真を自由自在に切り分けて創る次世代Webパズル">
+  <meta property="twitter:description" content="好きな写真をマウスで自由にスライスして世界にひとつだけのオリジナルパズルに！90°ホイール回転やマグネット吸着で快適プレイ。3回無料体験・ブラウザで今すぐ遊べます。">
+  <meta property="twitter:image" content="./assets/hero-cyber.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/animations.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+
+  <!-- Cyber Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-link">
+        <svg class="brand-logo-icon" viewBox="0 0 100 100" fill="none">
+          <rect width="100" height="100" rx="22" fill="#0b0f19" />
+          <path d="M30 25 H45 C45 32 55 32 55 25 H70 C75 25 75 25 75 30 V45 C68 45 68 55 75 55 V70 C75 75 75 75 70 75 H55 C55 68 45 68 45 75 H30 C25 75 25 75 25 70 V55 C32 55 32 45 25 45 V30 C25 25 25 25 30 25 Z" 
+                fill="url(#grad-logo)" stroke="#00f2fe" stroke-width="3" />
+          <defs>
+            <linearGradient id="grad-logo" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00f2fe" />
+              <stop offset="100%" stop-color="#6366f1" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-name">Cyber My Puzzle</span>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="#how-it-works" data-i18n="nav_how_it_works">遊び方</a></li>
+        <li class="nav-item"><a href="#features" data-i18n="nav_features">特徴</a></li>
+        <li class="nav-item"><a href="#demo" data-i18n="nav_demo">体験デモ</a></li>
+        <li class="nav-item"><a href="#pricing" data-i18n="nav_pricing">料金プラン</a></li>
+        <li class="nav-item"><a href="#faq" data-i18n="nav_faq">よくある質問</a></li>
+      </ul>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-toggle" title="Language Switcher">
+          <button class="lang-btn active" data-lang="ja">JP</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm btn-shimmer" id="nav-cta-btn" data-i18n="nav_cta">
+          無料でパズルを作る ▶︎
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <!-- Text Content -->
+        <div class="hero-content reveal">
+          <div class="badge badge-cyan" data-i18n="hero_badge">
+            ✨ 次世代ブラウザパズル体験
+          </div>
+          <h1 class="hero-title">
+            <span data-i18n="hero_title_1">世界にひとつ、</span>
+            <span class="gradient-text" data-i18n="hero_title_2">あなただけのパズルを創ろう。</span>
+          </h1>
+          <p class="hero-description" data-i18n="hero_desc">
+            お気に入りの写真やイラストを、マウスで自由な形にスライス。切る楽しさと解く快感がひとつになった、まったく新しいクリエイティブ・パズルゲーム。
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-shimmer" data-i18n="hero_cta_main">
+              今すぐ無料でプレイする ▶︎
+            </a>
+            <a href="#how-it-works" class="btn btn-secondary btn-lg" data-i18n="hero_cta_sub">
+              30秒でわかる遊び方 ↓
+            </a>
+          </div>
+
+          <div class="hero-tags">
+            <span>⚡️ <span data-i18n="hero_tag_free">3回まで完全無料</span></span>
+            <span>🔒 <span data-i18n="hero_tag_install">インストール・登録不要</span></span>
+            <span>🌐 <span data-i18n="hero_tag_browser">ブラウザで即起動</span></span>
+          </div>
+        </div>
+
+        <!-- Visual / Graphic Card -->
+        <div class="hero-visual reveal reveal-delay-2">
+          <!-- Floating glowing puzzle pieces -->
+          <svg class="floating-piece" style="top: -20px; left: -20px; width: 60px; height: 60px;" viewBox="0 0 100 100">
+            <rect width="80" height="80" rx="12" fill="none" stroke="#00f2fe" stroke-width="3" />
+          </svg>
+          <svg class="floating-piece" style="bottom: -15px; right: -25px; width: 75px; height: 75px;" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#ec4899" stroke-width="3" />
+          </svg>
+
+          <div class="hero-card">
+            <div class="scanner-line"></div>
+            <img src="./assets/hero-cyber.jpg" alt="Cyber My Puzzle UI Preview" class="hero-card-img" />
+            <div class="hero-card-badge" data-i18n="hero_card_status">
+              LIVE ASSEMBLE READY
+            </div>
+            <div class="hero-card-footer">
+              <div class="hero-stat">
+                <span class="hero-stat-label" data-i18n="hero_card_stat1_label">PIECES</span>
+                <span class="hero-stat-val" data-i18n="hero_card_stat1_val">カスタム分割</span>
+              </div>
+              <div class="hero-stat">
+                <span class="hero-stat-label" data-i18n="hero_card_stat2_label">DIFFICULTY</span>
+                <span class="hero-stat-val" data-i18n="hero_card_stat2_val">自由自在</span>
+              </div>
+              <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                START ▶︎
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-cyan section-badge" data-i18n="how_badge">HOW IT WORKS</div>
+          <h2 class="section-title" data-i18n="how_title">かんたん 3ステップで遊ぶ</h2>
+          <p class="section-subtitle" data-i18n="how_subtitle">
+            写真の読み込みからカット、組み立てまで。誰でも直感的に楽しめる設計です。
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card reveal reveal-delay-1">
+            <div class="step-num">01</div>
+            <div class="step-image-wrap">
+              <img src="./assets/sample-photo.jpg" alt="Step 1: Pick Image" />
+            </div>
+            <h3 class="step-title" data-i18n="step1_title">1. 好きな画像を選ぶ</h3>
+            <p class="step-desc" data-i18n="step1_desc">
+              家族やペットの写真、旅の思い出、自作イラストをドラッグ＆ドロップ。用意された美しいサンプルアートでも遊べます。
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card reveal reveal-delay-2">
+            <div class="step-num">02</div>
+            <div class="step-image-wrap">
+              <img src="./assets/step-cut.jpg" alt="Step 2: Slice with Mouse" />
+            </div>
+            <h3 class="step-title" data-i18n="step2_title">2. マウスで自由にカット</h3>
+            <p class="step-desc" data-i18n="step2_desc">
+              フリーハンド曲線、直線、波型スライサーで画像を直感的に分割。リアルタイムでピースが色分けハイライトされます。
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card reveal reveal-delay-3">
+            <div class="step-num">03</div>
+            <div class="step-image-wrap">
+              <img src="./assets/step-solve.jpg" alt="Step 3: Assemble & Solve" />
+            </div>
+            <h3 class="step-title" data-i18n="step3_title">3. 組み立てて解く</h3>
+            <p class="step-desc" data-i18n="step3_desc">
+              散らばったピースをドラッグ＆ホイール回転。正解位置に近づけると「カチッ」と磁石のように吸着！
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Bento Grid -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-pink section-badge" data-i18n="feat_badge">FEATURES</div>
+          <h2 class="section-title" data-i18n="feat_title">こだわり抜いた 圧倒的な操作感</h2>
+          <p class="section-subtitle" data-i18n="feat_subtitle">
+            パズル作家にもパズル愛好家にも愛される、最新テクノロジーを凝縮。
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 (Span 2) -->
+          <div class="feature-card col-span-2 reveal reveal-delay-1">
+            <div class="feature-icon-box feature-icon-cyan">✂️</div>
+            <h3 class="feature-title" data-i18n="feat1_title">自由曲線カッティング & スマートスナップ</h3>
+            <p class="feature-desc" data-i18n="feat1_desc">
+              マウスドラッグで思い通りの曲線を引いてカット。端点自動吸着システムにより、初心者でも綺麗な閉じたピースを確実に作れます。
+            </p>
+            <div class="feature-badge-list">
+              <span class="feature-mini-tag" data-i18n="feat1_tag1">フリーハンド</span>
+              <span class="feature-mini-tag" data-i18n="feat1_tag2">波型ジグソー</span>
+              <span class="feature-mini-tag" data-i18n="feat1_tag3">スマート吸着</span>
+            </div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card reveal reveal-delay-2">
+            <div class="feature-icon-box">🧩</div>
+            <h3 class="feature-title" data-i18n="feat2_title">90°ホイール回転 & マグネット吸着</h3>
+            <p class="feature-desc" data-i18n="feat2_desc">
+              マウスホイールの上下スクロールやQ/Eキーで瞬時に90度回転。正解の位置・角度に近づくと心地よく自動吸着します。
+            </p>
+            <div class="feature-badge-list">
+              <span class="feature-mini-tag" data-i18n="feat2_tag1">ホイール超快適</span>
+              <span class="feature-mini-tag" data-i18n="feat2_tag2">自動スナップ</span>
+            </div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card reveal reveal-delay-1">
+            <div class="feature-icon-box feature-icon-pink">👻</div>
+            <h3 class="feature-title" data-i18n="feat3_title">ゴースト見本 & アシスト機能</h3>
+            <p class="feature-desc" data-i18n="feat3_desc">
+              盤面にうっすら完成図を重ねるゴースト表示、どうしても分からない時のヒント機能、ピース整列などアシスト機能も充実。
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card reveal reveal-delay-2">
+            <div class="feature-icon-box feature-icon-cyan">📤</div>
+            <h3 class="feature-title" data-i18n="feat4_title">パズルの保存 & ファイル共有</h3>
+            <p class="feature-desc" data-i18n="feat4_desc">
+              作成したパズルはブラウザに保存できるほか、.mypuzzleファイルとして書き出して友達や家族にプレゼントできます。
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card reveal reveal-delay-3">
+            <div class="feature-icon-box">🔊</div>
+            <h3 class="feature-title" data-i18n="feat5_title">サイバー音響 & クリア演出</h3>
+            <p class="feature-desc" data-i18n="feat5_desc">
+              ピース吸着時のカチッという音、心地よいシンセBGM、そして完成時のファンファーレと舞い散る紙吹雪が達成感を高めます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator Demo Section -->
+    <section id="demo" class="section demo-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-cyan section-badge" data-i18n="demo_badge">TRY SLICING</div>
+          <h2 class="section-title" data-i18n="demo_title">ブラウザ上で切る感覚を体験</h2>
+          <p class="section-subtitle" data-i18n="demo_subtitle">
+            下のキャンバス上でマウスをドラッグして線を引いてみてください。ピースがリアルタイムに分割されます！
+          </p>
+        </div>
+
+        <div class="demo-wrapper reveal">
+          <div class="demo-header">
+            <div class="demo-header-left">
+              <div class="demo-dots">
+                <span class="demo-dot demo-dot-red"></span>
+                <span class="demo-dot demo-dot-yellow"></span>
+                <span class="demo-dot demo-dot-green"></span>
+              </div>
+              <span class="demo-title-text">Cyber Slicer Simulator v2.0</span>
+            </div>
+            <div class="badge badge-cyan" style="font-size: 11px;">INTERACTIVE PREVIEW</div>
+          </div>
+
+          <div class="demo-content-grid">
+            <div class="demo-canvas-area">
+              <canvas id="demo-canvas"></canvas>
+              <div class="demo-overlay-hint" data-i18n="demo_hint">
+                💡 マウスドラッグで線を引いてカット
+              </div>
+            </div>
+
+            <div class="demo-sidebar">
+              <div>
+                <h4 class="demo-sidebar-title" data-i18n="demo_sidebar_title">インタラクティブ・スライサー</h4>
+                <p class="demo-instruction" data-i18n="demo_instruction">
+                  自由な線を引いて画像をスライスしてみましょう。「ピースを分離」ボタンで実際にバラバラにする感覚を体験できます。
+                </p>
+
+                <div class="demo-tool-btn-group">
+                  <button class="demo-tool-btn active" data-tool="freehand" data-i18n="demo_tool_freehand">
+                    ✏️ 自由曲線カット
+                  </button>
+                  <button class="demo-tool-btn" data-tool="straight" data-i18n="demo_tool_straight">
+                    📏 直線カット
+                  </button>
+                  <button class="demo-tool-btn" data-tool="wave" data-i18n="demo_tool_wave">
+                    〰️ 波型カット
+                  </button>
+                </div>
+
+                <div class="demo-stats-box">
+                  <div>
+                    <div class="demo-stat-val" id="demo-stat-cuts">0</div>
+                    <div class="demo-stat-lbl" data-i18n="demo_stat_cuts">カット数</div>
+                  </div>
+                  <div>
+                    <div class="demo-stat-val" id="demo-stat-pieces">1</div>
+                    <div class="demo-stat-lbl" data-i18n="demo_stat_pieces">ピース数</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button class="btn btn-primary btn-sm btn-shimmer" style="width: 100%; margin-bottom: 8px;" id="demo-btn-separate" data-i18n="demo_btn_separate">
+                  ✨ ピースを分離してアニメーション
+                </button>
+                <button class="btn btn-secondary btn-sm" style="width: 100%;" id="demo-btn-reset" data-i18n="demo_btn_reset">
+                  🔄 リセット
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-pink section-badge" data-i18n="use_badge">USE CASES</div>
+          <h2 class="section-title" data-i18n="use_title">こんなシーンにおすすめ</h2>
+          <p class="section-subtitle" data-i18n="use_subtitle">
+            あなただけの特別なパズルで、日常にちょっとした驚きと楽しさを。
+          </p>
+        </div>
+
+        <div class="usecases-grid">
+          <div class="usecase-card reveal reveal-delay-1">
+            <div class="usecase-icon">🐶</div>
+            <h3 class="usecase-title" data-i18n="use1_title">家族・ペットの思い出に</h3>
+            <p class="usecase-desc" data-i18n="use1_desc">
+              旅行の写真や愛犬・愛猫のベストショットでパズルを作って、子どもと一緒に遊べます。
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-2">
+            <div class="usecase-icon">🎨</div>
+            <h3 class="usecase-title" data-i18n="use2_title">クリエイターの作品発表</h3>
+            <p class="usecase-desc" data-i18n="use2_desc">
+              イラストレーターや写真家が、ファンへ向けた遊べるアートコンテンツとして配布。
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-3">
+            <div class="usecase-icon">🎁</div>
+            <h3 class="usecase-title" data-i18n="use3_title">サプライズギフトに</h3>
+            <p class="usecase-desc" data-i18n="use3_desc">
+              メッセージ付き画像をパズル化して、解いて初めてメッセージが読めるサプライズに。
+            </p>
+          </div>
+
+          <div class="usecase-card reveal reveal-delay-4">
+            <div class="usecase-icon">🧠</div>
+            <h3 class="usecase-title" data-i18n="use4_title">隙間時間の脳トレに</h3>
+            <p class="usecase-desc" data-i18n="use4_desc">
+              自分で作った難易度の高い変形パズルで、集中力と空間認識力を鍛えるリフレッシュ。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-cyan section-badge" data-i18n="pricing_badge">PRICING</div>
+          <h2 class="section-title" data-i18n="pricing_title">シンプルで安心な料金プラン</h2>
+          <p class="section-subtitle" data-i18n="pricing_subtitle">
+            まずは無料でお試し。気に入ったら買い切り¥300でずっと無制限に使えます。
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Free Plan -->
+          <div class="pricing-card reveal reveal-delay-1">
+            <h3 class="pricing-plan-name" data-i18n="plan_free_name">FREE TRIAL</h3>
+            <p style="font-size: 14px; color: var(--text-secondary);" data-i18n="plan_free_desc">まずは気軽に遊んでみたい方に</p>
+
+            <div class="pricing-price-wrap">
+              <span class="pricing-currency">¥</span>
+              <span class="pricing-price">0</span>
+              <span class="pricing-period" data-i18n="plan_free_period">/ 初回3回まで</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_free_f1">パズル作成・カット機能（全ツール利用可）</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_free_f2">解答モード（回転・吸着・ヒント・ゴースト）</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_free_f3">最大3回までの作成＆プレイ</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_free_f4">パズルの保存・エクスポート</span>
+              </li>
+            </ul>
+
+            <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="plan_free_cta">
+              今すぐ無料ではじめる
+            </a>
+          </div>
+
+          <!-- PRO Plan -->
+          <div class="pricing-card featured reveal reveal-delay-2">
+            <div class="pricing-ribbon" data-i18n="plan_pro_ribbon">一番人気・永久ライセンス</div>
+            <h3 class="pricing-plan-name" data-i18n="plan_pro_name">PRO UNLIMITED</h3>
+            <p style="font-size: 14px; color: var(--text-secondary);" data-i18n="plan_pro_desc">制限なしで好きなだけ作りたい方に</p>
+
+            <div class="pricing-price-wrap">
+              <span class="pricing-currency">¥</span>
+              <span class="pricing-price">300</span>
+              <span class="pricing-period" data-i18n="plan_pro_period">/ 買い切り (追加費用なし)</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_pro_f1">パズル作成・プレイが永久・無制限</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_pro_f2">すべての切断ツール・設定のフル解放</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_pro_f3">.mypuzzleファイルの無制限保存・共有</span>
+              </li>
+              <li class="pricing-feature-item active">
+                <span class="pricing-check">✓</span>
+                <span data-i18n="plan_pro_f4">Stripeによる安全・即時のカード決済</span>
+              </li>
+            </ul>
+
+            <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-shimmer" data-i18n="plan_pro_cta">
+              PROで無制限に楽しむ ▶︎
+            </a>
+            <div class="pricing-note" data-i18n="plan_pro_note">
+              ※ サブスクリプションではなく、1回きりの買い切り決済です。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls & Shortcuts Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-cyan section-badge" data-i18n="controls_badge">SHORTCUTS</div>
+          <h2 class="section-title" data-i18n="controls_title">操作早見表</h2>
+          <p class="section-subtitle" data-i18n="controls_subtitle">
+            キーボードやマウスホイールを組み合わせることで、驚くほどスピーディーにパズルを解くことができます。
+          </p>
+        </div>
+
+        <div class="controls-card reveal">
+          <div class="controls-grid">
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl1_label">ピースの移動</span>
+              <span class="key-badge" data-i18n="ctrl1_val">左ドラッグ</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl2_label">右90°回転（おすすめ！）</span>
+              <span class="key-badge" data-i18n="ctrl2_val">ホイール下 / E, R</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl3_label">左90°回転（おすすめ！）</span>
+              <span class="key-badge" data-i18n="ctrl3_val">ホイール上 / Q</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl4_label">クイック90°回転</span>
+              <span class="key-badge" data-i18n="ctrl4_val">ダブルクリック / 右クリック</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl5_label">正解位置への自動吸着</span>
+              <span class="key-badge" data-i18n="ctrl5_val">枠に近づける</span>
+            </div>
+            <div class="control-item">
+              <span class="control-label" data-i18n="ctrl6_label">元に戻す / やり直し</span>
+              <span class="key-badge" data-i18n="ctrl6_val">Ctrl+Z / Ctrl+Y</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section id="faq" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="badge badge-pink section-badge" data-i18n="faq_badge">FAQ</div>
+          <h2 class="section-title" data-i18n="faq_title">よくある質問</h2>
+          <p class="section-subtitle" data-i18n="faq_subtitle">
+            ご利用にあたって気になる疑問にお答えします。
+          </p>
+        </div>
+
+        <div class="faq-wrap reveal">
+          <!-- FAQ 1 -->
+          <div class="faq-item active">
+            <div class="faq-question">
+              <span data-i18n="faq_q1">インストールや会員登録は必要ですか？</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq_a1">
+              いいえ、一切不要です。ブラウザ（Google Chrome, Safari, Edgeなど）でアクセスするだけで、今すぐその場でパズル作成とプレイを始められます。
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span data-i18n="faq_q2">どのような画像形式に対応していますか？</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq_a2">
+              JPG、PNG、WebP、GIFなど主要な画像フォーマットに対応しています。お手持ちの写真やイラストをドラッグ＆ドロップするだけで即座に読み込まれます。
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span data-i18n="faq_q3">作ったパズルを友達やSNSで共有できますか？</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq_a3">
+              はい！「パズルを保存」から「.mypuzzle」ファイルとしてダウンロードできます。友達にそのファイルを送れば、友達側のCyber My Puzzleで開いてすぐに遊べます。
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span data-i18n="faq_q4">3回無料のカウントはいつ消費されますか？</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq_a4">
+              パズルを新規作成して解答モードへ移行した際にカウントされます。3回遊んだ後も、¥300（買い切り）のPROライセンスをご購入いただくことで、永久に無制限でご利用いただけます。
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <div class="faq-question">
+              <span data-i18n="faq_q5">スマートフォンやタブレットでもプレイできますか？</span>
+              <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer" data-i18n="faq_a5">
+              はい、タッチ操作によるドラッグでプレイ可能です。ただし、マウスホイール回転やキーボードショートカットなどPCならではの快適な操作性も備えているため、PCでのプレイも大変おすすめです。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div class="scanner-line"></div>
+          <h2 class="cta-title" data-i18n="cta_title">世界にひとつのパズルを、今すぐ創ろう。</h2>
+          <p class="cta-desc" data-i18n="cta_desc">
+            面倒な登録はゼロ。好きな写真を1枚選んで、あなたの手で新しいパズルを生み出してみませんか？
+          </p>
+          <a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-shimmer" data-i18n="cta_btn">
+            Cyber My Puzzle を無料ではじめる ▶︎
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="brand-link">
+          <svg class="brand-logo-icon" viewBox="0 0 100 100" fill="none">
+            <rect width="100" height="100" rx="22" fill="#0b0f19" />
+            <path d="M30 25 H45 C45 32 55 32 55 25 H70 C75 25 75 25 75 30 V45 C68 45 68 55 75 55 V70 C75 75 75 75 70 75 H55 C55 68 45 68 45 75 H30 C25 75 25 75 25 70 V55 C32 55 32 45 25 45 V30 C25 25 25 25 30 25 Z" 
+                  fill="url(#grad-footer)" stroke="#00f2fe" stroke-width="3" />
+            <defs>
+              <linearGradient id="grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="100%" stop-color="#6366f1" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="brand-name">Cyber My Puzzle</span>
+        </a>
+
+        <ul class="footer-links">
+          <li><a href="https://cyber-my-puzzle.netlify.app/" target="_blank" rel="noopener noreferrer" data-i18n="footer_app_link">アプリを起動</a></li>
+          <li><a href="#how-it-works" data-i18n="nav_how_it_works">遊び方</a></li>
+          <li><a href="#features" data-i18n="nav_features">特徴</a></li>
+          <li><a href="#pricing" data-i18n="nav_pricing">料金プラン</a></li>
+          <li><a href="#faq" data-i18n="nav_faq">よくある質問</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footer_rights">© 2026 Cyber My Puzzle. All rights reserved.</p>
+        <p>Built with Cyber Glassmorphism & High-Performance Canvas.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
