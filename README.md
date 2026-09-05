@@ -152,6 +152,11 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [desktop app blog](https://tztechno.github.io/portfolio/cyber-matrix-blog.html)
 
+[itch.io dashboard](https://stpeteishii.itch.io/)
+
+[booth dashboard](https://cyber-matrix.booth.pm/)
+
+
 ## kaggle notebooks
 
 https://www.kaggle.com/code/stpeteishii/pedestrain-movie-slam-3d-recon-vggt-slam
