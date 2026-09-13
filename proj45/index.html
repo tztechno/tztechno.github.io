@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">Terrain Rainfall-Runoff Simulator Desktop — 3D地形 降雨流出デスクトップシミュレーター</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="3D地形（OBJ/DEM）に雨を降らせ、浅水方程式（仮想パイプモデル）で水の集約・流出・滞水リスクを高精度に計算するデスクトップ専用流体力学シミュレーター。Windows & macOS対応・完全ローカル実行・買い切り¥1,980。">
+  <meta name="keywords" content="降雨流出シミュレーション, 浅水方程式, 3D地形, ハザードマップ, GIS, OBJ, 流体シミュレーション, 防災, 水位上昇, デスクトップアプリ, Windows, macOS">
+  <meta name="author" content="Cyber Matrix">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/rain">
+
+  <!-- Open Graph / Social Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/rain">
+  <meta property="og:title" content="Terrain Rainfall-Runoff Simulator Desktop — 3D地形 降雨流出シミュレーター">
+  <meta property="og:description" content="3D地形 × 浅水方程式。Windows & macOSネイティブ対応のデスクトップ流体力学シミュレーター。完全ローカル実行・MP4/GIF動画出力・買い切り¥1,980。">
+  <meta property="og:image" content="images/hero-promo.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terrain Rainfall-Runoff Simulator Desktop — 3D地形 降雨流出シミュレーター">
+  <meta name="twitter:description" content="3D地形 × 浅水方程式。Windows & macOSネイティブ対応のデスクトップ流体力学シミュレーター。完全ローカル実行・MP4/GIF動画出力・買い切り¥1,980。">
+  <meta name="twitter:image" content="images/hero-promo.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       Navbar
+       ========================================================================= -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-link" id="nav-brand">
+        <img src="images/app-icon.png" alt="RainSimulator Logo" class="brand-logo" width="36" height="36">
+        <span class="brand-text" data-i18n="brandName">RainSimulator</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#features" class="nav-link" data-i18n="navDetails">コア機能</a></li>
+          <li><a href="#demo" class="nav-link" data-i18n="navDemo">体験デモ</a></li>
+          <li><a href="#usecases" class="nav-link" data-i18n="navUseCases">活用シーン</a></li>
+          <li><a href="#compare" class="nav-link" data-i18n="navCompare">比較</a></li>
+          <li><a href="#pricing" class="nav-link" data-i18n="navPricing">価格・購入</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="navFaq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switcher" aria-label="Language Selector">
+          <button type="button" class="lang-btn active" data-lang="ja" id="lang-btn-ja">JP</button>
+          <button type="button" class="lang-btn" data-lang="en" id="lang-btn-en">EN</button>
+        </div>
+
+        <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="nav-buy-cta">
+          <span data-i18n="navBuyBtn">購入・ダウンロード</span>
+        </a>
+
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================================
+         Hero Section
+         ========================================================================= -->
+    <section class="hero-section" id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="container hero-content">
+        <div class="hero-text-block">
+          <div class="hero-badge reveal">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">Windows & macOS 対応 3D流体力学デスクトップアプリ</span>
+          </div>
+
+          <h1 class="hero-title reveal" data-i18n-html="heroTitle">
+            3D地形 × 浅水方程式。<br><span class="gradient-text">降雨と水の流れ</span>をリアルタイム高精度解析
+          </h1>
+
+          <p class="hero-subtitle reveal" data-i18n="heroSubtitle">
+            3D地形図（DEM/OBJメッシュ）に雨を降らせ、水流の集約・流出・浸透を浅水方程式（仮想パイプモデル）で高精度に計算するデスクトップ専用流体力学シミュレーター。完全ローカル実行で機密性を確保し、買い切り永久ライセンスで無制限に解析可能。
+          </p>
+
+          <div class="hero-cta-group reveal">
+            <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" id="hero-primary-buy-btn">
+              <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+              <span data-i18n="heroBuyCta">デスクトップ版を購入する (¥1,980)</span>
+            </a>
+            <a href="#demo" class="btn btn-secondary btn-lg" id="hero-demo-jump-btn">
+              <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              <span data-i18n="heroDemoCta">機能詳細・デモを見る</span>
+            </a>
+          </div>
+
+          <div class="hero-meta-list reveal">
+            <div class="hero-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span data-i18n="heroMetaPlatforms">Windows 10/11 & macOS (Apple Silicon / Intel) ネイティブ対応</span>
+            </div>
+            <div class="hero-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              <span data-i18n="heroMetaOffline">100% 完全ローカル・オフライン高速演算（外部データ送信なし）</span>
+            </div>
+            <div class="hero-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              <span data-i18n="heroMetaOneTime">追加費用なしの永久買い切りライセンス ¥1,980 (税込)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-image-wrapper">
+            <img src="images/hero-promo.jpg" alt="Terrain Rainfall-Runoff Simulation 3D Visual" class="hero-image" width="600" height="400">
+            <div class="floating-badge">
+              <div class="floating-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8z"/></svg>
+              </div>
+              <div class="floating-info">
+                <div class="floating-label">Shallow Water Model</div>
+                <div class="floating-val">Virtual Pipe 2D</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Stats Highlights Section
+         ========================================================================= -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card reveal">
+            <div class="stat-num" data-i18n="stat1Number">2D</div>
+            <div class="stat-label" data-i18n="stat1Label">浅水方程式</div>
+            <div class="stat-desc" data-i18n="stat1Desc">Virtual Pipe Modelによる高速・安定した流体数値計算</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num" data-i18n="stat2Number">3D</div>
+            <div class="stat-label" data-i18n="stat2Label">リアルタイム地形描画</div>
+            <div class="stat-desc" data-i18n="stat2Desc">OpenGL/WebGLによる標高カラーマップ＆直感的な回転・ズーム</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num" data-i18n="stat3Number">100%</div>
+            <div class="stat-label" data-i18n="stat3Label">完全ローカル実行</div>
+            <div class="stat-desc" data-i18n="stat3Desc">地形データや解析結果が外部に送信されない安心のセキュリティ</div>
+          </div>
+          <div class="stat-card reveal">
+            <div class="stat-num" data-i18n="stat4Number">4+</div>
+            <div class="stat-label" data-i18n="stat4Label">多彩な解析マップ & 動画出力</div>
+            <div class="stat-desc" data-i18n="stat4Desc">MP4/GIF動画保存・最大水深・流路網・遅延ピーク水位上昇マップ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Core Features Section
+         ========================================================================= -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="featuresSectionBadge">CORE CAPABILITIES</div>
+          <h2 class="section-title" data-i18n="featuresSectionTitle">研究から実務まで。直感と精度を両立した機能群</h2>
+          <p class="section-subtitle" data-i18n="featuresSectionSubtitle">専門的な流体シミュレーションを、誰でも数クリックで直感的に扱えるモダンなデスクトップUIに凝縮しました。</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.84L19.46 19H4.54L12 5.84zM11 10h2v4h-2zm0 5h2v2h-2z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat1Tag">3D OBJ / DEM対応</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat1Title">3D地形インポート & リアルタイムプレビュー</h3>
+            <p class="feature-desc" data-i18n="feat1Desc">QGISやBlenderから出力したOBJメッシュやDEMデータを即座に読み込み。標高に応じたカラーマップ（青=低地、茶〜白=高地）で3Dプレビュー。手元にデータがなくても、ボタン一つで複雑な谷を持つサンプル地形を自動生成できます。</p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zm6 0v7h3v-7h-3zM2 22h20V4H2v18zm2-16h16v14H4V6z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat2Tag">物理パラメータ自在</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2Title">直感的な降雨・環境パラメータ制御</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">天気予報でおなじみの「降雨強度 (mm/h)」や「降雨継続時間」を設定可能。さらに蒸発・浸透損失量、時間刻み dt、パイプ断面積係数を細かく調整でき、舗装路面から山林地まで多様な透水条件を柔軟にシミュレーションします。</p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat3Tag">リアルタイム流出可視化 & 動画保存</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat3Title">降雨流出アニメーション & 高解像度動画書き出し</h3>
+            <p class="feature-desc" data-i18n="feat3Desc">陰影起伏図（ヒルシェード）に時間変化する水深を重ね合わせた高品質な流出アニメーションを生成。固定カラースケールにより、一目で水深の変化が把握可能。結果はMP4/GIF動画として保存でき、プレゼンや教材、論文報告に活用できます。</p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat4Tag">地点クリック時系列グラフ</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat4Title">インタラクティブ最大水深 & ピーク時刻解析</h3>
+            <p class="feature-desc" data-i18n="feat4Desc">全ステップ中の最大浸水深をヒートマップ化。地図上の任意の地点をクリックするだけで、その地点の地表標高・最大水深・時間変化グラフ（ハイドログラフ）・雨が止んだ後のピーク到達時刻を瞬時に確認できます。</p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat5Tag">流路網 & 滞水ハザード検出</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat5Title">集水流路網 & 水位上昇継続アラート</h3>
+            <p class="feature-desc" data-i18n="feat5Desc">累積流出量を対数スケールで表示し、地形固有の谷筋や水が集まりやすい流路網を自動描画。さらに「雨が止んだ後も水位が上昇し続けている危険地点」をオレンジ色で強調表示し、遅延ピークのリスクを可視化します。</p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card reveal">
+            <div class="feature-top">
+              <div class="feature-icon-box">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              </div>
+              <span class="feature-tag" data-i18n="feat6Tag">高精度数値計算 & 完全ローカル</span>
+            </div>
+            <h3 class="feature-title" data-i18n="feat6Title">完全ローカル実行 & 質量収支チェック</h3>
+            <p class="feature-desc" data-i18n="feat6Desc">降雨総量＝貯留量＋流出量＋損失量の質量保存則が成り立っているかを自動計算し、計算の健全性を検証。完全ローカルPC内演算により、機密性の高い地形データも外部に一切送信されず安全に解析できます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Interactive Demo Section
+         ========================================================================= -->
+    <section class="demo-section" id="demo">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="demoSectionBadge">INTERACTIVE SIMULATOR DEMO</div>
+          <h2 class="section-title" data-i18n="demoSectionTitle">LP上で体験する「地点別ピーク水深解析」</h2>
+          <p class="section-subtitle" data-i18n-html="demoSectionSubtitle">下のシミュレーション結果マップ上で任意の場所をクリック（またはプリセットを選択）してください。<br>標高や最大水深、水深推移グラフ、雨が止んだ後のピーク到達時刻がリアルタイムに変化します。</p>
+        </div>
+
+        <div class="demo-container reveal">
+          <!-- Left Map Panel -->
+          <div class="demo-map-panel">
+            <div class="demo-panel-header">
+              <div class="demo-panel-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--neon-cyan)"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+                <span>3D Terrain Flood Simulation Map</span>
+              </div>
+              <span class="demo-hint" data-i18n="demoMapHint">マップ上のマーカーまたは任意の地点をクリック</span>
+            </div>
+
+            <div class="demo-map-wrapper">
+              <canvas id="demo-map-canvas"></canvas>
+            </div>
+
+            <div class="preset-buttons-group">
+              <button type="button" class="preset-btn" data-preset="ridge" id="preset-btn-ridge" data-i18n="demoSelectRidge">地点A: 山頂・尾根（即時排水）</button>
+              <button type="button" class="preset-btn" data-preset="slope" id="preset-btn-slope" data-i18n="demoSelectSlope">地点B: 中腹斜面（一時通過）</button>
+              <button type="button" class="preset-btn active" data-preset="valley" id="preset-btn-valley" data-i18n="demoSelectValley">地点C: 谷底本流（遅延ピーク滞水）</button>
+              <button type="button" class="preset-btn" data-preset="basin" id="preset-btn-basin" data-i18n="demoSelectBasin">地点D: 出口合流点（最大浸水危険域）</button>
+            </div>
+          </div>
+
+          <!-- Right Analytics Panel -->
+          <div class="demo-analytics-panel">
+            <div class="point-data-card">
+              <div class="point-data-title" id="demo-pt-title">地点C: 谷底本流</div>
+              
+              <div class="data-stats-grid">
+                <div class="data-stat-item">
+                  <span class="stat-item-label" data-i18n="demoElevation">地表標高</span>
+                  <span class="stat-item-val" id="demo-pt-elev">142.0 m</span>
+                </div>
+                <div class="data-stat-item">
+                  <span class="stat-item-label" data-i18n="demoMaxDepth">最大到達水深</span>
+                  <span class="stat-item-val text-accent" id="demo-pt-depth">0.86 m (86 cm)</span>
+                </div>
+                <div class="data-stat-item">
+                  <span class="stat-item-label" data-i18n="demoPeakTime">最大水深ピーク時刻</span>
+                  <span class="stat-item-val" id="demo-pt-peak">42 min (雨上がり後遅延ピーク)</span>
+                </div>
+                <div class="data-stat-item">
+                  <span class="stat-item-label" data-i18n="demoRiskLevel">浸水リスク判定</span>
+                  <span class="val-badge risk-high" id="demo-pt-risk">高 (上流集中・遅延浸水)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time Series Chart -->
+            <div class="chart-wrapper">
+              <div class="chart-title" data-i18n="demoChartTitle">水深の時系列推移 [m] (シミュレーション時間)</div>
+              <canvas id="demo-chart-canvas"></canvas>
+              <p class="chart-note" data-i18n="demoChartDesc">※ 尾根は雨天直後にピークを迎えすぐ排水されますが、谷底や合流点は雨が止んだ後も上流からの流入で水位が上昇し続けます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Use Cases Section
+         ========================================================================= -->
+    <section class="usecases-section" id="usecases">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="useCaseSectionBadge">USE CASES & APPLICATIONS</div>
+          <h2 class="section-title" data-i18n="useCaseSectionTitle">幅広い分野で活用される物理シミュレーション</h2>
+          <p class="section-subtitle" data-i18n="useCaseSectionSubtitle">土木・防災から教育、3D制作まで。正確な水理計算を手軽にビジネスや研究へ導入。</p>
+        </div>
+
+        <div class="usecases-grid">
+          <div class="usecase-card reveal">
+            <div class="usecase-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            </div>
+            <h3 class="usecase-title" data-i18n="useCase1Title">土木・建設・開発計画</h3>
+            <p class="usecase-desc" data-i18n="useCase1Desc">造成地や造成計画の3Dモデル上で降雨時の集水経路や冠水リスクを事前検証。雨水排水施設計画や浸水想定の事前シミュレーションに。</p>
+          </div>
+
+          <div class="usecase-card reveal">
+            <div class="usecase-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+            <h3 class="usecase-title" data-i18n="useCase2Title">地域防災・ハザード評価</h3>
+            <p class="usecase-desc" data-i18n="useCase2Desc">地形データから雨が止んだ後も水が集まり続ける危険箇所や、谷筋の集中流路を特定。避難計画策定や防災ハザードマップの精度向上に。</p>
+          </div>
+
+          <div class="usecase-card reveal">
+            <div class="usecase-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+            </div>
+            <h3 class="usecase-title" data-i18n="useCase3Title">大学・研究機関・教育教材</h3>
+            <p class="usecase-desc" data-i18n="useCase3Desc">水文学・地形学・流体力学の教育において、浅水方程式と地表流の挙動をビジュアルに理解できるインタラクティブ教材として。</p>
+          </div>
+
+          <div class="usecase-card reveal">
+            <div class="usecase-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            </div>
+            <h3 class="usecase-title" data-i18n="useCase4Title">ゲーム・メタバース・CG制作</h3>
+            <p class="usecase-desc" data-i18n="useCase4Desc">プロシージャル地形や3Dワールドにおける自然な川の侵食経路・湖の滞水判定など、物理的に正しい水流マップの生成に。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Comparison Section
+         ========================================================================= -->
+    <section class="compare-section" id="compare">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="compareSectionBadge">WHY RAINSIMULATOR</div>
+          <h2 class="section-title" data-i18n="compareSectionTitle">従来の手法との違い</h2>
+          <p class="section-subtitle" data-i18n="compareSectionSubtitle">高額な専用GISソフトや難解なスクリプト開発の手間を排除。圧倒的な導入の手軽さと使いやすさを提供します。</p>
+        </div>
+
+        <div class="compare-table-wrapper reveal">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th data-i18n="compareThFeature">評価項目</th>
+                <th class="highlight-col" data-i18n="compareThApp">RainSimulator (Desktop)</th>
+                <th data-i18n="compareThTrad">従来の大型水理解析ソフト</th>
+                <th data-i18n="compareThScript">自作Python/MATLABスクリプト</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="compareRow1Title">導入コスト・価格</td>
+                <td class="highlight-col" data-i18n="compareRow1App">¥1,980（税込・買い切り永久ライセンス）</td>
+                <td data-i18n="compareRow1Trad">数十万円〜数百万円 / 年</td>
+                <td data-i18n="compareRow1Script">開発工数・人件費大</td>
+              </tr>
+              <tr>
+                <td data-i18n="compareRow2Title">UI・操作性</td>
+                <td class="highlight-col" data-i18n="compareRow2App">直感的なデスクトップGUI（スライダー＆クリック操作）</td>
+                <td data-i18n="compareRow2Trad">専門知識と複雑な設定が必須</td>
+                <td data-i18n="compareRow2Script">CUI / コード修正が必要</td>
+              </tr>
+              <tr>
+                <td data-i18n="compareRow3Title">流出アニメーション & 動画出力</td>
+                <td class="highlight-col" data-i18n="compareRow3App">リアルタイム3D描画 & MP4/GIF動画出力</td>
+                <td data-i18n="compareRow3Trad">別ツールでの後処理が必要</td>
+                <td data-i18n="compareRow3Script">描画処理の実装が煩雑</td>
+              </tr>
+              <tr>
+                <td data-i18n="compareRow4Title">地点別ハイドログラフ</td>
+                <td class="highlight-col" data-i18n="compareRow4App">ワンクリック即時グラフ表示 & 詳細解析</td>
+                <td data-i18n="compareRow4Trad">データ抽出・加工に手間</td>
+                <td data-i18n="compareRow4Script">自前でプロットコード作成</td>
+              </tr>
+              <tr>
+                <td data-i18n="compareRow5Title">動作環境</td>
+                <td class="highlight-col" data-i18n="compareRow5App">Windows / macOS ネイティブ（スタンドアロン起動）</td>
+                <td data-i18n="compareRow5Trad">ハイスペック専用PCやサーバー</td>
+                <td data-i18n="compareRow5Script">Python環境構築・依存関係管理</td>
+              </tr>
+              <tr>
+                <td data-i18n="compareRow6Title">セキュリティ・機密性</td>
+                <td class="highlight-col" data-i18n="compareRow6App">完全ローカル・データ非送信（100%オフライン動作）</td>
+                <td data-i18n="compareRow6Trad">クラウド送信やライセンス認証が必要な場合あり</td>
+                <td data-i18n="compareRow6Script">ローカル実行（環境構築が必要）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         Pricing Section
+         ========================================================================= -->
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="pricingSectionBadge">PRICING & GET STARTED</div>
+          <h2 class="section-title" data-i18n="pricingSectionTitle">シンプルで明快な買い切りプライス</h2>
+          <p class="section-subtitle" data-i18n="pricingSectionSubtitle">サブスクリプションではありません。1回のお支払いで永久無制限に全機能をご利用いただける買い切りライセンスです。</p>
+        </div>
+
+        <div class="pricing-card-wrapper reveal">
+          <div class="pricing-card">
+            <div class="pricing-popular-badge">ONE-TIME PURCHASE</div>
+            <h3 class="pricing-title" data-i18n="pricingCardTitle">Terrain Rainfall-Runoff Simulator Desktop</h3>
+            <div class="pricing-subtitle" data-i18n="pricingCardSubtitle">Windows & macOS デスクトップ専用版（永久買い切り・商用利用可）</div>
+
+            <div class="price-display">
+              <span class="price-curr" data-i18n="pricingCurrency">¥</span>
+              <span class="price-amt" data-i18n="pricingAmount">1,980</span>
+            </div>
+            <div class="price-tax" data-i18n="pricingTax">（税込・買い切り）</div>
+
+            <div class="pricing-features-list">
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature1">Windows (exe) & macOS (dmg) ネイティブインストーラー</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature2">追加月額料金・サブスクなしの永久買い切りライセンス</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature3">3D OBJインポート & サンプル地形自動生成</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature4">浅水方程式 降雨流出シミュレーションエンジン（高速ローカル演算）</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature5">リアルタイム降雨流出アニメーション表示 & MP4/GIF動画保存</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature6">最大水深マップ & 地点クリック時系列グラフ解析（ハイドログラフ）</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature7">集水流路網マップ & 水位上昇継続アラート</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature8">質量収支整合性チェック機能</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature9">完全ローカル・オフライン動作（機密データの保護）</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingFeature10">日本語 / 英語 バイリンガルUI & 商用利用可能</span>
+              </div>
+            </div>
+
+            <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary pricing-btn" id="pricing-buy-cta">
+              <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+              <span data-i18n="pricingCtaBtn">デスクトップ版を購入する (¥1,980)</span>
+            </a>
+
+            <div class="pricing-guarantee">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--emerald)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              <span data-i18n="pricingGuarantee">Stripeセキュア決済対応 / 決済完了後すぐにダウンロード可能</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         FAQ Section
+         ========================================================================= -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="section-badge" data-i18n="faqSectionBadge">FREQUENTLY ASKED QUESTIONS</div>
+          <h2 class="section-title" data-i18n="faqSectionTitle">よくあるご質問</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item reveal active">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ1">対応OSおよびシステム要件を教えてください。</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA1">Windows 10/11 (64bit) または macOS 11以降 (Apple Silicon M1/M2/M3/M4 および Intel CPU) に対応しています。特別なGPUは不要で、一般的なPC環境で軽快に動作します。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ2">どのような地形データ（OBJファイル）に対応していますか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA2">標準的なWavefront OBJ形式のポリゴンメッシュに対応しています。QGISやBlender、GISツールから書き出したDEM地形メッシュをそのまま読み込めます。また、手元に地形データがない場合でも、ワンクリックで谷や尾根を含むリアルなサンプル地形を自動生成してテストできます。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ3">インターネット接続は必要ですか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA3">初回のダウンロードおよび購入時以外、アプリケーションの実行にインターネット接続は一切不要です。完全オフライン環境で安全に動作し、地形データやシミュレーション結果が外部に送信されることはありません。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ4">商用利用や研究発表での利用は可能ですか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA4">はい、可能です。本アプリを用いて生成された画像、解析データ、グラフ、動画などは、商用プロジェクト、報告書、プレゼンテーション、学術論文、教材等に自由にご利用いただけます。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ5">購入後のアップデートや追加料金はありますか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA5">追加の月額料金やサブスクリプションは一切ありません。一度ご購入いただければ、永久無制限で最新バージョンの機能をご利用いただけます。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ6">浅水方程式（仮想パイプモデル）とは何ですか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA6">グリッド上の各セル間の水頭差（標高＋水深）に基づいて、仮想的なパイプを介した流量を高速に数値計算する流体モデルです。従来のナビエ・ストークス方程式に比べて極めて計算効率が高く、地形スケールの広域な降雨流出現象をPCローカル上で高速かつ安定してシミュレートできます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       Footer
+       ========================================================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="brand-link">
+            <img src="images/app-icon.png" alt="RainSimulator Logo" class="brand-logo" width="32" height="32">
+            <span class="brand-text" data-i18n="brandName">RainSimulator</span>
+          </a>
+          <p class="footer-desc" data-i18n="footerDesc">3D地形と浅水方程式による次世代の降雨流出シミュレーション・デスクトップアプリケーション。</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title" data-i18n="footerLinksTitle">リンク</h4>
+          <ul class="footer-links">
+            <li><a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" data-i18n="footerBuyLink">ストアで購入・ダウンロード</a></li>
+            <li><a href="#features" data-i18n="navDetails">コア機能</a></li>
+            <li><a href="#demo" data-i18n="navDemo">体験デモ</a></li>
+            <li><a href="#pricing" data-i18n="navPricing">価格・購入</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title" data-i18n="footerLegalTitle">インフォメーション</h4>
+          <ul class="footer-links">
+            <li><a href="https://cyber-matrix.netlify.app/contact" target="_blank" rel="noopener noreferrer" data-i18n="footerContactLink">お問い合わせ</a></li>
+            <li><a href="https://cyber-matrix.netlify.app" target="_blank" rel="noopener noreferrer">Cyber Matrix Store</a></li>
+            <li><a href="#faq" data-i18n="navFaq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="copyright" data-i18n="footerCopyright">© 2026 Cyber Matrix / RainSimulator Desktop. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
