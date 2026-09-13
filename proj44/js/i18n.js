@@ -14,17 +14,17 @@ const translations = {
     navCompare: "比較",
     navPricing: "価格・購入",
     navFaq: "FAQ",
-    navBuyBtn: "今すぐ購入 ¥1,980",
+    navBuyBtn: "シミュレーターを起動 / 購入",
 
     // Hero Section
-    heroBadge: "デスクトップ専用 高精度物理シミュレーター",
+    heroBadge: "ブラウザで即座に動く 3D物理シミュレーター",
     heroTitle: "3D地形 × 浅水方程式。<br><span class=\"gradient-text\">降雨と水の流れ</span>をリアルタイム可視化",
-    heroSubtitle: "DEMやOBJなどの3D地形データに雨を降らせ、水がどのように集まり、流れていくかを浅水方程式（仮想パイプモデル）で高精度に物理シミュレーション。直感的なGUI、MP4動画出力、浸水ピーク解析までローカル環境で完全完結。",
-    heroBuyCta: "今すぐ購入する（¥1,980）",
-    heroDemoCta: "機能デモを体験する",
-    heroMetaPlatforms: "Windows 10/11 & macOS (Apple Silicon / Intel) 対応",
-    heroMetaOffline: "完全オフライン動作・データ外部送信なし",
-    heroMetaOneTime: "買い切り価格・追加課金なし",
+    heroSubtitle: "DEMやOBJなどの3D地形データに雨を降らせ、水がどのように集まり、流れていくかを浅水方程式（仮想パイプモデル）で高精度に物理シミュレーション。ブラウザ上で直感的に操作でき、無料お試し＆PRO買い切りライセンス対応。",
+    heroBuyCta: "シミュレーターを起動する（3回無料）",
+    heroDemoCta: "機能詳細を見る",
+    heroMetaPlatforms: "Mac, Windows, iPad 等 全ブラウザ対応 (インストール不要)",
+    heroMetaOffline: "高速ブラウザ内演算・リアルタイム3D可視化",
+    heroMetaOneTime: "3回無料お試し可能・買い切り¥1,980",
 
     // Key Stats / Highlights
     stat1Number: "2D",
@@ -193,17 +193,17 @@ const translations = {
     navCompare: "Comparison",
     navPricing: "Pricing",
     navFaq: "FAQ",
-    navBuyBtn: "Buy Now ¥1,980 (~$14.99)",
+    navBuyBtn: "Launch Simulator / Buy",
 
     // Hero Section
-    heroBadge: "High-Precision Desktop Fluid Physics Engine",
+    heroBadge: "Instant In-Browser 3D Physics Simulation Engine",
     heroTitle: "3D Terrain × Shallow Water Equations.<br><span class=\"gradient-text\">Rainfall & Overland Flow</span> Real-Time Visualization",
-    heroSubtitle: "Simulate how rain falls, accumulates, and flows across 3D terrain meshes (OBJ/DEM) using 2D shallow-water virtual pipe equations. Features an intuitive GUI, MP4 animation rendering, and delay-peak flood depth analytics — 100% locally on your desktop.",
-    heroBuyCta: "Get It Now (¥1,980 / ~$14.99)",
-    heroDemoCta: "Try Interactive Demo",
-    heroMetaPlatforms: "macOS (Apple Silicon / Intel) & Windows 10/11 Ready",
-    heroMetaOffline: "100% Offline & Private (Zero Data Telemetry)",
-    heroMetaOneTime: "One-time purchase · Lifetime usage",
+    heroSubtitle: "Simulate how rain falls, accumulates, and flows across 3D terrain meshes (OBJ/DEM) using 2D shallow-water virtual pipe equations. Instant in-browser physics, 3 free trial runs, and permanent lifetime PRO license support.",
+    heroBuyCta: "Launch Web Simulator (3 Free Runs)",
+    heroDemoCta: "Explore Live Demo",
+    heroMetaPlatforms: "Works on Mac, Windows, iPad & All Modern Browsers",
+    heroMetaOffline: "Fast Client-Side Physics · Real-Time 3D View",
+    heroMetaOneTime: "3 Free Runs · Lifetime PRO ¥1,980",
 
     // Key Stats / Highlights
     stat1Number: "2D",
