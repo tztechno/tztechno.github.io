@@ -65,8 +65,12 @@
           <button type="button" class="lang-btn" data-lang="en" id="lang-btn-en">EN</button>
         </div>
 
-        <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="nav-buy-cta">
-          <span data-i18n="navBuyBtn">購入・ダウンロード</span>
+        <a href="https://cyber-rain-sim-js.stpete.workers.dev/" target="_blank" rel="noopener noreferrer" class="btn btn-emerald-outline nav-cta-web" id="nav-web-cta">
+          <span data-i18n="navWebBtn">🌐 Web版を試す（無料）</span>
+        </a>
+
+        <a href="#pricing" class="btn btn-primary" id="nav-buy-cta">
+          <span data-i18n="navDesktopBtn">💻 デスクトップ版</span>
         </a>
 
         <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
@@ -88,7 +92,7 @@
         <div class="hero-text-block">
           <div class="hero-badge reveal">
             <span class="pulse-dot"></span>
-            <span data-i18n="heroBadge">Windows & macOS 対応 3D流体力学デスクトップアプリ</span>
+            <span data-i18n="heroBadge">🌐 オンラインWeb版 ＆ 💻 デスクトップ版（Win/Mac）両対応</span>
           </div>
 
           <h1 class="hero-title reveal" data-i18n-html="heroTitle">
@@ -96,13 +100,17 @@
           </h1>
 
           <p class="hero-subtitle reveal" data-i18n="heroSubtitle">
-            3D地形図（DEM/OBJメッシュ）に雨を降らせ、水流の集約・流出・浸透を浅水方程式（仮想パイプモデル）で高精度に計算するデスクトップ専用流体力学シミュレーター。完全ローカル実行で機密性を確保し、買い切り永久ライセンスで無制限に解析可能。
+            3D地形図（DEM/OBJメッシュ・GeoTIFF）に雨を降らせ、水流の集約・流出・浸透を浅水方程式（仮想パイプモデル）で高精度に計算する流体力学シミュレーター。ブラウザですぐ試せる「Web版」と、完全オフラインで高速動作する「デスクトップ版」をご用意。
           </p>
 
           <div class="hero-cta-group reveal">
-            <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" id="hero-primary-buy-btn">
+            <a href="https://cyber-rain-sim-js.stpete.workers.dev/" target="_blank" rel="noopener noreferrer" class="btn btn-emerald btn-lg hero-cta-btn" id="hero-web-cta-btn">
+              <span class="btn-icon-pulse">🌐</span>
+              <span data-i18n="heroWebCta">Web版を今すぐ開く（無料お試し3回）</span>
+            </a>
+            <a href="#pricing" class="btn btn-primary btn-lg hero-cta-btn" id="hero-primary-buy-btn">
               <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-              <span data-i18n="heroBuyCta">デスクトップ版を購入する (¥1,980)</span>
+              <span data-i18n="heroBuyCta">デスクトップ版を購入 (¥1,980)</span>
             </a>
             <a href="#demo" class="btn btn-secondary btn-lg" id="hero-demo-jump-btn">
               <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
@@ -112,15 +120,15 @@
 
           <div class="hero-meta-list reveal">
             <div class="hero-meta-item">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              <span data-i18n="heroMetaWeb">ブラウザで即座に起動（インストール不要・初回3回無料）</span>
+            </div>
+            <div class="hero-meta-item">
               <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              <span data-i18n="heroMetaPlatforms">Windows 10/11 & macOS (Apple Silicon / Intel) ネイティブ対応</span>
+              <span data-i18n="heroMetaPlatforms">Windows 10/11 & macOS ネイティブ対応（完全ローカル・機密保護）</span>
             </div>
             <div class="hero-meta-item">
               <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-              <span data-i18n="heroMetaOffline">100% 完全ローカル・オフライン高速演算（外部データ送信なし）</span>
-            </div>
-            <div class="hero-meta-item">
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
               <span data-i18n="heroMetaOneTime">追加費用なしの永久買い切りライセンス ¥1,980 (税込)</span>
             </div>
           </div>
@@ -447,74 +455,116 @@
     <section class="pricing-section" id="pricing">
       <div class="container">
         <div class="section-header reveal">
-          <div class="section-badge" data-i18n="pricingSectionBadge">PRICING & GET STARTED</div>
-          <h2 class="section-title" data-i18n="pricingSectionTitle">シンプルで明快な買い切りプライス</h2>
-          <p class="section-subtitle" data-i18n="pricingSectionSubtitle">サブスクリプションではありません。1回のお支払いで永久無制限に全機能をご利用いただける買い切りライセンスです。</p>
+          <div class="section-badge" data-i18n="pricingSectionBadge">EDITIONS & PRICING</div>
+          <h2 class="section-title" data-i18n="pricingSectionTitle">選べる2つの利用スタイル</h2>
+          <p class="section-subtitle" data-i18n="pricingSectionSubtitle">用途に合わせて「インストール不要のWeb版」または「完全オフラインのデスクトップ版」をお選びいただけます。どちらも買い切り ¥1,980 で永久にご利用いただけます。</p>
         </div>
 
-        <div class="pricing-card-wrapper reveal">
-          <div class="pricing-card">
-            <div class="pricing-popular-badge">ONE-TIME PURCHASE</div>
-            <h3 class="pricing-title" data-i18n="pricingCardTitle">Terrain Rainfall-Runoff Simulator Desktop</h3>
-            <div class="pricing-subtitle" data-i18n="pricingCardSubtitle">Windows & macOS デスクトップ専用版（永久買い切り・商用利用可）</div>
+        <div class="pricing-grid-dual reveal">
+          <!-- Card 1: Web Edition (Cloudflare Web App) -->
+          <div class="pricing-card web-edition-card">
+            <div class="pricing-card-badge web-badge" data-i18n="pricingWebBadge">NO INSTALLATION / オンラインWeb版</div>
+            <h3 class="pricing-title" data-i18n="pricingWebTitle">RainSimulator Web Edition</h3>
+            <div class="pricing-subtitle" data-i18n="pricingWebSubtitle">ブラウザで今すぐ使えるクラウドWebアプリケーション</div>
 
             <div class="price-display">
-              <span class="price-curr" data-i18n="pricingCurrency">¥</span>
-              <span class="price-amt" data-i18n="pricingAmount">1,980</span>
+              <span class="price-amt" data-i18n="pricingWebPrice">無料お試し ➔ ¥1,980</span>
             </div>
-            <div class="price-tax" data-i18n="pricingTax">（税込・買い切り）</div>
+            <div class="price-tax" data-i18n="pricingWebTax">（初回3回無料 / 買い切り永久利用）</div>
 
             <div class="pricing-features-list">
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature1">Windows (exe) & macOS (dmg) ネイティブインストーラー</span>
+                <span data-i18n="pricingWebFeature1">インストール不要・PC/スマホ/タブレットから即アクセス</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature2">追加月額料金・サブスクなしの永久買い切りライセンス</span>
+                <span data-i18n="pricingWebFeature2">初回 3回まで完全無料でお試しシミュレーション実行</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature3">3D OBJインポート & サンプル地形自動生成</span>
+                <span data-i18n="pricingWebFeature3">買い切り 1,980円で永久無制限アンロック（Stripe決済）</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature4">浅水方程式 降雨流出シミュレーションエンジン（高速ローカル演算）</span>
+                <span data-i18n="pricingWebFeature4">3D OBJ & GeoTIFF 標高グリッド・地理座標系対応</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature5">リアルタイム降雨流出アニメーション表示 & MP4/GIF動画保存</span>
+                <span data-i18n="pricingWebFeature5">地点ハイドログラフ & Still-Rising（遅延水位上昇）解析</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature6">最大水深マップ & 地点クリック時系列グラフ解析（ハイドログラフ）</span>
+                <span data-i18n="pricingWebFeature6">高画質GIFアニメーション & CSV/PNG グラフ保存</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature7">集水流路網マップ & 水位上昇継続アラート</span>
+                <span data-i18n="pricingWebFeature7">発行ライセンスキーで他端末・別ブラウザへいつでも復元可能</span>
+              </div>
+            </div>
+
+            <a href="https://cyber-rain-sim-js.stpete.workers.dev/" target="_blank" rel="noopener noreferrer" class="btn btn-emerald pricing-btn" id="pricing-web-cta">
+              <span class="btn-icon">🌐</span>
+              <span data-i18n="pricingWebCtaBtn">🌐 Web版を今すぐ起動する（無料お試し）</span>
+            </a>
+
+            <div class="pricing-guarantee">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--emerald)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+              <span data-i18n="pricingWebGuarantee">ログイン不要・今すぐブラウザで無料でお試しいただけます</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Desktop Edition (Native App) -->
+          <div class="pricing-card desktop-edition-card featured">
+            <div class="pricing-card-badge desktop-badge" data-i18n="pricingDesktopBadge">OFFLINE & NATIVE / デスクトップ版</div>
+            <h3 class="pricing-title" data-i18n="pricingDesktopTitle">RainSimulator Desktop Edition</h3>
+            <div class="pricing-subtitle" data-i18n="pricingDesktopSubtitle">Windows & macOS 専用ネイティブアプリケーション</div>
+
+            <div class="price-display">
+              <span class="price-curr">¥</span>
+              <span class="price-amt" data-i18n="pricingDesktopPrice">1,980</span>
+            </div>
+            <div class="price-tax" data-i18n="pricingDesktopTax">（税込・永久買い切り）</div>
+
+            <div class="pricing-features-list">
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingDesktopFeature1">Windows (exe) & macOS (dmg) ネイティブインストーラー</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature8">質量収支整合性チェック機能</span>
+                <span data-i18n="pricingDesktopFeature2">100% 完全ローカル・オフライン高速演算（外部通信なし）</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature9">完全ローカル・オフライン動作（機密データの保護）</span>
+                <span data-i18n="pricingDesktopFeature3">機密地形データや業務プロジェクトの完全ローカル保護</span>
               </div>
               <div class="pricing-feature-item">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                <span data-i18n="pricingFeature10">日本語 / 英語 バイリンガルUI & 商用利用可能</span>
+                <span data-i18n="pricingDesktopFeature4">3D OBJインポート & サンプル地形自動生成</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingDesktopFeature5">浅水方程式 高精度流体シミュレーションエンジン</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingDesktopFeature6">リアルタイム流出アニメーション & MP4/GIF動画保存</span>
+              </div>
+              <div class="pricing-feature-item">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <span data-i18n="pricingDesktopFeature7">商用利用・学術研究・業務レポート作成に完全対応</span>
               </div>
             </div>
 
             <a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" class="btn btn-primary pricing-btn" id="pricing-buy-cta">
               <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-              <span data-i18n="pricingCtaBtn">デスクトップ版を購入する (¥1,980)</span>
+              <span data-i18n="pricingDesktopCtaBtn">💻 デスクトップ版を購入する (¥1,980)</span>
             </a>
 
             <div class="pricing-guarantee">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--emerald)"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-              <span data-i18n="pricingGuarantee">Stripeセキュア決済対応 / 決済完了後すぐにダウンロード可能</span>
+              <span data-i18n="pricingDesktopGuarantee">Stripeセキュア決済対応 / 決済完了後すぐにダウンロード可能</span>
             </div>
           </div>
         </div>
@@ -534,21 +584,31 @@
         <div class="faq-list">
           <div class="faq-item reveal active">
             <button type="button" class="faq-question">
-              <span data-i18n="faqQ1">対応OSおよびシステム要件を教えてください。</span>
+              <span data-i18n="faqQChoice">Web版とデスクトップ版の違いは何ですか？どちらを選ぶべきですか？</span>
               <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p data-i18n="faqA1">Windows 10/11 (64bit) または macOS 11以降 (Apple Silicon M1/M2/M3/M4 および Intel CPU) に対応しています。特別なGPUは不要で、一般的なPC環境で軽快に動作します。</p>
+              <p data-i18n="faqAChoice">手軽にインストールなしですぐ試したい方や、外出先・複数のPCから手軽に使いたい方は「Web版（3回無料）」がおすすめです。大容量の独自地形データを扱いたい方や、完全オフラインのセキュアな環境で業務利用・研究利用したい方は「デスクトップ版」をお選びください。どちらも買い切り ¥1,980 で永久にご利用いただけます。</p>
             </div>
           </div>
 
           <div class="faq-item reveal">
             <button type="button" class="faq-question">
-              <span data-i18n="faqQ2">どのような地形データ（OBJファイル）に対応していますか？</span>
+              <span data-i18n="faqQ1">対応OSおよびシステム要件を教えてください。</span>
               <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p data-i18n="faqA2">標準的なWavefront OBJ形式のポリゴンメッシュに対応しています。QGISやBlender、GISツールから書き出したDEM地形メッシュをそのまま読み込めます。また、手元に地形データがない場合でも、ワンクリックで谷や尾根を含むリアルなサンプル地形を自動生成してテストできます。</p>
+              <p data-i18n="faqA1">【デスクトップ版】Windows 10/11 (64bit) または macOS 11以降 (Apple Silicon M1/M2/M3/M4 および Intel CPU) に対応しています。【Web版】Google Chrome, Safari, Edge, Firefox など最新のモダンブラウザで動作します。</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal">
+            <button type="button" class="faq-question">
+              <span data-i18n="faqQ2">どのような地形データ（OBJ / GeoTIFF）に対応していますか？</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faqA2">標準的なWavefront OBJ形式のポリゴンメッシュ、およびGeoTIFF（.tif, .tiff）に対応しています。QGISやBlender、GISツールから書き出したDEM地形データをそのまま読み込めます。また、ワンクリックで谷や尾根を含むリアルなサンプル地形を自動生成してテストできます。</p>
             </div>
           </div>
 
@@ -558,7 +618,7 @@
               <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p data-i18n="faqA3">初回のダウンロードおよび購入時以外、アプリケーションの実行にインターネット接続は一切不要です。完全オフライン環境で安全に動作し、地形データやシミュレーション結果が外部に送信されることはありません。</p>
+              <p data-i18n="faqA3">【デスクトップ版】初回のダウンロード時以外、実行にインターネット接続は一切不要です。完全オフライン環境で動作します。【Web版】ブラウザアクセス時に接続が必要ですが、計算データはセキュアに処理されます。</p>
             </div>
           </div>
 
@@ -588,7 +648,7 @@
               <svg class="faq-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
             </button>
             <div class="faq-answer">
-              <p data-i18n="faqA6">グリッド上の各セル間の水頭差（標高＋水深）に基づいて、仮想的なパイプを介した流量を高速に数値計算する流体モデルです。従来のナビエ・ストークス方程式に比べて極めて計算効率が高く、地形スケールの広域な降雨流出現象をPCローカル上で高速かつ安定してシミュレートできます。</p>
+              <p data-i18n="faqA6">グリッド上の各セル間の水頭差（標高＋水深）に基づいて、仮想的なパイプを介した流量を高速に数値計算する流体モデルです。従来のナビエ・ストークス方程式に比べて極めて計算効率が高く、地形スケールの広域な降雨流出現象を高速かつ安定してシミュレートできます。</p>
             </div>
           </div>
         </div>
@@ -607,16 +667,17 @@
             <img src="images/app-icon.png" alt="RainSimulator Logo" class="brand-logo" width="32" height="32">
             <span class="brand-text" data-i18n="brandName">RainSimulator</span>
           </a>
-          <p class="footer-desc" data-i18n="footerDesc">3D地形と浅水方程式による次世代の降雨流出シミュレーション・デスクトップアプリケーション。</p>
+          <p class="footer-desc" data-i18n="footerDesc">3D地形と浅水方程式による次世代の降雨流出シミュレーション（Web版 ＆ デスクトップ版）。</p>
         </div>
 
         <div class="footer-col">
           <h4 class="footer-col-title" data-i18n="footerLinksTitle">リンク</h4>
           <ul class="footer-links">
-            <li><a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" data-i18n="footerBuyLink">ストアで購入・ダウンロード</a></li>
+            <li><a href="https://cyber-rain-sim-js.stpete.workers.dev/" target="_blank" rel="noopener noreferrer" data-i18n="footerWebLink">🌐 Web版を起動（無料）</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/rain" target="_blank" rel="noopener noreferrer" data-i18n="footerBuyLink">💻 デスクトップ版を購入</a></li>
             <li><a href="#features" data-i18n="navDetails">コア機能</a></li>
             <li><a href="#demo" data-i18n="navDemo">体験デモ</a></li>
-            <li><a href="#pricing" data-i18n="navPricing">価格・購入</a></li>
+            <li><a href="#pricing" data-i18n="navPricing">価格・エディション</a></li>
           </ul>
         </div>
 
@@ -631,7 +692,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div class="copyright" data-i18n="footerCopyright">© 2026 Cyber Matrix / RainSimulator Desktop. All rights reserved.</div>
+        <div class="copyright" data-i18n="footerCopyright">© 2026 Cyber Matrix / RainSimulator. All rights reserved.</div>
       </div>
     </div>
   </footer>
