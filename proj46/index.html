@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CYBER DRAGON: BREACH Desktop Edition | Cyber Matrix</title>
+  <meta name="description" content="Sector 46の防衛ラインに迫る凶悪なネオン・サイバードラゴンを迎撃せよ。パルスライフル、タクティカルレーダー、AIお手本巡航モードを搭載した3Dアリーナ型サバイバルFPS Desktop Edition (Windows / macOS)。" />
+  <meta name="keywords" content="Cyber Dragon, Cyber Dragon Breach, FPS, Cyberpunk, 3D Game, Three.js, Wave Defense, Cyber Matrix" />
+  <meta name="author" content="Cyber Matrix Systems" />
+
+  <!-- OGP / Social Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/dragon" />
+  <meta property="og:title" content="CYBER DRAGON: BREACH Desktop Edition - 極限の3D電脳竜迎撃FPS" />
+  <meta property="og:description" content="羽ばたくネオンサイバードラゴンを撃ち落とせ！超低遅延・完全オフライン対応の本格3DアリーナFPS。¥300(税込) 買い切りで今すぐプレイ。" />
+  <meta property="og:image" content="./assets/images/hero_banner.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CYBER DRAGON: BREACH Desktop Edition" />
+  <meta name="twitter:description" content="Sector 46の防衛ラインを死守せよ。3D Wave-Defense Arena FPS Desktop Edition。" />
+  <meta name="twitter:image" content="./assets/images/hero_banner.jpg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Cyber Background Canvas & Overlays -->
+  <canvas id="cyber-bg-canvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="cyber-scanlines"></div>
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-magenta"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="https://cyber-matrix.netlify.app/" class="nav-brand" title="Cyber Matrix Desktop Store Portal">
+        <div class="brand-logo-glow">
+          <i class="fa-solid fa-circle-nodes"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CYBER MATRIX</span>
+          <span class="brand-sub">DESKTOP STORE</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features" class="nav-link" data-ja="特徴" data-en="Features">特徴</a>
+        <a href="#gameplay" class="nav-link" data-ja="ウェーブ防衛" data-en="Waves">ウェーブ防衛</a>
+        <a href="#manual" class="nav-link" data-ja="操作マニュアル" data-en="Manual">操作マニュアル</a>
+        <a href="#gallery" class="nav-link" data-ja="ギャラリー" data-en="Gallery">ギャラリー</a>
+        <a href="#specs" class="nav-link" data-ja="動作環境" data-en="Specs">動作環境</a>
+        <a href="#faq" class="nav-link" data-ja="FAQ" data-en="FAQ">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <button id="lang-toggle-btn" class="btn-cyber-ghost lang-btn" aria-label="Toggle Language">
+          <i class="fa-solid fa-globe"></i>
+          <span id="lang-label">EN / 日本語</span>
+        </button>
+
+        <a href="#pricing" class="btn-cyber-primary nav-buy-btn">
+          <span class="btn-glitch-text" data-ja="購入 ¥300" data-en="BUY ¥300">購入 ¥300</span>
+          <i class="fa-solid fa-bolt"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="mobile-toggle" aria-label="Open Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-drawer">
+      <a href="#features" class="mobile-nav-link" data-ja="特徴" data-en="Features">特徴</a>
+      <a href="#gameplay" class="mobile-nav-link" data-ja="ウェーブ防衛" data-en="Waves">ウェーブ防衛</a>
+      <a href="#manual" class="mobile-nav-link" data-ja="操作マニュアル" data-en="Manual">操作マニュアル</a>
+      <a href="#gallery" class="mobile-nav-link" data-ja="ギャラリー" data-en="Gallery">ギャラリー</a>
+      <a href="#specs" class="mobile-nav-link" data-ja="動作環境" data-en="Specs">動作環境</a>
+      <a href="#faq" class="mobile-nav-link" data-ja="FAQ" data-en="FAQ">FAQ</a>
+      <a href="https://cyber-matrix.netlify.app/" class="mobile-nav-link" data-ja="← ストアトップへ戻る" data-en="← Back to Store Portal">← ストアトップへ戻る</a>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-container">
+        <div class="hero-content">
+          <!-- Mission Status Badge -->
+          <div class="badge-status-pulse">
+            <span class="pulse-dot"></span>
+            <span class="badge-text" data-ja="3D WAVE-DEFENSE FPS SERIES // SECTOR 46 DEFENSE LINE" data-en="3D WAVE-DEFENSE FPS SERIES // SECTOR 46 DEFENSE LINE">
+              3D WAVE-DEFENSE FPS SERIES // SECTOR 46 DEFENSE LINE
+            </span>
+          </div>
+
+          <!-- Hero Main Title -->
+          <h1 class="hero-title">
+            <span class="title-main">CYBER DRAGON</span>
+            <span class="title-sub">BREACH</span>
+            <span class="title-badge">Desktop Edition</span>
+          </h1>
+
+          <!-- Hero Tagline -->
+          <p class="hero-desc" data-ja="Sector 46の防衛ラインに迫る凶悪なネオン・サイバードラゴンの大群を迎撃せよ。パルスライフル、タクティカルレーダー、AIお手本巡航モードを搭載した、極限の3Dアリーナ型サバイバルFPS。" data-en="Intercept swarms of rogue neon cyber dragons breaching Sector 46 defense perimeter. A high-octane 3D arena survival wave-defense FPS powered by Pulse Rifle, Tactical Radar, and AI Cruise Takeover Mode.">
+            Sector 46の防衛ラインに迫る凶悪なネオン・サイバードラゴンの大群を迎撃せよ。パルスライフル、タクティカルレーダー、AIお手本巡航モードを搭載した、極限の3Dアリーナ型サバイバルFPS。
+          </p>
+
+          <!-- Quick Specs Badges -->
+          <div class="hero-highlights">
+            <div class="highlight-item">
+              <i class="fa-solid fa-dragon"></i>
+              <span data-ja="3ウェーブ・全42体迎撃" data-en="3 Waves / 42 Dragons">3ウェーブ・全42体迎撃</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-microchip"></i>
+              <span data-ja="100% ローカルGPU駆動" data-en="100% Native GPU Power">100% ローカルGPU駆動</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-robot"></i>
+              <span data-ja="AIお手本＆手動テイクオーバー" data-en="AI Demo & Manual Takeover">AIお手本＆手動テイクオーバー</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-wifi-slash"></i>
+              <span data-ja="完全オフライン動作対応" data-en="100% Offline Capable">完全オフライン動作対応</span>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hero-cta-group">
+            <a href="#pricing" class="btn-cyber-primary btn-hero-main">
+              <div class="btn-shine"></div>
+              <i class="fa-brands fa-windows"></i>
+              <i class="fa-brands fa-apple"></i>
+              <span data-ja="今すぐ購入・ダウンロード (¥300)" data-en="GET DESKTOP EDITION (¥300)">今すぐ購入・ダウンロード (¥300)</span>
+            </a>
+            <a href="#gameplay" class="btn-cyber-secondary">
+              <i class="fa-solid fa-crosshairs"></i>
+              <span data-ja="ミッション仕様を見る" data-en="View Mission Specs">ミッション仕様を見る</span>
+            </a>
+          </div>
+
+          <!-- System Platforms & Guarantee -->
+          <div class="hero-guarantee">
+            <span><i class="fa-solid fa-shield-halved"></i> Stripe安全決済</span>
+            <span>•</span>
+            <span><i class="fa-solid fa-download"></i> 即時ダウンロード</span>
+            <span>•</span>
+            <span><i class="fa-solid fa-infinity"></i> 追加課金なし買い切り</span>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase Card -->
+        <div class="hero-visual-card">
+          <div class="card-glow-border">
+            <div class="visual-wrapper">
+              <img src="./assets/images/hero_banner.jpg" alt="CYBER DRAGON: BREACH Key Visual" class="hero-image" id="hero-promo-img" />
+              <div class="visual-overlay"></div>
+              
+              <!-- Floating Live HUD Element -->
+              <div class="floating-hud-badge top-left">
+                <span class="hud-dot active"></span>
+                <span class="hud-mono">CORE STATUS: ENGAGED</span>
+              </div>
+              <div class="floating-hud-badge bottom-left">
+                <i class="fa-solid fa-crosshairs"></i>
+                <span class="hud-mono">RADAR: ACTIVE (360°)</span>
+              </div>
+              <div class="floating-hud-badge bottom-right">
+                <span class="hud-mono font-bold text-cyan">¥300</span>
+                <span class="hud-sub">ONE-TIME</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY DESKTOP EDITION (KEY FEATURES) -->
+    <section class="section-container" id="features">
+      <div class="section-header">
+        <span class="section-tag" data-ja="TACTICAL ARENA SYSTEM" data-en="TACTICAL ARENA SYSTEM">TACTICAL ARENA SYSTEM</span>
+        <h2 class="section-title" data-ja="なぜデスクトップ版（DL版）なのか？" data-en="Why Desktop Edition?">なぜデスクトップ版（DL版）なのか？</h2>
+        <p class="section-desc" data-ja="ブラウザのサンドボックス制限を超え、PCのローカルリソースを100%解放。ミリ秒単位のエイムレスポンスと美麗なサイバー空間を実現。" data-en="Breaking free from browser sandbox limits to unleash 100% of your native hardware. Sub-millisecond aim response and rich cyberpunk visual immersion.">
+          ブラウザのサンドボックス制限を超え、PCのローカルリソースを100%解放。ミリ秒単位のエイムレスポンスと美麗なサイバー空間を実現。
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper cyan">
+            <i class="fa-solid fa-dragon"></i>
+          </div>
+          <div class="feature-body">
+            <h3 class="feature-heading" data-ja="3Dプロシージャル・サイバードラゴン迎撃戦" data-en="Procedural 3D Cyber Dragons">3Dプロシージャル・サイバードラゴン迎撃戦</h3>
+            <p class="feature-text" data-ja="鋭利な装甲頭部、発光するシアンのツノと目、胸部のプラズマコア、羽ばたくネオン翼、鞭のように波打つ3関節の尾を備えたサイバードラゴンが四方から滑空襲来。1.5m以内の自爆特攻を撃ち落とせ。" data-en="Procedural dragons with armored heads, glowing cyan horns, plasma cores, flapping neon wings, and undulating 3-joint tails soar from 4 portals. Stop their 1.5m kamikaze blasts.">
+              鋭利な装甲頭部、発光するシアンのツノと目、胸部のプラズマコア、羽ばたくネオン翼、鞭のように波打つ3関節の尾を備えたサイバードラゴンが四方から滑空襲来。1.5m以内の自爆特攻を撃ち落とせ。
+            </p>
+            <div class="feature-meta">
+              <span class="badge-mini"><i class="fa-solid fa-fire"></i> 被弾白発光演出</span>
+              <span class="badge-mini"><i class="fa-solid fa-skull"></i> 20dmg 自爆範囲</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper teal">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="feature-body">
+            <h3 class="feature-heading" data-ja="AIお手本巡航 ＆ シームレステイクオーバー" data-en="AI Cruise Mode & Seamless Takeover">AIお手本巡航 ＆ シームレステイクオーバー</h3>
+            <p class="feature-text" data-ja="自動巡航AIが最寄りのドラゴンを自律索敵し、滑らかなエイム、引き撃ち移動、ジャンプ回避、リロードを実行。デモ中いつでも画面をクリックするだけで即座にプレイヤー手動操作へ移行できます。" data-en="Autonomous AI cruises the arena, tracks nearest targets with smooth aiming, kiting movement, jump evasions, and tactical reloads. Click anywhere anytime to seamlessly take over.">
+              自動巡航AIが最寄りのドラゴンを自律索敵し、滑らかなエイム、引き撃ち移動、ジャンプ回避、リロードを実行。デモ中いつでも画面をクリックするだけで即座にプレイヤー手動操作へ移行できます。
+            </p>
+            <div class="feature-meta">
+              <span class="badge-mini"><i class="fa-solid fa-gamepad"></i> シームレステイクオーバー</span>
+              <span class="badge-mini"><i class="fa-solid fa-eye"></i> 観賞＆攻略学習</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper magenta">
+            <i class="fa-solid fa-crosshairs"></i>
+          </div>
+          <div class="feature-body">
+            <h3 class="feature-heading" data-ja="タクティカルレーダー ＆ 画面外脅威警告マーカー" data-en="Tactical Radar & Off-Screen Threat Markers">タクティカルレーダー ＆ 画面外脅威警告マーカー</h3>
+            <p class="feature-text" data-ja="自機を中心とした円形レーダーが全ドラゴンの位置を赤い点でリアルタイム表示。さらに視界外（真後ろや真横）からの奇襲を画面端の赤い矢印マーカー（▲）がナビゲートし、死角のない迎撃を支援。" data-en="A 360-degree tactical radar plots approaching dragons in real-time. Off-screen red threat arrows (▲) dynamically point to enemies flanking behind you for zero blind spots.">
+              自機を中心とした円形レーダーが全ドラゴンの位置を赤い点でリアルタイム表示。さらに視界外（真後ろや真横）からの奇襲を画面端の赤い矢印マーカー（▲）がナビゲートし、死角のない迎撃を支援。
+            </p>
+            <div class="feature-meta">
+              <span class="badge-mini"><i class="fa-solid fa-radar"></i> 360° 全方位プロット</span>
+              <span class="badge-mini"><i class="fa-solid fa-arrows-to-dot"></i> 画面端追尾HUD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper emerald">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div class="feature-body">
+            <h3 class="feature-heading" data-ja="超低遅延・高FPS ＆ プロシージャル音響合成" data-en="Ultra Low Latency & Procedural Audio">超低遅延・高FPS ＆ プロシージャル音響合成</h3>
+            <p class="feature-text" data-ja="外部オーディオファイルへの依存を排除し、Web Audio APIによるリアルタイム波形合成を採用。射撃音、金属命中音、被弾サイン波、メカニカル装填音をミリ秒単位のゼロ遅延でダイナミック生成。" data-en="Zero external audio file overhead with real-time procedural audio synthesis. Square-wave shots, metallic hit pings, bass impact pulses, and mechanical reloads generated with zero latency.">
+              外部オーディオファイルへの依存を排除し、Web Audio APIによるリアルタイム波形合成を採用。射撃音、金属命中音、被弾サイン波、メカニカル装填音をミリ秒単位のゼロ遅延でダイナミック生成。
+            </p>
+            <div class="feature-meta">
+              <span class="badge-mini"><i class="fa-solid fa-volume-high"></i> プロシージャル音響</span>
+              <span class="badge-mini"><i class="fa-solid fa-gauge-high"></i> 超軽量・高速実行</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMEPLAY & WAVES SPECS -->
+    <section class="section-container bg-alt" id="gameplay">
+      <div class="section-header">
+        <span class="section-tag" data-ja="MISSION OBJECTIVES" data-en="MISSION OBJECTIVES">MISSION OBJECTIVES</span>
+        <h2 class="section-title" data-ja="全3ウェーブ・電脳竜襲来プロファイル" data-en="3 Waves Defense Profile">全3ウェーブ・電脳竜襲来プロファイル</h2>
+        <p class="section-desc" data-ja="セクター46防衛ゲートに飛来するサイバードラゴンのウェーブ別スペック。ウェーブが進むごとに速度と耐久値が劇的に強化されます。" data-en="Detailed specs of rogue dragons breaching Sector 46 portals. Speed, swarm density, and dragon durability escalate per wave.">
+          セクター46防衛ゲートに飛来するサイバードラゴンのウェーブ別スペック。ウェーブが進むごとに速度と耐久値が劇的に強化されます。
+        </p>
+      </div>
+
+      <!-- Wave Cards Grid -->
+      <div class="waves-grid">
+        <!-- Wave 1 -->
+        <div class="wave-card wave-1">
+          <div class="wave-badge">WAVE 01</div>
+          <h3 class="wave-title" data-ja="初期侵入プロトコル" data-en="Initial Infiltration">初期侵入プロトコル</h3>
+          <ul class="wave-stats">
+            <li><span class="stat-label" data-ja="ドラゴン総数" data-en="Total Dragons">ドラゴン総数</span><span class="stat-val font-mono">8 体</span></li>
+            <li><span class="stat-label" data-ja="最大同時飛来" data-en="Max Concurrent">最大同時飛来</span><span class="stat-val font-mono">4 体</span></li>
+            <li><span class="stat-label" data-ja="飛行速度" data-en="Flight Speed">飛行速度</span><span class="stat-val font-mono">4.0 m/s</span></li>
+            <li><span class="stat-label" data-ja="ドラゴン耐久値" data-en="Dragon HP">ドラゴン耐久値</span><span class="stat-val font-mono text-cyan">50 HP (1発撃破)</span></li>
+          </ul>
+          <p class="wave-note" data-ja="飛来するドラゴンのエイムと、後退しながら射撃する「引き撃ち」の基本を掴む導入セクター。" data-en="Practice your aim and basic kiting tactics against standard speed dragons.">
+            飛来するドラゴンのエイムと、後退しながら射撃する「引き撃ち」の基本を掴む導入セクター。
+          </p>
+        </div>
+
+        <!-- Wave 2 -->
+        <div class="wave-card wave-2">
+          <div class="wave-badge">WAVE 02</div>
+          <h3 class="wave-title" data-ja="大群増援フェーズ" data-en="Swarm Reinforcement">大群増援フェーズ</h3>
+          <ul class="wave-stats">
+            <li><span class="stat-label" data-ja="ドラゴン総数" data-en="Total Dragons">ドラゴン総数</span><span class="stat-val font-mono">14 体</span></li>
+            <li><span class="stat-label" data-ja="最大同時飛来" data-en="Max Concurrent">最大同時飛来</span><span class="stat-val font-mono">6 体</span></li>
+            <li><span class="stat-label" data-ja="飛行速度" data-en="Flight Speed">飛行速度</span><span class="stat-val font-mono">5.5 m/s</span></li>
+            <li><span class="stat-label" data-ja="ドラゴン耐久値" data-en="Dragon HP">ドラゴン耐久値</span><span class="stat-val font-mono text-teal">50 HP (1発撃破)</span></li>
+          </ul>
+          <p class="wave-note" data-ja="同時飛来数が増加。タクティカルレーダーと画面端の赤い矢印マーカー（▲）を確認しながら立ち回れ。" data-en="Swarm density increases. Rely heavily on your radar and off-screen threat indicators.">
+            同時飛来数が増加。タクティカルレーダーと画面端の赤い矢印マーカー（▲）を確認しながら立ち回れ。
+          </p>
+        </div>
+
+        <!-- Wave 3 -->
+        <div class="wave-card wave-3">
+          <div class="wave-badge">WAVE 03</div>
+          <h3 class="wave-title" data-ja="極限電脳竜強襲" data-en="Apex Dragon Assault">極限電脳竜強襲</h3>
+          <ul class="wave-stats">
+            <li><span class="stat-label" data-ja="ドラゴン総数" data-en="Total Dragons">ドラゴン総数</span><span class="stat-val font-mono">20 体</span></li>
+            <li><span class="stat-label" data-ja="最大同時飛来" data-en="Max Concurrent">最大同時飛来</span><span class="stat-val font-mono">8 体</span></li>
+            <li><span class="stat-label" data-ja="飛行速度" data-en="Flight Speed">飛行速度</span><span class="stat-val font-mono text-magenta">7.2 m/s (高速)</span></li>
+            <li><span class="stat-label" data-ja="ドラゴン耐久値" data-en="Dragon HP">ドラゴン耐久値</span><span class="stat-val font-mono text-magenta">100 HP (2発撃破)</span></li>
+          </ul>
+          <p class="wave-note" data-ja="高速追従かつ2発の直撃が必要な極限激戦。スラスタージャンプによる回避と高速装填が勝敗を分ける。" data-en="High-speed dragons requiring 2 hits each. Thruster jumping and proactive reloading are essential.">
+            高速追従かつ2発の直撃が必要な極限激戦。スラスタージャンプによる回避と高速装填が勝敗を分ける。
+          </p>
+        </div>
+      </div>
+
+      <!-- Pulse Rifle Showcase Strip -->
+      <div class="weapon-strip">
+        <div class="weapon-info">
+          <span class="weapon-tag">EQUIPPED ARMAMENT</span>
+          <h3 class="weapon-name">PULSE RIFLE [CALIBER .99]</h3>
+          <p class="weapon-desc" data-ja="Sector 46迎撃オペレーター標準支給の対竜プラズマパルスライフル。即時着弾のヒットスキャン射撃、12発マガジン、1.5秒メカニカル装填。" data-en="Standard-issue anti-dragon plasma rifle. Instant hitscan ray, 12-round capacitor magazine, and 1.5s mechanical quick-reload.">
+            Sector 46迎撃オペレーター標準支給の対竜プラズマパルスライフル。即時着弾のヒットスキャン射撃、12発マガジン、1.5秒メカニカル装填。
+          </p>
+        </div>
+        <div class="weapon-specs-grid">
+          <div class="spec-cell">
+            <span class="spec-num font-mono">12</span>
+            <span class="spec-lbl" data-ja="装弾数 (Rounds)" data-en="Capacity">装弾数 (Rounds)</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-num font-mono">1.5s</span>
+            <span class="spec-lbl" data-ja="装填時間 (Reload)" data-en="Reload Time">装填時間 (Reload)</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-num font-mono text-cyan">HITSCAN</span>
+            <span class="spec-lbl" data-ja="即時着弾方式" data-en="Instant Beam">即時着弾方式</span>
+          </div>
+          <div class="spec-cell">
+            <span class="spec-num font-mono text-magenta">50 DMG</span>
+            <span class="spec-lbl" data-ja="単発威力 (Base Dmg)" data-en="Base Damage">単発威力 (Base Dmg)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERATIVE COMBAT MANUAL (CONTROLS & TACTICS) -->
+    <section class="section-container" id="manual">
+      <div class="section-header">
+        <span class="section-tag" data-ja="OPERATIVE MANUAL" data-en="OPERATIVE MANUAL">OPERATIVE MANUAL</span>
+        <h2 class="section-title" data-ja="操作マニュアル ＆ 生存戦術ガイド" data-en="Controls & Survival Tactics">操作マニュアル ＆ 生存戦術ガイド</h2>
+        <p class="section-desc" data-ja="快適な3D操作性と、過酷なウェーブ防衛を生き抜くための4大戦術プロトコル。" data-en="Intuitive key controls and 4 golden tactical rules to conquer all 3 waves.">
+          快適な3D操作性と、過酷なウェーブ防衛を生き抜くための4大戦術プロトコル。
+        </p>
+      </div>
+
+      <div class="manual-layout">
+        <!-- Controls Table Card -->
+        <div class="manual-card controls-card">
+          <h3 class="manual-card-title"><i class="fa-solid fa-keyboard"></i> <span data-ja="操作方法一覧 (Key Controls)" data-en="Control Schemes">操作方法一覧 (Key Controls)</span></h3>
+          <div class="controls-table">
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge">MOUSE</span></div>
+              <div class="key-desc">
+                <strong data-ja="視点移動 / 照準（エイム）" data-en="Mouse Look / Aiming">視点移動 / 照準（エイム）</strong>
+                <p data-ja="360度フリーカメラで飛来するドラゴンを精密照準" data-en="360° free-look aim to track flying dragons">360度フリーカメラで飛来するドラゴンを精密照準</p>
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge">LMB</span></div>
+              <div class="key-desc">
+                <strong data-ja="プラズマ射撃 / デモ操作移行" data-en="Left Click: Shoot / Takeover">プラズマ射撃 / デモ操作移行</strong>
+                <p data-ja="即着弾射撃。AIデモ中クリックで手動操作へシームレス移行" data-en="Instant hitscan fire. Clicks during AI demo switch to manual control">即着弾射撃。AIデモ中クリックで手動操作へシームレス移行</p>
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge">W</span><span class="key-badge">A</span><span class="key-badge">S</span><span class="key-badge">D</span></div>
+              <div class="key-desc">
+                <strong data-ja="前後左右移動" data-en="WASD Movement">前後左右移動</strong>
+                <p data-ja="アリーナ内を移動。常に後退しながら撃つ「引き撃ち」が有効" data-en="Move in arena. Constant backward kiting is most effective">アリーナ内を移動。常に後退しながら撃つ「引き撃ち」が有効</p>
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge key-space">SPACE</span></div>
+              <div class="key-desc">
+                <strong data-ja="スラスタージャンプ" data-en="Thruster Jump">スラスタージャンプ</strong>
+                <p data-ja="跳躍してドラゴンの急接近や自爆爆風（1.5m）を緊急回避" data-en="Leap to avoid sudden dragon dashes and 1.5m blast radius">跳躍してドラゴンの急接近や自爆爆風（1.5m）を緊急回避</p>
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge">R</span></div>
+              <div class="key-desc">
+                <strong data-ja="リロード（装填）" data-en="Reload Weapon">リロード（装填）</strong>
+                <p data-ja="マガジンを12発装填（装填時間: 1.5秒）" data-en="Reload pulse rifle magazine (1.5s cooldown)">マガジンを12発装填（装填時間: 1.5秒）</p>
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="key-combo"><span class="key-badge">ESC</span></div>
+              <div class="key-desc">
+                <strong data-ja="マウスロック解除" data-en="Unlock Cursor">マウスロック解除</strong>
+                <p data-ja="ポインターロックを解除してカーソルを復帰" data-en="Release pointer lock cursor">ポインターロックを解除してカーソルを復帰</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Survival Tactics Guide -->
+        <div class="manual-card tactics-card">
+          <h3 class="manual-card-title"><i class="fa-solid fa-shield-halved"></i> <span data-ja="4大生存テクニック (Survival Tactics)" data-en="4 Golden Survival Tactics">4大生存テクニック (Survival Tactics)</span></h3>
+          <div class="tactics-list">
+            <div class="tactic-item">
+              <div class="tactic-num font-mono">01</div>
+              <div class="tactic-content">
+                <h4 data-ja="常に下がりながら撃つ（引き撃ち / カイティング）" data-en="Always Kite Backwards">常に下がりながら撃つ（引き撃ち / カイティング）</h4>
+                <p data-ja="ドラゴンに向かって前進すると自爆範囲（1.5m）に入りやすくなります。Sキーで後退しながら射撃しましょう。" data-en="Moving forward triggers the 1.5m self-destruct radius. Keep backing up with S key while firing.">
+                  ドラゴンに向かって前進すると自爆範囲（1.5m）に入りやすくなります。Sキーで後退しながら射撃しましょう。
+                </p>
+              </div>
+            </div>
+            <div class="tactic-item">
+              <div class="tactic-num font-mono">02</div>
+              <div class="tactic-content">
+                <h4 data-ja="タクティカルレーダーと警告矢印（▲）を常時監視" data-en="Monitor Radar & Threat Markers">タクティカルレーダーと警告矢印（▲）を常時監視</h4>
+                <p data-ja="画面端に赤い矢印が出たら背後からドラゴンが迫っています。即座に視点を回して迎撃するか後退で距離を取りましょう。" data-en="Red arrows at screen edges indicate dragons flanking from behind. Pivot or jump to re-engage.">
+                  画面端に赤い矢印が出たら背後からドラゴンが迫っています。即座に視点を回して迎撃するか後退で距離を取りましょう。
+                </p>
+              </div>
+            </div>
+            <div class="tactic-item">
+              <div class="tactic-num font-mono">03</div>
+              <div class="tactic-content">
+                <h4 data-ja="群れの合間にこまめなリロード（装填）" data-en="Reload Between Waves">群れの合間にこまめなリロード（装填）</h4>
+                <p data-ja="Wave 3では2発直撃が必要。残弾が少なくなったら敵のスポーンの合間にRキーで必ず装填を完了させましょう。" data-en="Wave 3 dragons require 2 shots. Reload proactively with R key between enemy waves.">
+                  Wave 3では2発直撃が必要。残弾が少なくなったら敵のスポーンの合間にRキーで必ず装填を完了させましょう。
+                </p>
+              </div>
+            </div>
+            <div class="tactic-item">
+              <div class="tactic-num font-mono">04</div>
+              <div class="tactic-content">
+                <h4 data-ja="スラスタージャンプによる緊急回避" data-en="Thruster Jump for Blast Evasion">スラスタージャンプによる緊急回避</h4>
+                <p data-ja="目の前にドラゴンが急接近して自爆寸前になったら、SPACEキーで跳躍して爆風の直撃（20ダメージ）を回避！" data-en="When dragons rush within point-blank range, jump with SPACE to escape the 20 HP ground explosion.">
+                  目の前にドラゴンが急接近して自爆寸前になったら、SPACEキーで跳躍して爆風の直撃（20ダメージ）を回避！
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SCREENSHOT GALLERY -->
+    <section class="section-container bg-alt" id="gallery">
+      <div class="section-header">
+        <span class="section-tag" data-ja="VISUAL DATABASE" data-en="VISUAL DATABASE">VISUAL DATABASE</span>
+        <h2 class="section-title" data-ja="ゲーム内実機スクリーンショット" data-en="In-Game Screenshots">ゲーム内実機スクリーンショット</h2>
+        <p class="section-desc" data-ja="滑らかなThree.js 3Dグラフィックス、サイバーパンクHUD、迫り来るサイバードラゴンの実機画面。（クリックで拡大表示）" data-en="Real in-game captures showcasing Three.js 3D rendering, cyberpunk HUD, and soaring dragons. (Click to zoom)">
+          滑らかなThree.js 3Dグラフィックス、サイバーパンクHUD、迫り来るサイバードラゴンの実機画面。（クリックで拡大表示）
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <!-- Gallery Item 1 -->
+        <div class="gallery-card" data-full="./assets/images/hud_gameplay.png" data-caption="リアルタイム戦闘HUDとドラゴンスポーン">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/hud_gameplay.png" alt="In-game HUD and Combat" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="戦闘HUD &amp; ドラゴン迎撃" data-en="Combat HUD &amp; Dragon Intercept">戦闘HUD &amp; ドラゴン迎撃</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="戦闘HUD ＆ ドラゴン迎撃" data-en="Combat HUD &amp; Dragon Intercept">戦闘HUD ＆ ドラゴン迎撃</span>
+            <span class="gallery-tag">1080P IN-GAME</span>
+          </div>
+        </div>
+
+        <!-- Gallery Item 2 -->
+        <div class="gallery-card" data-full="./assets/images/start_screen.png" data-caption="スタート画面（出撃モード＆AIデモモード選択）">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/start_screen.png" alt="Start Screen with AI Demo Selection" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="作戦指令 ＆ モード選択画面" data-en="Mission Briefing &amp; Start Screen">作戦指令 ＆ モード選択画面</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="作戦指令 ＆ モード選択画面" data-en="Mission Briefing &amp; Start Screen">作戦指令 ＆ モード選択画面</span>
+            <span class="gallery-tag">START PROTOCOL</span>
+          </div>
+        </div>
+
+        <!-- Gallery Item 3 -->
+        <div class="gallery-card" data-full="./assets/images/combat_dragon.png" data-caption="飛来するネオンサイバードラゴンとパルス射撃">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/combat_dragon.png" alt="Cyber Dragons in Flight" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="ネオンサイバードラゴンの飛来" data-en="Neon Cyber Dragons in Flight">ネオンサイバードラゴンの飛来</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="ネオンサイバードラゴンの飛来" data-en="Neon Cyber Dragons in Flight">ネオンサイバードラゴンの飛来</span>
+            <span class="gallery-tag">3D PROCEDURAL</span>
+          </div>
+        </div>
+
+        <!-- Gallery Item 4 -->
+        <div class="gallery-card" data-full="./assets/images/tactical_radar.png" data-caption="タクティカルレーダーと画面外脅威警告マーカー（▲）">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/tactical_radar.png" alt="Tactical Radar & Threat Indicators" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="レーダー ＆ 画面外脅威警告" data-en="Tactical Radar &amp; Threat Arrows">レーダー ＆ 画面外脅威警告</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="レーダー ＆ 画面外脅威警告" data-en="Tactical Radar &amp; Threat Arrows">レーダー ＆ 画面外脅威警告</span>
+            <span class="gallery-tag">RADAR HUD</span>
+          </div>
+        </div>
+
+        <!-- Gallery Item 5 -->
+        <div class="gallery-card" data-full="./assets/images/dragon_closeup.png" data-caption="サイバードラゴンの頭部・発光コア・翼ディテール">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/dragon_closeup.png" alt="Dragon Close-up Detail" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="電脳竜の装甲・発光ディテール" data-en="Dragon Armor &amp; Core Detail">電脳竜の装甲・発光ディテール</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="電脳竜の装甲・発光ディテール" data-en="Dragon Armor &amp; Core Detail">電脳竜の装甲・発光ディテール</span>
+            <span class="gallery-tag">CLOSE-UP</span>
+          </div>
+        </div>
+
+        <!-- Gallery Item 6 -->
+        <div class="gallery-card" data-full="./assets/images/hero_banner.jpg" data-caption="CYBER DRAGON: BREACH 公式プロモーションアート">
+          <div class="gallery-thumb-wrapper">
+            <img src="./assets/images/hero_banner.jpg" alt="CYBER DRAGON: BREACH Promo Art" loading="lazy" />
+            <div class="gallery-hover-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+              <span data-ja="公式キービジュアル" data-en="Official Key Visual">公式キービジュアル</span>
+            </div>
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-title" data-ja="公式キービジュアル" data-en="Official Key Visual">公式キービジュアル</span>
+            <span class="gallery-tag">PROMO ART</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & CHECKOUT SECTION -->
+    <section class="section-container" id="pricing">
+      <div class="section-header">
+        <span class="section-tag" data-ja="INSTANT ACCESS" data-en="INSTANT ACCESS">INSTANT ACCESS</span>
+        <h2 class="section-title" data-ja="デスクトップ版を購入・ダウンロード" data-en="Get Cyber Dragon: Breach">デスクトップ版を購入・ダウンロード</h2>
+        <p class="section-desc" data-ja="一度の購入で永久プレイ可能。追加課金なしの完全買い切り型ライセンス。" data-en="One-time purchase for lifetime play. 100% DRM-free standalone application with zero microtransactions.">
+          一度の購入で永久プレイ可能。追加課金なしの完全買い切り型ライセンス。
+        </p>
+      </div>
+
+      <div class="pricing-card-wrapper">
+        <div class="pricing-box">
+          <div class="pricing-badge-top">
+            <span class="badge-text" data-ja="ONE-TIME PURCHASE (買い切り)" data-en="ONE-TIME PURCHASE">ONE-TIME PURCHASE (買い切り)</span>
+          </div>
+
+          <div class="pricing-header">
+            <h3 class="pricing-product-name">CYBER DRAGON: BREACH</h3>
+            <span class="pricing-edition font-orbitron">Desktop Edition v1.0.0 Native</span>
+          </div>
+
+          <!-- Price Display -->
+          <div class="price-display">
+            <span class="currency-symbol">¥</span>
+            <span class="price-amount font-orbitron">300</span>
+            <span class="tax-tag" data-ja="(税込)" data-en="(Tax Incl.)">(税込)</span>
+          </div>
+
+          <!-- Features Inclusions -->
+          <ul class="pricing-features-list">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="Windows版 (x64 Setup .exe) ＆ macOS版 (.dmg) 両対応" data-en="Windows (x64 Setup .exe) &amp; macOS (.dmg) included">Windows版 (x64 Setup .exe) ＆ macOS版 (.dmg) 両対応</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="完全オフラインプレイ対応（インターネット接続不要）" data-en="100% Offline gameplay (No internet required)">完全オフラインプレイ対応（インターネット接続不要）</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="AIお手本巡航モード ＆ シームレステイクオーバー機能" data-en="AI Cruise Demo Mode &amp; Seamless Manual Takeover">AIお手本巡航モード ＆ シームレステイクオーバー機能</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="全3ウェーブ（42体ドラゴン迎撃戦）完全収録" data-en="Full 3 Waves (42 Cyber Dragons battle campaign)">全3ウェーブ（42体ドラゴン迎撃戦）完全収録</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="日本語 / 英語 リアルタイム切り替え対応" data-en="Real-time Japanese / English language toggle">日本語 / 英語 リアルタイム切り替え対応</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              <span data-ja="今後のアップデート・バグ修正永久無料" data-en="Free lifetime updates and patches">今後のアップデート・バグ修正永久無料</span>
+            </li>
+          </ul>
+
+          <!-- Checkout CTA Buttons -->
+          <div class="pricing-actions">
+            <!-- Windows Purchase Button -->
+            <button class="btn-checkout btn-win" id="btn-buy-win" data-platform="win">
+              <div class="btn-checkout-icon"><i class="fa-brands fa-windows"></i></div>
+              <div class="btn-checkout-text">
+                <span class="btn-title" data-ja="Windows版を購入する (¥300)" data-en="Buy Windows Edition (¥300)">Windows版を購入する (¥300)</span>
+                <span class="btn-sub" data-ja="Stripe安全決済 • 即時ダウンロード (.exe)" data-en="Stripe Secure • Instant .exe Download">Stripe安全決済 • 即時ダウンロード (.exe)</span>
+              </div>
+              <i class="fa-solid fa-arrow-right btn-arrow"></i>
+            </button>
+
+            <!-- Mac Purchase Button -->
+            <button class="btn-checkout btn-mac" id="btn-buy-mac" data-platform="mac">
+              <div class="btn-checkout-icon"><i class="fa-brands fa-apple"></i></div>
+              <div class="btn-checkout-text">
+                <span class="btn-title" data-ja="macOS版を購入する (¥300)" data-en="Buy macOS Edition (¥300)">macOS版を購入する (¥300)</span>
+                <span class="btn-sub" data-ja="Stripe安全決済 • 即時ダウンロード (.dmg)" data-en="Stripe Secure • Instant .dmg Download">Stripe安全決済 • 即時ダウンロード (.dmg)</span>
+              </div>
+              <i class="fa-solid fa-arrow-right btn-arrow"></i>
+            </button>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pricing-trust-footer">
+            <div class="trust-pill">
+              <i class="fa-solid fa-lock"></i>
+              <span data-ja="Stripe 256bit 暗号化安全決済" data-en="Stripe 256-bit Encrypted">Stripe 256bit 暗号化安全決済</span>
+            </div>
+            <div class="trust-pill">
+              <i class="fa-solid fa-bolt"></i>
+              <span data-ja="購入後すぐに遊べる即時DL" data-en="Instant Download">購入後すぐに遊べる即時DL</span>
+            </div>
+            <div class="trust-pill">
+              <i class="fa-solid fa-shield-cat"></i>
+              <span data-ja="追加課金ゼロ・完全買い切り" data-en="Zero Extra Fees">追加課金ゼロ・完全買い切り</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM REQUIREMENTS (SPECS) -->
+    <section class="section-container bg-alt" id="specs">
+      <div class="section-header">
+        <span class="section-tag" data-ja="SPECIFICATIONS" data-en="SPECIFICATIONS">SPECIFICATIONS</span>
+        <h2 class="section-title" data-ja="システム動作環境" data-en="System Requirements">システム動作環境</h2>
+        <p class="section-desc" data-ja="軽量設計により、一般的なノートPCからハイエンドゲーミングPCまで快適に動作します。" data-en="Optimized lightweight engine runs smoothly on standard laptops to gaming rigs.">
+          軽量設計により、一般的なノートPCからハイエンドゲーミングPCまで快適に動作します。
+        </p>
+      </div>
+
+      <div class="specs-grid">
+        <!-- Windows Specs -->
+        <div class="specs-card">
+          <div class="specs-card-header">
+            <i class="fa-brands fa-windows"></i>
+            <h3>Windows</h3>
+          </div>
+          <table class="specs-table">
+            <tr>
+              <th data-ja="対応OS" data-en="OS">対応OS</th>
+              <td>Windows 10 / 11 (64-bit)</td>
+            </tr>
+            <tr>
+              <th data-ja="プロセッサ" data-en="CPU">プロセッサ</th>
+              <td>Intel Core i3 / AMD Ryzen 3 以上</td>
+            </tr>
+            <tr>
+              <th data-ja="メモリ" data-en="RAM">メモリ</th>
+              <td>4 GB RAM 以上 (8 GB 推奨)</td>
+            </tr>
+            <tr>
+              <th data-ja="グラフィックス" data-en="GPU">グラフィックス</th>
+              <td>WebGL 2.0 / DirectX 11 対応GPU</td>
+            </tr>
+            <tr>
+              <th data-ja="ストレージ" data-en="Storage">ストレージ</th>
+              <td>約 15 MB 以上の空き容量 (軽量設計)</td>
+            </tr>
+            <tr>
+              <th data-ja="入力デバイス" data-en="Input">入力デバイス</th>
+              <td data-ja="マウス ＆ キーボード" data-en="Mouse &amp; Keyboard">マウス ＆ キーボード</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- macOS Specs -->
+        <div class="specs-card">
+          <div class="specs-card-header">
+            <i class="fa-brands fa-apple"></i>
+            <h3>macOS</h3>
+          </div>
+          <table class="specs-table">
+            <tr>
+              <th data-ja="対応OS" data-en="OS">対応OS</th>
+              <td>macOS 11.0 (Big Sur) 以降</td>
+            </tr>
+            <tr>
+              <th data-ja="アーキテクチャ" data-en="Chipset">アーキテクチャ</th>
+              <td>Apple Silicon (M1/M2/M3/M4) &amp; Intel 64-bit</td>
+            </tr>
+            <tr>
+              <th data-ja="メモリ" data-en="RAM">メモリ</th>
+              <td>4 GB Unified Memory 以上</td>
+            </tr>
+            <tr>
+              <th data-ja="グラフィックス" data-en="GPU">グラフィックス</th>
+              <td>Metal / WebGL 2.0 対応GPU</td>
+            </tr>
+            <tr>
+              <th data-ja="ストレージ" data-en="Storage">ストレージ</th>
+              <td>約 20 MB 以上の空き容量 (軽量設計)</td>
+            </tr>
+            <tr>
+              <th data-ja="入力デバイス" data-en="Input">入力デバイス</th>
+              <td data-ja="マウス（またはトラックパッド） ＆ キーボード" data-en="Mouse/Trackpad &amp; Keyboard">マウス（またはトラックパッド） ＆ キーボード</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section-container" id="faq">
+      <div class="section-header">
+        <span class="section-tag" data-ja="SUPPORT &amp; FAQ" data-en="SUPPORT &amp; FAQ">SUPPORT &amp; FAQ</span>
+        <h2 class="section-title" data-ja="よくあるご質問" data-en="Frequently Asked Questions">よくあるご質問</h2>
+        <p class="section-desc" data-ja="購入やインストールに関する疑問にお答えします。" data-en="Answers to common questions regarding purchase and installation.">
+          購入やインストールに関する疑問にお答えします。
+        </p>
+      </div>
+
+      <div class="faq-accordion">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-ja="購入後のダウンロードとインストール手順はどうなりますか？" data-en="How do I download and install the game after purchase?">購入後のダウンロードとインストール手順はどうなりますか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p data-ja="Stripe決済完了後、即座にダウンロード画面が表示され、Windowsインストーラー（.exe）または macOSディスクイメージ（.dmg）を直接ダウンロードいただけます。ダウンロードしたファイルを開き、画面の指示に従ってインストールしてください。" data-en="Immediately after completing Stripe checkout, you will receive a direct download link for either the Windows installer (.exe) or macOS disk image (.dmg). Simply launch the downloaded file and follow the standard setup prompts.">
+              Stripe決済完了後、即座にダウンロード画面が表示され、Windowsインストーラー（.exe）または macOSディスクイメージ（.dmg）を直接ダウンロードいただけます。ダウンロードしたファイルを開き、画面の指示に従ってインストールしてください。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-ja="オフライン環境でもプレイできますか？" data-en="Can I play the game completely offline?">オフライン環境でもプレイできますか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p data-ja="はい、一度PCにインストールしていただければ、常時インターネット接続は一切不要です。飛行機内や外出先でも快適にプレイ可能です。" data-en="Yes, once installed on your PC or Mac, no continuous internet connection is required. You can enjoy full gameplay anywhere offline.">
+              はい、一度PCにインストールしていただければ、常時インターネット接続は一切不要です。飛行機内や外出先でも快適にプレイ可能です。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-ja="月額料金やゲーム内課金はありますか？" data-en="Are there any subscriptions or in-game microtransactions?">月額料金やゲーム内課金はありますか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p data-ja="いいえ、ありません。¥300（税込）の一度のお支払いで全3ウェーブ・AIモード・すべての機能を永久にご利用いただけます。" data-en="No. It is a one-time purchase of ¥300 (tax incl.) with no subscriptions, ads, or in-game purchases.">
+              いいえ、ありません。¥300（税込）の一度のお支払いで全3ウェーブ・AIモード・すべての機能を永久にご利用いただけます。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-ja="ゲームの言語は日本語に対応していますか？" data-en="Does the game support both English and Japanese?">ゲームの言語は日本語に対応していますか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p data-ja="はい、ゲーム画面右上の言語切り替えボタン（🌐 日本語 / EN）で、日本語と英語をいつでもリアルタイムに切り替え可能です。" data-en="Yes, you can toggle between Japanese and English in real-time using the top-right language button (🌐 日本語 / EN) inside the game.">
+              はい、ゲーム画面右上の言語切り替えボタン（🌐 日本語 / EN）で、日本語と英語をいつでもリアルタイムに切り替え可能です。
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-ja="不具合の報告やお問い合わせ先はどこですか？" data-en="Where can I contact customer support?">不具合の報告やお問い合わせ先はどこですか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p data-ja="Cyber Matrix公式お問い合わせ窓口（https://cyber-matrix.netlify.app/contact?product=dragon）よりお気軽にご連絡ください。" data-en="You can contact our support team anytime via the official Cyber Matrix Support Portal (https://cyber-matrix.netlify.app/contact?product=dragon).">
+              Cyber Matrix公式お問い合わせ窓口（<a href="https://cyber-matrix.netlify.app/contact?product=dragon" class="text-cyan underline">お問い合わせフォーム</a>）よりお気軽にご連絡ください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORE PORTAL BANNER CTA -->
+    <section class="section-container">
+      <div class="store-portal-banner">
+        <div class="banner-content">
+          <span class="banner-tag font-orbitron">CYBER MATRIX DESKTOP STORE</span>
+          <h2 class="banner-title" data-ja="Cyber Matrix シリーズの他のゲームもチェック" data-en="Explore More Games on Cyber Matrix">Cyber Matrix シリーズの他のゲームもチェック</h2>
+          <p class="banner-desc" data-ja="将棋、チェス、シャンチー、オセロ、テトリス、タロットなど、PCの真価を引き出すサイバーパンクシミュレーターコレクション。" data-en="Explore the complete cybernetic simulator lineup including Cyber Shogi, Chess, Xiangqi, Othello, Tetris, Tarot, and more.">
+            将棋、チェス、シャンチー、オセロ、テトリス、タロットなど、PCの真価を引き出すサイバーパンクシミュレーターコレクション。
+          </p>
+          <a href="https://cyber-matrix.netlify.app/" class="btn-cyber-primary banner-btn">
+            <span data-ja="ストアポータルを見る" data-en="Visit Store Portal">ストアポータルを見る</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo-glow">
+            <i class="fa-solid fa-circle-nodes"></i>
+          </div>
+          <div>
+            <span class="brand-title">CYBER MATRIX</span>
+            <span class="brand-sub">DESKTOP STORE PORTAL</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="https://cyber-matrix.netlify.app/" data-ja="ストアトップ" data-en="Store Top">ストアトップ</a>
+          <a href="https://cyber-matrix.netlify.app/contact?product=dragon" data-ja="お問い合わせ" data-en="Contact Support">お問い合わせ</a>
+          <a href="#features" data-ja="特徴" data-en="Features">特徴</a>
+          <a href="#pricing" data-ja="購入" data-en="Purchase">購入</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">CYBER DRAGON: BREACH Desktop Edition © 2026 Cyber Matrix Systems. All rights reserved.</p>
+        <p class="footer-powered">Engineered for High-Performance 3D Wave Defense.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightbox-modal">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">&times;</button>
+      <img src="" alt="Enlarged screenshot" class="lightbox-img" id="lightbox-img" />
+      <div class="lightbox-caption font-orbitron" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- PURCHASE / CHECKOUT SIMULATION MODAL -->
+  <div class="checkout-modal" id="checkout-modal">
+    <div class="checkout-backdrop" id="checkout-backdrop"></div>
+    <div class="checkout-box">
+      <button class="checkout-close" id="checkout-close" aria-label="Close Checkout">&times;</button>
+      <div class="modal-icon-badge">
+        <i class="fa-solid fa-dragon"></i>
+      </div>
+      <h3 class="modal-title font-orbitron">CYBER DRAGON: BREACH</h3>
+      <p class="modal-subtitle" id="modal-platform-text">Desktop Edition</p>
+
+      <div class="modal-price-box">
+        <span class="modal-price-label" data-ja="お支払い金額 (税込)" data-en="Total Amount (Tax Incl.)">お支払い金額 (税込)</span>
+        <span class="modal-price-val font-orbitron">¥300</span>
+      </div>
+
+      <div class="modal-checkout-flow">
+        <p class="modal-note" data-ja="Stripe安全決済ウィンドウへ接続します。決済完了後、即座にインストーラーがダウンロードされます。" data-en="Connecting to Stripe secure checkout. Your installer will download immediately upon confirmation.">
+          Stripe安全決済ウィンドウへ接続します。決済完了後、即座にインストーラーがダウンロードされます。
+        </p>
+        <div class="modal-btns">
+          <a href="https://cyber-matrix.netlify.app/products/dragon" class="btn-cyber-primary modal-action-btn" id="modal-stripe-link" target="_blank" rel="noopener">
+            <i class="fa-solid fa-lock"></i>
+            <span data-ja="Stripe決済へ進む (¥300)" data-en="Proceed to Stripe Checkout (¥300)">Stripe決済へ進む (¥300)</span>
+          </a>
+          <button class="btn-cyber-ghost" id="modal-cancel-btn">
+            <span data-ja="キャンセル" data-en="Cancel">キャンセル</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./script.js"></script>
+</body>
+</html>
