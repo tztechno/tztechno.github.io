@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER SURVIVORS | 極限の電脳空間を生き残れ - 爽快オートアタック・サバイバーライクACT</title>
+  <meta name="description" content="押し寄せる無数のサイバーエネミーを薙ぎ払い、自らの機体を強化しながら極限の生存を目指せ！見下ろし型爽快オートアタック・サバイバーライクACT『CYBER SURVIVORS』公式サイト。Windows / macOS / Web対応。">
+  <meta name="keywords" content="CYBER SURVIVORS, サイバーサバイバー, サバイバーライク, Vampire Survivors, オートアタック, アクションゲーム, インディーゲーム, Cyber Matrix">
+
+  <!-- OGP / SNS Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/survivors">
+  <meta property="og:title" content="CYBER SURVIVORS | 爽快オートアタック・サイバーサバイバーACT">
+  <meta property="og:description" content="電脳空間の覇者となれ！迫り来るネオンエネミーの群れをオート兵装で粉砕する極限のサバイバルアクション。">
+  <meta property="og:image" content="images/hero-keyart.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CYBER SURVIVORS | 爽快オートアタック・サイバーサバイバーACT">
+  <meta name="twitter:description" content="電脳空間の覇者となれ！迫り来るネオンエネミーの群れをオート兵装で粉砕する極限のサバイバルアクション。">
+  <meta name="twitter:image" content="images/hero-keyart.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+  <link rel="apple-touch-icon" href="images/icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cyber Matrix Interactive Canvas Background -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-magenta"></div>
+
+  <!-- Header / Navigation -->
+  <header class="cyber-header" id="navbar">
+    <div class="container header-content">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon-box">
+          <img src="images/icon.svg" alt="Cyber Survivors Icon" class="logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CYBER</span>
+          <span class="brand-sub">SURVIVORS</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#features" class="nav-link">特徴</a>
+        <a href="#gameplay" class="nav-link">ゲームシステム</a>
+        <a href="#arsenal" class="nav-link">武器 & スキル</a>
+        <a href="#enemies" class="nav-link">エネミー & ボス</a>
+        <a href="#specs" class="nav-link">動作環境</a>
+        <a href="#faq" class="nav-link">よくある質問</a>
+        <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="btn btn-header-cta mobile-only-btn">今すぐ入手 ➔</a>
+      </nav>
+
+      <div class="header-right">
+        <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="btn btn-neon-cyan btn-sm header-cta">
+          <span class="btn-text">今すぐ入手 ➔</span>
+          <span class="btn-glitch"></span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-text-content">
+          <div class="hero-badge animate-fade-in">
+            <span class="pulse-dot"></span>
+            <span>NEXT-GEN SURVIVOR-LIKE ACTION</span>
+          </div>
+          
+          <h1 class="hero-title animate-fade-in delay-1">
+            <span class="text-white">極限の電脳空間を</span><br>
+            <span class="gradient-text neon-text">生き残れ。</span>
+          </h1>
+
+          <p class="hero-lead animate-fade-in delay-2">
+            押し寄せる無数のサイバーエネミーをオート兵装で薙ぎ払い、自機を強化して無限の包囲網を突破せよ！<br class="desktop-br">
+            直感的な操作と奥深いビルド構築が織りなす、新次元のサイバーサバイバーライクACT。
+          </p>
+
+          <div class="hero-tags animate-fade-in delay-3">
+            <div class="hero-tag-item">
+              <span class="tag-icon">⚡</span>
+              <span class="tag-label">完全オート射撃</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">💎</span>
+              <span class="tag-label">ビルド構築無限大</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">👑</span>
+              <span class="tag-label">60秒白熱ボス戦</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">🌐</span>
+              <span class="tag-label">日英バイリンガル</span>
+            </div>
+          </div>
+
+          <!-- Hero CTA Buttons -->
+          <div class="hero-actions animate-fade-in delay-4">
+            <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">
+              <div class="btn-icon">⚡</div>
+              <div class="btn-inner-text">
+                <span class="btn-subtext">GET IT NOW / 今すぐプレイ</span>
+                <span class="btn-maintext">製品ページへ進む</span>
+              </div>
+              <span class="btn-arrow">➔</span>
+              <span class="btn-glow-layer"></span>
+            </a>
+
+            <div class="platform-support">
+              <span class="support-title">対応プラットフォーム:</span>
+              <div class="platform-icons">
+                <span class="plat-badge"><i class="icon-win">🪟</i> Windows (.exe)</span>
+                <span class="plat-badge"><i class="icon-mac">🍎</i> macOS (.dmg)</span>
+                <span class="plat-badge"><i class="icon-web">🌐</i> Web (HTML5)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-content animate-fade-in delay-2">
+          <div class="keyart-frame">
+            <div class="cyber-frame-corner top-left"></div>
+            <div class="cyber-frame-corner top-right"></div>
+            <div class="cyber-frame-corner bottom-left"></div>
+            <div class="cyber-frame-corner bottom-right"></div>
+            <div class="scanline-overlay"></div>
+            <img src="images/hero-keyart.jpg" alt="CYBER SURVIVORS Key Visual" class="keyart-image">
+            <div class="keyart-caption">
+              <span class="caption-status"><span class="status-indicator"></span>LIVE SYSTEM ONLINE</span>
+              <span class="caption-title">CYBER SURVIVORS v1.0.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Metric Stats Strip -->
+      <div class="stats-strip">
+        <div class="container stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">多彩なオート兵装</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">パッシブ強化チップ</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">60s</div>
+            <div class="stat-label">白熱ボス襲来周期</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">60FPS</div>
+            <div class="stat-label">超軽量・軽快動作</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">¥500</div>
+            <div class="stat-label">買い切り・追加課金なし</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">CORE FEATURES</div>
+          <h2 class="section-title">息もつかせぬ <span class="gradient-text">圧倒的快感体験</span></h2>
+          <p class="section-desc">シンプルながら無限に熱中できる、サバイバーライクACTの真髄がここに凝縮。</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper cyan">
+              <span class="feature-icon">🎯</span>
+            </div>
+            <h3 class="feature-title">攻撃は完全自動発動！<br>極限の位置取りに専念</h3>
+            <p class="feature-text">
+              攻撃操作は不要！接近する敵にオートで武装が火を吹きます。プレイヤーは敵の大群を巧みに誘導する「カイト走法」と、光る経験値クリスタルの回収に全神経を集中できます。
+            </p>
+            <div class="feature-tag">#直感操作 #ノンストップACT</div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper magenta">
+              <span class="feature-icon">⚡</span>
+            </div>
+            <h3 class="feature-title">ド派手なネオン弾幕＆<br>プロシージャル演出</h3>
+            <p class="feature-text">
+              マジックミサイルの誘導弾幕、高速旋回するオービットブレード、天から降り注ぐ雷撃！画面を埋め尽くすサイバーネオンのエフェクトとシンセSEが最高の爽快感を創出します。
+            </p>
+            <div class="feature-tag">#ネオン弾幕 #シンセサウンド</div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper gold">
+              <span class="feature-icon">🧬</span>
+            </div>
+            <h3 class="feature-title">武器×パッシブによる<br>無限のビルドシナジー</h3>
+            <p class="feature-text">
+              最大4つの武器と5つのパッシブスキルを自由に選択。攻撃速度特化、超広範囲殲滅、磁力吸収タンクなど、プレイごとに異なる戦略的ビルド構築が楽しめます。
+            </p>
+            <div class="feature-tag">#ローグライト #スキルシナジー</div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper purple">
+              <span class="feature-icon">👑</span>
+            </div>
+            <h3 class="feature-title">60秒ごとの恐怖！<br>超巨大サイバーボス戦</h3>
+            <p class="feature-text">
+              生存時間が60秒に達するたび、黄金に輝く規格外のボスエネミーが襲来！強大な耐久力を誇るボスを撃破すれば、超大量の高額経験値クリスタルを独占獲得できます。
+            </p>
+            <div class="feature-tag">#ボスバトル #ハイリスクハイリターン</div>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper cyan">
+              <span class="feature-icon">🤖</span>
+            </div>
+            <h3 class="feature-title">自律AIデモプレイ<br>(Auto-Pilot) 搭載</h3>
+            <p class="feature-text">
+              タイトル画面の「DEMO PLAY」を押すと、自律AIが戦闘・クリスタル回収・レベルアップを自動実行！観戦モードとして楽しめ、画面クリックでいつでも手動参戦可能です。
+            </p>
+            <div class="feature-tag">#AIアシスト #即時参戦</div>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper green">
+              <span class="feature-icon">🌐</span>
+            </div>
+            <h3 class="feature-title">日英バイリンガル ＆<br>マルチ操作系</h3>
+            <p class="feature-text">
+              ワンクリックで日本語/英語の切り替えが可能。キーボード（WASD / 矢印）、マウスドラッグ、タッチパネル（スマホ/タブレット）の全操作系に対応しています。
+            </p>
+            <div class="feature-tag">#日英完全対応 #全デバイス対応</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAMEPLAY & HOW TO PLAY SECTION -->
+    <section class="section gameplay-section" id="gameplay">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">HOW TO PLAY</div>
+          <h2 class="section-title">簡単3ステップで巡る <span class="gradient-text">熱狂のゲームループ</span></h2>
+          <p class="section-desc">ルールは直感的。だが極めれば極めるほどビルドの深淵に引き込まれる！</p>
+        </div>
+
+        <div class="gameplay-steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <div class="step-num-badge">STEP 01</div>
+            <div class="step-icon">🔄</div>
+            <h3 class="step-title">回避 ＆ 敵の誘導</h3>
+            <p class="step-text">
+              敵の群れに囲まれないよう、外周を大きく旋回する「カイト走法」で敵をまとめ上げます。自機のオート攻撃が次々と敵を撃破！
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-num-badge">STEP 02</div>
+            <div class="step-icon">💎</div>
+            <h3 class="step-title">経験値クリスタル回収</h3>
+            <p class="step-text">
+              敵を倒すとドロップする青・紫・金の光る結晶（💎）に接近して回収！EXPゲージが溜まり、即座にレベルアップ。
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-num-badge">STEP 03</div>
+            <div class="step-icon">⚡</div>
+            <h3 class="step-title">スキル選択で機体進化</h3>
+            <p class="step-text">
+              提示される3つの強化選択肢から好みの武器やパッシブを選択。自分だけの最強サイバー要塞をその場でビルド！
+            </p>
+          </div>
+        </div>
+
+        <!-- Gameplay Showcase Image Card -->
+        <div class="gameplay-preview-card cyber-panel">
+          <div class="preview-layout">
+            <div class="preview-image-container">
+              <div class="scanline-overlay"></div>
+              <img src="images/gameplay-preview.jpg" alt="CYBER SURVIVORS Gameplay Preview" class="preview-image">
+            </div>
+            <div class="preview-info-box">
+              <h3 class="preview-title">リアルタイム・レベルアップシステム</h3>
+              <p class="preview-desc">
+                経験値クリスタルが満タンになると、ゲームが一時停止して強化カードが出現。新武器のアンロックや既存兵装のパワーアップを選択し、戦況に応じた即時チューニングが勝利の鍵となります。
+              </p>
+              <div class="preview-checklist">
+                <div class="check-item"><span class="check-icon">✓</span> 最大4枠の武器スロットで多重攻撃</div>
+                <div class="check-item"><span class="check-icon">✓</span> 最大5枠のパッシブチップで基礎性能を爆上げ</div>
+                <div class="check-item"><span class="check-icon">✓</span> 最大LV5まで進化する破格の強化倍率</div>
+              </div>
+              <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="btn btn-neon-cyan preview-cta-btn">
+                今すぐこの体験をプレイ ➔
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARSENAL & SKILLS SECTION -->
+    <section class="section arsenal-section" id="arsenal">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">ARSENAL & PASSIVES</div>
+          <h2 class="section-title">全兵装 ＆ <span class="gradient-text">強化スキルカタログ</span></h2>
+          <p class="section-desc">組み合わせ次第で戦局が一変！あなたのプレイスタイルに合わせた最適解を見つけ出せ。</p>
+        </div>
+
+        <!-- Catalog Tabs -->
+        <div class="tab-switcher">
+          <button class="tab-btn active" data-tab="weapons">
+            <span class="tab-icon">⚔️</span> メイン兵装 (Weapons)
+          </button>
+          <button class="tab-btn" data-tab="passives">
+            <span class="tab-icon">🧬</span> パッシブチップ (Passives)
+          </button>
+        </div>
+
+        <!-- Weapons Content -->
+        <div class="tab-pane active" id="weapons-pane">
+          <div class="cards-grid">
+            <!-- Weapon 1 -->
+            <div class="catalog-card weapon-card">
+              <div class="card-header">
+                <div class="item-icon-box purple-box">🔮</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">マジックミサイル</h3>
+                  <span class="item-en">Magic Missile</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                最も近い敵を自動ロックオンし、高威力の誘導エネルギー弾を連続発射。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大発射数</span>
+                  <span class="spec-value highlight-cyan">4発同時発射</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">特性</span>
+                  <span class="spec-value">完全追尾 / 連射速度大幅UP</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weapon 2 -->
+            <div class="catalog-card weapon-card">
+              <div class="card-header">
+                <div class="item-icon-box cyan-box">🛡️</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">オービットブレード</h3>
+                  <span class="item-en">Orbital Blades</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                自機の周囲を高速旋回するエネルギーの刃。接近する敵を刻みノックバックさせる鉄壁の防護壁。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大ブレード数</span>
+                  <span class="spec-value highlight-cyan">5基 高速旋回</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">特性</span>
+                  <span class="spec-value">接近防止 / 常時ノックバック</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weapon 3 -->
+            <div class="catalog-card weapon-card">
+              <div class="card-header">
+                <div class="item-icon-box gold-box">⚡</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">サンダーストライク</h3>
+                  <span class="item-en">Thunder Smite</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                上空から高電圧の雷撃を敵へ直撃させる。着弾地点に広範囲の爆発ダメージを与え群れを一網打尽。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大落雷数</span>
+                  <span class="spec-value highlight-gold">4発同時落雷</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">特性</span>
+                  <span class="spec-value">広範囲爆破 / 高火力殲滅</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weapon 4 -->
+            <div class="catalog-card weapon-card">
+              <div class="card-header">
+                <div class="item-icon-box magenta-box">🔥</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">フレイムオーラ</h3>
+                  <span class="item-en">Flame Aura</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                自機周囲に常時灼熱のプラズマフィールドを展開。侵入した敵を毎秒凄まじい勢いで焼き尽くす。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大範囲</span>
+                  <span class="spec-value highlight-magenta">特大プラズマドーム</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">特性</span>
+                  <span class="spec-value">常時継続ダメージ / 密集敵特効</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weapon 5 -->
+            <div class="catalog-card weapon-card">
+              <div class="card-header">
+                <div class="item-icon-box blue-box">💠</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">バウンド手裏剣</h3>
+                  <span class="item-en">Bouncing Shuriken</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                敵から敵へと連続して跳ね返る高速サイバー手裏剣。画面内を縦横無尽に跳弾し敵群を切り裂く。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大バウンド数</span>
+                  <span class="spec-value highlight-cyan">最大9回 跳弾連鎖</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">特性</span>
+                  <span class="spec-value">連続跳弾 / 貫通マルチヒット</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Passives Content -->
+        <div class="tab-pane" id="passives-pane">
+          <div class="cards-grid">
+            <!-- Passive 1 -->
+            <div class="catalog-card passive-card">
+              <div class="card-header">
+                <div class="item-icon-box magenta-box">⚔️</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">攻撃力ブースト</h3>
+                  <span class="item-en">Might Chip</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                全武器の与ダメージを恒久的に底上げ。敵の耐久力が上がる後半戦の突破に不可欠。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">強化倍率</span>
+                  <span class="spec-value highlight-magenta">+15% / LV (最大 +75%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Passive 2 -->
+            <div class="catalog-card passive-card">
+              <div class="card-header">
+                <div class="item-icon-box gold-box">⚡</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">攻撃速度アップ</h3>
+                  <span class="item-en">Haste Chip</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                全武器のクールダウン時間を大幅短縮。弾幕密度と連射テンポが劇的に向上。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">短縮倍率</span>
+                  <span class="spec-value highlight-gold">-12% / LV (最大 -60%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Passive 3 -->
+            <div class="catalog-card passive-card">
+              <div class="card-header">
+                <div class="item-icon-box cyan-box">👟</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">加速ブーツ</h3>
+                  <span class="item-en">Boots Chip</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                機体の移動速度を向上。敵の包囲網脱出やボスエネミーの追撃回避に必須の機動チップ。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">速度上昇</span>
+                  <span class="spec-value highlight-cyan">+12% / LV (最大 +60%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Passive 4 -->
+            <div class="catalog-card passive-card">
+              <div class="card-header">
+                <div class="item-icon-box purple-box">🧲</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">磁力コア</h3>
+                  <span class="item-en">Magnet Core</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                経験値クリスタル（💎）の回収範囲を爆発的に拡大。遠くのジェムも自動で吸い寄せる。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">吸引範囲</span>
+                  <span class="spec-value highlight-cyan">+35% / LV (最大 +175%)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Passive 5 -->
+            <div class="catalog-card passive-card">
+              <div class="card-header">
+                <div class="item-icon-box green-box">💚</div>
+                <div class="item-title-wrap">
+                  <h3 class="item-name">生体ナノマシン</h3>
+                  <span class="item-en">Vitality Nano</span>
+                </div>
+                <span class="level-tag">MAX LV 5</span>
+              </div>
+              <p class="item-desc">
+                最大HPを拡張し、さらに毎秒HP自動リジェネレーションを付与。安定生存の生命線。
+              </p>
+              <div class="stat-spec-list">
+                <div class="spec-row">
+                  <span class="spec-label">最大効果</span>
+                  <span class="spec-value highlight-green">HP+125 & 自動回復 +4.0/s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENEMIES & BOSS SECTION -->
+    <section class="section enemies-section" id="enemies">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">THREAT DATABASE</div>
+          <h2 class="section-title">襲い来る <span class="gradient-text">サイバーエネミー & ボス</span></h2>
+          <p class="section-desc">敵の特性を見極め、適切な兵装とポジショニングで対処せよ。</p>
+        </div>
+
+        <div class="enemies-grid">
+          <div class="enemy-card">
+            <div class="enemy-header">
+              <div class="enemy-icon-circle blue-glow">🔵</div>
+              <div>
+                <h3 class="enemy-name">スライム (Slime)</h3>
+                <span class="threat-level low">THREAT: LOW</span>
+              </div>
+            </div>
+            <p class="enemy-desc">大量の群れで自機を取り囲もうとする基本エネミー。範囲攻撃武器で一気に薙ぎ払い、経験値を稼ぐ好機。</p>
+          </div>
+
+          <div class="enemy-card">
+            <div class="enemy-header">
+              <div class="enemy-icon-circle purple-glow">🟣</div>
+              <div>
+                <h3 class="enemy-name">サイバーバット (Bat)</h3>
+                <span class="threat-level medium">THREAT: MEDIUM</span>
+              </div>
+            </div>
+            <p class="enemy-desc">ジグザグ軌道で高速接近してくる飛行型エネミー。誘導ミサイルやオービットブレードの迎撃で接近を許すな。</p>
+          </div>
+
+          <div class="enemy-card">
+            <div class="enemy-header">
+              <div class="enemy-icon-circle magenta-glow">🟪</div>
+              <div>
+                <h3 class="enemy-name">アーマードゴーレム</h3>
+                <span class="threat-level high">THREAT: HIGH</span>
+              </div>
+            </div>
+            <p class="enemy-desc">重装甲を誇る大型ドローン。ノックバックしづらいため、高火力の集中砲火で距離を取りつつ破壊せよ。</p>
+          </div>
+
+          <div class="enemy-card boss-card">
+            <div class="enemy-header">
+              <div class="enemy-icon-circle gold-glow">👑</div>
+              <div>
+                <h3 class="enemy-name">サイバーボス (Cyber Boss)</h3>
+                <span class="threat-level boss">THREAT: BOSS (60秒毎)</span>
+              </div>
+            </div>
+            <p class="enemy-desc">60秒ごとに出現する黄金の巨大旗艦。圧倒的なHPを持つが、撃破すると超高額の経験値クリスタルを大量ドロップ！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM SPECS SECTION -->
+    <section class="section specs-section" id="specs">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">ENVIRONMENT & SPECS</div>
+          <h2 class="section-title">動作環境 ＆ <span class="gradient-text">スペック仕様</span></h2>
+          <p class="section-desc">モダンWeb標準技術＆軽量Rustネイティブにより、あらゆる環境で快適60FPS駆動。</p>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-box cyber-panel">
+            <h3 class="spec-box-title">🪟 Windows / 🍎 macOS デスクトップ版</h3>
+            <ul class="spec-detail-list">
+              <li><strong>対応OS:</strong> Windows 10/11 (64bit), macOS 11.0以降 (Apple Silicon & Intel)</li>
+              <li><strong>エンジン:</strong> Tauri 2.0 (軽量Rustバックエンド)</li>
+              <li><strong>メモリ:</strong> 2GB RAM以上 (推奨 4GB以上)</li>
+              <li><strong>ストレージ空き容量:</strong> わずか 20MB 以下</li>
+              <li><strong>インストール形式:</strong> .exe インストーラー / .dmg パッケージ</li>
+            </ul>
+          </div>
+
+          <div class="spec-box cyber-panel">
+            <h3 class="spec-box-title">🌐 Webブラウザ版 (HTML5)</h3>
+            <ul class="spec-detail-list">
+              <li><strong>対応ブラウザ:</strong> Google Chrome, Microsoft Edge, Safari, Firefox 最新版</li>
+              <li><strong>対応デバイス:</strong> PC, Mac, iPad / タブレット, スマートフォン</li>
+              <li><strong>音源システム:</strong> Web Audio API (外部ダウンロード不要のプロシージャル音源)</li>
+              <li><strong>インストール:</strong> インストール不要（ブラウザから即時起動可能）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge">FAQ</div>
+          <h2 class="section-title">よくあるご質問 <span class="gradient-text">(FAQ)</span></h2>
+          <p class="section-desc">ご購入やプレイに関するご不明点にお答えします。</p>
+        </div>
+
+        <div class="faq-accordion-list">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. ゲーム初心者でも楽しめますか？操作は難しくないですか？</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                はい、どなたでもすぐにお楽しみいただけます！攻撃はすべて完全オートで発動するため、キーボードの矢印キーやマウスドラッグ、画面のスライド操作で自機を動かすだけで爽快なバトルが展開します。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. DEMOモードとはどのような機能ですか？</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                タイトル画面の「DEMO PLAY」を押すと、自律AIが自機を操り、敵の回避・クリスタル回収・レベルアップを自動で行うオートパイロットモードです。観戦してゲームの流れを把握できるほか、画面をクリックするだけで即座にプレイヤーの手動操作に切り替えて参戦できます。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 英語でのプレイは可能ですか？</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                はい！画面内の「🌐」ボタンからいつでも日本語と英語を瞬時に切り替え可能です。ゲーム内マニュアルも完全バイリンガル対応しています。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 購入後はどのようにダウンロード・プレイできますか？</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                製品ストアページ（<a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="text-cyan">https://cyber-matrix.netlify.app/products/survivors</a>）からご購入手続き完了後、すぐにダウンロードリンクおよびオンラインプレイURLが発行されます。Windows用インストーラー、Mac用DMG、Web版のすべてをご利用いただけます。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 追加課金やガチャ要素はありますか？</span>
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>
+                一切ありません。完全買い切りのゲームとなっており、すべての武器・パッシブスキル・ゲームモードを追加課金なしで心ゆくまでプレイしていただけます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CALL TO ACTION SECTION -->
+    <section class="final-cta-section">
+      <div class="container text-center">
+        <div class="final-cta-box cyber-panel">
+          <div class="cta-cyber-glow"></div>
+          <div class="section-badge">READY TO ENGAGE?</div>
+          <h2 class="final-cta-title">
+            電脳空間の覇者となれ。<br>
+            <span class="gradient-text neon-text">今すぐ極限のサバイバルを始めよう！</span>
+          </h2>
+          <p class="final-cta-desc">
+            Windows・macOS・ブラウザ対応。オートアタックの爽快感と無限のビルド戦略があなたを待っている。
+          </p>
+          
+          <div class="final-cta-action">
+            <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary btn-large">
+              <div class="btn-icon">⚡</div>
+              <div class="btn-inner-text">
+                <span class="btn-subtext">OFFICIAL STORE</span>
+                <span class="btn-maintext">『CYBER SURVIVORS』を入手する</span>
+              </div>
+              <span class="btn-arrow">➔</span>
+              <span class="btn-glow-layer"></span>
+            </a>
+          </div>
+
+          <div class="final-cta-notes">
+            <span>✨ 買い切り安心価格</span>
+            <span>⚡ 即時ダウンロード</span>
+            <span>🌐 日英完全対応</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="brand-logo">
+          <div class="logo-icon-box">
+            <img src="images/icon.svg" alt="Cyber Survivors" class="logo-img">
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">CYBER</span>
+            <span class="brand-sub">SURVIVORS</span>
+          </div>
+        </div>
+        <p class="footer-copy">
+          © 2026 Cyber Matrix. All rights reserved.<br>
+          Next-Gen Neon Survivor-like Action Game.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>コンテンツ</h4>
+          <a href="#features">特徴</a>
+          <a href="#gameplay">ゲームシステム</a>
+          <a href="#arsenal">兵装カタログ</a>
+          <a href="#enemies">エネミー図鑑</a>
+        </div>
+        <div class="footer-col">
+          <h4>ストア・サポート</h4>
+          <a href="https://cyber-matrix.netlify.app/products/survivors" target="_blank" rel="noopener noreferrer">製品ストアページ</a>
+          <a href="#specs">動作環境</a>
+          <a href="#faq">よくある質問</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>Designed with Cyber Aesthetic for Cyber Survivors.</span>
+        <a href="#hero" class="back-to-top" id="backToTop">PAGE TOP ▲</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
