@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050d1a"/>
+      <stop offset="50%" stop-color="#0b192e"/>
+      <stop offset="100%" stop-color="#020814"/>
+    </linearGradient>
+    <linearGradient id="planeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="papiGradWhite" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="papiGradRed" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glideSlopeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Shield / Rounded Rect -->
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="url(#bgGrad)" stroke="#06b6d4" stroke-width="4" stroke-opacity="0.5"/>
+
+  <!-- Radar / HUD Circles -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.25" stroke-dasharray="8 8"/>
+  <circle cx="256" cy="256" r="130" fill="none" stroke="#10b981" stroke-width="2" stroke-opacity="0.2"/>
+  <circle cx="256" cy="256" r="70" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3"/>
+
+  <!-- Crosshairs -->
+  <line x1="256" y1="46" x2="256" y2="96" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="256" y1="416" x2="256" y2="466" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="46" y1="256" x2="96" y2="256" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="416" y1="256" x2="466" y2="256" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.5"/>
+
+  <!-- Runway Perspective Lines -->
+  <polygon points="216,420 296,420 268,260 244,260" fill="#0f233d" stroke="#06b6d4" stroke-width="2" stroke-opacity="0.6"/>
+  <!-- Centerline Dashes -->
+  <line x1="256" y1="410" x2="256" y2="380" stroke="#38bdf8" stroke-width="3"/>
+  <line x1="256" y1="360" x2="256" y2="335" stroke="#38bdf8" stroke-width="2.5"/>
+  <line x1="256" y1="320" x2="256" y2="300" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="256" y1="288" x2="256" y2="272" stroke="#38bdf8" stroke-width="1.5"/>
+
+  <!-- PAPI Light Beams (2 White, 2 Red = On Glide Path 3.0°) -->
+  <polygon points="175,410 185,410 215,280 205,280" fill="url(#papiGradWhite)"/>
+  <polygon points="190,410 200,410 225,280 215,280" fill="url(#papiGradWhite)"/>
+  <polygon points="312,410 322,410 297,280 287,280" fill="url(#papiGradRed)"/>
+  <polygon points="327,410 337,410 307,280 297,280" fill="url(#papiGradRed)"/>
+
+  <!-- Glide Slope Descent Vector Trail -->
+  <path d="M 380 110 Q 320 180 280 230 T 256 290" fill="none" stroke="url(#glideSlopeGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="6 6" filter="url(#neonGlow)"/>
+
+  <!-- Jet Aircraft Silhouette (Landing Flare Attitude over Threshold) -->
+  <g transform="translate(256, 210) rotate(15) translate(-256, -256)" filter="url(#neonGlow)">
+    <!-- Fuselage & Wings -->
+    <path d="M 256 110 
+             C 264 110 270 135 270 185 
+             L 395 275 
+             L 395 305 
+             L 270 265 
+             L 270 360 
+             L 315 405 
+             L 315 425 
+             L 256 410 
+             L 197 425 
+             L 197 405 
+             L 242 360 
+             L 242 265 
+             L 117 305 
+             L 117 275 
+             L 242 185 
+             C 242 135 248 110 256 110 Z" 
+          fill="url(#planeGrad)" 
+          stroke="#ffffff" 
+          stroke-width="3" 
+          stroke-linejoin="round"/>
+  </g>
+
+  <!-- Runway Indicator Text & Header Badges -->
+  <text x="256" y="455" text-anchor="middle" font-family="'Orbitron', sans-serif" font-size="20" font-weight="900" fill="#38bdf8" letter-spacing="4">RJTT • RWY 34L/34R/16L</text>
+  <text x="256" y="92" text-anchor="middle" font-family="'Orbitron', sans-serif" font-size="13" font-weight="700" fill="#10b981" letter-spacing="3">FLIGHT LANDING SIMULATOR</text>
+</svg>
