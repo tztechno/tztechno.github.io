@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tokyo Haneda Airport (RJTT) Flight Landing Simulator | 羽田空港 34L/34R/16L 着陸フライトシミュレーター</title>
+  <meta name="description" id="meta-desc" content="羽田空港（RJTT）34L/34R/16L への進入・着陸アプローチを高精度に再現。実測DEM地形メッシュ・東京湾航空写真、本格6自由度空力モデル、PAPI/ILS計器アプローチ、接地採点、昼夜天候変化、6視点カメラを完全ローカルで搭載したネイティブ・フライトシミュレーター。">
+  <meta name="keywords" content="羽田空港, 東京国際空港, RJTT, HND, 34L, 34R, 16L, フライトシミュレーター, 着陸, アプローチ, 東京湾旋回, 都心RNAV, PAPI, ILS, DEM地形, 空力シミュレーション, Tauri 2.0, デスクトップアプリ, Cyber Matrix">
+
+  <!-- OGP / SNS Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/haneda">
+  <meta property="og:title" id="og-title" content="Tokyo Haneda Airport Flight Landing Simulator | Cyber Matrix">
+  <meta property="og:description" id="og-desc" content="実測DEM標高と東京湾航空写真で飛ぶ、羽田空港着陸シミュレーター。本格6自由度空力、実機仕様PFD計器、PAPI誘導、6視点カメラ搭載。">
+  <meta property="og:image" content="images/haneda_flight_promo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="tw-title" content="Tokyo Haneda Airport Flight Landing Simulator">
+  <meta name="twitter:description" id="tw-desc" content="実測DEM標高と東京湾航空写真で飛ぶ、羽田空港着陸シミュレーター。本格6自由度空力、実機仕様PFD計器、PAPI誘導、6視点カメラ搭載。">
+  <meta name="twitter:image" content="images/haneda_flight_promo.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+  <link rel="apple-touch-icon" href="images/icon.png">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cyber Matrix Animated Background Canvas -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glow glow-cyan"></div>
+  <div class="ambient-glow glow-teal"></div>
+  <div class="ambient-glow glow-emerald"></div>
+
+  <!-- Header / Navigation -->
+  <header class="cyber-header" id="navbar">
+    <div class="container header-content">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon-box">
+          <img src="images/icon.svg" alt="Tokyo Haneda Flight Landing Icon" class="logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title font-orbitron">HANEDA FLIGHT</span>
+          <span class="brand-sub font-orbitron">LANDING 34L/34R/16L</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#demo" class="nav-link" data-i18n="navDemo">体験HUDシミュレーター</a>
+        <a href="#features" class="nav-link" data-i18n="navFeatures">特徴・強み</a>
+        <a href="#route" class="nav-link" data-i18n="navRoute">着陸ルート</a>
+        <a href="#avionics" class="nav-link" data-i18n="navAvionics">計器・操作</a>
+        <a href="#compare" class="nav-link" data-i18n="navCompare">製品比較</a>
+        <a href="#pricing" class="nav-link" data-i18n="navPricing">価格・DL</a>
+        <a href="#faq" class="nav-link" data-i18n="navFaq">よくある質問</a>
+
+        <!-- Mobile Menu Bottom -->
+        <div class="mobile-menu-bottom">
+          <button class="lang-switch-btn lang-toggle-btn mobile-lang-btn" aria-label="Switch Language">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-label" data-i18n="langSwitchText">English / 日本語</span>
+          </button>
+          <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="btn btn-neon-cyan btn-sm" data-i18n="navGetNow">今すぐ購入 ➔</a>
+        </div>
+      </nav>
+
+      <div class="header-right">
+        <!-- Desktop Language Switcher -->
+        <button class="lang-switch-btn lang-toggle-btn desktop-lang-btn" aria-label="Switch Language" title="日本語 / English">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label" data-i18n="langSwitchText">English</span>
+        </button>
+
+        <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="btn btn-neon-cyan btn-sm header-cta" data-i18n="navGetNow">
+          今すぐ購入 ➔
+        </a>
+
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-text-content">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">PRECISION FLIGHT SIMULATION SERIES | DESKTOP EDITION</span>
+          </div>
+
+          <h1 class="hero-title" data-i18n-html="heroTitle">
+            <span class="text-white font-orbitron">Tokyo Haneda Airport</span><br>
+            <span class="gradient-text neon-text">Flight Landing Simulator</span>
+          </h1>
+
+          <p class="hero-lead" data-i18n-html="heroLead">
+            羽田空港（RJTT）滑走路 34L/34R/16L への進入・着陸アプローチを高精度に再現。<br class="desktop-br">
+            国土地理院の実測DEM地形メッシュ・東京湾航空写真、本格6自由度空力モデル、PAPI/ILS計器アプローチ、接地採点、昼夜天候変化、6視点カメラを完全ローカルで搭載したネイティブ・デスクトップ版フライトシミュレーター。
+          </p>
+
+          <div class="hero-tags-grid">
+            <div class="hero-tag-card">
+              <span class="hero-tag-icon">✈️</span>
+              <span data-i18n="heroTag1">本格 6自由度(6-DOF) 空力＆地面効果</span>
+            </div>
+            <div class="hero-tag-card">
+              <span class="hero-tag-icon">🌊</span>
+              <span data-i18n="heroTag2">国土地理院 10m DEM地形 ＆ 東京湾航空写真</span>
+            </div>
+            <div class="hero-tag-card">
+              <span class="hero-tag-icon">📟</span>
+              <span data-i18n="heroTag3">実機仕様 PFD / HUD ＆ 高精度 PAPI 誘導</span>
+            </div>
+            <div class="hero-tag-card">
+              <span class="hero-tag-icon">⚡</span>
+              <span data-i18n="heroTag4">Tauri 2.0 超軽量・高FPS・完全オフライン</span>
+            </div>
+          </div>
+
+          <!-- Hero CTA Actions -->
+          <div class="hero-actions">
+            <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">
+              <div class="btn-icon">⚡</div>
+              <div class="btn-inner-text">
+                <span class="btn-subtext" data-i18n="heroCtaSub">BUY DESKTOP EDITION / 買い切り ¥1,980</span>
+                <span class="btn-maintext" data-i18n="heroCtaMain">公式ストアで購入・即時ダウンロード</span>
+              </div>
+              <span class="btn-arrow">➔</span>
+            </a>
+
+            <a href="#demo" class="btn btn-hero-secondary">
+              <i class="fa-solid fa-play"></i>
+              <span data-i18n="heroCtaDemo">ブラウザでHUDを即体験</span>
+            </a>
+          </div>
+
+          <div class="platform-badges">
+            <span data-i18n="platformTitle">対応環境:</span>
+            <span class="os-pill"><i class="fa-brands fa-apple"></i> macOS (Apple Silicon & Intel)</span>
+            <span class="os-pill"><i class="fa-brands fa-windows"></i> Windows 10/11</span>
+          </div>
+        </div>
+
+        <!-- Hero Graphic Showcase Card -->
+        <div class="hero-graphic-card">
+          <div class="hero-img-wrap">
+            <img src="images/haneda_flight_promo.jpg" alt="Tokyo Haneda Flight Landing Promo Visual" class="hero-promo-img">
+            <div class="hero-img-overlay">
+              <span class="overlay-tag" data-i18n="heroFloatingBadge">RJTT RUNWAY 34L/34R LANDING CORE</span>
+            </div>
+          </div>
+
+          <div class="hero-telemetry-ticker">
+            <div class="ticker-row">
+              <span class="ticker-label" data-i18n="heroStatus">AVIONICS & LANDING SCORE ACTIVE</span>
+              <span class="ticker-val">v1.0.0 Native</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS / STATS BAR -->
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <div class="stat-value gradient-text">60+ FPS</div>
+          <div class="stat-label" data-i18n="statLatency">超低遅延・Tauriネイティブ</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value gradient-text">6-DOF</div>
+          <div class="stat-label" data-i18n="statPhysics">本格空力＆地面効果</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value gradient-text">10m DEM</div>
+          <div class="stat-label" data-i18n="statTerrain">国土地理院 実測標高メッシュ</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value gradient-text-amber" data-i18n="statPriceVal">¥1,980</div>
+          <div class="stat-label" data-i18n="statPrice">永久ライセンス・買い切り</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE PFD & RUNWAY SIMULATOR -->
+    <section class="demo-section" id="demo">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="demoBadge">INTERACTIVE AVIONICS PLAYGROUND</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="demoTitle">
+            ブラウザ上で体感！ <span class="gradient-text">実機仕様 PFD ＆ 羽田着陸シミュレーター</span>
+          </h2>
+          <p class="section-desc" data-i18n="demoDesc">
+            羽田名物の東京湾旋回や都心進入をブラウザ上でシミュレーション！4つの進入シナリオ切替、PAPI進入角灯の確認、手動フレア操作、着陸スコア採点、ジェットエンジン音の試聴が可能です。
+          </p>
+        </div>
+
+        <div class="demo-dashboard">
+          <div class="demo-grid">
+            <!-- PFD Simulator Canvas -->
+            <div class="pfd-container">
+              <canvas id="pfd-canvas"></canvas>
+
+              <!-- Touchdown Scoring Modal Result -->
+              <div class="pfd-score-modal" id="score-modal">
+                <div class="score-rank-badge rank-s" id="score-rank">S</div>
+                <h3 class="score-title" id="score-title">BUTTER LANDING! 極上の接地</h3>
+
+                <div class="score-detail-grid">
+                  <div class="score-detail-card">
+                    <span class="score-detail-label" data-i18n="scoreVsLabel">接地垂直降下率 (Vertical Speed):</span>
+                    <div class="score-detail-val" id="score-vs-val">-120 ft/min</div>
+                  </div>
+                  <div class="score-detail-card">
+                    <span class="score-detail-label" data-i18n="scoreAlignLabel">中心線偏差 (Centerline Deviation):</span>
+                    <div class="score-detail-val" id="score-align-val">0.4 m offset</div>
+                  </div>
+                  <div class="score-detail-card">
+                    <span class="score-detail-label" data-i18n="scoreZoneLabel">接地帯ゾーン (Touchdown Zone):</span>
+                    <div class="score-detail-val" id="score-zone-val">380 m</div>
+                  </div>
+                  <div class="score-detail-card">
+                    <span class="score-detail-label" data-i18n="scoreIasLabel">接地時対気速度 (Touchdown Speed):</span>
+                    <div class="score-detail-val" id="score-ias-val">138 kt</div>
+                  </div>
+                </div>
+
+                <button class="btn btn-neon-cyan btn-sm" id="score-modal-close" data-i18n="scoreBtnClose">
+                  CLOSE REPORT / 計器画面に戻る
+                </button>
+              </div>
+            </div>
+
+            <!-- Demo Controls Right Panel -->
+            <div class="demo-controls-panel">
+              <!-- Scenario Selector -->
+              <div class="control-group-box">
+                <div class="control-group-title">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span data-i18n="demoScenarioTitle">進入シナリオ選択 (Approach Scenario):</span>
+                </div>
+                <div class="scenario-tabs">
+                  <button class="scenario-tab-btn active" data-scenario="34L">
+                    <span data-i18n="scen34L">34L 東京湾旋回 (Bay Curve)</span>
+                    <span class="scenario-desc-hint" data-i18n="scen34LDesc">房総沖から東京湾90°旋回で進入</span>
+                  </button>
+                  <button class="scenario-tab-btn" data-scenario="34R">
+                    <span data-i18n="scen34R">34R 直線ILS (Straight ILS)</span>
+                    <span class="scenario-desc-hint" data-i18n="scen34RDesc">東京湾海上から高精度ILS進入</span>
+                  </button>
+                  <button class="scenario-tab-btn" data-scenario="16L">
+                    <span data-i18n="scen16L">16L 都心進入 (City RNAV)</span>
+                    <span class="scenario-desc-hint" data-i18n="scen16LDesc">新宿・品川上空を通過する3.45°降下</span>
+                  </button>
+                  <button class="scenario-tab-btn" data-scenario="goaround">
+                    <span data-i18n="scenGoAround">TOGA 復行 (Go-Around)</span>
+                    <span class="scenario-desc-hint" data-i18n="scenGoAroundDesc">決心高度での着陸復行・フル推力上昇</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Flight Mode Toggle -->
+              <div class="control-group-box">
+                <div class="control-group-title">
+                  <i class="fa-solid fa-gamepad"></i>
+                  <span data-i18n="demoModeLabel">操縦モード (Flight Mode):</span>
+                </div>
+                <div class="mode-toggle-group">
+                  <button class="mode-btn active" id="mode-auto-btn" data-i18n="demoModeAutoBtn">自動アプローチ再生</button>
+                  <button class="mode-btn" id="mode-manual-btn" data-i18n="demoModeManualBtn">手動操縦 (6自由度)</button>
+                </div>
+              </div>
+
+              <!-- Flight Sliders & Switches -->
+              <div class="control-group-box">
+                <div class="flight-sliders-grid">
+                  <div class="slider-row">
+                    <div class="slider-label-box">
+                      <span class="slider-label" data-i18n="demoThrottleLabel">スロットル推力 (Throttle):</span>
+                      <span class="slider-val-readout" id="throttle-val-text">48% N1</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="48" class="custom-range" id="throttle-range">
+                  </div>
+
+                  <div class="slider-row">
+                    <div class="slider-label-box">
+                      <span class="slider-label" data-i18n="demoFlapsLabel">フラップ設定 (Flaps):</span>
+                    </div>
+                    <div class="toggle-btn-row">
+                      <button class="toggle-state-btn" data-flap="0">0°</button>
+                      <button class="toggle-state-btn" data-flap="5">5°</button>
+                      <button class="toggle-state-btn" data-flap="15">15°</button>
+                      <button class="toggle-state-btn active" data-flap="30">FULL (30°)</button>
+                    </div>
+                  </div>
+
+                  <div class="slider-row">
+                    <div class="slider-label-box">
+                      <span class="slider-label" data-i18n="demoLightingLabel">時間帯・照明 (Environment):</span>
+                    </div>
+                    <div class="toggle-btn-row">
+                      <button class="toggle-state-btn" data-lighting="day" data-i18n="lightDay">昼間</button>
+                      <button class="toggle-state-btn active" data-lighting="sunset" data-i18n="lightSunset">夕景</button>
+                      <button class="toggle-state-btn" data-lighting="night" data-i18n="lightNight">夜景</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Controls -->
+              <div class="action-buttons-grid">
+                <button class="btn btn-action btn-flare-touchdown" id="btn-flare">
+                  <i class="fa-solid fa-plane-arrival"></i>
+                  <span data-i18n="demoBtnFlare">FLARE & TOUCHDOWN / 接地採点テスト</span>
+                </button>
+                <button class="btn btn-action btn-reset-demo" id="btn-restart">
+                  <i class="fa-solid fa-rotate-left"></i>
+                  <span data-i18n="demoBtnRestart">Replay / アプローチ初期化</span>
+                </button>
+                <button class="btn btn-action btn-audio-toggle" id="btn-audio">
+                  <i class="fa-solid fa-volume-high"></i>
+                  <span data-i18n="demoAudioBtnOff">ENGINE SOUND: OFF</span>
+                </button>
+              </div>
+
+              <div class="demo-status-banner">
+                <i class="fa-solid fa-circle-info text-cyan-400"></i>
+                <span id="demo-status-text" data-i18n="demoStatusAuto">
+                  自動進入中: PAPI進入角灯（白2・赤2）とILSグライドスロープに従って降下中。
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES (6 MAJOR ADVANTAGES) -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="featuresBadge">CORE CAPABILITIES</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="featuresTitle">
+            羽田の空を極限のリアルで再現する <span class="gradient-text">6大アドバンテージ</span>
+          </h2>
+          <p class="section-desc" data-i18n="featuresDesc">
+            巨大なストレージ容量や高額な月額課金は不要。国土地理院実測DEMと精密6自由度空力モデルをTauri 2.0で超軽量にPCローカル実行。
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-mountain-city"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat1Title">
+              国土地理院 10m DEM地形<br>＆ 東京湾・都心航空写真
+            </h3>
+            <p class="feature-text" data-i18n="feat1Text">
+              羽田空港（RJTT）、東京湾アクアライン（海ほたる）、房総半島、レインボーブリッジ、新宿・渋谷・品川の高精度メッシュを再現。立体的起伏とリアルな夜景イルミネーションが眼下に広がります。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat1Tag">#実測DEM標高 #東京湾オルソメッシュ #都心3D</span>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-wind"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat2Title">
+              本格 6自由度 (6-DOF) 空力<br>＆ 地面効果（Ground Effect）
+            </h3>
+            <p class="feature-text" data-i18n="feat2Text">
+              主翼迎角、失速特性、フラップ展開時の揚力増加と誘導抗力、スポイラーによる揚力減衰、接地直前の地面効果クッション現象（Ground Effect）までを精緻に物理演算。本格的なフレア接地を体感できます。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat2Tag">#6DOF空力 #地面効果 #逆噴射リバース</span>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-gauge-high"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat3Title">
+              実機仕様 PFD / HUD<br>＆ 高精度 PAPI 進入角灯
+            </h3>
+            <p class="feature-text" data-i18n="feat3Text">
+              人工水平儀、対気速度（IAS）、気圧高度（ALT）、昇降率（VSI）、ILSグライドスロープ・ローカライザーをリアルタイム表示。実物仕様の4灯式PAPI（白2・赤2で適正角3.0°）による正確な進入誘導を搭載。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat3Tag">#PFD/HUD #PAPI4灯誘導 #ILS計器進入</span>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat4Title">
+              リアルタイム着陸採点<br>＆ 接地テレメトリ解析
+            </h3>
+            <p class="feature-text" data-i18n="feat4Text">
+              接地瞬間の沈下率（Vertical Speed）、滑走路センターラインからの偏位、接地帯（タッチダウンゾーン）、進入速度を自動解析。極上接地「バターランディング」からランクS〜Fの厳格な採点が行われます。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat4Tag">#着陸採点 #バターランディング #沈下率解析</span>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-camera-rotate"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat5Title">
+              臨場感あふれる6視点カメラ<br>＆ 昼夕夜ライティング
+            </h3>
+            <p class="feature-text" data-i18n="feat5Text">
+              チェイス後方視点、操縦桿を握るパイロット視点、右主翼・客席パッセンジャー視点、高さ115mの羽田新管制塔視点、滑走路端スポット視点、全方位フリー視点を瞬時に切り替え可能。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat5Tag">#コックピット視点 #115m新管制塔 #主翼ビュー</span>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="feature-card">
+            <div class="feature-icon-box">
+              <i class="fa-solid fa-bolt-lightning"></i>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat6Title">
+              Tauri 2.0 ネイティブ高速動作<br>＆ 完全買い切り永久版
+            </h3>
+            <p class="feature-text" data-i18n="feat6Text">
+              Rust + Tauri 2.0 による極小ファイルサイズ（Mac 10MB / Win 5MB）と低メモリ消費。ブラウザ不要で瞬時に起動し、低スペックPCでも60+ FPSの超滑らかな描画を実現。追加課金ゼロの買い切り永久版。
+            </p>
+            <span class="feature-badge-tag" data-i18n="feat6Tag">#容量わずか数MB #高速起動 #完全買い切り</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH SCENARIOS DEEP DIVE -->
+    <section class="routes-section" id="route">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="routeBadge">APPROACH & NAVIGATION</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="routeTitle">
+            羽田名物アプローチ <span class="gradient-text">着陸シナリオ完全解説</span>
+          </h2>
+          <p class="section-desc" data-i18n="routeDesc">
+            東京国際空港（羽田 - RJTT）で実際に運用されている代表的な着陸アプローチプロファイルを忠実に再現しています。
+          </p>
+        </div>
+
+        <div class="routes-cards-stack">
+          <!-- Route 1 -->
+          <div class="route-card">
+            <div class="route-number">34L</div>
+            <div class="route-content">
+              <h3 class="route-content-title">
+                <span data-i18n="route1Title">34L 東京湾旋回（Tokyo Bay Curve Approach）</span>
+              </h3>
+              <p class="route-content-text" data-i18n="route1Text">
+                房総半島沖から海ほたる上空を経て東京湾上空へ降下。羽田名物「東京湾90°右旋回（ベイカーブ）」でA滑走路（34L）の進入軸へ滑らかにアラインし、進入角3.0°で着陸進入を行います。
+              </p>
+            </div>
+            <div class="route-metrics-card">
+              <div class="route-metric-row">
+                <span class="route-metric-label">滑走路 (Runway):</span>
+                <span class="route-metric-val">RWY 34L (3,000m)</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入方式 (Type):</span>
+                <span class="route-metric-val">Visual Curve / ILS</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入角度 (Glide):</span>
+                <span class="route-metric-val">3.00° / PAPI</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">目標進入速度:</span>
+                <span class="route-metric-val">138 kt (Flap 30°)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Route 2 -->
+          <div class="route-card">
+            <div class="route-number">34R</div>
+            <div class="route-content">
+              <h3 class="route-content-title">
+                <span data-i18n="route2Title">34R 直線ILS進入（Straight ILS Approach）</span>
+              </h3>
+              <p class="route-content-text" data-i18n="route2Text">
+                東京湾海上からC滑走路（34R）へ一直線に進入する標準計器進入ルート。高精度のILSローカライザー・グライドスロープとPAPI計器誘導に従って長大な滑走路へアプローチします。
+              </p>
+            </div>
+            <div class="route-metrics-card">
+              <div class="route-metric-row">
+                <span class="route-metric-label">滑走路 (Runway):</span>
+                <span class="route-metric-val">RWY 34R (3,360m)</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入方式 (Type):</span>
+                <span class="route-metric-val">ILS CAT II / III</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入角度 (Glide):</span>
+                <span class="route-metric-val">3.00° / ILS G/S</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">目標進入速度:</span>
+                <span class="route-metric-val">140 kt (Flap Full)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Route 3 -->
+          <div class="route-card">
+            <div class="route-number">16L</div>
+            <div class="route-content">
+              <h3 class="route-content-title">
+                <span data-i18n="route3Title">16L 都心進入（Tokyo City RNAV Approach）</span>
+              </h3>
+              <p class="route-content-text" data-i18n="route3Text">
+                新宿・代々木・品川・大井埠頭の真上を縦断降下する話題の新進入ルート。眼下に都心の高層ビル群を望みながら、通常より急な進入角 3.45° でB滑走路（16L）へアプローチします。
+              </p>
+            </div>
+            <div class="route-metrics-card">
+              <div class="route-metric-row">
+                <span class="route-metric-label">滑走路 (Runway):</span>
+                <span class="route-metric-val">RWY 16L (2,500m)</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入方式 (Type):</span>
+                <span class="route-metric-val">RNAV (RNP) 16L</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">進入角度 (Glide):</span>
+                <span class="route-metric-val">3.45° (急角度降下)</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">降下率 (V/S):</span>
+                <span class="route-metric-val">約 -850 ft/min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Route 4 -->
+          <div class="route-card">
+            <div class="route-number">TOGA</div>
+            <div class="route-content">
+              <h3 class="route-content-title">
+                <span data-i18n="route4Title">TOGA 復行（Missed Approach / Go-Around）</span>
+              </h3>
+              <p class="route-content-text" data-i18n="route4Text">
+                決心高度（約150ft）で不安定進入・突風により着陸復行を発令。フル推力（TOGA）で急上昇し、ギア・フラップを格納しながら東京湾沖合へ安全離脱する緊急プロシージャです。
+              </p>
+            </div>
+            <div class="route-metrics-card">
+              <div class="route-metric-row">
+                <span class="route-metric-label">推力モード:</span>
+                <span class="route-metric-val">TOGA (100% N1)</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">上昇目標ピッチ:</span>
+                <span class="route-metric-val">+12.5° Positive Climb</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">上昇率 (V/S):</span>
+                <span class="route-metric-val">+2,200 ft/min</span>
+              </div>
+              <div class="route-metric-row">
+                <span class="route-metric-label">安全退避ルート:</span>
+                <span class="route-metric-val">東京湾沖合ホールド</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVIONICS & SHORTCUTS COMMAND CENTER -->
+    <section class="avionics-section" id="avionics">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="avionicsBadge">FLIGHT DECK & SHORTCUTS</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="avionicsTitle">
+            進入角灯(PAPI)の見方 ＆ <span class="gradient-text">操作一覧</span>
+          </h2>
+          <p class="section-desc" data-i18n="avionicsDesc">
+            PAPI 4灯のカラーパターンによる進入高度判定と、直感的なキーボード操作でリアルな操縦を楽しめます。
+          </p>
+        </div>
+
+        <div class="avionics-grid">
+          <!-- PAPI Visual Decoder Guide -->
+          <div class="papi-guide-card">
+            <h3 class="card-inner-title">
+              <i class="fa-solid fa-traffic-light text-cyan-400"></i>
+              <span data-i18n="papiTitle">PAPI (進入角指示灯) 判定ガイド</span>
+            </h3>
+
+            <div class="papi-rows-stack">
+              <!-- Row 1 -->
+              <div class="papi-row-item">
+                <div class="papi-lamps-visual">
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                </div>
+                <span class="papi-status-text status-high" data-i18n="papi4W">高すぎる (Too High)</span>
+                <span class="papi-advice-text" data-i18n="papi4WAdv">スロットルを少し絞り、降下率を増やす</span>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="papi-row-item">
+                <div class="papi-lamps-visual">
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                </div>
+                <span class="papi-status-text status-high" data-i18n="papi3W1R">やや高い (Slightly High)</span>
+                <span class="papi-advice-text" data-i18n="papi3W1RAdv">緩やかに適正パスへ合流</span>
+              </div>
+
+              <!-- Row 3 (Ideal) -->
+              <div class="papi-row-item" style="border-color: var(--accent-emerald);">
+                <div class="papi-lamps-visual">
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                </div>
+                <span class="papi-status-text status-good" data-i18n="papi2W2R">適正パス (On Glide: 3.0°)</span>
+                <span class="papi-advice-text" data-i18n="papi2W2RAdv">理想的な進入角度。現在のピッチと出力を維持</span>
+              </div>
+
+              <!-- Row 4 -->
+              <div class="papi-row-item">
+                <div class="papi-lamps-visual">
+                  <span class="papi-lamp lamp-white"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                </div>
+                <span class="papi-status-text status-low" data-i18n="papi1W3R">やや低い (Slightly Low)</span>
+                <span class="papi-advice-text" data-i18n="papi1W3RAdv">スロットルを少し足して高度を補正</span>
+              </div>
+
+              <!-- Row 5 -->
+              <div class="papi-row-item" style="border-color: var(--accent-red);">
+                <div class="papi-lamps-visual">
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                  <span class="papi-lamp lamp-red"></span>
+                </div>
+                <span class="papi-status-text status-danger" data-i18n="papi4R">低すぎる / 危険 (Too Low)</span>
+                <span class="papi-advice-text" data-i18n="papi4RAdv">すぐに機首を上げ、推力を増して上昇パスへ復帰</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shortcuts Table Card -->
+          <div class="shortcuts-table-card">
+            <h3 class="card-inner-title">
+              <i class="fa-solid fa-keyboard text-cyan-400"></i>
+              <span data-i18n="shortcutsTitle">キーボードショートカット一覧</span>
+            </h3>
+
+            <table class="shortcuts-table">
+              <thead>
+                <tr>
+                  <th>操作項目 (Control)</th>
+                  <th>キー (Key)</th>
+                  <th>機動アクション</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>エレベーター (昇降舵)</td>
+                  <td><span class="key-badge">W</span> / <span class="key-badge">S</span> (または <span class="key-badge">↑</span> <span class="key-badge">↓</span>)</td>
+                  <td>機首下げ (降下) / 機首上げ (フレア接地)</td>
+                </tr>
+                <tr>
+                  <td>エルロン (補助翼)</td>
+                  <td><span class="key-badge">A</span> / <span class="key-badge">D</span> (または <span class="key-badge">←</span> <span class="key-badge">→</span>)</td>
+                  <td>左ロール (左旋回) / 右ロール (右旋回)</td>
+                </tr>
+                <tr>
+                  <td>スロットル (推力)</td>
+                  <td><span class="key-badge">R</span> / <span class="key-badge">F</span></td>
+                  <td>エンジン出力 増加 / 減少</td>
+                </tr>
+                <tr>
+                  <td>フラップ (Flaps)</td>
+                  <td><span class="key-badge">F</span></td>
+                  <td>0° → 5° → 15° → 30°(Full) 切替</td>
+                </tr>
+                <tr>
+                  <td>ランディングギア</td>
+                  <td><span class="key-badge">G</span></td>
+                  <td>着陸脚の展開 / 格納</td>
+                </tr>
+                <tr>
+                  <td>スポイラー / ブレーキ</td>
+                  <td><span class="key-badge">Space</span> / <span class="key-badge">B</span></td>
+                  <td>主翼スピードブレーキ / 接地後ホイール制動</td>
+                </tr>
+                <tr>
+                  <td>逆噴射 (Reverser)</td>
+                  <td><span class="key-badge">X</span></td>
+                  <td>接地後エンジン逆噴射緊急減速</td>
+                </tr>
+                <tr>
+                  <td>カメラ視点切替 (1〜6)</td>
+                  <td><span class="key-badge">1</span> 〜 <span class="key-badge">6</span></td>
+                  <td>後方 / コックピット / 主翼 / 管制塔 / スポット / オービット</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON MATRIX -->
+    <section class="compare-section" id="compare">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="compareBadge">BENCHMARK & VALUE</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="compareTitle">
+            他フライトシミュレーターとの <span class="gradient-text">徹底スペック比較</span>
+          </h2>
+          <p class="section-desc" data-i18n="compareDesc">
+            大容量ストレージや高額PCを要求する巨大シミュレーターと一線を画す、圧倒的な軽快さと手軽さを実現。
+          </p>
+        </div>
+
+        <div class="comparison-card">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>比較項目</th>
+                <th class="highlight-col highlight-header">本作 (Haneda Flight Landing Desktop)</th>
+                <th>大規模PCフライトシム (MSFS等)</th>
+                <th>Webブラウザ簡易ゲーム</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>インストール容量</td>
+                <td class="highlight-col val-best">わずか 約10 MB</td>
+                <td>150 GB 〜 300 GB 超</td>
+                <td>0 MB (都度Web通信)</td>
+              </tr>
+              <tr>
+                <td>起動スピード</td>
+                <td class="highlight-col val-best">瞬時 0.5 秒でフライト開始</td>
+                <td>ロードに 2〜3 分以上</td>
+                <td>アセット読込待ち発生</td>
+              </tr>
+              <tr>
+                <td>空力・地面効果物理</td>
+                <td class="highlight-col val-best">本格6自由度 ＆ Ground Effect</td>
+                <td>高精度</td>
+                <td>簡易・2D疑似挙動</td>
+              </tr>
+              <tr>
+                <td>地形データ</td>
+                <td class="highlight-col val-best">国土地理院 10m DEM 実測メッシュ</td>
+                <td>全世界衛星メッシュ</td>
+                <td>フラット・架空地形</td>
+              </tr>
+              <tr>
+                <td>動作環境・必要スペック</td>
+                <td class="highlight-col val-best">標準ノートPC・M1 Macで60+ FPS</td>
+                <td>高額RTXグラボ必須</td>
+                <td>ブラウザ依存でカクつき</td>
+              </tr>
+              <tr>
+                <td>オフライン動作</td>
+                <td class="highlight-col val-best">完全オフライン対応 (ネット不要)</td>
+                <td>常時ギガ通信ストリーミング</td>
+                <td>常時通信必須</td>
+              </tr>
+              <tr>
+                <td>料金体系</td>
+                <td class="highlight-col val-best">¥1,980 (完全買い切り・永久版)</td>
+                <td>¥9,800〜 + 月額課金</td>
+                <td>広告表示 / 制限あり</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & DOWNLOAD CTA -->
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="pricing-box">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="priceTag">PERMANENT LICENSE • ONE-TIME PURCHASE</span>
+          </div>
+
+          <h3 class="price-heading" data-i18n="priceTitle">Tokyo Haneda Flight Landing Simulator</h3>
+          <p class="price-sub" data-i18n="priceSub">一度の購入で永久利用可能。サブスクリプションや追加課金なしの完全買い切り型です。</p>
+
+          <div class="price-amount-wrap">
+            <span class="price-currency">¥</span>
+            <span class="price-number gradient-text">1,980</span>
+            <span class="price-tax" data-i18n="priceTax">(税込・買い切り)</span>
+          </div>
+
+          <div class="purchase-buttons-stack">
+            <!-- Windows Purchase Link -->
+            <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="btn btn-os-purchase btn-win-store">
+              <i class="fa-brands fa-windows text-xl"></i>
+              <span data-i18n="btnWinText">Windows版を購入する (Stripe決済)</span>
+            </a>
+
+            <!-- macOS Purchase Link -->
+            <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="btn btn-os-purchase btn-mac-store">
+              <i class="fa-brands fa-apple text-xl"></i>
+              <span data-i18n="btnMacText">macOS版を購入する (Stripe決済)</span>
+            </a>
+          </div>
+
+          <div class="trust-badges-row">
+            <span class="trust-item"><i class="fa-solid fa-lock text-cyan-400"></i> <span data-i18n="trust1">Stripe暗号化決済</span></span>
+            <span class="trust-dot">•</span>
+            <span class="trust-item"><i class="fa-solid fa-bolt text-teal-400"></i> <span data-i18n="trust2">決済後 即時ダウンロード</span></span>
+            <span class="trust-dot">•</span>
+            <span class="trust-item"><i class="fa-solid fa-rotate-left text-emerald-400"></i> <span data-i18n="trust3">永久アップデート無償</span></span>
+            <span class="trust-dot">•</span>
+            <span class="trust-item"><i class="fa-solid fa-shield-halved text-cyan-400"></i> <span data-i18n="trust4">完全オフライン動作保証</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="faqBadge">FREQUENTLY ASKED QUESTIONS</span>
+          </div>
+          <h2 class="section-title" data-i18n-html="faqTitle">
+            よくあるご質問 <span class="gradient-text">(FAQ)</span>
+          </h2>
+          <p class="section-desc" data-i18n="faqDesc">
+            ご購入前・インストール時によくいただく質問と回答をまとめました。
+          </p>
+        </div>
+
+        <div class="faq-accordion-stack">
+          <!-- FAQ 1 -->
+          <div class="faq-item active">
+            <button class="faq-question-btn">
+              <span data-i18n="faq1Q">Q. MacとWindowsの両方に対応していますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq1A">
+                はい、macOS（Apple Silicon M1/M2/M3/M4 および Intel Mac）と Windows 10/11（64bit）の両プラットフォームにネイティブ対応しています。ご購入時にご利用のOS用インストーラーを即座にダウンロードいただけます。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span data-i18n="faq2Q">Q. ハイスペックなゲーミングPCが必要ですか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq2A">
+                不要です。本作は軽量なTauri 2.0フレームワークと最適化されたThree.js WebGLパイプラインを採用しているため、一般的なノートPC（Intel UHD Graphics / Apple M1内蔵GPUなど）でも60 FPSの非常に滑らかな動作が可能です。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span data-i18n="faq3Q">Q. ジョイスティックやゲームパッドに対応していますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq3A">
+                キーボード操作（W/A/S/D・矢印キー）、マウスによる操縦に標準対応しているほか、標準的なUSBゲームパッド（DirectInput / XInput）でのピッチ・ロール入力にも対応しています。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span data-i18n="faq4Q">Q. なぜファイルサイズが数MBと圧倒的に小さいのですか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq4A">
+                OS標準のネイティブWebビューを活用するTauri 2.0アーキテクチャと、国土地理院DEMデータの高度な圧縮・最適化アルゴリズムを採用しているためです。重厚なChromiumブラウザを内包せず、無駄な数GBのダウンロードを一切必要としません。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span data-i18n="faq5Q">Q. 購入後の決済方法とダウンロード手順は？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq5A">
+                決済は国際規格の安全なStripe決済（クレジットカード、Apple Pay、Google Pay対応）を利用しています。お支払い完了後、即座にダウンロード画面が表示され、登録メールアドレスにも永続ダウンロードリンクが送信されます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="footer-brand-title font-orbitron">CYBER MATRIX DESKTOP STORE</span>
+        <span class="footer-brand-sub">Tokyo Haneda Airport (RJTT) Precision Landing Simulator</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="#hero" class="footer-link">トップ</a>
+        <a href="#demo" class="footer-link">体験HUD</a>
+        <a href="#features" class="footer-link">特徴</a>
+        <a href="#route" class="footer-link">アプローチ解説</a>
+        <a href="#pricing" class="footer-link">購入・DL</a>
+        <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer" class="footer-link text-cyan-400 font-bold">公式ストア ↗</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© 2026 Cyber Matrix Systems. All rights reserved. Tokyo Haneda Flight Landing Desktop Edition.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
