@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osaka Itami Airport (RJOO) Flight Departure Simulator | 大阪国際空港 32L 出発フライトシミュレーター</title>
+  <meta name="description" id="meta-desc" content="大阪国際空港（伊丹 - RJOO）滑走路 32L からの離陸・初期上昇・武庫川左旋回変向飛行を高精度に再現。実測DEM標高と航空写真、本格6自由度空力モデル、PFD/HUD計器、6視点カメラを搭載したネイティブ・デスクトップ版フライトシミュレーター。">
+  <meta name="keywords" content="伊丹空港, 大阪国際空港, RJOO, ITM, 32L, フライトシミュレーター, 離陸, SID, 武庫川, 六甲山, DEM地形, 空力シミュレーション, Tauri 2.0, デスクトップアプリ, Cyber Matrix">
+
+  <!-- OGP / SNS Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/itami">
+  <meta property="og:title" id="og-title" content="Osaka Itami Airport Flight Departure Simulator | Cyber Matrix">
+  <meta property="og:description" id="og-desc" content="実測DEM標高と衛星写真で飛ぶ、伊丹空港32L出発シミュレーター。本格6自由度空力、実機仕様PFD計器、6視点カメラ搭載。">
+  <meta property="og:image" content="images/itami_flight_promo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="tw-title" content="Osaka Itami Airport Flight Departure Simulator">
+  <meta name="twitter:description" id="tw-desc" content="実測DEM標高と衛星写真で飛ぶ、伊丹空港32L出発シミュレーター。本格6自由度空力、実機仕様PFD計器、6視点カメラ搭載。">
+  <meta name="twitter:image" content="images/itami_flight_promo.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+  <link rel="apple-touch-icon" href="images/icon.png">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cyber Matrix Flight Vector Interactive Canvas Background -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glow glow-amber"></div>
+  <div class="ambient-glow glow-orange"></div>
+  <div class="ambient-glow glow-cyan"></div>
+
+  <!-- Header / Navigation -->
+  <header class="cyber-header" id="navbar">
+    <div class="container header-content">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon-box">
+          <img src="images/icon.svg" alt="Itami Flight Departure Icon" class="logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title font-orbitron">ITAMI FLIGHT</span>
+          <span class="brand-sub font-orbitron">DEPARTURE 32L</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#demo" class="nav-link" data-i18n="navDemo">体験HUDシミュレーター</a>
+        <a href="#features" class="nav-link" data-i18n="navFeatures">特徴・強み</a>
+        <a href="#route" class="nav-link" data-i18n="navRoute">出発ルート(SID)</a>
+        <a href="#avionics" class="nav-link" data-i18n="navAvionics">計器・操作</a>
+        <a href="#compare" class="nav-link" data-i18n="navCompare">製品比較</a>
+        <a href="#pricing" class="nav-link" data-i18n="navPricing">価格・DL</a>
+        <a href="#faq" class="nav-link" data-i18n="navFaq">よくある質問</a>
+
+        <!-- Mobile Language Toggle & CTA -->
+        <div class="mobile-menu-bottom">
+          <button class="lang-switch-btn lang-toggle-btn mobile-lang-btn" aria-label="Switch Language">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-label" data-i18n="langSwitchText">English / 日本語</span>
+          </button>
+          <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer" class="btn btn-header-cta mobile-only-btn" data-i18n="navGetNow">今すぐ購入 ➔</a>
+        </div>
+      </nav>
+
+      <div class="header-right">
+        <!-- Desktop Language Switcher -->
+        <button class="lang-switch-btn lang-toggle-btn desktop-lang-btn" aria-label="Switch Language" title="日本語 / English">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label" data-i18n="langSwitchText">English</span>
+        </button>
+
+        <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer" class="btn btn-neon-amber btn-sm header-cta">
+          <span class="btn-text" data-i18n="navGetNow">今すぐ購入 ➔</span>
+          <span class="btn-glitch"></span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-text-content">
+          <div class="hero-badge animate-fade-in">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">PRECISION FLIGHT SIMULATION SERIES | DESKTOP EDITION</span>
+          </div>
+
+          <h1 class="hero-title animate-fade-in delay-1" data-i18n-html="heroTitle">
+            <span class="text-white font-orbitron">Osaka Itami Airport</span><br>
+            <span class="gradient-text neon-text">Flight Departure Simulator</span>
+          </h1>
+
+          <p class="hero-lead animate-fade-in delay-2" data-i18n-html="heroLead">
+            大阪国際空港（伊丹 - RJOO）滑走路 32L からの離陸滑走、迫力の武庫川左旋回、そして神戸方面への上昇ルートを高精度に再現。<br class="desktop-br">
+            国土地理院の実測DEM標高と航空写真、本格6自由度空力モデル、PFD/HUD計器、6視点カメラを搭載した完全ローカル・買い切りのネイティブ・フライトシミュレーター。
+          </p>
+
+          <div class="hero-tags animate-fade-in delay-3">
+            <div class="hero-tag-item">
+              <span class="tag-icon">✈️</span>
+              <span class="tag-label" data-i18n="heroTag1">本格 6自由度(6-DOF) 空力演算</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">🏔️</span>
+              <span class="tag-label" data-i18n="heroTag2">国土地理院 10m DEM地形 ＆ 航空写真</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">📟</span>
+              <span class="tag-label" data-i18n="heroTag3">実機仕様 PFD / HUD コックピット計器</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">⚡</span>
+              <span class="tag-label" data-i18n="heroTag4">Tauri 2.0 超軽量・高FPS・完全オフライン</span>
+            </div>
+          </div>
+
+          <!-- Hero CTA Buttons -->
+          <div class="hero-actions animate-fade-in delay-4">
+            <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">
+              <div class="btn-icon">⚡</div>
+              <div class="btn-inner-text">
+                <span class="btn-subtext" data-i18n="heroCtaSub">BUY DESKTOP EDITION / 買い切り ¥1,980</span>
+                <span class="btn-maintext" data-i18n="heroCtaMain">公式ストアで購入・即時ダウンロード</span>
+              </div>
+              <span class="btn-arrow">➔</span>
+              <span class="btn-glow-layer"></span>
+            </a>
+
+            <a href="#demo" class="btn btn-hero-secondary">
+              <i class="fa-solid fa-play"></i>
+              <span data-i18n="heroCtaDemo">ブラウザでHUDを即体験</span>
+            </a>
+          </div>
+
+          <div class="platform-support">
+            <span class="support-title" data-i18n="platformTitle">対応環境:</span>
+            <div class="platform-icons">
+              <span class="plat-badge"><i class="fa-brands fa-windows text-cyan-400"></i> Windows 10/11 (.exe 4.6MB)</span>
+              <span class="plat-badge"><i class="fa-brands fa-apple text-amber-400"></i> macOS Apple Silicon / Intel (.dmg 9.4MB)</span>
+              <span class="plat-badge"><i class="fa-solid fa-lock text-emerald-400"></i> 100% オフライン動作</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-content animate-fade-in delay-2">
+          <div class="keyart-frame">
+            <div class="cyber-frame-corner top-left"></div>
+            <div class="cyber-frame-corner top-right"></div>
+            <div class="cyber-frame-corner bottom-left"></div>
+            <div class="cyber-frame-corner bottom-right"></div>
+            <div class="scanline-overlay"></div>
+            
+            <img src="images/itami_flight_promo.jpg" alt="Osaka Itami Airport Flight Departure Simulator Key Visual" class="keyart-image">
+            
+            <div class="keyart-floating-badge">
+              <div class="badge-ring"></div>
+              <i class="fa-solid fa-jet-fighter"></i>
+              <span data-i18n="heroFloatingBadge">RJOO RWY 32L TAKEOFF CORE</span>
+            </div>
+
+            <div class="keyart-caption">
+              <span class="caption-status"><span class="status-indicator"></span><span data-i18n="heroStatus">AVIONICS & PHYSICS ACTIVE</span></span>
+              <span class="caption-title">Itami Flight Departure v1.0.0 Native</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Metric Stats Strip -->
+      <div class="stats-strip">
+        <div class="container stats-grid">
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">0<span class="stat-unit">ms</span></div>
+            <div class="stat-label" data-i18n="statLatency">超低遅延・Tauriネイティブ</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">6<span class="stat-unit">-DOF</span></div>
+            <div class="stat-label" data-i18n="statPhysics">本格空力物理エンジン</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">10<span class="stat-unit">m DEM</span></div>
+            <div class="stat-label" data-i18n="statTerrain">国土地理院 実測標高メッシュ</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">6<span class="stat-unit">Views</span></div>
+            <div class="stat-label" data-i18n="statCameras">6視点カメラ切替システム</div>
+          </div>
+          <div class="stat-card stat-card-price">
+            <div class="stat-num font-orbitron" data-i18n="statPriceVal">¥1,980</div>
+            <div class="stat-label" data-i18n="statPrice">永久ライセンス・買い切り</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE FLIGHT PFD / HUD SIMULATOR SECTION -->
+    <section class="section demo-section" id="demo">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="demoBadge">INTERACTIVE AVIONICS PLAYGROUND</div>
+          <h2 class="section-title" data-i18n-html="demoTitle">ブラウザ上で体感！ <span class="gradient-text">実機仕様 PFD ＆ 出発フライトシミュレーター</span></h2>
+          <p class="section-desc" data-i18n="demoDesc">スロットルを上げて滑走路32Lから離陸！自動SID飛行デモの再生や、矢印キー／マウスドラッグでの手動操縦、リアルなジェットエンジン音の試聴が可能です。</p>
+        </div>
+
+        <div class="demo-box cyber-panel">
+          <div class="demo-layout">
+            <!-- PFD Instrument Cluster Left -->
+            <div class="demo-stage-wrapper">
+              <div class="pfd-stage" id="pfdStage">
+                <!-- PFD Canvas (Pitch, Roll, Airspeed Tape, Altitude Tape, Compass) -->
+                <canvas id="pfdCanvas" width="440" height="380"></canvas>
+
+                <!-- Route Waypoint HUD Badge -->
+                <div class="pfd-waypoint-badge">
+                  <div class="wp-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+                  <div class="wp-info">
+                    <span class="wp-label" data-i18n="demoWpLabel">ACTIVE PHASE</span>
+                    <span class="wp-name font-orbitron" id="hudWaypoint">PHASE 1: TAKEOFF 32L</span>
+                  </div>
+                </div>
+
+                <!-- Real-time HUD Telemetry Readouts -->
+                <div class="stage-hud">
+                  <div class="hud-item"><span class="hud-label">THRUST:</span> <span class="hud-val font-orbitron" id="hudThrust">100% TOGA</span></div>
+                  <div class="hud-item"><span class="hud-label">FLAPS:</span> <span class="hud-val font-orbitron" id="hudFlaps">5° (TAKEOFF)</span></div>
+                  <div class="hud-item"><span class="hud-label">GEAR:</span> <span class="hud-val font-orbitron text-emerald-400" id="hudGear">DOWN</span></div>
+                  <div class="hud-item"><span class="hud-label">G-FORCE:</span> <span class="hud-val font-orbitron" id="hudGForce">1.05 G</span></div>
+                </div>
+
+                <!-- Sound FX Indicator -->
+                <button class="audio-toggle-btn" id="audioToggleBtn" title="Sound Effects On/Off">
+                  <i class="fa-solid fa-volume-high text-amber-400" id="audioIcon"></i>
+                  <span id="audioLabel" data-i18n="demoAudioBtn">ENGINE SOUND: ON</span>
+                </button>
+              </div>
+
+              <!-- Waypoint Progress Timeline Strip -->
+              <div class="route-progress-bar">
+                <div class="progress-step active" id="step1">
+                  <span class="step-dot"></span>
+                  <span class="step-title">1. RWY 32L 離陸</span>
+                </div>
+                <div class="progress-step" id="step2">
+                  <span class="step-dot"></span>
+                  <span class="step-title">2. 初期上昇 (7.5°)</span>
+                </div>
+                <div class="progress-step" id="step3">
+                  <span class="step-dot"></span>
+                  <span class="step-title">3. 武庫川左旋回 (18°バンク)</span>
+                </div>
+                <div class="progress-step" id="step4">
+                  <span class="step-dot"></span>
+                  <span class="step-title">4. 神戸変向 230° 上昇</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Flight Controller Console Right -->
+            <div class="demo-controls-wrapper">
+              <div class="demo-console-header">
+                <span class="console-title font-orbitron"><i class="fa-solid fa-gamepad text-amber-400"></i> FLIGHT DECK CONTROLS</span>
+                <span class="console-badge" id="simModeBadge" data-i18n="demoModeAuto">AUTO SID FLIGHT</span>
+              </div>
+
+              <!-- Flight Mode Switch -->
+              <div class="control-group">
+                <label class="control-label" data-i18n="demoFlightModeLabel">操縦モード選択 (Flight Mode):</label>
+                <div class="mode-toggle-group">
+                  <button class="mode-btn active" id="btnModeAuto" data-mode="auto">
+                    <i class="fa-solid fa-route mr-1"></i> <span data-i18n="demoModeAutoBtn">自動SID離陸デモ</span>
+                  </button>
+                  <button class="mode-btn" id="btnModeManual" data-mode="manual">
+                    <i class="fa-solid fa-hand mr-1"></i> <span data-i18n="demoModeManualBtn">手動操縦 (6自由度)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Throttle Slider -->
+              <div class="control-group">
+                <div class="slider-header">
+                  <label for="throttleRange" class="control-label" data-i18n="demoThrottleLabel">スロットル推力 (Throttle / N1):</label>
+                  <span class="slider-val font-orbitron" id="throttleVal">100% (TOGA)</span>
+                </div>
+                <input type="range" id="throttleRange" min="0" max="100" step="1" value="100" class="cyber-range">
+                <div class="throttle-quick-btns">
+                  <button class="pill-btn" data-thrust="0">IDLE (0%)</button>
+                  <button class="pill-btn" data-thrust="55">CLIMB (55%)</button>
+                  <button class="pill-btn" data-thrust="85">CRUISE (85%)</button>
+                  <button class="pill-btn active" data-thrust="100">TOGA (100%)</button>
+                </div>
+              </div>
+
+              <!-- Secondary Flight Controls (Flaps & Gear) -->
+              <div class="dual-control-grid">
+                <div class="control-subgroup">
+                  <label class="control-label" data-i18n="demoFlapsLabel">フラップ (Flaps):</label>
+                  <div class="btn-grid-sm">
+                    <button class="btn-ctrl-sm" data-flap="0">0° (UP)</button>
+                    <button class="btn-ctrl-sm active" data-flap="5">5° (T/O)</button>
+                    <button class="btn-ctrl-sm" data-flap="15">15°</button>
+                  </div>
+                </div>
+
+                <div class="control-subgroup">
+                  <label class="control-label" data-i18n="demoGearLabel">降着装置 (Landing Gear):</label>
+                  <button class="gear-toggle-btn active" id="btnGearToggle">
+                    <span class="gear-lamp on"></span>
+                    <span id="gearBtnLabel">GEAR DOWN</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Camera Viewpoint Buttons -->
+              <div class="control-group">
+                <label class="control-label" data-i18n="demoCameraLabel">カメラ視点プリセット (Camera Views):</label>
+                <div class="camera-btn-grid">
+                  <button class="btn-cam active" data-cam="1"><i class="fa-solid fa-video"></i> 1: 後方チェイス</button>
+                  <button class="btn-cam" data-cam="2"><i class="fa-solid fa-eye"></i> 2: コックピット</button>
+                  <button class="btn-cam" data-cam="3"><i class="fa-solid fa-plane"></i> 3: 主翼ウィング</button>
+                  <button class="btn-cam" data-cam="4"><i class="fa-solid fa-tower-broadcast"></i> 4: 管制塔タワー</button>
+                  <button class="btn-cam" data-cam="5"><i class="fa-solid fa-chair"></i> 5: 客室窓</button>
+                  <button class="btn-cam" data-cam="6"><i class="fa-solid fa-arrows-spin"></i> 6: フリー回転</button>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="demo-action-buttons">
+                <button id="demoPlayBtn" class="btn btn-demo-play">
+                  <i class="fa-solid fa-rotate-left"></i>
+                  <span data-i18n="demoBtnRestart">Takeoff Replay / 離陸リセット</span>
+                </button>
+                <button id="demoPauseBtn" class="btn btn-demo-pause">
+                  <i class="fa-solid fa-pause"></i>
+                  <span data-i18n="demoBtnPause">一時停止</span>
+                </button>
+              </div>
+
+              <!-- Manual Instruction Prompt -->
+              <div class="demo-status-box" id="demoStatusBox">
+                <span class="status-icon"><i class="fa-solid fa-keyboard text-amber-400"></i></span>
+                <span class="status-text" id="demoStatusText" data-i18n="demoStatusAuto">自動SID離陸中: 滑走路32Lから離陸後、武庫川上空を左旋回して神戸方面へ上昇します。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="featuresBadge">CORE CAPABILITIES</div>
+          <h2 class="section-title" data-i18n-html="featuresTitle">伊丹の空を極限のリアルで再現する <span class="gradient-text">6大アドバンテージ</span></h2>
+          <p class="section-desc" data-i18n="featuresDesc">巨大なインストール容量や高額な月額課金は不要。国土地理院実測DEMと精密空力モデルをTauri 2.0で超軽量にPCローカル実行。</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-amber"></div>
+            <div class="feature-icon-wrapper amber">
+              <span class="feature-icon"><i class="fa-solid fa-mountain-sun"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat1Title">国土地理院 10m DEM地形<br>＆ 衛星オルソ航空写真</h3>
+            <p class="feature-text" data-i18n="feat1Text">
+              伊丹空港（RJOO）、猪名川、武庫川、六甲山系、大阪平野の実測標高メッシュを精密にメッシュ化。衛星オルソ画像テクスチャとの融合により、実物さながらの立体的起伏とランドマークを忠実に再現。
+            </p>
+            <div class="feature-tag" data-i18n="feat1Tag">#実測DEM標高 #オルソ衛星メッシュ #六甲山系</div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-orange"></div>
+            <div class="feature-icon-wrapper orange">
+              <span class="feature-icon"><i class="fa-solid fa-plane-departure"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat2Title">本格 6自由度 (6-DOF)<br>航空力学物理演算</h3>
+            <p class="feature-text" data-i18n="feat2Text">
+              主翼迎角、失速特性、対気速度、ピッチ・ロール・ヨーの慣性モーメント、フラップ展開時の揚力増加と誘導抗力、ギアの空気抵抗を毎フレーム物理演算。手動飛行時のリアルな操縦レスポンスを体感できます。
+            </p>
+            <div class="feature-tag" data-i18n="feat2Tag">#6DOF空力モデル #フラップ揚力 #リアル慣性</div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-cyan"></div>
+            <div class="feature-icon-wrapper cyan">
+              <span class="feature-icon"><i class="fa-solid fa-compass"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat3Title">実機仕様 PFD / HUD<br>コックピット計器システム</h3>
+            <p class="feature-text" data-i18n="feat3Text">
+              現代旅客機のグラスコックピットに準拠したPrimary Flight Display（PFD）を搭載。人工水平儀、対気速度（IAS）、気圧高度（ALT）、昇降率（V/S）、磁方位コンパス（HDG）をリアルタイムに直読可能。
+            </p>
+            <div class="feature-tag" data-i18n="feat3Tag">#グラスコックピット #PFD/HUD #人工水平儀</div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-amber"></div>
+            <div class="feature-icon-wrapper amber">
+              <span class="feature-icon"><i class="fa-solid fa-camera"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat4Title">臨場感あふれる<br>6視点カメラ切り替え</h3>
+            <p class="feature-text" data-i18n="feat4Text">
+              チェイス後方視点、操縦桿を握るパイロット視点、主翼とエンジンのしなりを体感するウィング視点、滑走路脇で見送る管制塔タワー視点、乗客目線の客室窓視点、全方位フリー視点を瞬時に切り替え可能。
+            </p>
+            <div class="feature-tag" data-i18n="feat4Tag">#コックピット視点 #ウィングビュー #タワー定点</div>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-cyan"></div>
+            <div class="feature-icon-wrapper cyan">
+              <span class="feature-icon"><i class="fa-solid fa-cloud-sun"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat5Title">昼夜・夕景・気象環境<br>リアルタイム大気レンダリング</h3>
+            <p class="feature-text" data-i18n="feat5Text">
+              快晴のデイフライト、大阪平野をオレンジに染めるサンセット夕景、空港誘導路灯や都市の灯火が煌めくナイトフライト、雲海・フォグをシームレスに切り替え。時間帯に応じたドラマティックなフライトを演出。
+            </p>
+            <div class="feature-tag" data-i18n="feat5Tag">#昼夜サイクル #夕景ライティング #滑走路誘導灯</div>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow glow-emerald"></div>
+            <div class="feature-icon-wrapper emerald">
+              <span class="feature-icon"><i class="fa-solid fa-bolt"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat6Title">Tauri 2.0 ネイティブ高速動作<br>＆ 完全買い切り永久版</h3>
+            <p class="feature-text" data-i18n="feat6Text">
+              Rust + Tauri 2.0 による極小ファイルサイズ（Mac 9.4MB / Win 4.6MB）と低メモリ消費。ブラウザ不要で瞬時に起動し、低スペックPCでも60+ FPSの超滑らかな描画を実現。追加課金ゼロの買い切り永久版。
+            </p>
+            <div class="feature-tag" data-i18n="feat6Tag">#容量わずか数MB #高速起動 #完全買い切り</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SID FLIGHT ROUTE SECTION -->
+    <section class="section route-section" id="route">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="routeBadge">FLIGHT PROFILE & NAVIGATION</div>
+          <h2 class="section-title" data-i18n-html="routeTitle">伊丹名物・武庫川左旋回 <span class="gradient-text">出発ルート(SID)完全解説</span></h2>
+          <p class="section-desc" data-i18n="routeDesc">市街地騒音軽減と地形回避のため設定された伊丹空港（RJOO）32L独自の出発飛行プロファイルを忠実に再現しています。</p>
+        </div>
+
+        <div class="route-grid">
+          <!-- Phase 1 Card -->
+          <div class="route-phase-card cyber-panel">
+            <div class="phase-header">
+              <span class="phase-num font-orbitron">PHASE 01</span>
+              <span class="phase-badge bg-amber-500/20 text-amber-400">TAKEOFF ROLL & INITIAL CLIMB</span>
+            </div>
+            <h3 class="phase-title" data-i18n="phase1Title">滑走路32L 加速滑走 〜 初期上昇区間</h3>
+            <p class="phase-text" data-i18n="phase1Text">
+              磁方位 320° に向けスロットルTOGA（100%）で加速滑走。対気速度 145kt（Vr）到達時に機首上げ（Rotation）を行い、上昇角 7.5° でポジティブクライムを開始。安全高度到達後にギアを格納（Gear UP）します。
+            </p>
+            <div class="phase-spec-list">
+              <div class="spec-row"><span class="spec-key">磁方位 (HDG):</span><span class="spec-val font-orbitron">320.0°</span></div>
+              <div class="spec-row"><span class="spec-key">離陸速度 (Vr):</span><span class="spec-val font-orbitron">145 kts (268 km/h)</span></div>
+              <div class="spec-row"><span class="spec-key">上昇ピッチ角:</span><span class="spec-val font-orbitron">+7.5°</span></div>
+            </div>
+          </div>
+
+          <!-- Phase 2 Card -->
+          <div class="route-phase-card cyber-panel">
+            <div class="phase-header">
+              <span class="phase-num font-orbitron">PHASE 02</span>
+              <span class="phase-badge bg-orange-500/20 text-orange-400">MUKOGAWA RIVER LEFT TURN</span>
+            </div>
+            <h3 class="phase-title" data-i18n="phase2Title">武庫川上空 左旋回変向区間</h3>
+            <p class="phase-text" data-i18n="phase2Text">
+              伊丹名物の急激な騒音配慮・左旋回を開始。バンク角 18.0°、旋回半径 1,000m、旋回角 90° で武庫川の上空をトレースしながら西へと進路を変向。六甲山系の南麓を見渡す迫力のパノラマが広がります。
+            </p>
+            <div class="phase-spec-list">
+              <div class="spec-row"><span class="spec-key">バンク角 (Roll):</span><span class="spec-val font-orbitron">-18.0° (左傾斜)</span></div>
+              <div class="spec-row"><span class="spec-key">旋回半径 (Radius):</span><span class="spec-val font-orbitron">1,000 m</span></div>
+              <div class="spec-row"><span class="spec-key">総旋回角 (Turn):</span><span class="spec-val font-orbitron">90.0°</span></div>
+            </div>
+          </div>
+
+          <!-- Phase 3 Card -->
+          <div class="route-phase-card cyber-panel">
+            <div class="phase-header">
+              <span class="phase-num font-orbitron">PHASE 03</span>
+              <span class="phase-badge bg-cyan-500/20 text-cyan-400">KOBE EN-ROUTE CLIMB</span>
+            </div>
+            <h3 class="phase-title" data-i18n="phase3Title">神戸方面 出発上昇区間</h3>
+            <p class="phase-text" data-i18n="phase3Text">
+              旋回完了後、水平翼姿勢（Wings Level）に復帰し、出発方位 230.0°（神戸・瀬戸内海方面）へ向けて上昇角 6.0° で巡航高度へ向けた安定した巡航上昇フェーズへと移行します。
+            </p>
+            <div class="phase-spec-list">
+              <div class="spec-row"><span class="spec-key">出発方位 (HDG):</span><span class="spec-val font-orbitron">230.0° (西南西)</span></div>
+              <div class="spec-row"><span class="spec-key">巡航上昇角:</span><span class="spec-val font-orbitron">+6.0°</span></div>
+              <div class="spec-row"><span class="spec-key">目標高度:</span><span class="spec-val font-orbitron">5,000 ft+</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COCKPIT CONTROLS & AVIONICS SECTION -->
+    <section class="section avionics-section" id="avionics">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="avionicsBadge">FLIGHT DECK & SHORTCUTS</div>
+          <h2 class="section-title" data-i18n-html="avionicsTitle">操縦系統 ＆ <span class="gradient-text">キーボードショートカット一覧</span></h2>
+          <p class="section-desc" data-i18n="avionicsDesc">直感的なキーボード操作で、本格的な6自由度フライトや各種計器・カメラ視点を自在にコントロールできます。</p>
+        </div>
+
+        <div class="avionics-grid">
+          <!-- Controls Table -->
+          <div class="controls-table-wrapper cyber-panel">
+            <h3 class="ctrl-subhead font-orbitron"><i class="fa-solid fa-gamepad text-amber-400 mr-2"></i>手動飛行操縦キー (Flight Controls)</h3>
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">キー</th>
+                  <th style="width: 35%;">機能</th>
+                  <th>詳細説明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>W</kbd> / <kbd>↑</kbd></td>
+                  <td><strong class="text-amber-400">ピッチダウン (機首下げ)</strong></td>
+                  <td>エレベーター操作。降下・速度増加</td>
+                </tr>
+                <tr>
+                  <td><kbd>S</kbd> / <kbd>↓</kbd></td>
+                  <td><strong class="text-amber-400">ピッチアップ (機首上げ)</strong></td>
+                  <td>エレベーター操作。上昇・迎角増加</td>
+                </tr>
+                <tr>
+                  <td><kbd>A</kbd> / <kbd>←</kbd></td>
+                  <td><strong class="text-cyan-400">ロール左 (左バンク)</strong></td>
+                  <td>エルロン操作。機体を左に傾ける</td>
+                </tr>
+                <tr>
+                  <td><kbd>D</kbd> / <kbd>→</kbd></td>
+                  <td><strong class="text-cyan-400">ロール右 (右バンク)</strong></td>
+                  <td>エルロン操作。機体を右に傾ける</td>
+                </tr>
+                <tr>
+                  <td><kbd>Q</kbd> / <kbd>E</kbd></td>
+                  <td><strong class="text-slate-200">ラダー (左右ヨー)</strong></td>
+                  <td>垂直尾翼操作。左右への進路微調整</td>
+                </tr>
+                <tr>
+                  <td><kbd>Shift</kbd> / <kbd>Ctrl</kbd></td>
+                  <td><strong class="text-emerald-400">スロットル増減</strong></td>
+                  <td>ジェットエンジンの推力UP / DOWN</td>
+                </tr>
+                <tr>
+                  <td><kbd>F</kbd></td>
+                  <td><strong>フラップ切替</strong></td>
+                  <td>離陸時の揚力増加（0° / 5° / 15°）</td>
+                </tr>
+                <tr>
+                  <td><kbd>G</kbd></td>
+                  <td><strong>ギア格納 / 展開</strong></td>
+                  <td>車輪の引き込み・空気抵抗低減</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Camera & General Table -->
+          <div class="controls-table-wrapper cyber-panel">
+            <h3 class="ctrl-subhead font-orbitron"><i class="fa-solid fa-camera text-cyan-400 mr-2"></i>視点切替 ＆ システム操作</h3>
+            <table class="cyber-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">キー</th>
+                  <th style="width: 35%;">モード / 機能</th>
+                  <th>特徴</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>1</kbd></td>
+                  <td><strong>チェイスカメラ</strong></td>
+                  <td>後方追従。機体全体と大阪の景観を俯瞰</td>
+                </tr>
+                <tr>
+                  <td><kbd>2</kbd></td>
+                  <td><strong>コックピット</strong></td>
+                  <td>パイロット視点。計器と滑走路を直視</td>
+                </tr>
+                <tr>
+                  <td><kbd>3</kbd></td>
+                  <td><strong>主翼ウィングビュー</strong></td>
+                  <td>エンジン噴射と主翼のしなりを体感</td>
+                </tr>
+                <tr>
+                  <td><kbd>4</kbd></td>
+                  <td><strong>タワー視点</strong></td>
+                  <td>管制塔定点から離陸を見送るシネマ視点</td>
+                </tr>
+                <tr>
+                  <td><kbd>5</kbd></td>
+                  <td><strong>客室窓視点</strong></td>
+                  <td>乗客目線での離陸・旋回パノラマ</td>
+                </tr>
+                <tr>
+                  <td><kbd>6</kbd></td>
+                  <td><strong>フリー回転</strong></td>
+                  <td>マウスドラッグで全周囲360度を観察</td>
+                </tr>
+                <tr>
+                  <td><kbd>Space</kbd></td>
+                  <td><strong>一時停止 / 再開</strong></td>
+                  <td>フライト進行をストップして景観観察</td>
+                </tr>
+                <tr>
+                  <td><kbd>R</kbd></td>
+                  <td><strong>フライトリセット</strong></td>
+                  <td>滑走路32Lの離陸待機位置に戻る</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT COMPARISON SECTION -->
+    <section class="section compare-section" id="compare">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="compareBadge">BENCHMARK & VALUE</div>
+          <h2 class="section-title" data-i18n-html="compareTitle">他フライトシミュレーターとの <span class="gradient-text">徹底スペック比較</span></h2>
+          <p class="section-desc" data-i18n="compareDesc">大容量ストレージや高額PCを要求する巨大シミュレーターと一線を画す、圧倒的な軽快さと手軽さを実現。</p>
+        </div>
+
+        <div class="compare-table-wrapper cyber-panel">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th class="feature-col" style="width: 25%;">比較項目</th>
+                <th class="highlight-col" style="width: 30%;">
+                  <div class="product-badge">RECOMMENDED</div>
+                  <span class="product-name font-orbitron">Itami Flight Departure</span>
+                  <span class="product-sub">デスクトップDL版</span>
+                </th>
+                <th style="width: 22%;">超大型フライトシム<br><span class="text-xs text-slate-500">(MSFS等)</span></th>
+                <th style="width: 23%;">一般的なWebブラウザシム<br><span class="text-xs text-slate-500">(簡易WebGL)</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>価格体系</strong></td>
+                <td class="highlight-cell"><span class="badge-good">¥1,980 (完全買い切り)</span></td>
+                <td>¥7,000〜¥15,000 + 追加DLC</td>
+                <td>無料（広告多数・低機能）</td>
+              </tr>
+              <tr>
+                <td><strong>インストール容量</strong></td>
+                <td class="highlight-cell"><span class="badge-good">約 5〜10 MB (極小)</span></td>
+                <td>150 GB 〜 250 GB+ (超大容量)</td>
+                <td>0 MB (都度DL・通信量大)</td>
+              </tr>
+              <tr>
+                <td><strong>起動速度</strong></td>
+                <td class="highlight-cell"><span class="badge-good">約 1 秒で即起動</span></td>
+                <td>3〜5 分 (ロード極長)</td>
+                <td>3〜10 秒 (回線依存)</td>
+              </tr>
+              <tr>
+                <td><strong>伊丹32L 独自SID再現</strong></td>
+                <td class="highlight-cell"><span class="badge-good">武庫川旋回など完全再現</span></td>
+                <td>汎用AIウェイポイント</td>
+                <td>非対応（直線のみ等）</td>
+              </tr>
+              <tr>
+                <td><strong>実測DEM標高地形</strong></td>
+                <td class="highlight-cell"><span class="badge-good">国土地理院 10m 実測メッシュ</span></td>
+                <td>グローバルメッシュ</td>
+                <td>平面または粗いメッシュ</td>
+              </tr>
+              <tr>
+                <td><strong>オフライン動作</strong></td>
+                <td class="highlight-cell"><span class="badge-good">100% 完全オフライン</span></td>
+                <td>常時高速回線必須 (Bingストリーミング)</td>
+                <td>常時インターネット必須</td>
+              </tr>
+              <tr>
+                <td><strong>要求スペック</strong></td>
+                <td class="highlight-cell"><span class="badge-good">一般的なノートPCで60FPS</span></td>
+                <td>RTX 4070等 ハイスペックGPU必須</td>
+                <td>ブラウザ依存でカクつきあり</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & DOWNLOAD SECTION -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="pricing-card cyber-panel">
+          <div class="pricing-header">
+            <span class="pricing-tag font-orbitron" data-i18n="priceTag">PERMANENT LICENSE • ONE-TIME PURCHASE</span>
+            <h2 class="pricing-title font-orbitron" data-i18n="priceTitle">Osaka Itami Flight Departure Simulator</h2>
+            <p class="pricing-subtitle" data-i18n="priceSub">一度の購入で永久利用可能。サブスクリプションや追加課金なしの完全買い切り型です。</p>
+          </div>
+
+          <div class="price-display">
+            <span class="price-currency">¥</span>
+            <span class="price-amount font-orbitron">1,980</span>
+            <span class="price-tax" data-i18n="priceTax">(税込・買い切り)</span>
+          </div>
+
+          <!-- Download Action Buttons -->
+          <div class="pricing-actions">
+            <!-- Windows Store Link -->
+            <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer" class="btn btn-buy-win">
+              <i class="fa-brands fa-windows text-xl mr-2"></i>
+              <div class="btn-text-block">
+                <span class="btn-os-title">Windows版を購入・ダウンロード</span>
+                <span class="btn-os-meta">Windows 10 / 11 64bit • .exe インストーラー (4.6MB)</span>
+              </div>
+              <i class="fa-solid fa-arrow-right ml-auto"></i>
+            </a>
+
+            <!-- Mac Store Link -->
+            <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer" class="btn btn-buy-mac">
+              <i class="fa-brands fa-apple text-xl mr-2"></i>
+              <div class="btn-text-block">
+                <span class="btn-os-title">macOS版を購入・ダウンロード</span>
+                <span class="btn-os-meta">Apple Silicon & Intel • .dmg パッケージ (9.4MB)</span>
+              </div>
+              <i class="fa-solid fa-arrow-right ml-auto"></i>
+            </a>
+          </div>
+
+          <!-- Trust & Guarantee Badges -->
+          <div class="trust-badges">
+            <div class="trust-item">
+              <i class="fa-solid fa-lock text-amber-400"></i>
+              <span data-i18n="trust1">Stripe暗号化決済</span>
+            </div>
+            <span class="trust-dot">•</span>
+            <div class="trust-item">
+              <i class="fa-solid fa-bolt text-cyan-400"></i>
+              <span data-i18n="trust2">決済後 即時ダウンロード</span>
+            </div>
+            <span class="trust-dot">•</span>
+            <div class="trust-item">
+              <i class="fa-solid fa-infinity text-emerald-400"></i>
+              <span data-i18n="trust3">永久アップデート無償</span>
+            </div>
+            <span class="trust-dot">•</span>
+            <div class="trust-item">
+              <i class="fa-solid fa-wifi-slash text-slate-400"></i>
+              <span data-i18n="trust4">完全オフライン動作保証</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="faqBadge">FREQUENTLY ASKED QUESTIONS</div>
+          <h2 class="section-title" data-i18n-html="faqTitle">よくあるご質問 <span class="gradient-text">(FAQ)</span></h2>
+          <p class="section-desc" data-i18n="faqDesc">ご購入前・インストール時によくいただく質問と回答をまとめました。</p>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- FAQ 1 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text" data-i18n="faq1Q">Q. MacとWindowsの両方で動作しますか？</span>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq1A">
+                はい、macOS（Apple Silicon M1/M2/M3/M4 および Intel Mac）と Windows 10/11（64bit）の両プラットフォームにネイティブ対応しています。ご購入時にご利用のOS用インストーラーをダウンロードいただけます。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text" data-i18n="faq2Q">Q. ハイスペックなゲーミングPCが必要ですか？</span>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq2A">
+                不要です。本作は軽量なTauri 2.0フレームワークと最適化されたThree.js WebGLパイプラインを採用しているため、一般的なノートPC（Intel UHD Graphics / Apple M1内蔵GPUなど）でも60 FPSの非常に滑らかな動作が可能です。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text" data-i18n="faq3Q">Q. ジョイスティックやゲームパッドに対応していますか？</span>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq3A">
+                キーボード操作（W/A/S/D・矢印キー）、マウスによるフリールック・操縦に標準対応しているほか、標準的なUSBゲームパッド（DirectInput / XInput）でのピッチ・ロール入力にも対応しています。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text" data-i18n="faq4Q">Q. なぜファイルサイズが数MBと圧倒的に小さいのですか？</span>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq4A">
+                OS標準のネイティブWebビューを活用するTauri 2.0アーキテクチャと、国土地理院DEMデータの高度な圧縮・最適化アルゴリズムを採用しているためです。重厚なChromiumブラウザを内包せず、無駄な数GBのダウンロードを一切必要としません。
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question" aria-expanded="false">
+              <span class="faq-q-text" data-i18n="faq5Q">Q. 購入後の決済方法とダウンロード手順は？</span>
+              <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq5A">
+                決済は国際規格の安全なStripe決済（クレジットカード、Apple Pay、Google Pay対応）を利用しています。お支払い完了後、即座にダウンロード画面が表示され、登録メールアドレスにも永続ダウンロードリンクが送信されます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="logo-icon-box sm">
+          <img src="images/icon.svg" alt="Cyber Matrix Logo" class="logo-img">
+        </div>
+        <div class="footer-brand-info">
+          <span class="font-orbitron font-bold text-slate-200">CYBER MATRIX DESKTOP STORE</span>
+          <span class="text-xs text-slate-500">Precision Flight Simulation & Tactical Desktop Series</span>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://cyber-matrix.netlify.app/" target="_blank" rel="noopener noreferrer">ストアトップ</a>
+        <a href="https://cyber-matrix.netlify.app/products/itami" target="_blank" rel="noopener noreferrer">伊丹32L出発製品ページ</a>
+        <a href="https://cyber-matrix.netlify.app/products/haneda" target="_blank" rel="noopener noreferrer">羽田着陸製品ページ</a>
+      </div>
+
+      <div class="footer-copy">
+        <p class="font-orbitron text-[11px] text-slate-600">© 2026 CYBER MATRIX SYSTEMS. ALL RIGHTS RESERVED.</p>
+        <p class="text-[10px] text-slate-700 mt-1">Osaka Itami Airport (RJOO) Flight Departure Simulator Desktop Edition v1.0.0</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
