@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talking Avatar Desktop | リアルタイムAIリップシンク・アバター音声合成デスクトップアプリ</title>
+  <meta name="description" id="meta-desc" content="文章を入力するだけで写真やイラストが表情豊かに喋り出す！完全ローカル実行のAIリアルタイム・リップシンク＆アバター音声合成アプリ『Talking Avatar Desktop』公式サイト。Windows / macOS対応。クロマキー動画出力・買い切り型。">
+  <meta name="keywords" content="Talking Avatar, トーキングアバター, リップシンク, AIアバター, 音声合成, TTS, 口パク, Kokoro AI, クロマキー録画, VTuber, YouTube制作, Cyber Matrix">
+
+  <!-- OGP / SNS Cards -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/avatar">
+  <meta property="og:title" id="og-title" content="Talking Avatar Desktop | リアルタイムAIリップシンク・アバター音声合成">
+  <meta property="og:description" id="og-desc" content="文章を入力するだけで写真やイラストが表情豊かに喋り出す！完全ローカル実行のリアルタイムAIリップシンク・アバタースタジオ。">
+  <meta property="og:image" content="images/talking_avatar_promo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="tw-title" content="Talking Avatar Desktop | リアルタイムAIリップシンク・アバター音声合成">
+  <meta name="twitter:description" id="tw-desc" content="文章を入力するだけで写真やイラストが表情豊かに喋り出す！完全ローカル実行のリアルタイムAIリップシンク・アバタースタジオ。">
+  <meta name="twitter:image" content="images/talking_avatar_promo.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/icon.svg">
+  <link rel="apple-touch-icon" href="images/icon.png">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cyber Matrix Interactive Canvas Background -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Ambient Glowing Blobs -->
+  <div class="ambient-glow glow-purple"></div>
+  <div class="ambient-glow glow-pink"></div>
+  <div class="ambient-glow glow-indigo"></div>
+
+  <!-- Header / Navigation -->
+  <header class="cyber-header" id="navbar">
+    <div class="container header-content">
+      <a href="#hero" class="brand-logo">
+        <div class="logo-icon-box">
+          <img src="images/icon.svg" alt="Talking Avatar Icon" class="logo-img">
+        </div>
+        <div class="brand-text">
+          <span class="brand-title font-orbitron">TALKING</span>
+          <span class="brand-sub font-orbitron">AVATAR</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#demo" class="nav-link" data-i18n="navDemo">体験シミュレーター</a>
+        <a href="#features" class="nav-link" data-i18n="navFeatures">特徴・強み</a>
+        <a href="#usecases" class="nav-link" data-i18n="navUsecases">活用シーン</a>
+        <a href="#workflow" class="nav-link" data-i18n="navWorkflow">3ステップ</a>
+        <a href="#compare" class="nav-link" data-i18n="navCompare">製品比較</a>
+        <a href="#pricing" class="nav-link" data-i18n="navPricing">価格</a>
+        <a href="#faq" class="nav-link" data-i18n="navFaq">よくある質問</a>
+
+        <!-- Mobile Language Toggle & CTA -->
+        <div class="mobile-menu-bottom">
+          <button class="lang-switch-btn lang-toggle-btn mobile-lang-btn" aria-label="Switch Language">
+            <span class="lang-icon">🌐</span>
+            <span class="lang-label" data-i18n="langSwitchText">English / 日本語</span>
+          </button>
+          <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" class="btn btn-header-cta mobile-only-btn" data-i18n="navGetNow">今すぐ購入 ➔</a>
+        </div>
+      </nav>
+
+      <div class="header-right">
+        <!-- Desktop Language Switcher -->
+        <button class="lang-switch-btn lang-toggle-btn desktop-lang-btn" aria-label="Switch Language" title="日本語 / English">
+          <span class="lang-icon">🌐</span>
+          <span class="lang-label" data-i18n="langSwitchText">English</span>
+        </button>
+
+        <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" class="btn btn-neon-purple btn-sm header-cta">
+          <span class="btn-text" data-i18n="navGetNow">今すぐ購入 ➔</span>
+          <span class="btn-glitch"></span>
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-text-content">
+          <div class="hero-badge animate-fade-in">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">NEURAL LIP-SYNC & AI AVATAR DESKTOP SUITE</span>
+          </div>
+
+          <h1 class="hero-title animate-fade-in delay-1" data-i18n-html="heroTitle">
+            <span class="text-white">テキストを入力するだけ。</span><br>
+            <span class="gradient-text neon-text">写真もイラストも、表情豊かに喋り出す。</span>
+          </h1>
+
+          <p class="hero-lead animate-fade-in delay-2" data-i18n-html="heroLead">
+            手持ちの正面写真やパーツ分割イラストをドラッグ＆ドロップするだけで、AIが目や口を自動検出。<br class="desktop-br">
+            入力した文章の母音に合わせて超高精度にリアルタイム・リップシンクし、クロマキー動画も一発書き出し。完全ローカル実行・買い切りのネイティブアプリです。
+          </p>
+
+          <div class="hero-tags animate-fade-in delay-3">
+            <div class="hero-tag-item">
+              <span class="tag-icon">👄</span>
+              <span class="tag-label" data-i18n="heroTag1">母音連動リップシンク (A/I/U/E/O)</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">📸</span>
+              <span class="tag-label" data-i18n="heroTag2">写真の自動顔認識 ＆ 自作イラスト対応</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">🎙️</span>
+              <span class="tag-label" data-i18n="heroTag3">デュアルAI音声エンジン (Kokoro & OS)</span>
+            </div>
+            <div class="hero-tag-item">
+              <span class="tag-icon">🔒</span>
+              <span class="tag-label" data-i18n="heroTag4">完全ローカル・データ送信ゼロ</span>
+            </div>
+          </div>
+
+          <!-- Hero CTA Buttons -->
+          <div class="hero-actions animate-fade-in delay-4">
+            <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary">
+              <div class="btn-icon">⚡</div>
+              <div class="btn-inner-text">
+                <span class="btn-subtext" data-i18n="heroCtaSub">BUY DESKTOP EDITION / 買い切り ¥980</span>
+                <span class="btn-maintext" data-i18n="heroCtaMain">公式ストアで購入・ダウンロード</span>
+              </div>
+              <span class="btn-arrow">➔</span>
+              <span class="btn-glow-layer"></span>
+            </a>
+
+            <a href="#demo" class="btn btn-hero-secondary">
+              <i class="fa-solid fa-play"></i>
+              <span data-i18n="heroCtaDemo">ブラウザで即体験する</span>
+            </a>
+          </div>
+
+          <div class="platform-support">
+            <span class="support-title" data-i18n="platformTitle">対応環境:</span>
+            <div class="platform-icons">
+              <span class="plat-badge"><i class="fa-brands fa-windows text-cyan-400"></i> Windows 10/11 (.exe)</span>
+              <span class="plat-badge"><i class="fa-brands fa-apple text-pink-400"></i> macOS Apple Silicon / Intel (.dmg)</span>
+              <span class="plat-badge"><i class="fa-solid fa-lock text-emerald-400"></i> 100% オフライン動作</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual-content animate-fade-in delay-2">
+          <div class="keyart-frame">
+            <div class="cyber-frame-corner top-left"></div>
+            <div class="cyber-frame-corner top-right"></div>
+            <div class="cyber-frame-corner bottom-left"></div>
+            <div class="cyber-frame-corner bottom-right"></div>
+            <div class="scanline-overlay"></div>
+            
+            <img src="images/talking_avatar_promo.jpg" alt="Talking Avatar Desktop Key Visual" class="keyart-image">
+            
+            <div class="keyart-floating-badge">
+              <div class="badge-ring"></div>
+              <i class="fa-solid fa-wave-square"></i>
+              <span data-i18n="heroFloatingBadge">NEURAL LIP-SYNC ACTIVE</span>
+            </div>
+
+            <div class="keyart-caption">
+              <span class="caption-status"><span class="status-indicator"></span><span data-i18n="heroStatus">AI LOCAL ENGINE READY</span></span>
+              <span class="caption-title">Talking Avatar v0.1.0 Native</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Metric Stats Strip -->
+      <div class="stats-strip">
+        <div class="container stats-grid">
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">0<span class="stat-unit">ms</span></div>
+            <div class="stat-label" data-i18n="statLatency">リアルタイム同期遅延</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">6<span class="stat-unit">Phonemes</span></div>
+            <div class="stat-label" data-i18n="statPhoneme">自然な母音開閉 (A/I/U/E/O/X)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">100<span class="stat-unit">%</span></div>
+            <div class="stat-label" data-i18n="statPrivacy">完全ローカル・プライバシー保証</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num font-orbitron">2<span class="stat-unit">Engines</span></div>
+            <div class="stat-label" data-i18n="statEngines">Kokoro AI ＆ OS標準TTS</div>
+          </div>
+          <div class="stat-card stat-card-price">
+            <div class="stat-num font-orbitron" data-i18n="statPriceVal">¥980</div>
+            <div class="stat-label" data-i18n="statPrice">永久ライセンス・買い切り</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LIVE DEMO SIMULATOR SECTION -->
+    <section class="section demo-section" id="demo">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="demoBadge">INTERACTIVE PLAYGROUND</div>
+          <h2 class="section-title" data-i18n-html="demoTitle">ブラウザ上で体験！ <span class="gradient-text">リアルタイム・リップシンク</span></h2>
+          <p class="section-desc" data-i18n="demoDesc">母音ボタンをクリックするか、テキストを入力して「Speak」を押してください。声に合わせてアバターが自然に口パク・まばたき・微振動します。</p>
+        </div>
+
+        <div class="demo-box cyber-panel">
+          <div class="demo-layout">
+            <!-- Stage Preview Left -->
+            <div class="demo-stage-wrapper">
+              <div class="demo-stage" id="demoStage">
+                <!-- Interactive Avatar Canvas / Rig -->
+                <div class="avatar-rig" id="avatarRig">
+                  <div class="avatar-base-layer" id="avatarBaseLayer">
+                    <!-- Base face vector graphic -->
+                    <svg class="avatar-vector" viewBox="0 0 320 360" width="100%" height="100%">
+                      <defs>
+                        <radialGradient id="faceSkin" cx="50%" cy="45%" r="50%">
+                          <stop offset="0%" stop-color="#fed7aa"/>
+                          <stop offset="85%" stop-color="#fdba74"/>
+                          <stop offset="100%" stop-color="#fba063"/>
+                        </radialGradient>
+                        <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#3b0764"/>
+                          <stop offset="60%" stop-color="#581c87"/>
+                          <stop offset="100%" stop-color="#7e22ce"/>
+                        </linearGradient>
+                        <linearGradient id="clothGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#0f172a"/>
+                          <stop offset="100%" stop-color="#1e293b"/>
+                        </linearGradient>
+                      </defs>
+
+                      <!-- Clothes / Neck -->
+                      <path d="M 130 250 L 190 250 L 205 350 L 115 350 Z" fill="#fdba74"/>
+                      <path d="M 80 320 Q 160 300 240 320 L 260 360 L 60 360 Z" fill="url(#clothGrad)" stroke="#a855f7" stroke-width="2"/>
+                      <path d="M 140 310 L 160 330 L 180 310" fill="none" stroke="#ec4899" stroke-width="2.5"/>
+
+                      <!-- Back Hair -->
+                      <path d="M 70 140 C 40 220 50 300 80 330 C 100 280 85 180 90 140 Z" fill="url(#hairGrad)"/>
+                      <path d="M 250 140 C 280 220 270 300 240 330 C 220 280 235 180 230 140 Z" fill="url(#hairGrad)"/>
+
+                      <!-- Head base -->
+                      <ellipse cx="160" cy="180" rx="80" ry="92" fill="url(#faceSkin)" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.3))"/>
+
+                      <!-- Cheeks Blush -->
+                      <ellipse cx="110" cy="205" rx="14" ry="7" fill="#fb7185" opacity="0.35"/>
+                      <ellipse cx="210" cy="205" rx="14" ry="7" fill="#fb7185" opacity="0.35"/>
+
+                      <!-- Nose -->
+                      <path d="M 160 185 Q 158 198 163 200" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+                      <!-- Front Hair / Bangs -->
+                      <path d="M 80 150 C 70 80 140 60 160 60 C 180 60 250 80 240 150 C 230 120 210 100 190 120 C 170 140 150 90 130 125 C 115 110 95 120 80 150 Z" fill="url(#hairGrad)"/>
+                    </svg>
+
+                    <!-- Eyes Layer (Open / Half / Closed) -->
+                    <div class="avatar-eyes-container" id="avatarEyes">
+                      <div class="eye left-eye">
+                        <div class="eye-iris"></div>
+                        <div class="eye-shine"></div>
+                      </div>
+                      <div class="eye right-eye">
+                        <div class="eye-iris"></div>
+                        <div class="eye-shine"></div>
+                      </div>
+                    </div>
+
+                    <!-- Dynamic Mouth Layer -->
+                    <div class="avatar-mouth-container" id="avatarMouth">
+                      <div class="mouth-shape mouth-X active" id="mouthShape"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stage Background Modes -->
+                <div class="stage-bg-selector">
+                  <button class="bg-opt-btn active" data-bg="neon" title="Neon Dark"><span class="color-dot bg-neon"></span></button>
+                  <button class="bg-opt-btn" data-bg="chroma" title="Chroma Green (透過・合成用)"><span class="color-dot bg-chroma"></span></button>
+                  <button class="bg-opt-btn" data-bg="transparent" title="Transparent Check"><span class="color-dot bg-trans"></span></button>
+                </div>
+
+                <!-- Real-time HUD Indicator -->
+                <div class="stage-hud">
+                  <div class="hud-item"><span class="hud-label">PHONEME:</span> <span class="hud-val font-orbitron" id="hudPhoneme">X (IDLE)</span></div>
+                  <div class="hud-item"><span class="hud-label">FPS:</span> <span class="hud-val font-orbitron">60</span></div>
+                  <div class="hud-item"><span class="hud-label">AUDIO:</span> <span class="hud-val font-orbitron" id="hudAudioStatus">READY</span></div>
+                </div>
+              </div>
+
+              <!-- Manual Phoneme Trigger Buttons -->
+              <div class="phoneme-trigger-bar">
+                <span class="trigger-label" data-i18n="demoPhonemeLabel">母音テスト:</span>
+                <div class="phoneme-buttons">
+                  <button class="btn-phoneme" data-phoneme="A">A (あ)</button>
+                  <button class="btn-phoneme" data-phoneme="I">I (い)</button>
+                  <button class="btn-phoneme" data-phoneme="U">U (う)</button>
+                  <button class="btn-phoneme" data-phoneme="E">E (え)</button>
+                  <button class="btn-phoneme" data-phoneme="O">O (お)</button>
+                  <button class="btn-phoneme active" data-phoneme="X">X (閉)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Controller Console Right -->
+            <div class="demo-controls-wrapper">
+              <div class="demo-console-header">
+                <span class="console-title font-orbitron"><i class="fa-solid fa-sliders text-purple-400"></i> SYNTHESIS CONTROLLER</span>
+                <span class="console-badge" data-i18n="demoLiveBadge">ONLINE SIMULATION</span>
+              </div>
+
+              <div class="control-group">
+                <label for="demoVoiceSelect" class="control-label" data-i18n="demoVoiceEngineLabel">音声エンジン & 音声:</label>
+                <select id="demoVoiceSelect" class="cyber-select">
+                  <option value="ja-JP" selected>OS標準音声 (日本語 - Japanese TTS)</option>
+                  <option value="en-US">OS標準音声 (英語 - English TTS)</option>
+                  <option value="kokoro-sim">Kokoro AI ニューラル音声 (英語 高品質シミュレーション)</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <div class="slider-header">
+                  <label for="demoSpeedRange" class="control-label" data-i18n="demoSpeedLabel">読み上げ速度 (Speed):</label>
+                  <span class="slider-val font-orbitron" id="speedVal">1.0x</span>
+                </div>
+                <input type="range" id="demoSpeedRange" min="0.5" max="2.0" step="0.1" value="1.0" class="cyber-range">
+              </div>
+
+              <div class="control-group">
+                <label for="demoTextInput" class="control-label" data-i18n="demoTextInputLabel">読み上げテキスト (Input Text):</label>
+                <textarea id="demoTextInput" class="cyber-textarea" rows="3" placeholder="喋らせたい文章を入力してください...">こんにちは！Talking Avatar Desktopへようこそ。文章に合わせてリアルタイムに口パクします！</textarea>
+              </div>
+
+              <div class="sample-preset-pills">
+                <span class="preset-label" data-i18n="demoPresetsLabel">例文プリセット:</span>
+                <button class="pill-btn active" data-text="こんにちは！Talking Avatar Desktopへようこそ。文章に合わせてリアルタイムに口パクします！">日本語 挨拶</button>
+                <button class="pill-btn" data-text="最新のAI音声合成と高精度なリップシンクで、動画制作やプレゼンテーションが劇的に進化します。">解説・プレゼン</button>
+                <button class="pill-btn" data-text="Hello and welcome! Talking Avatar Desktop brings your photos and illustrations to life with neural lip-sync!">English Demo</button>
+              </div>
+
+              <!-- Audio Waveform Canvas Visualizer -->
+              <div class="waveform-box">
+                <div class="waveform-header">
+                  <span class="wf-label"><i class="fa-solid fa-volume-high text-pink-400"></i> REAL-TIME AUDIO SPECTRUM</span>
+                  <span class="wf-status" id="wfStatus">IDLE</span>
+                </div>
+                <canvas id="waveformCanvas" width="400" height="48"></canvas>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="demo-action-buttons">
+                <button id="demoSpeakBtn" class="btn btn-demo-speak">
+                  <i class="fa-solid fa-play"></i>
+                  <span data-i18n="demoBtnSpeak">Speak / 喋らせる</span>
+                </button>
+                <button id="demoStopBtn" class="btn btn-demo-stop">
+                  <i class="fa-solid fa-stop"></i>
+                  <span data-i18n="demoBtnStop">停止</span>
+                </button>
+              </div>
+
+              <!-- Status Box -->
+              <div class="demo-status-box" id="demoStatusBox">
+                <span class="status-icon"><i class="fa-solid fa-circle-check text-purple-400"></i></span>
+                <span class="status-text" id="demoStatusText" data-i18n="demoStatusReady">準備完了: 文章を入力して「Speak」を押してください。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES SECTION -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="featuresBadge">CORE CAPABILITIES</div>
+          <h2 class="section-title" data-i18n-html="featuresTitle">動画制作とアバター表現を革新する <span class="gradient-text">6大アドバンテージ</span></h2>
+          <p class="section-desc" data-i18n="featuresDesc">複雑なモーショントラッキングやLive2Dの職人技はもう不要。文章を入力するだけで、瞬時に自然なキャラクター動画が完成します。</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper purple">
+              <span class="feature-icon"><i class="fa-solid fa-lips fa-beat-fade"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat1Title">発話音素連動の<br>リアルタイム・リップシンク</h3>
+            <p class="feature-text" data-i18n="feat1Text">
+              音声データおよびテキストから母音（A, I, U, E, O, X）の開閉形状を0ミリ秒遅延で精密に算出。不自然なカクつきのない滑らかな補間処理、ランダムな自然瞬き、微小な頭部揺動を自動合成します。
+            </p>
+            <div class="feature-tag" data-i18n="feat1Tag">#音素自動マッピング #滑らか補間</div>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper pink">
+              <span class="feature-icon"><i class="fa-solid fa-camera-retro"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat2Title">手持ち写真1枚から！<br>高精度AI顔認識＆自動メッシュ</h3>
+            <p class="feature-text" data-i18n="feat2Text">
+              正面顔写真（JPG / PNG / WebP）をドラッグ＆ドロップするだけ。ローカルAIが目・口・顎のランドマークを自動検出し、即座に喋るフォトアバターへと変身させます。手動微調整機能も完備。
+            </p>
+            <div class="feature-tag" data-i18n="feat2Tag">#写真1枚でOK #ランドマーク検出</div>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper cyan">
+              <span class="feature-icon"><i class="fa-solid fa-layer-group"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat3Title">自作イラスト・VTuber<br>パーツ分割アバターに完全対応</h3>
+            <p class="feature-text" data-i18n="feat3Text">
+              自作イラストをパーツ分け（base, eyes_open, eyes_closed, mouth_A〜X）したフォルダや.zipファイルをそのまま読み込み可能。お気に入りのオリジナルキャラを自在に喋らせることができます。
+            </p>
+            <div class="feature-tag" data-i18n="feat3Tag">#自作立ち絵対応 #ZIP一括読込</div>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper indigo">
+              <span class="feature-icon"><i class="fa-solid fa-microphone-lines"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat4Title">デュアル音声エンジン<br>(Kokoro AI ＆ OS内蔵音声)</h3>
+            <p class="feature-text" data-i18n="feat4Text">
+              まるで本物の人間のような抑揚を持つ高品質ニューラル音声モデル「Kokoro AI（英語）」と、日本語をはじめ世界中の言語をスムーズに読み上げるOS標準TTSの両エンジンをワンクリックで切り替え可能です。
+            </p>
+            <div class="feature-tag" data-i18n="feat4Tag">#高品質AIボイス #日本語OS対応</div>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper emerald">
+              <span class="feature-icon"><i class="fa-solid fa-video"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat5Title">クロマキー背景 ＆<br>動画ファイル一発書き出し</h3>
+            <p class="feature-text" data-i18n="feat5Text">
+              グリーンバック（Chroma Green）や透過背景で「Speak & Record」を押すだけ。読み上げと同時にアバターアニメーションを高解像度動画（WebM / MP4）として自動出力。PremiereやAviUtlに直ぐ合成できます。
+            </p>
+            <div class="feature-tag" data-i18n="feat5Tag">#グリーンバック #動画ワンクリック出力</div>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card cyber-panel">
+            <div class="panel-glow"></div>
+            <div class="feature-icon-wrapper amber">
+              <span class="feature-icon"><i class="fa-solid fa-shield-halved"></i></span>
+            </div>
+            <h3 class="feature-title" data-i18n-html="feat6Title">100%ローカル実行・<br>社外秘データも安心のプライバシー</h3>
+            <p class="feature-text" data-i18n="feat6Text">
+              すべての画像処理・音声合成・描画処理はお使いのPC内で完結。クラウドサービスと異なり、入力テキストや顔写真が外部サーバーへ送信されるリスクはゼロです。社内研修や極秘資料の動画化にも最適です。
+            </p>
+            <div class="feature-tag" data-i18n="feat6Tag">#完全オフライン #情報漏洩ゼロ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES SECTION -->
+    <section class="section usecases-section" id="usecases">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="usecaseBadge">VERSATILE USE CASES</div>
+          <h2 class="section-title" data-i18n-html="usecaseTitle">あらゆるクリエイターと <span class="gradient-text">ビジネスを加速</span></h2>
+          <p class="section-desc" data-i18n="usecaseDesc">顔出し不要の動画投稿から、社内DX・プレゼンテーションまで。幅広いシーンで即座に活躍します。</p>
+        </div>
+
+        <div class="usecases-grid">
+          <div class="usecase-card">
+            <div class="uc-icon"><i class="fa-brands fa-youtube text-red-400"></i></div>
+            <h3 class="uc-title" data-i18n="uc1Title">YouTube解説・ゆっくり動画制作</h3>
+            <p class="uc-desc" data-i18n="uc1Desc">解説動画や切り抜き動画のアバターとして。グリーンバック動画を書き出して動画編集ソフトに重ねるだけで、躍動感のあるトーク動画が完成。</p>
+            <div class="uc-highlight" data-i18n="uc1Tag">顔出し不要でチャンネル開設</div>
+          </div>
+
+          <div class="usecase-card">
+            <div class="uc-icon"><i class="fa-solid fa-chalkboard-user text-purple-400"></i></div>
+            <h3 class="uc-title" data-i18n="uc2Title">eラーニング・社内教育ビデオ</h3>
+            <p class="uc-desc" data-i18n="uc2Desc">マニュアルや研修資料を音声＋講師アバター化。完全ローカル実行なので社外秘の業務マニュアルも安心して動画化できます。</p>
+            <div class="uc-highlight" data-i18n="uc2Tag">機密文書も安心・社内DX</div>
+          </div>
+
+          <div class="usecase-card">
+            <div class="uc-icon"><i class="fa-solid fa-language text-cyan-400"></i></div>
+            <h3 class="uc-title" data-i18n="uc3Title">語学学習・シャドーイング教材</h3>
+            <p class="uc-desc" data-i18n="uc3Desc">Kokoro AIによる自然な英語ネイティブ発音と口元の動きを同時に確認。視覚と聴覚を組み合わせた効果的なリスニング教材を作成可能。</p>
+            <div class="uc-highlight" data-i18n="uc3Tag">ネイティブAI発音＋視覚口パク</div>
+          </div>
+
+          <div class="usecase-card">
+            <div class="uc-icon"><i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i></div>
+            <h3 class="uc-title" data-i18n="uc4Title">自作キャラクター・同人ゲーム制作</h3>
+            <p class="uc-desc" data-i18n="uc4Desc">自作のイラスト立ち絵を読み込ませるだけで、表情豊かに喋るNPCやストーリーテラーを作成。ノベルゲームの演出素材にも重宝します。</p>
+            <div class="uc-highlight" data-i18n="uc4Tag">イラスト1セットで即時アニメ化</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-STEP WORKFLOW SECTION -->
+    <section class="section workflow-section" id="workflow">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="flowBadge">EASY WORKFLOW</div>
+          <h2 class="section-title" data-i18n-html="flowTitle">直感操作！ <span class="gradient-text">わずか3ステップ</span> で動画完成</h2>
+          <p class="section-desc" data-i18n="flowDesc">面倒なセットアップや専門知識は不要。インストールしてすぐに使い始めることができます。</p>
+        </div>
+
+        <div class="workflow-steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card cyber-panel">
+            <div class="step-number font-orbitron">01</div>
+            <div class="step-icon"><i class="fa-solid fa-cloud-arrow-up text-purple-400"></i></div>
+            <h3 class="step-title" data-i18n="step1Title">画像・アバターをセット</h3>
+            <p class="step-desc" data-i18n="step1Desc">正面の写真（JPG/PNG）または自作イラストのZIPファイルを画面にドラッグ＆ドロップ。内蔵サンプルアバターもワンクリックで選択可能です。</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-card cyber-panel">
+            <div class="step-number font-orbitron">02</div>
+            <div class="step-icon"><i class="fa-solid fa-pen-to-square text-pink-400"></i></div>
+            <h3 class="step-title" data-i18n="step2Title">テキスト入力 ＆ 音声選択</h3>
+            <p class="step-desc" data-i18n="step2Desc">喋らせたい文章を入力し、好みの音声エンジン（OS音声 / Kokoro AI）と速度を選択。背景色もグリーンバックや透明に設定できます。</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-card cyber-panel">
+            <div class="step-number font-orbitron">03</div>
+            <div class="step-icon"><i class="fa-solid fa-film text-cyan-400"></i></div>
+            <h3 class="step-title" data-i18n="step3Title">喋らせる ＆ 動画保存</h3>
+            <p class="step-desc" data-i18n="step3Desc">「Speak」でリアルタイムプレビュー。「Speak & record video」を押せば、読み上げと同時に動画ファイル（WebM）として自動保存されます。</p>
+          </div>
+        </div>
+
+        <!-- Custom Avatar Format Diagram -->
+        <div class="avatar-format-box cyber-panel">
+          <div class="format-header">
+            <div class="format-badge"><i class="fa-solid fa-file-zipper"></i> <span data-i18n="formatBadge">CUSTOM AVATAR SPECIFICATION</span></div>
+            <h4 class="format-title" data-i18n="formatTitle">自作イラストアバターのフォルダ構成 (.zip)</h4>
+            <p class="format-desc" data-i18n="formatDesc">目や口のパーツを分けてZIP圧縮するだけで、どんなイラストも自作アバターとして読み込めます。</p>
+          </div>
+          <div class="format-structure-grid">
+            <div class="format-item"><span class="file-name font-mono">avatar.json</span><span class="file-desc" data-i18n="fileJson">目・口の配置座標設定ファイル</span></div>
+            <div class="format-item"><span class="file-name font-mono">base.png / .svg</span><span class="file-desc" data-i18n="fileBase">体・輪郭・髪型のベース画像</span></div>
+            <div class="format-item"><span class="file-name font-mono">eyes_open / closed</span><span class="file-desc" data-i18n="fileEyes">開眼・半目・閉眼のまばたき画像</span></div>
+            <div class="format-item"><span class="file-name font-mono">mouth_A, I, U, E, O, X</span><span class="file-desc" data-i18n="fileMouth">発話母音ごとの口形状画像</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT COMPARISON SECTION -->
+    <section class="section compare-section" id="compare">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="compareBadge">BENCHMARK COMPARISON</div>
+          <h2 class="section-title" data-i18n-html="compareTitle">他社サービスとの <span class="gradient-text">決定的な違い</span></h2>
+          <p class="section-desc" data-i18n="compareDesc">毎月の高額サブスクやデータ漏洩の不安から解放される、新時代のデスクトップ専用ツール。</p>
+        </div>
+
+        <div class="comparison-table-wrapper cyber-panel">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th class="feature-col" data-i18n="thItem">比較項目</th>
+                <th class="highlight-col font-orbitron">Talking Avatar Desktop</th>
+                <th data-i18n="thCloud">一般的なクラウドAIアバター</th>
+                <th data-i18n="thVtuber">一般的なLive2D / VTuberソフト</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name"><i class="fa-solid fa-coins mr-2 text-purple-400"></i><span data-i18n="cmpPrice">料金体系</span></td>
+                <td class="highlight-cell"><span class="tag-good font-bold" data-i18n="cmpPriceGood">¥980 買い切り永久ライセンス</span></td>
+                <td><span class="tag-bad" data-i18n="cmpPriceBad">月額 $30〜$100+ (従量課金)</span></td>
+                <td><span class="tag-neutral" data-i18n="cmpPriceNeutral">高額制作費 (数万〜数十万円)</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><i class="fa-solid fa-lock mr-2 text-pink-400"></i><span data-i18n="cmpPrivacy">プライバシー / 機密性</span></td>
+                <td class="highlight-cell"><span class="tag-good font-bold" data-i18n="cmpPrivacyGood">完全ローカル・データ送信ゼロ</span></td>
+                <td><span class="tag-bad" data-i18n="cmpPrivacyBad">文章・顔写真が外部サーバーに送信</span></td>
+                <td><span class="tag-good" data-i18n="cmpPrivacyNeutral">ローカル動作</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><i class="fa-solid fa-stopwatch mr-2 text-cyan-400"></i><span data-i18n="cmpSetup">セットアップ・作成時間</span></td>
+                <td class="highlight-cell"><span class="tag-good font-bold" data-i18n="cmpSetupGood">写真1枚をドロップ（即時1秒）</span></td>
+                <td><span class="tag-neutral" data-i18n="cmpSetupNeutral">クラウド生成待ち時間あり</span></td>
+                <td><span class="tag-bad" data-i18n="cmpSetupBad">専門モデリング・リギングに数週間</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><i class="fa-solid fa-video mr-2 text-emerald-400"></i><span data-i18n="cmpExport">クロマキー動画出力</span></td>
+                <td class="highlight-cell"><span class="tag-good font-bold" data-i18n="cmpExportGood">標準搭載（ワンクリック出力）</span></td>
+                <td><span class="tag-neutral" data-i18n="cmpExportNeutral">プランによる制限・透かし有</span></td>
+                <td><span class="tag-neutral" data-i18n="cmpExportBad">OBS等の外部録画設定が必要</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><i class="fa-solid fa-wifi mr-2 text-amber-400"></i><span data-i18n="cmpOffline">オフライン利用</span></td>
+                <td class="highlight-cell"><span class="tag-good font-bold" data-i18n="cmpOfflineGood">完全オフライン対応</span></td>
+                <td><span class="tag-bad" data-i18n="cmpOfflineBad">常時高速ネット接続が必須</span></td>
+                <td><span class="tag-good" data-i18n="cmpOfflineNeutral">オフライン可</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING & BUY SECTION -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="pricingBadge">ONE-TIME LICENSE</div>
+          <h2 class="section-title" data-i18n-html="pricingTitle">今すぐ手に入る <span class="gradient-text">永久ライセンス</span></h2>
+          <p class="section-desc" data-i18n="pricingDesc">月額課金・追加コストは一切なし。一度の購入で最新のデスクトップアプリを永続的にご利用いただけます。</p>
+        </div>
+
+        <div class="pricing-card-box">
+          <div class="pricing-card cyber-panel">
+            <div class="popular-ribbon" data-i18n="pricingRibbon">RECOMMENDED</div>
+            <div class="pricing-header text-center">
+              <span class="pricing-product-title font-orbitron">Talking Avatar Desktop Edition</span>
+              <p class="pricing-subtitle" data-i18n="pricingSub">macOS (Apple Silicon / Intel) ＆ Windows 10/11 対応</p>
+            </div>
+
+            <div class="price-display text-center">
+              <span class="currency">¥</span>
+              <span class="price-val font-orbitron">980</span>
+              <span class="tax" data-i18n="taxIncluded">(税込)</span>
+            </div>
+
+            <div class="price-feature-list">
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf1">リアルタイム・リップシンク自動合成 (母音 A, I, U, E, O, X)</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf2">正面顔写真のAIランドマーク自動認識 ＆ 自作ZIPイラスト読み込み</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf3">Kokoro AI 高品質ニューラル音声 ＆ OS標準TTSデュアル対応</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf4">クロマキー・透過動画（WebM/MP4）ワンクリック出力</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf5">完全ローカル・ゼロ通信で機密資料も安心</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf6">商用利用可能・クレジット表記不要</span></div>
+              <div class="p-feat-item"><i class="fa-solid fa-check text-purple-400"></i> <span data-i18n="pf7">買い切り型・今後のマイナーアップデート無料</span></div>
+            </div>
+
+            <div class="pricing-cta-actions">
+              <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" class="btn btn-purchase-cta">
+                <i class="fa-brands fa-stripe text-xl mr-2"></i>
+                <span class="btn-text-wrap">
+                  <span class="top-text" data-i18n="buyDirectTop">公式ストアで購入して即時ダウンロード</span>
+                  <span class="bottom-text font-orbitron" data-i18n="buyDirectSub">PROCEED TO SECURE CHECKOUT ➔</span>
+                </span>
+                <span class="btn-shine"></span>
+              </a>
+            </div>
+
+            <div class="trust-guarantees">
+              <div class="trust-item"><i class="fa-solid fa-lock text-purple-400"></i> <span data-i18n="trust1">Stripe暗号化安全決済</span></div>
+              <div class="trust-item"><i class="fa-solid fa-bolt text-pink-400"></i> <span data-i18n="trust2">決済後即時ダウンロード</span></div>
+              <div class="trust-item"><i class="fa-solid fa-infinity text-cyan-400"></i> <span data-i18n="trust3">永久買い切りライセンス</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYSTEM REQUIREMENTS & SPECS SECTION -->
+    <section class="section specs-section" id="specs">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="specsBadge">SPECIFICATIONS</div>
+          <h2 class="section-title" data-i18n-html="specsTitle">動作環境 ＆ <span class="gradient-text">システム要件</span></h2>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-card cyber-panel">
+            <div class="spec-header font-orbitron"><i class="fa-brands fa-windows text-cyan-400"></i> Windows Edition</div>
+            <ul class="spec-list">
+              <li><span class="spec-k" data-i18n="specOs">OS:</span> <span class="spec-v">Windows 10 / 11 (64-bit)</span></li>
+              <li><span class="spec-k" data-i18n="specCpu">CPU:</span> <span class="spec-v">Intel Core i3 / AMD Ryzen 3 以上</span></li>
+              <li><span class="spec-k" data-i18n="specRam">メモリ:</span> <span class="spec-v">4 GB RAM (8 GB 推奨)</span></li>
+              <li><span class="spec-k" data-i18n="specGpu">グラフィックス:</span> <span class="spec-v">WebGL 2.0 対応 GPU</span></li>
+              <li><span class="spec-k" data-i18n="specFormat">インストーラー:</span> <span class="spec-v">.exe セットアップインストーラー</span></li>
+            </ul>
+          </div>
+
+          <div class="spec-card cyber-panel">
+            <div class="spec-header font-orbitron"><i class="fa-brands fa-apple text-pink-400"></i> macOS Edition</div>
+            <ul class="spec-list">
+              <li><span class="spec-k" data-i18n="specOs">OS:</span> <span class="spec-v">macOS 12 (Monterey) 以降</span></li>
+              <li><span class="spec-k" data-i18n="specCpu">CPU:</span> <span class="spec-v">Apple Silicon (M1/M2/M3/M4) / Intel Core</span></li>
+              <li><span class="spec-k" data-i18n="specRam">メモリ:</span> <span class="spec-v">4 GB 統合メモリ以上</span></li>
+              <li><span class="spec-k" data-i18n="specGpu">グラフィックス:</span> <span class="spec-v">Metal / WebGL 2.0 対応</span></li>
+              <li><span class="spec-k" data-i18n="specFormat">インストーラー:</span> <span class="spec-v">.dmg ディスクイメージ</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-badge" data-i18n="faqBadge">FREQUENTLY ASKED QUESTIONS</div>
+          <h2 class="section-title" data-i18n-html="faqTitle">よくある <span class="gradient-text">ご質問</span></h2>
+          <p class="section-desc" data-i18n="faqDesc">ご購入や仕様に関して多く寄せられる質問と回答をまとめています。</p>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- FAQ 1 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question">
+              <span class="q-text" data-i18n="faq1Q">商用利用（YouTube収益化動画や社内プレゼン等）は可能ですか？</span>
+              <span class="q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq1A">はい、完全に商用利用可能です。本アプリで出力した動画や音声は、YouTubeなどの収益化動画、法人向けプレゼンテーション資料、社内教育ビデオ、SNSコンテンツなどに制限なく自由にお使いいただけます（クレジット表記も任意です）。</p>
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question">
+              <span class="q-text" data-i18n="faq2Q">入力した文章や読み込んだ写真が外部サーバーに送信されることはありますか？</span>
+              <span class="q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq2A">一切ありません。本デスクトップアプリはすべての処理をお使いのパソコン内のローカル環境で実行します。機密性の高い社内資料や未公開情報、個人の顔写真などを安全に喋らせることができます。</p>
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question">
+              <span class="q-text" data-i18n="faq3Q">日本語の音声読み上げには対応していますか？</span>
+              <span class="q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq3A">はい、対応しています。「Browser voice / OS音声」モードを選択していただくことで、WindowsやmacOSに標準搭載されている自然な日本語音声エンジン（Kyoko, Otoya, Haruka, Ichiro等）を利用して流暢に読み上げることが可能です。</p>
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question">
+              <span class="q-text" data-i18n="faq4Q">自作のイラストや立ち絵を喋らせるにはどうすればいいですか？</span>
+              <span class="q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq4A">目と口のパーツ（base.png, eyes_open.png, mouth_A〜X.png等）および座標設定（avatar.json）を含んだフォルダまたはZIPファイルをご用意いただき、アプリにドラッグ＆ドロップするだけで即座に読み込まれます。付属のサンプルの構成を参考に簡単に作成いただけます。</p>
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item cyber-panel">
+            <button class="faq-question">
+              <span class="q-text" data-i18n="faq5Q">購入後のダウンロードやライセンス認証の手順は？</span>
+              <span class="q-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq5A">Stripeでの決済完了後、即座に専用のダウンロード画面へ遷移し、Windows用インストーラー（.exe）またはmacOS用ディスクイメージ（.dmg）を直接ダウンロードいただけます。煩わしいシリアルキー登録などは不要で、インストール後すぐにフル機能をご利用いただけます。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CTA BANNER -->
+    <section class="section bottom-cta-section">
+      <div class="container">
+        <div class="bottom-cta-box cyber-panel text-center">
+          <div class="cta-glow"></div>
+          <span class="section-badge font-orbitron" data-i18n="bottomBadge">GET STARTED TODAY</span>
+          <h2 class="bottom-cta-title" data-i18n-html="bottomTitle">あなたのアイデアを、<br><span class="gradient-text">表情豊かなアバターの言葉に。</span></h2>
+          <p class="bottom-cta-desc" data-i18n="bottomDesc">買い切り ¥980 (税込) で手に入る次世代AIリップシンク・スタジオ。今すぐあなたのPCに導入しましょう。</p>
+
+          <div class="bottom-btn-row">
+            <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary btn-lg">
+              <i class="fa-solid fa-download mr-2"></i>
+              <span class="btn-maintext" data-i18n="bottomCtaBtn">公式ストアで購入・即時ダウンロード (¥980)</span>
+              <span class="btn-arrow">➔</span>
+            </a>
+          </div>
+
+          <div class="bottom-trust-strip">
+            <span><i class="fa-solid fa-shield-check text-purple-400"></i> Stripe安全決済</span>
+            <span>•</span>
+            <span><i class="fa-solid fa-laptop-code text-pink-400"></i> Windows / macOS 対応</span>
+            <span>•</span>
+            <span><i class="fa-solid fa-lock text-emerald-400"></i> 完全ローカル動作保証</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <img src="images/icon.svg" alt="Talking Avatar" class="footer-icon">
+          <span class="footer-brand font-orbitron">Talking Avatar Desktop</span>
+        </div>
+        <p class="footer-tagline" data-i18n="footerTagline">入力テキストに合わせて写真やイラストがリアルタイムに表情豊かに喋り出すAIリップシンク・アバタースタジオ。</p>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-links">
+          <span class="f-title font-orbitron" data-i18n="fLinksTitle">LINKS</span>
+          <a href="https://cyber-matrix.netlify.app/" target="_blank" rel="noopener noreferrer" data-i18n="fStoreTop">Cyber Matrix ストアトップ</a>
+          <a href="https://cyber-matrix.netlify.app/products/avatar" target="_blank" rel="noopener noreferrer" data-i18n="fProductPage">製品購入ページ</a>
+          <a href="#hero" data-i18n="fBackToTop">ページトップへ戻る</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container flex-between">
+        <p class="copyright font-orbitron">CYBER MATRIX DESKTOP STORE PORTAL</p>
+        <p class="copy-sub">© 2026 Cyber Matrix Systems. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
