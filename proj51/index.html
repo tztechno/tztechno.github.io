@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kotoba Booth - 英語⇄日本語 双方向AIリアルタイム音声翻訳</title>
+  <meta name="description" content="英語⇄日本語のリアルタイム双方向音声翻訳。ブラウザで動くWeb版(¥100)と、完全オフライン・100%プライバシー保護のDesktop版(¥100)。">
+  <meta name="keywords" content="音声翻訳, AI翻訳, 日英翻訳, リアルタイム翻訳, FuguMT, Ollama, オフライン翻訳, Kotoba Booth">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kotoba Booth - 英語⇄日本語 双方向AIリアルタイム音声翻訳">
+  <meta property="og:description" content="英語⇄日本語のリアルタイム双方向音声翻訳。ブラウザですぐ使えるWeb版 & 完全オフライン・高プライバシーのDesktop版。買い切り¥100。">
+  <meta property="og:image" content="images/hero_visual.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kotoba Booth - 英語⇄日本語 双方向AIリアルタイム音声翻訳">
+  <meta name="twitter:description" content="英語⇄日本語のリアルタイム双方向音声翻訳。Web版 & Desktop版。買い切り¥100。">
+  <meta name="twitter:image" content="images/hero_visual.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Ambience & Grid -->
+  <div class="ambient-glow"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Header Navigation -->
+  <header id="siteHeader" class="site-header">
+    <div class="container">
+      <nav class="nav-wrap">
+        <a href="#" class="logo-group">
+          <div class="logo-icon">
+            <i class="fa-solid fa-microphone-lines"></i>
+          </div>
+          <div class="logo-text">
+            <span class="logo-title">Kotoba <span>Booth</span></span>
+            <span class="logo-subtitle">N51 Voice AI</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link" data-i18n="navFeatures">特長</a></li>
+          <li><a href="#simulator" class="nav-link" data-i18n="navDemo">体験デモ</a></li>
+          <li><a href="#editions" class="nav-link" data-i18n="navEditions">エディション比較</a></li>
+          <li><a href="#engines" class="nav-link" data-i18n="navEngines">AIエンジン</a></li>
+          <li><a href="#pricing" class="nav-link" data-i18n="navPricing">料金</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="navFaq">FAQ</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button type="button" id="langSwitchBtn" class="lang-switch-btn" aria-label="Switch Language">
+            <i class="fa-solid fa-globe"></i> English
+          </button>
+          <a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-header-cta">
+            <span data-i18n="navCtaWeb">Web版を起動</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+          <button type="button" id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="badge-tag">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">N51 • 双方向AI音声翻訳ブース</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span data-i18n="heroTitlePrefix">言葉の壁が、</span>
+            <span class="gradient-text" data-i18n="heroTitleHighlight">溶けていく。</span>
+          </h1>
+
+          <p class="hero-desc" data-i18n="heroDesc">
+            英語 ⇄ 日本語のリアルタイム双方向音声翻訳。話しかけるだけで言語を自動判定し、ミリ秒で高精度翻訳＆相手の言語でクリアに自動読み上げ。
+          </p>
+
+          <!-- Dual CTA Cards in Hero -->
+          <div class="hero-cta-grid">
+            <!-- Web App Card -->
+            <div class="cta-card">
+              <div>
+                <div class="cta-card-header">
+                  <span class="cta-card-badge" data-i18n="webCardBadge">ブラウザで即座に動く</span>
+                  <i class="fa-solid fa-globe text-teal-400"></i>
+                </div>
+                <h3 class="cta-card-title">
+                  <i class="fa-solid fa-cloud"></i>
+                  <span data-i18n="webCardTitle">Kotoba Booth Web</span>
+                </h3>
+                <p class="cta-card-desc" data-i18n="webCardDesc">
+                  インストール不要。PC・iPhone・Androidのブラウザで開いて今すぐ使えるリアルタイム音声翻訳。
+                </p>
+              </div>
+              <div>
+                <div class="cta-card-price">
+                  <b data-i18n="webCardPrice">¥100 買い切り</b>
+                  <span>/ 永久利用</span>
+                </div>
+                <a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-web">
+                  <span data-i18n="webCardBtn">Web版を開く</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Desktop App Card -->
+            <div class="cta-card featured">
+              <div>
+                <div class="cta-card-header">
+                  <span class="cta-card-badge" data-i18n="desktopCardBadge">完全オフライン & ローカルAI</span>
+                  <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                </div>
+                <h3 class="cta-card-title">
+                  <i class="fa-solid fa-desktop"></i>
+                  <span data-i18n="desktopCardTitle">Kotoba Booth Desktop</span>
+                </h3>
+                <p class="cta-card-desc" data-i18n="desktopCardDesc">
+                  macOS & Windows ネイティブ対応。外部送信ゼロで完全ローカル推論。ビジネス・機密通訳にも安心。
+                </p>
+              </div>
+              <div>
+                <div class="cta-card-price">
+                  <b data-i18n="desktopCardPrice">¥100 買い切り</b>
+                  <span id="osRecommendBadge" class="cta-card-badge" style="margin-left: auto;">
+                    <i class="fa-brands fa-apple"></i> macOS & Win
+                  </span>
+                </div>
+                <a href="https://cyber-matrix.netlify.app/products/kotoba" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-desktop">
+                  <span data-i18n="desktopCardBtn">デスクトップ版を購入・DL</span>
+                  <i class="fa-solid fa-download"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Highlights Row -->
+          <div class="hero-highlights">
+            <div class="highlight-item">
+              <i class="fa-solid fa-wifi-slash"></i>
+              <span data-i18n="hlOffline">完全オフライン対応</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-user-shield"></i>
+              <span data-i18n="hlPrivacy">外部送信ゼロ・高プライバシー</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-tag"></i>
+              <span data-i18n="hlPricing">永久買い切り ¥100</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fa-solid fa-bolt"></i>
+              <span data-i18n="hlTauri">macOS & Windows ネイティブ</span>
+            </div>
+          </div>
+
+          <!-- Hero Image Showcase -->
+          <div class="hero-showcase">
+            <div class="hero-image-wrap">
+              <img src="images/hero_visual.jpg" alt="Kotoba Booth Two-Way Voice Translation Visual" width="1200" height="675" loading="eager">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator / Live Demo Section -->
+    <section id="simulator" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="simTag">Live Interactive Simulator</span>
+          <h2 class="section-title font-display" data-i18n="simTitle">音声翻訳を今すぐブラウザで体験</h2>
+          <p class="section-desc" data-i18n="simDesc">
+            下のシミュレーターでテキストを入力するか例文を選び、「翻訳」または音声読み上げをお試しください。
+          </p>
+        </div>
+
+        <div class="simulator-card">
+          <!-- Controls Bar -->
+          <div class="sim-controls-top">
+            <div class="sim-direction-group" role="group" aria-label="Translation Direction">
+              <button type="button" class="sim-dir-btn active" data-dir="auto">AUTO</button>
+              <button type="button" class="sim-dir-btn" data-dir="ja">JA → EN</button>
+              <button type="button" class="sim-dir-btn" data-dir="en">EN → JA</button>
+            </div>
+
+            <div class="sim-options">
+              <label>
+                <input type="checkbox" id="simAutoSpeak" checked>
+                <span data-i18n="simAutoSpeak">自動読み上げ</span>
+              </label>
+              <label>
+                <span data-i18n="simSpeed">速度</span>
+                <input type="range" id="simSpeed" min="0.6" max="1.6" step="0.1" value="1.0">
+              </label>
+            </div>
+          </div>
+
+          <!-- Dual Panels Grid -->
+          <div class="sim-panels-grid">
+            <!-- Source Pane -->
+            <div class="sim-pane">
+              <div class="sim-pane-header">
+                <span><span data-i18n="simSourceLabel">原文</span> · <b id="simSrcLang">JA</b></span>
+                <button type="button" class="btn-sim-action" id="simClearBtn" data-i18n="simBtnClear">クリア</button>
+              </div>
+              <textarea id="simSrc" class="sim-textarea" placeholder="テキストを入力または話しかけてください…">最寄りの駅はどこですか？</textarea>
+              <div class="sim-pane-footer">
+                <div style="display: flex; gap: 8px;">
+                  <button type="button" class="btn-sim-action mic" id="simMicBtn">
+                    <i class="fa-solid fa-microphone"></i> <span>Mic</span>
+                  </button>
+                  <button type="button" class="btn-sim-action" id="simSpeakSrcBtn" title="Speak source text">
+                    <i class="fa-solid fa-volume-high"></i>
+                  </button>
+                </div>
+                <button type="button" class="btn-sim-action primary" id="simTransBtn">
+                  <i class="fa-solid fa-language"></i>
+                  <span data-i18n="simBtnTranslate">翻訳する</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Swap Button in Middle -->
+            <div class="sim-middle-swap">
+              <button type="button" class="btn-swap-round" id="simSwapBtn" aria-label="Swap source and destination" title="Swap languages">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+              </button>
+            </div>
+
+            <!-- Destination Output Pane -->
+            <div class="sim-pane">
+              <div class="sim-pane-header">
+                <span><span data-i18n="simTransLabel">訳文</span> · <b id="simDstLang">EN</b></span>
+                <button type="button" class="btn-sim-action" id="simCopyBtn">
+                  <i class="fa-regular fa-copy"></i>
+                  <span data-i18n="simBtnCopy">コピー</span>
+                </button>
+              </div>
+              <div id="simDst" class="sim-output">Where is the nearest train station?</div>
+              <div class="sim-pane-footer">
+                <button type="button" class="btn-sim-action primary" id="simSpeakDstBtn">
+                  <i class="fa-solid fa-volume-high"></i>
+                  <span data-i18n="simBtnSpeak">読み上げ</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Presets -->
+          <div class="preset-pills-row">
+            <span class="preset-label" data-i18n="simPresetLabel">試せる例文:</span>
+            <button type="button" class="preset-pill" id="preset1">最寄りの駅はどこですか？</button>
+            <button type="button" class="preset-pill" id="preset2">会議の議事録を後ほど送付いたします。</button>
+            <button type="button" class="preset-pill" id="preset3">Could you tell me how to get to Tokyo Station?</button>
+            <button type="button" class="preset-pill" id="preset4">Thank you for the quick and insightful feedback!</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 Core Features Section -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="featTag">Core Innovations</span>
+          <h2 class="section-title font-display" data-i18n="featTitle">Kotoba Boothが選ばれる4つの理由</h2>
+          <p class="section-desc" data-i18n="featDesc">
+            最先端のローカルAI技術とWeb標準技術を融合し、これまでにないスピードとプライバシーを実現。
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-card">
+            <div class="feature-icon-box icon-teal">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <h3 class="feature-card-title" data-i18n="feat1Title">双方向リアルタイム音声認識 & 読み上げ</h3>
+            <p class="feature-card-desc" data-i18n="feat1Desc">
+              AUTOモードで話者の言語（日本語/英語）を自動判定。発話が終わると即座に相手の言語に翻訳し、OS内蔵の高品質な音声合成でクリアに自動発音します。
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card">
+            <div class="feature-icon-box icon-emerald">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <h3 class="feature-card-title" data-i18n="feat2Title">3種のマルチエンジン・ハイブリッド</h3>
+            <p class="feature-card-desc" data-i18n="feat2Desc">
+              端末内WASM (FuguMT)、ローカルLLM (Ollama: Gemma/Llama等)、最上位クラウド (Claude) の3方式に対応。用途に応じて瞬時に切り替え可能。
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card">
+            <div class="feature-icon-box icon-purple">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="feature-card-title" data-i18n="feat3Title">100% プライバシー保護 & ゼロ外部送信</h3>
+            <p class="feature-card-desc" data-i18n="feat3Desc">
+              ローカル推論モードでは、音声データやテキストログが外部サーバーへ一切送信されません。機密の商談や法務・医療現場でも安心してご利用いただけます。
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card">
+            <div class="feature-icon-box icon-orange">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+            </div>
+            <h3 class="feature-card-title" data-i18n="feat4Title">月額サブスクなし・買い切り100円</h3>
+            <p class="feature-card-desc" data-i18n="feat4Desc">
+              毎月のサブスクリプション請求や従量課金はありません。ワンコイン（¥100）の買い切りで、永久に無制限の音声・テキスト翻訳が利用可能です。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Lineup & Comparison (Web vs Desktop) -->
+    <section id="editions" class="section comparison-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="compTag">Choose Your Edition</span>
+          <h2 class="section-title font-display" data-i18n="compTitle">利用スタイルに合わせた2つのエディション</h2>
+          <p class="section-desc" data-i18n="compDesc">
+            手軽にスマホで使いたいならWeb版、完全オフラインや高プライバシーならDesktop版。
+          </p>
+        </div>
+
+        <!-- 2 Big Edition Cards -->
+        <div class="editions-cards-grid">
+          <!-- Web Edition Box -->
+          <div class="edition-box">
+            <div class="edition-badge" style="background: rgba(13, 110, 110, 0.9);">
+              <i class="fa-solid fa-globe"></i> Instant Web
+            </div>
+            <div>
+              <div class="edition-header">
+                <h3 class="edition-name" data-i18n="webEdName">Web Edition</h3>
+                <p class="edition-subtext" data-i18n="webEdDesc">ブラウザで即起動。スマホ・タブレット・PCどこでも手軽に会話。</p>
+              </div>
+
+              <div class="edition-price-box">
+                <span class="price-currency">¥</span>
+                <span class="price-amount">100</span>
+                <span class="price-period">/ 買い切り (税込)</span>
+              </div>
+
+              <ul class="edition-features-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="webEdF1">インストール不要（ブラウザ対応）</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="webEdF2">スマホ・タブレット・PCで利用可能</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="webEdF3">FuguMT (WASM) / Claude API 対応</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="webEdF4">リアルタイム音声認識 ＆ 自動読み上げ</span></li>
+                <li class="dim"><i class="fa-solid fa-minus"></i> <span data-i18n="webEdF5">オフライン動作（※一部ブラウザキャッシュ）</span></li>
+                <li class="dim"><i class="fa-solid fa-minus"></i> <span data-i18n="webEdF6">ローカルLLM (Ollama) 連携（要ローカルホスト）</span></li>
+              </ul>
+            </div>
+
+            <a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-web">
+              <span data-i18n="webEdBtn">Web版を今すぐ開く (¥100)</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <!-- Desktop Edition Box -->
+          <div class="edition-box highlight">
+            <div class="edition-badge">
+              <i class="fa-solid fa-star"></i> Recommended
+            </div>
+            <div>
+              <div class="edition-header">
+                <h3 class="edition-name gradient-text" data-i18n="deskEdName">Desktop Edition</h3>
+                <p class="edition-subtext" data-i18n="deskEdDesc">macOS / Windows ネイティブアプリ。完全オフライン＆強力ローカルAI連携。</p>
+              </div>
+
+              <div class="edition-price-box">
+                <span class="price-currency">¥</span>
+                <span class="price-amount gradient-text">100</span>
+                <span class="price-period">/ 買い切り (税込)</span>
+              </div>
+
+              <ul class="edition-features-list">
+                <li><i class="fa-solid fa-check"></i> <strong data-i18n="deskEdF1">macOS (.dmg) / Windows (.exe) ネイティブ</strong></li>
+                <li><i class="fa-solid fa-check"></i> <strong data-i18n="deskEdF2">100% 完全オフライン動作（通信一切不要）</strong></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="deskEdF3">ローカルLLM (Ollama: Gemma 4等) 完全連動</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="deskEdF4">OSシステムキー（Mac: fn×2 / Win: Win+H）連動</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="deskEdF5">外部データ送信ゼロ・完全な機密保護</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="deskEdF6">直近30件のローカル翻訳履歴保存 & 再生</span></li>
+              </ul>
+            </div>
+
+            <a href="https://cyber-matrix.netlify.app/products/kotoba" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-desktop">
+              <span data-i18n="deskEdBtn">デスクトップ版を購入する (¥100)</span>
+              <i class="fa-solid fa-download"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Detailed Feature Comparison Table -->
+        <div class="comparison-table-wrap">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th class="col-feature" data-i18n="tblFeature">機能・仕様</th>
+                <th class="col-web" data-i18n="tblWeb">Web版 (Web App)</th>
+                <th class="col-desktop" data-i18n="tblDesktop">Desktop版 (Native App)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="tblRow1">価格体系</td>
+                <td class="center" data-i18n="tblRow1Web">¥100 買い切り</td>
+                <td class="center" data-i18n="tblRow1Desk"><strong style="color: #4ade80;">¥100 買い切り</strong></td>
+              </tr>
+              <tr>
+                <td data-i18n="tblRow2">対応プラットフォーム</td>
+                <td class="center" data-i18n="tblRow2Web">Chrome, Safari, iOS, Android, etc.</td>
+                <td class="center" data-i18n="tblRow2Desk">macOS (Apple Silicon / Intel), Windows</td>
+              </tr>
+              <tr>
+                <td data-i18n="tblRow3">インストール</td>
+                <td class="center" data-i18n="tblRow3Web">不要 (URLから即アクセス)</td>
+                <td class="center" data-i18n="tblRow3Desk">必要 (.dmg / .exe インストーラー)</td>
+              </tr>
+              <tr>
+                <td data-i18n="tblRow4">完全オフライン翻訳</td>
+                <td class="center" data-i18n="tblRow4Web">ブラウザキャッシュ依存</td>
+                <td class="center"><i class="fa-solid fa-check table-check"></i> 完全オフライン（通信不要）</td>
+              </tr>
+              <tr>
+                <td data-i18n="tblRow5">ローカルLLM (Ollama) 連携</td>
+                <td class="center" data-i18n="tblRow5Web">CORS設定が必要</td>
+                <td class="center"><i class="fa-solid fa-check table-check"></i> ワンタッチネイティブ連携</td>
+              </tr>
+              <tr>
+                <td data-i18n="tblRow6">プライバシー保護</td>
+                <td class="center" data-i18n="tblRow6Web">高 (端末内WASM実行時)</td>
+                <td class="center"><strong style="color: #4ade80;">最高 (100% 外部送信ゼロ)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Engine & Privacy Deep Dive -->
+    <section id="engines" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="engTag">Under The Hood</span>
+          <h2 class="section-title font-display" data-i18n="engTitle">最先端の翻訳アーキテクチャ</h2>
+          <p class="section-desc" data-i18n="engDesc">
+            端末のスペックや用途に合わせて最適な推論エンジンを選択できます。
+          </p>
+        </div>
+
+        <div class="privacy-engine-grid">
+          <div class="privacy-image-box">
+            <img src="images/privacy_visual.jpg" alt="Local AI Shield and Secure Offline Computing Visual" width="1200" height="675" loading="lazy">
+          </div>
+
+          <div class="engines-list">
+            <!-- Engine 1 -->
+            <div class="engine-item">
+              <div class="engine-title-row">
+                <span class="engine-name">
+                  <i class="fa-solid fa-bolt text-teal-400"></i>
+                  <span data-i18n="eng1Name">In-browser FuguMT (WASM)</span>
+                </span>
+                <span class="engine-pill">Default / Offline</span>
+              </div>
+              <p class="engine-desc" data-i18n="eng1Desc">
+                WebAssembly技術により、端末内のCPU/GPUで高速推論。初回の約145MBモデル保存後は完全オフラインで軽快に動作します。
+              </p>
+            </div>
+
+            <!-- Engine 2 -->
+            <div class="engine-item">
+              <div class="engine-title-row">
+                <span class="engine-name">
+                  <i class="fa-solid fa-brain text-emerald-400"></i>
+                  <span data-i18n="eng2Name">Local LLM via Ollama</span>
+                </span>
+                <span class="engine-pill">Private & Rich Context</span>
+              </div>
+              <p class="engine-desc" data-i18n="eng2Desc">
+                PC上で稼働するOllama（gemma4:e4b、qwen等）とシームレスに通信。文脈に応じた極めて自然な翻訳とニュアンス表現が可能です。
+              </p>
+            </div>
+
+            <!-- Engine 3 -->
+            <div class="engine-item">
+              <div class="engine-title-row">
+                <span class="engine-name">
+                  <i class="fa-solid fa-cloud text-cyan-400"></i>
+                  <span data-i18n="eng3Name">Claude AI Cloud</span>
+                </span>
+                <span class="engine-pill">High Precision</span>
+              </div>
+              <p class="engine-desc" data-i18n="eng3Desc">
+                最先端のクラウドLLM APIを活用し、極めて難解な専門用語や長文もプロの通訳レベルで美しく翻訳します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 Steps Section -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="stepTag">How It Works</span>
+          <h2 class="section-title font-display" data-i18n="stepTitle">直感的な3ステップで会話が繋がる</h2>
+          <p class="section-desc" data-i18n="stepDesc">
+            複雑な操作は一切ありません。話すだけでスムーズに通じ合えます。
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-num">1</div>
+            <h3 class="step-title" data-i18n="step1Title">1. 話す・または入力</h3>
+            <p class="step-desc" data-i18n="step1Desc">
+              マイクボタンまたはキーボードからテキストを入力。言語はAUTOで瞬時に自動判定されます。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">2</div>
+            <h3 class="step-title" data-i18n="step2Title">2. リアルタイム高精度翻訳</h3>
+            <p class="step-desc" data-i18n="step2Desc">
+              ニューラルAIが瞬時に文脈を読み解き、自然な英語・日本語に翻訳します。
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-num">3</div>
+            <h3 class="step-title" data-i18n="step3Title">3. 相手の言語で自動音声発音</h3>
+            <p class="step-desc" data-i18n="step3Desc">
+              翻訳完了と同時にOS内蔵のクリアな音声で自動発声。対面でのスムーズな会話を実現します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="priceTag">Simple Pricing</span>
+          <h2 class="section-title font-display" data-i18n="priceTitle">安心の永久買い切り 100円</h2>
+          <p class="section-desc" data-i18n="priceDesc">
+            日々の会話やビジネス通訳を、誰でも気軽に使える公正な価格で提供します。
+          </p>
+        </div>
+
+        <div style="max-width: 580px; margin: 0 auto; text-align: center;">
+          <div class="edition-box highlight" style="padding: 40px;">
+            <div class="edition-header">
+              <span class="badge-tag" style="margin-bottom: 12px;">Lifetime Access</span>
+              <h3 class="edition-name gradient-text" style="font-size: 32px;">Kotoba Booth Full Access</h3>
+              <p class="edition-subtext">サブスクなし・無制限利用・永久アップデート</p>
+            </div>
+
+            <div class="edition-price-box" style="justify-content: center;">
+              <span class="price-currency">¥</span>
+              <span class="price-amount gradient-text" style="font-size: 56px;">100</span>
+              <span class="price-period">/ 買い切り (税込)</span>
+            </div>
+
+            <div style="display: grid; gap: 14px; margin-bottom: 32px; text-align: left;">
+              <div style="display: flex; gap: 10px; align-items: center; font-size: 14px;">
+                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                <span>日英・英日 双方向リアルタイム音声翻訳</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; font-size: 14px;">
+                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                <span>回数制限なし・文字数無制限</span>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center; font-size: 14px;">
+                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                <span>Stripeによる安全な即時アンロック決済</span>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-web" style="font-size: 13px;">
+                <span>Web版を開く</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+              </a>
+              <a href="https://cyber-matrix.netlify.app/products/kotoba" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-desktop" style="font-size: 13px;">
+                <span>デスクトップ版を購入</span>
+                <i class="fa-solid fa-download text-[11px]"></i>
+              </a>
+            </div>
+
+            <p style="font-size: 11px; color: var(--ink-muted); margin-top: 16px;">
+              <i class="fa-solid fa-lock mr-1"></i> Stripe安全決済 • クレジットカード / Apple Pay / Google Pay 対応
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="faqTag">Frequently Asked Questions</span>
+          <h2 class="section-title font-display" data-i18n="faqTitle">よくあるご質問</h2>
+        </div>
+
+        <div class="faq-wrap">
+          <!-- FAQ 1 -->
+          <div class="faq-item open">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq1Q">なぜ月額サブスクリプションではなく買い切り100円なのですか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" data-i18n="faq1A">
+              Kotoba Boothは、端末内のローカル推論（WebAssembly / ローカルLLM）を活用することで、サーバー維持費を最小限に抑えています。そのため高額な月額課金ではなく、100円の永久買い切りライセンスで提供可能となっています。
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq2Q">飛行機の中や電波のない場所（オフライン）でも使えますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" data-i18n="faq2A">
+              はい。デスクトップ版（およびモデルを一度読み込んだWeb版）は、インターネット接続がない環境や機内モードでも完全に動作します。
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq3Q">Web版とデスクトップ版のどちらを購入すべきですか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" data-i18n="faq3A">
+              スマートフォンや外出先のブラウザで手軽に使いたい方は「Web版」、PCで日常的に使ったり、完全オフラインやOllamaローカルAIと連携させたい方は「デスクトップ版」がおすすめです。
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq4Q">音声認識や読み上げの音声は変更できますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" data-i18n="faq4A">
+              はい。設定画面からお好みの日本語・英語ボイスを選択でき、再生速度（0.6倍〜1.6倍）の微調整も可能です。
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span data-i18n="faq5Q">支払い方法は何に対応していますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" data-i18n="faq5A">
+              世界基準の安全な決済プラットフォーム「Stripe」を採用しており、各種クレジットカードやApple Pay、Google Pay等で安全に100円をお支払いいただけます。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <section class="section">
+      <div class="container">
+        <div class="bottom-cta-banner">
+          <h2 class="bottom-cta-title font-display" data-i18n="bottomTitle">言葉の壁を超えて、今すぐ会話を始めよう。</h2>
+          <p class="bottom-cta-desc" data-i18n="bottomDesc">
+            買い切り100円でアンロック。Web版またはデスクトップ版をお選びください。
+          </p>
+          <div class="bottom-cta-buttons">
+            <a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-web btn-bottom">
+              <i class="fa-solid fa-globe"></i>
+              <span data-i18n="bottomBtnWeb">Web版を起動する (¥100)</span>
+            </a>
+            <a href="https://cyber-matrix.netlify.app/products/kotoba" target="_blank" rel="noopener noreferrer" class="btn-primary-cta btn-desktop btn-bottom">
+              <i class="fa-solid fa-download"></i>
+              <span data-i18n="bottomBtnDesktop">デスクトップ版を入手 (¥100)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo-group">
+            <div class="logo-icon">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <div class="logo-text">
+              <span class="logo-title">Kotoba <span>Booth</span></span>
+              <span class="logo-subtitle">N51 Voice AI</span>
+            </div>
+          </a>
+          <p class="footer-desc" data-i18n="footerDesc">
+            英語 ⇄ 日本語 双方向AIリアルタイム音声翻訳システム
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <h4 class="footer-col-title">Products</h4>
+            <ul class="footer-col-links">
+              <li><a href="https://kotoba-booth.netlify.app/" target="_blank" rel="noopener noreferrer">Kotoba Booth Web</a></li>
+              <li><a href="https://cyber-matrix.netlify.app/products/kotoba" target="_blank" rel="noopener noreferrer">Kotoba Booth Desktop</a></li>
+              <li><a href="#simulator">Live Simulator Demo</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Documentation</h4>
+            <ul class="footer-col-links">
+              <li><a href="https://kotoba-booth.netlify.app/manual.html" target="_blank" rel="noopener noreferrer" data-i18n="footerManual">ユーザーマニュアル</a></li>
+              <li><a href="#engines">AI Architecture</a></li>
+              <li><a href="#faq">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer-col-title">Platforms</h4>
+            <ul class="footer-col-links">
+              <li><a href="https://cyber-matrix.netlify.app/products/kotoba">macOS (Apple Silicon / Intel)</a></li>
+              <li><a href="https://cyber-matrix.netlify.app/products/kotoba">Windows 10 / 11</a></li>
+              <li><a href="https://kotoba-booth.netlify.app/">Web Browser (iOS / Android / PC)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span data-i18n="footerCopy">© 2026 Kotoba Booth / Cyber Matrix Systems. All rights reserved.</span>
+        <div style="display: flex; gap: 16px;">
+          <span>N51 ENGINE ONLINE</span>
+          <span>•</span>
+          <span>SECURE STRIPE CHECKOUT</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
