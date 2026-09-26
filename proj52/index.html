@@ -30,9 +30,9 @@
   <!-- Top Announcement Bar -->
   <div class="top-bar">
     <div class="container top-bar-content">
-      <span class="badge-pulse">NEW RELEASE</span>
-      <span>Tauri 2.0 × WebGL 超軽量デスクトップ版リリース！完全オフライン・60FPS 高速動作</span>
-      <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="top-bar-link" target="_blank" rel="noopener noreferrer">今すぐ入手 (¥2,980) →</a>
+      <span class="badge-pulse" data-i18n="top_badge">NEW RELEASE</span>
+      <span data-i18n="top_announcement">Tauri 2.0 × WebGL 超軽量デスクトップ版リリース！完全オフライン・60FPS 高速動作</span>
+      <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="top-bar-link" target="_blank" rel="noopener noreferrer" data-i18n="top_link">今すぐ入手 (¥2,980) →</a>
     </div>
   </div>
 
@@ -48,18 +48,27 @@
       </a>
 
       <nav class="main-nav" id="mainNav">
-        <a href="#features" class="nav-link">特徴</a>
-        <a href="#routines" class="nav-link">7大演目</a>
-        <a href="#cockpit" class="nav-link">コックピット＆HUD</a>
-        <a href="#modes" class="nav-link">フライトモード</a>
-        <a href="#specs" class="nav-link">動作環境</a>
-        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#features" class="nav-link" data-i18n="nav_features">特徴</a>
+        <a href="#routines" class="nav-link" data-i18n="nav_routines">7大演目</a>
+        <a href="#cockpit" class="nav-link" data-i18n="nav_cockpit">コックピット＆HUD</a>
+        <a href="#modes" class="nav-link" data-i18n="nav_modes">フライトモード</a>
+        <a href="#specs" class="nav-link" data-i18n="nav_specs">動作環境</a>
+        <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
       </nav>
 
-      <div class="header-cta">
-        <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-header" target="_blank" rel="noopener noreferrer">
-          <span class="btn-text">購入する <span class="price-tag">¥2,980</span></span>
-        </a>
+      <div class="header-right-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language Selector">
+          <button class="lang-btn active" data-lang="ja">JA</button>
+          <span class="lang-divider">/</span>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <div class="header-cta">
+          <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-header" target="_blank" rel="noopener noreferrer">
+            <span class="btn-text"><span data-i18n="header_buy_btn">購入する</span> <span class="price-tag">¥2,980</span></span>
+          </a>
+        </div>
       </div>
 
       <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="メニュー切替">
@@ -76,17 +85,17 @@
       <div class="hero-content">
         <div class="hero-tag-wrap">
           <span class="hero-badge">
-            <span class="badge-dot"></span> 航空自衛隊 松島基地 (RJST) 07/25 精密再現
+            <span class="badge-dot"></span> <span data-i18n="hero_badge_matsushima">航空自衛隊 松島基地 (RJST) 07/25 精密再現</span>
           </span>
-          <span class="hero-platform-pill">Mac &amp; Windows 両対応</span>
+          <span class="hero-platform-pill" data-i18n="hero_platform_pill">Mac &amp; Windows 両対応</span>
         </div>
 
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-i18n="hero_title">
           松島の空へ、<br>
           <span class="gradient-text">蒼き衝撃</span>とともに。
         </h1>
 
-        <p class="hero-desc">
+        <p class="hero-desc" data-i18n="hero_desc">
           川崎重工 T-4「ブルーインパルス」の 5機ダイヤモンド編隊飛行と 7大公式アクロバット演目を、実地形 1536×1024 標高DEMと実機フライト物理で自宅の PC に完全再現。<br>
           コックピットに搭乗し、編隊長として空を統べるか、ソロ機として大空を舞うか。
         </p>
@@ -94,23 +103,23 @@
         <!-- Pricing & Platform Quick Bar -->
         <div class="hero-value-box">
           <div class="value-item">
-            <span class="val-label">ライセンス形式</span>
-            <span class="val-strong">完全買い切り</span>
+            <span class="val-label" data-i18n="val_license_type">ライセンス形式</span>
+            <span class="val-strong" data-i18n="val_buyout">完全買い切り</span>
           </div>
           <div class="value-divider"></div>
           <div class="value-item">
-            <span class="val-label">特別価格</span>
-            <span class="val-price">¥2,980 <span class="tax-note">(税込)</span></span>
+            <span class="val-label" data-i18n="val_special_price">特別価格</span>
+            <span class="val-price">¥2,980 <span class="tax-note" data-i18n="val_tax_inc">(税込)</span></span>
           </div>
           <div class="value-divider"></div>
           <div class="value-item">
-            <span class="val-label">月額費用</span>
-            <span class="val-strong text-green">¥0 (サブスク不要)</span>
+            <span class="val-label" data-i18n="val_monthly_fee">月額費用</span>
+            <span class="val-strong text-green" data-i18n="val_no_sub">¥0 (サブスク不要)</span>
           </div>
           <div class="value-divider"></div>
           <div class="value-item">
-            <span class="val-label">対応環境</span>
-            <span class="val-strong">Mac (M1〜M4/Intel) / Win 10,11</span>
+            <span class="val-label" data-i18n="val_platform">対応環境</span>
+            <span class="val-strong" data-i18n="val_platform_specs">Mac (M1〜M4/Intel) / Win 10,11</span>
           </div>
         </div>
 
@@ -119,19 +128,19 @@
           <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-xl btn-glow" target="_blank" rel="noopener noreferrer">
             <span class="btn-icon">⚡</span>
             <span class="btn-content">
-              <span class="btn-title">今すぐ購入してダウンロード</span>
-              <span class="btn-subtitle">買い切り ¥2,980 ・ Mac &amp; Windows パッケージ同梱</span>
+              <span class="btn-title" data-i18n="cta_buy_now">今すぐ購入してダウンロード</span>
+              <span class="btn-subtitle" data-i18n="cta_buy_sub">買い切り ¥2,980 ・ Mac &amp; Windows パッケージ同梱</span>
             </span>
           </a>
           <a href="#features" class="btn btn-secondary btn-xl">
-            <span>機能と見どころを見る ↓</span>
+            <span data-i18n="cta_view_features">機能と見どころを見る ↓</span>
           </a>
         </div>
 
         <div class="hero-guarantee">
-          <span>✓ オフライン完全動作</span>
-          <span>✓ 1〜5番機 全コックピット搭乗</span>
-          <span>✓ 編隊シンクロ率 採点システム搭載</span>
+          <span data-i18n="guarantee_offline">✓ オフライン完全動作</span>
+          <span data-i18n="guarantee_cockpits">✓ 1〜5番機 全コックピット搭乗</span>
+          <span data-i18n="guarantee_sync">✓ 編隊シンクロ率 採点システム搭載</span>
         </div>
       </div>
 
@@ -175,13 +184,13 @@
 
           <div class="visual-card-footer">
             <div class="card-cam-pills">
-              <span class="pill active">👑 1番機 (編隊長)</span>
-              <span class="pill">🪶 2番機</span>
-              <span class="pill">🪶 3番機</span>
-              <span class="pill">🎯 4番機</span>
-              <span class="pill">⚡ 5番機</span>
-              <span class="pill">🗼 45m管制塔</span>
-              <span class="pill">🎪 観覧席</span>
+              <span class="pill active" data-i18n="cam_pill_1">👑 1番機 (編隊長)</span>
+              <span class="pill" data-i18n="cam_pill_2">🪶 2番機</span>
+              <span class="pill" data-i18n="cam_pill_3">🪶 3番機</span>
+              <span class="pill" data-i18n="cam_pill_4">🎯 4番機</span>
+              <span class="pill" data-i18n="cam_pill_5">⚡ 5番機</span>
+              <span class="pill" data-i18n="cam_pill_8">🗼 45m管制塔</span>
+              <span class="pill" data-i18n="cam_pill_9">🎪 観覧席</span>
             </div>
           </div>
         </div>
@@ -194,9 +203,9 @@
   <section class="section features-section" id="features">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">FOUR CORE REALISMS</span>
-        <h2 class="section-title">極限のリアリズムを支える 4つのテクノロジー</h2>
-        <p class="section-desc">実データと独自の物理演算を融合。松島基地の空気をそのままデスクトップに再現。</p>
+        <span class="section-subtitle" data-i18n="feat_subtitle">FOUR CORE REALISMS</span>
+        <h2 class="section-title" data-i18n="feat_title">極限のリアリズムを支える 4つのテクノロジー</h2>
+        <p class="section-desc" data-i18n="feat_desc">実データと独自の物理演算を融合。松島基地の空気をそのままデスクトップに再現。</p>
       </div>
 
       <div class="features-grid">
@@ -207,13 +216,13 @@
             <span class="feature-icon">🗾</span>
           </div>
           <div class="feature-number">01</div>
-          <h3 class="feature-title">国土地理院 1536×1024 実標高DEM &amp; 航空写真</h3>
-          <p class="feature-text">
+          <h3 class="feature-title" data-i18n="feat_1_title">国土地理院 1536×1024 実標高DEM &amp; 航空写真</h3>
+          <p class="feature-text" data-i18n="feat_1_text">
             宮城県域（仙台・松島湾・石巻・牡鹿半島・奥羽山脈）の実測DEM標高データと高解像度オルソ写真を融合。松島基地のメイン滑走路07/25（2,700m）、クロス滑走路15/33、エプロン、45m管制塔、PAPI進入灯まで精密再現。
           </p>
           <ul class="feature-points">
-            <li>松島湾の美しい島々と海岸線を上空から一望</li>
-            <li>リアルな進入角指示灯（PAPI）による本格着陸進入</li>
+            <li data-i18n="feat_1_p1">松島湾の美しい島々と海岸線を上空から一望</li>
+            <li data-i18n="feat_1_p2">リアルな進入角指示灯（PAPI）による本格着陸進入</li>
           </ul>
         </div>
 
@@ -223,13 +232,13 @@
             <span class="feature-icon">✈️</span>
           </div>
           <div class="feature-number">02</div>
-          <h3 class="feature-title">川崎重工 T-4 精密3D機体 &amp; 物理可動</h3>
-          <p class="feature-text">
+          <h3 class="feature-title" data-i18n="feat_2_title">川崎重工 T-4 精密3D機体 &amp; 物理可動</h3>
+          <p class="feature-text" data-i18n="feat_2_text">
             鮮烈なホワイト＆コバルトブルー塗装、1〜6番機デカール、キャノピー・パイロットを再現。可動式三輪着陸脚（ギア）、スピードブレーキ、エルロン・エレベーター・ラダーの舵面が操縦桿と完全連動。
           </p>
           <ul class="feature-points">
-            <li>IHI F3-IHI-30 ターボファン双発エンジンの物理音響</li>
-            <li>スロットル連動エキゾーストグロー＆スモーク発生装置</li>
+            <li data-i18n="feat_2_p1">IHI F3-IHI-30 ターボファン双発エンジンの物理音響</li>
+            <li data-i18n="feat_2_p2">スロットル連動エキゾーストグロー＆スモーク発生装置</li>
           </ul>
         </div>
 
@@ -239,13 +248,13 @@
             <span class="feature-icon">👥</span>
           </div>
           <div class="feature-number">03</div>
-          <h3 class="feature-title">5機編隊 AI &amp; パイロット搭乗チャレンジ</h3>
-          <p class="feature-text">
+          <h3 class="feature-title" data-i18n="feat_3_title">5機編隊 AI &amp; パイロット搭乗チャレンジ</h3>
+          <p class="feature-text" data-i18n="feat_3_text">
             実機と同じ「1〜4番機ダイヤモンド同時離陸＋5番機低角ロール離陸合流」を忠実にシミュレート。編隊長としてAI僚機を率いるか、僚機・ソロ機として編隊間隔（6.5m接触判定）をキープして飛ぶかを選べます。
           </p>
           <ul class="feature-points">
-            <li>リアルタイム編隊シンクロ率スコア採点（RANK S〜C）</li>
-            <li>自機特別リバリー（ゴールド／クリムゾン／サイバー等）</li>
+            <li data-i18n="feat_3_p1">リアルタイム編隊シンクロ率スコア採点（RANK S〜C）</li>
+            <li data-i18n="feat_3_p2">自機特別リバリー（ゴールド／クリムゾン／サイバー等）</li>
           </ul>
         </div>
 
@@ -255,13 +264,13 @@
             <span class="feature-icon">⚡</span>
           </div>
           <div class="feature-number">04</div>
-          <h3 class="feature-title">Rust + Tauri 2.0 超軽量ネイティブ &amp; 60FPS</h3>
-          <p class="feature-text">
+          <h3 class="feature-title" data-i18n="feat_4_title">Rust + Tauri 2.0 超軽量ネイティブ &amp; 60FPS</h3>
+          <p class="feature-text" data-i18n="feat_4_text">
             重厚なフライトシミュレーターの常識を覆す、わずか数十MBの高速インストーラー。WebGL 2.0とRustバックエンドの最適化により、Apple Silicon Macや標準的なWindows PCで60FPSの滑らかな描画を実現。
           </p>
           <ul class="feature-points">
-            <li>ネット接続不要の完全オフライン動作</li>
-            <li>起動までわずか数秒。ストレスフリーな即時フライト</li>
+            <li data-i18n="feat_4_p1">ネット接続不要の完全オフライン動作</li>
+            <li data-i18n="feat_4_p2">起動までわずか数秒。ストレスフリーな即時フライト</li>
           </ul>
         </div>
 
@@ -273,30 +282,30 @@
   <section class="section gallery-section">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">FLIGHT EXPERIENCE GALLERY</span>
-        <h2 class="section-title">その手で体感する、息をのむ大空のキャンバス</h2>
+        <span class="section-subtitle" data-i18n="gallery_subtitle">FLIGHT EXPERIENCE GALLERY</span>
+        <h2 class="section-title" data-i18n="gallery_title">その手で体感する、息をのむ大空のキャンバス</h2>
       </div>
 
       <div class="gallery-grid">
         <div class="gallery-item large">
           <img src="assets/cockpit_hud_view.jpg" alt="Cockpit View and HUD" loading="lazy">
           <div class="gallery-caption">
-            <h4>リアルタイム PFD / HUD 視点</h4>
-            <p>対気速度・気圧高度・人工水平線・FPVが瞬時に把握できるプロ仕様コックピット</p>
+            <h4 data-i18n="gallery_cap1_title">リアルタイム PFD / HUD 視点</h4>
+            <p data-i18n="gallery_cap1_desc">対気速度・気圧高度・人工水平線・FPVが瞬時に把握できるプロ仕様コックピット</p>
           </div>
         </div>
         <div class="gallery-item">
           <img src="assets/acrobatic_display.jpg" alt="Acrobatic Display" loading="lazy">
           <div class="gallery-caption">
-            <h4>大空を描く 7大公式アクロバット演目</h4>
-            <p>5機が織りなす扇型ブレイク「レインフォール」の瞬間</p>
+            <h4 data-i18n="gallery_cap2_title">大空を描く 7大公式アクロバット演目</h4>
+            <p data-i18n="gallery_cap2_desc">5機が織りなす扇型ブレイク「レインフォール」の瞬間</p>
           </div>
         </div>
         <div class="gallery-item">
           <img src="assets/blueimpulse_sunset.jpg" alt="Blue Impulse Sunset" loading="lazy">
           <div class="gallery-caption">
-            <h4>松島湾の夕暮れ・サンセットフライト</h4>
-            <p>機体に反射する夕陽とスモークトレイルの美しい陰影</p>
+            <h4 data-i18n="gallery_cap3_title">松島湾の夕暮れ・サンセットフライト</h4>
+            <p data-i18n="gallery_cap3_desc">機体に反射する夕陽とスモークトレイルの美しい陰影</p>
           </div>
         </div>
       </div>
@@ -307,9 +316,9 @@
   <section class="section routines-section" id="routines">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">7 OFFICIAL AIRSHOW ROUTINES</span>
-        <h2 class="section-title">ブルーインパルス 7大公式演目を完全網羅</h2>
-        <p class="section-desc">自動フライト鑑賞モードで全コックピットから眺めることも、手動操縦で挑むことも可能。</p>
+        <span class="section-subtitle" data-i18n="routines_subtitle">7 OFFICIAL AIRSHOW ROUTINES</span>
+        <h2 class="section-title" data-i18n="routines_title">ブルーインパルス 7大公式演目を完全網羅</h2>
+        <p class="section-desc" data-i18n="routines_desc">自動フライト鑑賞モードで全コックピットから眺めることも、手動操縦で挑むことも可能。</p>
       </div>
 
       <!-- Interactive Routine Tabs -->
@@ -317,31 +326,31 @@
         <div class="routine-tabs" id="routineTabs">
           <button class="routine-tab active" data-routine="0">
             <span class="tab-num">01</span>
-            <span class="tab-name">ローリングコンバットピッチ</span>
+            <span class="tab-name" data-i18n="routine_tab_0">ローリングコンバットピッチ</span>
           </button>
           <button class="routine-tab" data-routine="1">
             <span class="tab-num">02</span>
-            <span class="tab-name">レインフォール</span>
+            <span class="tab-name" data-i18n="routine_tab_1">レインフォール</span>
           </button>
           <button class="routine-tab" data-routine="2">
             <span class="tab-num">03</span>
-            <span class="tab-name">デルタロール</span>
+            <span class="tab-name" data-i18n="routine_tab_2">デルタロール</span>
           </button>
           <button class="routine-tab" data-routine="3">
             <span class="tab-num">04</span>
-            <span class="tab-name">チェンジオーバーターン</span>
+            <span class="tab-name" data-i18n="routine_tab_3">チェンジオーバーターン</span>
           </button>
           <button class="routine-tab" data-routine="4">
             <span class="tab-num">05</span>
-            <span class="tab-name">バーティカルクライムロール</span>
+            <span class="tab-name" data-i18n="routine_tab_4">バーティカルクライムロール</span>
           </button>
           <button class="routine-tab" data-routine="5">
             <span class="tab-num">06</span>
-            <span class="tab-name">タッククロス</span>
+            <span class="tab-name" data-i18n="routine_tab_5">タッククロス</span>
           </button>
           <button class="routine-tab" data-routine="6">
             <span class="tab-num">07</span>
-            <span class="tab-name">コークスクリュー</span>
+            <span class="tab-name" data-i18n="routine_tab_6">コークスクリュー</span>
           </button>
         </div>
 
@@ -359,7 +368,7 @@
             </p>
             
             <div class="routine-highlights">
-              <h4>🎯 見どころ &amp; 操縦ポイント</h4>
+              <h4 data-i18n="routine_highlights_label">🎯 見どころ &amp; 操縦ポイント</h4>
               <ul id="routinePoints">
                 <li>1番機の引き起こし合図に合わせた、0.8秒間隔の連続ブレイク機動</li>
                 <li>ロール中のG負荷コントロールと滑走路軸への正確な復帰</li>
@@ -378,7 +387,7 @@
                 <div class="plane-icon p4">✈️ 4</div>
                 <div class="plane-icon p5">✈️ 5</div>
               </div>
-              <span class="diagram-note">リアルタイム 3D 軌道計算 &amp; スモーク描画</span>
+              <span class="diagram-note" data-i18n="radar_note">リアルタイム 3D 軌道計算 &amp; スモーク描画</span>
             </div>
           </div>
         </div>
@@ -391,9 +400,9 @@
   <section class="section cockpit-section" id="cockpit">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">COCKPIT &amp; CAMERA SYSTEM</span>
-        <h2 class="section-title">プロフェッショナル HUD 計器 &amp; 9大カメラ視点</h2>
-        <p class="section-desc">操縦に必要なすべての情報を瞬時に把握できる本格計器と、自由自在なカメラワーク。</p>
+        <span class="section-subtitle" data-i18n="cockpit_subtitle">COCKPIT &amp; CAMERA SYSTEM</span>
+        <h2 class="section-title" data-i18n="cockpit_title">プロフェッショナル HUD 計器 &amp; 9大カメラ視点</h2>
+        <p class="section-desc" data-i18n="cockpit_desc">操縦に必要なすべての情報を瞬時に把握できる本格計器と、自由自在なカメラワーク。</p>
       </div>
 
       <div class="cockpit-grid">
@@ -402,32 +411,32 @@
           <div class="hud-item">
             <div class="hud-item-icon">🧭</div>
             <div class="hud-item-content">
-              <h4>リアルタイム PFD (Primary Flight Display)</h4>
-              <p>ピッチラダー、ロール角、対気速度（ノット＆マッハ）、気圧高度（FT＆M）、昇降計、過大G警告（7.5G+）を忠実に表示。</p>
+              <h4 data-i18n="hud_1_title">リアルタイム PFD (Primary Flight Display)</h4>
+              <p data-i18n="hud_1_desc">ピッチラダー、ロール角、対気速度（ノット＆マッハ）、気圧高度（FT＆M）、昇降計、過大G警告（7.5G+）を忠実に表示。</p>
             </div>
           </div>
 
           <div class="hud-item">
             <div class="hud-item-icon">🎯</div>
             <div class="hud-item-content">
-              <h4>FPV (フライトパスベクター)</h4>
-              <p>機首の向きだけでなく、実際の進行ベクトルを示すFPVシンボルにより、風の影響下でも正確な滑走路アプローチが可能。</p>
+              <h4 data-i18n="hud_2_title">FPV (フライトパスベクター)</h4>
+              <p data-i18n="hud_2_desc">機首の向きだけでなく、実際の進行ベクトルを示すFPVシンボルにより、風の影響下でも正確な滑走路アプローチが可能。</p>
             </div>
           </div>
 
           <div class="hud-item">
             <div class="hud-item-icon">🛫</div>
             <div class="hud-item-content">
-              <h4>フライト指導バナー (Flight Directive Overlay)</h4>
-              <p>離陸滑走速度、ギア格納、引き起こし角度、編隊追従、アプローチ、車輪ブレーキ完全停止まで、画面上部にパイロット指示がリアルタイム出現。</p>
+              <h4 data-i18n="hud_3_title">フライト指導バナー (Flight Directive Overlay)</h4>
+              <p data-i18n="hud_3_desc">離陸滑走速度、ギア格納、引き起こし角度、編隊追従、アプローチ、車輪ブレーキ完全停止まで、画面上部にパイロット指示がリアルタイム出現。</p>
             </div>
           </div>
 
           <div class="hud-item">
             <div class="hud-item-icon">🎥</div>
             <div class="hud-item-content">
-              <h4>9つの多彩なカメラ視点</h4>
-              <p>1〜5番機コックピット、全体俯瞰、後方追従、松島基地45m管制塔（望遠追従）、地上観覧席からの見上げ視点をワンキーで即座切替。</p>
+              <h4 data-i18n="hud_4_title">9つの多彩なカメラ視点</h4>
+              <p data-i18n="hud_4_desc">1〜5番機コックピット、全体俯瞰、後方追従、松島基地45m管制塔（望遠追従）、地上観覧席からの見上げ視点をワンキーで即座切替。</p>
             </div>
           </div>
         </div>
@@ -435,44 +444,44 @@
         <!-- Camera Switcher Interactive Preview -->
         <div class="camera-showcase-box">
           <div class="cam-box-header">
-            <span>📷 カメラ視点クイック切替プレビュー</span>
-            <span class="cam-key-hint">キーボード [1]〜[9] に対応</span>
+            <span data-i18n="cam_box_title">📷 カメラ視点クイック切替プレビュー</span>
+            <span class="cam-key-hint" data-i18n="cam_box_hint">キーボード [1]〜[9] に対応</span>
           </div>
           <div class="cam-buttons-grid">
             <button class="cam-btn active" data-cam="leader">
               <span class="cam-key">1</span>
-              <span class="cam-name">👑 1番機 (編隊長)</span>
-              <span class="cam-desc">後方に僚機を従えるリーダー視点</span>
+              <span class="cam-name" data-i18n="cam_name_1">👑 1番機 (編隊長)</span>
+              <span class="cam-desc" data-i18n="cam_desc_1">後方に僚機を従えるリーダー視点</span>
             </button>
             <button class="cam-btn" data-cam="wing_left">
               <span class="cam-key">2</span>
-              <span class="cam-name">🪶 2番機 (左翼機)</span>
-              <span class="cam-desc">1番機の右翼を見ながら追従</span>
+              <span class="cam-name" data-i18n="cam_name_2">🪶 2番機 (左翼機)</span>
+              <span class="cam-desc" data-i18n="cam_desc_2">1番機の右翼を見ながら追従</span>
             </button>
             <button class="cam-btn" data-cam="wing_right">
               <span class="cam-key">3</span>
-              <span class="cam-name">🪶 3番機 (右翼機)</span>
-              <span class="cam-desc">1番機の左翼を見ながら追従</span>
+              <span class="cam-name" data-i18n="cam_name_3">🪶 3番機 (右翼機)</span>
+              <span class="cam-desc" data-i18n="cam_desc_3">1番機の左翼を見ながら追従</span>
             </button>
             <button class="cam-btn" data-cam="slot">
               <span class="cam-key">4</span>
-              <span class="cam-name">🎯 4番機 (スロット)</span>
-              <span class="cam-desc">ダイヤモンド直後下から見上げる迫力</span>
+              <span class="cam-name" data-i18n="cam_name_4">🎯 4番機 (スロット)</span>
+              <span class="cam-desc" data-i18n="cam_desc_4">ダイヤモンド直後下から見上げる迫力</span>
             </button>
             <button class="cam-btn" data-cam="solo">
               <span class="cam-key">5</span>
-              <span class="cam-name">⚡ 5番機 (ソロ機)</span>
-              <span class="cam-desc">低角ロール離陸＆アクロバット機動</span>
+              <span class="cam-name" data-i18n="cam_name_5">⚡ 5番機 (ソロ機)</span>
+              <span class="cam-desc" data-i18n="cam_desc_5">低角ロール離陸＆アクロバット機動</span>
             </button>
             <button class="cam-btn" data-cam="tower">
               <span class="cam-key">8</span>
-              <span class="cam-name">🗼 45m管制塔</span>
-              <span class="cam-desc">松島基地の管制塔から望遠追従</span>
+              <span class="cam-name" data-i18n="cam_name_8">🗼 45m管制塔</span>
+              <span class="cam-desc" data-i18n="cam_desc_8">松島基地の管制塔から望遠追従</span>
             </button>
             <button class="cam-btn" data-cam="spectator">
               <span class="cam-key">9</span>
-              <span class="cam-name">🎪 地上観覧席</span>
-              <span class="cam-desc">航空祭エプロンから頭上を見上げる感動</span>
+              <span class="cam-name" data-i18n="cam_name_9">🎪 地上観覧席</span>
+              <span class="cam-desc" data-i18n="cam_desc_9">航空祭エプロンから頭上を見上げる感動</span>
             </button>
           </div>
         </div>
@@ -485,8 +494,8 @@
   <section class="section modes-section" id="modes">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">TWO VERSATILE MODES</span>
-        <h2 class="section-title">あなたのスタイルで選べる 2つのフライトモード</h2>
+        <span class="section-subtitle" data-i18n="modes_subtitle">TWO VERSATILE MODES</span>
+        <h2 class="section-title" data-i18n="modes_title">あなたのスタイルで選べる 2つのフライトモード</h2>
       </div>
 
       <div class="modes-grid">
@@ -495,19 +504,19 @@
           <div class="mode-header">
             <span class="mode-icon">👥</span>
             <div>
-              <span class="mode-tag">RECOMMENDED</span>
-              <h3 class="mode-title">5機編隊モード</h3>
+              <span class="mode-tag" data-i18n="mode_1_tag">RECOMMENDED</span>
+              <h3 class="mode-title" data-i18n="mode_1_title">5機編隊モード</h3>
             </div>
           </div>
-          <p class="mode-desc">
+          <p class="mode-desc" data-i18n="mode_1_desc">
             ブルーインパルスの醍醐味であるダイヤモンド編隊やエシュロン隊形でのフライト。
           </p>
           <ul class="mode-feature-list">
-            <li><strong>演目オート鑑賞</strong>：7大公式演目を自動再生し、全コックピットや観覧席から鑑賞</li>
-            <li><strong>手動パイロット搭乗</strong>：1〜5番機の好きな機体に搭乗して自ら操縦桿を握る</li>
-            <li><strong>編隊追従 AI</strong>：1番機を操縦すれば2〜5番機のAI僚機が隊形を維持して追従</li>
-            <li><strong>編隊シンクロ率スコア</strong>：理想の演目軌道との同調精度をリアルタイム採点</li>
-            <li><strong>特別機体カラー</strong>：搭乗機にゴールド、クリムゾン、サイバーネオン等のリバリー適用</li>
+            <li data-i18n="mode_1_p1"><strong>演目オート鑑賞</strong>：7大公式演目を自動再生し、全コックピットや観覧席から鑑賞</li>
+            <li data-i18n="mode_1_p2"><strong>手動パイロット搭乗</strong>：1〜5番機の好きな機体に搭乗して自ら操縦桿を握る</li>
+            <li data-i18n="mode_1_p3"><strong>編隊追従 AI</strong>：1番機を操縦すれば2〜5番機のAI僚機が隊形を維持して追従</li>
+            <li data-i18n="mode_1_p4"><strong>編隊シンクロ率スコア</strong>：理想の演目軌道との同調精度をリアルタイム採点</li>
+            <li data-i18n="mode_1_p5"><strong>特別機体カラー</strong>：搭乗機にゴールド、クリムゾン、サイバーネオン等のリバリー適用</li>
           </ul>
         </div>
 
@@ -516,19 +525,19 @@
           <div class="mode-header">
             <span class="mode-icon">🛩️</span>
             <div>
-              <span class="mode-tag">FREE FLIGHT</span>
-              <h3 class="mode-title">1機ソロモード</h3>
+              <span class="mode-tag" data-i18n="mode_2_tag">FREE FLIGHT</span>
+              <h3 class="mode-title" data-i18n="mode_2_title">1機ソロモード</h3>
             </div>
           </div>
-          <p class="mode-desc">
+          <p class="mode-desc" data-i18n="mode_2_desc">
             川崎重工 T-4 の優れた運動性能を存分に味わえる単独フリーフライト専用モード。
           </p>
           <ul class="mode-feature-list">
-            <li><strong>ソロ演目鑑賞</strong>：単独垂直大宙返り、バレルロール、コークスクリュー等</li>
-            <li><strong>松島基地フリーフライト</strong>：滑走路07からの離陸、松島湾周回、着陸アプローチ</li>
-            <li><strong>初期位置プリセット</strong>：滑走路待機、松島湾上空、着陸ファイナルから即座スタート</li>
-            <li><strong>完全停止ブレーキ</strong>：着陸接地後の強力な車輪ブレーキによる完全停止</li>
-            <li><strong>天候・スモーク設定</strong>：晴天、夕景、虹色スモーク、三色スモークの自由カスタマイズ</li>
+            <li data-i18n="mode_2_p1"><strong>ソロ演目鑑賞</strong>：単独垂直大宙返り、バレルロール、コークスクリュー等</li>
+            <li data-i18n="mode_2_p2"><strong>松島基地フリーフライト</strong>：滑走路07からの離陸、松島湾周回、着陸アプローチ</li>
+            <li data-i18n="mode_2_p3"><strong>初期位置プリセット</strong>：滑走路待機、松島湾上空、着陸ファイナルから即座スタート</li>
+            <li data-i18n="mode_2_p4"><strong>完全停止ブレーキ</strong>：着陸接地後の強力な車輪ブレーキによる完全停止</li>
+            <li data-i18n="mode_2_p5"><strong>天候・スモーク設定</strong>：晴天、夕景、虹色スモーク、三色スモークの自由カスタマイズ</li>
           </ul>
         </div>
       </div>
@@ -545,45 +554,45 @@
           <span>🚀 ALL-IN-ONE PERPETUAL LICENSE</span>
         </div>
 
-        <h2 class="pricing-headline">
+        <h2 class="pricing-headline" data-i18n="pricing_headline">
           ブルーインパルスの大空を、あなたの手の中に。<br>
           <span class="gradient-text">完全買い切り 2,980 円</span>
         </h2>
 
-        <p class="pricing-sub">
+        <p class="pricing-sub" data-i18n="pricing_sub">
           サブスクリプション月額費用は一切不要。1度の購入で Mac 版と Windows 版の両方が手に入ります。
         </p>
 
         <div class="price-display">
           <span class="currency">¥</span>
           <span class="amount">2,980</span>
-          <span class="tax-label">（税込・完全買い切り）</span>
+          <span class="tax-label" data-i18n="pricing_tax_label">（税込・完全買い切り）</span>
         </div>
 
         <div class="pricing-includes-grid">
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>Mac &amp; Windows 両対応</strong>（DMG &amp; Setup.exe 同梱）</span>
+            <span data-i18n="pricing_inc_1"><strong>Mac &amp; Windows 両対応</strong>（DMG &amp; Setup.exe 同梱）</span>
           </div>
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>7大公式アクロバット演目</strong> すべてアンロック済み</span>
+            <span data-i18n="pricing_inc_2"><strong>7大公式アクロバット演目</strong> すべてアンロック済み</span>
           </div>
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>国土地理院 1536×1024 松島基地DEM地形</strong> 収録</span>
+            <span data-i18n="pricing_inc_3"><strong>国土地理院 1536×1024 松島基地DEM地形</strong> 収録</span>
           </div>
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>1〜5番機 全コックピット視点</strong> &amp; 手動操縦チャレンジ</span>
+            <span data-i18n="pricing_inc_4"><strong>1〜5番機 全コックピット視点</strong> &amp; 手動操縦チャレンジ</span>
           </div>
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>完全オフライン動作</strong>（ネット不要・超軽量数十MB）</span>
+            <span data-i18n="pricing_inc_5"><strong>完全オフライン動作</strong>（ネット不要・超軽量数十MB）</span>
           </div>
           <div class="include-item">
             <span class="check-icon">✓</span>
-            <span><strong>日本語・英語マニュアル</strong> &amp; 画面切り替え完全対応</span>
+            <span data-i18n="pricing_inc_6"><strong>日本語・英語マニュアル</strong> &amp; 画面切り替え完全対応</span>
           </div>
         </div>
 
@@ -592,16 +601,16 @@
           <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-xxl btn-glow" target="_blank" rel="noopener noreferrer">
             <span class="btn-icon">⚡</span>
             <span class="btn-content">
-              <span class="btn-title">今すぐ購入してダウンロードを開始する</span>
-              <span class="btn-subtitle">即時決済完了後、すぐにダウンロードいただけます</span>
+              <span class="btn-title" data-i18n="pricing_cta_title">今すぐ購入してダウンロードを開始する</span>
+              <span class="btn-subtitle" data-i18n="pricing_cta_sub">即時決済完了後、すぐにダウンロードいただけます</span>
             </span>
           </a>
         </div>
 
         <div class="pricing-security-notes">
-          <span>🔒 安全な暗号化決済</span>
-          <span>⚡ 即時ダウンロードリンク発行</span>
-          <span>🔄 永続マイナーアップデート付属</span>
+          <span data-i18n="pricing_sec_1">🔒 安全な暗号化決済</span>
+          <span data-i18n="pricing_sec_2">⚡ 即時ダウンロードリンク発行</span>
+          <span data-i18n="pricing_sec_3">🔄 永続マイナーアップデート付属</span>
         </div>
       </div>
     </div>
@@ -611,9 +620,9 @@
   <section class="section specs-section" id="specs">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">SYSTEM REQUIREMENTS</span>
-        <h2 class="section-title">動作環境・システム要件</h2>
-        <p class="section-desc">Rust + Tauri 2.0 による徹底した軽量設計。多くの一般的なPCで快適に動作します。</p>
+        <span class="section-subtitle" data-i18n="specs_subtitle">SYSTEM REQUIREMENTS</span>
+        <h2 class="section-title" data-i18n="specs_title">動作環境・システム要件</h2>
+        <p class="section-desc" data-i18n="specs_desc">Rust + Tauri 2.0 による徹底した軽量設計。多くの一般的なPCで快適に動作します。</p>
       </div>
 
       <div class="specs-grid">
@@ -621,32 +630,32 @@
         <div class="spec-card">
           <div class="spec-card-header">
             <span class="spec-icon">🍎</span>
-            <h3>macOS 動作環境</h3>
+            <h3 data-i18n="mac_spec_title">macOS 動作環境</h3>
           </div>
           <table class="spec-table">
             <tr>
-              <th>OS</th>
-              <td>macOS 10.15 (Catalina) 以降</td>
+              <th data-i18n="spec_th_os">OS</th>
+              <td data-i18n="mac_spec_os">macOS 10.15 (Catalina) 以降</td>
             </tr>
             <tr>
-              <th>CPU / SoC</th>
-              <td>Apple Silicon (M1 / M2 / M3 / M4) または Intel Core i5 以上</td>
+              <th data-i18n="spec_th_cpu">CPU / SoC</th>
+              <td data-i18n="mac_spec_cpu">Apple Silicon (M1 / M2 / M3 / M4) または Intel Core i5 以上</td>
             </tr>
             <tr>
-              <th>GPU</th>
-              <td>Metal / WebGL 2.0 対応グラフィックス</td>
+              <th data-i18n="spec_th_gpu">GPU</th>
+              <td data-i18n="mac_spec_gpu">Metal / WebGL 2.0 対応グラフィックス</td>
             </tr>
             <tr>
-              <th>メモリ</th>
-              <td>4GB RAM 以上（推奨 8GB）</td>
+              <th data-i18n="spec_th_ram">メモリ</th>
+              <td data-i18n="mac_spec_ram">4GB RAM 以上（推奨 8GB）</td>
             </tr>
             <tr>
-              <th>空き容量</th>
-              <td>約 150MB 以上のストレージ空き容量</td>
+              <th data-i18n="spec_th_storage">空き容量</th>
+              <td data-i18n="mac_spec_storage">約 150MB 以上のストレージ空き容量</td>
             </tr>
             <tr>
-              <th>形式</th>
-              <td>DMG インストーラー（ドラッグ＆ドロップで完了）</td>
+              <th data-i18n="spec_th_format">形式</th>
+              <td data-i18n="mac_spec_format">DMG インストーラー（ドラッグ＆ドロップで完了）</td>
             </tr>
           </table>
         </div>
@@ -655,32 +664,32 @@
         <div class="spec-card">
           <div class="spec-card-header">
             <span class="spec-icon">🪟</span>
-            <h3>Windows 動作環境</h3>
+            <h3 data-i18n="win_spec_title">Windows 動作環境</h3>
           </div>
           <table class="spec-table">
             <tr>
-              <th>OS</th>
-              <td>Windows 10 / Windows 11 (64-bit)</td>
+              <th data-i18n="spec_th_os">OS</th>
+              <td data-i18n="win_spec_os">Windows 10 / Windows 11 (64-bit)</td>
             </tr>
             <tr>
-              <th>CPU</th>
-              <td>Intel Core i3 / AMD Ryzen 3 以上</td>
+              <th data-i18n="spec_th_cpu">CPU</th>
+              <td data-i18n="win_spec_cpu">Intel Core i3 / AMD Ryzen 3 以上</td>
             </tr>
             <tr>
-              <th>GPU</th>
-              <td>DirectX 11 / WebGL 2.0 対応グラフィックス (Intel UHD, GeForce, Radeon)</td>
+              <th data-i18n="spec_th_gpu">GPU</th>
+              <td data-i18n="win_spec_gpu">DirectX 11 / WebGL 2.0 対応グラフィックス (Intel UHD, GeForce, Radeon)</td>
             </tr>
             <tr>
-              <th>メモリ</th>
-              <td>4GB RAM 以上（推奨 8GB）</td>
+              <th data-i18n="spec_th_ram">メモリ</th>
+              <td data-i18n="win_spec_ram">4GB RAM 以上（推奨 8GB）</td>
             </tr>
             <tr>
-              <th>空き容量</th>
-              <td>約 150MB 以上のストレージ空き容量</td>
+              <th data-i18n="spec_th_storage">空き容量</th>
+              <td data-i18n="win_spec_storage">約 150MB 以上のストレージ空き容量</td>
             </tr>
             <tr>
-              <th>形式</th>
-              <td>EXE インストーラー（Setup ウィザードで完了）</td>
+              <th data-i18n="spec_th_format">形式</th>
+              <td data-i18n="win_spec_format">EXE インストーラー（Setup ウィザードで完了）</td>
             </tr>
           </table>
         </div>
@@ -692,69 +701,69 @@
   <section class="section faq-section" id="faq">
     <div class="container">
       <div class="section-header text-center">
-        <span class="section-subtitle">FREQUENTLY ASKED QUESTIONS</span>
-        <h2 class="section-title">よくある質問 (FAQ)</h2>
+        <span class="section-subtitle" data-i18n="faq_subtitle">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="section-title" data-i18n="faq_title">よくある質問 (FAQ)</h2>
       </div>
 
       <div class="faq-list">
         
         <div class="faq-item active">
           <button class="faq-question">
-            <span>Q. 購入するとMac版とWindows版の両方が手に入りますか？</span>
+            <span data-i18n="faq_q1">Q. 購入するとMac版とWindows版の両方が手に入りますか？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>はい。1回のご購入（2,980円）で、macOS用（DMG形式）とWindows用（EXEインストーラー形式）の両方をダウンロードしていただけます。ご自宅のMacでもWindows PCでもご利用可能です。</p>
+            <p data-i18n="faq_a1">はい。1回のご購入（2,980円）で、macOS用（DMG形式）とWindows用（EXEインストーラー形式）の両方をダウンロードしていただけます。ご自宅のMacでもWindows PCでもご利用可能です。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Q. 月額料金や追加の課金はありますか？</span>
+            <span data-i18n="faq_q2">Q. 月額料金や追加の課金はありますか？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>いいえ、一切ありません。完全な「買い切り」製品です。7大アクロバット演目、松島基地全地形、全コックピット視点、手動操縦機能などすべての機能を永久にお楽しみいただけます。</p>
+            <p data-i18n="faq_a2">いいえ、一切ありません。完全な「買い切り」製品です。7大アクロバット演目、松島基地全地形、全コックピット視点、手動操縦機能などすべての機能を永久にお楽しみいただけます。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Q. インターネット接続がない環境でも動作しますか？</span>
+            <span data-i18n="faq_q3">Q. インターネット接続がない環境でも動作しますか？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>はい。地形データや機体モデル、音響アセットはすべてアプリ内に内包されているため、一度インストールすればオフライン環境でも60FPSで快適に動作します。飛行機の中や外出先でもお楽しみいただけます。</p>
+            <p data-i18n="faq_a3">はい。地形データや機体モデル、音響アセットはすべてアプリ内に内包されているため、一度インストールすればオフライン環境でも60FPSで快適に動作します。飛行機の中や外出先でもお楽しみいただけます。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Q. 特別なジョイスティックやフライトコントローラーは必要ですか？</span>
+            <span data-i18n="faq_q4">Q. 特別なジョイスティックやフライトコントローラーは必要ですか？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>一般的なキーボードとマウス（またはトラックパッド）のみで本格的な操縦が可能です。W/S（昇降）、A/D（旋回）、Q/E（ラダー）、Shift/Ctrl（スロットル）、G（脚）、B（エアブレーキ/車輪停止）など、直感的な航空標準キー配置に対応しています。</p>
+            <p data-i18n="faq_a4">一般的なキーボードとマウス（またはトラックパッド）のみで本格的な操縦が可能です。W/S（昇降）、A/D（旋回）、Q/E（ラダー）、Shift/Ctrl（スロットル）、G（脚）、B（エアブレーキ/車輪停止）など、直感的な航空標準キー配置に対応しています。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Q. 初心者でも着陸やアクロバットを飛ばせますか？</span>
+            <span data-i18n="faq_q5">Q. 初心者でも着陸やアクロバットを飛ばせますか？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>はい。まずは「演目鑑賞モード」で1〜5番機のコックピットからの視線や機動をじっくり眺めることができます。また「手動操縦モード」では画面上部に「フライト指導バナー」が常時表示され、離陸から着陸・完全停止まで的確なアドバイスが表示されます。</p>
+            <p data-i18n="faq_a5">はい。まずは「演目鑑賞モード」で1〜5番機のコックピットからの視線や機動をじっくり眺めることができます。また「手動操縦モード」では画面上部に「フライト指導バナー」が常時表示され、離陸から着陸・完全停止まで的確なアドバイスが表示されます。</p>
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Q. 購入後のダウンロードとインストールの流れは？</span>
+            <span data-i18n="faq_q6">Q. 購入後のダウンロードとインストールの流れは？</span>
             <span class="faq-arrow">+</span>
           </button>
           <div class="faq-answer">
-            <p>ご購入完了後、ダウンロードリンクが即座に表示されます。Macの場合はDMGを開いてApplicationsフォルダへドラッグ、Windowsの場合はセットアップEXEを起動してウィザードに従うだけで数分でプレイを開始できます。</p>
+            <p data-i18n="faq_a6">ご購入完了後、ダウンロードリンクが即座に表示されます。Macの場合はDMGを開いてApplicationsフォルダへドラッグ、Windowsの場合はセットアップEXEを起動してウィザードに従うだけで数分でプレイを開始できます。</p>
           </div>
         </div>
 
@@ -766,17 +775,17 @@
   <section class="section final-cta-section">
     <div class="container text-center">
       <div class="final-cta-card">
-        <span class="final-badge">READY FOR TAKEOFF</span>
-        <h2 class="final-title">松島基地の滑走路07で、あなたの搭乗を待っています。</h2>
-        <p class="final-desc">
+        <span class="final-badge" data-i18n="final_badge">READY FOR TAKEOFF</span>
+        <h2 class="final-title" data-i18n="final_title">松島基地の滑走路07で、あなたの搭乗を待っています。</h2>
+        <p class="final-desc" data-i18n="final_desc">
           蒼穹に描かれるホワイトスモークの感動を、今すぐあなたのデスクトップで。
         </p>
         <div class="final-btn-wrap">
           <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-xxl btn-glow" target="_blank" rel="noopener noreferrer">
             <span class="btn-icon">⚡</span>
             <span class="btn-content">
-              <span class="btn-title">今すぐ購入する（買い切り ¥2,980）</span>
-              <span class="btn-subtitle">Mac &amp; Windows 両対応 ・ 即時ダウンロード</span>
+              <span class="btn-title" data-i18n="final_btn_title">今すぐ購入する（買い切り ¥2,980）</span>
+              <span class="btn-subtitle" data-i18n="final_btn_sub">Mac &amp; Windows 両対応 ・ 即時ダウンロード</span>
             </span>
           </a>
         </div>
@@ -795,7 +804,7 @@
             <span class="brand-subtitle">Desktop Simulator (Mac / Win)</span>
           </div>
         </div>
-        <p class="footer-disclaimer">
+        <p class="footer-disclaimer" data-i18n="footer_disclaimer">
           航空自衛隊 松島基地 (RJST) T-4 ブルーインパルス 3Dフライトシミュレーター。<br>
           本ソフトウェアは学術的・エンターテインメント目的のシミュレーターです。
         </p>
@@ -803,17 +812,17 @@
 
       <div class="footer-links">
         <div class="footer-col">
-          <h4>製品案内</h4>
-          <a href="#features">4大リアル機能</a>
-          <a href="#routines">7大公式演目</a>
-          <a href="#cockpit">コックピット＆HUD</a>
-          <a href="#modes">5機編隊・ソロモード</a>
+          <h4 data-i18n="footer_col1_title">製品案内</h4>
+          <a href="#features" data-i18n="footer_features">4大リアル機能</a>
+          <a href="#routines" data-i18n="footer_routines">7大公式演目</a>
+          <a href="#cockpit" data-i18n="footer_cockpit">コックピット＆HUD</a>
+          <a href="#modes" data-i18n="footer_modes">5機編隊・ソロモード</a>
         </div>
         <div class="footer-col">
-          <h4>サポート</h4>
-          <a href="#specs">動作環境</a>
-          <a href="#faq">よくある質問</a>
-          <a href="https://cyber-matrix.netlify.app/products/blueimpulse" target="_blank" rel="noopener noreferrer">購入ページ</a>
+          <h4 data-i18n="footer_col2_title">サポート</h4>
+          <a href="#specs" data-i18n="footer_specs">動作環境</a>
+          <a href="#faq" data-i18n="footer_faq">よくある質問</a>
+          <a href="https://cyber-matrix.netlify.app/products/blueimpulse" target="_blank" rel="noopener noreferrer" data-i18n="footer_buy">購入ページ</a>
         </div>
       </div>
     </div>
@@ -821,7 +830,7 @@
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
         <p class="copyright">&copy; 2026 Cyber Matrix. All rights reserved.</p>
-        <p class="price-note">価格：2,980円（税込・完全買い切り）</p>
+        <p class="price-note" data-i18n="footer_price_note">価格：2,980円（税込・完全買い切り）</p>
       </div>
     </div>
   </footer>
@@ -832,13 +841,13 @@
       <div class="floating-info">
         <img src="assets/app-icon.png" alt="Icon" class="floating-icon">
         <div>
-          <span class="floating-title">ブルーインパルス 3D フライトシミュレーター</span>
-          <span class="floating-sub">Mac &amp; Windows 両対応 ・ 完全買い切り</span>
+          <span class="floating-title" data-i18n="floating_title">ブルーインパルス 3D フライトシミュレーター</span>
+          <span class="floating-sub" data-i18n="floating_sub">Mac &amp; Windows 両対応 ・ 完全買い切り</span>
         </div>
       </div>
       <div class="floating-action">
-        <span class="floating-price">¥2,980 <span class="floating-tax">(税込)</span></span>
-        <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-floating" target="_blank" rel="noopener noreferrer">
+        <span class="floating-price">¥2,980 <span class="floating-tax" data-i18n="floating_tax">(税込)</span></span>
+        <a href="https://cyber-matrix.netlify.app/products/blueimpulse" class="btn btn-primary btn-floating" target="_blank" rel="noopener noreferrer" data-i18n="floating_btn">
           今すぐ購入 →
         </a>
       </div>

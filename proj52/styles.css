@@ -343,6 +343,49 @@ button {
   width: 100%;
 }
 
+.header-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(12, 24, 46, 0.85);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-pill);
+  padding: 3px 8px;
+  gap: 4px;
+}
+
+.lang-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-fast);
+  letter-spacing: 0.05em;
+}
+
+.lang-btn:hover {
+  color: #ffffff;
+}
+
+.lang-btn.active {
+  background: var(--blue-primary);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
+}
+
+.lang-divider {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
