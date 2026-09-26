@@ -73,7 +73,6 @@ body {
   background: radial-gradient(circle at 50% 0%, #0d1e38 0%, #050b14 70%);
   background-attachment: fixed;
   overflow-x: hidden;
-  padding-bottom: 70px; /* Space for floating CTA */
 }
 
 a {
@@ -346,44 +345,47 @@ button {
 .header-right-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
-/* Language Switcher */
+/* Language Switcher - Segmented Control */
 .lang-switcher {
   display: inline-flex;
   align-items: center;
-  background: rgba(12, 24, 46, 0.85);
-  border: 1px solid var(--border-bright);
+  background: rgba(14, 28, 54, 0.95);
+  border: 1.5px solid rgba(0, 210, 255, 0.4);
   border-radius: var(--radius-pill);
-  padding: 3px 8px;
-  gap: 4px;
+  padding: 3px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 210, 255, 0.15);
 }
 
 .lang-btn {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  color: var(--text-muted);
-  padding: 4px 8px;
+  color: #9ab0cc;
+  padding: 5px 12px;
   border-radius: var(--radius-pill);
   transition: all var(--transition-fast);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  background: transparent;
+  cursor: pointer;
 }
 
 .lang-btn:hover {
   color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .lang-btn.active {
-  background: var(--blue-primary);
+  background: linear-gradient(135deg, #0077ff 0%, #0052cc 100%);
   color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 136, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 136, 255, 0.6);
 }
 
 .lang-divider {
-  font-size: 0.75rem;
-  color: var(--text-dim);
+  display: none;
 }
 
 .mobile-menu-toggle {
@@ -1832,6 +1834,19 @@ button {
 @media (max-width: 768px) {
   .main-nav, .header-cta {
     display: none;
+  }
+
+  .header-right-actions {
+    margin-right: 8px;
+  }
+
+  .lang-switcher {
+    padding: 2px;
+  }
+
+  .lang-btn {
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
 
   .mobile-menu-toggle {

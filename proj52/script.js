@@ -883,11 +883,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 8. SCROLL LISTENER (Sticky Header & Floating Bottom CTA)
+  // 8. SCROLL LISTENER (Sticky Header)
   // --------------------------------------------------------------------------
   const siteHeader = document.getElementById('siteHeader');
-  const floatingCtaBar = document.getElementById('floatingCtaBar');
-  const heroSection = document.getElementById('hero');
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -898,16 +896,6 @@ document.addEventListener('DOMContentLoaded', () => {
         siteHeader.classList.add('scrolled');
       } else {
         siteHeader.classList.remove('scrolled');
-      }
-    }
-
-    // Floating Bottom CTA visibility
-    if (floatingCtaBar && heroSection) {
-      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-      if (scrollY > heroBottom - 100) {
-        floatingCtaBar.classList.add('visible');
-      } else {
-        floatingCtaBar.classList.remove('visible');
       }
     }
   });
