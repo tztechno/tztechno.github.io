@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高さ制限バー ドライブシミュレーター｜運転席からバーはどう見える？（無料）</title>
+  <meta name="description" content="JR名松線の高架手前（三重県津市白山町南家城）で起きたマイクロバスの高さ制限バー衝突事故を3Dで再現。バーの高さ・車高・運転手の目線を変えて、運転席からの見え方を確かめられる無料のWebシミュレーターです。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="高さ制限バー ドライブシミュレーター（無料）">
+  <meta property="og:description" content="目線1.9mから見ると、2.0mのバーは目の高さ。屋根はその70cm上。運転席からの見え方を3Dで確かめる無料Webアプリ。">
+  <meta property="og:image" content="assets/driver.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230d1117'/%3E%3Crect x='8' y='22' width='48' height='10' fill='%23f2c200'/%3E%3Cpath d='M18 22h6l-6 10h-6zM34 22h6l-6 10h-6zM50 22h6l-6 10h-6z' fill='%23d4191f'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-bar" aria-hidden="true"></span>
+        <span>高さ制限バー ドライブシミュレーター</span>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#why">なぜ当たる？</a>
+        <a href="#video">動画</a>
+        <a href="#features">特徴</a>
+        <a href="#howto">使い方</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" href="https://drive-simulator.stpete.workers.dev/" target="_blank" rel="noopener">無料で起動</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="メニュー" aria-expanded="false" aria-controls="nav">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="pill">無料</span><span class="pill">登録不要</span><span class="pill">ブラウザで動く</span></p>
+          <h1>その高さ制限バー、<br>運転席からは<br class="sp">どう見える？</h1>
+          <p class="lead">
+            2026年9月26日、JR名松線の高架手前（三重県津市白山町南家城）で、車高約2.6mのマイクロバスが「けた下制限高2.0M」のバーに衝突しました。
+            現場を3Dで再現し、<strong>運転手の目線からバーがどう見えていたか</strong>を確かめられるWebシミュレーターです。
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary btn-lg" href="https://drive-simulator.stpete.workers.dev/" target="_blank" rel="noopener">▶ シミュレーターを開く</a>
+            <a class="btn btn-ghost btn-lg" href="#video">デモ動画を見る</a>
+          </div>
+          <p class="small muted">パソコンのブラウザ（Chrome / Edge / Safari / Firefox）推奨。インストール不要。</p>
+        </div>
+        <figure class="hero-shot">
+          <img src="assets/driver.jpg" alt="マイクロバスの運転席から高架手前の高さ制限バーを見た画面" width="1440" height="900">
+          <figcaption>運転席視点。水色の点線が目線の高さ、赤い枠が車の断面（車高2.6m）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="section" id="why">
+      <div class="wrap">
+        <p class="kicker">なぜ当たる？</p>
+        <h2>バーは「目の高さ」に見える。<br>屋根はその<span class="hl">70cm上</span>にある。</h2>
+        <div class="why-grid">
+          <div class="stats">
+            <div class="stat stat-bar"><span class="stat-k">高さ制限バー</span><span class="stat-v">2.0<small>m</small></span></div>
+            <div class="stat stat-eye"><span class="stat-k">運転手の目線</span><span class="stat-v">1.9<small>m</small></span></div>
+            <div class="stat stat-roof"><span class="stat-k">車高（屋根）</span><span class="stat-v">2.6<small>m</small></span></div>
+            <p class="why-text">
+              旧型コースターの運転席は車体の最前部にあり、目線は路面から約1.8〜2.0m。
+              2.0mのバーは15m手前で見上げ角わずか <strong>+0.4°</strong>。ほぼ正面、目の高さに見えます。
+              一方、屋根は目線よりさらに約70cm高く、運転席からは見えません。
+              「バーが見えていたのに当たる」理由を、数字と3Dの両方で確かめられます。
+            </p>
+          </div>
+          <figure class="diagram" aria-label="側面図：目線1.9m、バー2.0m、車高2.6mの関係">
+            <svg viewBox="0 0 560 300" role="img">
+              <title>目線・バー・車高の関係（側面図）</title>
+              <line x1="10" y1="280" x2="550" y2="280" class="d-ground"/>
+              <rect x="446" y="0" width="104" height="50" class="d-bridge"/>
+              <rect x="432" y="50" width="12" height="30" class="d-bar"/>
+              <path d="M60 268 L60 20 L300 20 L318 32 L318 268 Z" class="d-bus"/>
+              <circle cx="100" cy="247" r="33" class="d-wheel"/>
+              <circle cx="262" cy="247" r="33" class="d-wheel"/>
+              <line x1="60" y1="20" x2="550" y2="20" class="d-roof"/>
+              <line x1="10" y1="80" x2="432" y2="80" class="d-barline"/>
+              <line x1="282" y1="90" x2="550" y2="90" class="d-eye"/>
+              <line x1="282" y1="90" x2="432" y2="80" class="d-sight"/>
+              <circle cx="282" cy="90" r="6" class="d-eyept"/>
+              <text x="330" y="14" class="t-roof">車高 2.6m（屋根）</text>
+              <text x="14" y="74" class="t-bar">バー 2.0m</text>
+              <text x="330" y="110" class="t-eye">目線 1.9m</text>
+              <text x="150" y="160" class="t-muted">屋根はバーより60cm高い</text>
+              <line x1="130" y1="22" x2="130" y2="78" class="d-gap"/>
+            </svg>
+            <figcaption>高さは実寸比、長さは縮めて描いています（アプリ内の側面図を簡略化）</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section class="section section-alt" id="video">
+      <div class="wrap">
+        <p class="kicker">デモ動画</p>
+        <h2>走らせると、こうなる</h2>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/2mJ2jWyqNp0" title="高さ制限バー ドライブシミュレーター デモ動画" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="center"><a class="link" href="https://youtu.be/2mJ2jWyqNp0" target="_blank" rel="noopener">YouTubeで見る ↗</a></p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <div class="wrap">
+        <p class="kicker">特徴</p>
+        <h2>3つの変数で、見え方と結果が変わる</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon">📐</div>
+            <h3>バー・車高・目線を自由に設定</h3>
+            <p>バーの高さ 1.5〜3.5m、車高 1.2〜3.5m、目線 0.9〜2.6m。変えるとすぐに判定の目安（何cm超過／何cmの余裕）が表示されます。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">⚠️</div>
+            <h3>当たれば衝突アラート、当たらなければ通過</h3>
+            <p>屋根の前端がバーに届いた瞬間に判定。衝突時は画面の揺れ・ガラスのひび・警報音とともに、衝突速度や超過量を表示して停止します。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🛰️</div>
+            <h3>航空写真で再現した現場</h3>
+            <p>国土地理院の空中写真（約880m四方）を地面に敷き、道路の線形・線路の築堤・高架・制限バー・標識・電柱を配置しました。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🎥</div>
+            <h3>運転席・追従・側面の3視点</h3>
+            <p>運転手の目の位置からの視界、後ろからの追従、築堤を切り欠いた真横からの視点を、キー1つで切り替えられます。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">📏</div>
+            <h3>外形の投影と側面図</h3>
+            <p>車の断面をバー位置に点線で投影し、はみ出す部分を赤く表示。右下の側面図には、目線から見たバーの角度も出ます。</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🚐</div>
+            <h3>5種類の車両プリセット</h3>
+            <p>コースター旧型のほか、ハイエース（ハイルーフ／標準）、軽トールワゴン、セダン。車の形と運転席の位置も車種ごとに変わります。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section section-alt" id="gallery">
+      <div class="wrap">
+        <p class="kicker">画面</p>
+        <h2>シミュレーターの画面</h2>
+        <div class="gallery">
+          <figure><img src="assets/eye.jpg" alt="バーの6m手前、運転席から見た画面" loading="lazy" width="1440" height="900"><figcaption><b>6m手前</b> バー下端は目線（水色）のすぐ上。車高の枠（赤）はバーを大きく超えている</figcaption></figure>
+          <figure><img src="assets/crash.jpg" alt="衝突アラートの画面" loading="lazy" width="1440" height="900"><figcaption><b>衝突アラート</b> 衝突速度・超過量・目線とバーの差を表示して停止</figcaption></figure>
+          <figure><img src="assets/side.jpg" alt="側面視点で見たマイクロバスと高架" loading="lazy" width="1440" height="900"><figcaption><b>側面視点</b> 手前の築堤を切り欠き、屋根とバーの位置関係を確認</figcaption></figure>
+          <figure><img src="assets/pass.jpg" alt="ハイエース標準ルーフがバーの下を通過する画面" loading="lazy" width="1440" height="900"><figcaption><b>通過</b> ハイエース標準ルーフ（1.98m）は余裕2cmで通過</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO -->
+    <section class="section" id="howto">
+      <div class="wrap">
+        <p class="kicker">使い方</p>
+        <h2>開いて、Spaceを押すだけ</h2>
+        <ol class="steps">
+          <li><span class="step-n">1</span><div><h3>シミュレーターを開く</h3><p>開いた直後は事故と同じ条件（コースター旧型・バー2.0m・車高2.6m・目線1.9m、バーの100m手前）です。</p></div></li>
+          <li><span class="step-n">2</span><div><h3>Spaceで発進</h3><p>道路に沿って自動で走ります。<kbd>W</kbd>/<kbd>↑</kbd> で加速、<kbd>S</kbd>/<kbd>↓</kbd> でブレーキ。ドラッグで見回せます。</p></div></li>
+          <li><span class="step-n">3</span><div><h3>条件を変えて比べる</h3><p>バーを2.65m以上にする、車種を変える、目線を下げる。<kbd>R</kbd> でやり直し、<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> で視点切替。</p></div></li>
+        </ol>
+        <div class="table-wrap">
+          <table class="presets">
+            <caption>車両プリセット（検証用の代表値）とバー2.0mでの結果</caption>
+            <thead><tr><th>車両</th><th>車高</th><th>目線</th><th>バー2.0m</th></tr></thead>
+            <tbody>
+              <tr><td>マイクロバス（コースター旧型）</td><td>2.60m</td><td>1.90m</td><td class="ng">衝突（+60cm）</td></tr>
+              <tr><td>ワンボックス（ハイエース ハイルーフ）</td><td>2.285m</td><td>1.65m</td><td class="ng">衝突（約+28cm）</td></tr>
+              <tr><td>ワンボックス（ハイエース 標準ルーフ）</td><td>1.98m</td><td>1.60m</td><td class="ok">通過（余裕2cm）</td></tr>
+              <tr><td>軽トールワゴン</td><td>1.75m</td><td>1.40m</td><td class="ok">通過</td></tr>
+              <tr><td>乗用車（セダン）</td><td>1.45m</td><td>1.15m</td><td class="ok">通過</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOR WHOM -->
+    <section class="section section-alt">
+      <div class="wrap">
+        <p class="kicker">こんな方に</p>
+        <h2>「自分の車の高さ」を意識するきっかけに</h2>
+        <ul class="audience">
+          <li><b>マイクロバス・ワンボックスを運転する方</b><span>普段乗らない高さの車を運転する前に</span></li>
+          <li><b>学校・部活動・地域団体の引率者</b><span>遠征や送迎で車を出すときの確認に</span></li>
+          <li><b>送迎・運送事業者、安全運転管理者</b><span>社内の安全教育・朝礼の題材に</span></li>
+          <li><b>道路・交通安全に関わる方</b><span>制限バーや標識の見え方の検討に</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- NOTICE -->
+    <section class="section" id="notice">
+      <div class="wrap narrow">
+        <p class="kicker">ご利用にあたって</p>
+        <h2>参考モデルです</h2>
+        <ul class="notice">
+          <li>道路・線路の位置は国土地理院の航空写真から読み取ったもので、数mのずれがあり得ます。</li>
+          <li>高架・盛土・車両は現場写真などをもとにした簡易モデルで、寸法は代表値です。</li>
+          <li>屋根上の装備品、路面の勾配、橋桁との接触などは考慮していません。</li>
+          <li>事故の状況を理解するための参考であり、原因を断定するものではありません。</li>
+        </ul>
+        <p class="sympathy">負傷された皆さまの一日も早い回復をお祈りいたします。</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt" id="faq">
+      <div class="wrap narrow">
+        <p class="kicker">FAQ</p>
+        <h2>よくある質問</h2>
+        <details><summary>本当に無料ですか？</summary><p>はい。登録・インストール不要で、ブラウザで開くだけで使えます。</p></details>
+        <details><summary>スマートフォンでも使えますか？</summary><p>表示はできますが、キーボード操作があるためパソコンでの利用をおすすめします。</p></details>
+        <details><summary>3Dが表示されません</summary><p>ブラウザのWebGLが無効になっている可能性があります。ブラウザを最新版にし、ハードウェアアクセラレーションを有効にしてください。</p></details>
+        <details><summary>音が出ません</summary><p>ブラウザの仕様で、画面を操作するまで音は出ません。「発進」を押してから確認してください。<kbd>M</kbd> キーでミュートの切り替えもできます。</p></details>
+        <details><summary>操作方法を忘れました</summary><p>アプリ右上の「📖 マニュアル」（<kbd>H</kbd> キー）で、操作と表示の読み方をいつでも確認できます。</p></details>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+      <div class="wrap center">
+        <h2>運転席に座って、確かめてください。</h2>
+        <p class="muted">無料・登録不要・ブラウザで動きます。</p>
+        <div class="cta-row center-row">
+          <a class="btn btn-primary btn-lg" href="https://drive-simulator.stpete.workers.dev/" target="_blank" rel="noopener">▶ シミュレーターを開く</a>
+          <a class="btn btn-ghost btn-lg" href="https://youtu.be/2mJ2jWyqNp0" target="_blank" rel="noopener">YouTubeで動画を見る</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p><b>高さ制限バー ドライブシミュレーター</b></p>
+      <p class="muted small">
+        <a href="https://drive-simulator.stpete.workers.dev/" target="_blank" rel="noopener">アプリ</a> ・
+        <a href="https://youtu.be/2mJ2jWyqNp0" target="_blank" rel="noopener">YouTube</a>
+      </p>
+      <p class="muted small">航空写真：国土地理院 シームレス空中写真 ／ 3D表示：three.js</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
