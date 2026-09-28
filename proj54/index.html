@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monaco Drive – High-Precision WebAssembly F1 Simulator</title>
+  <meta name="description" content="Drive an F1 car through the legendary Circuit de Monaco directly in your browser. Powered by MuJoCo WASM robotics physics and Three.js 3D rendering.">
+  <meta name="keywords" content="Monaco Drive, F1 simulator, MuJoCo, WebAssembly, Three.js, Circuit de Monaco, Formula 1, racing simulation">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/monaco">
+  <meta property="og:title" content="Monaco Drive – High-Precision WebAssembly F1 Simulator">
+  <meta property="og:description" content="Experience the world's most prestigious street circuit in real-time WebAssembly physics.">
+  <meta property="og:image" content="images/hero-f1.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/app-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <img src="images/app-icon.png" alt="Monaco Drive Icon" class="logo-icon">
+        <span>MONACO<span class="logo-badge">DRIVE</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#features" class="nav-link" data-i18n="navFeatures">Features</a></li>
+          <li><a href="#physics" class="nav-link" data-i18n="navPhysics">Physics & Tech</a></li>
+          <li><a href="#views" class="nav-link" data-i18n="navViews">Cameras</a></li>
+          <li><a href="#circuit" class="nav-link" data-i18n="navCircuit">Monaco Track</a></li>
+          <li><a href="#controls" class="nav-link" data-i18n="navControls">Controls</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="navFaq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="ja">JA</button>
+        </div>
+
+        <!-- Launch App CTA Link -->
+        <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow" data-i18n="navCta">
+          Launch App
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="mobile-toggle" aria-label="Toggle navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge-wrap">
+            <span class="hero-badge" data-i18n="heroBadge">
+              🏎️ Real-Time MuJoCo WASM Physics Simulator
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            <span data-i18n="heroTitleLine1">CONQUER MONACO</span><br>
+            <span class="gradient-text" data-i18n="heroTitleLine2">IN PURE PHYSICS.</span>
+          </h1>
+
+          <p class="hero-desc" data-i18n="heroSubtitle">
+            Experience the world's most prestigious street circuit in your browser and desktop. Powered by MuJoCo WebAssembly physics engine and Three.js 3D rendering.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-glow" data-i18n="heroCtaPrimary">
+              Drive Monaco Now
+            </a>
+            <a href="#features" class="btn btn-secondary btn-lg" data-i18n="heroCtaSecondary">
+              Explore Features
+            </a>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-val accent-red" data-i18n="statSpeed">300+ km/h</span>
+              <span class="stat-lbl" data-i18n="statSpeedLabel">Realistic Top Speed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val accent-cyan" data-i18n="statPhysics">1000 Hz</span>
+              <span class="stat-lbl" data-i18n="statPhysicsLabel">MuJoCo WASM Physics Loop</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val" data-i18n="statTrack">3,211 m</span>
+              <span class="stat-lbl" data-i18n="statTrackLabel">Precision Elevation Trace</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val accent-gold" data-i18n="statViews">3 Views</span>
+              <span class="stat-lbl" data-i18n="statViewsLabel">Cockpit, Chase, Trackside</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual / Showcase -->
+        <div class="hero-visual">
+          <div class="hero-card">
+            <img src="images/hero-f1.jpg" alt="Monaco Drive F1 Action" class="hero-image">
+            
+            <!-- Live Telemetry HUD Simulation -->
+            <div class="hud-overlay">
+              <div class="hud-pill">
+                <span class="hud-dot"></span>
+                <span>MUJOCO SIM: <strong>ONLINE</strong></span>
+              </div>
+              <div class="hud-pill">
+                <span>SECTOR 2: <strong>FAIRMONT</strong></span>
+              </div>
+            </div>
+
+            <div class="hero-telemetry-badge">
+              <div class="telemetry-item">
+                <span class="telemetry-label" data-i18n="telemetryTopSpeed">TOP SPEED</span>
+                <span class="telemetry-val" id="liveSpeed" style="color: var(--f1-red);">284 km/h</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label" data-i18n="telemetryPhysicsRate">PHYSICS RATE</span>
+                <span class="telemetry-val" style="color: var(--cyan-accent);">1000 Hz</span>
+              </div>
+              <div class="telemetry-item">
+                <span class="telemetry-label" data-i18n="telemetryModes">DRIVE MODES</span>
+                <span class="telemetry-val" data-i18n="telemetryModesVal" style="color: #ffffff; font-size: 0.95rem;">Manual / Demo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="featuresTag">ENGINEERED FOR EXCELLENCE</span>
+        <h2 class="section-title" data-i18n="featuresTitle">Next-Gen Racing Simulation</h2>
+        <p class="section-subtitle" data-i18n="featuresSubtitle">
+          Built from the ground up with cutting-edge web technologies, bringing professional robotics physics directly to your screen.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3 class="feature-title" data-i18n="feat1Title">MuJoCo WASM Physics</h3>
+          <p class="feature-desc" data-i18n="feat1Desc">
+            Google DeepMind's benchmark multi-joint physics engine running in WebAssembly. Accurate suspension, downforce, multi-wheel traction, and collision dynamics.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">🛰️</div>
+          <h3 class="feature-title" data-i18n="feat2Title">Satellite-Calibrated Terrain</h3>
+          <p class="feature-desc" data-i18n="feat2Desc">
+            Built with NASA SRTM 1″ elevation data and blended with European Space Agency Sentinel-2 satellite imagery for Monaco's iconic hills and Mediterranean coastline.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <h3 class="feature-title" data-i18n="feat3Title">Dual Driving Modes</h3>
+          <p class="feature-desc" data-i18n="feat3Desc">
+            Test your skill in precision Manual mode with speed-sensitive steering, or sit back and observe the AI Demo Autopilot carving the optimal racing line.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">🏎️</div>
+          <h3 class="feature-title" data-i18n="feat4Title">Speed-Sensitive Steering</h3>
+          <p class="feature-desc" data-i18n="feat4Desc">
+            High-speed stability management automatically limits maximum wheel angle at velocity, mimicking real-world aerodynamic vehicle dynamics.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎥</div>
+          <h3 class="feature-title" data-i18n="feat5Title">Triple Dynamic Cameras</h3>
+          <p class="feature-desc" data-i18n="feat5Desc">
+            Switch seamlessly between immersive helmet Cockpit view, dynamic Chase cam, and smart spectator Trackside cameras situated around the circuit.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3 class="feature-title" data-i18n="feat6Title">Overhead Radar & HUD</h3>
+          <p class="feature-desc" data-i18n="feat6Desc">
+            Real-time telemetry showing live speed (km/h), current & best lap times, steering angle telemetry, and top-down 150m radar tracking.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Deep Dive -->
+  <section id="physics" class="section tech-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="techTag">UNDER THE HOOD</span>
+        <h2 class="section-title" data-i18n="techTitle">Robotics Physics Meets 3D Web Graphics</h2>
+        <p class="section-subtitle" data-i18n="techSubtitle">
+          How modern WebAssembly and Three.js make impossible web simulations a reality.
+        </p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <span class="tech-number">01</span>
+            <h3 class="tech-card-title" data-i18n="techCard1Title">Full MJCF Vehicle Model</h3>
+          </div>
+          <p class="tech-card-desc" data-i18n="techCard1Desc">
+            The F1 car is modeled with rigid bodies, four independent suspension joints, steering actuators, tire friction cones, and downforce aerodynamics calculated at sub-millisecond timesteps.
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <span class="tech-number">02</span>
+            <h3 class="tech-card-title" data-i18n="techCard2Title">Real-World Monaco Elevation</h3>
+          </div>
+          <p class="tech-card-desc" data-i18n="techCard2Desc">
+            The circuit center line is mapped across heightfield elevation grids. Road cambers, tunnel gradients, and waterfront chicane dips mirror the true geography of the Principality.
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <span class="tech-number">03</span>
+            <h3 class="tech-card-title" data-i18n="techCard3Title">Seamless Cross-Platform</h3>
+          </div>
+          <p class="tech-card-desc" data-i18n="techCard3Desc">
+            Runs instantly in any modern web browser with zero installation, and is available as a native high-performance standalone app for macOS and Windows.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Camera Perspectives Showcase -->
+  <section id="views" class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="viewsTag">IMMERSIVE PERSPECTIVES</span>
+        <h2 class="section-title" data-i18n="viewsTitle">Experience Every Angle of the Grand Prix</h2>
+        <p class="section-subtitle" data-i18n="viewsSubtitle">
+          Switch views on the fly with a single keystroke or click to feel the raw speed and beauty of Monaco.
+        </p>
+      </div>
+
+      <div class="views-showcase">
+        <div class="views-tabs">
+          <button class="view-tab-btn active" data-target="view-cockpit" data-i18n="tabCockpit">🪖 Cockpit View</button>
+          <button class="view-tab-btn" data-target="view-chase" data-i18n="tabChase">🚗 Chase View</button>
+          <button class="view-tab-btn" data-target="view-trackside" data-i18n="tabTrackside">🎥 Trackside View</button>
+        </div>
+
+        <!-- Cockpit Panel -->
+        <div id="view-cockpit" class="view-panel active">
+          <div class="view-image-wrap">
+            <img src="images/cockpit-en.jpg" data-i18n-img="cockpit" alt="Cockpit View">
+          </div>
+          <div class="view-info">
+            <h3 data-i18n="viewCockpitTitle">Driver's Eye Helmet Cam</h3>
+            <p data-i18n="viewCockpitDesc">
+              Sit inside the cockpit. Feel the rush as guardrails flash by at 280 km/h and navigate the famous low-speed Fairmont Hairpin inches from the barrier.
+            </p>
+            <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="heroCtaPrimary">
+              Drive Monaco Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Chase Panel -->
+        <div id="view-chase" class="view-panel">
+          <div class="view-image-wrap">
+            <img src="images/chase-en.jpg" data-i18n-img="chase" alt="Chase View">
+          </div>
+          <div class="view-info">
+            <h3 data-i18n="viewChaseTitle">Dynamic Chase Camera</h3>
+            <p data-i18n="viewChaseDesc">
+              Positioned right behind the rear wing. Perfect for mastering your braking points, steering balance, and appreciating the car's suspension reaction.
+            </p>
+            <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="heroCtaPrimary">
+              Drive Monaco Now
+            </a>
+          </div>
+        </div>
+
+        <!-- Trackside Panel -->
+        <div id="view-trackside" class="view-panel">
+          <div class="view-image-wrap">
+            <img src="images/trackside-en.jpg" data-i18n-img="trackside" alt="Trackside View">
+          </div>
+          <div class="view-info">
+            <h3 data-i18n="viewTracksideTitle">TV Broadcast Trackside Posts</h3>
+            <p data-i18n="viewTracksideDesc">
+              Spectate like a VIP. Smart cameras placed across Grand Hotel, Casino Square, and the Tunnel automatically track the car as it roars past.
+            </p>
+            <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="heroCtaPrimary">
+              Drive Monaco Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Circuit Guide Section -->
+  <section id="circuit" class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="trackTag">CIRCUIT DE MONACO</span>
+        <h2 class="section-title" data-i18n="trackTitle">Master the Crown Jewel of Motorsport</h2>
+        <p class="section-subtitle" data-i18n="trackSubtitle">
+          3.2 kilometers of unforgiving asphalt, zero run-off areas, and legendary corners where millimetre precision makes all the difference.
+        </p>
+      </div>
+
+      <div class="track-guide-grid">
+        <div class="track-map-card">
+          <img src="images/monaco.jpg" alt="Circuit de Monaco Schematic Map">
+        </div>
+
+        <div class="corners-list">
+          <div class="corner-card">
+            <div class="corner-header">
+              <span class="corner-badge">TURN 1</span>
+              <h4 class="corner-name" data-i18n="corner1Name">Sainte-Dévote (Turn 1)</h4>
+            </div>
+            <p class="corner-desc" data-i18n="corner1Desc">Tight uphill 90-degree right hander. Heavy braking zone right after start/finish straight.</p>
+          </div>
+
+          <div class="corner-card">
+            <div class="corner-header">
+              <span class="corner-badge">TURN 4</span>
+              <h4 class="corner-name" data-i18n="corner2Name">Casino Square (Turn 4)</h4>
+            </div>
+            <p class="corner-desc" data-i18n="corner2Desc">Blinded crest and rapid right turn past the famous Monte Carlo Casino.</p>
+          </div>
+
+          <div class="corner-card">
+            <div class="corner-header">
+              <span class="corner-badge">TURN 6</span>
+              <h4 class="corner-name" data-i18n="corner3Name">Fairmont Hairpin (Turn 6)</h4>
+            </div>
+            <p class="corner-desc" data-i18n="corner3Desc">The slowest and most famous hairpin corner in all of motorsport (~45 km/h).</p>
+          </div>
+
+          <div class="corner-card">
+            <div class="corner-header">
+              <span class="corner-badge">TURN 9-11</span>
+              <h4 class="corner-name" data-i18n="corner4Name">The Tunnel & Chicane (Turn 9-11)</h4>
+            </div>
+            <p class="corner-desc" data-i18n="corner4Desc">Full throttle blast under the tunnel followed by intense braking into Nouvelle Chicane.</p>
+          </div>
+
+          <div class="corner-card">
+            <div class="corner-header">
+              <span class="corner-badge">TURN 18-19</span>
+              <h4 class="corner-name" data-i18n="corner5Name">La Rascasse & Anthony Noghès</h4>
+            </div>
+            <p class="corner-desc" data-i18n="corner5Desc">Tricky tight turns wrapping around the harbor restaurant leading back onto the pit straight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controls Guide Section -->
+  <section id="controls" class="section tech-section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="controlsTag">INTUITIVE CONTROLS</span>
+        <h2 class="section-title" data-i18n="controlsTitle">Master the Machine</h2>
+        <p class="section-subtitle" data-i18n="controlsSubtitle">
+          Designed for effortless keyboard navigation or mouse/touch control.
+        </p>
+      </div>
+
+      <div class="controls-grid">
+        <div class="control-card">
+          <span class="key-badge">← / →</span>
+          <h4 class="control-title" data-i18n="keySteer">Steer Left / Right</h4>
+          <p class="control-desc" data-i18n="keySteerDesc">Smooth progressive angle adjustment</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">C</span>
+          <h4 class="control-title" data-i18n="keyCenter">Center Steering</h4>
+          <p class="control-desc" data-i18n="keyCenterDesc">Instantly return wheels to straight forward</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">Space / W</span>
+          <h4 class="control-title" data-i18n="keyAccel">Accelerate (Pedal)</h4>
+          <p class="control-desc" data-i18n="keyAccelDesc">Gradual 0-100 km/h burst in 3.0s</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">H</span>
+          <h4 class="control-title" data-i18n="keyHold">Cruise Hold</h4>
+          <p class="control-desc" data-i18n="keyHoldDesc">Lock current speed automatically</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">B</span>
+          <h4 class="control-title" data-i18n="keyBrake">Brake / Decel</h4>
+          <p class="control-desc" data-i18n="keyBrakeDesc">Smooth deceleration to complete stop</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">R</span>
+          <h4 class="control-title" data-i18n="keyReverse">Reverse Gear</h4>
+          <p class="control-desc" data-i18n="keyReverseDesc">Low-speed reverse (up to 30 km/h) for barrier recovery</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">V</span>
+          <h4 class="control-title" data-i18n="keyCamera">Cycle Camera</h4>
+          <p class="control-desc" data-i18n="keyCameraDesc">Toggle between Cockpit, Chase & Trackside</p>
+        </div>
+
+        <div class="control-card">
+          <span class="key-badge">M</span>
+          <h4 class="control-title" data-i18n="keyMode">Toggle Mode</h4>
+          <p class="control-desc" data-i18n="keyModeDesc">Instant handoff between Manual and AI Demo</p>
+        </div>
+      </div>
+
+      <!-- Platform Banner -->
+      <div class="platform-banner">
+        <div>
+          <span class="section-tag" data-i18n="platformTag">AVAILABLE EVERYWHERE</span>
+          <h3 style="font-family: var(--font-display); font-size: 1.85rem; font-weight: 800; margin: 8px 0 12px; color: #fff;" data-i18n="platformTitle">Play in Browser or Native Desktop</h3>
+          <p style="color: var(--text-muted); max-width: 520px;" data-i18n="platformSubtitle">Zero setup required. Experience instant thrills in your favorite browser or install native apps for macOS and Windows.</p>
+        </div>
+        <div class="platform-items">
+          <div class="platform-pill"><span class="platform-check">✓</span> <span data-i18n="platformWeb">Web Browser (Chrome, Safari, Edge, Firefox)</span></div>
+          <div class="platform-pill"><span class="platform-check">✓</span> <span data-i18n="platformMac">macOS (Apple Silicon & Intel)</span></div>
+          <div class="platform-pill"><span class="platform-check">✓</span> <span data-i18n="platformWin">Windows 10 / 11 (64-bit)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="section-tag" data-i18n="faqTag">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="section-title" data-i18n="faqTitle">Everything You Need to Know</h2>
+      </div>
+
+      <div class="faq-wrap">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span data-i18n="faq1Q">Do I need to install anything to play?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq1A">No! Monaco Drive runs natively in any modern web browser with WebGL and WebAssembly support. Simply click the Launch App button and you're ready to drive.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq2Q">How does the physics engine work?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq2A">Monaco Drive utilizes the official @mujoco/mujoco WASM build of Google DeepMind's MuJoCo physics engine. It computes rigid-body dynamics, tire contacts, suspension springs, and downforce aerodynamics at 1000 Hz.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq3Q">Can I switch between AI Demo and Manual mode while driving?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq3A">Yes! You can toggle between Manual and AI Demo at any point. When switching to Manual, the system smoothly maintains your current speed and centers the steering for a seamless takeover.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span data-i18n="faq4Q">What happens if I hit a guardrail or roll over?</span>
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p data-i18n="faq4A">A collision warning and alert sound triggers. If you get stuck against a barrier, switch to Reverse (◀ 后退) and Accelerate to back out, or press Reset (↺) to return to the start line.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-card">
+        <span class="section-tag" data-i18n="finalCtaTag">START YOUR ENGINE</span>
+        <h2 class="final-cta-title" data-i18n="finalCtaTitle">Ready to Take on the Streets of Monaco?</h2>
+        <p class="final-cta-subtitle" data-i18n="finalCtaSubtitle">Jump into the cockpit right now. Free, instant, and powered by world-class physics.</p>
+        
+        <a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-glow" data-i18n="finalCtaBtn">
+          Play Monaco Drive Now
+        </a>
+
+        <div class="final-cta-subtext" data-i18n="finalCtaSubtext">
+          Instant launch • No account required • Full WebAssembly & Three.js experience
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="images/app-icon.png" alt="Monaco Drive Icon" class="logo-icon">
+            <span>MONACO<span class="logo-badge">DRIVE</span></span>
+          </div>
+          <p data-i18n="footerDesc">High-precision F1 street circuit simulator powered by MuJoCo WASM and Three.js.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footerLinksTitle">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#features" data-i18n="navFeatures">Features</a></li>
+            <li><a href="#physics" data-i18n="navPhysics">Physics & Tech</a></li>
+            <li><a href="#views" data-i18n="navViews">Cameras</a></li>
+            <li><a href="#circuit" data-i18n="navCircuit">Monaco Track</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/monaco" target="_blank" rel="noopener noreferrer">Product Page</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footerCreditsTitle">Credits & Sources</h4>
+          <ul class="footer-credits">
+            <li data-i18n="footerCredit1">Physics: MuJoCo (@mujoco/mujoco, Google DeepMind)</li>
+            <li data-i18n="footerCredit2">Elevation: NASA SRTM 1″ Global DEM</li>
+            <li data-i18n="footerCredit3">Satellite: Sentinel-2 cloudless (EOX / ESA)</li>
+            <li data-i18n="footerCredit4">Rendering: Three.js WebGL</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footerRights">© 2026 Monaco Drive. All rights reserved.</p>
+        <p>Built with ❤️ & WebAssembly</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/translations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
