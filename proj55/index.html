@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intersection Accident Simulator | 交通事故・死角体験シミュレーター</title>
+  <meta name="description" content="MuJoCo物理エンジン(WASM)とThree.jsによる左側通行交差点の交通事故・死角体験シミュレーター。リアルタイム視線Raycast解析で事故原因を科学的に可視化。">
+  <meta name="keywords" content="MuJoCo, 交通事故シミュレーター, 死角体験, 交差点事故, 右直事故, 視線Raycast, Three.js, Tauri, 安全運転教育">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/intersection">
+  <meta property="og:title" content="Intersection Accident Simulator | 交通事故・死角体験シミュレーター">
+  <meta property="og:description" content="MuJoCo物理演算と視線Raycast解析による交差点事故・死角体験シミュレーター。">
+  <meta property="og:image" content="assets/hero_sim.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'><path d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z'/></svg>">
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+          </svg>
+        </div>
+        <span>INTERSECTION<span style="color: var(--accent-cyan);">.SIM</span></span>
+        <span class="brand-badge">MuJoCo 3D</span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#features" class="nav-link" data-i18n="nav_features">特徴・機能</a></li>
+          <li><a href="#radar" class="nav-link" data-i18n="nav_radar">死角レーダー体験</a></li>
+          <li><a href="#physics" class="nav-link" data-i18n="nav_physics">物理演算</a></li>
+          <li><a href="#modes" class="nav-link" data-i18n="nav_modes">運転モード</a></li>
+          <li><a href="#specs" class="nav-link" data-i18n="nav_specs">仕様・環境</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <!-- Actions & Language Switcher -->
+      <div class="nav-actions">
+        <div class="lang-switcher" aria-label="Language selection">
+          <button class="lang-btn active" data-lang="ja">JA</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow" data-i18n="nav_cta">
+          製品ページへ ↗
+        </a>
+
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <ul class="mobile-nav-links">
+      <li><a href="#features" data-i18n="nav_features">特徴・機能</a></li>
+      <li><a href="#radar" data-i18n="nav_radar">死角レーダー体験</a></li>
+      <li><a href="#physics" data-i18n="nav_physics">物理演算</a></li>
+      <li><a href="#modes" data-i18n="nav_modes">運転モード</a></li>
+      <li><a href="#specs" data-i18n="nav_specs">仕様・環境</a></li>
+      <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+    </ul>
+    <a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; text-align: center;" data-i18n="nav_cta">
+      製品ページへ ↗
+    </a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-glow-blob"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span data-i18n="hero_badge">MuJoCo WASM 物理演算 × Three.js 3D レンダリング</span>
+        </div>
+        
+        <h1 class="hero-title">
+          <span data-i18n="hero_title_prefix">死角に潜む</span>
+          <span class="highlight-red" data-i18n="hero_title_highlight1">衝突の瞬間</span>
+          <span data-i18n="hero_title_mid">を、</span><br>
+          <span class="gradient-text" data-i18n="hero_title_highlight2">本物の物理演算</span>
+          <span data-i18n="hero_title_suffix">で解き明かす</span>
+        </h1>
+
+        <p class="hero-subtitle" data-i18n="hero_subtitle">
+          片側2車線の交差点・8の字周回街区を舞台に、リアルタイム視線Raycast解析と剛体物理シミュレーションを融合。事故原因の直感的な体感とデータ検証を実現した次世代シミュレーター。
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg btn-glow" data-i18n="hero_btn_primary">
+            製品詳細・ダウンロードはこちら ↗
+          </a>
+          <a href="#radar" class="btn btn-secondary btn-lg" data-i18n="hero_btn_secondary">
+            死角レーダーを体験する ↓
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero 3D / HUD Visual Showcase -->
+      <div class="hero-visual-card">
+        <div class="hero-visual-header">
+          <div class="window-dots">
+            <div class="window-dot red"></div>
+            <div class="window-dot yellow"></div>
+            <div class="window-dot green"></div>
+          </div>
+          <span>SIMULATION VIEWPORT // 60 FPS DETERMINISTIC PHYSICS</span>
+          <span>EGO TELEMETRY: 54 KM/H</span>
+        </div>
+
+        <div class="hero-visual-img-wrap">
+          <img src="assets/hero_sim.jpg" alt="Intersection Accident Simulator 3D View" class="hero-visual-img">
+          
+          <!-- Floating HUD Elements -->
+          <div class="hud-tag top-left">
+            <div class="hud-status-indicator green"></div>
+            <span data-i18n="hud_tag_visible">視界捕捉: 12 台</span>
+          </div>
+
+          <div class="hud-tag top-right">
+            <div class="hud-status-indicator red"></div>
+            <span data-i18n="hud_tag_blind">死角警告: 2 台 (大型車後方)</span>
+          </div>
+
+          <div class="hud-tag bottom-left">
+            <div class="hud-status-indicator cyan"></div>
+            <span data-i18n="hud_tag_telemetry">MuJoCo 物理: 60 FPS 安定</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS BAR -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value" data-i18n="metric_1_val">60 FPS</div>
+          <div class="metric-label" data-i18n="metric_1_label">MuJoCo WASM 剛体物理演算</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" data-i18n="metric_2_val">100%</div>
+          <div class="metric-label" data-i18n="metric_2_label">リアルタイム視線Raycast死角解析</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" data-i18n="metric_3_val">4 視点</div>
+          <div class="metric-label" data-i18n="metric_3_label">運転席 / 追従 / 自由 / 交差点定点</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" data-i18n="metric_4_val">3 モード</div>
+          <div class="metric-label" data-i18n="metric_4_label">自動周回 / ペダル判断 / 完全手動</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE RADAR DEMO SECTION -->
+  <section class="demo-section" id="radar">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="demo_tag">INTERACTIVE DEMO</span>
+        <h2 class="section-title" data-i18n="demo_title">ブラウザ上で体感する「死角の恐怖」</h2>
+        <p class="section-desc" data-i18n="demo_desc">
+          対向の大型トラックの背後に隠れる二輪車（バイク）。スライダーを動かして自車のドライバー視点からレイキャスト（視線）がどう遮られるかをリアルタイムにお試しください。
+        </p>
+      </div>
+
+      <div class="radar-interactive-container">
+        <!-- Interactive Canvas -->
+        <div class="radar-canvas-wrap">
+          <canvas id="radarCanvas"></canvas>
+          <div class="radar-hud-legend">
+            <div class="legend-item">
+              <span class="legend-color green"></span>
+              <span data-i18n="demo_legend_visible">視認可能 (Visible)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color red"></span>
+              <span data-i18n="demo_legend_blind">死角・遮断 (Blind Spot)</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color blue"></span>
+              <span data-i18n="demo_legend_ego">自車 (Ego)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Panel -->
+        <div class="radar-controls-panel">
+          <div>
+            <div class="controls-header">
+              <h3 data-i18n="demo_ctrl_title">シミュレーション制御</h3>
+              <p data-i18n="demo_ctrl_desc">スライダーで車両位置を動かすと、Raycast判定がリアルタイムに更新されます。</p>
+            </div>
+
+            <!-- Slider 1: Truck Y -->
+            <div class="control-group">
+              <div class="control-label-row">
+                <span data-i18n="demo_slider_truck">対向大型トラックの位置 (Y座標)</span>
+                <span class="control-val-badge" id="truckVal">130m</span>
+              </div>
+              <input type="range" class="slider-input" id="truckSlider" min="40" max="180" value="130" step="1">
+            </div>
+
+            <!-- Slider 2: Bike Y -->
+            <div class="control-group">
+              <div class="control-label-row">
+                <span data-i18n="demo_slider_bike">対向バイクの位置 (Y座標)</span>
+                <span class="control-val-badge" id="bikeVal">70m</span>
+              </div>
+              <input type="range" class="slider-input" id="bikeSlider" min="30" max="180" value="70" step="1">
+            </div>
+
+            <!-- Slider 3: Ego Turn Progress -->
+            <div class="control-group">
+              <div class="control-label-row">
+                <span data-i18n="demo_slider_turn">自車の右折進行度 (%)</span>
+                <span class="control-val-badge" id="turnVal">35%</span>
+              </div>
+              <input type="range" class="slider-input" id="turnSlider" min="0" max="100" value="35" step="1">
+            </div>
+          </div>
+
+          <!-- Dynamic Status Alert Box -->
+          <div class="state-alert-box blind-spot" id="radarAlertBox" data-i18n="demo_alert_blind">
+            ⚠️ 警告: バイクが大型トラックの完全な死角に入っています！右折すると右直事故が発生します。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES GRID SECTION -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="feat_tag">CORE CAPABILITIES</span>
+        <h2 class="section-title" data-i18n="feat_title">事故原因の究明と安全教育に特化した高度な機能群</h2>
+        <p class="section-desc" data-i18n="feat_desc">
+          単なるゲームではなく、科学的アプローチに基づいた視線追跡・物理演算・シナリオカスタマイズを提供。
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="2" x2="12" y2="12"></line>
+              <line x1="12" y1="12" x2="20" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_1_title">リアルタイム視線・死角レーダー</h3>
+          <p class="feature-desc" data-i18n="feat_1_desc">
+            MuJoCo の `mj_ray` 機能により、運転席の視点から各対象への視線を毎フレーム追跡。ピラーや大型車の陰に隠れた対象を緑/赤の線で即座に判定・可視化します。
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_2_title">高精度 MuJoCo 剛体物理演算</h3>
+          <p class="feature-desc" data-i18n="feat_2_desc">
+            車両のサスペンション挙動、タイヤ摩擦力、車重移動、そして衝突時の激しいインパルスと跳ね返りを WebAssembly 物理エンジンで忠実に再現します。
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              <circle cx="8" cy="12" r="2"></circle>
+              <path d="M16 10v4M14 12h4"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_3_title">3段階の運転コントロール</h3>
+          <p class="feature-desc" data-i18n="feat_3_desc">
+            AIによる完全自動走行(Auto)、判断タイミングのみを操作する(Pedal)、ハンドルとペダルをフル操作する(Manual)の3つの運転モードをシームレスに切替可能。
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_4_title">4種類のダイナミックカメラ</h3>
+          <p class="feature-desc" data-i18n="feat_4_desc">
+            運転者のリアルな目線(Driver)、車体後方(Chase)、マウスで全方位を観察する(Orbit)、南東電柱のCCTV交通カメラ(Corner)を即座にスイッチ可能。
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_5_title">多彩な交通・事故パラメータ制御</h3>
+          <p class="feature-desc" data-i18n="feat_5_desc">
+            交通量、大型車比率、バイク比率、自車Gap許容秒数、ドライバー反応遅延時間、黄信号突入率など多岐にわたる危険パラメータを自由に調合できます。
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="feat_6_title">精密リプレイ & WebM動画出力</h3>
+          <p class="feature-desc" data-i18n="feat_6_desc">
+            直近の走行と衝突シーンをフレーム単位で巻き戻し・再生。JSONデータとしての保存・読込や、高画質WebM動画ファイルへの書き出しに対応。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE / COCKPIT PERSPECTIVE SECTION -->
+  <section class="deepdive-section" id="physics">
+    <div class="container">
+      <div class="deepdive-row">
+        <div class="deepdive-media">
+          <img src="assets/cockpit_sim.jpg" alt="Driver Cockpit Perspective and Occlusion Analysis">
+          <div class="deepdive-media-badge">COCKPIT RAYCAST TELEMETRY</div>
+        </div>
+
+        <div class="deepdive-content">
+          <span class="section-tag" data-i18n="deep_tag">ACCIDENT ANATOMY</span>
+          <h2 data-i18n="deep_title">なぜ「右直事故」は防げないのか？</h2>
+          <p data-i18n="deep_desc">
+            交差点事故の中で最も死亡重傷率が高い「右折車と直進二輪車の衝突（いわゆるサンキュー事故・死角事故）」。本シミュレーターは人間の認知限界と物理的死角を科学的に明らかにします。
+          </p>
+
+          <div class="feature-pill-list">
+            <div class="feature-pill">
+              <div class="pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </div>
+              <div class="pill-text">
+                <h4 data-i18n="deep_pill_1_title">二輪車の速度・距離錯覚</h4>
+                <p data-i18n="deep_pill_1_desc">バイクは車体が小さいため、実際よりも「遠く・遅く」見える錯覚が生じ、無理な右折判断を誘発します。</p>
+              </div>
+            </div>
+
+            <div class="feature-pill">
+              <div class="pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </div>
+              <div class="pill-text">
+                <h4 data-i18n="deep_pill_2_title">大型車による幾何学的遮蔽</h4>
+                <p data-i18n="deep_pill_2_desc">対向の右折待ちトラックの陰にバイクが隠れると、直前の約1.5秒前まで完全に視界から消滅します。</p>
+              </div>
+            </div>
+
+            <div class="feature-pill">
+              <div class="pill-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+              </div>
+              <div class="pill-text">
+                <h4 data-i18n="deep_pill_3_title">ピラー死角と視認遅延</h4>
+                <p data-i18n="deep_pill_3_desc">Aピラー（フロントピラー）の幅と頭部移動の遅れにより、歩行者や自転車を見落とす現象を運転席視点で体感可能。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRIVING MODES SECTION -->
+  <section class="modes-section" id="modes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="modes_tag">MODES & CAMERAS</span>
+        <h2 class="section-title" data-i18n="modes_title">目的や検証シナリオに応じた柔軟なインターフェース</h2>
+        <p class="section-desc" data-i18n="modes_desc">
+          教育研修、工学分析、直感体験の各フェーズに最適な視点と操作系を提供。
+        </p>
+      </div>
+
+      <div class="mode-grid">
+        <div class="mode-card">
+          <span class="mode-badge auto">AUTONOMOUS</span>
+          <h3 data-i18n="mode_1_title">🤖 自動モード (Auto)</h3>
+          <p data-i18n="mode_1_desc">
+            対向車の接近速度や死角、安全ギャップ（Gap）をAIが自動計算して8の字コースを周回。安全運転アルゴリズムのベンチマークになります。
+          </p>
+        </div>
+
+        <div class="mode-card">
+          <span class="mode-badge pedal">JUDGMENT</span>
+          <h3 data-i18n="mode_2_title">🦶 ペダルモード (Pedal)</h3>
+          <p data-i18n="mode_2_desc">
+            ステアリングは自動ですが、加速・維持・ブレーキのタイミングをプレイヤーが判断。対向車の隙間を突く「判断の難しさ」を直感体験できます。
+          </p>
+        </div>
+
+        <div class="mode-card">
+          <span class="mode-badge manual">FULL CONTROL</span>
+          <h3 data-i18n="mode_3_title">🎮 手動モード (Manual)</h3>
+          <p data-i18n="mode_3_desc">
+            ハンドル操舵（←/→）とペダル操作を完全にコントロール。周回コースを外れて街区全体（±170m）を自由に探索・走行可能。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES SECTION -->
+  <section class="usecases-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="usecase_tag">USE CASES</span>
+        <h2 class="section-title" data-i18n="usecase_title">幅広い安全教育と研究開発で活用</h2>
+      </div>
+
+      <div class="usecases-grid">
+        <div class="usecase-card">
+          <div class="usecase-num">01</div>
+          <div class="usecase-info">
+            <h3 data-i18n="usecase_1_title">自動車教習所・安全運転研修</h3>
+            <p data-i18n="usecase_1_desc">受講生に対し、言葉や2D図面では伝わりにくい「トラックの陰からの急な飛び出し」や「運転席からの死角」をリアルに体感させ、危険予測能力を高めます。</p>
+          </div>
+        </div>
+
+        <div class="usecase-card">
+          <div class="usecase-num">02</div>
+          <div class="usecase-info">
+            <h3 data-i18n="usecase_2_title">運送・物流・法人ドライバー教育</h3>
+            <p data-i18n="usecase_2_desc">大型車特有の死角、左折時の二輪巻き込み事故防止、交差点進入速度の重要性を定量的なパラメータとリプレイで反省・教育できます。</p>
+          </div>
+        </div>
+
+        <div class="usecase-card">
+          <div class="usecase-num">03</div>
+          <div class="usecase-info">
+            <h3 data-i18n="usecase_3_title">自動運転・ADAS シナリオ検証</h3>
+            <p data-i18n="usecase_3_desc">MuJoCoの物理エンジンと視線判定をベースに、死角から急加速するバイク等のエッジケースシナリオにおけるセンサー遮蔽状態を検証。</p>
+          </div>
+        </div>
+
+        <div class="usecase-card">
+          <div class="usecase-num">04</div>
+          <div class="usecase-info">
+            <h3 data-i18n="usecase_4_title">交通工学・大学・研究機関</h3>
+            <p data-i18n="usecase_4_desc">交差点信号サイクル、交通密度、ギャップ受け入れ時間（Accepted Gap）が事故発生率に及ぼす影響をシミュレーション統計で評価。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH SPECS SECTION -->
+  <section class="specs-section" id="specs">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="specs_tag">SPECIFICATIONS</span>
+        <h2 class="section-title" data-i18n="specs_title">システム仕様とプラットフォーム対応</h2>
+      </div>
+
+      <div class="specs-grid">
+        <div class="spec-box">
+          <h4 data-i18n="spec_box_1_title">💻 動作環境</h4>
+          <ul class="spec-list">
+            <li><span class="spec-key" data-i18n="spec_k_os">対応OS</span><span class="spec-val" data-i18n="spec_v_os">macOS / Windows 10,11</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_arch">アーキテクチャ</span><span class="spec-val" data-i18n="spec_v_arch">Tauri v2 (Rust) / Web</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_install">配布形式</span><span class="spec-val" data-i18n="spec_v_install">DMG / .exe / MSI / Web</span></li>
+          </ul>
+        </div>
+
+        <div class="spec-box">
+          <h4 data-i18n="spec_box_2_title">⚙️ コアエンジン</h4>
+          <ul class="spec-list">
+            <li><span class="spec-key" data-i18n="spec_k_physics">物理エンジン</span><span class="spec-val" data-i18n="spec_v_physics">MuJoCo WASM</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_graphics">3Dグラフィックス</span><span class="spec-val" data-i18n="spec_v_graphics">Three.js (WebGL 2.0)</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_raycast">視線判定</span><span class="spec-val" data-i18n="spec_v_raycast">Realtime mj_ray</span></li>
+          </ul>
+        </div>
+
+        <div class="spec-box">
+          <h4 data-i18n="spec_box_3_title">🎥 入出力・メディア</h4>
+          <ul class="spec-list">
+            <li><span class="spec-key" data-i18n="spec_k_video">動画エクスポート</span><span class="spec-val" data-i18n="spec_v_video">WebM 形式</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_replay">リプレイログ</span><span class="spec-val" data-i18n="spec_v_replay">JSON セッション保存</span></li>
+            <li><span class="spec-key" data-i18n="spec_k_lang">多言語対応</span><span class="spec-val" data-i18n="spec_v_lang">日本語 / English</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section" id="faq">
+    <div class="container faq-container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="faq_tag">FAQ</span>
+        <h2 class="section-title" data-i18n="faq_title">よくあるご質問</h2>
+      </div>
+
+      <div class="faq-item active">
+        <div class="faq-question">
+          <h4 data-i18n="faq_1_q">Q1. デスクトップ版とWeb版の違いは何ですか？</h4>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p data-i18n="faq_1_a">デスクトップ版（macOS / Windows）は軽量かつ高速なTauriフレームワークでビルドされており、リプレイのローカルファイル保存やWebM動画の高速書き出し、オフラインでの安定動作に最適化されています。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4 data-i18n="faq_2_q">Q2. どのような物理モデルが使用されていますか？</h4>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p data-i18n="faq_2_a">DeepMind社が開発・オープンソース化した世界トップクラスの物理エンジン「MuJoCo」をWebAssembly形式で採用しています。剛体の接触力、摩擦係数、サスペンションの減衰、衝突時の運動量保存則を厳密に計算します。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4 data-i18n="faq_3_q">Q3. 交通パラメータはリアルタイムに変更できますか？</h4>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p data-i18n="faq_3_a">はい。シミュレーション稼働中であっても『S』キーまたは設定ボタンから、交通量やトラックの比率、自車の判断間隔（Gap）などを即座に変更し、状況変化をリアルタイムに観察できます。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4 data-i18n="faq_4_q">Q4. 事故の瞬間を動画として保存できますか？</h4>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p data-i18n="faq_4_a">はい。リプレイモード（Rキー）から任意のカメラアングルを選び、「⏺ 動画」ボタンを押すことで高画質なWebM形式で事故シーンをエクスポート可能です。</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <h4 data-i18n="faq_5_q">Q5. ソフトウェアの入手・購入はどこから行えますか？</h4>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p data-i18n="faq_5_a">Cyber Matrix 公式製品ページ（https://cyber-matrix.netlify.app/products/intersection）にて最新版のダウンロードや詳細仕様の確認が可能です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA BANNER -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="cta-content">
+          <h2 class="cta-title" data-i18n="cta_title">交差点事故シミュレーターを今すぐ手に入れよう</h2>
+          <p class="cta-subtitle" data-i18n="cta_subtitle">
+            死角を科学し、事故のない未来へ。Cyber Matrix 公式製品ページから詳細情報をご確認いただけます。
+          </p>
+          <a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer" class="cta-link-btn btn-glow" data-i18n="cta_btn">
+            Cyber Matrix 公式製品ページへ ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+              </svg>
+            </div>
+            <span>INTERSECTION<span style="color: var(--accent-cyan);">.SIM</span></span>
+          </a>
+          <p data-i18n="footer_desc">リアルタイム物理演算と視線Raycast解析による交差点事故・死角体験シミュレーター。</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer_quick_links">クイックリンク</h4>
+          <ul class="footer-links">
+            <li><a href="#features" data-i18n="nav_features">特徴・機能</a></li>
+            <li><a href="#radar" data-i18n="nav_radar">死角レーダー体験</a></li>
+            <li><a href="#physics" data-i18n="nav_physics">物理演算</a></li>
+            <li><a href="#modes" data-i18n="nav_modes">運転モード</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer_resources">リソース</h4>
+          <ul class="footer-links">
+            <li><a href="#specs" data-i18n="nav_specs">仕様・環境</a></li>
+            <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer">Cyber Matrix Store</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer_contact">製品リンク</h4>
+          <ul class="footer-links">
+            <li><a href="https://cyber-matrix.netlify.app/products/intersection" target="_blank" rel="noopener noreferrer" style="color: var(--accent-cyan); font-weight: 600;">cyber-matrix.netlify.app ↗</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Intersection Accident Simulator. <span data-i18n="footer_rights">All rights reserved.</span></div>
+        <div>Powered by MuJoCo WASM & Three.js</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
