@@ -156,8 +156,11 @@ const translations = {
     footer_desc: "リアルタイム物理演算と視線Raycast解析による交差点事故・死角体験シミュレーター。",
     footer_quick_links: "クイックリンク",
     footer_resources: "リソース",
-    footer_contact: "リンク先",
-    footer_rights: "All rights reserved."
+    footer_contact: "製品リンク",
+    footer_rights: "All rights reserved.",
+    page_title: "Intersection Accident Simulator | 交通事故・死角体験シミュレーター",
+    page_desc: "MuJoCo物理エンジン(WASM)とThree.jsによる左側通行交差点の交通事故・死角体験シミュレーター。リアルタイム視線Raycast解析で事故原因を科学的に可視化。",
+    page_keywords: "MuJoCo, 交通事故シミュレーター, 死角体験, 交差点事故, 右直事故, 視線Raycast, Three.js, Tauri, 安全運転教育"
   },
 
   en: {
@@ -311,7 +314,10 @@ const translations = {
     footer_quick_links: "Quick Links",
     footer_resources: "Resources",
     footer_contact: "Product Link",
-    footer_rights: "All rights reserved."
+    footer_rights: "All rights reserved.",
+    page_title: "Intersection Accident Simulator | Crash & Blind-Spot Simulator",
+    page_desc: "High-fidelity intersection accident and blind-spot simulator powered by MuJoCo WASM physics engine and Three.js 3D rendering with real-time sightline raycast analysis.",
+    page_keywords: "MuJoCo, traffic accident simulator, blind spot simulation, intersection crash, SMIDSY accident, sightline raycast, Three.js, Tauri, driver safety education"
   }
 };
 
@@ -320,10 +326,18 @@ let currentLang = 'ja';
 // ==========================================
 // 2. LANGUAGE SWITCHER IMPLEMENTATION
 // ==========================================
-function setLanguage(lang) {
+function setLanguage(lang, updateUrl = false) {
   if (!translations[lang]) return;
   currentLang = lang;
-  localStorage.setItem('intersection_lp_lang', lang);
+  try {
+    localStorage.setItem('intersection_lp_lang', lang);
+  } catch (e) {}
+
+  if (updateUrl && window.history && window.history.replaceState) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.history.replaceState({}, '', url.toString());
+  }
 
   // Update button active state
   document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -333,13 +347,34 @@ function setLanguage(lang) {
   // Update elements with data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang][key]) {
+    if (translations[lang] && translations[lang][key] !== undefined) {
       el.textContent = translations[lang][key];
     }
   });
 
   // Update HTML lang attribute
   document.documentElement.lang = lang;
+
+  // Update Title and Meta Tags
+  if (translations[lang].page_title) {
+    document.title = translations[lang].page_title;
+  }
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc && translations[lang].page_desc) {
+    metaDesc.setAttribute('content', translations[lang].page_desc);
+  }
+  const metaKeywords = document.querySelector('meta[name="keywords"]');
+  if (metaKeywords && translations[lang].page_keywords) {
+    metaKeywords.setAttribute('content', translations[lang].page_keywords);
+  }
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle && translations[lang].page_title) {
+    ogTitle.setAttribute('content', translations[lang].page_title);
+  }
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc && translations[lang].page_desc) {
+    ogDesc.setAttribute('content', translations[lang].page_desc);
+  }
 
   // Trigger radar UI update to refresh alert box text in current lang
   if (typeof updateRadarSimulation === 'function') {
@@ -715,14 +750,30 @@ function initNavbar() {
 // 6. INITIALIZATION ON DOM READY
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Check stored language or default to ja
-  const savedLang = localStorage.getItem('intersection_lp_lang') || 'ja';
-  setLanguage(savedLang);
+  // Determine initial language: URL query > localStorage > navigator.language > 'ja'
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramLang = urlParams.get('lang');
+  let initialLang = 'ja';
+
+  if (paramLang === 'en' || paramLang === 'ja') {
+    initialLang = paramLang;
+  } else {
+    try {
+      const stored = localStorage.getItem('intersection_lp_lang');
+      if (stored === 'en' || stored === 'ja') {
+        initialLang = stored;
+      } else if (navigator.language && !navigator.language.startsWith('ja')) {
+        initialLang = 'en';
+      }
+    } catch (e) {}
+  }
+
+  setLanguage(initialLang, false);
 
   // Bind Lang buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      setLanguage(btn.dataset.lang);
+      setLanguage(btn.dataset.lang, true);
     });
   });
 
