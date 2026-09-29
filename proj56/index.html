@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Social Meta Tags -->
+  <title>Cyber Mole Turf (サイバー・モグラ・ターフ) | 9×9配置型ロジックパズル公式LP</title>
+  <meta name="description" content="『Cyber Mole Turf（サイバー・モグラ・ターフ）』は、9×9の電脳領地を舞台にした配置型ロジックパズル。各行・各列・各領地にモグラ1匹、斜め隣接NG！全30ステージを完全制覇せよ。ブラウザで今すぐ無料プレイ！">
+  <meta name="keywords" content="Cyber Mole Turf, サイバーモグラターフ, ロジックパズル, ナンプレ, 配置パズル, Cyberpunk, ゲーム, 無料パズル">
+  <meta name="author" content="Cyber Matrix">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/mole">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/mole">
+  <meta property="og:title" content="Cyber Mole Turf (サイバー・モグラ・ターフ) - 9×9配置型ロジックパズル">
+  <meta property="og:description" content="9×9の電脳領地を完全制覇せよ。各行・各列・各領地にモグラ1匹、斜め隣接NG！ブラウザで今すぐ無料プレイ！">
+  <meta property="og:image" content="assets/hero.jpg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cyber Mole Turf (サイバー・モグラ・ターフ)">
+  <meta name="twitter:description" content="新感覚サイバー配置型ロジックパズル。閃きと論理で30セクターを完全制覇！">
+  <meta name="twitter:image" content="assets/hero.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Cyber Ambient Background -->
+  <div class="cyber-background">
+    <div class="grid-lines"></div>
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="ambient-glow-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="cyber-header" id="header">
+    <div class="container nav-content">
+      <a href="#" class="logo-link">
+        <div class="logo-icon-wrap">
+          <img src="assets/icon.png" alt="Cyber Mole Turf Logo" class="logo-icon-img">
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-title">CYBER <span>MOLE</span> TURF</span>
+          <span class="logo-sub">LOGIC GRID PUZZLE</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#about" class="nav-link" data-i18n="navAbout">概要</a></li>
+          <li><a href="#rules" class="nav-link" data-i18n="navRules">4大ルール</a></li>
+          <li><a href="#simulator" class="nav-link" data-i18n="navDemo">ミニ体験</a></li>
+          <li><a href="#features" class="nav-link" data-i18n="navFeatures">特徴・システム</a></li>
+          <li><a href="#stages" class="nav-link" data-i18n="navStages">ステージ</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="navFaq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="langToggleBtn" class="lang-switch-btn" aria-label="Switch Language">
+          🌐 English
+        </button>
+        <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="btn-primary-neon sm" data-i18n="playNowBtn">
+          今すぐプレイ 🚀
+        </a>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="about">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text-content">
+            <div class="hero-badge-wrap">
+              <span class="badge-pulse-dot"></span>
+              <span class="badge-text" data-i18n="heroBadge">ONLINE PLAY AVAILABLE // VER 1.0</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span data-i18n="heroTitlePrefix">9×9の電脳領地を</span>
+              <span class="gradient-text" data-i18n="heroTitleHighlight">完全制覇せよ。</span>
+            </h1>
+
+            <p class="hero-description" data-i18n="heroDesc">
+              各行・各列・各領地にモグラ1匹。斜め隣接NG！ 閃きと論理で30セクターの謎を解き明かす、新感覚サイバー配置型ロジックパズル。
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="btn-primary-neon lg" data-i18n="heroBtnPlay">
+                🚀 無料で今すぐプレイ
+              </a>
+              <a href="#simulator" class="btn-secondary-neon" data-i18n="heroBtnDemo">
+                🎮 盤面を体験
+              </a>
+              <a href="#rules" class="btn-secondary-neon" data-i18n="heroBtnRules">
+                📖 ルールを見る
+              </a>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="stat-item">
+                <span class="stat-value">30</span>
+                <span class="stat-label" data-i18n="stat1Label">セクター（ステージ）</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">3 / 3</span>
+                <span class="stat-label" data-i18n="stat2Label">シールド制（3ミスOK）</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">FREE</span>
+                <span class="stat-label" data-i18n="stat3Label">完全無料・即起動</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">ALL</span>
+                <span class="stat-label" data-i18n="stat4Label">PC / スマホ両対応</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual-card">
+            <img src="assets/hero.jpg" alt="Cyber Mole Turf Key Visual" class="hero-visual-img">
+            <div class="hero-visual-hud">
+              <div class="hud-item">
+                <span>⚡ GRID SYSTEM: ONLINE</span>
+              </div>
+              <div class="hud-item">
+                <span>🐾 9 MOLES TARGET</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Rules Section -->
+    <section class="section-wrap" id="rules">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-i18n="rulesBadge">CORE LOGIC SYSTEM</span>
+          <h2 class="section-title" data-i18n="rulesTitle">完全制覇への4大コアルール</h2>
+          <p class="section-subtitle" data-i18n="rulesSubtitle">
+            9×9のグリッドに合計9匹のサイバーモグラを配置。すべての制約をクリアせよ！
+          </p>
+        </div>
+
+        <div class="rules-grid">
+          <!-- Rule 1 -->
+          <div class="rule-card">
+            <div class="rule-top">
+              <span class="rule-number">01</span>
+              <span class="rule-icon">↔️</span>
+            </div>
+            <h3 class="rule-heading" data-i18n="rule1Title">① 各行にちょうど1匹</h3>
+            <p class="rule-text" data-i18n="rule1Desc">
+              すべての横の行（Row 1〜9）には、モグラが必ず1匹だけ配置されます。2匹以上も0匹も不可です。
+            </p>
+            <div class="rule-visual-diagram">
+              <div style="font-family: var(--font-tech); color: var(--neon-cyan); letter-spacing: 2px;">
+                [ 🐾 ][ ❌ ][ ❌ ][ ❌ ][ ❌ ] → 1 Row = 1 Mole
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 2 -->
+          <div class="rule-card">
+            <div class="rule-top">
+              <span class="rule-number">02</span>
+              <span class="rule-icon">↕️</span>
+            </div>
+            <h3 class="rule-heading" data-i18n="rule2Title">② 各列にちょうど1匹</h3>
+            <p class="rule-text" data-i18n="rule2Desc">
+              すべての縦の列（Column 1〜9）には、モグラが必ず1匹だけ配置されます。
+            </p>
+            <div class="rule-visual-diagram">
+              <div style="font-family: var(--font-tech); color: var(--neon-cyan); letter-spacing: 2px;">
+                [ 🐾 ] ↓ [ ❌ ] ↓ [ ❌ ] → 1 Column = 1 Mole
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 3 -->
+          <div class="rule-card pink">
+            <div class="rule-top">
+              <span class="rule-number">03</span>
+              <span class="rule-icon">🎨</span>
+            </div>
+            <h3 class="rule-heading" data-i18n="rule3Title">③ 領地（Turf）ごとに1匹</h3>
+            <p class="rule-text" data-i18n="rule3Desc">
+              盤面は9色の領地に分かれています。同じ色のエリア内には必ずモグラが1匹だけ存在します。
+            </p>
+            <div class="rule-visual-diagram">
+              <div style="display: flex; gap: 8px; font-family: var(--font-tech); font-size: 0.9rem;">
+                <span style="background: rgba(2, 132, 199, 0.4); padding: 4px 8px; border-radius: 4px;">領地A: 🐾</span>
+                <span style="background: rgba(217, 70, 239, 0.4); padding: 4px 8px; border-radius: 4px;">領地B: 🐾</span>
+                <span style="background: rgba(5, 150, 105, 0.4); padding: 4px 8px; border-radius: 4px;">領地C: 🐾</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 4 -->
+          <div class="rule-card pink">
+            <div class="rule-top">
+              <span class="rule-number">04</span>
+              <span class="rule-icon">🚫</span>
+            </div>
+            <h3 class="rule-heading" data-i18n="rule4Title">④ 斜め隣接NG！（周囲8マス封鎖）</h3>
+            <p class="rule-text" data-i18n="rule4Desc">
+              モグラ同士は上下左右だけでなく、斜めで触れ合うことも厳格に禁止。配置すると周囲8マスすべてが進入不可となります。
+            </p>
+            <div class="rule-visual-diagram">
+              <div class="eight-neighbor-grid">
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell mole">🐾</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+                <div class="diagram-cell blocked">❌</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Mini Simulator Section -->
+    <section class="section-wrap simulator-section" id="simulator">
+      <div class="container">
+        <div class="simulator-container">
+          <div class="sim-info-col">
+            <span class="section-badge" data-i18n="simBadge">PLAYABLE PREVIEW</span>
+            <h3 data-i18n="simTitle">LP上でミニ盤面を体験！</h3>
+            <p data-i18n="simSubtitle">5×5のミニグリッドで基本ルールと自動❌アシストの爽快感を今すぐテスト。</p>
+            
+            <ul class="sim-features-list">
+              <li class="sim-feature-item">
+                <span class="icon">🐾</span>
+                <span data-i18n="simList1">モグラモードでマスをクリックして配置</span>
+              </li>
+              <li class="sim-feature-item">
+                <span class="icon">⚡</span>
+                <span data-i18n="simList2">モグラを置くと周囲8マス・行・列が自動で❌封鎖（Auto-X）</span>
+              </li>
+              <li class="sim-feature-item">
+                <span class="icon">🛡️</span>
+                <span data-i18n="simList3">ルール違反の配置はシールドが減少！</span>
+              </li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+              <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="btn-primary-neon" data-i18n="playNowBtn">
+                本編（全30ステージ）をプレイ 🚀
+              </a>
+            </div>
+          </div>
+
+          <div class="sim-board-wrapper">
+            <div class="sim-status-bar">
+              <div>
+                <span data-i18n="simShieldsLabel">シールド: </span>
+                <span class="sim-shields" id="simShields">🛡️🛡️🛡️</span>
+              </div>
+              <div style="color: var(--neon-cyan); font-weight: 700;">5×5 TEST SECTOR</div>
+            </div>
+
+            <!-- 5x5 Grid Board -->
+            <div class="sim-grid" id="miniSimGrid"></div>
+
+            <div class="sim-message" id="simMessage" data-i18n="simInitialMsg">
+              マスをクリックしてモグラを配置してみてください！
+            </div>
+
+            <div class="sim-controls">
+              <button class="sim-btn active" id="simMoleMode" data-i18n="simBtnMole">🐾 モグラ配置</button>
+              <button class="sim-btn" id="simBlockMode" data-i18n="simBtnBlock">❌ 封鎖マーク</button>
+              <button class="sim-btn" id="simReset" data-i18n="simBtnReset">🔄 リセット</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section-wrap" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-i18n="featBadge">POWERFUL FEATURES</span>
+          <h2 class="section-title" data-i18n="featTitle">快適なプレイを支える先進システム</h2>
+          <p class="section-subtitle" data-i18n="featSubtitle">
+            直感的な操作性と充実のアシスト機能で、初心者からパズルマスターまで没頭できます。
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Feature 1 -->
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">⚡</div>
+            <h3 class="feature-title" data-i18n="feat1Title">⚡ Auto-X 封鎖アシスト</h3>
+            <p class="feature-desc" data-i18n="feat1Desc">
+              モグラを1匹置くと、その周囲8マス・同一行・同一列・同一領地を自動で❌マーク封鎖。無駄な手間を省いて思考に集中できます。
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-box pink">
+            <div class="feature-icon-wrapper">💡</div>
+            <h3 class="feature-title" data-i18n="feat2Title">💡 サイバーAIヒント</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">
+              手詰まりになったときはAIが盤面を瞬時にスキャン。「次に確定できる安全マス」を論理的根拠とともに明示します。
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">🛡️</div>
+            <h3 class="feature-title" data-i18n="feat3Title">🛡️ シールド制 & リカバリ</h3>
+            <p class="feature-desc" data-i18n="feat3Desc">
+              3回までのミスを許容するシールドシステム。手数を間違えても即座にUndo/Redoで巻き戻して再挑戦可能です。
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">📱</div>
+            <h3 class="feature-title" data-i18n="feat4Title">📱 スマホ・PC完全最適化</h3>
+            <p class="feature-desc" data-i18n="feat4Desc">
+              PCのマウス・キーボード操作はもちろん、スマートフォンのスワイプによる一括❌引き操作にも完全対応。
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-box pink">
+            <div class="feature-icon-wrapper">⏱️</div>
+            <h3 class="feature-title" data-i18n="feat5Title">⏱️ タイムアタック & ★評価</h3>
+            <p class="feature-desc" data-i18n="feat5Desc">
+              全ステージでクリアタイムを計測。ミス数やタイムに応じた3つ星評価（★★★）と自己ベスト保存に対応。
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-box">
+            <div class="feature-icon-wrapper">🌐</div>
+            <h3 class="feature-title" data-i18n="feat6Title">🌐 日英完全バイリンガル</h3>
+            <p class="feature-desc" data-i18n="feat6Desc">
+              ゲーム内もマニュアルもワンタップで日本語 / 英語の切り替えが可能。海外プレイヤーもストレスなく遊べます。
+            </p>
+          </div>
+        </div>
+
+        <!-- Extra Feature Graphic Banner -->
+        <div style="margin-top: 50px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 243, 255, 0.25); box-shadow: var(--shadow-card);">
+          <img src="assets/features.jpg" alt="Cyber Mole Turf Feature Interface" style="width: 100%; height: auto; display: block;">
+        </div>
+      </div>
+    </section>
+
+    <!-- Stages & Difficulty Section -->
+    <section class="section-wrap" id="stages">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-i18n="stagesBadge">30 SECTORS</span>
+          <h2 class="section-title" data-i18n="stagesTitle">全30ステージと3段階難易度</h2>
+          <p class="section-subtitle" data-i18n="stagesSubtitle">
+            初心者向けの基本セクターから、複雑に入り組んだ超高難度迷路まで完全収録。
+          </p>
+        </div>
+
+        <div class="stages-grid">
+          <!-- Easy -->
+          <div class="stage-card easy">
+            <span class="stage-badge" data-i18n="stageEasyBadge">初心者向け</span>
+            <h3 class="stage-title" data-i18n="stageEasyTitle">EASY // 初級セクター</h3>
+            <div class="stage-sectors" data-i18n="stageEasySectors">Sector 01 〜 10</div>
+            <p class="stage-desc" data-i18n="stageEasyDesc">
+              規則的なブロック形状の領地。コアルールの理解と基本パターンの習得に最適です。
+            </p>
+            <div class="stage-meta">
+              <span data-i18n="stageEasyTarget">目標タイム: 90秒</span>
+              <span>⭐ <b>10 STAGES</b></span>
+            </div>
+          </div>
+
+          <!-- Medium -->
+          <div class="stage-card medium">
+            <span class="stage-badge" data-i18n="stageMedBadge">中級者向け</span>
+            <h3 class="stage-title" data-i18n="stageMedTitle">MEDIUM // 中級セクター</h3>
+            <div class="stage-sectors" data-i18n="stageMedSectors">Sector 11 〜 20</div>
+            <p class="stage-desc" data-i18n="stageMedDesc">
+              L字型や交差する変形領地が出現。消去法と領地間の相互影響を読み解く論理的思考が必要。
+            </p>
+            <div class="stage-meta">
+              <span data-i18n="stageMedTarget">目標タイム: 140秒</span>
+              <span>⭐⭐ <b>10 STAGES</b></span>
+            </div>
+          </div>
+
+          <!-- Hard -->
+          <div class="stage-card hard">
+            <span class="stage-badge" data-i18n="stageHardBadge">上級者向け</span>
+            <h3 class="stage-title" data-i18n="stageHardTitle">HARD // 上級セクター</h3>
+            <div class="stage-sectors" data-i18n="stageHardSectors">Sector 21 〜 30</div>
+            <p class="stage-desc" data-i18n="stageHardDesc">
+              入り組んだスネーク形状と迷路状の幾何学パターン。高度な仮定法と緻密な盤面スキャンが試される極限パズル。
+            </p>
+            <div class="stage-meta">
+              <span data-i18n="stageHardTarget">目標タイム: 200秒</span>
+              <span>⭐⭐⭐ <b>10 STAGES</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strategy Guide / Logic Tips -->
+    <section class="section-wrap">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-i18n="tipsBadge">STRATEGY GUIDE</span>
+          <h2 class="section-title" data-i18n="tipsTitle">全領地制覇のための攻略極意</h2>
+          <p class="section-subtitle" data-i18n="tipsSubtitle">
+            トッププレイヤーが実践する3つの思考アルゴリズム。
+          </p>
+        </div>
+
+        <div class="tips-container">
+          <div class="tip-card">
+            <span class="tip-step" data-i18n="tip1Step">STEP 01</span>
+            <h3 class="tip-title" data-i18n="tip1Title">最小の領地から特定する</h3>
+            <p class="tip-desc" data-i18n="tip1Desc">
+              盤面内でマス数が2〜3マスしかない小さな色領地は、選択肢が少なくモグラを特定しやすい最重要ポイントです。
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <span class="tip-step" data-i18n="tip2Step">STEP 02</span>
+            <h3 class="tip-title" data-i18n="tip2Title">モグラ配置後は直ちに封鎖</h3>
+            <p class="tip-desc" data-i18n="tip2Desc">
+              モグラを置いたら周囲8マスと同一列・行を封鎖することで、隣接する他の領地の候補が一気に絞り込まれます。
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <span class="tip-step" data-i18n="tip3Step">STEP 03</span>
+            <h3 class="tip-title" data-i18n="tip3Title">ラストワン（消去法）の活用</h3>
+            <p class="tip-desc" data-i18n="tip3Desc">
+              行・列・領地の中で、❌がついていない空きマスが残り1マスになった場合、そのマスは100%モグラ確定です。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-wrap" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" data-i18n="faqBadge">FREQUENTLY ASKED QUESTIONS</span>
+          <h2 class="section-title" data-i18n="faqTitle">よくあるご質問</h2>
+          <p class="section-subtitle" data-i18n="faqSubtitle">
+            ゲームのプレイ環境や仕様に関する疑問にお答えします。
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-i18n="faq1Q">無料で遊べますか？ 課金要素はありますか？</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner" data-i18n="faq1A">
+                完全無料でお楽しみいただけます。アプリ内課金や広告の強制表示もなく、ブラウザから即座に全30ステージをプレイ可能です。
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-i18n="faq2Q">アプリのダウンロードや会員登録は必要ですか？</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner" data-i18n="faq2A">
+                会員登録やインストールの必要はありません。URLにアクセスするだけで、PCでもスマホでもすぐにお楽しみいただけます。
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-i18n="faq3Q">パズルゲームが苦手でも解けますか？</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner" data-i18n="faq3A">
+                はい！ 盤面を分析してくれる「サイバーAIヒント」や「Auto-Xアシスト」機能、さらにゲーム内アニメーション付きチュートリアル（デモプレイ）も完備しています。
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span data-i18n="faq4Q">クリア記録やベストタイムは保存されますか？</span>
+              <span class="faq-chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner" data-i18n="faq4A">
+                ブラウザのローカルストレージに自動保存されます。後日ブラウザを開き直しても続きからプレイ可能です。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section-wrap">
+      <div class="container">
+        <div class="cta-banner-card">
+          <h2 class="cta-banner-title" data-i18n="ctaTitle">
+            今すぐ電脳グリッドへダイブせよ。
+          </h2>
+          <p class="cta-banner-desc" data-i18n="ctaDesc">
+            研ぎ澄まされた論理思考で、9×9の領地を解き明かせ。ブラウザで今すぐ無料でプレイできます。
+          </p>
+
+          <div class="cta-actions">
+            <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="btn-primary-neon lg btn-pink-neon" data-i18n="ctaBtnMain">
+              🚀 無料でゲームを始める
+            </a>
+          </div>
+
+          <p class="direct-link-note">
+            <span data-i18n="ctaDirectLink">または直接アクセス: </span>
+            <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer">
+              https://cyber-matrix.netlify.app/products/mole
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky Floating CTA Bar -->
+  <div class="floating-cta-bar" id="floatingCtaBar">
+    <span class="floating-bar-text">🐾 CYBER MOLE TURF // ONLINE READY</span>
+    <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="btn-primary-neon sm" data-i18n="floatingPlay">
+      無料で今すぐ遊ぶ 🚀
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="cyber-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo-text-group">
+            <span class="logo-title">CYBER <span>MOLE</span> TURF</span>
+            <span class="logo-sub">LOGIC GRID PUZZLE</span>
+          </div>
+          <p class="footer-brand-desc" data-i18n="footerDesc">
+            サイバーパンクの世界観と厳格な論理パズルが融合した新感覚配置型ゲーム。電脳領地を完全制覇せよ。
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <h4 class="footer-col-title">LINKS</h4>
+            <ul class="footer-nav-list">
+              <li>
+                <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" class="footer-nav-link" data-i18n="footerLinkProduct">
+                  オンライン版プレイ ↗
+                </a>
+              </li>
+              <li><a href="#about" class="footer-nav-link" data-i18n="navAbout">ゲーム概要</a></li>
+              <li><a href="#rules" class="footer-nav-link" data-i18n="navRules">4大コアルール</a></li>
+              <li><a href="#simulator" class="footer-nav-link" data-i18n="navDemo">ミニ盤面体験</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="footer-col-title">SYSTEM</h4>
+            <ul class="footer-nav-list">
+              <li><a href="#features" class="footer-nav-link" data-i18n="navFeatures">特徴・機能</a></li>
+              <li><a href="#stages" class="footer-nav-link" data-i18n="navStages">ステージ難易度</a></li>
+              <li><a href="#faq" class="footer-nav-link" data-i18n="navFaq">よくある質問</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p data-i18n="footerRights">© 2026 Cyber Mole Turf. All rights reserved.</p>
+        <p>Target URL: <a href="https://cyber-matrix.netlify.app/products/mole" target="_blank" rel="noopener noreferrer" style="color: var(--neon-cyan);">https://cyber-matrix.netlify.app/products/mole</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
