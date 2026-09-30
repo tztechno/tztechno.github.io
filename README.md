@@ -144,17 +144,17 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 [profile](https://tztechno.github.io/profile/)
 
-### [web app portfolio](https://tztechno.github.io/portfolio/)
-
 [web app blog](https://tztechno.github.io/portfolio/cyber-webapp-blog.html)
-
-### [desktop app portfolio](https://cyber-matrix.netlify.app/)
 
 [desktop app blog](https://tztechno.github.io/portfolio/cyber-matrix-blog.html)
 
-[itch.io dashboard](https://stpeteishii.itch.io/)
+#### [web app portfolio](https://tztechno.github.io/portfolio/)
 
-[booth dashboard](https://cyber-matrix.booth.pm/)
+#### [desktop app portfolio](https://cyber-matrix.netlify.app/)
+
+#### [itch.io dashboard](https://stpeteishii.itch.io/)
+
+#### [booth dashboard](https://cyber-matrix.booth.pm/)
 
 
 ## kaggle notebooks
