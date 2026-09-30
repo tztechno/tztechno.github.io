@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Splat Viewer Desktop</title>
-<meta name="description" content="3D Gaussian Splatting をデスクトップでリアルタイム表示。.splat / .ply をドラッグ＆ドロップで開けるビューア。Windows / macOS 対応、買い切り ¥150。">
+<meta id="meta-desc" name="description" content="3D Gaussian Splatting をデスクトップでリアルタイム表示。.splat / .ply をドラッグ＆ドロップで開けるビューア。Windows / macOS 対応、買い切り ¥150。">
 <meta property="og:title" content="Splat Viewer Desktop Edition">
 <meta property="og:description" content="3D Gaussian Splatting をデスクトップでリアルタイム表示。Windows / macOS 対応、買い切り ¥150。">
 <meta property="og:image" content="https://tztechno.github.io/proj57/hero.jpg">
@@ -54,6 +54,13 @@
   .btn-ghost { border: 1px solid var(--border); color: var(--text); }
   .btn-ghost:hover { background: rgba(255, 255, 255, 0.06); }
   header .btn { padding: 8px 16px; font-size: 14px; }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .lang-toggle {
+    font: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--text); background: transparent; cursor: pointer;
+    border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px;
+  }
+  .lang-toggle:hover { background: rgba(255, 255, 255, 0.06); }
 
   .hero { padding-top: 72px; padding-bottom: 56px; text-align: center; }
   .eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.18em; }
@@ -131,62 +138,65 @@
 <header>
   <div class="wrap">
     <a class="logo" href="#">Splat Viewer <span>Desktop</span></a>
-    <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat">購入する</a>
+    <div class="nav-right">
+      <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Switch language / 言語を切り替え">EN</button>
+      <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat" data-i18n="nav_buy">購入する</a>
+    </div>
   </div>
 </header>
 
 <main>
   <div class="hero wrap">
     <div class="eyebrow">3D GAUSSIAN SPLATTING VIEWER</div>
-    <h1>3DGS を、<br>デスクトップで<wbr>そのまま見る。</h1>
-    <p class="lead">.splat / .ply をウィンドウにドロップするだけ。WebGL 2 によるリアルタイム描画で、3D Gaussian Splatting のシーンを自由に歩き回れるデスクトップアプリです。</p>
+    <h1 data-i18n="hero_h1">3DGS を、<br>デスクトップで<wbr>そのまま見る。</h1>
+    <p class="lead" data-i18n="lead">.splat / .ply をウィンドウにドロップするだけ。WebGL 2 によるリアルタイム描画で、3D Gaussian Splatting のシーンを自由に歩き回れるデスクトップアプリです。</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat">¥150 で購入する</a>
-      <a class="btn btn-ghost" href="#features">機能を見る</a>
+      <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat" data-i18n="cta_buy">¥150 で購入する</a>
+      <a class="btn btn-ghost" href="#features" data-i18n="cta_features">機能を見る</a>
     </div>
-    <div class="platforms">Windows 10 / 11（x64） ・ macOS 10.15 以降（Apple Silicon）</div>
+    <div class="platforms" data-i18n="platforms">Windows 10 / 11（x64） ・ macOS 10.15 以降（Apple Silicon）</div>
 
     <figure class="shot" style="margin-bottom:0">
       <div class="shot-bar"><i></i><i></i><i></i></div>
-      <img src="hero.jpg" width="879" height="534" alt="Splat Viewer で表示した噴水の彫像の 3D Gaussian Splatting シーン">
+      <img id="hero-img" src="hero.jpg" width="879" height="534" alt="Splat Viewer で表示した噴水の彫像の 3D Gaussian Splatting シーン">
     </figure>
-    <p class="caption">Splat Viewer で表示した 3D Gaussian Splatting シーン</p>
+    <p class="caption" data-i18n="caption">Splat Viewer で表示した 3D Gaussian Splatting シーン</p>
   </div>
 
   <section id="features">
     <div class="wrap">
-      <h2>できること</h2>
-      <p class="sub">ブラウザ版ビューアの機能を、そのままネイティブアプリに。</p>
+      <h2 data-i18n="feat_h2">できること</h2>
+      <p class="sub" data-i18n="feat_sub">ブラウザ版ビューアの機能を、そのままネイティブアプリに。</p>
       <div class="grid">
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
-          <h3>リアルタイム描画</h3>
-          <p>WebGL 2 で数十万〜数百万のスプラットを滑らかに表示します。</p>
+          <h3 data-i18n="f1_h">リアルタイム描画</h3>
+          <p data-i18n="f1_p">WebGL 2 で数十万〜数百万のスプラットを滑らかに表示します。</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
-          <h3>ドラッグ＆ドロップで開く</h3>
-          <p>.splat / .ply / cameras.json をウィンドウに落とすだけで読み込めます。</p>
+          <h3 data-i18n="f2_h">ドラッグ＆ドロップで開く</h3>
+          <p data-i18n="f2_p">.splat / .ply / cameras.json をウィンドウに落とすだけで読み込めます。</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11"/><path d="m12 4 3 3-3 3"/><path d="M20 17H9"/><path d="m12 14-3 3 3 3"/></svg></div>
-          <h3>PLY → SPLAT 変換</h3>
-          <p>.ply を開くと自動で .splat に変換。保存ダイアログからそのまま書き出せます。</p>
+          <h3 data-i18n="f3_h">PLY → SPLAT 変換</h3>
+          <p data-i18n="f3_p">.ply を開くと自動で .splat に変換。保存ダイアログからそのまま書き出せます。</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h3M18 12h3M12 3v3M12 18v3"/></svg></div>
-          <h3>視点のコピーと指定</h3>
-          <p><kbd>C</kbd> キーで現在の視点行列をコピー。Set View 欄に貼り付ければ同じアングルを再現できます。</p>
+          <h3 data-i18n="f4_h">視点のコピーと指定</h3>
+          <p data-i18n="f4_p"><kbd>C</kbd> キーで現在の視点行列をコピー。Set View 欄に貼り付ければ同じアングルを再現できます。</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7 16 12l7 5V7Z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-          <h3>プリセットカメラ</h3>
-          <p><kbd>0</kbd>〜<kbd>9</kbd> キーで登録済みのカメラに瞬時に切り替え。cameras.json も読み込めます。</p>
+          <h3 data-i18n="f5_h">プリセットカメラ</h3>
+          <p data-i18n="f5_p"><kbd>0</kbd>〜<kbd>9</kbd> キーで登録済みのカメラに瞬時に切り替え。cameras.json も読み込めます。</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="6"/><path d="M7 10v4M5 12h4"/><circle cx="16" cy="11" r="1"/><circle cx="18" cy="13" r="1"/></svg></div>
-          <h3>多彩な操作方法</h3>
-          <p>キーボード・マウス・トラックパッド・ゲームパッドに対応しています。</p>
+          <h3 data-i18n="f6_h">多彩な操作方法</h3>
+          <p data-i18n="f6_p">キーボード・マウス・トラックパッド・ゲームパッドに対応しています。</p>
         </div>
       </div>
     </div>
@@ -194,28 +204,28 @@
 
   <section>
     <div class="wrap">
-      <h2>使い方</h2>
-      <p class="sub">インストールして、ファイルを開くだけ。</p>
+      <h2 data-i18n="how_h2">使い方</h2>
+      <p class="sub" data-i18n="how_sub">インストールして、ファイルを開くだけ。</p>
       <div class="steps">
-        <div class="step"><h3>購入してダウンロード</h3><p>購入ページで Windows 版か macOS 版を選び、Stripe で決済します。</p></div>
-        <div class="step"><h3>インストール</h3><p>Windows はインストーラー（.exe）、macOS はディスクイメージ（.dmg）から。</p></div>
-        <div class="step"><h3>ファイルを開く</h3><p>.splat / .ply をドロップ、または Load URL 欄にファイルの URL を入力します。</p></div>
+        <div class="step"><h3 data-i18n="s1_h">購入してダウンロード</h3><p data-i18n="s1_p">購入ページで Windows 版か macOS 版を選び、Stripe で決済します。</p></div>
+        <div class="step"><h3 data-i18n="s2_h">インストール</h3><p data-i18n="s2_p">Windows はインストーラー（.exe）、macOS はディスクイメージ（.dmg）から。</p></div>
+        <div class="step"><h3 data-i18n="s3_h">ファイルを開く</h3><p data-i18n="s3_p">.splat / .ply をドロップ、または Load URL 欄にファイルの URL を入力します。</p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <h2>仕様</h2>
-      <p class="sub">Specifications</p>
+      <h2 data-i18n="spec_h2">仕様</h2>
+      <p class="sub" data-i18n="spec_sub">Specifications</p>
       <div class="table-box">
         <table>
-          <tr><th>対応 OS</th><td>Windows 10 / 11（x64）<br>macOS 10.15 以降（Apple Silicon）</td></tr>
-          <tr><th>対応ファイル</th><td>.splat ・ .ply ・ cameras.json</td></tr>
-          <tr><th>読み込み方法</th><td>Open Splat File ボタン／ドラッグ＆ドロップ／ファイルの URL 指定</td></tr>
-          <tr><th>書き出し</th><td>.ply から変換した .splat</td></tr>
-          <tr><th>描画</th><td>WebGL 2</td></tr>
-          <tr><th>操作</th><td>キーボード・マウス・トラックパッド・ゲームパッド</td></tr>
+          <tr><th data-i18n="t_os">対応 OS</th><td data-i18n="t_os_v">Windows 10 / 11（x64）<br>macOS 10.15 以降（Apple Silicon）</td></tr>
+          <tr><th data-i18n="t_fmt">対応ファイル</th><td data-i18n="t_fmt_v">.splat ・ .ply ・ cameras.json</td></tr>
+          <tr><th data-i18n="t_open">読み込み方法</th><td data-i18n="t_open_v">Open Splat File ボタン／ドラッグ＆ドロップ／ファイルの URL 指定</td></tr>
+          <tr><th data-i18n="t_exp">書き出し</th><td data-i18n="t_exp_v">.ply から変換した .splat</td></tr>
+          <tr><th data-i18n="t_render">描画</th><td>WebGL 2</td></tr>
+          <tr><th data-i18n="t_ctrl">操作</th><td data-i18n="t_ctrl_v">キーボード・マウス・トラックパッド・ゲームパッド</td></tr>
         </table>
       </div>
     </div>
@@ -225,14 +235,14 @@
     <div class="wrap">
       <div class="buy">
         <div class="eyebrow">DESKTOP EDITION</div>
-        <div class="price">¥150<small>税込・買い切り</small></div>
+        <div class="price">¥150<small data-i18n="price_note">税込・買い切り</small></div>
         <ul>
-          <li>一度の購入で永久に利用可能</li>
-          <li>追加課金なし</li>
-          <li>Windows 版 / macOS 版から選べます</li>
+          <li data-i18n="b1">一度の購入で永久に利用可能</li>
+          <li data-i18n="b2">追加課金なし</li>
+          <li data-i18n="b3">Windows 版 / macOS 版から選べます</li>
         </ul>
-        <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat">購入ページへ進む</a>
-        <p class="note">決済は Stripe で行われます。</p>
+        <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/splat" data-i18n="buy_btn">購入ページへ進む</a>
+        <p class="note" data-i18n="buy_note">決済は Stripe で行われます。</p>
       </div>
     </div>
   </section>
@@ -245,5 +255,93 @@
   </div>
 </footer>
 
+<script>
+  // JA text lives in the markup (works without JS); EN strings replace it on demand
+  const EN = {
+    "nav_buy": "Buy",
+    "hero_h1": "View 3DGS scenes<br>right on your desktop.",
+    "lead": "Just drop a .splat or .ply file onto the window. Real-time WebGL 2 rendering lets you move freely through 3D Gaussian Splatting scenes in a desktop app.",
+    "cta_buy": "Buy for ¥150",
+    "cta_features": "See features",
+    "platforms": "Windows 10 / 11 (x64) · macOS 10.15 or later (Apple Silicon)",
+    "caption": "A 3D Gaussian Splatting scene shown in Splat Viewer",
+    "feat_h2": "Features",
+    "feat_sub": "Everything from the browser viewer, as a native app.",
+    "f1_h": "Real-time rendering",
+    "f1_p": "Smoothly renders hundreds of thousands to millions of splats with WebGL 2.",
+    "f2_h": "Drag &amp; drop to open",
+    "f2_p": "Just drop a .splat, .ply or cameras.json file onto the window.",
+    "f3_h": "PLY → SPLAT conversion",
+    "f3_p": "Opening a .ply converts it to .splat automatically, ready to save from a Save dialog.",
+    "f4_h": "Copy and set views",
+    "f4_p": "<kbd>C</kbd> copies the current view matrix. Paste it into the Set View box to get the same angle back.",
+    "f5_h": "Preset cameras",
+    "f5_p": "Switch instantly between saved cameras with <kbd>0</kbd>–<kbd>9</kbd>. cameras.json files are supported too.",
+    "f6_h": "Flexible controls",
+    "f6_p": "Works with keyboard, mouse, trackpad and gamepad.",
+    "how_h2": "How it works",
+    "how_sub": "Install it and open a file. That’s it.",
+    "s1_h": "Buy and download",
+    "s1_p": "Choose the Windows or macOS version on the store page and pay with Stripe.",
+    "s2_h": "Install",
+    "s2_p": "Use the installer (.exe) on Windows or the disk image (.dmg) on macOS.",
+    "s3_h": "Open a file",
+    "s3_p": "Drop a .splat / .ply file, or enter the file’s URL in the Load URL box.",
+    "spec_h2": "Specifications",
+    "spec_sub": "At a glance",
+    "t_os": "Supported OS",
+    "t_os_v": "Windows 10 / 11 (x64)<br>macOS 10.15 or later (Apple Silicon)",
+    "t_fmt": "File formats",
+    "t_fmt_v": ".splat · .ply · cameras.json",
+    "t_open": "Opening files",
+    "t_open_v": "Open Splat File button / drag &amp; drop / file URL",
+    "t_exp": "Export",
+    "t_exp_v": ".splat converted from .ply",
+    "t_render": "Rendering",
+    "t_ctrl": "Controls",
+    "t_ctrl_v": "Keyboard, mouse, trackpad, gamepad",
+    "price_note": "tax incl. · one-time purchase",
+    "b1": "Use it forever with a single purchase",
+    "b2": "No additional charges",
+    "b3": "Choose the Windows or macOS version",
+    "buy_btn": "Go to the store page",
+    "buy_note": "Payment is processed by Stripe.",
+    "_alt": "A 3D Gaussian Splatting scene of a fountain statue shown in Splat Viewer",
+    "_title": "Splat Viewer Desktop",
+    "_desc": "View 3D Gaussian Splatting scenes on your desktop in real time. Open .splat / .ply files by drag and drop. For Windows and macOS, ¥150 one-time purchase."
+  };
+  const JA = {};
+  const nodes = document.querySelectorAll("[data-i18n]");
+  nodes.forEach((el) => { JA[el.dataset.i18n] = el.innerHTML; });
+  const heroImg = document.getElementById("hero-img");
+  const metaDesc = document.getElementById("meta-desc");
+  JA._alt = heroImg.alt;
+  JA._title = document.title;
+  JA._desc = metaDesc.content;
+
+  const toggle = document.getElementById("lang-toggle");
+  function setLang(lang) {
+    const dict = lang === "en" ? EN : JA;
+    nodes.forEach((el) => { el.innerHTML = dict[el.dataset.i18n]; });
+    heroImg.alt = dict._alt;
+    document.title = dict._title;
+    metaDesc.content = dict._desc;
+    document.documentElement.lang = lang;
+    toggle.textContent = lang === "en" ? "日本語" : "EN";
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+
+  let lang = new URLSearchParams(location.search).get("lang");
+  if (lang !== "en" && lang !== "ja") {
+    try { lang = localStorage.getItem("lang"); } catch (e) { lang = null; }
+  }
+  if (lang !== "en" && lang !== "ja") {
+    lang = (navigator.language || "").toLowerCase().startsWith("ja") ? "ja" : "en";
+  }
+  setLang(lang);
+  toggle.addEventListener("click", () => {
+    setLang(document.documentElement.lang === "en" ? "ja" : "en");
+  });
+</script>
 </body>
 </html>
