@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ja" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shibuya Scramble Crossing 3D Desktop - 極限の3D都市デジタルツイン | Cyber Matrix</title>
+  <meta name="description" content="世界で最も有名な交差点「渋谷スクランブル交差点」とその周辺（半径650m）を3Dで忠実再現。国土交通省PLATEAU実測データ、実信号同期トラフィック、JR山手線運行、交差点中心1.6m目線7方位ビューを完全オフラインで体験できる至高のmacOSデスクトップシミュレーター。">
+  <meta name="keywords" content="渋谷スクランブル交差点, 3D都市モデル, PLATEAU, デジタルツイン, シミュレーター, macOS, 渋谷3D, 国土交通省">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/shibuya">
+  <meta property="og:title" content="Shibuya Scramble Crossing 3D Simulator Desktop">
+  <meta property="og:description" content="国土交通省PLATEAU実測3Dデータ×実信号サイクル完全同期。世界一の過密交差点をMac上に完全再現する極限の3D都市シミュレーター。">
+  <meta property="og:image" content="images/shibuya_hero_sim.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cyber-matrix.netlify.app/products/shibuya">
+  <meta property="twitter:title" content="Shibuya Scramble Crossing 3D Simulator Desktop">
+  <meta property="twitter:description" content="国土交通省PLATEAU実測3Dデータ×実信号サイクル完全同期。世界一の過密交差点をMac上に完全再現。">
+  <meta property="twitter:image" content="images/shibuya_hero_sim.png">
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="apple-touch-icon" href="images/icon-128.png">
+
+  <!-- Google Fonts: Orbitron, Plus Jakarta Sans, Noto Sans JP, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Schema.org Microdata -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Shibuya Scramble Crossing 3D Simulator Desktop",
+    "operatingSystem": "macOS 11 Big Sur or later",
+    "applicationCategory": "SimulationSoftware",
+    "offers": {
+      "@type": "Offer",
+      "price": "150",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock",
+      "url": "https://cyber-matrix.netlify.app/products/shibuya"
+    },
+    "description": "国土交通省PLATEAU実測3D都市モデルと実信号サイクル同期による渋谷スクランブル交差点3Dデスクトップシミュレーター",
+    "creator": {
+      "@type": "Organization",
+      "name": "Cyber Matrix Systems"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Ambient Glows & Futuristic Background Grid -->
+  <div class="cyber-background">
+    <div class="cyber-grid"></div>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="https://cyber-matrix.netlify.app/" class="brand-logo" title="Cyber Matrix">
+          <div class="brand-icon">
+            <img src="images/icon-128.png" alt="Shibuya Crossing 3D Icon">
+          </div>
+          <div class="brand-title">
+            <span>CYBER MATRIX</span>
+            <span class="brand-sub">N58 • SHIBUYA 3D</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#features" class="nav-link" data-i18n="navFeatures">特徴</a></li>
+          <li><a href="#views" class="nav-link" data-i18n="navViews">7方位ビュー</a></li>
+          <li><a href="#simulation" class="nav-link" data-i18n="navTech">シミュレーション技術</a></li>
+          <li><a href="#guide" class="nav-link" data-i18n="navGuide">導入・操作</a></li>
+          <li><a href="#faq" class="nav-link" data-i18n="navSpecs">システム要件</a></li>
+          <li><a href="#pricing" class="nav-link" data-i18n="navPricing">価格</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <!-- Language Selector -->
+          <div class="lang-switcher">
+            <span class="lang-icon"><i class="fa-solid fa-globe"></i></span>
+            <button type="button" class="lang-btn lang-btn-jp active">JP</button>
+            <button type="button" class="lang-btn lang-btn-en">EN</button>
+          </div>
+
+          <!-- Purchase CTA Header Button -->
+          <a href="https://cyber-matrix.netlify.app/products/shibuya" class="btn btn-primary btn-sm" id="navBuyBtn">
+            <i class="fa-brands fa-apple"></i>
+            <span data-i18n="buyCta">macOS版を購入する (¥150)</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         Hero Section
+         ==================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <div class="badge badge-cyan">
+              <span class="pulse-dot"></span>
+              <span data-i18n="heroBadge">3D DIGITAL TWIN • PLATEAU 実測都市シミュレーター</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span data-i18n="heroTitlePrefix">Shibuya Scramble Crossing 3D</span><br>
+              <span class="text-gradient" data-i18n="heroTitleSub">Simulator Desktop</span>
+            </h1>
+
+            <p class="hero-desc" data-i18n="heroDesc">
+              世界で最も有名な交差点「渋谷スクランブル交差点」とその周辺（半径650m）を3Dで忠実再現。国土交通省PLATEAU実測データによる精密建築群、実際の信号サイクルに完全同期した歩行者・車両トラフィック、JR山手線高架鉄道運行、交差点中心（目の高さ1.6m）の7方位ビュー、昼夜切替を完全ローカルで体験できる至高のデスクトップシミュレーター。
+            </p>
+
+            <div class="hero-actions">
+              <a href="https://cyber-matrix.netlify.app/products/shibuya" class="btn btn-primary btn-lg" id="heroCtaBuy">
+                <i class="fa-brands fa-apple"></i>
+                <span data-i18n="heroBuyBtn">macOS版を購入する (¥150 Stripe決済)</span>
+              </a>
+              <a href="#features" class="btn btn-secondary btn-lg" id="heroCtaExplore">
+                <i class="fa-solid fa-layer-group"></i>
+                <span data-i18n="heroExploreBtn">機能・スクリーンショットを見る</span>
+              </a>
+            </div>
+
+            <div class="hero-meta-strip">
+              <div class="hero-meta-item">
+                <i class="fa-solid fa-microchip"></i>
+                <span data-i18n="heroMeta1">Apple Silicon & Intel 両対応</span>
+              </div>
+              <div class="hero-meta-item">
+                <i class="fa-solid fa-wifi-slash"></i>
+                <span data-i18n="heroMeta2">完全オフライン動作</span>
+              </div>
+              <div class="hero-meta-item">
+                <i class="fa-solid fa-shield-check"></i>
+                <span data-i18n="heroMeta3">買い切り / 永続ライセンス</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Showcase 3D Viewport Frame -->
+          <div class="showcase-container">
+            <div class="showcase-frame">
+              <div class="showcase-header-bar">
+                <div class="mac-window-dots">
+                  <span class="mac-dot mac-dot-red"></span>
+                  <span class="mac-dot mac-dot-yellow"></span>
+                  <span class="mac-dot mac-dot-green"></span>
+                </div>
+                <span class="window-title">SHIBUYA CROSSING 3D NATIVE DESKTOP • v1.0.0</span>
+                <div class="window-status-pill">
+                  <span class="pulse-dot"></span>
+                  <span>60 FPS • METAL / WEBGL</span>
+                </div>
+              </div>
+
+              <div class="showcase-viewport">
+                <!-- Floating HUD Status -->
+                <div class="hud-overlay-card">
+                  <div class="hud-signal-title">ACTIVE RENDER MODE</div>
+                  <div class="hud-signal-status" id="hudShowcaseStatus">
+                    <i class="fa-solid fa-cube text-cyan-400"></i> 俯瞰 3D オービット (昼景)
+                  </div>
+                </div>
+
+                <div class="hud-overlay-right">
+                  <div class="hud-stat-num">半径 650m / 4Tiles</div>
+                  <div class="hud-stat-label">PLATEAU LOD2 URBAN MODEL</div>
+                </div>
+
+                <img src="images/shibuya_hero_sim.png" alt="Shibuya Scramble Crossing 3D Daylight View" class="showcase-image" id="heroShowcaseImg">
+
+                <!-- Interactive Switcher Controls -->
+                <div class="showcase-switcher">
+                  <button type="button" class="showcase-tab-btn active" data-mode="orbit">
+                    <i class="fa-solid fa-cube"></i> <span data-i18n="tabOrbit">俯瞰 3D Orbit</span>
+                  </button>
+                  <button type="button" class="showcase-tab-btn" data-mode="night">
+                    <i class="fa-solid fa-moon"></i> <span data-i18n="tabNight">シネマティック夜景</span>
+                  </button>
+                  <button type="button" class="showcase-tab-btn" data-mode="street">
+                    <i class="fa-solid fa-street-view"></i> <span data-i18n="tabStreet">交差点 1.6m 目線</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Live Traffic Signal Simulation Bar
+         ==================================================================== -->
+    <section class="signal-simulation-section" id="simulation">
+      <div class="container">
+        <div class="signal-sim-card">
+          <div class="signal-sim-header">
+            <div class="signal-phase-display">
+              <div class="traffic-light-pill state-green" id="simTrafficLight">
+                <i class="fa-solid fa-person-walking"></i>
+              </div>
+              <div class="signal-sim-info">
+                <div class="badge badge-cyan" style="margin-bottom:0.35rem;" data-i18n="signalSectionBadge">REAL-TIME TRAFFIC ENGINE</div>
+                <h4 id="simPhaseTitle" data-i18n="signalPhase1">歩行者 青信号 (一斉斜め横断)</h4>
+                <p id="simPhaseDesc" data-i18n="signalDescPed">最大1,200人規模の歩行者が一斉に斜め横断を開始。リアルタイムな人数カウントと衝突回避AIが稼働。</p>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+              <div>
+                <div style="font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); text-transform:uppercase;" data-i18n="pedCountLabel">交差点内 横断歩行者数</div>
+                <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:900; color:var(--cyan-400);" id="simPedCount">1,048</div>
+              </div>
+
+              <div class="signal-countdown-box">
+                <span class="countdown-num" id="simCountdown">32</span>
+                <span class="countdown-unit">SEC</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase Timeline Progress Multi-segment -->
+          <div class="signal-timeline">
+            <div class="phase-step active" title="歩行者青 (32s)"></div>
+            <div class="phase-step" title="歩行者点滅 (6s)"></div>
+            <div class="phase-step" title="全赤 (4s)"></div>
+            <div class="phase-step" title="東西車道 (22s)"></div>
+            <div class="phase-step" title="全赤 (4s)"></div>
+            <div class="phase-step" title="南北車道 (21s)"></div>
+          </div>
+
+          <div class="phase-labels-row">
+            <span>PEDESTRIAN WALK (32s)</span>
+            <span>FLASH (6s)</span>
+            <span>ALL RED (4s)</span>
+            <span>DOGENZAKA VEHICLES (22s)</span>
+            <span>ALL RED (4s)</span>
+            <span>KOEN-DORI VEHICLES (21s)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         7-Viewpoint Interactive 360° Explorer
+         ==================================================================== -->
+    <section class="viewpoints-section" id="views">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge badge-cyan" data-i18n="viewSectionBadge">GROUND LEVEL 1.6M PANORAMA</div>
+          <h2 class="section-title" data-i18n="viewSectionTitle">交差点中心・目の高さ1.6m 7方位ビュー</h2>
+          <p class="section-subtitle" data-i18n="viewSectionSub">
+            交差点の真ん中に立った歩行者目線（高さ1.6m）から、渋谷の象徴的ランドマーク群へワンタッチで視点を切り替え。自由なオービット回転や見上げ・見下ろしにも完全対応。
+          </p>
+        </div>
+
+        <div class="viewpoints-grid">
+          <!-- Viewpoint Selection Buttons -->
+          <div class="viewpoint-list">
+            <button type="button" class="view-item-btn active">
+              <span>Q FRONT</span>
+              <span class="view-deg-badge">346° NNW</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>西武・井の頭通り</span>
+              <span class="view-deg-badge">12° NNE</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>JR高架・宮益坂</span>
+              <span class="view-deg-badge">84° E</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>スクランブルスクエア</span>
+              <span class="view-deg-badge">132° SE</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>駅前・ハチ公口</span>
+              <span class="view-deg-badge">176° S</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>渋谷駅前ビル / MAGNET</span>
+              <span class="view-deg-badge">232° SW</span>
+            </button>
+            <button type="button" class="view-item-btn">
+              <span>道玄坂・SHIBUYA 109</span>
+              <span class="view-deg-badge">278° W</span>
+            </button>
+          </div>
+
+          <!-- Viewpoint Interactive Display Screen -->
+          <div class="viewpoint-preview-card">
+            <div class="viewpoint-image-frame">
+              <img src="images/shibuya_street_view.png" alt="Q FRONT Viewpoint" class="viewpoint-image" id="viewpointImg">
+              <div class="viewpoint-overlay-info">
+                <div>
+                  <div class="view-heading-title" id="viewpointTitle">Q FRONT (TSUTAYA / 大型ビジョン)</div>
+                  <div class="view-heading-meta" id="viewpointDeg">346° (北北西 / NNW)</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Viewpoint Telemetry Stats -->
+            <div class="viewpoint-details-row">
+              <div class="view-stat-box">
+                <div class="view-stat-title">交差点からの距離</div>
+                <div class="view-stat-val font-mono" id="viewpointDist">48m</div>
+              </div>
+              <div class="view-stat-box">
+                <div class="view-stat-title">実測建物高さ</div>
+                <div class="view-stat-val font-mono" id="viewpointHeight">133.0m</div>
+              </div>
+              <div class="view-stat-box">
+                <div class="view-stat-title">建物用途区分</div>
+                <div class="view-stat-val font-mono" id="viewpointUsage">商業・大型スクリーン</div>
+              </div>
+            </div>
+
+            <p style="font-size:0.875rem; color:var(--text-muted); line-height:1.6;" id="viewpointDesc">
+              交差点の北側にそびえる渋谷の象徴。巨大LEDスクリーン「Q'S EYE」と曲線ガラスファサードをLOD2形状で完全再現。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Bento Grid Features
+         ==================================================================== -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge badge-cyan" data-i18n="featBadge">ULTRA REALISTIC TWIN FEATURES</div>
+          <h2 class="section-title" data-i18n="featTitle">なぜデスクトップ版（DL版）なのか？</h2>
+          <p class="section-subtitle" data-i18n="featSub">
+            ブラウザ版では到達できない圧倒的な描写力・レスポンス・完全ローカルセキュリティを実現。
+          </p>
+        </div>
+
+        <div class="bento-grid">
+          
+          <!-- Card 1: PLATEAU LOD2 (Col 8) -->
+          <div class="bento-card bento-col-8">
+            <div>
+              <div class="bento-icon-wrapper icon-cyan">
+                <i class="fa-solid fa-city"></i>
+              </div>
+              <h3 class="bento-title" data-i18n="f1Title">国土交通省 PLATEAU 実測 3D 都市モデル (LOD2)</h3>
+              <p class="bento-desc" data-i18n="f1Desc">
+                渋谷区最新のPLATEAU実測データに基づき、半径650mの建築群を実寸の高さと屋根・庇・看板形状（LOD2）で緻密に描画。国土地理院のシームレス航空写真メッシュと完全同期。
+              </p>
+            </div>
+            
+            <!-- Interactive HUD Inspector Demo -->
+            <div class="inspector-demo">
+              <div class="inspector-tabs">
+                <button type="button" class="inspector-tab-btn active" data-bldg="qfront">Q-FRONT</button>
+                <button type="button" class="inspector-tab-btn" data-bldg="scramble">スクランブルスクエア</button>
+                <button type="button" class="inspector-tab-btn" data-bldg="magnet">MAGNET by SHIBUYA109</button>
+                <button type="button" class="inspector-tab-btn" data-bldg="shibuya109">SHIBUYA 109</button>
+              </div>
+              <div class="inspector-hud-box">
+                <div class="hud-field"><span class="hud-field-name">名称:</span><span class="hud-field-val" id="hudValName">Q-FRONT</span></div>
+                <div class="hud-field"><span class="hud-field-name">実測高:</span><span class="hud-field-val" id="hudValHeight">133.0 m (地上8階)</span></div>
+                <div class="hud-field"><span class="hud-field-name">交差点距離:</span><span class="hud-field-val" id="hudValDist">48.2 m</span></div>
+                <div class="hud-field"><span class="hud-field-name">方位角:</span><span class="hud-field-val" id="hudValAzimuth">346° (北北西)</span></div>
+                <div class="hud-field" style="grid-column: span 2;"><span class="hud-field-name">用途:</span><span class="hud-field-val" id="hudValUsage">商業・TSUTAYA・大型スクリーン</span></div>
+              </div>
+            </div>
+
+            <div class="bento-tags" style="margin-top:1.25rem;">
+              <span class="tech-tag">PLATEAU 2025 CityGML</span>
+              <span class="tech-tag">LOD2 Roof Geometries</span>
+              <span class="tech-tag">GSI Orthophoto</span>
+              <span class="tech-tag">Real Elevation DEM</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Traffic Cycle & Rail (Col 4) -->
+          <div class="bento-card bento-col-4">
+            <div>
+              <div class="bento-icon-wrapper icon-purple">
+                <i class="fa-solid fa-traffic-light"></i>
+              </div>
+              <h3 class="bento-title" data-i18n="f2Title">実信号同期 ＆ 車両・鉄道AI</h3>
+              <p class="bento-desc" data-i18n="f2Desc">
+                歩行者青（32秒）→点滅（6秒）→東西車道（22秒）→南北車道（21秒）の精密サイクル。JR山手線・埼京線が25秒間駅に停車し、5種類のアドトラックや路線バスが走ります。
+              </p>
+            </div>
+            <div class="bento-tags">
+              <span class="tech-tag">JR Yamanote Viaduct</span>
+              <span class="tech-tag">Moving Ad Trucks (5 types)</span>
+              <span class="tech-tag">Left-hand Traffic Rules</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Cinematic Night & Analysis (Col 6) -->
+          <div class="bento-card bento-col-6">
+            <div>
+              <div class="bento-icon-wrapper icon-pink">
+                <i class="fa-solid fa-moon"></i>
+              </div>
+              <h3 class="bento-title" data-i18n="f4Title">シネマティック夜景 ＆ 4倍速・一時停止・車経路可視化</h3>
+              <p class="bento-desc" data-i18n="f4Desc">
+                ビル窓明かりや大型ビジョンが輝く夜景モード、時間の4倍速送り、一時停止中の自由カメラ操作、路面上の車両走行軌道・停止線の可視化ラインを搭載。
+              </p>
+            </div>
+            <div class="bento-tags">
+              <span class="tech-tag">Night Window Glow</span>
+              <span class="tech-tag">4x Time Warp</span>
+              <span class="tech-tag">Route Trajectory Lines</span>
+            </div>
+          </div>
+
+          <!-- Card 4: 100% Offline & Native Binary (Col 6) -->
+          <div class="bento-card bento-col-6">
+            <div>
+              <div class="bento-icon-wrapper icon-emerald">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <h3 class="bento-title" data-i18n="f5Title">完全オフライン・ゼロ遅延・プライバシー保護</h3>
+              <p class="bento-desc" data-i18n="f5Desc">
+                外部通信を一切行わないため、セキュリティが厳しい環境やオフラインでもフル機能で動作。Universal BinaryによりM1/M2/M3/M4およびIntel Macで60FPS動作。
+              </p>
+            </div>
+            <div class="bento-tags">
+              <span class="tech-tag">Universal Binary (M-Series / Intel)</span>
+              <span class="tech-tag">Zero Telemetry</span>
+              <span class="tech-tag">Instant Startup</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Data Pipeline & Architecture
+         ==================================================================== -->
+    <section class="tech-pipeline-section" id="pipeline">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge badge-cyan" data-i18n="archBadge">DATA ENGINE & PIPELINE</div>
+          <h2 class="section-title" data-i18n="archTitle">精密データを支える4大基盤</h2>
+          <p class="section-subtitle" data-i18n="archSub">
+            公的実測データと最適化エンジンが融合した次世代デジタルツイン設計。
+          </p>
+        </div>
+
+        <div class="pipeline-cards-row">
+          <div class="pipeline-card">
+            <span class="pipeline-badge">MLIT DATA</span>
+            <h4>国土交通省 PLATEAU</h4>
+            <p>2025年度渋谷区CityGML実測モデルを採用。全棟が実測標高と実寸高さ。交差点400m以内は屋根や庇・看板まで精密なLOD2再現。</p>
+          </div>
+
+          <div class="pipeline-card">
+            <span class="pipeline-badge">GSI IMAGERY</span>
+            <h4>国土地理院 シームレス空中写真</h4>
+            <p>Zoom 18（交差点周辺1.36km四方）およびZoom 16（広域4.5km四方）のオルソ補正済み高解像度航空写真メッシュをテクスチャ化。</p>
+          </div>
+
+          <div class="pipeline-card">
+            <span class="pipeline-badge">MAP & RAILWAY</span>
+            <h4>OpenStreetMap 道路・鉄道路線</h4>
+            <p>車道中心線・車線数・一方通行規制・JR山手線4線の線形データを正確にインポートし、スムーズなベジェ曲線交通ルートを生成。</p>
+          </div>
+
+          <div class="pipeline-card">
+            <span class="pipeline-badge">GRAPHICS ENGINE</span>
+            <h4>WebGL / Metal 60FPS レンダラー</h4>
+            <p>15MB未満の軽量パッケージながら、数万ポリゴンの建築群・数百の動的エージェントを秒間60フレームで極めて滑らかにレンダリング。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Quick Start & macOS Gatekeeper Guide
+         ==================================================================== -->
+    <section class="guide-section" id="guide">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge badge-cyan" data-i18n="guideBadge">QUICK START & CONTROLS</div>
+          <h2 class="section-title" data-i18n="guideTitle">簡単導入 ＆ マウス・トラックパッド操作</h2>
+        </div>
+
+        <div class="guide-steps-grid">
+          <div class="guide-step-card">
+            <div class="step-number">01</div>
+            <h4 data-i18n="guideStep1Title">1. DMGを開いてアプリへドラッグ</h4>
+            <p data-i18n="guideStep1Desc">
+              ダウンロードした .dmg ファイルを開き、Shibuya Crossing 3D のアイコンを「アプリケーション」フォルダへドラッグ＆ドロップします。
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="step-number">02</div>
+            <h4 data-i18n="guideStep2Title">2. 初回起動（Gatekeeper解除）</h4>
+            <p data-i18n="guideStep2Desc">
+              初回起動時は、Finderでアプリを右クリック（control+クリック）→「開く」を選ぶか、システム設定の「プライバシーとセキュリティ」から「このまま開く」をクリックします。
+            </p>
+          </div>
+
+          <div class="guide-step-card">
+            <div class="step-number">03</div>
+            <h4 data-i18n="guideStep3Title">3. 直感的な3Dカメラ操作</h4>
+            <p data-i18n="guideStep3Desc">
+              左ドラッグで回転、右ドラッグ（または2本指ドラッグ）で移動、ホイール（ピンチ）で拡大縮小。交差点目線では見回し操作が可能。
+            </p>
+          </div>
+        </div>
+
+        <!-- Gatekeeper Security Box -->
+        <div class="gatekeeper-notice-box">
+          <div class="notice-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="notice-content">
+            <h5 data-i18n="gatekeeperTitle">初回起動時のセキュリティについて</h5>
+            <p data-i18n="gatekeeperDesc">
+              本アプリは公証サーバーへの通信を不要とする完全オフライン設計のため、macOSの「開発元を検証できません」画面が出ることがあります。上記「2. 初回起動」の手順で安全に起動できます（2回目以降は通常通りダブルクリックで起動します）。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         Pricing & Purchase Card Section
+         ==================================================================== -->
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="pricing-card-container">
+          <div class="pricing-card">
+            <div class="pricing-badge-top">
+              <div class="badge badge-cyan" data-i18n="pricingBadge">ONE-TIME PURCHASE</div>
+            </div>
+
+            <h3 class="pricing-title" data-i18n="pricingTitle">Shibuya Scramble Crossing 3D</h3>
+            <p class="pricing-desc" data-i18n="pricingSub">一度の購入で永久利用可能・追加課金なしの完全買い切り型デスクトップアプリ</p>
+
+            <div class="price-display">
+              <span class="price-currency">¥</span>
+              <span class="price-amount text-gradient" data-i18n="priceAmount">150</span>
+              <span class="price-tax" data-i18n="priceUnit">(税込)</span>
+            </div>
+
+            <ul class="pricing-features-list">
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat1">macOS Universal Binary (Apple Silicon / Intel 両対応)</span>
+              </li>
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat2">国土交通省 PLATEAU 実測 LOD2 建築データ内蔵</span>
+              </li>
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat3">国土地理院 航空写真メッシュ ＆ JR山手線運行エンジン</span>
+              </li>
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat4">交差点中心 1.6m 目線 7方位ビュー ＆ シネマティック夜景</span>
+              </li>
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat5">完全オフライン動作・追加サブスクリプション課金ゼロ</span>
+              </li>
+              <li class="pricing-feature-item">
+                <i class="fa-solid fa-circle-check"></i>
+                <span data-i18n="pFeat6">Stripe暗号化決済 ＆ 即時DMGダウンロード</span>
+              </li>
+            </ul>
+
+            <a href="https://cyber-matrix.netlify.app/products/shibuya" class="btn btn-primary pricing-cta-btn" id="pricingCardCta">
+              <i class="fa-brands fa-apple"></i>
+              <span data-i18n="pricingCta">macOS版を購入する (Stripe決済)</span>
+            </a>
+
+            <div class="pricing-specs-box">
+              <div style="font-weight:700; color:#fff; margin-bottom:0.25rem;">
+                <i class="fa-solid fa-desktop text-cyan-400"></i> システム要件
+              </div>
+              <p>• <strong>macOS</strong>: macOS 11 Big Sur 以降（M1/M2/M3/M4 & Intel Universal Binary）</p>
+              <p>• <strong>通信環境</strong>: 不要（オフラインで完全動作 / 接続時は高品位Webフォント表示）</p>
+              <p>• <strong>データ出典</strong>: 国土地理院 航空写真 / 国土交通省 PLATEAU / OpenStreetMap</p>
+            </div>
+
+            <div style="margin-top:1.5rem; display:flex; justify-content:center; align-items:center; gap:1rem; font-size:0.75rem; color:var(--text-dim);">
+              <span><i class="fa-solid fa-lock text-cyan-400"></i> Stripe安全決済</span>
+              <span>•</span>
+              <span><i class="fa-solid fa-download text-purple-400"></i> 即時DMGダウンロード</span>
+              <span>•</span>
+              <span><i class="fa-solid fa-infinity text-pink-400"></i> 完全買い切り</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         FAQ Section
+         ==================================================================== -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div class="badge badge-cyan">HELP & FAQ</div>
+          <h2 class="section-title" data-i18n="faqTitle">よくあるご質問 (FAQ)</h2>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- Item 1 -->
+          <div class="faq-item active">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq1Q">Q. どのMacで動作しますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq1A">
+                macOS 11 Big Sur 以降に対応しています。Apple Silicon (M1 / M2 / M3 / M4) および Intelプロセッサの両方に最適化された Universal Binary です。
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq2Q">Q. インターネット接続は必要ですか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq2A">
+                いいえ、購入後の動作にインターネット接続は一切不要です。オフライン環境でもすべての3Dモデル、トラフィック、視点切替がフルスピードで動作します。
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq3Q">Q. 将来的な追加料金やサブスクリプションはありますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq3A">
+                一切ありません。150円の完全買い切りで、永久にご利用いただけます。
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question-btn">
+              <span data-i18n="faq4Q">Q. 教育目的や商用プレゼンテーションで利用できますか？</span>
+              <i class="fa-solid fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+              <p data-i18n="faq4A">
+                はい。都市計画の研究、プレゼンテーション、教育資料、映像背景などにご活用いただけます（出典：国土地理院 / 国土交通省 PLATEAU / OpenStreetMap）。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>CYBER MATRIX DESKTOP STORE</h3>
+          <p>Tactical AI Hologram Simulator & Urban Digital Twin</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="https://cyber-matrix.netlify.app/" class="footer-link" data-i18n="backToStore">ストアトップに戻る</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/products/shibuya" class="footer-link">Shibuya 3D Product Page</a></li>
+          <li><a href="#hero" class="footer-link">TOP</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <div>
+          <span>データ出典: 国土地理院（シームレス空中写真） / 国土交通省 PLATEAU（渋谷区 2025年度） / © OpenStreetMap contributors</span>
+        </div>
+        <div>
+          <span>© 2026 Cyber Matrix Systems. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
