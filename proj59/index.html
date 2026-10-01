@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHUTOKO TOKYO LOOP | 首都高 3D都市モデル レーシングシミュレーター</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="実測3D都市モデル（Project PLATEAU）から再現された首都高17.5kmの周回コースを、フォーミュラマシンで駆け抜ける本格レーシング＆ドライビングシミュレーター。ブラウザで即座に体験可能。">
+  <meta name="keywords" content="首都高, 3D都市モデル, Project PLATEAU, レーシングシミュレーター, WebGL, 東京夜景, レインボーブリッジ, 自動運転">
+  <meta name="author" content="Cyber Matrix">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:title" content="SHUTOKO TOKYO LOOP | 首都高 3D都市モデル レーシングシミュレーター">
+  <meta property="og:description" content="実測3D都市モデルで走る首都高17.5km周回コース。リアルな東京の夜をフォーミュラマシンで疾走。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/shutoko">
+  <meta property="og:image" content="https://cyber-matrix.netlify.app/products/shutoko/assets/hero_shutoko.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='4' fill='%2307090e'/><path d='M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-4.66l.12-.34h13.77l.11.34V17z' fill='%2300f0ff'/></svg>">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Lighting Effects & Cyber Grid -->
+  <div class="cyber-grid-overlay"></div>
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+  <div class="ambient-glow ambient-glow-3"></div>
+
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="brand-logo" id="nav-brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-4.66l.12-.34h13.77l.11.34V17z"/>
+            <circle cx="7.5" cy="14.5" r="1.5"/>
+            <circle cx="16.5" cy="14.5" r="1.5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span>SHUTOKO TOKYO</span>
+          <span class="brand-sub">CYBER MATRIX</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#overview" class="nav-link active" data-i18n="nav_overview">概要</a></li>
+        <li><a href="#features" class="nav-link" data-i18n="nav_features">特徴</a></li>
+        <li><a href="#modes" class="nav-link" data-i18n="nav_modes">運転モード</a></li>
+        <li><a href="#course" class="nav-link" data-i18n="nav_course">コースガイド</a></li>
+        <li><a href="#specs" class="nav-link" data-i18n="nav_specs">動作環境</a></li>
+        <li><a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="langSwitchBtn" class="lang-switch-btn" aria-label="Toggle language">
+          🌐 EN / 日本語
+        </button>
+        <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary" target="_blank" rel="noopener noreferrer" id="nav-cta-btn">
+          <span data-i18n="launch_app">今すぐ体験する</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="overview">
+    <div class="container hero-layout">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="pulse-dot"></span>
+          <span data-i18n="hero_tag">リアル東京 3D都市モデル × 首都高 17.5km フル周回</span>
+        </div>
+        <h1 class="hero-title" data-i18n="hero_title">
+          リアルな東京の夜を、<br><span class="gradient-text">フォーミュラマシンで駆け抜けろ。</span>
+        </h1>
+        <p class="hero-desc" data-i18n="hero_desc">
+          Project PLATEAUの3D都市モデル実データをベースに再現された首都高周回コース（約17.5km）。最先端のWebGLグラフィックスとリアルな走行物理で、ブラウザから即座に東京のハイウェイを疾走するシミュレーター体験。
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary btn-racing" target="_blank" rel="noopener noreferrer" id="hero-main-cta">
+            <span data-i18n="btn_play_now">ブラウザで体験する (無料)</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </a>
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-secondary" target="_blank" rel="noopener noreferrer" id="hero-secondary-cta">
+            <span data-i18n="btn_product_details">プロダクト詳細を見る</span>
+          </a>
+        </div>
+
+        <div class="hero-badges">
+          <div class="hero-badge-item">
+            <div class="hero-badge-value">17.5 <span>km</span></div>
+            <div class="hero-badge-label" data-i18n="stat_distance">コース全長</div>
+          </div>
+          <div class="hero-badge-item">
+            <div class="hero-badge-value">3 <span>Modes</span></div>
+            <div class="hero-badge-label" data-i18n="stat_modes">運転モード</div>
+          </div>
+          <div class="hero-badge-item">
+            <div class="hero-badge-value">350+ <span>km/h</span></div>
+            <div class="hero-badge-label" data-i18n="stat_max_speed">最高速度</div>
+          </div>
+          <div class="hero-badge-item">
+            <div class="hero-badge-value">100% <span>PLATEAU</span></div>
+            <div class="hero-badge-label" data-i18n="stat_fidelity">リアル都市データ</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Display Card -->
+      <div class="hero-visual-card">
+        <img src="./assets/hero_shutoko.jpg" alt="Shutoko Tokyo Formula Racing Visual" class="hero-visual-img" id="heroVisualImg">
+        <div class="hero-visual-overlay"></div>
+        <div class="hero-visual-telemetry">
+          <div class="telemetry-col">
+            <span class="telemetry-label">CURRENT SPEED</span>
+            <span class="telemetry-value" id="liveTelemetrySpeed">288 km/h</span>
+          </div>
+          <div class="telemetry-col">
+            <span class="telemetry-label">LATERAL G</span>
+            <span class="telemetry-value" id="liveTelemetryGForce">1.52 G</span>
+          </div>
+          <div class="telemetry-col">
+            <span class="telemetry-label">TRACK SECTOR</span>
+            <span class="telemetry-value" style="color: var(--accent-gold);">S1: DAIBA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Bar -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon">🛣️</div>
+          <div class="metric-info">
+            <h3 data-i18n="metrics_1_title">17.5 km</h3>
+            <p data-i18n="metrics_1_desc">首都高フルループ周回</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🏎️</div>
+          <div class="metric-info">
+            <h3 data-i18n="metrics_2_title">350+ km/h</h3>
+            <p data-i18n="metrics_2_desc">超高速フォーミュラ走行</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🎮</div>
+          <div class="metric-info">
+            <h3 data-i18n="metrics_3_title">3 Modes</h3>
+            <p data-i18n="metrics_3_desc">完全自動・半自動・手動</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-info">
+            <h3 data-i18n="metrics_4_title">0 Install</h3>
+            <p data-i18n="metrics_4_desc">ブラウザ即起動 & アプリ版</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="feat_tag">CORE FEATURES</span>
+        <h2 class="section-title" data-i18n="feat_title">最先端技術が融合するドライビング体験</h2>
+        <p class="section-desc" data-i18n="feat_desc">
+          高精細な3D都市モデル、緻密なコーナリング物理、昼夜・雨天のダイナミックな環境変化を余すところなく体験できます。
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f1_title">リアルな東京3D都市モデル</h3>
+          <p class="feature-text" data-i18n="f1_desc">
+            実測データから生成されたレインボーブリッジ、東京タワー、林立する高層ビル群、複雑な高架ジャンクションを圧倒的スケールで再現。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Project PLATEAU</span>
+            <span class="feature-tag-chip">WebGL 2.0</span>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"></circle>
+              <line x1="12" y1="3" x2="12" y2="12"></line>
+              <line x1="12" y1="12" x2="18" y2="15"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f2_title">3段階のドライビング制御</h3>
+          <p class="feature-text" data-i18n="f2_desc">
+            安全な高速巡航をこなす完全自動（AUTO）、加速スリルを味わう半自動（SEMI）、腕が試される完全手動（MANUAL）をワンキーで切り替え。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Auto / Semi / Manual</span>
+            <span class="feature-tag-chip">Lateral-G Control</span>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f3_title">ダイナミック天候＆グリップ変化</h3>
+          <p class="feature-text" data-i18n="f3_desc">
+            昼・夕暮れ・夜のライティング遷移に加え、雨天時にはリアルな路面反射とウェットコンディション（グリップ力65%低下）をシミュレート。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Day / Sunset / Night</span>
+            <span class="feature-tag-chip">Wet Physics</span>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f4_title">4視点マルチカメラ</h3>
+          <p class="feature-text" data-i18n="f4_desc">
+            後方追従、低重心なコックピット視点、コース全体を見渡す上空カメラ、マウスで自由自在に見回せるフリーカメラを搭載。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Chase / Cockpit</span>
+            <span class="feature-tag-chip">Overhead / Free Orbit</span>
+          </div>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f5_title">本格HUD・テレメトリ解析</h3>
+          <p class="feature-text" data-i18n="f5_desc">
+            横Gメーター、カーブごとの推奨安全速度サジェスト、ミニマップ、セクター別ラップタイム計測などレーシング計器を完備。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Real-time HUD</span>
+            <span class="feature-tag-chip">Lap Analytics</span>
+          </div>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+              <rect x="9" y="9" width="6" height="6"></rect>
+              <line x1="9" y1="1" x2="9" y2="4"></line>
+              <line x1="15" y1="1" x2="15" y2="4"></line>
+              <line x1="9" y1="20" x2="9" y2="23"></line>
+              <line x1="15" y1="20" x2="15" y2="23"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f6_title">クロスプラットフォーム</h3>
+          <p class="feature-text" data-i18n="f6_desc">
+            PCブラウザですぐに遊べるWebGL版に加え、Apple Silicon Mac / Windows 向けの超高速ネイティブデスクトップアプリも提供。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Web / macOS / Windows</span>
+            <span class="feature-tag-chip">Tauri Native App</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visual Feature Highlight Split 1: Cockpit & Telemetry -->
+  <section class="container highlight-split">
+    <div class="highlight-media-container">
+      <img src="./assets/cockpit_hud.jpg" alt="Cockpit View with Telemetry Display" class="highlight-img">
+    </div>
+    <div class="highlight-content">
+      <span class="section-tag">COCKPIT IMMERSION</span>
+      <h3>地を這うフォーミュラ視点と<br>リアルタイム・レーシングHUD</h3>
+      <p>
+        地面すれすれの圧倒的スピード感。F1ステアリングに表示されるRPMインジケーター、ギアポジション、現在の横Gフォース、各コーナーの安全進入速度アラートがドライバーの判断を支援します。
+      </p>
+      <ul class="highlight-points">
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>横Gリミッター（0.5G〜2.2G）に応じたリアルタイム安全速度インジケーター</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>トラクションコントロール（TCS）＆ アンチロックブレーキ（ABS）常時稼働</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>ベストラップ保存機能＆不正ショートカット自動検知システム</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Interactive Driving Modes Section -->
+  <section class="modes-section" id="modes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="modes_tag">DRIVING STYLES</span>
+        <h2 class="section-title" data-i18n="modes_title">あなたの好みに合わせた3つの走行モード</h2>
+        <p class="section-desc" data-i18n="modes_desc">
+          走行中いつでも「M」キーひとつで切り替え可能。景色を楽しみたい初心者からタイムアタックに挑む上級者まで。
+        </p>
+      </div>
+
+      <!-- Mode Tabs -->
+      <div class="modes-tabs">
+        <button class="mode-tab-btn active" data-mode="auto">
+          🤖 完全自動 (AUTO)
+        </button>
+        <button class="mode-tab-btn" data-mode="semi">
+          ⚡ 半自動 (SEMI)
+        </button>
+        <button class="mode-tab-btn" data-mode="manual">
+          🔥 完全手動 (MANUAL)
+        </button>
+      </div>
+
+      <!-- Mode Tab 1: AUTO -->
+      <div class="mode-tab-content active" id="mode-auto">
+        <div class="mode-detail-box">
+          <span class="mode-badge">AI CRUISE</span>
+          <h4>完全自動モード (AUTO)</h4>
+          <p>
+            AIが最適なレーシングラインと横Gリミッターに基づき、ステアリングと加減速を完全自動で制御。急なカーブの手前でも壁に接触しない安全な速度まで自動減速します。東京の街並みを眺めたい方に最適です。
+          </p>
+          <table class="mode-specs-table">
+            <tr>
+              <td>ステアリング</td>
+              <td>完全自動（レーシングライン追従）</td>
+            </tr>
+            <tr>
+              <td>速度コントロール</td>
+              <td>完全自動（目標速度 50〜320 km/h 設定可能）</td>
+            </tr>
+            <tr>
+              <td>操作キー</td>
+              <td>↑ / ↓ 目標速度調整, [ / ] 横G上限調整</td>
+            </tr>
+            <tr>
+              <td>おすすめ対象</td>
+              <td>景観を楽しみたい方、3D都市モデルを鑑賞したい方</td>
+            </tr>
+          </table>
+        </div>
+        <div class="mode-visual-box">
+          <img src="./assets/city_mesh_overview.jpg" alt="Autonomous driving over Tokyo city">
+        </div>
+      </div>
+
+      <!-- Mode Tab 2: SEMI -->
+      <div class="mode-tab-content" id="mode-semi">
+        <div class="mode-detail-box">
+          <span class="mode-badge" style="background: var(--accent-gold); color: #000;">ACCEL & BRAKE</span>
+          <h4>半自動モード (SEMI)</h4>
+          <p>
+            ハンドル操作は自動ライン追従に任せ、アクセルとブレーキの操作をドライバー自身が担当。安全速度表示を見極めながら、コーナー手前でどこまで突っ込めるかのブレーキング勝負を楽しめます。
+          </p>
+          <table class="mode-specs-table">
+            <tr>
+              <td>ステアリング</td>
+              <td>自動（完全自動と同じ理想ライン）</td>
+            </tr>
+            <tr>
+              <td>速度コントロール</td>
+              <td>手動（アクセル＆ブレーキ）</td>
+            </tr>
+            <tr>
+              <td>操作キー</td>
+              <td>W / ↑ アクセル, S / ↓ ブレーキ</td>
+            </tr>
+            <tr>
+              <td>おすすめ対象</td>
+              <td>手軽にスピード感とスリルを味わいたい方</td>
+            </tr>
+          </table>
+        </div>
+        <div class="mode-visual-box">
+          <img src="./assets/hero_shutoko.jpg" alt="Semi-autonomous formula racing">
+        </div>
+      </div>
+
+      <!-- Mode Tab 3: MANUAL -->
+      <div class="mode-tab-content" id="mode-manual">
+        <div class="mode-detail-box">
+          <span class="mode-badge" style="background: var(--accent-red);">FULL CONTROL</span>
+          <h4>完全手動モード (MANUAL)</h4>
+          <p>
+            ステアリング、アクセル、ブレーキのすべてを自らの手でコントロール。速度に応じてハンドルの切れ角が最適化され、ABSとトラクションコントロールが限界領域でのマシン挙動を支えます。
+          </p>
+          <table class="mode-specs-table">
+            <tr>
+              <td>ステアリング</td>
+              <td>手動（速度感応型ステアリングアシスト）</td>
+            </tr>
+            <tr>
+              <td>速度コントロール</td>
+              <td>手動（フルスロットル＆フルブレーキ）</td>
+            </tr>
+            <tr>
+              <td>操作キー</td>
+              <td>A / D / ← / → ハンドル, W / S / ↑ / ↓ 加減速</td>
+            </tr>
+            <tr>
+              <td>おすすめ対象</td>
+              <td>最速ラップレコード更新を目指すエキスパート</td>
+            </tr>
+          </table>
+        </div>
+        <div class="mode-visual-box">
+          <img src="./assets/cockpit_hud.jpg" alt="Full manual racing control in cockpit">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Course Map & Guide Section -->
+  <section class="course-section" id="course">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="course_tag">COURSE GUIDE</span>
+        <h2 class="section-title" data-i18n="course_title">首都高 17.5km ループ 全6区間</h2>
+        <p class="section-desc" data-i18n="course_desc">
+          芝浦JCTからレインボーブリッジを渡り、湾岸線、深川線、箱崎JCT、銀座の地下掘割を経て浜崎橋へと戻る名コース。
+        </p>
+      </div>
+
+      <div class="course-grid">
+        <!-- Selector List -->
+        <div class="course-selector-list">
+          <button class="course-item-btn active" data-section="s1">
+            <div class="course-item-left">
+              <span class="course-code">S1</span>
+              <div>
+                <div class="course-name-title">11号台場線 (芝浦JCT → レインボーブリッジ)</div>
+                <div class="course-route-sub">3.2 km / レインボーブリッジ海抜50m絶景</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+
+          <button class="course-item-btn" data-section="s2">
+            <div class="course-item-left">
+              <span class="course-code">S2</span>
+              <div>
+                <div class="course-name-title">湾岸線 (有明JCT → 辰巳JCT)</div>
+                <div class="course-route-sub">3.8 km / 超高速ストレート (350km/h+)</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+
+          <button class="course-item-btn" data-section="s3">
+            <div class="course-item-left">
+              <span class="course-code">S3</span>
+              <div>
+                <div class="course-name-title">9号深川線 (辰巳JCT → 箱崎JCT)</div>
+                <div class="course-route-sub">3.5 km / 運河沿いのロング高架直線</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+
+          <button class="course-item-btn" data-section="s4">
+            <div class="course-item-left">
+              <span class="course-code">S4</span>
+              <div>
+                <div class="course-name-title">6号向島線・箱崎 (箱崎JCT → 江戸橋JCT)</div>
+                <div class="course-route-sub">2.1 km / 巨大立体多層ジャンクション</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+
+          <button class="course-item-btn" data-section="s5">
+            <div class="course-item-left">
+              <span class="course-code">S5</span>
+              <div>
+                <div class="course-name-title">C1 都心環状線 (江戸橋JCT → 銀座掘割)</div>
+                <div class="course-route-sub">2.9 km / ビルの谷間を縫うテクニカル半地下</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+
+          <button class="course-item-btn" data-section="s6">
+            <div class="course-item-left">
+              <span class="course-code">S6</span>
+              <div>
+                <div class="course-name-title">1号羽田線 (銀座 → 浜崎橋JCT → 芝浦)</div>
+                <div class="course-route-sub">2.0 km / ループ完結のラストスパート</div>
+              </div>
+            </div>
+            <span>➔</span>
+          </button>
+        </div>
+
+        <!-- Preview Display -->
+        <div class="course-preview-display">
+          <div class="course-preview-image-container">
+            <img src="./assets/sunset_rainbow_bridge.jpg" alt="Course Section Preview" id="coursePreviewImg">
+          </div>
+          <div class="course-preview-details">
+            <h4 id="coursePreviewTitle">S1: 11号台場線 (芝浦JCT → レインボーブリッジ)</h4>
+            <p id="coursePreviewDesc">
+              芝浦JCTのタイトな360度ループを上り、海面から約50mの高さに架かるレインボーブリッジへ。東京湾と夜景を一望できる爽快な絶景区間です。
+            </p>
+            <div class="course-metrics-row">
+              <div class="course-metric-pill">
+                <span>区間長</span>
+                <span id="courseMetricLength">3.2 km</span>
+              </div>
+              <div class="course-metric-pill">
+                <span>最高速度目安</span>
+                <span id="courseMetricSpeed">290 km/h</span>
+              </div>
+              <div class="course-metric-pill">
+                <span>推奨ギア</span>
+                <span id="courseMetricGear">6th - 7th</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Environment & Weather Interactive Section -->
+  <section class="environment-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="env_tag">WEATHER & TIME</span>
+        <h2 class="section-title" data-i18n="env_title">リアルタイム環境シミュレーション</h2>
+        <p class="section-desc" data-i18n="env_desc">
+          時間帯や天候によって路面コンディションと景観が劇的に変化します。雨天時はブレーキングと横G管理が勝敗を分けます。
+        </p>
+      </div>
+
+      <div class="env-interactive-wrapper">
+        <div class="env-controls-bar">
+          <div>
+            <div class="env-group-title">TIME OF DAY (時間帯 - Tキー)</div>
+            <div class="env-button-group">
+              <button class="env-btn" data-time="day">☀️ 昼 (Day)</button>
+              <button class="env-btn" data-time="sunset">🌇 夕暮れ (Sunset)</button>
+              <button class="env-btn active" data-time="night">🌃 夜 (Night)</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="env-group-title">WEATHER CONDITIONS (天候 - Yキー)</div>
+            <div class="env-button-group">
+              <button class="env-btn active" data-weather="clear">✨ 晴天 / 曇天 (Clear)</button>
+              <button class="env-btn" data-weather="rain">🌧️ 雨天 (Rain & Wet)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="env-display-grid">
+          <div class="env-image-showcase">
+            <img src="./assets/cockpit_hud.jpg" alt="Environment Condition Visual" id="envShowcaseImg">
+          </div>
+          <div class="env-status-panel">
+            <div class="env-status-card">
+              <div class="env-status-header">
+                <span class="env-status-title">タイヤグリップ率 (Tire Grip)</span>
+                <span class="env-status-value" id="envGripValue">100%</span>
+              </div>
+              <div class="env-status-bar">
+                <div class="env-status-fill" id="envGripBar" style="width: 100%;"></div>
+              </div>
+            </div>
+
+            <div class="env-status-card">
+              <div class="env-status-header">
+                <span class="env-status-title">視界明瞭度 (Visibility)</span>
+                <span class="env-status-value" id="envVisibilityValue">85%</span>
+              </div>
+              <div class="env-status-bar">
+                <div class="env-status-fill" id="envVisibilityBar" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <div class="env-status-card">
+              <div class="env-status-header">
+                <span class="env-status-title">コーナリング安全速度目安</span>
+                <span class="env-status-value" id="envSafeSpeedValue">240 km/h</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
+                雨天時はタイヤグリップが65%まで低下し、制動距離が大幅に伸びます。自動運転モードも安全のため自動で巡航速度を抑えます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">VISUAL GALLERY</span>
+        <h2 class="section-title">高精細スクリーンショット</h2>
+        <p class="section-desc">東京の夜空と首都高の美しいライティングをキャプチャ</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="./assets/hero_shutoko.jpg" alt="Night racing with Tokyo Tower">
+          <div class="gallery-caption">レインボーブリッジと東京タワーを望む湾岸ナイトレース</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/cockpit_hud.jpg" alt="Cockpit telemetry">
+          <div class="gallery-caption">C1銀座 トンネル進入時のコックピット視点</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/sunset_rainbow_bridge.jpg" alt="Sunset Rainbow Bridge">
+          <div class="gallery-caption">夕暮れ時の11号台場線 レインボーブリッジ俯瞰</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/rain_night.jpg" alt="Rain night racing">
+          <div class="gallery-caption">激しい雨飛沫とテールランプの光彩</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/city_mesh_overview.jpg" alt="Tokyo digital twin mesh">
+          <div class="gallery-caption">Project PLATEAU 3D都市モデルのデジタルツイン俯瞰</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platforms & System Requirements -->
+  <section class="specs-section" id="specs">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="specs_tag">PLATFORMS & SPECS</span>
+        <h2 class="section-title" data-i18n="specs_title">動作環境・対応プラットフォーム</h2>
+        <p class="section-desc" data-i18n="specs_desc">
+          ブラウザひとつでどこからでもアクセス。より安定したフレームレートを求める方には専用デスクトップ版も用意。
+        </p>
+      </div>
+
+      <div class="platforms-grid">
+        <!-- Web Browser -->
+        <div class="platform-card recommended">
+          <span class="platform-badge-rec">RECOMMENDED</span>
+          <div class="platform-icon">🌐</div>
+          <h3 class="platform-title">Web Browser (WebGL 2.0)</h3>
+          <p class="platform-subtitle">インストール不要。ブラウザを開くだけで即起動。</p>
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary platform-btn" target="_blank" rel="noopener noreferrer">
+            ブラウザで開く
+          </a>
+        </div>
+
+        <!-- macOS App -->
+        <div class="platform-card">
+          <div class="platform-icon">🍎</div>
+          <h3 class="platform-title">macOS App (Apple Silicon)</h3>
+          <p class="platform-subtitle">M1 / M2 / M3 / M4 チップに最適化された超軽量デスクトップ版。</p>
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-secondary platform-btn" target="_blank" rel="noopener noreferrer">
+            .dmg を入手
+          </a>
+        </div>
+
+        <!-- Windows App -->
+        <div class="platform-card">
+          <div class="platform-icon">🪟</div>
+          <h3 class="platform-title">Windows App (x64)</h3>
+          <p class="platform-subtitle">Windows 10 / 11 対応スタンドアローンインストーラー。</p>
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-secondary platform-btn" target="_blank" rel="noopener noreferrer">
+            .exe を入手
+          </a>
+        </div>
+      </div>
+
+      <!-- System Requirements Table -->
+      <div class="sys-req-box">
+        <h3 class="sys-req-title">推奨システム要件</h3>
+        <div class="sys-req-grid">
+          <div class="req-item">
+            <div class="req-label">OS</div>
+            <div class="req-val">Windows 10/11, macOS 12+, Linux</div>
+          </div>
+          <div class="req-item">
+            <div class="req-label">Browser</div>
+            <div class="req-val">Chrome, Edge, Safari, Firefox</div>
+          </div>
+          <div class="req-item">
+            <div class="req-label">GPU</div>
+            <div class="req-val">WebGL 2.0 対応 GPU (VRAM 2GB+)</div>
+          </div>
+          <div class="req-item">
+            <div class="req-label">Input Device</div>
+            <div class="req-val">キーボード (運転操作) + マウス</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="faq_tag">FAQ</span>
+        <h2 class="section-title" data-i18n="faq_title">よくあるご質問</h2>
+        <p class="section-desc" data-i18n="faq_desc">操作方法やシステム要件についてのお問い合わせ</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>Q. 初回の読み込み通信量はどのくらいですか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. 圧縮後の転送通信量は約30MBです。3D都市モデルやテクスチャデータがブラウザのキャッシュに保存されるため、2回目以降のアクセスはさらに高速に起動します。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Q. スマートフォンやタブレットでもプレイできますか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. 現在はキーボード操作による高精度なマシン操縦に最適化されているため、PC環境（Windows / Mac / Linux）でのプレイを推奨しています。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Q. コース上でスピンやコースアウトした場合はどうなりますか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. 転倒や路面からの逸脱が発生した場合、1.5秒後に自動で最寄りの車線にリカバリー復帰します。また、いつでも「R」キーを押すことで即座に車線中央へリセット可能です（※リセットした周回は無効ラップとなります）。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Q. ラップタイムの記録はどこに保存されますか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. 自己ベストラップタイムはお使いのブラウザのローカルストレージに自動保存されます。中間チェックポイントを通過した正規周回のみが記録されます。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Banner -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-box">
+        <h2 class="cta-title" data-i18n="cta_title">東京の夜景へ、今すぐ飛び込もう。</h2>
+        <p class="cta-subtitle" data-i18n="cta_desc">
+          インストール不要。ブラウザを開くだけで、リアルな首都高を350km/hで駆け抜ける極上のドライビング体験が始まります。
+        </p>
+        <div class="cta-buttons">
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary btn-racing" target="_blank" rel="noopener noreferrer" style="padding: 16px 36px; font-size: 1.05rem;" id="footer-cta-play">
+            <span data-i18n="cta_btn_main">今すぐ無料でプレイする</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </a>
+          <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-secondary" target="_blank" rel="noopener noreferrer" style="padding: 16px 36px; font-size: 1.05rem;" id="footer-cta-matrix">
+            <span data-i18n="cta_btn_matrix">Cyber Matrix 公式ページへ</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="#" class="brand-logo">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-4.66l.12-.34h13.77l.11.34V17z"/>
+                <circle cx="7.5" cy="14.5" r="1.5"/>
+                <circle cx="16.5" cy="14.5" r="1.5"/>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span>SHUTOKO TOKYO</span>
+              <span class="brand-sub">CYBER MATRIX</span>
+            </div>
+          </a>
+          <p class="footer-brand-desc">
+            Project PLATEAU 3D都市モデルを活用した、次世代Webレーシング・ドライビングシミュレーター。
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">NAVIGATION</h4>
+          <ul class="footer-links-list">
+            <li><a href="#overview">概要</a></li>
+            <li><a href="#features">特徴</a></li>
+            <li><a href="#modes">運転モード</a></li>
+            <li><a href="#course">コースガイド</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">PRODUCT</h4>
+          <ul class="footer-links-list">
+            <li><a href="https://cyber-matrix.netlify.app/products/shutoko" target="_blank" rel="noopener noreferrer">Web版をプレイ</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/shutoko" target="_blank" rel="noopener noreferrer">macOS版 (.dmg)</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/shutoko" target="_blank" rel="noopener noreferrer">Windows版 (.exe)</a></li>
+            <li><a href="#specs">推奨動作環境</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">COMMUNITY & CREDITS</h4>
+          <ul class="footer-links-list">
+            <li><a href="https://cyber-matrix.netlify.app/products/shutoko" target="_blank" rel="noopener noreferrer">Cyber Matrix</a></li>
+            <li><a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener noreferrer">Project PLATEAU (MLIT)</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/shutoko" target="_blank" rel="noopener noreferrer">リリースノート</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 CYBER MATRIX / SHUTOKO TOKYO LOOP. All rights reserved.
+        </div>
+        <div>
+          3D City Model Data by Project PLATEAU (MLIT Japan).
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
