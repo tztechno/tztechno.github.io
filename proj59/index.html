@@ -110,7 +110,7 @@
             <div class="hero-badge-label" data-i18n="stat_modes">運転モード</div>
           </div>
           <div class="hero-badge-item">
-            <div class="hero-badge-value">350+ <span>km/h</span></div>
+            <div class="hero-badge-value">320 <span>km/h</span></div>
             <div class="hero-badge-label" data-i18n="stat_max_speed">最高速度</div>
           </div>
           <div class="hero-badge-item">
@@ -122,7 +122,7 @@
 
       <!-- Hero Visual Display Card -->
       <div class="hero-visual-card">
-        <img src="./assets/hero_shutoko.jpg" alt="Shutoko Tokyo Formula Racing Visual" class="hero-visual-img" id="heroVisualImg">
+        <img src="./assets/hero_shutoko.jpg" alt="Formula car on the Rainbow Bridge with landmark name tags" class="hero-visual-img" id="heroVisualImg">
         <div class="hero-visual-overlay"></div>
         <div class="hero-visual-telemetry">
           <div class="telemetry-col">
@@ -156,7 +156,7 @@
         <div class="metric-card">
           <div class="metric-icon">🏎️</div>
           <div class="metric-info">
-            <h3 data-i18n="metrics_2_title">350+ km/h</h3>
+            <h3 data-i18n="metrics_2_title">320 km/h</h3>
             <p data-i18n="metrics_2_desc">超高速フォーミュラ走行</p>
           </div>
         </div>
@@ -171,7 +171,7 @@
           <div class="metric-icon">⚡</div>
           <div class="metric-info">
             <h3 data-i18n="metrics_4_title">0 Install</h3>
-            <p data-i18n="metrics_4_desc">ブラウザ即起動 & アプリ版</p>
+            <p data-i18n="metrics_4_desc">ブラウザ即起動・スマホ対応 & アプリ版</p>
           </div>
         </div>
       </div>
@@ -201,7 +201,7 @@
           </div>
           <h3 class="feature-title" data-i18n="f1_title">リアルな東京3D都市モデル</h3>
           <p class="feature-text" data-i18n="f1_desc">
-            実測データから生成されたレインボーブリッジ、東京タワー、林立する高層ビル群、複雑な高架ジャンクションを圧倒的スケールで再現。
+            実測データから生成されたレインボーブリッジ、東京タワー、林立する高層ビル群、複雑な高架ジャンクションを圧倒的スケールで再現。沿道の有名施設には名前も表示。
           </p>
           <div class="feature-tags">
             <span class="feature-tag-chip">Project PLATEAU</span>
@@ -237,7 +237,7 @@
           </div>
           <h3 class="feature-title" data-i18n="f3_title">ダイナミック天候＆グリップ変化</h3>
           <p class="feature-text" data-i18n="f3_desc">
-            昼・夕暮れ・夜のライティング遷移に加え、雨天時にはリアルな路面反射とウェットコンディション（グリップ力65%低下）をシミュレート。
+            昼・夕暮れ・夜のライティング遷移に加え、雨天時にはリアルな路面反射とウェットコンディション（グリップが65%に低下）をシミュレート。夜はヘッドライトが点灯。
           </p>
           <div class="feature-tags">
             <span class="feature-tag-chip">Day / Sunset / Night</span>
@@ -294,11 +294,67 @@
           </div>
           <h3 class="feature-title" data-i18n="f6_title">クロスプラットフォーム</h3>
           <p class="feature-text" data-i18n="f6_desc">
-            PCブラウザですぐに遊べるWebGL版に加え、Apple Silicon Mac / Windows 向けの超高速ネイティブデスクトップアプリも提供。
+            PC・スマートフォン・タブレットのブラウザですぐに遊べるWebGL版に加え、Apple Silicon Mac / Windows 向けのネイティブデスクトップアプリも提供。
           </p>
           <div class="feature-tags">
-            <span class="feature-tag-chip">Web / macOS / Windows</span>
+            <span class="feature-tag-chip">Web / macOS / Windows / Mobile</span>
             <span class="feature-tag-chip">Tauri Native App</span>
+          </div>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f7_title">有名施設の名前表示</h3>
+          <p class="feature-text" data-i18n="f7_desc">
+            PLATEAUの建物名・計測高さから、沿道の約30の有名施設に名前を表示。フジテレビ、東京タワー、スカイツリーなどを目印に走れます。BキーでON/OFF。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">PLATEAU Attributes</span>
+            <span class="feature-tag-chip">ON / OFF</span>
+          </div>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="7" cy="12" r="4"></circle>
+              <line x1="13" y1="8" x2="22" y2="6"></line>
+              <line x1="13" y1="12" x2="22" y2="12"></line>
+              <line x1="13" y1="16" x2="22" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f8_title">夜間ヘッドライト</h3>
+          <p class="feature-text" data-i18n="f8_desc">
+            夜になるとマシンのヘッドライトが自動で点灯し、前方の路面を照らします。暗い高架や橋の上でも、カーブの先まで見通せます。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Night Drive</span>
+            <span class="feature-tag-chip">Auto Headlights</span>
+          </div>
+        </div>
+
+        <!-- Feature 9 -->
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title" data-i18n="f9_title">スマホ・タブレットのタッチ操作</h3>
+          <p class="feature-text" data-i18n="f9_desc">
+            タッチ端末では画面に操作ボタンを自動表示。コマンドのアルファベットボタンと ◀▶▲▼ のパッドを、指でタップして操作できます。
+          </p>
+          <div class="feature-tags">
+            <span class="feature-tag-chip">Touch Controls</span>
+            <span class="feature-tag-chip">iOS / Android</span>
           </div>
         </div>
       </div>
@@ -312,9 +368,9 @@
     </div>
     <div class="highlight-content">
       <span class="section-tag">COCKPIT IMMERSION</span>
-      <h3>地を這うフォーミュラ視点と<br>リアルタイム・レーシングHUD</h3>
+      <h3>ノーズの上の低いコクピット視点と<br>リアルタイム・レーシングHUD</h3>
       <p>
-        地面すれすれの圧倒的スピード感。F1ステアリングに表示されるRPMインジケーター、ギアポジション、現在の横Gフォース、各コーナーの安全進入速度アラートがドライバーの判断を支援します。
+        地面すれすれの視点で味わうスピード感。画面下の速度計にアクセル・ブレーキ、横G、コーナーごとの安全速度の目印を表示し、安全速度を超えると警告します。左上にはギア・エンジン回転数・区間名も表示します。
       </p>
       <ul class="highlight-points">
         <li class="highlight-point-item">
@@ -328,6 +384,90 @@
         <li class="highlight-point-item">
           <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
           <span>ベストラップ保存機能＆不正ショートカット自動検知システム</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Visual Feature Highlight Split 2: PLATEAU landmark names -->
+  <section class="container highlight-split reverse">
+    <div class="highlight-media-container">
+      <img src="./assets/landmark_names.jpg" alt="Landmark name tags over Tokyo buildings" class="highlight-img">
+    </div>
+    <div class="highlight-content">
+      <span class="section-tag">NEW · PLATEAU LANDMARKS</span>
+      <h3>PLATEAUの建物情報から<br>沿道の有名施設を名前で表示</h3>
+      <p>
+        首都高から見える周囲の建物のうち、フジテレビ、東京ビッグサイト、汐留の高層ビル群、東京タワー、東京スカイツリーなど約30の有名施設に名前を表示。名前と高さはProject PLATEAUの建物データ（建物名・計測高さ）から取得しています。
+      </p>
+      <ul class="highlight-points">
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>「B」キー（スマホは B ボタン）で表示をON/OFF。設定はブラウザに保存</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>名前は建物が見えている間だけ表示。ビルの陰やトンネルでは自動で消えるので迷わない</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>名前の付く施設は遠くても建物を必ず表示。PLATEAUに塔がない東京スカイツリーも再現</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Visual Feature Highlight Split 3: Night headlights -->
+  <section class="container highlight-split">
+    <div class="highlight-media-container">
+      <img src="./assets/night_headlights.jpg" alt="Headlights lighting the road at night" class="highlight-img">
+    </div>
+    <div class="highlight-content">
+      <span class="section-tag">NEW · NIGHT DRIVE</span>
+      <h3>夜はヘッドライトが点灯、<br>前方の路面を照らして走る</h3>
+      <p>
+        時間帯を「夜」にすると、マシンのヘッドライトが自動で点灯。暗い高架や橋の上でも、前方の路面とカーブの先を照らしながら走れます。
+      </p>
+      <ul class="highlight-points">
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>夜間は自動点灯、HUDに「ヘッドライト点灯」を表示</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>コクピット視点でも自然に見える、ロービーム風の配光</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>窓明かり・道路照明・街明かりと合わせて、東京の夜を再現</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Visual Feature Highlight Split 4: Smartphone touch controls -->
+  <section class="container highlight-split reverse">
+    <div class="highlight-media-container">
+      <img src="./assets/smartphone_touch.jpg" alt="Touch control buttons on a smartphone" class="highlight-img" style="object-fit: contain; background: #05070d;">
+    </div>
+    <div class="highlight-content">
+      <span class="section-tag">NEW · MOBILE</span>
+      <h3>スマートフォン・タブレットでも<br>タッチ操作でプレイ可能に</h3>
+      <p>
+        タッチ端末で開くと、画面に操作ボタンが自動で表示されます。キーボードと同じコマンドを、指でタップして操作できます。
+      </p>
+      <ul class="highlight-points">
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>M / V / R / P / L / N / T / Y / B と [ ] のコマンドボタン（機能名つき）</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>◀ ▶ でハンドル、▲ ▼ でアクセル・ブレーキ。押している間だけ効き、同時押しにも対応</span>
+        </li>
+        <li class="highlight-point-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>横向き・縦向きの両方に対応したボタン配置</span>
         </li>
       </ul>
     </div>
@@ -417,7 +557,7 @@
           </table>
         </div>
         <div class="mode-visual-box">
-          <img src="./assets/hero_shutoko.jpg" alt="Semi-autonomous formula racing">
+          <img src="./assets/hero_shutoko.jpg" alt="Semi-auto driving on the Rainbow Bridge">
         </div>
       </div>
 
@@ -474,7 +614,7 @@
               <span class="course-code">S1</span>
               <div>
                 <div class="course-name-title">11号台場線 (芝浦JCT → レインボーブリッジ)</div>
-                <div class="course-route-sub">3.2 km / レインボーブリッジ海抜50m絶景</div>
+                <div class="course-route-sub">3.5 km / レインボーブリッジ海抜50m絶景</div>
               </div>
             </div>
             <span>➔</span>
@@ -485,7 +625,7 @@
               <span class="course-code">S2</span>
               <div>
                 <div class="course-name-title">湾岸線 (有明JCT → 辰巳JCT)</div>
-                <div class="course-route-sub">3.8 km / 超高速ストレート (350km/h+)</div>
+                <div class="course-route-sub">2.5 km / 湾岸の高速区間</div>
               </div>
             </div>
             <span>➔</span>
@@ -496,7 +636,7 @@
               <span class="course-code">S3</span>
               <div>
                 <div class="course-name-title">9号深川線 (辰巳JCT → 箱崎JCT)</div>
-                <div class="course-route-sub">3.5 km / 運河沿いのロング高架直線</div>
+                <div class="course-route-sub">6.3 km / 運河沿いのロング高架直線</div>
               </div>
             </div>
             <span>➔</span>
@@ -507,7 +647,7 @@
               <span class="course-code">S4</span>
               <div>
                 <div class="course-name-title">6号向島線・箱崎 (箱崎JCT → 江戸橋JCT)</div>
-                <div class="course-route-sub">2.1 km / 巨大立体多層ジャンクション</div>
+                <div class="course-route-sub">0.9 km / 巨大立体多層ジャンクション</div>
               </div>
             </div>
             <span>➔</span>
@@ -518,7 +658,7 @@
               <span class="course-code">S5</span>
               <div>
                 <div class="course-name-title">C1 都心環状線 (江戸橋JCT → 銀座掘割)</div>
-                <div class="course-route-sub">2.9 km / ビルの谷間を縫うテクニカル半地下</div>
+                <div class="course-route-sub">3.7 km / ビルの谷間を縫うテクニカル半地下</div>
               </div>
             </div>
             <span>➔</span>
@@ -529,7 +669,7 @@
               <span class="course-code">S6</span>
               <div>
                 <div class="course-name-title">1号羽田線 (銀座 → 浜崎橋JCT → 芝浦)</div>
-                <div class="course-route-sub">2.0 km / ループ完結のラストスパート</div>
+                <div class="course-route-sub">0.8 km / ループ完結のラストスパート</div>
               </div>
             </div>
             <span>➔</span>
@@ -549,7 +689,7 @@
             <div class="course-metrics-row">
               <div class="course-metric-pill">
                 <span>区間長</span>
-                <span id="courseMetricLength">3.2 km</span>
+                <span id="courseMetricLength">3.5 km</span>
               </div>
               <div class="course-metric-pill">
                 <span>最高速度目安</span>
@@ -573,7 +713,7 @@
         <span class="section-tag" data-i18n="env_tag">WEATHER & TIME</span>
         <h2 class="section-title" data-i18n="env_title">リアルタイム環境シミュレーション</h2>
         <p class="section-desc" data-i18n="env_desc">
-          時間帯や天候によって路面コンディションと景観が劇的に変化します。雨天時はブレーキングと横G管理が勝敗を分けます。
+          時間帯や天候によって路面コンディションと景観が劇的に変化します。夜はヘッドライトが前方を照らし、雨天時はブレーキングと横G管理が勝敗を分けます。
         </p>
       </div>
 
@@ -599,7 +739,7 @@
 
         <div class="env-display-grid">
           <div class="env-image-showcase">
-            <img src="./assets/cockpit_hud.jpg" alt="Environment Condition Visual" id="envShowcaseImg">
+            <img src="./assets/night_headlights.jpg" alt="Environment Condition Visual" id="envShowcaseImg">
           </div>
           <div class="env-status-panel">
             <div class="env-status-card">
@@ -642,30 +782,42 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">VISUAL GALLERY</span>
-        <h2 class="section-title">高精細スクリーンショット</h2>
-        <p class="section-desc">東京の夜空と首都高の美しいライティングをキャプチャ</p>
+        <h2 class="section-title">ゲーム画面</h2>
+        <p class="section-desc">すべて実際のゲーム画面です（PLATEAUの建物・国土地理院の航空写真・OpenStreetMapの道路線形から生成）</p>
       </div>
 
       <div class="gallery-grid">
         <div class="gallery-item">
-          <img src="./assets/hero_shutoko.jpg" alt="Night racing with Tokyo Tower">
-          <div class="gallery-caption">レインボーブリッジと東京タワーを望む湾岸ナイトレース</div>
+          <img src="./assets/hero_shutoko.jpg" alt="Rainbow Bridge towards Odaiba">
+          <div class="gallery-caption">レインボーブリッジからお台場へ。フジテレビに名前を表示</div>
         </div>
         <div class="gallery-item">
           <img src="./assets/cockpit_hud.jpg" alt="Cockpit telemetry">
-          <div class="gallery-caption">C1銀座 トンネル進入時のコックピット視点</div>
+          <div class="gallery-caption">C1都心環状線・汐留付近のコクピット視点とHUD</div>
         </div>
         <div class="gallery-item">
           <img src="./assets/sunset_rainbow_bridge.jpg" alt="Sunset Rainbow Bridge">
-          <div class="gallery-caption">夕暮れ時の11号台場線 レインボーブリッジ俯瞰</div>
+          <div class="gallery-caption">夕暮れの11号台場線（芝浦ループ）</div>
         </div>
         <div class="gallery-item">
           <img src="./assets/rain_night.jpg" alt="Rain night racing">
-          <div class="gallery-caption">激しい雨飛沫とテールランプの光彩</div>
+          <div class="gallery-caption">雨の夜の9号深川線。ヘッドライトが路面を照らす</div>
         </div>
         <div class="gallery-item">
-          <img src="./assets/city_mesh_overview.jpg" alt="Tokyo digital twin mesh">
-          <div class="gallery-caption">Project PLATEAU 3D都市モデルのデジタルツイン俯瞰</div>
+          <img src="./assets/city_mesh_overview.jpg" alt="Shiodome skyline from above">
+          <div class="gallery-caption">浜離宮上空から見た汐留の高層ビル群（PLATEAU）と施設名</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/landmark_names.jpg" alt="Landmark name tags">
+          <div class="gallery-caption">浜崎橋JCT手前。見えている施設だけに名前を表示</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/night_headlights.jpg" alt="Night headlights on the Rainbow Bridge">
+          <div class="gallery-caption">ヘッドライトで照らす夜のレインボーブリッジ（コクピット視点）</div>
+        </div>
+        <div class="gallery-item">
+          <img src="./assets/smartphone_touch.jpg" alt="Smartphone touch controls">
+          <div class="gallery-caption">スマートフォンでのタッチ操作画面（横向き）</div>
         </div>
       </div>
     </div>
@@ -678,7 +830,7 @@
         <span class="section-tag" data-i18n="specs_tag">PLATFORMS & SPECS</span>
         <h2 class="section-title" data-i18n="specs_title">動作環境・対応プラットフォーム</h2>
         <p class="section-desc" data-i18n="specs_desc">
-          ブラウザひとつでどこからでもアクセス。より安定したフレームレートを求める方には専用デスクトップ版も用意。
+          ブラウザひとつでどこからでもアクセス。スマートフォン・タブレットはタッチ操作に対応。より安定したフレームレートを求める方には専用デスクトップ版も用意。
         </p>
       </div>
 
@@ -688,7 +840,7 @@
           <span class="platform-badge-rec">RECOMMENDED</span>
           <div class="platform-icon">🌐</div>
           <h3 class="platform-title">Web Browser (WebGL 2.0)</h3>
-          <p class="platform-subtitle">インストール不要。ブラウザを開くだけで即起動。</p>
+          <p class="platform-subtitle">インストール不要。ブラウザを開くだけで即起動。スマホ・タブレットはタッチ操作に対応。</p>
           <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary platform-btn" target="_blank" rel="noopener noreferrer">
             ブラウザで開く
           </a>
@@ -721,11 +873,11 @@
         <div class="sys-req-grid">
           <div class="req-item">
             <div class="req-label">OS</div>
-            <div class="req-val">Windows 10/11, macOS 12+, Linux</div>
+            <div class="req-val">Windows 10/11, macOS 12+, Linux, iOS / iPadOS, Android</div>
           </div>
           <div class="req-item">
             <div class="req-label">Browser</div>
-            <div class="req-val">Chrome, Edge, Safari, Firefox</div>
+            <div class="req-val">Chrome, Edge, Safari, Firefox（スマホ：Safari, Chrome）</div>
           </div>
           <div class="req-item">
             <div class="req-label">GPU</div>
@@ -733,7 +885,7 @@
           </div>
           <div class="req-item">
             <div class="req-label">Input Device</div>
-            <div class="req-val">キーボード (運転操作) + マウス</div>
+            <div class="req-val">PC：キーボード + マウス／スマホ・タブレット：画面のタッチボタン</div>
           </div>
         </div>
       </div>
@@ -766,7 +918,27 @@
             <span class="faq-toggle-icon">+</span>
           </button>
           <div class="faq-answer">
-            A. 現在はキーボード操作による高精度なマシン操縦に最適化されているため、PC環境（Windows / Mac / Linux）でのプレイを推奨しています。
+            A. はい、プレイできます。タッチ端末で開くと、画面にコマンドのアルファベットボタン（M / V / R / P / L / N / T / Y / B と [ ]）と、ハンドル・アクセル・ブレーキ用の ◀ ▶ ▲ ▼ ボタンが自動で表示され、指でタップして操作できます。横向き・縦向きの両方に対応しています。3D都市モデルの描画は負荷が高いため、古い端末では動きが重くなることがあります。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Q. 走行中に見える建物の名前は消せますか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. はい。「B」キー（スマホでは B ボタン）で施設名の表示をON/OFFできます。設定はブラウザに保存されます。名前はProject PLATEAUの建物名データをもとに、沿道の有名施設約30か所に表示しています。名前はその建物が画面に見えている間だけ表示され、ビルの陰やトンネルに入ると消えます。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Q. 夜間は暗くて走りにくくありませんか？</span>
+            <span class="faq-toggle-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            A. 時間帯を「夜」（Tキー）にすると、マシンのヘッドライトが自動で点灯し、前方の路面を照らします。道路照明やビルの窓明かりも点くため、夜の首都高らしい景色の中を走れます。
           </div>
         </div>
 
@@ -799,7 +971,7 @@
       <div class="cta-banner-box">
         <h2 class="cta-title" data-i18n="cta_title">東京の夜景へ、今すぐ飛び込もう。</h2>
         <p class="cta-subtitle" data-i18n="cta_desc">
-          インストール不要。ブラウザを開くだけで、リアルな首都高を350km/hで駆け抜ける極上のドライビング体験が始まります。
+          インストール不要。ブラウザを開くだけで、リアルな首都高を最高320km/hで駆け抜ける極上のドライビング体験が始まります。
         </p>
         <div class="cta-buttons">
           <a href="https://cyber-matrix.netlify.app/products/shutoko" class="btn-primary btn-racing" target="_blank" rel="noopener noreferrer" style="padding: 16px 36px; font-size: 1.05rem;" id="footer-cta-play">

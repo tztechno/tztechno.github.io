@@ -20,44 +20,50 @@ document.addEventListener('DOMContentLoaded', () => {
       stat_fidelity: "リアル都市データ",
       metrics_1_title: "17.5 km",
       metrics_1_desc: "首都高フルループ周回",
-      metrics_2_title: "350+ km/h",
+      metrics_2_title: "320 km/h",
       metrics_2_desc: "超高速フォーミュラ走行",
       metrics_3_title: "3 Modes",
       metrics_3_desc: "完全自動・半自動・手動",
       metrics_4_title: "0 Install",
-      metrics_4_desc: "ブラウザ即起動 & アプリ版",
+      metrics_4_desc: "ブラウザ即起動・スマホ対応 & アプリ版",
       feat_tag: "CORE FEATURES",
       feat_title: "最先端技術が融合するドライビング体験",
       feat_desc: "高精細な3D都市モデル、緻密なコーナリング物理、昼夜・雨天のダイナミックな環境変化を余すところなく体験できます。",
       f1_title: "リアルな東京3D都市モデル",
-      f1_desc: "実測データから生成されたレインボーブリッジ、東京タワー、林立する高層ビル群、複雑な高架ジャンクションを圧倒的スケールで再現。",
+      f1_desc: "実測データから生成されたレインボーブリッジ、東京タワー、林立する高層ビル群、複雑な高架ジャンクションを圧倒的スケールで再現。沿道の有名施設には名前も表示。",
       f2_title: "3段階のドライビング制御",
       f2_desc: "安全な高速巡航をこなす完全自動（AUTO）、加速スリルを味わう半自動（SEMI）、腕が試される完全手動（MANUAL）をワンキーで切り替え。",
       f3_title: "ダイナミック天候＆グリップ変化",
-      f3_desc: "昼・夕暮れ・夜のライティング遷移に加え、雨天時にはリアルな路面反射とウェットコンディション（グリップ力65%低下）をシミュレート。",
+      f3_desc: "昼・夕暮れ・夜のライティング遷移に加え、雨天時にはリアルな路面反射とウェットコンディション（グリップが65%に低下）をシミュレート。夜はヘッドライトが点灯。",
       f4_title: "4視点マルチカメラ",
       f4_desc: "後方追従、低重心なコックピット視点、コース全体を見渡す上空カメラ、マウスで自由自在に見回せるフリーカメラを搭載。",
       f5_title: "本格HUD・テレメトリ解析",
       f5_desc: "横Gメーター、カーブごとの推奨安全速度サジェスト、ミニマップ、セクター別ラップタイム計測などレーシング計器を完備。",
       f6_title: "クロスプラットフォーム",
-      f6_desc: "PCブラウザですぐに遊べるWebGL版に加え、Apple Silicon Mac / Windows 向けの超高速ネイティブデスクトップアプリも提供。",
+      f6_desc: "PC・スマートフォン・タブレットのブラウザですぐに遊べるWebGL版に加え、Apple Silicon Mac / Windows 向けのネイティブデスクトップアプリも提供。",
+      f7_title: "有名施設の名前表示",
+      f7_desc: "PLATEAUの建物名・計測高さから、沿道の約30の有名施設に名前を表示。フジテレビ、東京タワー、スカイツリーなどを目印に走れます。BキーでON/OFF。",
+      f8_title: "夜間ヘッドライト",
+      f8_desc: "夜になるとマシンのヘッドライトが自動で点灯し、前方の路面を照らします。暗い高架や橋の上でも、カーブの先まで見通せます。",
+      f9_title: "スマホ・タブレットのタッチ操作",
+      f9_desc: "タッチ端末では画面に操作ボタンを自動表示。コマンドのアルファベットボタンと ◀▶▲▼ のパッドを、指でタップして操作できます。",
       course_tag: "COURSE GUIDE",
       course_title: "首都高 17.5km ループ 全6区間",
       course_desc: "芝浦JCTからレインボーブリッジを渡り、湾岸線、深川線、箱崎JCT、銀座の地下掘割を経て浜崎橋へと戻る名コース。",
       env_tag: "WEATHER & TIME",
       env_title: "リアルタイム環境シミュレーション",
-      env_desc: "時間帯や天候によって路面コンディションと景観が劇的に変化します。雨天時はブレーキングと横G管理が勝敗を分けます。",
+      env_desc: "時間帯や天候によって路面コンディションと景観が劇的に変化します。夜はヘッドライトが前方を照らし、雨天時はブレーキングと横G管理が勝敗を分けます。",
       modes_tag: "DRIVING STYLES",
       modes_title: "あなたの好みに合わせた3つの走行モード",
       modes_desc: "走行中いつでも「M」キーひとつで切り替え可能。景色を楽しみたい初心者からタイムアタックに挑む上級者まで。",
       specs_tag: "PLATFORMS & SPECS",
       specs_title: "動作環境・対応プラットフォーム",
-      specs_desc: "ブラウザひとつでどこからでもアクセス。より安定したフレームレートを求める方には専用デスクトップ版も用意。",
+      specs_desc: "ブラウザひとつでどこからでもアクセス。スマートフォン・タブレットはタッチ操作に対応。より安定したフレームレートを求める方には専用デスクトップ版も用意。",
       faq_tag: "FAQ",
       faq_title: "よくあるご質問",
       faq_desc: "操作方法やシステム要件についてのお問い合わせ",
       cta_title: "東京の夜景へ、今すぐ飛び込もう。",
-      cta_desc: "インストール不要。ブラウザを開くだけで、リアルな首都高を350km/hで駆け抜ける極上のドライビング体験が始まります。",
+      cta_desc: "インストール不要。ブラウザを開くだけで、リアルな首都高を最高320km/hで駆け抜ける極上のドライビング体験が始まります。",
       cta_btn_main: "今すぐ無料でプレイする",
       cta_btn_matrix: "Cyber Matrix 公式ページへ"
     },
@@ -80,44 +86,50 @@ document.addEventListener('DOMContentLoaded', () => {
       stat_fidelity: "City Data",
       metrics_1_title: "17.5 km",
       metrics_1_desc: "Full Shuto Expressway Loop",
-      metrics_2_title: "350+ km/h",
+      metrics_2_title: "320 km/h",
       metrics_2_desc: "Formula Car Velocity",
       metrics_3_title: "3 Modes",
       metrics_3_desc: "Full Auto, Semi-Auto, Manual",
       metrics_4_title: "0 Install",
-      metrics_4_desc: "Instant WebGL & Native Apps",
+      metrics_4_desc: "Instant WebGL, Mobile & Native Apps",
       feat_tag: "CORE FEATURES",
       feat_title: "State-of-the-Art Driving Simulation",
       feat_desc: "High-resolution 3D city models, precise lateral-G physics, and dynamic daylight/rain environment transitions.",
       f1_title: "Real 3D Tokyo Cityscape",
-      f1_desc: "Recreating Tokyo Tower, Rainbow Bridge, skyline towers, and multi-tier elevated junctions with exact geographic fidelity.",
+      f1_desc: "Recreating Tokyo Tower, Rainbow Bridge, skyline towers, and multi-tier elevated junctions with exact geographic fidelity. Famous landmarks along the route are labelled by name.",
       f2_title: "3-Tier Driving Control",
       f2_desc: "Switch on the fly between Autonomous cruise (AUTO), assisted throttle thrill (SEMI), or pure manual mastery (MANUAL).",
       f3_title: "Dynamic Weather & Wet Grip",
-      f3_desc: "Seamless lighting transitions from Day to Golden Hour to Night. Rain alters visual reflections and reduces tire grip by 35%.",
+      f3_desc: "Seamless lighting transitions from Day to Golden Hour to Night. Rain alters visual reflections and reduces tire grip by 35%. Headlights come on at night.",
       f4_title: "4 Multi-Angle Cameras",
       f4_desc: "Chase Cam, low-slung Cockpit view, Overhead satellite angle, and fully orbitable Free Cam with mouse controls.",
       f5_title: "Professional Racing HUD",
       f5_desc: "Real-time G-force telemetry, safe cornering speed suggestions, live sector lap times, and dynamic mini-map.",
       f6_title: "Cross-Platform Freedom",
-      f6_desc: "Play instantly in modern WebGL2 browsers, or download ultra-smooth native binaries for macOS (Apple Silicon) and Windows.",
+      f6_desc: "Play instantly in WebGL2 browsers on PCs, phones and tablets, or download native apps for macOS (Apple Silicon) and Windows.",
+      f7_title: "Landmark Name Tags",
+      f7_desc: "About 30 famous landmarks along the route — Fuji TV, Tokyo Tower, Skytree and more — are labelled using PLATEAU building names and measured heights. Toggle with the B key.",
+      f8_title: "Night Headlights",
+      f8_desc: "At night the car's headlights switch on automatically and light up the road ahead, even on dark viaducts and bridges.",
+      f9_title: "Touch Controls for Phones & Tablets",
+      f9_desc: "On touch devices, on-screen buttons appear automatically: tap the command letter keys and the ◀▶▲▼ driving pad with your fingers.",
       course_tag: "COURSE GUIDE",
       course_title: "17.5km Shuto Loop — 6 Iconic Sectors",
       course_desc: "From Shibaura JCT over the Rainbow Bridge, cruising Wangan and Fukagawa, navigating Hakozaki JCT, through Ginza tunnels back to Hamazakibashi.",
       env_tag: "WEATHER & TIME",
       env_title: "Real-Time Environmental Simulator",
-      env_desc: "Lighting and grip dynamics shift dramatically. Wet asphalt demands calculated braking and lateral G-force control.",
+      env_desc: "Lighting and grip dynamics shift dramatically. Headlights light the road at night, and wet asphalt demands calculated braking and lateral G-force control.",
       modes_tag: "DRIVING STYLES",
       modes_title: "3 Distinct Modes Tailored for Every Driver",
       modes_desc: "Switch anytime mid-race with the 'M' key. Enjoy cinematic city views or push the limits of tire adhesion in manual mode.",
       specs_tag: "PLATFORMS & SPECS",
       specs_title: "System Requirements & Platforms",
-      specs_desc: "Zero-install web access on any standard PC browser. Dedicated standalone desktop editions available for optimal frame rates.",
+      specs_desc: "Zero-install web access on PC browsers, with touch controls on phones and tablets. Dedicated standalone desktop editions available for optimal frame rates.",
       faq_tag: "FAQ",
       faq_title: "Frequently Asked Questions",
       faq_desc: "Find quick answers regarding controls, platform support, and features.",
       cta_title: "Dive Into Tokyo's Neon Highways Today.",
-      cta_desc: "No installation required. Launch straight from your browser and feel the rush of 350 km/h formula racing in Tokyo.",
+      cta_desc: "No installation required. Launch straight from your browser and feel the rush of formula racing at up to 320 km/h in Tokyo.",
       cta_btn_main: "Play Online For Free",
       cta_btn_matrix: "Official Cyber Matrix Page"
     }
@@ -131,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ja: {
         title: "S1: 11号台場線 (芝浦JCT → レインボーブリッジ)",
         desc: "芝浦JCTのタイトな360度ループを上り、海面から約50mの高さに架かるレインボーブリッジへ。東京湾と夜景を一望できる爽快な絶景区間です。",
-        length: "3.2 km",
+        length: "3.5 km",
         speed: "290 km/h",
         gear: "6th - 7th",
         difficulty: "★★☆☆☆"
@@ -139,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       en: {
         title: "S1: Route 11 Daiba Line (Shibaura JCT → Rainbow Bridge)",
         desc: "Climb the 360-degree loop at Shibaura JCT onto the iconic Rainbow Bridge, 50 meters above Tokyo Bay. Unrivaled panoramic views of Tokyo Tower and waterfront skyline.",
-        length: "3.2 km",
+        length: "3.5 km",
         speed: "290 km/h",
         gear: "6th - 7th",
         difficulty: "★★☆☆☆"
@@ -149,17 +161,17 @@ document.addEventListener('DOMContentLoaded', () => {
     s2: {
       ja: {
         title: "S2: 湾岸線 (有明JCT → 辰巳JCT)",
-        desc: "広大な直線が続く高速セクション。最高速350km/hオーバーでのハイスピード巡航と、辰巳JCTの高速ブラインドコーナーへのブレーキングが鍵となります。",
-        length: "3.8 km",
-        speed: "350+ km/h",
+        desc: "広大な直線が続く高速セクション。最高320km/hでのハイスピード巡航と、辰巳JCTの高速ブラインドコーナーへのブレーキングが鍵となります。",
+        length: "2.5 km",
+        speed: "320 km/h",
         gear: "7th - 8th",
         difficulty: "★★★☆☆"
       },
       en: {
         title: "S2: Bayshore Route (Ariake JCT → Tatsumi JCT)",
-        desc: "Wide high-speed straightaways allowing speeds above 350 km/h, leading into the technical fast sweepers of Tatsumi JCT.",
-        length: "3.8 km",
-        speed: "350+ km/h",
+        desc: "Wide high-speed straightaways allowing speeds up to 320 km/h, leading into the technical fast sweepers of Tatsumi JCT.",
+        length: "2.5 km",
+        speed: "320 km/h",
         gear: "7th - 8th",
         difficulty: "★★★☆☆"
       },
@@ -169,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ja: {
         title: "S3: 9号深川線 (辰巳JCT → 箱崎JCT)",
         desc: "運河沿いの高架を一直線に駆け抜けるロングストレート。下町の景観と高層タワーマンション群を両脇に見ながらリズミカルに走ります。",
-        length: "3.5 km",
+        length: "6.3 km",
         speed: "320 km/h",
         gear: "7th",
         difficulty: "★★☆☆☆"
@@ -177,18 +189,18 @@ document.addEventListener('DOMContentLoaded', () => {
       en: {
         title: "S3: Route 9 Fukagawa Line (Tatsumi JCT → Hakozaki JCT)",
         desc: "An elevated highway section spanning canals and urban waterways. Smooth high-speed rhythmic cruising through eastern Tokyo.",
-        length: "3.5 km",
+        length: "6.3 km",
         speed: "320 km/h",
         gear: "7th",
         difficulty: "★★☆☆☆"
       },
-      img: "./assets/city_mesh_overview.jpg"
+      img: "./assets/rain_night.jpg"
     },
     s4: {
       ja: {
         title: "S4: 6号向島線・箱崎 (箱崎JCT → 江戸橋JCT)",
         desc: "首都高の名所『箱崎ロータリー』と立体多層ジャンクション。複雑な分岐と狭い車線幅、連続する中速S字コーナーが集中力を試します。",
-        length: "2.1 km",
+        length: "0.9 km",
         speed: "240 km/h",
         gear: "4th - 5th",
         difficulty: "★★★★☆"
@@ -196,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
       en: {
         title: "S4: Route 6 Mukojima Line (Hakozaki JCT → Edobashi JCT)",
         desc: "The famous multi-level labyrinth of Hakozaki Junction. Demanding precise braking, tight lane discipline, and rapid steering transitions.",
-        length: "2.1 km",
+        length: "0.9 km",
         speed: "240 km/h",
         gear: "4th - 5th",
         difficulty: "★★★★☆"
@@ -207,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ja: {
         title: "S5: C1 都心環状線 (江戸橋JCT → 銀座・京橋)",
         desc: "銀座・日本橋の地下や掘割（地面より低い半地下構造）を抜けるテクニカル区間。ビルの谷間とトンネル照明のコントラストが美しい名所です。",
-        length: "2.9 km",
+        length: "3.7 km",
         speed: "220 km/h",
         gear: "3rd - 5th",
         difficulty: "★★★★★"
@@ -215,18 +227,18 @@ document.addEventListener('DOMContentLoaded', () => {
       en: {
         title: "S5: C1 Inner Circular Route (Edobashi → Ginza Trenches)",
         desc: "Sunken highway trenches beneath the streets of Ginza and Kyobashi. Highly technical chicane sections with towering buildings above.",
-        length: "2.9 km",
+        length: "3.7 km",
         speed: "220 km/h",
         gear: "3rd - 5th",
         difficulty: "★★★★★"
       },
-      img: "./assets/rain_night.jpg"
+      img: "./assets/city_mesh_overview.jpg"
     },
     s6: {
       ja: {
         title: "S6: 1号羽田線 (銀座 → 浜崎橋JCT → 芝浦)",
         desc: "フィニッシュストレートへの助走区間。浜崎橋JCTの合流を抜け、スタートライン（11号台場線入口）へと戻る高速ループの完結セクター。",
-        length: "2.0 km",
+        length: "0.8 km",
         speed: "280 km/h",
         gear: "5th - 6th",
         difficulty: "★★★☆☆"
@@ -234,12 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
       en: {
         title: "S6: Route 1 Haneda Line (Ginza → Hamazakibashi → Shibaura)",
         desc: "The final sprint connecting through Hamazakibashi back to the start line at Shibaura, completing the 17.5km loop.",
-        length: "2.0 km",
+        length: "0.8 km",
         speed: "280 km/h",
         gear: "5th - 6th",
         difficulty: "★★★☆☆"
       },
-      img: "./assets/hero_shutoko.jpg"
+      img: "./assets/landmark_names.jpg"
     }
   };
 
@@ -350,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visibility = 100;
         safeSpeed = '250 km/h';
       } else {
-        imgSrc = './assets/cockpit_hud.jpg';
+        imgSrc = './assets/night_headlights.jpg';
         visibility = 85;
         safeSpeed = '240 km/h';
       }
