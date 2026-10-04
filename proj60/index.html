@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OSAKA VIEWER 3D — あのビルの名前が、わかる。</title>
+  <meta name="description" content="大阪の地形と約61万棟の建物を3Dで再現。ベランダ、大阪城天守閣、あべのハルカス屋上——好きな場所と高さから景色を眺め、見えているビルや山の名前を確かめられるデスクトップアプリ。" />
+  <meta property="og:title" content="OSAKA VIEWER 3D — あのビルの名前が、わかる。" />
+  <meta property="og:description" content="好きな場所・好きな高さから大阪を眺め、見えているビルや山の名前を確かめられる 3D ビューア。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/hero.jpg" />
+  <meta name="theme-color" content="#0f1318" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M2 28 12 10l5 8 4-5 9 15z%22 fill=%22%234da3ff%22/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1318;
+      --bg-2: #161b22;
+      --card: #1b212a;
+      --line: #2a323d;
+      --text: #e8edf3;
+      --muted: #9aa6b4;
+      --accent: #4da3ff;
+      --accent-2: #ffd36a;
+      --radius: 14px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .en { font-family: Inter, "Noto Sans JP", sans-serif; letter-spacing: .02em; }
+
+    /* header */
+    header.top {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .logo svg { width: 26px; height: 26px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+      background: var(--accent); color: #06121f; transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 45%, transparent); }
+    .btn.small { padding: 8px 16px; font-size: 14px; }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); box-shadow: none; }
+
+    /* hero */
+    .hero { padding: 72px 0 40px; text-align: center; }
+    .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .12em; }
+    .hero h1 { font-size: clamp(32px, 6vw, 60px); line-height: 1.25; margin: 14px 0 18px; font-weight: 900; }
+    .hero h1 .hl { color: var(--accent-2); }
+    .nb { display: inline-block; }
+    .hero p.lead { color: var(--muted); font-size: clamp(15px, 2vw, 18px); max-width: 680px; margin: 0 auto 30px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .price-note { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .shot {
+      margin-top: 48px; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+    figcaption { font-size: 13px; color: var(--muted); padding: 10px 14px; background: var(--bg-2); border-top: 1px solid var(--line); }
+
+    section { padding: 80px 0; }
+    section.alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h2 { font-size: clamp(24px, 4vw, 36px); line-height: 1.4; margin: 0 0 14px; font-weight: 900; }
+    .sec-lead { color: var(--muted); max-width: 720px; margin: 0 0 40px; }
+
+    /* story */
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .story blockquote { margin: 0; font-size: clamp(18px, 2.4vw, 22px); font-weight: 700; line-height: 1.7; border-left: 3px solid var(--accent); padding-left: 18px; }
+    .story p { color: var(--muted); }
+
+    /* views */
+    .views { display: grid; gap: 28px; }
+    .view { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+    .view .body { padding: 20px 22px 24px; }
+    .view h3 { margin: 0 0 6px; font-size: 20px; }
+    .view .meta { color: var(--accent-2); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .view p { margin: 0; color: var(--muted); font-size: 15px; }
+    .views-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    /* features */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .feat .num { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+    .feat h3 { margin: 6px 0 6px; font-size: 17px; }
+    .feat p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* split */
+    .split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
+    .split .shot { margin-top: 0; }
+    ul.check { list-style: none; padding: 0; margin: 0; }
+    ul.check li { padding: 8px 0 8px 28px; position: relative; color: var(--muted); }
+    ul.check li::before { content: "▼"; position: absolute; left: 0; top: 9px; color: var(--accent-2); font-size: 13px; }
+    ul.check strong { color: var(--text); }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: s; }
+    .step { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; position: relative; }
+    .step::before { counter-increment: s; content: counter(s); font-family: Inter, sans-serif; font-weight: 800; font-size: 14px; color: #06121f; background: var(--accent); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 12px; }
+    .step h3 { margin: 0 0 6px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* buy */
+    .buy { text-align: center; }
+    .buy .card { max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 40px 28px; }
+    .price { font-size: 52px; font-weight: 800; line-height: 1; margin: 12px 0 4px; }
+    .price small { display: block; font-size: 15px; color: var(--muted); font-weight: 500; margin-top: 10px; }
+    .platforms { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0 26px; }
+    .chip { border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--muted); }
+
+    .hdr-right { display: flex; align-items: center; gap: 10px; }
+    .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang button { background: transparent; color: var(--muted); border: 0; padding: 6px 11px; white-space: nowrap; font: 600 13px Inter, "Noto Sans JP", sans-serif; cursor: pointer; }
+    .lang button[aria-pressed="true"] { background: var(--line); color: var(--text); }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+    footer p { margin: 4px 0; }
+
+    @media (max-width: 860px) {
+      .story, .split, .views-2 { grid-template-columns: 1fr; }
+      .features, .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .features, .steps { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .hero { padding-top: 48px; }
+      .wrap { padding: 0 16px; }
+      header.top .btn.small { padding: 7px 12px; font-size: 13px; }
+      .logo { font-size: 14px; gap: 7px; }
+      .hdr-right { gap: 6px; }
+      .lang button { padding: 6px 8px; }
+      .logo svg { width: 22px; height: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="logo en" href="#">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 28 12 10l5 8 4-5 9 15z" fill="#4da3ff"/></svg>
+        OSAKA VIEWER 3D
+      </a>
+      <div class="hdr-right">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="ja" aria-pressed="true" aria-label="日本語">JA</button>
+          <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+        <a class="btn small" href="https://cyber-matrix.netlify.app/products/osaka" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow en">OSAKA VIEWER 3D — DESKTOP EDITION</div>
+        <h1 data-i18n="heroTitle"><span class="nb">窓から見える、</span><br /><span class="hl nb">あのビルの名前</span><span class="nb">がわかる。</span></h1>
+        <p class="lead" data-i18n="heroLead">大阪の地形と約61万棟の建物を、3Dでまるごと再現。自宅のベランダ、大阪城天守閣、あべのハルカスの屋上など、好きな場所と高さから景色を眺めて、見えているビルや山の名前を確かめられます。</p>
+        <div class="cta-row">
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/osaka" data-i18n="heroBuy">¥150 で入手する</a>
+          <a class="btn ghost" href="#views" data-i18n="heroViews">景色を見る</a>
+        </div>
+        <div class="price-note" data-i18n="heroNote">macOS（Apple Silicon）／ Windows 10・11（64bit）・買い切り</div>
+        <figure class="shot" style="margin-left:0;margin-right:0">
+          <img src="images/hero.jpg" data-img="hero" width="1600" height="900" data-i18n-alt="heroAlt" alt="大阪市街を東向きに見下ろした3D表示。ビルや駅、生駒山などの山に名前のラベルが付いている" />
+          <figcaption data-i18n="heroCap">上空から東を向いた画面。奥に生駒山系の山並み、手前になんば周辺のビル群。画像はすべてアプリの実際の画面です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- story -->
+    <section class="alt">
+      <div class="wrap story">
+        <blockquote data-i18n="storyQuote">「ベランダから見えるあのビル、何だろう？」<br />地図アプリを開いても、答えは出てこない。</blockquote>
+        <div>
+          <p data-i18n="storyP1">地図アプリは真上から見た地図です。でも知りたいのは、目の前の景色のどれが何か、ということ。</p>
+          <p data-i18n="storyP2">OSAKA VIEWER 3D は、立つ場所と目の高さを決めると、その位置から見える景色を3Dで描きます。見えている建物と山には名前のラベルが付き、▼ の先がその場所を指します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- views -->
+    <section id="views">
+      <div class="wrap">
+        <h2 data-i18n="viewsTitle">大阪の名所から、眺めてみる。</h2>
+        <p class="sec-lead" data-i18n="viewsLead">立つ場所の緯度・経度と高さを決めて、見回すだけ。行ったことのない展望台からの景色も、その場で確かめられます。</p>
+        <div class="views">
+          <figure class="view" style="margin:0">
+            <img src="images/view-harukas.jpg" data-img="view-harukas" width="1600" height="900" loading="lazy" data-i18n-alt="harukasAlt" alt="あべのハルカス屋上から北を見た3D表示。四天王寺や大阪城方面のビル群と、奥の山並みにラベルが付いている" />
+            <div class="body">
+              <div class="meta" data-i18n="harukasMeta">あべのハルカス屋上　地上 約300m ／ 北北東を向く</div>
+              <h3 data-i18n="harukasTitle">あべのハルカス屋上からの景色</h3>
+              <p data-i18n="harukasText">日本有数の高さから、大阪城方面を見渡せます。四天王寺、上本町のタワー、遠くの山並みまで名前がわかります。</p>
+            </div>
+          </figure>
+          <div class="views-2">
+            <figure class="view" style="margin:0">
+              <img src="images/view-castle.jpg" data-img="view-castle" width="1600" height="900" loading="lazy" data-i18n-alt="castleAlt" alt="大阪城天守閣の高さから北西を見た3D表示。堀の向こうに北浜・天満方面のビル群" />
+              <div class="body">
+                <div class="meta" data-i18n="castleMeta">大阪城天守閣　地上 約55m ／ 北西を向く</div>
+                <h3 data-i18n="castleTitle">大阪城天守閣からの景色</h3>
+                <p data-i18n="castleText">堀と迎賓館の向こうに、北浜から天満のビル群が広がります。</p>
+              </div>
+            </figure>
+            <figure class="view" style="margin:0">
+              <img src="images/look-mountains.jpg" data-img="look-mountains" width="1600" height="900" loading="lazy" data-i18n-alt="mountainsAlt" alt="北浜付近の上空から東を見た3D表示。生駒山、大原山、鳥見山などの山名と標高が表示されている" />
+              <div class="body">
+                <div class="meta" data-i18n="mountainsMeta">北浜付近　地上 約250m ／ 東を向く</div>
+                <h3 data-i18n="mountainsTitle">東の山並みを見る</h3>
+                <p data-i18n="mountainsText">生駒山 642m、鳥見山 734m。山の名前と標高も表示され、地形に隠れる山はラベルが自動で消えます。</p>
+              </div>
+            </figure>
+          </div>
+          <figure class="view" style="margin:0">
+            <img src="images/view-umeda.jpg" data-img="view-umeda" width="1600" height="900" loading="lazy" data-i18n-alt="umedaAlt" alt="大阪市の北西の外側から南東を見た3D表示。神崎川の向こうに市街地が広がり、奥にグランフロント大阪などの梅田の高層ビル群と山並み" />
+            <div class="body">
+              <div class="meta" data-i18n="umedaMeta">大阪市の北西の外側　地上 約250m ／ 南東を向く ／ 望遠（視野 25°）</div>
+              <h3 data-i18n="umedaTitle">市の外から、梅田のビル群を望む</h3>
+              <p data-i18n="umedaText">神崎川を境に大阪市の街並みが始まり、その奥にグランフロント大阪やシティタワー西梅田がそびえます。望遠ズームで、7km 先の高層ビルも名前まで確かめられます。</p>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section class="alt">
+      <div class="wrap">
+        <h2 data-i18n="featTitle">しくみと機能</h2>
+        <p class="sec-lead" data-i18n="featLead">国土交通省の 3D 都市モデル「PLATEAU」と国土地理院のデータを使い、大阪を実際の形で再現しています。</p>
+        <div class="features">
+          <div class="feat"><div class="num en">612,419</div><h3 data-i18n="f1Title">棟の建物</h3><p data-i18n="f1Text">PLATEAU の大阪市データの建物を、すべて立体で表示します。</p></div>
+          <div class="feat"><div class="num" data-i18n="f2Num">高さ自由</div><h3 data-i18n="f2Title">目の高さを指定</h3><p data-i18n="f2Text">「地面から」か「海抜」で、視点の高さを入力できます。家の2階なら 4.5m、展望台なら公表されている高さを入れます。</p></div>
+          <div class="feat"><div class="num">▼</div><h3 data-i18n="f3Title">名前のラベル</h3><p data-i18n="f3Text">山・ランドマーク・駅・施設に名前を表示します。▼ の先がその場所です。種類ごとに表示を切り替えられます。</p></div>
+          <div class="feat"><div class="num" data-i18n="f4Num">屋上へ</div><h3 data-i18n="f4Title">クリックで移動</h3><p data-i18n="f4Text">地図上のビルの屋上をクリックすると、その屋上に立った視点に切り替わります。</p></div>
+          <div class="feat"><div class="num en">×66</div><h3 data-i18n="f5Title">望遠ズーム</h3><p data-i18n="f5Text">立ち位置を変えずに、遠くのビルや山を約66倍まで拡大できます。</p></div>
+          <div class="feat"><div class="num en">JA / EN</div><h3 data-i18n="f6Title">日本語と英語</h3><p data-i18n="f6Text">ラベルと画面の表示を、ワンクリックで切り替えられます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- building info -->
+    <section>
+      <div class="wrap split">
+        <figure class="shot" style="margin:0">
+          <img src="images/info.jpg" data-img="info" width="1600" height="900" loading="lazy" data-i18n-alt="infoAlt" alt="建物をクリックして、用途・所在地・高さ・地上階数のパネルが表示された3D表示" />
+          <figcaption data-i18n="infoCap">ビルをクリックすると、オレンジに強調されて情報が表示されます。</figcaption>
+        </figure>
+        <div>
+          <h2 data-i18n="infoTitle">気になるビルは、クリックで調べる。</h2>
+          <ul class="check">
+            <li data-i18n="info1"><strong>名前・用途</strong>：PLATEAU に登録されている名前と用途</li>
+            <li data-i18n="info2"><strong>高さ・地上階数</strong>：たとえば 174.2m・50階</li>
+            <li data-i18n="info3"><strong>所在地</strong>：区と町名まで</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- how to -->
+    <section class="alt">
+      <div class="wrap">
+        <h2 data-i18n="stepsTitle">使い方は3ステップ</h2>
+        <p class="sec-lead" data-i18n="stepsLead">自宅のベランダからの景色を見る場合の例です。</p>
+        <div class="steps">
+          <div class="step"><h3 data-i18n="s1Title">場所を選ぶ</h3><p data-i18n="s1Text">「地点をクリック」で自宅の建物を選ぶか、緯度・経度を入力します。</p></div>
+          <div class="step"><h3 data-i18n="s2Title">高さを決める</h3><p data-i18n="s2Text">基準を「地面から」にして、階数 × 約3m ＋ 1.6m（目の高さ）を入力します。10階なら 31.6m です。</p></div>
+          <div class="step"><h3 data-i18n="s3Title">見回す</h3><p data-i18n="s3Text">ドラッグで向きを変え、ホイールで拡大します。ラベルを見れば、どのビルか一目でわかります。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- buy -->
+    <section class="buy" id="buy">
+      <div class="wrap">
+        <div class="card">
+          <div class="eyebrow en">DESKTOP EDITION</div>
+          <div class="price en">¥150<small data-i18n="priceNote">税込・買い切り</small></div>
+          <div class="platforms">
+            <span class="chip">macOS (Apple Silicon)</span>
+            <span class="chip">Windows 10 / 11 (64-bit)</span>
+          </div>
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/osaka" data-i18n="buyBtn">ダウンロードページへ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p data-i18n="foot1">掲載画像はすべて OSAKA VIEWER 3D の実際の画面です。</p>
+      <p data-i18n="foot2">3D 建物・地盤：<a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a>（国土交通省）／ 航空写真：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>／ 山・ランドマーク名：© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors ／ 描画：<a href="https://cesium.com/platform/cesiumjs/" target="_blank" rel="noopener">CesiumJS</a></p>
+      <p class="en">© Cyber Matrix</p>
+    </div>
+  </footer>
+
+  <script>
+    // Japanese is written in the markup; English lives here. Images have an "-en" variant
+    // captured with the app's English labels.
+    const EN = {
+      pageTitle: 'OSAKA VIEWER 3D — Know every building you see',
+      pageDesc: 'Osaka’s terrain and about 610,000 buildings in 3D. Pick any spot and height — your balcony, Osaka Castle, the top of Abeno Harukas — and see the names of the buildings and mountains in view. A desktop app.',
+      navBuy: 'Get it',
+      heroTitle: 'Look out your window.<br /><span class="hl">Know every building</span> you see.',
+      heroLead: 'Osaka’s terrain and about 610,000 buildings, rebuilt in 3D. Stand on your balcony, the Osaka Castle keep or the roof of Abeno Harukas, at any height, look around, and see what each building and mountain is called.',
+      heroBuy: 'Get it for ¥150',
+      heroViews: 'See the views',
+      heroNote: 'macOS (Apple Silicon) / Windows 10 & 11 (64-bit) · one-time purchase',
+      heroAlt: '3D view looking east over central Osaka, with name labels on buildings, stations and mountains such as Mt. Ohara',
+      heroCap: 'Looking east from above: the Ikoma range behind, the Namba area in front. Every image on this page is a real screen from the app.',
+      storyQuote: '“What’s that building I can see from my balcony?”<br />A map app can’t tell you.',
+      storyP1: 'A map app shows the city from straight above. What you want to know is which thing in front of you is which.',
+      storyP2: 'OSAKA VIEWER 3D draws the view from wherever you choose to stand, at the eye height you choose. Buildings and mountains in view carry name labels, and the ▼ under each one points to the place.',
+      viewsTitle: 'The view from Osaka’s landmarks',
+      viewsLead: 'Set a latitude, longitude and height, then look around. You can see the view from an observation deck you have never been to.',
+      harukasAlt: '3D view from the roof of Abeno Harukas looking north, with labels on buildings toward Osaka Castle and on the mountains behind',
+      harukasMeta: 'Roof of Abeno Harukas · about 300 m above ground · facing NNE',
+      harukasTitle: 'From the roof of Abeno Harukas',
+      harukasText: 'Look out toward Osaka Castle from one of Japan’s tallest buildings. Shitennoji, the Uehonmachi towers and the distant mountains are all named.',
+      castleAlt: '3D view from the height of the Osaka Castle keep looking northwest, with the Kitahama and Tenma high-rises beyond the moat',
+      castleMeta: 'Osaka Castle keep · about 55 m above ground · facing NW',
+      castleTitle: 'From the Osaka Castle keep',
+      castleText: 'Beyond the moat and the guest house, the high-rises of Kitahama and Tenma spread out.',
+      mountainsAlt: '3D view looking east from above Kitahama, showing the names and elevations of Mt. Ikoma, Mt. Ohara, Mt. Torimi and others',
+      mountainsMeta: 'Above Kitahama · about 250 m above ground · facing E',
+      mountainsTitle: 'The mountains to the east',
+      mountainsText: 'Mt. Ikoma 642 m, Mt. Torimi 734 m. Mountains show their name and elevation, and labels hidden behind terrain disappear automatically.',
+      umedaAlt: '3D view looking southeast from just outside Osaka City to the northwest: the city across the Kanzaki River, with the Umeda high-rises such as Grand Front Osaka Owners Tower and the mountains behind',
+      umedaMeta: 'Just outside Osaka City to the NW · about 250 m above ground · facing SE · telephoto (25° view)',
+      umedaTitle: 'The Umeda skyline from outside the city',
+      umedaText: 'Osaka City begins at the Kanzaki River, and behind it rise Grand Front Osaka Owners Tower and City Tower Nishi-Umeda. With the telephoto zoom you can read the names of towers 7 km away.',
+      featTitle: 'How it works',
+      featLead: 'Osaka is rebuilt in its real shape from PLATEAU, the 3D city model of Japan’s Ministry of Land, Infrastructure, Transport and Tourism, and from data by the Geospatial Information Authority of Japan.',
+      f1Title: 'buildings',
+      f1Text: 'Every building in PLATEAU’s Osaka City data, shown in 3D.',
+      f2Num: 'Any height',
+      f2Title: 'Set your eye height',
+      f2Text: 'Enter the height above ground or above sea level. About 4.5 m for a second floor, or the published height of an observation deck.',
+      f3Title: 'Name labels',
+      f3Text: 'Mountains, landmarks, stations and facilities are labelled. The ▼ points to the place. Each kind can be turned on or off.',
+      f4Num: 'Rooftops',
+      f4Title: 'Click to go there',
+      f4Text: 'Click a building’s roof on the map and the view switches to standing on that roof.',
+      f5Title: 'Telephoto zoom',
+      f5Text: 'Zoom in on distant buildings and mountains up to about 66× without moving.',
+      f6Title: 'Japanese & English',
+      f6Text: 'Switch labels and the interface with one click.',
+      infoAlt: '3D view with a building clicked, showing a panel with its usage, address, height and number of storeys',
+      infoCap: 'Click a building to highlight it in orange and show its details.',
+      infoTitle: 'Curious about a building? Click it.',
+      info1: '<strong>Name and usage</strong>: as recorded in PLATEAU',
+      info2: '<strong>Height and storeys</strong>: for example 174.2 m, 50 floors',
+      info3: '<strong>Address</strong>: down to the ward and district',
+      stepsTitle: 'Three steps',
+      stepsLead: 'For example, to see the view from your own balcony:',
+      s1Title: 'Choose the spot',
+      s1Text: 'Use “Click a spot” to pick your building, or enter a latitude and longitude.',
+      s2Title: 'Set the height',
+      s2Text: 'Choose “Above ground” and enter floors × about 3 m + 1.6 m (eye height). For the 10th floor, that is 31.6 m.',
+      s3Title: 'Look around',
+      s3Text: 'Drag to turn and use the wheel to zoom. The labels tell you which building is which at a glance.',
+      priceNote: 'tax incl. · one-time purchase',
+      buyBtn: 'Go to the download page',
+      foot1: 'Every image on this page is a real screen from OSAKA VIEWER 3D.',
+      foot2: '3D buildings and ground: <a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a> (MLIT) / Aerial photos: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan</a> / Mountain and landmark names: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors / Rendering: <a href="https://cesium.com/platform/cesiumjs/" target="_blank" rel="noopener">CesiumJS</a>',
+    };
+
+    const JA = {
+      pageTitle: document.title,
+      pageDesc: document.querySelector('meta[name=description]').content,
+    };
+    document.querySelectorAll('[data-i18n]').forEach((el) => { JA[el.dataset.i18n] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-alt]').forEach((el) => { JA[el.dataset.i18nAlt] = el.alt; });
+
+    function setLang(lang) {
+      const dict = lang === 'en' ? EN : JA;
+      document.documentElement.lang = lang;
+      document.title = dict.pageTitle;
+      document.querySelector('meta[name=description]').content = dict.pageDesc;
+      document.querySelectorAll('[data-i18n]').forEach((el) => { el.innerHTML = dict[el.dataset.i18n]; });
+      document.querySelectorAll('[data-i18n-alt]').forEach((el) => { el.alt = dict[el.dataset.i18nAlt]; });
+      document.querySelectorAll('img[data-img]').forEach((el) => { el.src = `images/${el.dataset.img}${lang === 'en' ? '-en' : ''}.jpg`; });
+      document.querySelectorAll('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+      try { localStorage.setItem('lp-lang', lang); } catch { /* storage may be unavailable */ }
+    }
+    document.querySelectorAll('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+    // ?lang=en|ja in the URL wins, then the last choice, then the browser language.
+    let initial = new URLSearchParams(location.search).get('lang');
+    if (initial !== 'en' && initial !== 'ja') {
+      try { initial = localStorage.getItem('lp-lang'); } catch { initial = null; }
+    }
+    if (initial !== 'en' && initial !== 'ja') initial = navigator.language.startsWith('ja') ? 'ja' : 'en';
+    if (initial === 'en') setLang('en');
+  </script>
+</body>
+</html>
