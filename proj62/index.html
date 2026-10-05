@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA ISS Earth Realtime Viewer | 国際宇宙ステーション リアルタイム地球観測シミュレーター</title>
+  <meta name="description" content="国際宇宙ステーション（ISS）から見たリアルタイムの地球の眺めをCesiumJSで3D再現。コックピット視点、後方視点、高精度2D軌道マップ、早回し・巻き戻し、絶景ポイントスキップを体験できるシミュレーションアプリ。">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:title" content="NASA ISS Earth Realtime Viewer">
+  <meta property="og:description" content="国際宇宙ステーションから見たリアルタイムの地球の眺めを3D再現。">
+  <meta property="og:image" content="assets/hero-bg.png">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/iss">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Starfield background overlay -->
+  <div class="stars-bg"></div>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="https://cyber-matrix.netlify.app/products/iss" class="nav-logo">
+        <span class="meatball-badge">NASA</span>
+        <span class="logo-text">ISS VIEWER</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" class="nav-link" data-lp-i18n="navFeatures">機能紹介</a></li>
+        <li><a href="#camera-views" class="nav-link" data-lp-i18n="navViews">視点切り替え</a></li>
+        <li><a href="#radar-map" class="nav-link" data-lp-i18n="navRadar">2D軌道マップ</a></li>
+        <li><a href="#desktop-apps" class="nav-link" data-lp-i18n="navDesktop">デスクトップ版</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="btn-lp-lang" class="btn btn-secondary btn-sm">EN / 日本語</button>
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-sm" data-lp-i18n="btnLaunch">
+          <i data-lucide="external-link"></i> Web版を起動
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span data-lp-i18n="heroTag">リアルタイム宇宙ステーション観測</span>
+      </div>
+
+      <h1 class="hero-title" data-lp-i18n="heroTitle">
+        国際宇宙ステーションから、<br>
+        <span class="gradient-text">いま、この瞬間の地球を眺める。</span>
+      </h1>
+
+      <p class="hero-description" data-lp-i18n="heroDesc">
+        高度420kmを秒速7.65kmで周回するISSの視点をリアルタイムに3Dシミュレーション。コックピット視点、後方カメラ、高精度2D軌道マップ、早回し・巻き戻し機能で未知の地球を旅する。
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" id="cta-launch-hero">
+          <i data-lucide="play"></i> <span data-lp-i18n="btnLaunch">Web版を起動する</span>
+        </a>
+        <a href="#desktop-apps" class="btn btn-secondary" id="cta-download-hero">
+          <i data-lucide="download"></i> <span data-lp-i18n="btnDownload">アプリをダウンロード</span>
+        </a>
+      </div>
+
+      <!-- Live Simulated Telemetry Status -->
+      <div class="hero-telemetry-bar">
+        <div class="telemetry-item">
+          <div class="telemetry-label">ORBIT SPEED</div>
+          <div id="hero-speed" class="telemetry-value mono">27,602 km/h</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">ALTITUDE</div>
+          <div id="hero-alt" class="telemetry-value mono">421.4 km</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">INCLINATION</div>
+          <div class="telemetry-value mono">51.64°</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">TIMESTAMP</div>
+          <div id="hero-utc" class="telemetry-value mono">--:--:-- UTC</div>
+        </div>
+      </div>
+
+      <!-- Hero Showcase Main Visual -->
+      <div class="hero-showcase">
+        <div class="showcase-window">
+          <img src="assets/hero-bg.png" alt="NASA ISS Earth Realtime Viewer Showcase" loading="eager">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Key Features Grid Section -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">KEY FEATURES</span>
+        <h2 class="section-title">本格的な宇宙工学と<br><span class="gradient-text">美麗な3Dグラフィックスの融合</span></h2>
+        <p class="section-desc">NASAやNORADの公開データと物理モデルを組み合わせ、宇宙飛行士と同じ視界を提供します。</p>
+      </div>
+
+      <div class="feature-grid">
+        <!-- Feature 1 -->
+        <div class="glass-card feature-card">
+          <div class="feature-icon-box">
+            <i data-lucide="satellite"></i>
+          </div>
+          <h3 class="feature-title">リアルタイム SGP4 軌道伝搬</h3>
+          <p class="feature-desc">CelesTrak から最新の TLE（2行軌道要素）を取得し、秒速 7.65km で周回する ISS の現在位置と姿勢をミリ秒単位で高精度計算。</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card glass-card">
+          <div class="feature-icon-box">
+            <i data-lucide="sun"></i>
+          </div>
+          <h3 class="feature-title">精密な太陽光・昼夜シミュレーション</h3>
+          <p class="feature-desc">太陽直下点と地球の影（エクリプス）を算出。昼側の大気光と夜側の NASA VIIRS 高解像度都市光を忠実にシミュレート。</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card glass-card">
+          <div class="feature-icon-box">
+            <i data-lucide="map"></i>
+          </div>
+          <h3 class="feature-title">高精細 2D レーダー軌道マップ</h3>
+          <p class="feature-desc">Natural Earth 50m ベクター海岸線と国境線を描画。地上可視範囲（フットプリント）や過去・未来の軌道曲線を直感的に把握。</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card glass-card">
+          <div class="feature-icon-box">
+            <i data-lucide="fast-forward"></i>
+          </div>
+          <h3 class="feature-title">早回し・巻き戻しタイムコントロール</h3>
+          <p class="feature-desc">×3, ×5, ×10 の早送りや巻き戻しで、約92.8分の地球1周軌道をわずか数分で体験。LIVEボタンで瞬時に現在時刻へ同期可能。</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card glass-card">
+          <div class="feature-icon-box">
+            <i data-lucide="navigation"></i>
+          </div>
+          <h3 class="feature-title">絶景ポイントへクイックジャンプ</h3>
+          <p class="feature-desc">直近の「軌道上の日の出」「日没」、および今後24時間以内で最も日本や北米、欧州、アマゾンに接近する時刻を自動計算してジャンプ。</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card glass-card">
+          <div class="feature-icon-box">
+            <i data-lucide="languages"></i>
+          </div>
+          <h3 class="feature-title">日本語・英語 完全バイリンガル対応</h3>
+          <p class="feature-desc">ワンクリックで全テレメトリやUIの言語を瞬時に切り替え。世界中のユーザーがストレスなく利用可能です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Camera Views Showcase Section -->
+  <section id="camera-views" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CAMERA ANGLES</span>
+        <h2 class="section-title">宇宙飛行士の目線から、全景まで。<br><span class="gradient-text">5つの多彩なカメラアングル</span></h2>
+        <p class="section-desc">キューポラ観測モジュールや船体追尾カメラなど、多彩なアングルで地球の表情を堪能できます。</p>
+      </div>
+
+      <div class="camera-showcase-container">
+        <!-- Navigation List -->
+        <div class="camera-nav-list">
+          <div class="camera-nav-item active" data-view="cockpit">
+            <div class="cam-item-icon"><i data-lucide="eye"></i></div>
+            <div class="cam-item-text">
+              <h4>コックピットから (Cupola Cockpit)</h4>
+              <p>宇宙飛行士が眺める進行方向と水平線</p>
+            </div>
+          </div>
+
+          <div class="camera-nav-item" data-view="chase">
+            <div class="cam-item-icon"><i data-lucide="navigation-2"></i></div>
+            <div class="cam-item-text">
+              <h4>後方から (Chase Cam)</h4>
+              <p>巨大な太陽電池パドルと地球の共演</p>
+            </div>
+          </div>
+
+          <div class="camera-nav-item" data-view="overhead">
+            <div class="cam-item-icon"><i data-lucide="globe"></i></div>
+            <div class="cam-item-text">
+              <h4>上空（遠方）から (Global Overview)</h4>
+              <p>高度3,000kmからの壮大な地球全景</p>
+            </div>
+          </div>
+
+          <div class="camera-nav-item" data-view="nadir">
+            <div class="cam-item-icon"><i data-lucide="arrow-down-circle"></i></div>
+            <div class="cam-item-text">
+              <h4>直下観測カメラ (Earth Nadir)</h4>
+              <p>地表・山脈・サンゴ礁・夜景を高解像度観測</p>
+            </div>
+          </div>
+
+          <div class="camera-nav-item" data-view="night">
+            <div class="cam-item-icon"><i data-lucide="moon"></i></div>
+            <div class="cam-item-text">
+              <h4>夜景・都市光モード (City Lights)</h4>
+              <p>漆黒の地球に煌めく大都市の夜景</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Display Box -->
+        <div class="camera-view-display">
+          <div id="camera-overlay-badge" class="camera-badge-overlay mono">COCKPIT VIEW // LIVE 3D</div>
+          <img src="assets/cockpit.png" alt="Cupola Cockpit View" class="camera-img active" data-view="cockpit">
+          <img src="assets/chase.png" alt="Chase Cam View" class="camera-img" data-view="chase">
+          <img src="assets/overhead.png" alt="Global Overview View" class="camera-img" data-view="overhead">
+          <img src="assets/nadir.png" alt="Earth Nadir View" class="camera-img" data-view="nadir">
+          <img src="assets/night.png" alt="Night City Lights View" class="camera-img" data-view="night">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2D Ground Track & Quick Jump Section -->
+  <section id="radar-map" class="section">
+    <div class="container">
+      <div class="radar-highlight-grid">
+        <div class="radar-content">
+          <span class="section-tag">2D RADAR TRACKER</span>
+          <h3>NASA 管制室品質の<br><span class="gradient-text-gold">高精度 2D レーダーマップ</span></h3>
+          <p class="section-desc">
+            Natural Earth 50m スケールの精細なベクター海岸線と国境線上に、ISS の軌道曲線と昼夜境界線をリアルタイム描画します。
+          </p>
+
+          <ul class="radar-feature-list">
+            <li>
+              <i data-lucide="check-circle-2"></i>
+              <div><strong>過去45分＆予測95分の航跡ライン</strong>: 水色とゴールドの破線で地球周回ルートを一目で把握。</div>
+            </li>
+            <li>
+              <i data-lucide="check-circle-2"></i>
+              <div><strong>地上可視範囲（フットプリント）</strong>: 半径約2,200kmの地平線可視範囲を円形レーダー表示。</div>
+            </li>
+            <li>
+              <i data-lucide="check-circle-2"></i>
+              <div><strong>昼夜境界線（ターミネーター）</strong>: 太陽直下点から計算された地球の夜側エリアを半透明シャドウで表現。</div>
+            </li>
+            <li>
+              <i data-lucide="check-circle-2"></i>
+              <div><strong>主要宇宙基地マーカー</strong>: 東京/JAXA、ケネディ宇宙センター(KSC)、ヒューストン(JSC)、バイコヌールを表示。</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="radar-image-card">
+          <img src="assets/japan.png" alt="ISS 2D Ground Track Radar & Japan pass">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop Apps & Download Section -->
+  <section id="desktop-apps" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">MULTI-PLATFORM</span>
+        <h2 class="section-title">あらゆる環境で楽しむ<br><span class="gradient-text">Web & ネイティブ デスクトップアプリ</span></h2>
+        <p class="section-desc">ブラウザで手軽に起動できる Web 版に加え、Tauri による超軽量・高速な macOS / Windows ネイティブアプリを提供。</p>
+      </div>
+
+      <div class="platforms-grid">
+        <!-- Platform 1: Web Browser -->
+        <div class="glass-card platform-card">
+          <div class="platform-badge"><i data-lucide="globe-2"></i></div>
+          <h3 class="platform-name">Web Browser</h3>
+          <div class="platform-sub">インストール不要・即座に起動</div>
+          <ul class="platform-specs">
+            <li><span>対応ブラウザ</span><strong>Chrome / Safari / Edge</strong></li>
+            <li><span>3D エンジン</span><strong>WebGL 2.0 / CesiumJS</strong></li>
+            <li><span>更新頻度</span><strong>CelesTrak リアルタイム TLE</strong></li>
+            <li><span>料金</span><strong>完全無料</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
+            <i data-lucide="play"></i> Web版を起動
+          </a>
+        </div>
+
+        <!-- Platform 2: macOS Native -->
+        <div class="glass-card platform-card">
+          <div class="platform-badge"><i data-lucide="apple"></i></div>
+          <h3 class="platform-name">macOS Native App</h3>
+          <div class="platform-sub">Apple Silicon / Intel 最適化</div>
+          <ul class="platform-specs">
+            <li><span>パッケージ形式</span><strong>.dmg / .app (Tauri v2)</strong></li>
+            <li><span>ファイルサイズ</span><strong>軽量約 10MB</strong></li>
+            <li><span>OS要件</span><strong>macOS 10.15 以上</strong></li>
+            <li><span>Retina高精細</span><strong>対応</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-secondary" style="width: 100%;">
+            <i data-lucide="download"></i> Mac版を入手 (.dmg)
+          </a>
+        </div>
+
+        <!-- Platform 3: Windows Native -->
+        <div class="glass-card platform-card">
+          <div class="platform-badge"><i data-lucide="monitor"></i></div>
+          <h3 class="platform-name">Windows Native App</h3>
+          <div class="platform-sub">64-bit Windows 最適化</div>
+          <ul class="platform-specs">
+            <li><span>パッケージ形式</span><strong>.msi / .exe (Tauri v2)</strong></li>
+            <li><span>ファイルサイズ</span><strong>軽量約 12MB</strong></li>
+            <li><span>OS要件</span><strong>Windows 10 / 11 (64-bit)</strong></li>
+            <li><span>DirectX / WebView2</span><strong>対応</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-secondary" style="width: 100%;">
+            <i data-lucide="download"></i> Win版を入手 (.msi)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner Section -->
+  <section class="container">
+    <div class="glass-card cta-banner">
+      <h2 data-lp-i18n="ctaTitle">宇宙ステーションの車窓から、地球を見つめよう。</h2>
+      <p data-lp-i18n="ctaDesc">ブラウザで今すぐリアルタイムシミュレーターを体験できます。macOS / Windows 向けネイティブアプリも利用可能です。</p>
+      <div class="hero-cta-group" style="margin-bottom: 0;">
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-launch-bottom">
+          <i data-lucide="rocket"></i> <span data-lp-i18n="btnLaunch">Web版を今すぐ起動する</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="meatball-badge">NASA</span>
+          <div>
+            <strong>ISS Earth Realtime Viewer</strong>
+            <div style="font-size: 12px; color: var(--color-text-dark);">Cyber Matrix Space Project</div>
+          </div>
+        </div>
+
+        <ul class="footer-nav">
+          <li><a href="https://cyber-matrix.netlify.app/products/iss">Web App</a></li>
+          <li><a href="../MANUAL_JA.md">取扱説明書 (JA)</a></li>
+          <li><a href="../MANUAL_EN.md">Manual (EN)</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 NASA ISS Earth Realtime Viewer / Cyber Matrix. Powered by CesiumJS & SGP4 Orbital Mechanics.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
