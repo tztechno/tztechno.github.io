@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>富士山ビュー新幹線 | Mt. Fuji View Shinkansen</title>
+  <meta name="description" content="東海道新幹線 三島〜新富士〜富士川橋梁の約30kmを、標高データ・航空写真・PLATEAU 3D都市モデルで再現した車窓シミュレーター。右窓に富士山を眺めながら走る、macOS / Windows 向けデスクトップアプリ。">
+  <meta name="author" content="Cyber Matrix">
+  <meta property="og:title" content="富士山ビュー新幹線 | Mt. Fuji View Shinkansen">
+  <meta property="og:description" content="車窓に、富士山。東海道新幹線の富士山区間を実データの3Dで走る車窓シミュレーター。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/fuji">
+  <meta property="og:image" content="https://cyber-matrix.netlify.app/products/fuji/assets/hero_aerial.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4fa3'/%3E%3Cpath d='M4 25L13.5 10h5L28 25z' fill='%23344a6e'/%3E%3Cpath d='M13.5 10h5l2.6 4-1.8-.8-1.8 1.3-1.5-1.3-1.8 1.3-1.8-1.3-1.4.8z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="nav" id="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top" aria-label="Mt. Fuji View Shinkansen">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#1d4fa3"/>
+          <path d="M4 25L13.5 10h5L28 25z" fill="#344a6e"/>
+          <path d="M13.5 10h5l2.6 4-1.8-.8-1.8 1.3-1.5-1.3-1.8 1.3-1.8-1.3-1.4.8z" fill="#fff"/>
+          <rect x="3" y="26" width="26" height="2" fill="#fff"/>
+        </svg>
+        <span class="brand-text"><b data-i18n="brand">富士山ビュー新幹線</b><small>MT. FUJI VIEW SHINKANSEN</small></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#highlights" data-i18n="nav.highlights">見どころ</a>
+        <a href="#views" data-i18n="nav.views">視点</a>
+        <a href="#driving" data-i18n="nav.driving">運転</a>
+        <a href="#data" data-i18n="nav.data">データ</a>
+        <a href="#specs" data-i18n="nav.specs">動作環境</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="lang" id="langBtn" type="button" aria-label="Switch language">EN</button>
+        <a class="btn btn-primary btn-sm" href="https://cyber-matrix.netlify.app/products/fuji" target="_blank" rel="noopener" data-i18n="cta.get">入手する</a>
+        <button class="menu" id="menuBtn" type="button" aria-label="Menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <img class="hero-bg" src="./assets/hero_aerial.jpg" alt="" fetchpriority="high">
+    <div class="hero-shade"></div>
+    <div class="wrap hero-in">
+      <p class="eyebrow" data-i18n="hero.eyebrow">東海道新幹線 三島 ― 新富士 ― 富士川橋梁</p>
+      <h1 data-i18n-html="hero.title">車窓に、<span>富士山。</span></h1>
+      <p class="lead" data-i18n="hero.lead">新幹線の車窓から見える富士山を、標高データ・国土地理院の航空写真・PLATEAU の3D都市モデルで再現しました。約30kmの区間を、N700S風の16両編成で走る車窓シミュレーターです。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://cyber-matrix.netlify.app/products/fuji" target="_blank" rel="noopener">
+          <span data-i18n="cta.get">入手する</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#highlights" data-i18n="cta.more">見どころを見る</a>
+      </div>
+      <ul class="platforms">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.8-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8c1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.4-.9-2.4-3.9zM14 5.4c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>macOS <small>(Apple Silicon)</small></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.5l7.4-1v7.1H3zm0 13l7.4 1v-7H3zm8.2 1.1L21 21v-8.4h-9.8zm0-15.2v7.2H21V3z"/></svg>Windows <small>10 / 11 (x64)</small></li>
+      </ul>
+    </div>
+    <a class="scroll-hint" href="#stats" aria-label="Scroll"><span></span></a>
+  </section>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats" id="stats">
+    <div class="wrap stats-in">
+      <div class="stat"><b>30.3<small>km</small></b><span data-i18n="stat.km">富士川橋梁から三島まで、両端はトンネル</span></div>
+      <div class="stat"><b>59,594</b><span data-i18n="stat.bldg">PLATEAU 3D都市モデルの建物</span></div>
+      <div class="stat"><b>3,776<small>m</small></b><span data-i18n="stat.fuji">車窓に見える富士山。仰角は最大約9°</span></div>
+      <div class="stat"><b>285<small>km/h</small></b><span data-i18n="stat.speed">ATCの最高速度。半自動では1000 km/hまで</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Highlights ===== -->
+  <section class="section" id="highlights">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="kicker">HIGHLIGHTS</p>
+        <h2 data-i18n="hl.title">この区間の見どころ</h2>
+        <p data-i18n="hl.lead">下りでは右の窓、上りでは左の窓に富士山が見えます。富士川を渡る鉄橋、新富士駅のホームなど、実際の車窓で知られる場面を走ります。</p>
+      </header>
+
+      <article class="feature">
+        <button class="shot" data-full="./assets/window_fuji.jpg"><img src="./assets/window_fuji.jpg" alt="右窓から見える冠雪の富士山" loading="lazy"></button>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1.t">窓いっぱいの富士山</h3>
+          <p data-i18n="f1.d">客室の窓から真横を見た視点です。富士山までの距離・方角・仰角をいつも表示します。冠雪は尾根や沢の陰影を残して描き、オン/オフも切り替えられます。</p>
+        </div>
+      </article>
+
+      <article class="feature rev">
+        <button class="shot" data-full="./assets/shinfuji_station.jpg"><img src="./assets/shinfuji_station.jpg" alt="新富士駅の駅名標と富士山" loading="lazy"></button>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2.t">新富士駅、ホームから富士山</h3>
+          <p data-i18n="f2.d">こだまは副本線に入り、分岐器を70 km/hで通過して、ホームの定位置にぴたりと止まります。停車中も窓の外には富士山。新富士と三島は2面4線のホーム・上屋・駅名標まで作り込みました。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <button class="shot" data-full="./assets/fujikawa_bridge.jpg"><img src="./assets/fujikawa_bridge.jpg" alt="富士川橋梁付近を走る新幹線" loading="lazy"></button>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3.t">富士川橋梁と高架橋</h3>
+          <p data-i18n="f3.d">線路は OpenStreetMap の複線の中心線から作り、全線を高架橋で再現しました。富士川は鋼桁と楕円形の橋脚で渡ります。架線柱、架線、バラスト、レールも1本ずつ通しています。</p>
+        </div>
+      </article>
+
+      <article class="feature rev">
+        <button class="shot" data-full="./assets/labels.jpg"><img src="./assets/labels.jpg" alt="山と建物の名前ラベル" loading="lazy"></button>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4.t">山と建物の名前ラベル</h3>
+          <p data-i18n="f4.d">富士山、宝永山、愛鷹山、箱根、南アルプスなど15の山頂に標高つきのラベルを付けました。駅・市役所・工場など30か所の建物にも名前を表示します。陰に隠れたラベルは消え、重なるときは自動で位置をずらします。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <button class="shot" data-full="./assets/evening_aerial.jpg"><img src="./assets/evening_aerial.jpg" alt="夕景の富士山と新幹線" loading="lazy"></button>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5.t">朝・昼・夕方</h3>
+          <p data-i18n="f5.d">時間帯は朝・昼・夕方の3つです。夕方は富士山が茜色に染まり、街に長い影が伸びます。遠くの山ほど大気でかすむように描いています。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Views ===== -->
+  <section class="section alt" id="views">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="kicker">5 VIEWS</p>
+        <h2 data-i18n="v.title">5つの視点</h2>
+        <p data-i18n="v.lead">視点はVキーか1〜5のキーで切り替えます。ドラッグで見回し、ホイールでズームできます。</p>
+      </header>
+      <div class="views">
+        <figure class="view">
+          <button class="shot" data-full="./assets/cockpit.jpg"><img src="./assets/cockpit.jpg" alt="運転席からの視点" loading="lazy"></button>
+          <figcaption><b data-i18n="v1.t">運転席</b><span data-i18n="v1.d">ノーズの先に延びる複線と架線</span></figcaption>
+        </figure>
+        <figure class="view">
+          <button class="shot" data-full="./assets/window_fuji.jpg"><img src="./assets/window_fuji.jpg" alt="右窓からの視点" loading="lazy"></button>
+          <figcaption><b data-i18n="v2.t">右窓・左窓</b><span data-i18n="v2.d">客室の窓枠越しに見る景色</span></figcaption>
+        </figure>
+        <figure class="view">
+          <button class="shot" data-full="./assets/station_chase.jpg"><img src="./assets/station_chase.jpg" alt="やや後方からの視点" loading="lazy"></button>
+          <figcaption><b data-i18n="v3.t">やや後方</b><span data-i18n="v3.d">先頭車を斜め後ろから追う視点</span></figcaption>
+        </figure>
+        <figure class="view">
+          <button class="shot" data-full="./assets/hero_aerial.jpg"><img src="./assets/hero_aerial.jpg" alt="上空からの視点" loading="lazy"></button>
+          <figcaption><b data-i18n="v4.t">上空</b><span data-i18n="v4.d">列車越しに富士山を望む空撮</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Driving ===== -->
+  <section class="section" id="driving">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="kicker">DRIVING</p>
+        <h2 data-i18n="d.title">運転と列車</h2>
+      </header>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">A</div>
+          <h3 data-i18n="d1.t">自動運転</h3>
+          <p data-i18n="d1.d">ATCの285 km/hと減速パターンに従って走ります。景色を眺めるだけで、終点のトンネルまで運んでくれます。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">S</div>
+          <h3 data-i18n="d2.t">半自動運転</h3>
+          <p data-i18n="d2.d">↑↓キーで目標速度だけを変えます。285 km/hを超えるとATCが「解除」になり、最高1000 km/hで景色が流れます。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⇄</div>
+          <h3 data-i18n="d3.t">のぞみ / こだま、上り / 下り</h3>
+          <p data-i18n="d3.d">のぞみは全駅通過、こだまは新富士と三島に停車します。下り（新大阪方面）では右窓、上り（東京方面）では左窓に富士山が見えます。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">×5</div>
+          <h3 data-i18n="d4.t">早送り</h3>
+          <p data-i18n="d4.d">時間の進み方を×1〜×5に切り替えられます。停車時間も一緒に縮みます。</p>
+        </div>
+      </div>
+
+      <div class="keys">
+        <h3 data-i18n="k.title">操作キー</h3>
+        <dl>
+          <div><dt>V / 1–5</dt><dd data-i18n="k.view">視点</dd></div>
+          <div><dt>M</dt><dd data-i18n="k.mode">自動 ⇔ 半自動</dd></div>
+          <div><dt>↑ ↓</dt><dd data-i18n="k.speed">目標速度</dd></div>
+          <div><dt>F</dt><dd data-i18n="k.fast">早送り ×1〜5</dd></div>
+          <div><dt>T</dt><dd data-i18n="k.time">時間帯</dd></div>
+          <div><dt>Y</dt><dd data-i18n="k.snow">冠雪</dd></div>
+          <div><dt>B</dt><dd data-i18n="k.labels">名前ラベル</dd></div>
+          <div><dt>L</dt><dd data-i18n="k.lang">日本語 / English</dd></div>
+          <div><dt>N</dt><dd data-i18n="k.sound">走行音</dd></div>
+          <div><dt>P</dt><dd data-i18n="k.pause">一時停止</dd></div>
+          <div><dt>Esc</dt><dd data-i18n="k.title2">タイトルへ</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Data ===== -->
+  <section class="section alt" id="data">
+    <div class="wrap data-in">
+      <div class="data-text">
+        <p class="kicker">REAL DATA</p>
+        <h2 data-i18n="data.title">実データで作った3D</h2>
+        <ul class="data-list">
+          <li><b data-i18n="data1.t">地形</b><span data-i18n="data1.d">1秒メッシュ（約30m）の標高データ。線路の周り・富士山周辺・広域の3段階で、遠くの南アルプスや箱根まで描きます。</span></li>
+          <li><b data-i18n="data2.t">航空写真</b><span data-i18n="data2.d">国土地理院のシームレス空中写真。線路沿いは約2m/画素の解像度です。</span></li>
+          <li><b data-i18n="data3.t">建物</b><span data-i18n="data3.d">国土交通省 Project PLATEAU の3D都市モデル（LOD1）。富士市・沼津市・三島市・長泉町などの約6万棟です。</span></li>
+          <li><b data-i18n="data4.t">線路と駅</b><span data-i18n="data4.d">OpenStreetMap の東海道新幹線から作った複線の中心線に、高架橋・駅・トンネル坑口をモデリングしました。</span></li>
+        </ul>
+      </div>
+      <button class="shot data-shot" data-full="./assets/hud_window.jpg"><img src="./assets/hud_window.jpg" alt="走行中の画面（速度・ATC・富士山の方角・ミニマップ）" loading="lazy"></button>
+    </div>
+  </section>
+
+  <!-- ===== Specs ===== -->
+  <section class="section" id="specs">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="kicker">SPECS</p>
+        <h2 data-i18n="s.title">動作環境</h2>
+      </header>
+      <div class="specs">
+        <div class="spec">
+          <h3>macOS</h3>
+          <ul>
+            <li data-i18n="s.mac1">Apple Silicon（M1 以降）</li>
+            <li data-i18n="s.mac2">macOS 12 以降を推奨</li>
+            <li data-i18n="s.disk">ディスク空き容量 約150 MB</li>
+          </ul>
+        </div>
+        <div class="spec">
+          <h3>Windows</h3>
+          <ul>
+            <li data-i18n="s.win1">Windows 10 / 11（64bit）</li>
+            <li data-i18n="s.win2">WebView2（Windows 11 は標準搭載）</li>
+            <li data-i18n="s.disk">ディスク空き容量 約150 MB</li>
+          </ul>
+        </div>
+        <div class="spec">
+          <h3 data-i18n="s.common">共通</h3>
+          <ul>
+            <li data-i18n="s.c1">メモリ 8 GB 以上を推奨</li>
+            <li data-i18n="s.c2">WebGL 2 対応の GPU</li>
+            <li data-i18n="s.c3">インターネット接続は不要（データ同梱）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section alt" id="faq">
+    <div class="wrap narrow">
+      <header class="sec-head">
+        <p class="kicker">FAQ</p>
+        <h2 data-i18n="faq.title">よくある質問</h2>
+      </header>
+      <details>
+        <summary data-i18n="q1">富士山はどちらの窓から見えますか？</summary>
+        <p data-i18n="a1">下り（新大阪方面）では右の窓（E席側）、上り（東京方面）では左の窓に見えます。タイトル画面で方向を選ぶと、見える側の窓が自動で選ばれます。</p>
+      </details>
+      <details>
+        <summary data-i18n="q2">どの区間を走りますか？</summary>
+        <p data-i18n="a2">富士川西岸のトンネル坑口から、新富士駅・三島駅を経て三島の東のトンネル坑口までの約30.3 kmです。</p>
+      </details>
+      <details>
+        <summary data-i18n="q3">オフラインで使えますか？</summary>
+        <p data-i18n="a3">はい。地形・航空写真・建物のデータはすべてアプリに入っているので、インターネット接続なしで動きます。</p>
+      </details>
+      <details>
+        <summary data-i18n="q4">起動時に警告が出ます。</summary>
+        <p data-i18n="a4">macOS では右クリック →「開く」を選んでください。Windows では SmartScreen の「詳細情報」→「実行」で起動できます。</p>
+      </details>
+      <details>
+        <summary data-i18n="q5">英語に対応していますか？</summary>
+        <p data-i18n="a5">はい。Lキーやボタンで、画面の表示・駅名・ラベルを日本語と英語で切り替えられます。</p>
+      </details>
+      <details>
+        <summary data-i18n="q6">実際の列車や線路と同じですか？</summary>
+        <p data-i18n="a6">地形・建物・線路の位置は実データに基づいています。一方、高架の高さ、車両の形、駅の構造は実物をもとにした再現で、細部は異なります。</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-band">
+    <img src="./assets/evening_aerial.jpg" alt="" loading="lazy">
+    <div class="wrap cta-in">
+      <h2 data-i18n="end.title">富士山の見える車窓へ。</h2>
+      <a class="btn btn-primary btn-lg" href="https://cyber-matrix.netlify.app/products/fuji" target="_blank" rel="noopener">
+        <span data-i18n="cta.get">入手する</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <p class="cta-sub">macOS (Apple Silicon) / Windows 10・11</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p class="credits" data-i18n="credits">地形: 標高データ（mt_fuji.tif）／ 航空写真: 国土地理院 シームレス空中写真 ／ 建物: Project PLATEAU（国土交通省）／ 線路・施設: © OpenStreetMap contributors</p>
+      <p class="disclaimer" data-i18n="disclaimer">本作は個人制作の非公式シミュレーターであり、東海旅客鉄道株式会社とは関係ありません。車両はN700Sを参考にした再現モデルです。</p>
+      <p class="copy">© Cyber Matrix</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+    <img id="lbImg" alt="">
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
