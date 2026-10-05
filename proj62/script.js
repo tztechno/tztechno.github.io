@@ -82,26 +82,26 @@ document.addEventListener('DOMContentLoaded', () => {
       navViews: '視点切り替え',
       navRadar: '2D軌道マップ',
       navDesktop: 'デスクトップ版',
-      btnLaunch: 'Web版を起動する',
-      btnDownload: 'アプリをダウンロード',
+      btnBuy: 'デスクトップ版を購入',
+      btnSpecs: '動作環境・仕様を見る',
       heroTag: 'リアルタイム宇宙ステーション観測',
       heroTitle: '国際宇宙ステーションから、<br><span class="gradient-text">いま、この瞬間の地球を眺める。</span>',
       heroDesc: '高度420kmを秒速7.65kmで周回するISSの視点をリアルタイムに3Dシミュレーション。コックピット視点、後方カメラ、高精度2D軌道マップ、早回し・巻き戻し機能で未知の地球を旅する。',
       ctaTitle: '宇宙ステーションの車窓から、地球を見つめよう。',
-      ctaDesc: 'ブラウザで今すぐリアルタイムシミュレーターを体験できます。macOS / Windows 向けネイティブアプリも利用可能です。'
+      ctaDesc: '買い切り ¥150 で永久利用可能。macOS & Windows 対応のネイティブデスクトップアプリです。'
     },
     en: {
       navFeatures: 'Features',
       navViews: 'Camera Views',
       navRadar: '2D Radar Map',
-      navDesktop: 'Desktop Apps',
-      btnLaunch: 'Launch Web App',
-      btnDownload: 'Download App',
+      navDesktop: 'Desktop App',
+      btnBuy: 'Buy Desktop App ($1.00 / ¥150)',
+      btnSpecs: 'System Requirements & Specs',
       heroTag: 'REALTIME ORBITAL OBSERVATION',
       heroTitle: 'Behold the Earth in Real-Time <br><span class="gradient-text">from the International Space Station.</span>',
       heroDesc: 'Experience photorealistic 3D simulation of Earth from the ISS orbiting at 420 km altitude at 7.65 km/s. Featuring Cupola cockpit view, 2D orbital ground track, time travel, and instant scenic jumps.',
       ctaTitle: 'Look down upon the Earth from the station window.',
-      ctaDesc: 'Launch the realtime simulator instantly in your web browser, or download native desktop apps for macOS & Windows.'
+      ctaDesc: 'One-time purchase ¥150 for lifetime access. Native standalone desktop app for macOS & Windows.'
     }
   };
 

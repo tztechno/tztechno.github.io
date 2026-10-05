@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NASA ISS Earth Realtime Viewer | 国際宇宙ステーション リアルタイム地球観測シミュレーター</title>
-  <meta name="description" content="国際宇宙ステーション（ISS）から見たリアルタイムの地球の眺めをCesiumJSで3D再現。コックピット視点、後方視点、高精度2D軌道マップ、早回し・巻き戻し、絶景ポイントスキップを体験できるシミュレーションアプリ。">
+  <meta name="description" content="国際宇宙ステーション（ISS）から見たリアルタイムの地球の眺めをCesiumJSで3D再現。コックピット視点、後方視点、高精度2D軌道マップ、早回し・巻き戻し、絶景ポイントスキップを体験できるデスクトップシミュレーションアプリ。">
   
   <!-- Open Graph / Social Meta -->
   <meta property="og:title" content="NASA ISS Earth Realtime Viewer">
@@ -45,8 +45,8 @@
 
       <div class="nav-actions">
         <button id="btn-lp-lang" class="btn btn-secondary btn-sm">EN / 日本語</button>
-        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-sm" data-lp-i18n="btnLaunch">
-          <i data-lucide="external-link"></i> Web版を起動
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-sm" data-lp-i18n="btnBuy">
+          <i data-lucide="shopping-cart"></i> デスクトップ版を購入
         </a>
       </div>
     </div>
@@ -71,11 +71,11 @@
       </p>
 
       <div class="hero-cta-group">
-        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" id="cta-launch-hero">
-          <i data-lucide="play"></i> <span data-lp-i18n="btnLaunch">Web版を起動する</span>
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-buy-hero">
+          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuy">デスクトップ版を購入 (¥150)</span>
         </a>
-        <a href="#desktop-apps" class="btn btn-secondary" id="cta-download-hero">
-          <i data-lucide="download"></i> <span data-lp-i18n="btnDownload">アプリをダウンロード</span>
+        <a href="#desktop-apps" class="btn btn-secondary" id="cta-specs-hero">
+          <i data-lucide="monitor"></i> <span data-lp-i18n="btnSpecs">動作環境・仕様を見る</span>
         </a>
       </div>
 
@@ -283,29 +283,13 @@
   <section id="desktop-apps" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">MULTI-PLATFORM</span>
-        <h2 class="section-title">あらゆる環境で楽しむ<br><span class="gradient-text">Web & ネイティブ デスクトップアプリ</span></h2>
-        <p class="section-desc">ブラウザで手軽に起動できる Web 版に加え、Tauri による超軽量・高速な macOS / Windows ネイティブアプリを提供。</p>
+        <span class="section-tag">DESKTOP EDITION</span>
+        <h2 class="section-title">完全オフラインで動作する<br><span class="gradient-text">macOS ＆ Windows ネイティブアプリ</span></h2>
+        <p class="section-desc">Tauri v2 による超軽量・高速設計。買い切り ¥150 で永久にご利用いただけます。</p>
       </div>
 
-      <div class="platforms-grid">
-        <!-- Platform 1: Web Browser -->
-        <div class="glass-card platform-card">
-          <div class="platform-badge"><i data-lucide="globe-2"></i></div>
-          <h3 class="platform-name">Web Browser</h3>
-          <div class="platform-sub">インストール不要・即座に起動</div>
-          <ul class="platform-specs">
-            <li><span>対応ブラウザ</span><strong>Chrome / Safari / Edge</strong></li>
-            <li><span>3D エンジン</span><strong>WebGL 2.0 / CesiumJS</strong></li>
-            <li><span>更新頻度</span><strong>CelesTrak リアルタイム TLE</strong></li>
-            <li><span>料金</span><strong>完全無料</strong></li>
-          </ul>
-          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
-            <i data-lucide="play"></i> Web版を起動
-          </a>
-        </div>
-
-        <!-- Platform 2: macOS Native -->
+      <div class="platforms-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 800px; margin: 0 auto;">
+        <!-- Platform 1: macOS Native -->
         <div class="glass-card platform-card">
           <div class="platform-badge"><i data-lucide="apple"></i></div>
           <h3 class="platform-name">macOS Native App</h3>
@@ -314,26 +298,26 @@
             <li><span>パッケージ形式</span><strong>.dmg / .app (Tauri v2)</strong></li>
             <li><span>ファイルサイズ</span><strong>軽量約 10MB</strong></li>
             <li><span>OS要件</span><strong>macOS 10.15 以上</strong></li>
-            <li><span>Retina高精細</span><strong>対応</strong></li>
+            <li><span>価格</span><strong>買い切り ¥150 (税込)</strong></li>
           </ul>
-          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-secondary" style="width: 100%;">
-            <i data-lucide="download"></i> Mac版を入手 (.dmg)
+          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
+            <i data-lucide="shopping-cart"></i> macOS版を購入 (¥150)
           </a>
         </div>
 
-        <!-- Platform 3: Windows Native -->
+        <!-- Platform 2: Windows Native -->
         <div class="glass-card platform-card">
           <div class="platform-badge"><i data-lucide="monitor"></i></div>
           <h3 class="platform-name">Windows Native App</h3>
           <div class="platform-sub">64-bit Windows 最適化</div>
           <ul class="platform-specs">
-            <li><span>パッケージ形式</span><strong>.msi / .exe (Tauri v2)</strong></li>
-            <li><span>ファイルサイズ</span><strong>軽量約 12MB</strong></li>
+            <li><span>パッケージ形式</span><strong>.exe / .msi (Tauri v2)</strong></li>
+            <li><span>ファイルサイズ</span><strong>軽量約 9MB</strong></li>
             <li><span>OS要件</span><strong>Windows 10 / 11 (64-bit)</strong></li>
-            <li><span>DirectX / WebView2</span><strong>対応</strong></li>
+            <li><span>価格</span><strong>買い切り ¥150 (税込)</strong></li>
           </ul>
-          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-secondary" style="width: 100%;">
-            <i data-lucide="download"></i> Win版を入手 (.msi)
+          <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
+            <i data-lucide="shopping-cart"></i> Windows版を購入 (¥150)
           </a>
         </div>
       </div>
@@ -344,10 +328,10 @@
   <section class="container">
     <div class="glass-card cta-banner">
       <h2 data-lp-i18n="ctaTitle">宇宙ステーションの車窓から、地球を見つめよう。</h2>
-      <p data-lp-i18n="ctaDesc">ブラウザで今すぐリアルタイムシミュレーターを体験できます。macOS / Windows 向けネイティブアプリも利用可能です。</p>
+      <p data-lp-i18n="ctaDesc">買い切り ¥150 で永久利用可能。macOS & Windows 対応のネイティブデスクトップアプリです。</p>
       <div class="hero-cta-group" style="margin-bottom: 0;">
-        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-launch-bottom">
-          <i data-lucide="rocket"></i> <span data-lp-i18n="btnLaunch">Web版を今すぐ起動する</span>
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-buy-bottom">
+          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuy">デスクトップ版を購入する (¥150)</span>
         </a>
       </div>
     </div>
@@ -366,10 +350,10 @@
         </div>
 
         <ul class="footer-nav">
-          <li><a href="https://cyber-matrix.netlify.app/products/iss">Web App</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/products/iss">デスクトップ版販売ページ</a></li>
           <li><a href="../MANUAL_JA.md">取扱説明書 (JA)</a></li>
           <li><a href="../MANUAL_EN.md">Manual (EN)</a></li>
-          <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
         </ul>
       </div>
 
