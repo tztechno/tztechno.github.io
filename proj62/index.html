@@ -44,9 +44,9 @@
       </ul>
 
       <div class="nav-actions">
-        <button id="btn-lp-lang" class="btn btn-secondary btn-sm">EN / 日本語</button>
-        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-sm" data-lp-i18n="btnBuy">
-          <i data-lucide="shopping-cart"></i> デスクトップ版を購入
+        <button id="btn-lp-lang" class="btn btn-secondary btn-sm" aria-label="Toggle language">EN / 日本語</button>
+        <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-sm">
+          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuyNav">デスクトップ版を購入</span>
         </a>
       </div>
     </div>
@@ -72,10 +72,10 @@
 
       <div class="hero-cta-group">
         <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-buy-hero">
-          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuy">デスクトップ版を購入 (¥150)</span>
+          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuyHero">デスクトップ版を購入 (¥150)</span>
         </a>
         <a href="#desktop-apps" class="btn btn-secondary" id="cta-specs-hero">
-          <i data-lucide="monitor"></i> <span data-lp-i18n="btnSpecs">動作環境・仕様を見る</span>
+          <i data-lucide="monitor"></i> <span data-lp-i18n="btnSpecsHero">動作環境・仕様を見る</span>
         </a>
       </div>
 
@@ -112,9 +112,9 @@
   <section id="features" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">KEY FEATURES</span>
-        <h2 class="section-title">本格的な宇宙工学と<br><span class="gradient-text">美麗な3Dグラフィックスの融合</span></h2>
-        <p class="section-desc">NASAやNORADの公開データと物理モデルを組み合わせ、宇宙飛行士と同じ視界を提供します。</p>
+        <span class="section-tag" data-lp-i18n="featSectionTag">KEY FEATURES</span>
+        <h2 class="section-title" data-lp-i18n="featSectionTitle">本格的な宇宙工学と<br><span class="gradient-text">美麗な3Dグラフィックスの融合</span></h2>
+        <p class="section-desc" data-lp-i18n="featSectionDesc">NASAやNORADの公開データと物理モデルを組み合わせ、宇宙飛行士と同じ視界を提供します。</p>
       </div>
 
       <div class="feature-grid">
@@ -123,8 +123,8 @@
           <div class="feature-icon-box">
             <i data-lucide="satellite"></i>
           </div>
-          <h3 class="feature-title">リアルタイム SGP4 軌道伝搬</h3>
-          <p class="feature-desc">CelesTrak から最新の TLE（2行軌道要素）を取得し、秒速 7.65km で周回する ISS の現在位置と姿勢をミリ秒単位で高精度計算。</p>
+          <h3 class="feature-title" data-lp-i18n="feat1Title">リアルタイム SGP4 軌道伝搬</h3>
+          <p class="feature-desc" data-lp-i18n="feat1Desc">CelesTrak から最新の TLE（2行軌道要素）を取得し、秒速 7.65km で周回する ISS の現在位置と姿勢をミリ秒単位で高精度計算。</p>
         </div>
 
         <!-- Feature 2 -->
@@ -132,8 +132,8 @@
           <div class="feature-icon-box">
             <i data-lucide="sun"></i>
           </div>
-          <h3 class="feature-title">精密な太陽光・昼夜シミュレーション</h3>
-          <p class="feature-desc">太陽直下点と地球の影（エクリプス）を算出。昼側の大気光と夜側の NASA VIIRS 高解像度都市光を忠実にシミュレート。</p>
+          <h3 class="feature-title" data-lp-i18n="feat2Title">精密な太陽光・昼夜シミュレーション</h3>
+          <p class="feature-desc" data-lp-i18n="feat2Desc">太陽直下点と地球の影（エクリプス）を算出。昼側の大気光と夜側の NASA VIIRS 高解像度都市光を忠実にシミュレート。</p>
         </div>
 
         <!-- Feature 3 -->
@@ -141,8 +141,8 @@
           <div class="feature-icon-box">
             <i data-lucide="map"></i>
           </div>
-          <h3 class="feature-title">高精細 2D レーダー軌道マップ</h3>
-          <p class="feature-desc">Natural Earth 50m ベクター海岸線と国境線を描画。地上可視範囲（フットプリント）や過去・未来の軌道曲線を直感的に把握。</p>
+          <h3 class="feature-title" data-lp-i18n="feat3Title">高精細 2D レーダー軌道マップ</h3>
+          <p class="feature-desc" data-lp-i18n="feat3Desc">Natural Earth 50m ベクター海岸線と国境線を描画。地上可視範囲（フットプリント）や過去・未来の軌道曲線を直感的に把握。</p>
         </div>
 
         <!-- Feature 4 -->
@@ -150,8 +150,8 @@
           <div class="feature-icon-box">
             <i data-lucide="fast-forward"></i>
           </div>
-          <h3 class="feature-title">早回し・巻き戻しタイムコントロール</h3>
-          <p class="feature-desc">×3, ×5, ×10 の早送りや巻き戻しで、約92.8分の地球1周軌道をわずか数分で体験。LIVEボタンで瞬時に現在時刻へ同期可能。</p>
+          <h3 class="feature-title" data-lp-i18n="feat4Title">早回し・巻き戻しタイムコントロール</h3>
+          <p class="feature-desc" data-lp-i18n="feat4Desc">×3, ×5, ×10 の早送りや巻き戻しで、約92.8分の地球1周軌道をわずか数分で体験。LIVEボタンで瞬時に現在時刻へ同期可能。</p>
         </div>
 
         <!-- Feature 5 -->
@@ -159,8 +159,8 @@
           <div class="feature-icon-box">
             <i data-lucide="navigation"></i>
           </div>
-          <h3 class="feature-title">絶景ポイントへクイックジャンプ</h3>
-          <p class="feature-desc">直近の「軌道上の日の出」「日没」、および今後24時間以内で最も日本や北米、欧州、アマゾンに接近する時刻を自動計算してジャンプ。</p>
+          <h3 class="feature-title" data-lp-i18n="feat5Title">絶景ポイントへクイックジャンプ</h3>
+          <p class="feature-desc" data-lp-i18n="feat5Desc">直近の「軌道上の日の出」「日没」、および今後24時間以内で最も日本や北米、欧州、アマゾンに接近する時刻を自動計算してジャンプ。</p>
         </div>
 
         <!-- Feature 6 -->
@@ -168,8 +168,8 @@
           <div class="feature-icon-box">
             <i data-lucide="languages"></i>
           </div>
-          <h3 class="feature-title">日本語・英語 完全バイリンガル対応</h3>
-          <p class="feature-desc">ワンクリックで全テレメトリやUIの言語を瞬時に切り替え。世界中のユーザーがストレスなく利用可能です。</p>
+          <h3 class="feature-title" data-lp-i18n="feat6Title">日本語・英語 完全バイリンガル対応</h3>
+          <p class="feature-desc" data-lp-i18n="feat6Desc">ワンクリックで全テレメトリやUIの言語を瞬時に切り替え。世界中のユーザーがストレスなく利用可能です。</p>
         </div>
       </div>
     </div>
@@ -179,9 +179,9 @@
   <section id="camera-views" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">CAMERA ANGLES</span>
-        <h2 class="section-title">宇宙飛行士の目線から、全景まで。<br><span class="gradient-text">5つの多彩なカメラアングル</span></h2>
-        <p class="section-desc">キューポラ観測モジュールや船体追尾カメラなど、多彩なアングルで地球の表情を堪能できます。</p>
+        <span class="section-tag" data-lp-i18n="camSectionTag">CAMERA ANGLES</span>
+        <h2 class="section-title" data-lp-i18n="camSectionTitle">宇宙飛行士の目線から、全景まで。<br><span class="gradient-text">5つの多彩なカメラアングル</span></h2>
+        <p class="section-desc" data-lp-i18n="camSectionDesc">キューポラ観測モジュールや船体追尾カメラなど、多彩なアングルで地球の表情を堪能できます。</p>
       </div>
 
       <div class="camera-showcase-container">
@@ -190,40 +190,40 @@
           <div class="camera-nav-item active" data-view="cockpit">
             <div class="cam-item-icon"><i data-lucide="eye"></i></div>
             <div class="cam-item-text">
-              <h4>コックピットから (Cupola Cockpit)</h4>
-              <p>宇宙飛行士が眺める進行方向と水平線</p>
+              <h4 data-lp-i18n="camCockpitTitle">コックピットから (Cupola Cockpit)</h4>
+              <p data-lp-i18n="camCockpitDesc">宇宙飛行士が眺める進行方向と水平線</p>
             </div>
           </div>
 
           <div class="camera-nav-item" data-view="chase">
             <div class="cam-item-icon"><i data-lucide="navigation-2"></i></div>
             <div class="cam-item-text">
-              <h4>後方から (Chase Cam)</h4>
-              <p>巨大な太陽電池パドルと地球の共演</p>
+              <h4 data-lp-i18n="camChaseTitle">後方から (Chase Cam)</h4>
+              <p data-lp-i18n="camChaseDesc">巨大な太陽電池パドルと地球の共演</p>
             </div>
           </div>
 
           <div class="camera-nav-item" data-view="overhead">
             <div class="cam-item-icon"><i data-lucide="globe"></i></div>
             <div class="cam-item-text">
-              <h4>上空（遠方）から (Global Overview)</h4>
-              <p>高度3,000kmからの壮大な地球全景</p>
+              <h4 data-lp-i18n="camOverheadTitle">上空（遠方）から (Global Overview)</h4>
+              <p data-lp-i18n="camOverheadDesc">高度3,000kmからの壮大な地球全景</p>
             </div>
           </div>
 
           <div class="camera-nav-item" data-view="nadir">
             <div class="cam-item-icon"><i data-lucide="arrow-down-circle"></i></div>
             <div class="cam-item-text">
-              <h4>直下観測カメラ (Earth Nadir)</h4>
-              <p>地表・山脈・サンゴ礁・夜景を高解像度観測</p>
+              <h4 data-lp-i18n="camNadirTitle">直下観測カメラ (Earth Nadir)</h4>
+              <p data-lp-i18n="camNadirDesc">地表・山脈・サンゴ礁・夜景を高解像度観測</p>
             </div>
           </div>
 
           <div class="camera-nav-item" data-view="night">
             <div class="cam-item-icon"><i data-lucide="moon"></i></div>
             <div class="cam-item-text">
-              <h4>夜景・都市光モード (City Lights)</h4>
-              <p>漆黒の地球に煌めく大都市の夜景</p>
+              <h4 data-lp-i18n="camNightTitle">夜景・都市光モード (City Lights)</h4>
+              <p data-lp-i18n="camNightDesc">漆黒の地球に煌めく大都市の夜景</p>
             </div>
           </div>
         </div>
@@ -246,28 +246,28 @@
     <div class="container">
       <div class="radar-highlight-grid">
         <div class="radar-content">
-          <span class="section-tag">2D RADAR TRACKER</span>
-          <h3>NASA 管制室品質の<br><span class="gradient-text-gold">高精度 2D レーダーマップ</span></h3>
-          <p class="section-desc">
+          <span class="section-tag" data-lp-i18n="radarSectionTag">2D RADAR TRACKER</span>
+          <h3 data-lp-i18n="radarSectionTitle">NASA 管制室品質の<br><span class="gradient-text-gold">高精度 2D レーダーマップ</span></h3>
+          <p class="section-desc" data-lp-i18n="radarSectionDesc">
             Natural Earth 50m スケールの精細なベクター海岸線と国境線上に、ISS の軌道曲線と昼夜境界線をリアルタイム描画します。
           </p>
 
           <ul class="radar-feature-list">
             <li>
               <i data-lucide="check-circle-2"></i>
-              <div><strong>過去45分＆予測95分の航跡ライン</strong>: 水色とゴールドの破線で地球周回ルートを一目で把握。</div>
+              <div data-lp-i18n="radarItem1"><strong>過去45分＆予測95分の航跡ライン</strong>: 水色とゴールドの破線で地球周回ルートを一目で把握。</div>
             </li>
             <li>
               <i data-lucide="check-circle-2"></i>
-              <div><strong>地上可視範囲（フットプリント）</strong>: 半径約2,200kmの地平線可視範囲を円形レーダー表示。</div>
+              <div data-lp-i18n="radarItem2"><strong>地上可視範囲（フットプリント）</strong>: 半径約2,200kmの地平線可視範囲を円形レーダー表示。</div>
             </li>
             <li>
               <i data-lucide="check-circle-2"></i>
-              <div><strong>昼夜境界線（ターミネーター）</strong>: 太陽直下点から計算された地球の夜側エリアを半透明シャドウで表現。</div>
+              <div data-lp-i18n="radarItem3"><strong>昼夜境界線（ターミネーター）</strong>: 太陽直下点から計算された地球の夜側エリアを半透明シャドウで表現。</div>
             </li>
             <li>
               <i data-lucide="check-circle-2"></i>
-              <div><strong>主要宇宙基地マーカー</strong>: 東京/JAXA、ケネディ宇宙センター(KSC)、ヒューストン(JSC)、バイコヌールを表示。</div>
+              <div data-lp-i18n="radarItem4"><strong>主要宇宙基地マーカー</strong>: 東京/JAXA、ケネディ宇宙センター(KSC)、ヒューストン(JSC)、バイコヌールを表示。</div>
             </li>
           </ul>
         </div>
@@ -283,41 +283,41 @@
   <section id="desktop-apps" class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">DESKTOP EDITION</span>
-        <h2 class="section-title">完全オフラインで動作する<br><span class="gradient-text">macOS ＆ Windows ネイティブアプリ</span></h2>
-        <p class="section-desc">Tauri v2 による超軽量・高速設計。買い切り ¥150 で永久にご利用いただけます。</p>
+        <span class="section-tag" data-lp-i18n="deskSectionTag">DESKTOP EDITION</span>
+        <h2 class="section-title" data-lp-i18n="deskSectionTitle">完全オフラインで動作する<br><span class="gradient-text">macOS ＆ Windows ネイティブアプリ</span></h2>
+        <p class="section-desc" data-lp-i18n="deskSectionDesc">Tauri v2 による超軽量・高速設計。買い切り ¥150 で永久にご利用いただけます。</p>
       </div>
 
       <div class="platforms-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 800px; margin: 0 auto;">
         <!-- Platform 1: macOS Native -->
         <div class="glass-card platform-card">
           <div class="platform-badge"><i data-lucide="apple"></i></div>
-          <h3 class="platform-name">macOS Native App</h3>
-          <div class="platform-sub">Apple Silicon / Intel 最適化</div>
+          <h3 class="platform-name" data-lp-i18n="deskMacTitle">macOS Native App</h3>
+          <div class="platform-sub" data-lp-i18n="deskMacSub">Apple Silicon / Intel 最適化</div>
           <ul class="platform-specs">
-            <li><span>パッケージ形式</span><strong>.dmg / .app (Tauri v2)</strong></li>
-            <li><span>ファイルサイズ</span><strong>軽量約 10MB</strong></li>
-            <li><span>OS要件</span><strong>macOS 10.15 以上</strong></li>
-            <li><span>価格</span><strong>買い切り ¥150 (税込)</strong></li>
+            <li><span data-lp-i18n="deskMacPkgLabel">パッケージ形式</span><strong data-lp-i18n="deskMacPkgVal">.dmg / .app (Tauri v2)</strong></li>
+            <li><span data-lp-i18n="deskMacSizeLabel">ファイルサイズ</span><strong data-lp-i18n="deskMacSizeVal">軽量約 10MB</strong></li>
+            <li><span data-lp-i18n="deskMacOsLabel">OS要件</span><strong data-lp-i18n="deskMacOsVal">macOS 10.15 以上</strong></li>
+            <li><span data-lp-i18n="deskMacPriceLabel">価格</span><strong data-lp-i18n="deskMacPriceVal">買い切り ¥150 (税込)</strong></li>
           </ul>
           <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
-            <i data-lucide="shopping-cart"></i> macOS版を購入 (¥150)
+            <i data-lucide="shopping-cart"></i> <span data-lp-i18n="deskMacBtn">macOS版を購入 (¥150)</span>
           </a>
         </div>
 
         <!-- Platform 2: Windows Native -->
         <div class="glass-card platform-card">
           <div class="platform-badge"><i data-lucide="monitor"></i></div>
-          <h3 class="platform-name">Windows Native App</h3>
-          <div class="platform-sub">64-bit Windows 最適化</div>
+          <h3 class="platform-name" data-lp-i18n="deskWinTitle">Windows Native App</h3>
+          <div class="platform-sub" data-lp-i18n="deskWinSub">64-bit Windows 最適化</div>
           <ul class="platform-specs">
-            <li><span>パッケージ形式</span><strong>.exe / .msi (Tauri v2)</strong></li>
-            <li><span>ファイルサイズ</span><strong>軽量約 9MB</strong></li>
-            <li><span>OS要件</span><strong>Windows 10 / 11 (64-bit)</strong></li>
-            <li><span>価格</span><strong>買い切り ¥150 (税込)</strong></li>
+            <li><span data-lp-i18n="deskWinPkgLabel">パッケージ形式</span><strong data-lp-i18n="deskWinPkgVal">.exe / .msi (Tauri v2)</strong></li>
+            <li><span data-lp-i18n="deskWinSizeLabel">ファイルサイズ</span><strong data-lp-i18n="deskWinSizeVal">軽量約 9MB</strong></li>
+            <li><span data-lp-i18n="deskWinOsLabel">OS要件</span><strong data-lp-i18n="deskWinOsVal">Windows 10 / 11 (64-bit)</strong></li>
+            <li><span data-lp-i18n="deskWinPriceLabel">価格</span><strong data-lp-i18n="deskWinPriceVal">買い切り ¥150 (税込)</strong></li>
           </ul>
           <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary" style="width: 100%;">
-            <i data-lucide="shopping-cart"></i> Windows版を購入 (¥150)
+            <i data-lucide="shopping-cart"></i> <span data-lp-i18n="deskWinBtn">Windows版を購入 (¥150)</span>
           </a>
         </div>
       </div>
@@ -331,7 +331,7 @@
       <p data-lp-i18n="ctaDesc">買い切り ¥150 で永久利用可能。macOS & Windows 対応のネイティブデスクトップアプリです。</p>
       <div class="hero-cta-group" style="margin-bottom: 0;">
         <a href="https://cyber-matrix.netlify.app/products/iss" class="btn btn-primary btn-lg" id="cta-buy-bottom">
-          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="btnBuy">デスクトップ版を購入する (¥150)</span>
+          <i data-lucide="shopping-cart"></i> <span data-lp-i18n="ctaBuyBtn">デスクトップ版を購入する (¥150)</span>
         </a>
       </div>
     </div>
@@ -350,15 +350,15 @@
         </div>
 
         <ul class="footer-nav">
-          <li><a href="https://cyber-matrix.netlify.app/products/iss">デスクトップ版販売ページ</a></li>
-          <li><a href="../MANUAL_JA.md">取扱説明書 (JA)</a></li>
-          <li><a href="../MANUAL_EN.md">Manual (EN)</a></li>
-          <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/products/iss" data-lp-i18n="footerStoreLink">デスクトップ版販売ページ</a></li>
+          <li><a href="../MANUAL_JA.md" data-lp-i18n="footerManualJa">取扱説明書 (JA)</a></li>
+          <li><a href="../MANUAL_EN.md" data-lp-i18n="footerManualEn">Manual (EN)</a></li>
+          <li><a href="https://cyber-matrix.netlify.app/" data-lp-i18n="footerShopLink">Cyber Matrix Store</a></li>
         </ul>
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 NASA ISS Earth Realtime Viewer / Cyber Matrix. Powered by CesiumJS & SGP4 Orbital Mechanics.</p>
+        <p data-lp-i18n="footerCopy">© 2026 NASA ISS Earth Realtime Viewer / Cyber Matrix. Powered by CesiumJS & SGP4 Orbital Mechanics.</p>
       </div>
     </div>
   </footer>
