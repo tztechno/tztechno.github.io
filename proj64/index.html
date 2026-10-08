@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyoto Drone | 京都の街を、物理で飛ぶ — MuJoCo × PLATEAU ドローンシミュレーター</title>
+  <meta name="description" content="PLATEAU の 3D 都市モデル（建物 約 51 万棟）で再現した京都市全域を、MuJoCo 物理エンジンのドローンで飛ぶデスクトップシミュレーター。墜落体験、自動ルート立案、強風・吊り荷、障害物の自律回避、マニュアル操縦。macOS / Windows。">
+
+  <meta property="og:title" content="Kyoto Drone — MuJoCo × PLATEAU">
+  <meta property="og:description" content="京都市全域の 3D 街並みを、物理シミュレーションのドローンで飛ぶ。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/kyoto-drone">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23ff7a1a%22/%3E%3Cg stroke=%22%23fff%22 stroke-width=%223%22%3E%3Cpath d=%22M9 9l14 14M23 9L9 23%22/%3E%3C/g%3E%3Cg fill=%22%23fff%22%3E%3Ccircle cx=%229%22 cy=%229%22 r=%224%22/%3E%3Ccircle cx=%2223%22 cy=%229%22 r=%224%22/%3E%3Ccircle cx=%229%22 cy=%2223%22 r=%224%22/%3E%3Ccircle cx=%2223%22 cy=%2223%22 r=%224%22/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">KYOTO DRONE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#scenarios" data-i18n="navScenarios">シナリオ</a></li>
+        <li><a href="#anywhere" data-i18n="navAnywhere">京都市全域</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#desktop" data-i18n="navDesktop">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">MuJoCo × PLATEAU KYOTO</p>
+      <h1 data-i18n-html="heroTitle">京都の街を、<br><span class="accent">物理で飛ぶ。</span></h1>
+      <p class="lead" data-i18n="heroLead">PLATEAU の 3D 都市モデルで再現した京都市全域（建物 約 51 万棟）を、MuJoCo 物理エンジンで動くクアッドコプターで飛ぶドローン・シミュレーター。直線で突っ込んで墜落する失敗から、自動ルート立案、強風と吊り荷、障害物の自律回避、マニュアル操縦まで。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
+        <a href="#scenarios" class="btn btn-ghost btn-lg" data-i18n="heroMore">シナリオを見る</a>
+      </div>
+      <p class="platforms">macOS (Apple Silicon) · Windows 10 / 11</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>515,000</strong><span data-i18n="statBldg">PLATEAU の建物</span></div>
+      <div class="stat"><strong>17 × 23 km</strong><span data-i18n="statArea">京都市全域を飛べる</span></div>
+      <div class="stat"><strong>5</strong><span data-i18n="statScn">シナリオ</span></div>
+      <div class="stat"><strong>2 ms</strong><span data-i18n="statStep">物理計算の刻み</span></div>
+      <div class="stat"><strong>JA / EN</strong><span data-i18n="statLang">日本語・英語 切り替え</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Scenarios ===== -->
+  <section class="section" id="scenarios">
+    <div class="container">
+      <p class="kicker">SCENARIOS</p>
+      <h2 data-i18n="scnTitle">5 つのシナリオ</h2>
+      <p class="section-lead" data-i18n="scnLead">同じ出発地・目的地で、飛び方を変えて比べられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/crash.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="s1Title">直線飛行 — 失敗を体験する</h3>
+          <p data-i18n="s1Body">障害物を考えずに目的地へ一直線。京都駅を飛び立ったドローンは、約 130 m 先のビルの壁に衝突してモーターが止まり、落下します。衝突速度と衝突対象が記録され、衝突音も鳴ります。</p>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/payload.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="s2Title">コース飛行 — 風と荷物に耐える</h3>
+          <p data-i18n="s2Body">建物を避けて立案したルートに沿って飛び、目的地に着陸します。条件は「無風 / 強風 × 荷物なし / 荷物あり」の 4 通り。強風は平均風・突風・乱流で、吊り荷はロープで揺れる本物の剛体です。推力が足りなければ、悪条件では飛び切れません。</p>
+          <ul class="chips">
+            <li data-i18n="s2c1">横風 10 m/s + 突風</li>
+            <li data-i18n="s2c2">2.5 kg の吊り荷</li>
+            <li data-i18n="s2c3">接地して切り離し</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/plan.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="s3Title">ルート立案 — 3 通りを自動で</h3>
+          <p data-i18n="s3Body">建物と地形から、性格の違う 3 つのルートを数十ミリ秒で立案し、距離・最大対地高度・上昇量・所要時間を比べます。</p>
+          <ul class="routes">
+            <li><i style="background:#ff5a5f"></i><b>A</b> <span data-i18n="rA">高高度直行 — 地上約 80 m で建物の上を最短で</span></li>
+            <li><i style="background:#2bb3ff"></i><b>B</b> <span data-i18n="rB">低空・道路沿い — 地上 45 m 以下、道路や川の上を選ぶ</span></li>
+            <li><i style="background:#ffc233"></i><b>C</b> <span data-i18n="rC">別回廊 — B とは別の通りを低空で</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/cockpit.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="s4Title">自律回避 — 見て、避けて、戻る</h3>
+          <p data-i18n="s4Body">コックピット視点。コース上のクレーン・係留気球・横切る他機ドローンを、前方センサー（119 本の光線、10 Hz）で検知。回避方向を選び、安全を確認してからコースへ復帰します。姿勢指示器とセンサー表示つき。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <div class="shot keys" aria-hidden="true">
+          <div class="keypad">
+            <div class="krow"><kbd>W</kbd></div>
+            <div class="krow"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></div>
+          </div>
+          <div class="keypad">
+            <div class="krow"><kbd>↑</kbd></div>
+            <div class="krow"><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div>
+          </div>
+          <p class="pad-note">🎮 Gamepad (Mode 2)</p>
+        </div>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="s5Title">マニュアル — 自分で操縦する</h3>
+          <p data-i18n="s5Body">キーボードかゲームパッド（モード 2）で自由に飛行。高度保持と姿勢制御はフライトコントローラーが担当するので、ビルの谷間や鴨川の上を気持ちよく飛べます。風を吹かせて操縦の難しさを試すことも。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Anywhere in Kyoto ===== -->
+  <section class="section alt" id="anywhere">
+    <div class="container feature">
+      <figure class="shot"><img src="assets/pickmap.jpg" alt="" loading="lazy"></figure>
+      <div class="feature-text">
+        <p class="kicker">ANYWHERE IN KYOTO</p>
+        <h2 data-i18n="anyTitle">嵐山から醍醐寺まで、どこからでも</h2>
+        <p data-i18n="anyBody">出発地と目的地は、金閣寺・清水寺・伏見稲荷など 20 か所のプリセットか、地図をクリックして京都市の好きな場所に。選んだ 2 点のまわりの建物と地形を読み込み、平らな場所を探して離着陸します。</p>
+        <ul class="chips">
+          <li data-i18n="anyC1">国土地理院の地図・航空写真から選択</li>
+          <li data-i18n="anyC2">プリセット 20 か所</li>
+          <li data-i18n="anyC3">10 km 超の長距離も</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">UNDER THE HOOD</p>
+      <h2 data-i18n="techTitle">本物のしくみで飛ぶ</h2>
+      <div class="cards">
+        <div class="card">
+          <h3 data-i18n="t1Title">MuJoCo 物理</h3>
+          <p data-i18n="t1Body">1.8 kg の X 型クアッド。4 つのロータに推力・反トルク・モーター遅れ。街全体を 2.5 m 格子の高さ場として衝突計算し、吊り荷はロープ（テンドン）でつながった剛体です。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t2Title">フライト制御</h3>
+          <p data-i18n="t2Body">位置 PID と幾何学的姿勢制御（SO(3)）。外乱オブザーバが風や荷物の振れを推定して打ち消し、質量推定が荷物の重さに適応します。ON / OFF で効果を比べられます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t3Title">ルート立案</h3>
+          <p data-i18n="t3Body">10 m 格子の A* と 3D 見通し判定。建物から水平 5 m・垂直 8 m 以上離れ、高度は航空法の 150 m 未満に収めます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t4Title">PLATEAU の京都</h3>
+          <p data-i18n="t4Body">国土交通省 PLATEAU の 3D 建物 約 51 万棟と、国土地理院の地形・航空写真。寺社は色分けされ、1,300 以上の地名ラベルが街に浮かびます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t5Title">飛行音と衝突音</h3>
+          <p data-i18n="t5Body">ロータ音は 4 つのモーターの推力に合わせてリアルタイムに合成。上昇や突風で音が変わり、墜落すると衝突音とともに回転が止まります。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t6Title">日本語 / English</h3>
+          <p data-i18n="t6Body">ボタンひとつで UI も地名ラベルも英語に。海外のゲストへの紹介や、英語での授業・デモにも使えます。</p>
+        </div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="engCap">英語表示: 嵐山 渡月橋 → 金閣寺（ルート B）</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Desktop ===== -->
+  <section class="section alt" id="desktop">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="deskTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="deskLead">インストールしてすぐ飛べます。京都市全域の建物データをアプリに同梱しています。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="macSize">約 65 MB</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 航空写真と地図は国土地理院から読み込むため、インターネット接続が必要です。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">京都の空へ、<span class="accent">飛び立とう。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary btn-lg" data-i18n="ctaBuy">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">KYOTO DRONE</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土交通省 PLATEAU（京都市 2025）、国土地理院（シームレス空中写真・DEM・標準地図）、© OpenStreetMap contributors ／ 物理: MuJoCo ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/kyoto-drone" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.md" data-i18n="fManualJa">取扱説明書 (JA)</a></li>
+        <li><a href="MANUAL.en.md">Manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
