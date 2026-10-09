@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kyoto Drone | 京都の街を、物理で飛ぶ — MuJoCo × PLATEAU ドローンシミュレーター</title>
-  <meta name="description" content="PLATEAU の 3D 都市モデル（建物 約 51 万棟）で再現した京都市全域を、MuJoCo 物理エンジンのドローンで飛ぶデスクトップシミュレーター。墜落体験、自動ルート立案、強風・吊り荷、障害物の自律回避、マニュアル操縦。macOS / Windows。">
+  <meta name="description" content="PLATEAU の 3D 都市モデル（建物 約 51 万棟）で再現した京都市全域を、MuJoCo 物理エンジンのドローンで飛ぶデスクトップシミュレーター。墜落体験、世界遺産の上空を避ける自動ルート立案とルートの書き出し、強風・吊り荷、障害物の自律回避、マニュアル操縦、飛行記録の CSV 保存。macOS / Windows。">
 
   <meta property="og:title" content="Kyoto Drone — MuJoCo × PLATEAU">
   <meta property="og:description" content="京都市全域の 3D 街並みを、物理シミュレーションのドローンで飛ぶ。">
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261009">
 </head>
 <body>
 
@@ -48,7 +48,7 @@
     <div class="container hero-content">
       <p class="eyebrow">MuJoCo × PLATEAU KYOTO</p>
       <h1 data-i18n-html="heroTitle">京都の街を、<br><span class="accent">物理で飛ぶ。</span></h1>
-      <p class="lead" data-i18n="heroLead">PLATEAU の 3D 都市モデルで再現した京都市全域（建物 約 51 万棟）を、MuJoCo 物理エンジンで動くクアッドコプターで飛ぶドローン・シミュレーター。直線で突っ込んで墜落する失敗から、自動ルート立案、強風と吊り荷、障害物の自律回避、マニュアル操縦まで。</p>
+      <p class="lead" data-i18n="heroLead">PLATEAU の 3D 都市モデルで再現した京都市全域（建物 約 51 万棟）を、MuJoCo 物理エンジンで動くクアッドコプターで飛ぶドローン・シミュレーター。直線で突っ込んで墜落する失敗から、世界遺産の上空を避ける自動ルート立案、強風と吊り荷、障害物の自律回避、マニュアル操縦まで。飛行記録は CSV で保存して解析できます。</p>
       <div class="hero-cta">
         <a href="https://cyber-matrix.netlify.app/products/kyoto-drone" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
         <a href="#scenarios" class="btn btn-ghost btn-lg" data-i18n="heroMore">シナリオを見る</a>
@@ -64,7 +64,7 @@
       <div class="stat"><strong>17 × 23 km</strong><span data-i18n="statArea">京都市全域を飛べる</span></div>
       <div class="stat"><strong>5</strong><span data-i18n="statScn">シナリオ</span></div>
       <div class="stat"><strong>2 ms</strong><span data-i18n="statStep">物理計算の刻み</span></div>
-      <div class="stat"><strong>JA / EN</strong><span data-i18n="statLang">日本語・英語 切り替え</span></div>
+      <div class="stat"><strong>17</strong><span data-i18n="statWh">世界遺産の上空は飛ばない</span></div>
     </div>
   </section>
 
@@ -99,15 +99,19 @@
       </article>
 
       <article class="feature">
-        <figure class="shot"><img src="assets/plan.jpg" alt="" loading="lazy"></figure>
+        <figure class="shot"><img src="assets/plan_heritage.jpg" alt="" loading="lazy"></figure>
         <div class="feature-text">
           <span class="num">03</span>
-          <h3 data-i18n="s3Title">ルート立案 — 3 通りを自動で</h3>
-          <p data-i18n="s3Body">建物と地形から、性格の違う 3 つのルートを数十ミリ秒で立案し、距離・最大対地高度・上昇量・所要時間を比べます。</p>
+          <h3 data-i18n="s3Title">ルート立案 — 世界遺産を避ける 3 ルート</h3>
+          <p data-i18n="s3Body">建物と地形に加え、世界遺産「古都京都の文化財」17 か所の境内を飛行禁止にして、性格の違う 3 つのルートを 1 秒かからずに立案。距離・最大対地高度・上昇量・所要時間を比べます。どの 2 点を選んでも、清水寺や二条城の上空は飛びません。</p>
           <ul class="routes">
             <li><i style="background:#ff5a5f"></i><b>A</b> <span data-i18n="rA">高高度直行 — 地上約 80 m で建物の上を最短で</span></li>
             <li><i style="background:#2bb3ff"></i><b>B</b> <span data-i18n="rB">低空・道路沿い — 地上 45 m 以下、道路や川の上を選ぶ</span></li>
             <li><i style="background:#ffc233"></i><b>C</b> <span data-i18n="rC">別回廊 — B とは別の通りを低空で</span></li>
+          </ul>
+          <ul class="chips">
+            <li data-i18n="s3c1">世界遺産 17 か所を回避</li>
+            <li data-i18n="s3c2">GPX / QGroundControl .plan / CSV で書き出し</li>
           </ul>
         </div>
       </article>
@@ -145,15 +149,16 @@
   <!-- ===== Anywhere in Kyoto ===== -->
   <section class="section alt" id="anywhere">
     <div class="container feature">
-      <figure class="shot"><img src="assets/pickmap.jpg" alt="" loading="lazy"></figure>
+      <figure class="shot"><img src="assets/pickmap_heritage.jpg" alt="" loading="lazy"></figure>
       <div class="feature-text">
         <p class="kicker">ANYWHERE IN KYOTO</p>
         <h2 data-i18n="anyTitle">嵐山から醍醐寺まで、どこからでも</h2>
-        <p data-i18n="anyBody">出発地と目的地は、金閣寺・清水寺・伏見稲荷など 20 か所のプリセットか、地図をクリックして京都市の好きな場所に。選んだ 2 点のまわりの建物と地形を読み込み、平らな場所を探して離着陸します。</p>
+        <p data-i18n="anyBody">出発地と目的地は、伏見稲荷・南禅寺・錦市場など 20 か所のプリセットか、地図をクリックして京都市の好きな場所に。選んだ 2 点のまわりの建物と地形を読み込み、平らな場所を探して離着陸します。世界遺産の境内は地図に赤く示され、選んだ点が境内にあれば外のいちばん近い場所に移します。</p>
         <ul class="chips">
           <li data-i18n="anyC1">国土地理院の地図・航空写真から選択</li>
           <li data-i18n="anyC2">プリセット 20 か所</li>
           <li data-i18n="anyC3">10 km 超の長距離も</li>
+          <li data-i18n="anyC4">世界遺産は赤で表示</li>
         </ul>
       </div>
     </div>
@@ -175,7 +180,7 @@
         </div>
         <div class="card">
           <h3 data-i18n="t3Title">ルート立案</h3>
-          <p data-i18n="t3Body">10 m 格子の A* と 3D 見通し判定。建物から水平 5 m・垂直 8 m 以上離れ、高度は航空法の 150 m 未満に収めます。</p>
+          <p data-i18n="t3Body">10 m 格子の A* と 3D 見通し判定。建物から水平 5 m・垂直 8 m 以上離れ、高度は航空法の 150 m 未満。世界遺産の境内と周囲 30 m は通れないセルとして扱い、近道の判定でも横切りません。</p>
         </div>
         <div class="card">
           <h3 data-i18n="t4Title">PLATEAU の京都</h3>
@@ -189,8 +194,20 @@
           <h3 data-i18n="t6Title">日本語 / English</h3>
           <p data-i18n="t6Body">ボタンひとつで UI も地名ラベルも英語に。海外のゲストへの紹介や、英語での授業・デモにも使えます。</p>
         </div>
+        <div class="card">
+          <h3 data-i18n="t7Title">飛行中に条件を変える</h3>
+          <p data-i18n="t7Body">風速・風向・突風・乱流とモーター推力は、飛んでいる最中にスライダーで変えられます。風を強めたり推力を上げたりして、その場で効き方を確かめられます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t8Title">飛行記録を CSV に</h3>
+          <p data-i18n="t8Body">0.1 秒ごとの位置・姿勢・4 ロータの推力・風・外乱の推定値・コースずれと、全フライトの条件と結果を CSV で保存。推力や風の条件を変えたシミュレーション解析にそのまま使えます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t9Title">ルートを書き出す</h3>
+          <p data-i18n="t9Body">立案したルートを GPX（地図・共有用）、QGroundControl の .plan（ArduPilot / PX4 のミッション、世界遺産を飛行禁止ジオフェンスとして同梱）、CSV で保存できます。</p>
+        </div>
       </div>
-      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="engCap">英語表示: 嵐山 渡月橋 → 金閣寺（ルート B）</figcaption></figure>
+      <figure class="shot wide"><img src="assets/english_plan.jpg" alt="" loading="lazy"><figcaption data-i18n="engCap">英語表示: 嵐山 渡月橋 → 北野天満宮（ルート立案）</figcaption></figure>
     </div>
   </section>
 
@@ -200,6 +217,7 @@
       <p class="kicker">DESKTOP APPS</p>
       <h2 data-i18n="deskTitle">デスクトップ版</h2>
       <p class="section-lead" data-i18n="deskLead">インストールしてすぐ飛べます。京都市全域の建物データをアプリに同梱しています。</p>
+      <figure class="shot wide" style="margin-bottom: 32px"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">起動画面: 京都の実際の地形の等高線と、読み込みを「飛行前点検」として見せるタイトル</figcaption></figure>
       <div class="platform-grid">
         <div class="platform">
           <h3>macOS</h3>
@@ -247,6 +265,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20261009"></script>
 </body>
 </html>
