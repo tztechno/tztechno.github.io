@@ -24,7 +24,6 @@
 <li>国の洪水ハザードマップ(洪水浸水想定区域)と比較できます</li>
 <li>好きなカメラアングル・カメラワークでMP4動画を作れます</li>
 </ul>
-<p>計算方法やデータ処理の詳細は README.md を参照してください。</p>
 <p><em>English version: <a href="MANUAL.en.html">MANUAL.en.md</a></em></p>
 <hr>
 <h2 id="目次">目次</h2>
@@ -46,28 +45,13 @@
 </ol>
 <hr>
 <h2 id="1-起動方法">1. 起動方法</h2>
-<h3 id="必要なもの">必要なもの</h3>
+<h3 id="デスクトップ版macos--windows">デスクトップ版(macOS / Windows)</h3>
 <ul>
-<li>Node.js(v20以降)</li>
-<li>WebGL2に対応したブラウザ(Chrome / Edge / Safari の最新版)</li>
-<li>フォルダ構成: <code>N65_nagoya_rain/</code> の中に <code>nagoya.tif</code>、PLATEAUデータ(<code>23100_nagoya-shi_city_2022_citygml_4_op/</code>)、このアプリ(<code>nagoya_flood/</code>)</li>
+<li>macOS: <code>NagoyaFlood_1.0.0_aarch64.dmg</code> を開き、アプリを「アプリケーション」へドラッグ</li>
+<li>Windows: <code>NagoyaFlood_1.0.0_x64-setup.exe</code> を実行</li>
+<li>既定の地域・広域地形・地名などのデータは同梱されています。住所検索と新しいタイルの作成にはインターネット接続が必要です</li>
+<li>録画(MP4)と GeoTIFF は「ダウンロード」フォルダに保存されます</li>
 </ul>
-<h3 id="初回の準備1回だけ">初回の準備(1回だけ)</h3>
-<pre><code class="language-bash">cd nagoya_flood
-npm install
-npm run build:basin    # 広域データ(tif全体+PLATEAU DEM、約50秒)
-npm run build:labels   # 建物・地名ラベル(約2分。インターネット接続が必要)
-npm run build:towns    # 町丁・字の境界(約30秒。インターネット接続が必要)
-npm run build:all      # 既定の6地域(1地域10秒前後)
-</code></pre>
-<p><code>build:labels</code> は <code>build:basin</code> の後に実行してください。</p>
-<h3 id="起動">起動</h3>
-<pre><code class="language-bash">npm run dev
-</code></pre>
-<p>ブラウザで <strong><a href="http://localhost:5173/">http://localhost:5173/</a></strong> を開きます。</p>
-<blockquote>
-<p>住所からタイルを作る機能は、<code>npm run dev</code> で起動している間だけ使えます。</p>
-</blockquote>
 <hr>
 <h2 id="2-画面の構成">2. 画面の構成</h2>
 <h3 id="表紙">表紙</h3>
@@ -127,7 +111,7 @@ npm run build:all      # 既定の6地域(1地域10秒前後)
 <p>計算と詳しい表示は「タイル」(既定2km四方、2m格子)ごとに行います。タイルの外側にも、tif全体の地形と航空写真が表示されます。</p>
 <h3 id="既定の地域から選ぶ">既定の地域から選ぶ</h3>
 <p>「1. 地域」のリストから選びます(名古屋城・名城公園、名古屋駅周辺、栄・久屋大通、天白区 野並、中川区 八田・荒子、港区、西区 庄内川沿い)。
-地域情報の下のリンクから、補正後の地形・建物込みの地形・補正前のDEMをGeoTIFF(平面直角座標系VII系)でダウンロードできます。</p>
+地域情報の下のリンクから、補正後の地形・建物込みの地形(アプリで作ったタイルは補正前のDEMも)をGeoTIFF(平面直角座標系VII系)で保存できます。</p>
 <h3 id="住所地名から新しいタイルを作る">住所・地名から新しいタイルを作る</h3>
 <ol>
 <li>「住所・地名から新しいタイルを作る」の欄に住所や地名を入れて「検索」(Enterでも可)<ul>
@@ -138,7 +122,13 @@ npm run build:all      # 既定の6地域(1地域10秒前後)
 <li>「タイルの大きさ」(1 / 2 / 3 km四方)を選ぶ</li>
 <li>ボタンを押す<ul>
 <li>候補が今のタイルの中にあるとき:「📍 この地点(範囲)を表示(現在のタイル内)」→ 作り直さずに表示</li>
-<li>タイルの外のとき:「このタイルを作成して表示」→ 10〜30秒で作成され、自動で開きます</li>
+<li>タイルの外のとき:「このタイルを作成して表示」→ インターネットから必要なデータを取得して、30秒〜1分ほどで作成され、自動で開きます<ul>
+<li>地形: 国土地理院の5m標高タイル(PLATEAUの地形モデルと同じ基盤地図情報。差は平均4cm程度)</li>
+<li>建物・洪水浸水想定区域: PLATEAU API(メッシュ単位のCityGML)</li>
+<li>航空写真: 国土地理院の地理院タイル</li>
+</ul>
+</li>
+<li>作ったタイルはアプリの中に保存され、地域の一覧に「★」付きで出ます。不要になったら、地域情報の下の「このタイルを削除」で消せます</li>
 </ul>
 </li>
 </ol>
@@ -537,23 +527,15 @@ npm run build:all      # 既定の6地域(1地域10秒前後)
 </thead>
 <tbody><tr>
 <td>「地域データがありません」と出る</td>
-<td><code>npm run build:all</code>(または <code>npm run build:region -- meieki</code>)を実行</td>
+<td>アプリを入れ直してください</td>
 </tr>
 <tr>
 <td>住所検索・タイル作成ができない</td>
-<td><code>npm run dev</code> で起動しているか確認(ビルドしたファイルを直接開いた場合は使えません)。インターネット接続も必要です</td>
-</tr>
-<tr>
-<td>左下の広域マップが出ない</td>
-<td><code>npm run build:basin</code> を実行</td>
+<td>インターネット接続を確認してください(国土地理院・PLATEAUのサーバーを使います)</td>
 </tr>
 <tr>
 <td>ラベルが出ない</td>
-<td><code>npm run build:labels</code> を実行し、「建物・地名のラベル」がONか確認</td>
-</tr>
-<tr>
-<td>町の範囲が出ず代表点になる</td>
-<td><code>npm run build:towns</code> を実行</td>
+<td>「4. 表示」の「建物・地名のラベル」がONか確認</td>
 </tr>
 <tr>
 <td>古い表示のまま変わらない</td>

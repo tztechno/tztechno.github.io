@@ -24,7 +24,6 @@
 <li>Compare with the national flood hazard maps (flood inundation assumption areas)</li>
 <li>Make MP4 videos with any camera angle or camera movement</li>
 </ul>
-<p>See README.md for the computational method and the data processing.</p>
 <p><em>日本語版: <a href="MANUAL.ja.html">MANUAL.ja.md</a></em></p>
 <hr>
 <h2 id="contents">Contents</h2>
@@ -46,28 +45,13 @@
 </ol>
 <hr>
 <h2 id="1-getting-started">1. Getting started</h2>
-<h3 id="requirements">Requirements</h3>
+<h3 id="desktop-app-macos--windows">Desktop app (macOS / Windows)</h3>
 <ul>
-<li>Node.js (v20 or later)</li>
-<li>A browser with WebGL2 (latest Chrome / Edge / Safari)</li>
-<li>Folder layout: <code>N65_nagoya_rain/</code> contains <code>nagoya.tif</code>, the PLATEAU data (<code>23100_nagoya-shi_city_2022_citygml_4_op/</code>) and this app (<code>nagoya_flood/</code>)</li>
+<li>macOS: open <code>NagoyaFlood_1.0.0_aarch64.dmg</code> and drag the app into Applications</li>
+<li>Windows: run <code>NagoyaFlood_1.0.0_x64-setup.exe</code></li>
+<li>The preset regions, basin terrain, place names and other data are included. Address search and building new tiles need an internet connection</li>
+<li>Recordings (MP4) and GeoTIFFs are saved to the Downloads folder</li>
 </ul>
-<h3 id="one-time-preparation">One-time preparation</h3>
-<pre><code class="language-bash">cd nagoya_flood
-npm install
-npm run build:basin    # basin data (whole tif + PLATEAU DEM, ~50 s)
-npm run build:labels   # building / place labels (~2 min, needs internet)
-npm run build:towns    # town (chome / aza) boundaries (~30 s, needs internet)
-npm run build:all      # the six preset regions (~10 s each)
-</code></pre>
-<p>Run <code>build:labels</code> after <code>build:basin</code>.</p>
-<h3 id="start">Start</h3>
-<pre><code class="language-bash">npm run dev
-</code></pre>
-<p>Open <strong><a href="http://localhost:5173/">http://localhost:5173/</a></strong> in the browser.</p>
-<blockquote>
-<p>Making tiles from an address works only while the app runs with <code>npm run dev</code>.</p>
-</blockquote>
 <hr>
 <h2 id="2-screen-layout">2. Screen layout</h2>
 <h3 id="title-screen">Title screen</h3>
@@ -127,7 +111,7 @@ npm run build:all      # the six preset regions (~10 s each)
 <p>The simulation and the detailed view work on a &quot;tile&quot; (2 km square by default, 2 m grid). Outside the tile, the terrain and aerial photo of the whole tif are shown as well.</p>
 <h3 id="choosing-a-preset-region">Choosing a preset region</h3>
 <p>Pick one from the &quot;1. Region&quot; list (Nagoya Castle / Meijo Park, Nagoya Station area, Sakae / Hisaya-odori, Nonami (Tempaku-ku), Hatta / Arako (Nakagawa-ku), Minato-ku, Nishi-ku along the Shonai River).
-The links under the region information download the corrected terrain, the terrain with buildings, and the uncorrected DEM as GeoTIFF (Japan Plane Rectangular CS VII).</p>
+The links under the region information save the corrected terrain and the terrain with buildings (plus the uncorrected DEM for tiles built in the app) as GeoTIFF (Japan Plane Rectangular CS VII).</p>
 <h3 id="making-a-new-tile-from-an-address-or-place-name">Making a new tile from an address or place name</h3>
 <ol>
 <li>Type an address or place name under &quot;Make a new tile from an address or place name&quot; and press &quot;Search&quot; (or Enter)<ul>
@@ -138,7 +122,13 @@ The links under the region information download the corrected terrain, the terra
 <li>Choose the &quot;Tile size&quot; (1 / 2 / 3 km square)</li>
 <li>Press the button<ul>
 <li>Candidate inside the current tile: &quot;📍 Show this place (area) (in the current tile)&quot; → shown without rebuilding</li>
-<li>Outside the tile: &quot;Build and show this tile&quot; → built in 10–30 s and opened automatically</li>
+<li>Outside the tile: &quot;Build and show this tile&quot; → the data is fetched from the internet and the tile is built in about 30 s to 1 min, then opened automatically<ul>
+<li>Terrain: GSI 5 m elevation tiles (national base-map data, the same source as the PLATEAU terrain model; about 4 cm apart on average)</li>
+<li>Buildings and flood inundation assumption areas: PLATEAU API (CityGML per mesh)</li>
+<li>Aerial photos: GSI tiles</li>
+</ul>
+</li>
+<li>Tiles you build are kept inside the app and listed with &quot;★&quot;. Remove one with &quot;Delete this tile&quot; under the region information</li>
 </ul>
 </li>
 </ol>
@@ -537,23 +527,15 @@ The links under the region information download the corrected terrain, the terra
 </thead>
 <tbody><tr>
 <td>&quot;No region data&quot; is shown</td>
-<td>Run <code>npm run build:all</code> (or <code>npm run build:region -- meieki</code>)</td>
+<td>Reinstall the app</td>
 </tr>
 <tr>
 <td>Address search / tile building doesn&#39;t work</td>
-<td>Make sure the app runs with <code>npm run dev</code> (not available when opening a built file directly). An internet connection is also needed</td>
-</tr>
-<tr>
-<td>No basin map at the bottom left</td>
-<td>Run <code>npm run build:basin</code></td>
+<td>Check the internet connection (GSI and PLATEAU servers are used)</td>
 </tr>
 <tr>
 <td>No labels</td>
-<td>Run <code>npm run build:labels</code> and check that &quot;Building / place labels&quot; is on</td>
-</tr>
-<tr>
-<td>A town is shown as a point instead of an area</td>
-<td>Run <code>npm run build:towns</code></td>
+<td>Check that &quot;Building / place labels&quot; in &quot;4. Display&quot; is on</td>
 </tr>
 <tr>
 <td>The display does not update</td>

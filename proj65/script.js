@@ -1,10 +1,10 @@
 // Nagoya Flood LP: Japanese / English switch and reveal-on-scroll.
 // Japanese is the markup; English strings live here. Choice is kept in localStorage (or ?lang=en).
 const EN = {
-  navFeatures: 'Features', navCastle: 'Nagoya Castle', navHazard: 'Hazard maps', navTech: 'How it works', navStart: 'Requirements', navGet: 'Get it',
+  navFeatures: 'Features', navCastle: 'Nagoya Castle', navHazard: 'Hazard maps', navTech: 'How it works', navStart: 'Desktop', navGet: 'Get it',
   heroTitle: 'Where does<br><span class="accent">the rain go?</span>',
   heroLead: 'A flood simulator for Nagoya that computes heavy-rain flooding on the GPU over the PLATEAU 3D city model (about 737,000 buildings) and real terrain. Rain falls on the whole 82 × 76 km basin, so water flowing in from upstream is included, and the place you choose is computed on a 2 m grid, building by building. Watch the water rise and the city go under, then recede after the rain — from any angle, and record it straight to video.',
-  heroGet: 'Get it', heroMore: 'See what it does', heroPlat: 'Web app (Chrome / Edge / Safari, WebGL2) · 日本語 / English',
+  heroGet: 'Get the desktop app', heroMore: 'See what it does', heroPlat: 'macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English',
   statArea: 'rained-on basin', statBldgN: '737 k', statBldg: 'PLATEAU buildings', statGrid: 'detailed grid', statTimeN: '~1.5 min', statTime: '3 h of rain (2 km tile)', statRec: 'MP4 recording',
   featTitle: 'Make it rain — and watch how the city floods',
   featLead: 'Set the rainfall, run, and follow the flood as it spreads and recedes, one building at a time.',
@@ -36,10 +36,11 @@ const EN = {
   t3a: 'Two levels at once', t3b: 'The basin (30 m, about 6.9 million cells) and the tile (2 m, with buildings) run together, exchanging water levels at the boundary. The terrain and aerial photos of the whole extent are drawn as the backdrop.',
   t4a: 'Names only for what you can see', t4b: 'Every few frames a small depth-tested image checks whether each label’s anchor is hidden by buildings or hills (the same method as Kyoto Drone).',
   enCap: 'English mode: the interface, place names, addresses and the text in recordings all switch',
-  startTitle: 'Requirements', envApp: 'App', envKind: 'Type', envKindV: 'Web app (three.js / WebGL2)', envBrowser: 'Browser', envRun: 'Runs with', envRunV: 'Node.js 20+ (npm run dev)', envLang: 'Languages',
-  envData: 'Data', envPlateau: 'Nagoya 3D city model (CityGML 2022)', envDem: 'Terrain', envDemV: 'Basin elevation GeoTIFF (nagoya.tif)', envNet: 'Network', envNetV: 'For aerial photos, address search and town boundaries',
+  startTitle: 'Desktop apps', startLead: 'Install and start. The seven preset regions, the basin terrain, place names, town boundaries and the Nagoya Castle data come with the app.',
+  pkgLabel: 'Package', cpuLabel: 'Runs on', sizeLabel: 'Size', sizeV: 'about 160 MB', langLabel: 'Languages', winPkg: '.exe installer (Tauri v2)', getMac: 'Get the macOS app', getWin: 'Get the Windows app',
+  deskNote: '* Address search and building new tiles (GSI elevation and aerial photos, PLATEAU buildings and hazards) need an internet connection. The GPU is used through WebGL2. Recordings and GeoTIFFs are saved to the Downloads folder.',
   startNote: '* Computing times are measured on an Apple M5 and depend on the GPU. The results are computations under assumed conditions; for evacuation and disaster-prevention decisions, use your local government’s official hazard maps.',
-  ctaTitle: 'Where would that rain <span class="accent">collect?</span>', ctaGet: 'Get it',
+  ctaTitle: 'Where would that rain <span class="accent">collect?</span>', ctaGet: 'Get the desktop app',
   credits: 'Sources: MLIT PLATEAU (Nagoya 2022), GSI (seamless aerial photos, address search), Statistics Bureau e-Stat (2020 Census small-area boundaries), © OpenStreetMap contributors / Rendering: three.js',
   fStore: 'Store page', fManualJa: 'Manual (JA)',
 };

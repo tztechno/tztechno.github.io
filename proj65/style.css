@@ -174,3 +174,6 @@ a { color: inherit; text-decoration: none; }
 .manual th { background: var(--card); color: var(--text); }
 .manual blockquote { border-left: 3px solid var(--amber); padding: 6px 14px; margin: 14px 0; background: rgba(255, 176, 0, .07); border-radius: 0 8px 8px 0; }
 .manual hr { border: 0; border-top: 1px solid var(--line); margin: 30px 0; }
+.platform .btn { margin-top: 24px; align-self: flex-start; }
+.platform { display: flex; flex-direction: column; }
+.platform ul { flex: 1; }

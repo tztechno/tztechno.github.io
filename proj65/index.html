@@ -34,7 +34,7 @@
         <li><a href="#castle" data-i18n="navCastle">名古屋城</a></li>
         <li><a href="#hazard" data-i18n="navHazard">ハザード比較</a></li>
         <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
-        <li><a href="#start" data-i18n="navStart">動作環境</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
       </ul>
       <div class="nav-actions">
         <button class="lang-btn" id="lang-btn" type="button">English</button>
@@ -53,10 +53,10 @@
       <h1 data-i18n-html="heroTitle">降った雨は、<br><span class="accent">どこへ行くのか。</span></h1>
       <p class="lead" data-i18n="heroLead">名古屋市の 3D 都市モデル PLATEAU（建物 約 74 万棟）と地形データで、豪雨による浸水を GPU で計算する浸水シミュレーター。雨は 82 × 76 km の流域全体に降らせ、上流から流れ込む水まで含めて、選んだ場所を 2 m 格子・建物単位で計算します。水かさが増して街が沈み、雨が止んで水が引いていく様子を、好きな角度から見て、そのまま動画にできます。</p>
       <div class="hero-cta">
-        <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="heroGet">入手する</a>
+        <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
         <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
       </div>
-      <p class="platforms" data-i18n="heroPlat">Web アプリ（Chrome / Edge / Safari・WebGL2）· 日本語 / English</p>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English</p>
     </div>
   </header>
 
@@ -183,27 +183,32 @@
   <!-- ===== Start ===== -->
   <section class="section" id="start">
     <div class="container">
-      <p class="kicker">REQUIREMENTS</p>
-      <h2 data-i18n="startTitle">動作環境</h2>
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。既定の 7 地域、流域全体の地形、地名、町丁界、名古屋城のデータをアプリに同梱しています。</p>
       <div class="platform-grid">
         <div class="platform">
-          <h3 data-i18n="envApp">アプリ</h3>
+          <h3>macOS</h3>
           <ul>
-            <li><span data-i18n="envKind">形式</span><strong data-i18n="envKindV">Web アプリ（three.js / WebGL2）</strong></li>
-            <li><span data-i18n="envBrowser">ブラウザ</span><strong>Chrome / Edge / Safari</strong></li>
-            <li><span data-i18n="envRun">起動</span><strong data-i18n="envRunV">Node.js 20 以降（npm run dev）</strong></li>
-            <li><span data-i18n="envLang">言語</span><strong>日本語 / English</strong></li>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeV">約 160 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
           </ul>
+          <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
         </div>
         <div class="platform">
-          <h3 data-i18n="envData">データ</h3>
+          <h3>Windows</h3>
           <ul>
-            <li><span>PLATEAU</span><strong data-i18n="envPlateau">名古屋市 3D 都市モデル（CityGML 2022）</strong></li>
-            <li><span data-i18n="envDem">地形</span><strong data-i18n="envDemV">流域の標高 GeoTIFF（nagoya.tif）</strong></li>
-            <li><span data-i18n="envNet">通信</span><strong data-i18n="envNetV">航空写真・住所検索・町丁界の取得時</strong></li>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeV">約 160 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
           </ul>
+          <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
         </div>
       </div>
+      <p class="note" data-i18n="deskNote">※ 住所検索、新しいタイルの作成（国土地理院の標高・航空写真、PLATEAU の建物・ハザード）にはインターネット接続が必要です。GPU（WebGL2）を使います。録画と GeoTIFF は「ダウンロード」フォルダに保存されます。</p>
       <p class="note" data-i18n="startNote">※ 計算時間の目安は Apple M5 での実測値です。GPU の性能により変わります。結果は条件を仮定した計算です。避難や防災の判断には、自治体の公式のハザードマップをお使いください。</p>
     </div>
   </section>
@@ -212,7 +217,7 @@
   <section class="cta">
     <div class="container">
       <h2 data-i18n-html="ctaTitle">その雨は、<span class="accent">どこに溜まるのか。</span></h2>
-      <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="ctaGet">入手する</a>
+      <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
     </div>
   </section>
 
