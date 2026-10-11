@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nagoya Flood User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230d5ea6%22/%3E%3Cpath d=%22M16 5c-4 6-8 10-8 15a8 8 0 0016 0c0-5-4-9-8-15z%22 fill=%22%2339c6ff%22/%3E%3Cpath d=%22M6 22h20%22 stroke=%22%23ffb000%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261011">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">NAGOYA FLOOD</span></a>
+    <ul class="nav-links"><li><a href="index.html">Top</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="nagoya-flood-—-user-manual">Nagoya Flood — User Manual</h1>
+<p>A web application that rains on terrain built from Nagoya&#39;s 3D city model (PLATEAU) and a terrain raster (<code>nagoya.tif</code>), with the ground corrected by the base elevation of every building, and shows — and records — the city flooding in 3D.</p>
+<ul>
+<li>Rain falls on the whole <code>nagoya.tif</code> extent (about 82 km × 76 km), so water flowing in from outside the area of interest is included (a two-level computation: a 30 m basin grid plus a 2 m detailed grid)</li>
+<li>Pick any place by its address and look at the flooding building by building (2 m grid)</li>
+<li>Compare with the national flood hazard maps (flood inundation assumption areas)</li>
+<li>Make MP4 videos with any camera angle or camera movement</li>
+</ul>
+<p>See README.md for the computational method and the data processing.</p>
+<p><em>日本語版: <a href="MANUAL.ja.html">MANUAL.ja.md</a></em></p>
+<hr>
+<h2 id="contents">Contents</h2>
+<ol>
+<li><a href="#1-getting-started">Getting started</a></li>
+<li><a href="#2-screen-layout">Screen layout</a></li>
+<li><a href="#3-choosing-or-making-a-region-tile">Choosing or making a region (tile)</a></li>
+<li><a href="#4-setting-the-rainfall">Setting the rainfall</a></li>
+<li><a href="#5-running-the-simulation">Running the simulation</a></li>
+<li><a href="#6-looking-at-the-results">Looking at the results</a></li>
+<li><a href="#7-display-options">Display options</a></li>
+<li><a href="#8-moving-the-view">Moving the view</a></li>
+<li><a href="#9-comparing-with-the-hazard-map">Comparing with the hazard map</a></li>
+<li><a href="#10-recording-a-video">Recording a video</a></li>
+<li><a href="#11-how-the-computation-works-summary">How the computation works (summary)</a></li>
+<li><a href="#12-notes-and-limitations">Notes and limitations</a></li>
+<li><a href="#13-troubleshooting">Troubleshooting</a></li>
+<li><a href="#14-sources">Sources</a></li>
+</ol>
+<hr>
+<h2 id="1-getting-started">1. Getting started</h2>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Node.js (v20 or later)</li>
+<li>A browser with WebGL2 (latest Chrome / Edge / Safari)</li>
+<li>Folder layout: <code>N65_nagoya_rain/</code> contains <code>nagoya.tif</code>, the PLATEAU data (<code>23100_nagoya-shi_city_2022_citygml_4_op/</code>) and this app (<code>nagoya_flood/</code>)</li>
+</ul>
+<h3 id="one-time-preparation">One-time preparation</h3>
+<pre><code class="language-bash">cd nagoya_flood
+npm install
+npm run build:basin    # basin data (whole tif + PLATEAU DEM, ~50 s)
+npm run build:labels   # building / place labels (~2 min, needs internet)
+npm run build:towns    # town (chome / aza) boundaries (~30 s, needs internet)
+npm run build:all      # the six preset regions (~10 s each)
+</code></pre>
+<p>Run <code>build:labels</code> after <code>build:basin</code>.</p>
+<h3 id="start">Start</h3>
+<pre><code class="language-bash">npm run dev
+</code></pre>
+<p>Open <strong><a href="http://localhost:5173/">http://localhost:5173/</a></strong> in the browser.</p>
+<blockquote>
+<p>Making tiles from an address works only while the app runs with <code>npm run dev</code>.</p>
+</blockquote>
+<hr>
+<h2 id="2-screen-layout">2. Screen layout</h2>
+<h3 id="title-screen">Title screen</h3>
+<p>The app opens with a title screen. A checklist shows the loading progress; when everything is ready, press &quot;START&quot; (or Enter) to enter the app.</p>
+<ul>
+<li>Click a region in the list on the right to open it (the boxes on the map show where the regions are; orange = the current one)</li>
+<li>&quot;English / 日本語&quot; on the title screen switches the language</li>
+<li>The title screen appears only the first time in a browser tab. Press &quot;Title&quot; at the top right of the panel to see it again</li>
+</ul>
+<h3 id="parts-of-the-screen">Parts of the screen</h3>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Left panel</td>
+<td>1. Region / 2. Rainfall / 3. Simulation / 4. Display / 5. Hazard-map comparison / 6. Recording. The language button is at its top right</td>
+</tr>
+<tr>
+<td>Centre</td>
+<td>3D view (terrain, buildings, water, labels)</td>
+</tr>
+<tr>
+<td>Top left</td>
+<td>Region name, elapsed time, rainfall intensity, total rain, etc.</td>
+</tr>
+<tr>
+<td>Top right</td>
+<td>&quot;Lock view&quot; button, legend</td>
+</tr>
+<tr>
+<td>Bottom left</td>
+<td>Basin map (flooding over the whole tif; red box = region shown). Click it to pick the place of a new tile</td>
+</tr>
+<tr>
+<td>Bottom right</td>
+<td>Point information (after clicking the map)</td>
+</tr>
+<tr>
+<td>Bottom</td>
+<td>Timeline (play button, time slider, playback speed) and the rain / water-depth chart</td>
+</tr>
+</tbody></table>
+<h3 id="switching-between-japanese-and-english">Switching between Japanese and English</h3>
+<p>The &quot;English&quot; button at the top right of the panel (&quot;日本語&quot; while in English) switches the language of the whole screen. The choice is remembered by the browser (opening the page with <code>?lang=en</code> also starts in English).</p>
+<ul>
+<li>The panel, information boxes, chart, legends, result summaries and the text in recorded videos all switch</li>
+<li><strong>Place names switch too</strong>: labels of buildings, stations and mountains, region names, river names and addresses (pins and areas)</li>
+<li>English names come from OpenStreetMap where it has one (almost every station). Otherwise the facility type is translated (郵便局 → Post Office, etc.) and the proper noun is romanised from its estimated reading. Readings are estimated automatically, so rare place or temple names may be romanised wrongly</li>
+<li>Type addresses in Japanese in the search box</li>
+</ul>
+<hr>
+<h2 id="3-choosing-or-making-a-region-tile">3. Choosing or making a region (tile)</h2>
+<p>The simulation and the detailed view work on a &quot;tile&quot; (2 km square by default, 2 m grid). Outside the tile, the terrain and aerial photo of the whole tif are shown as well.</p>
+<h3 id="choosing-a-preset-region">Choosing a preset region</h3>
+<p>Pick one from the &quot;1. Region&quot; list (Nagoya Castle / Meijo Park, Nagoya Station area, Sakae / Hisaya-odori, Nonami (Tempaku-ku), Hatta / Arako (Nakagawa-ku), Minato-ku, Nishi-ku along the Shonai River).
+The links under the region information download the corrected terrain, the terrain with buildings, and the uncorrected DEM as GeoTIFF (Japan Plane Rectangular CS VII).</p>
+<h3 id="making-a-new-tile-from-an-address-or-place-name">Making a new tile from an address or place name</h3>
+<ol>
+<li>Type an address or place name under &quot;Make a new tile from an address or place name&quot; and press &quot;Search&quot; (or Enter)<ul>
+<li>Examples: <code>中川区八田町102</code>, <code>名古屋市中区栄三丁目5-12</code>, <code>名古屋城</code>, <code>金山駅</code></li>
+</ul>
+</li>
+<li>Selecting a candidate shows its place as a blue box on the basin map (bottom left)</li>
+<li>Choose the &quot;Tile size&quot; (1 / 2 / 3 km square)</li>
+<li>Press the button<ul>
+<li>Candidate inside the current tile: &quot;📍 Show this place (area) (in the current tile)&quot; → shown without rebuilding</li>
+<li>Outside the tile: &quot;Build and show this tile&quot; → built in 10–30 s and opened automatically</li>
+</ul>
+</li>
+</ol>
+<p>You can also <strong>click</strong> the basin map at the bottom left to pick a place.</p>
+<h3 id="address-precision">Address precision</h3>
+<table>
+<thead>
+<tr>
+<th>Address entered</th>
+<th>Shown as</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Down to the block / house number (e.g. 栄三丁目5-12)</td>
+<td>A <strong>red pin</strong> with the address label; the building at that point is selected and its information shown</td>
+</tr>
+<tr>
+<td>Down to the town / chome (e.g. 中川区八田町)</td>
+<td>The <strong>town&#39;s area</strong>, lightly tinted red and outlined (the candidate reads &quot;▭ … (area)&quot;). A tile size that holds the whole area is chosen automatically</td>
+</tr>
+<tr>
+<td>A station, building or sight (candidates marked 📍)</td>
+<td>A pin at that place</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Town areas are the census town / aza boundaries. A town split into several parts (e.g. 八田町 and 八田町字下長草) is shown as a whole; &quot;栄&quot; without a chome covers 栄 1- to 5-chome</li>
+<li>&quot;📍 Go to the place&quot; brings you back to the pin or area at any time</li>
+<li>Pins and areas are kept in the URL, so they survive a reload or a bookmark</li>
+<li>Buildings and detailed terrain exist only inside Nagoya city (PLATEAU). Tiles outside the city use terrain interpolated from the tif (~30 m) and have no buildings</li>
+</ul>
+<hr>
+<h2 id="4-setting-the-rainfall">4. Setting the rainfall</h2>
+<h3 id="rainfall-patterns">Rainfall patterns</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Settings</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Constant intensity</td>
+<td>Intensity (mm/h), duration (h)</td>
+<td>Simple comparisons</td>
+</tr>
+<tr>
+<td>Centre-peaked (design storm)</td>
+<td>Peak intensity, total rainfall, duration</td>
+<td>The shape used in planning and design</td>
+</tr>
+<tr>
+<td>Linear rainband</td>
+<td>Intensity at its height, duration of the height</td>
+<td>Heavy rain lasting several hours</td>
+</tr>
+<tr>
+<td>Tokai heavy rain type (Sep 2000, synthetic)</td>
+<td>Scale factor</td>
+<td>A synthetic hyetograph matched to the 97 mm hourly maximum and ~567 mm total (not the observed series)</td>
+</tr>
+<tr>
+<td>Custom</td>
+<td>Intensity every 10 minutes (mm/h), separated by commas or newlines</td>
+<td>Any rainfall</td>
+</tr>
+</tbody></table>
+<p>The rain appears as bars (every 10 minutes) in the chart at the bottom, and the total, peak and computed time are shown in the panel.</p>
+<h3 id="other-settings">Other settings</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Meaning</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Also rain on the whole basin … and compute the inflow from outside the region</td>
+<td>When on, the same rain falls on the whole tif and the water flowing into the tile from outside is computed</td>
+<td>Normally on (needed for correct depths in hollows and lowlands)</td>
+</tr>
+<tr>
+<td>Sewer drainage capacity (mm/h)</td>
+<td>Drainage subtracted uniformly everywhere</td>
+<td>Default 50</td>
+</tr>
+<tr>
+<td>Roughness n (Manning)</td>
+<td>How hard it is for water to flow over the ground</td>
+<td>About 0.04 in urban areas</td>
+</tr>
+<tr>
+<td>Time computed after the rain (h)</td>
+<td>Keeps computing after the rain stops; make it longer to watch the water recede</td>
+<td>1–6</td>
+</tr>
+<tr>
+<td>Save interval (min)</td>
+<td>How often results are recorded for playback and the chart. It does not change the computation itself</td>
+<td>Normally 5; 1–2 for smooth videos</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Shorter save intervals use more memory (about 3 MB per save for a 2 km tile with the basin run). Six hours at 1-minute intervals is about 1 GB.</p>
+</blockquote>
+<hr>
+<h2 id="5-running-the-simulation">5. Running the simulation</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>▶ Start</td>
+<td>Starts the computation. You can move the view while it runs</td>
+</tr>
+<tr>
+<td>⏸ Pause / ▶ Resume</td>
+<td>You can record while paused (the results so far)</td>
+</tr>
+<tr>
+<td>↺ Reset</td>
+<td>Clears the results (use it to change the rainfall)</td>
+</tr>
+<tr>
+<td>Speed (steps / frame)</td>
+<td>Steps computed per displayed frame. Changes only the waiting time, not the results</td>
+</tr>
+<tr>
+<td>Safety factor (CFL)</td>
+<td>Safety factor of the time step Δt (default 0.5). Smaller values give a shorter Δt and a longer computation</td>
+</tr>
+</tbody></table>
+<h3 id="time-step-δt">Time step Δt</h3>
+<p>Δt is set automatically from the stability condition:</p>
+<pre><code>Δt = min( 2 s , safety factor × grid spacing ÷ √(9.81 × max depth × 1.3) )
+</code></pre>
+<p>Next to the safety factor, a guide to Δt for several maximum depths is shown before the run; during the run it shows the Δt actually in use (detailed and basin grids) and the maximum depth that set it.</p>
+<h3 id="information-during-and-after-the-run">Information during and after the run</h3>
+<ul>
+<li>During the run: simulation time, maximum depth, stored volume, number of saved frames, maximum depth of the basin run</li>
+<li>After the run: maximum depth, flooded area (&gt;0.1 m and &gt;0.5 m), number of buildings flooded above floor level (≥0.5 m around the building) and ≥3 m</li>
+</ul>
+<p>Guide to computing time (Apple M5): three hours of rain on a 2 km tile take about 1.5 minutes without the basin run and about 1.5–3 minutes with it.</p>
+<hr>
+<h2 id="6-looking-at-the-results">6. Looking at the results</h2>
+<h3 id="playback">Playback</h3>
+<p>After the run, press ▶ at the bottom. Move to any time with the slider; &quot;Playback speed&quot; sets how much simulated time passes per second (1–30 min/s). Times between saved frames are interpolated linearly.</p>
+<h3 id="clicking-a-point">Clicking a point</h3>
+<p>Click the ground or a building in the 3D view to put a <strong>yellow marker</strong> (a pole with a ring, growing with the viewing distance so it stays visible) on that point and show its information at the bottom right. Click empty space to remove it. The first line is the <strong>latitude and longitude</strong> (JGD2011, 6 decimals, centre of the 2 m cell), ready to paste into a map app.</p>
+<ul>
+<li>Street etc.: ground elevation, maximum depth, time flooding (&gt;0.1 m) began, assumed depths for each river</li>
+<li>Building: use, floors, height, base elevation, flood depth around it (90th percentile), building ID (the building is highlighted in yellow)</li>
+</ul>
+<h3 id="reading-the-chart">Reading the chart</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Blue bars (hanging from the top)</td>
+<td>Rainfall intensity; the number at the top left is the scale maximum (mm/h)</td>
+</tr>
+<tr>
+<td>Red line</td>
+<td>Water depth at the clicked point over time (for a building, &quot;Around bldg&quot; = maximum depth on the surrounding streets)</td>
+</tr>
+<tr>
+<td>Red dot and &quot;Max 0.47m (2:00)&quot;</td>
+<td>Maximum depth and its time</td>
+</tr>
+<tr>
+<td>&quot;End 0.41m&quot; at the right</td>
+<td>Depth at the end of the computation</td>
+</tr>
+<tr>
+<td>Light red grid lines</td>
+<td>Depth scale (numbers on the right)</td>
+</tr>
+<tr>
+<td>Black vertical line</td>
+<td>The time shown on screen</td>
+</tr>
+</tbody></table>
+<h3 id="showing-the-maximum-depth">Showing the maximum depth</h3>
+<p>Turn on &quot;Show the maximum depth (after the run)&quot; in &quot;4. Display&quot; to show the maximum depth of every point over the whole run.</p>
+<hr>
+<h2 id="7-display-options">7. Display options</h2>
+<p>Set in &quot;4. Display&quot;.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Choices</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ground</td>
+<td>Aerial photo / Elevation tint</td>
+</tr>
+<tr>
+<td>Water</td>
+<td>Realistic / Depth (hazard colours)</td>
+</tr>
+<tr>
+<td>Buildings</td>
+<td>White / Coloured by surrounding flood depth</td>
+</tr>
+<tr>
+<td>Depth classes</td>
+<td>Pluvial (0.5/1/2/3/5 m) / Hazard-map standard (0.5/3/5/10/20 m)</td>
+</tr>
+<tr>
+<td>Water opacity</td>
+<td>Slider</td>
+</tr>
+<tr>
+<td>Correct shadows in the aerial photo</td>
+<td>Building shadows in the photo (dark blue) are turned light grey so they don&#39;t look like water (on by default)</td>
+</tr>
+<tr>
+<td>Show buildings</td>
+<td>On / off</td>
+</tr>
+<tr>
+<td>Show surrounding and distant terrain</td>
+<td>Terrain and aerial photo of the whole tif outside the tile (on by default)</td>
+</tr>
+<tr>
+<td>Building / place labels</td>
+<td>Names of buildings, stations, mountains etc. that are in sight (on by default; also recorded)</td>
+</tr>
+<tr>
+<td>Show the maximum depth</td>
+<td>After the run, shows the maximum depth of every point</td>
+</tr>
+</tbody></table>
+<h3 id="nagoya-castle">Nagoya Castle</h3>
+<p>The main keep, the small keep and the stone bridge of Nagoya Castle are drawn as a detailed model sized from the PLATEAU LOD2 keep (stone base about 21 m high, the size of every tier, ridge at 62.5 m above sea level, orientation): curved stone base, white plaster with lattice windows, copper-tiled roofs with curved eaves, chidori and kara gables, the copper-clad top storey and the golden shachihoko. The flood computation still uses the PLATEAU building shapes. The model appears in regions within 12 km of the castle and follows &quot;Show buildings&quot;. The castle on the title screen is the same model.</p>
+<h3 id="labels">Labels</h3>
+<ul>
+<li>Shows names of major stations, high-rises, Nagoya Castle, mountains (with elevation), shrines and temples, sights and public facilities</li>
+<li>A thin line runs down from each label; its dot marks the roof or summit it names</li>
+<li><strong>Only what is actually in sight</strong> is labelled; labels behind buildings or mountains disappear</li>
+<li>More important names are shown from farther away (mountains 40–80 km, major high-rises 40 km, major stations 20 km, other stations 4 km, public facilities within about 900 m)</li>
+</ul>
+<hr>
+<h2 id="8-moving-the-view">8. Moving the view</h2>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Left drag</td>
+<td>Rotate around the focus point (including looking up from the ground)</td>
+</tr>
+<tr>
+<td>Right drag</td>
+<td>Pan</td>
+</tr>
+<tr>
+<td>Wheel</td>
+<td>Zoom towards the cursor</td>
+</tr>
+<tr>
+<td><strong>Double-click</strong></td>
+<td>Make that point the focus (centre of rotation) and move there; works on the terrain outside the tile too</td>
+</tr>
+<tr>
+<td><strong>Lock view</strong> (top right) / <strong>L key</strong></td>
+<td>Freeze the view where it is (inertia stops at once); press again to release</td>
+</tr>
+<tr>
+<td>Reset view (&quot;4. Display&quot;)</td>
+<td>Back to the view of the whole region</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The camera never goes lower than 2 m above the ground or a roof</li>
+<li>With the view locked you can still click points, play back and record</li>
+</ul>
+<hr>
+<h2 id="9-comparing-with-the-hazard-map">9. Comparing with the hazard map</h2>
+<p>&quot;5. Hazard-map comparison&quot; shows the <strong>flood inundation assumption areas</strong> contained in PLATEAU (the nationally managed Kiso, Shonai and Yada rivers; planned scale L1 / maximum assumed scale L2).</p>
+<table>
+<thead>
+<tr>
+<th>Display</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Paint the ground with the official rank colours</td>
+<td>Paints the ground in the six national standard classes; can be overlaid on the simulated 3D water</td>
+</tr>
+<tr>
+<td>Paint the ground with the assumed depth</td>
+<td>Paints the assumed depth with the &quot;Depth classes&quot; colours (differences between places are easier to see)</td>
+</tr>
+<tr>
+<td>Show as a 3D water surface</td>
+<td>Shows the assumed water surface in 3D; the &quot;Water level&quot; slider raises it from 0 to 100%</td>
+</tr>
+</tbody></table>
+<ul>
+<li>&quot;Max of all rivers&quot; shows the larger of the rivers&#39; assumptions</li>
+<li>Choosing a hazard layer switches the depth classes to &quot;Hazard-map standard&quot; automatically</li>
+<li>After a run, a comparison with the results (overlap of flooded areas, numbers of buildings flooded above floor level) is shown</li>
+<li>Clicking a point shows each river&#39;s assumed rank, water-surface elevation and depth above ground</li>
+<li>In 3D water-surface mode you can record without running a simulation; with &quot;When recording, raise the water from 0 to 100%&quot; on, the video shows the water rising and the buildings going under</li>
+</ul>
+<blockquote>
+<p>The flood inundation assumption areas assume rivers overflowing (fluvial flooding); this simulation computes flooding from heavy rain (pluvial flooding). As the phenomena differ, use the comparison to see which places tend to be at risk. Regions outside the assumption areas of the national rivers, such as Sakae and Nonami, have no data.</p>
+</blockquote>
+<hr>
+<h2 id="10-recording-a-video">10. Recording a video</h2>
+<p>You can record after a run (or while paused), or while showing a hazard layer as a 3D water surface.</p>
+<ol>
+<li><p>Set up &quot;6. Recording&quot;</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Resolution</td>
+<td>1280×720 – 3840×2160 (4K)</td>
+</tr>
+<tr>
+<td>fps</td>
+<td>24 / 30 / 60</td>
+</tr>
+<tr>
+<td>Video length (s)</td>
+<td>Length of the resulting video</td>
+</tr>
+<tr>
+<td>Start / End (min)</td>
+<td>Range of simulation time to record</td>
+</tr>
+<tr>
+<td>Camera</td>
+<td>Fixed at the current view / Interpolate keyframes / Orbit (angle given)</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>For &quot;Interpolate keyframes&quot;, move the view and press &quot;＋ Add the current view&quot; two or more times (the views are joined smoothly in that order)</p>
+</li>
+<li><p>Press &quot;● Record and save&quot; to download an MP4 file (&quot;Cancel&quot; stops it)</p>
+</li>
+</ol>
+<ul>
+<li>Each frame is rendered before it is encoded, so the video is smooth regardless of the computer&#39;s speed</li>
+<li>The video includes the time, rainfall and total rain, the legend, labels, the pin, the basin map and the sources — in the language selected on screen</li>
+<li>The surest way: set the angle, lock the view (L), and record with &quot;Fixed at the current view&quot;</li>
+</ul>
+<hr>
+<h2 id="11-how-the-computation-works-summary">11. How the computation works (summary)</h2>
+<ul>
+<li><strong>Terrain</strong>: the PLATEAU DEM on a 2 m grid; inside buildings the ground is set to the building base elevation, and the difference is blended smoothly into the surrounding streets</li>
+<li><strong>Buildings</strong>: obstacles up to their roof height; rain on a roof flows off its edges onto the surrounding ground</li>
+<li><strong>Water flow</strong>: driven by differences in water-surface elevation (local inertial equations with Manning friction). Where water ponds and its surface becomes level, the flow stops; once it reaches the lowest rim, it spills over</li>
+<li><strong>Two-level computation</strong>: the whole tif (30 m grid) and the tile (2 m grid) are computed together, and the tile takes the basin water level at its boundary. The sea (Ise Bay, Nagoya Port) absorbs water at a level of 0 m</li>
+<li><strong>Flood depth at a building</strong>: the 90th percentile of the water depth on the street cells touching the building; ≥0.5 m is counted as &quot;above floor level&quot;</li>
+</ul>
+<hr>
+<h2 id="12-notes-and-limitations">12. Notes and limitations</h2>
+<ul>
+<li>Sewers are approximated by a uniform drainage capacity. The pipe network, overflow from manholes, pumping stations, underground storage and river water levels are not modelled. Water in hollows may recede more slowly than in reality</li>
+<li>The basin run uses a 30 m grid, so river capacity and levees are represented only roughly. Flooding along rivers may be overestimated</li>
+<li>In places, the PLATEAU DEM includes structures such as railway embankments as terrain</li>
+<li>An address given only down to the town is shown as the town&#39;s area (not a representative point)</li>
+<li>Some label names come from OpenStreetMap and may contain variant spellings or outdated names. Some English place names are automatic romanisations and their readings may be wrong</li>
+<li>The results are computations under assumed conditions. For evacuation and disaster-prevention decisions, use the official hazard maps of the local government</li>
+</ul>
+<hr>
+<h2 id="13-troubleshooting">13. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;No region data&quot; is shown</td>
+<td>Run <code>npm run build:all</code> (or <code>npm run build:region -- meieki</code>)</td>
+</tr>
+<tr>
+<td>Address search / tile building doesn&#39;t work</td>
+<td>Make sure the app runs with <code>npm run dev</code> (not available when opening a built file directly). An internet connection is also needed</td>
+</tr>
+<tr>
+<td>No basin map at the bottom left</td>
+<td>Run <code>npm run build:basin</code></td>
+</tr>
+<tr>
+<td>No labels</td>
+<td>Run <code>npm run build:labels</code> and check that &quot;Building / place labels&quot; is on</td>
+</tr>
+<tr>
+<td>A town is shown as a point instead of an area</td>
+<td>Run <code>npm run build:towns</code></td>
+</tr>
+<tr>
+<td>The display does not update</td>
+<td>Reload the browser; if that does not help, restart the dev server</td>
+</tr>
+<tr>
+<td>The computation is slow</td>
+<td>Raise &quot;Speed&quot;, use a smaller tile, or turn off the basin run (then no inflow from outside the region is computed)</td>
+</tr>
+<tr>
+<td>The browser is slow or crashes</td>
+<td>Use a longer &quot;Save interval&quot; or a shorter computed time</td>
+</tr>
+<tr>
+<td>The camera keeps drifting</td>
+<td>&quot;Lock view&quot; or the L key</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="14-sources">14. Sources</h2>
+<ul>
+<li>3D city model (Project PLATEAU) Nagoya, Ministry of Land, Infrastructure, Transport and Tourism — buildings, terrain, flood inundation assumption areas</li>
+<li>GSI tiles (seamless aerial photos) and address search API — Geospatial Information Authority of Japan</li>
+<li>2020 Population Census small-area (town / chome / aza) boundaries — Statistics Bureau of Japan, e-Stat</li>
+<li>Place names (stations, mountains, sights, high-rises) — © OpenStreetMap contributors (ODbL)</li>
+<li>Elevation (outside the tile and outside Nagoya) — <code>nagoya.tif</code></li>
+</ul>
+
+  </article></main>
+</body>
+</html>

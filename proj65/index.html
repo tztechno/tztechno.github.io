@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nagoya Flood | 降った雨は、どこへ行くのか — PLATEAU × GPU 浸水シミュレーター</title>
+  <meta name="description" content="名古屋市の 3D 都市モデル PLATEAU（建物 約 74 万棟）と地形データで、豪雨による浸水を GPU で計算し、街が水に沈んでいく様子を 3D で見て、録画できる浸水シミュレーター。雨は 82 × 76 km の流域全体に降らせ、選んだ場所を 2 m 格子・建物単位で計算。住所からタイル作成、洪水ハザードマップとの比較、MP4 録画（最大 4K）、日本語 / English。">
+
+  <meta property="og:title" content="Nagoya Flood — PLATEAU × GPU 浸水シミュレーター">
+  <meta property="og:description" content="降った雨は、どこへ行くのか。名古屋の街が水に沈んでいく様子を、建物単位で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/nagoya-flood">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/nagoya-flood">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230d5ea6%22/%3E%3Cpath d=%22M16 5c-4 6-8 10-8 15a8 8 0 0016 0c0-5-4-9-8-15z%22 fill=%22%2339c6ff%22/%3E%3Cpath d=%22M6 22h20%22 stroke=%22%23ffb000%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261011">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">NAGOYA FLOOD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#castle" data-i18n="navCastle">名古屋城</a></li>
+        <li><a href="#hazard" data-i18n="navHazard">ハザード比較</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">動作環境</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-rain" aria-hidden="true"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">PLATEAU × GPU · NAGOYA</p>
+      <h1 data-i18n-html="heroTitle">降った雨は、<br><span class="accent">どこへ行くのか。</span></h1>
+      <p class="lead" data-i18n="heroLead">名古屋市の 3D 都市モデル PLATEAU（建物 約 74 万棟）と地形データで、豪雨による浸水を GPU で計算する浸水シミュレーター。雨は 82 × 76 km の流域全体に降らせ、上流から流れ込む水まで含めて、選んだ場所を 2 m 格子・建物単位で計算します。水かさが増して街が沈み、雨が止んで水が引いていく様子を、好きな角度から見て、そのまま動画にできます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="heroGet">入手する</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">Web アプリ（Chrome / Edge / Safari・WebGL2）· 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>82 × 76 km</strong><span data-i18n="statArea">雨を降らせる流域</span></div>
+      <div class="stat"><strong data-i18n="statBldgN">74 万棟</strong><span data-i18n="statBldg">PLATEAU の建物</span></div>
+      <div class="stat"><strong>2 m</strong><span data-i18n="statGrid">詳細計算の格子</span></div>
+      <div class="stat"><strong data-i18n="statTimeN">約 1.5 分</strong><span data-i18n="statTime">3 時間分の雨（2 km 四方）</span></div>
+      <div class="stat"><strong>4K</strong><span data-i18n="statRec">MP4 で録画</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">雨を降らせて、街の沈み方を見る</h2>
+      <p class="section-lead" data-i18n="featLead">降雨の条件を決めて計算し、浸水が広がって引いていくまでを、建物ひとつひとつの単位で確かめられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/flood.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">建物単位で浸水を計算する</h3>
+          <p data-i18n="f1Body">PLATEAU の地形モデル（基盤地図情報の標高）を 2 m 格子にし、建物の底面の高さで地盤を補正。建物は屋根の高さまでの壁として扱い、屋根の雨は縁から道路へ流れ落ちます。水深は浸水の区分ごとに色分けし、建物は周囲の浸水深で塗り分けます（床上浸水相当は周囲 0.5 m 以上）。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">一定・中央集中型・線状降水帯・東海豪雨型・カスタム</li>
+            <li data-i18n="f1c2">下水道の排水能力</li>
+            <li data-i18n="f1c3">雨が止んだ後の引き方</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/basin.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">流域全体に降らせ、外から来る水も入れる</h3>
+          <p data-i18n="f2Body">選んだ場所だけに雨を降らせると、上流から集まってくる水が抜け落ちます。地形データの範囲全体（82 × 76 km、30 m 格子）にも同じ雨を降らせ、その水位を詳細計算の境界に渡す二段階計算で、窪地や低地の水深を正しく出します。伊勢湾・名古屋港は水位 0 m の海として水を受け止めます。天白区 野並では、地域の外からの流入を入れると、0.5 m 以上の浸水が 9.6 ha から 51.7 ha に広がりました。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/labels.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">住所から、どこでも</h3>
+          <p data-i18n="f3Body">住所や地名を入れると、その場所を中心にタイル（1〜3 km 四方）を 10〜30 秒で作成。番地まで入れればその地点に赤いピンが立ち、町名だけなら国勢調査の町丁界で範囲を示します。駅・高層ビル・山・寺社・公共施設など約 2,700 の名前は、実際に見えているものだけラベルを出し、線で建物を指します。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">国土地理院 住所検索</li>
+            <li data-i18n="f3c2">クリックで緯度経度と水深の推移</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/ui.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">好きな角度で見て、そのまま動画に</h3>
+          <p data-i18n="f4Body">ダブルクリックした地点を中心に、真上から地上の見上げまで自由に回転。決めたアングルは固定できます。録画は 1 コマずつ描いてから MP4 にするので、PC の速さに関係なく滑らか。カメラは固定・キーフレーム補間・旋回から選べ、時刻・雨量・凡例・ラベルも動画に入ります。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">最大 3840 × 2160・60 fps</li>
+            <li data-i18n="f4c2">再生・時刻スライダー</li>
+            <li data-i18n="f4c3">地点ごとの水深グラフ</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Castle ===== -->
+  <section class="section alt" id="castle">
+    <div class="container">
+      <p class="kicker">NAGOYA CASTLE</p>
+      <h2 data-i18n="castleTitle">名古屋城を、実寸で作り込む</h2>
+      <p class="section-lead" data-i18n="castleLead">表紙で雨に沈む名古屋城は、アプリの中でも同じ模型です。PLATEAU の天守 LOD2 を高さごとに輪切りにして測った寸法で組み立てています。</p>
+      <div class="split">
+        <figure class="shot"><img src="assets/castle.jpg" alt="" loading="lazy"></figure>
+        <ul class="spec">
+          <li><b data-i18n="cs1a">石垣</b><span data-i18n="cs1b">扇の勾配。高さ約 21 m、下端 52 × 56 m → 上端 35 × 39 m</span></li>
+          <li><b data-i18n="cs2a">天守 5 重 5 階</b><span data-i18n="cs2b">1・2 階がほぼ同じ大きさ。白漆喰と格子窓、銅板張りの最上階</span></li>
+          <li><b data-i18n="cs3a">屋根</b><span data-i18n="cs3b">緑青の銅瓦、軒の反り。千鳥破風・唐破風を LOD2 の位置に</span></li>
+          <li><b data-i18n="cs4a">金鯱</b><span data-i18n="cs4b">南北に延びる大棟（標高 62.5 m）の両端に</span></li>
+          <li><b data-i18n="cs5a">小天守・橋台</b><span data-i18n="cs5b">南の小天守と、天守をつなぐ石垣の通路</span></li>
+        </ul>
+      </div>
+      <figure class="shot wide"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">表紙: 流域の実際の等高線と降る雨のなか、名古屋城の水位が上がっていき、金鯱だけが残る</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Hazard ===== -->
+  <section class="section" id="hazard">
+    <div class="container">
+      <p class="kicker">HAZARD MAP</p>
+      <h2 data-i18n="hzTitle">国のハザードマップと並べる</h2>
+      <article class="feature">
+        <figure class="shot"><img src="assets/hazard.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <p data-i18n="hzBody">PLATEAU に含まれる洪水浸水想定区域（木曽川・庄内川・矢田川、計画規模 L1 / 想定最大規模 L2）を、公式のランク配色、想定水深の色分け、3D の水面として表示。計算が終わると、浸水範囲の重なりと床上浸水相当の棟数を突き合わせます。想定水面は 0〜100 % までせり上げて録画できます。</p>
+          <p class="note" data-i18n="hzNote">洪水浸水想定区域は河川の氾濫（外水）の想定で、このシミュレーションは大雨による内水氾濫の計算です。比較は危ない場所の傾向を見る参考です。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">しくみ</h2>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="t1a">GPU の浅水流</h3><p data-i18n="t1b">局所慣性方程式と Manning 摩擦（LISFLOOD-FP 系）を WebGL2 のシェーダーで解きます。時間刻み Δt は安定条件から自動で決まり、画面で安全係数と実際の Δt を確認できます。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">補正した地形</h3><p data-i18n="t2b">PLATEAU の地形モデル（TIN）を 2 m 格子にし、建物の底面の高さで地盤を補正。補正前・補正後の地形と建物込みの DSM は GeoTIFF で書き出せます。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">二段階の計算</h3><p data-i18n="t3b">流域全体（30 m・約 690 万セル）とタイル（2 m・建物あり）を同時に計算し、境界で水位を受け渡します。地形データの範囲全体の地形と航空写真も、そのまま背景に描きます。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">見えるものだけ名前を出す</h3><p data-i18n="t4b">数フレームごとに画面を低解像度で描き、ラベルの足元が建物や山に隠れていないかを深度で判定します（Kyoto Drone と同じ方式）。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="enCap">英語表示: 画面・地名・住所・録画の文字まで切り替わります</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section" id="start">
+    <div class="container">
+      <p class="kicker">REQUIREMENTS</p>
+      <h2 data-i18n="startTitle">動作環境</h2>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3 data-i18n="envApp">アプリ</h3>
+          <ul>
+            <li><span data-i18n="envKind">形式</span><strong data-i18n="envKindV">Web アプリ（three.js / WebGL2）</strong></li>
+            <li><span data-i18n="envBrowser">ブラウザ</span><strong>Chrome / Edge / Safari</strong></li>
+            <li><span data-i18n="envRun">起動</span><strong data-i18n="envRunV">Node.js 20 以降（npm run dev）</strong></li>
+            <li><span data-i18n="envLang">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+        </div>
+        <div class="platform">
+          <h3 data-i18n="envData">データ</h3>
+          <ul>
+            <li><span>PLATEAU</span><strong data-i18n="envPlateau">名古屋市 3D 都市モデル（CityGML 2022）</strong></li>
+            <li><span data-i18n="envDem">地形</span><strong data-i18n="envDemV">流域の標高 GeoTIFF（nagoya.tif）</strong></li>
+            <li><span data-i18n="envNet">通信</span><strong data-i18n="envNetV">航空写真・住所検索・町丁界の取得時</strong></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note" data-i18n="startNote">※ 計算時間の目安は Apple M5 での実測値です。GPU の性能により変わります。結果は条件を仮定した計算です。避難や防災の判断には、自治体の公式のハザードマップをお使いください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">その雨は、<span class="accent">どこに溜まるのか。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/nagoya-flood" class="btn btn-primary btn-lg" data-i18n="ctaGet">入手する</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">NAGOYA FLOOD</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土交通省 PLATEAU（名古屋市 2022）、国土地理院（シームレス空中写真・住所検索）、総務省統計局 e-Stat（2020 年国勢調査 小地域境界）、© OpenStreetMap contributors ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/nagoya-flood" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">Manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261011"></script>
+</body>
+</html>
