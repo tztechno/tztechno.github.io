@@ -47,8 +47,8 @@
 <h2 id="1-getting-started">1. Getting started</h2>
 <h3 id="desktop-app-macos--windows">Desktop app (macOS / Windows)</h3>
 <ul>
-<li>macOS: open <code>NagoyaFlood_1.0.0_aarch64.dmg</code> and drag the app into Applications</li>
-<li>Windows: run <code>NagoyaFlood_1.0.0_x64-setup.exe</code></li>
+<li>macOS: open the downloaded <code>.dmg</code> (e.g. <code>NagoyaFlood.dmg</code>) and drag the app into Applications</li>
+<li>Windows: run the downloaded <code>.exe</code> (e.g. <code>NagoyaFlood_Setup.exe</code>)</li>
 <li>The preset regions, basin terrain, place names and other data are included. Address search and building new tiles need an internet connection</li>
 <li>Recordings (MP4) and GeoTIFFs are saved to the Downloads folder</li>
 </ul>
@@ -79,7 +79,7 @@
 </tr>
 <tr>
 <td>Top left</td>
-<td>Region name, elapsed time, rainfall intensity, total rain, etc.</td>
+<td>Region name, elapsed time, rainfall intensity, total rain, the sewer drainage capacity setting, etc.</td>
 </tr>
 <tr>
 <td>Top right</td>
@@ -287,6 +287,33 @@ The links under the region information save the corrected terrain and the terrai
 <li>Street etc.: ground elevation, maximum depth, time flooding (&gt;0.1 m) began, assumed depths for each river</li>
 <li>Building: use, floors, height, base elevation, flood depth around it (90th percentile), building ID (the building is highlighted in yellow)</li>
 </ul>
+<h4 id="saving-a-points-results-as-csv">Saving a point&#39;s results as CSV</h4>
+<p>Once a run has finished (or while it is paused), the <strong>&quot;📄 Save this point as CSV (results + conditions)&quot;</strong> button under the point information saves that point&#39;s results together with the run&#39;s conditions as a CSV file (it is disabled before a run). It is saved to the Downloads folder.</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Point</td>
+<td>Region, latitude/longitude, JGD2011 plane VII coordinates, grid cell and size, ground elevation; for a building also its ID, use, floors, height and base elevation</td>
+</tr>
+<tr>
+<td>Conditions</td>
+<td>Rainfall pattern and its settings, total rainfall, peak intensity, rain duration, time computed after the rain, sewer capacity, roughness, inflow from the basin, safety factor (CFL), save interval</td>
+</tr>
+<tr>
+<td>Results</td>
+<td>Maximum depth and its time, when flooding (&gt;0.1 m) began (for a building, the maximum depth around it), assumed depth for each river</td>
+</tr>
+<tr>
+<td>Time series</td>
+<td>Elapsed time, rainfall intensity, cumulative rainfall, ground elevation, depth and water-surface elevation at every save interval (on each row ground + depth = water surface; for a building, the street cell around it with the deepest water at that time)</td>
+</tr>
+</tbody></table>
+<p>The file is named &quot;region_point_lat_lon.csv&quot; and is UTF-8 with a BOM, so spreadsheet apps open it directly. With the interface in Japanese, the item names are in Japanese.</p>
 <h3 id="reading-the-chart">Reading the chart</h3>
 <table>
 <thead>
@@ -494,7 +521,7 @@ The links under the region information save the corrected terrain and the terrai
 </ol>
 <ul>
 <li>Each frame is rendered before it is encoded, so the video is smooth regardless of the computer&#39;s speed</li>
-<li>The video includes the time, rainfall and total rain, the legend, labels, the pin, the basin map and the sources — in the language selected on screen</li>
+<li>The video includes the time, rainfall, total rain and sewer drainage capacity, the legend, labels, the pin, the basin map and the sources — in the language selected on screen</li>
 <li>The surest way: set the angle, lock the view (L), and record with &quot;Fixed at the current view&quot;</li>
 </ul>
 <hr>
