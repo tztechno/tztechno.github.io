@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Takeshiba Drone | 竹芝の中を、物理で飛ぶ — MuJoCo × PLATEAU LOD4</title>
+  <meta name="description" content="PLATEAU で唯一の LOD4（BIM 由来の屋内モデル）東京ポートシティ竹芝を内覧し、MuJoCo 物理エンジンのドローンで建物の中と周辺を飛ぶデスクトップアプリ。11 か所の発着ポイント間の自動飛行（×16 早回し）、キーボード・ゲームパッドでの手動操縦、周辺 1,485 棟と海、ミニマップと高さ断面、日本語 / English。macOS / Windows。">
+
+  <meta property="og:title" content="Takeshiba Drone — MuJoCo × PLATEAU LOD4">
+  <meta property="og:description" content="PLATEAU 唯一の屋内モデル、東京ポートシティ竹芝の中を物理シミュレーションのドローンで飛ぶ。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/takeshiba-drone">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261016">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/takeshiba-drone" class="logo">
+        <img class="logo-mark" src="assets/icon.png" alt="" width="30" height="30">
+        <span class="logo-text">TAKESHIBA DRONE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">特長</a></li>
+        <li><a href="#pads" data-i18n="navPads">発着ポイント</a></li>
+        <li><a href="#data" data-i18n="navData">LOD4 データ</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#desktop" data-i18n="navDesktop">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/takeshiba-drone" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">MuJoCo × PLATEAU LOD4</p>
+      <h1 data-i18n-html="heroTitle">竹芝の中を、<br><span class="accent">物理で飛ぶ。</span></h1>
+      <p class="lead" data-i18n="heroLead">PLATEAU で唯一の LOD4（BIM 由来の屋内モデル）、東京ポートシティ竹芝。階を選んで内側を見て回り、MuJoCo 物理エンジンで動くドローンで、吹き抜けや階段を抜けて建物の中を飛ぶ。屋上から周辺のビルの屋上へ、海辺の地上へ。発着ポイント間の自動飛行も、キーボードやゲームパッドでの手動操縦も。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/takeshiba-drone" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">特長を見る</a>
+      </div>
+      <p class="platforms">macOS (Apple Silicon) · Windows 10 / 11</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>LOD4</strong><span data-i18n="statLod">PLATEAU 唯一の屋内モデル</span></div>
+      <div class="stat"><strong>11</strong><span data-i18n="statPads">発着ポイント（屋内・屋上・地上）</span></div>
+      <div class="stat"><strong>110 / 110</strong><span data-i18n="statTest">全ての組み合わせで着陸を確認</span></div>
+      <div class="stat"><strong>1,485</strong><span data-i18n="statBldg">周辺の建物と海</span></div>
+      <div class="stat"><strong>2 ms</strong><span data-i18n="statStep">物理計算の刻み</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">見て、選んで、飛ぶ</h2>
+      <p class="section-lead" data-i18n="featLead">40 階建てのオフィスタワーを、内覧とドローン飛行の両方で。</p>
+
+      <article class="feature reveal">
+        <figure class="shot"><img src="assets/floor.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">内覧 — 階を選んで内側を見る</h3>
+          <p data-i18n="f1Body">フロアのスライダーで階を選ぶと、床から目線の高さで建物を切って平面図のように見下ろせます。壁・柱・ガラス・設備をクリックすると、種別・名称・部屋・階を表示。部屋の一覧からその部屋へ飛んで見ることもできます。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">平面図風のカット</li>
+            <li data-i18n="f1c2">部材をクリックで情報</li>
+            <li data-i18n="f1c3">レイヤーの表示切り替え</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse reveal">
+        <figure class="shot"><img src="assets/auto.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">自動飛行 — 発着ポイントからポイントへ</h3>
+          <p data-i18n="f2Body">出発と到着を選んで「自動で飛ぶ」。事前に立案した経路に沿って離陸・移動・着陸します。壁や柱が近い所では自動で減速。経路は見える区間を実線、建物の陰を破線で描き、右下のミニマップと高さ断面で今どこを飛んでいるかが分かります。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">×1〜×16 の早回し</li>
+            <li data-i18n="f2c2">追従・FPV・見下ろし・自由視点</li>
+            <li data-i18n="f2c3">平面図と高さ断面</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reveal">
+        <div class="shot keys" aria-hidden="true">
+          <div class="keypad">
+            <div class="krow"><kbd>W</kbd></div>
+            <div class="krow"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></div>
+          </div>
+          <div class="keypad">
+            <div class="krow"><kbd>↑</kbd></div>
+            <div class="krow"><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div>
+          </div>
+          <p class="pad-note">🎮 Gamepad (Mode 1)</p>
+        </div>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">手動 — キーボードとゲームパッド</h3>
+          <p data-i18n="f3Body">W/S/A/D で前後左右、↑/↓ で上昇・下降、←/→ で旋回。ゲームパッドは Kyoto Drone と同じ割り当て（モード 1）で、ボタンは画面で割り当て直せます。高度と姿勢はフライトコントローラーが保つので、吹き抜けの中でも狙った所に止まれます。自動飛行中に操作すれば、そのまま手動に切り替わります。</p>
+        </div>
+      </article>
+
+      <article class="feature reverse reveal">
+        <figure class="shot"><img src="assets/outdoor.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">建物の外へ — 屋上から隣のビルの屋上へ</h3>
+          <p data-i18n="f4Body">周辺の建物 1,485 棟、橋、道路、地形と海も再現。竹芝の屋上から世界貿易センタービルの屋上へ、旧芝離宮恩賜庭園や竹芝ふ頭の地上へ。屋外では巡航が速くなり、建物に入る手前で減速します。海面に触れると着水で墜落。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">周辺 1,485 棟・橋 29</li>
+            <li data-i18n="f4c2">地形と海面</li>
+            <li data-i18n="f4c3">最長 約 1.1 km の経路</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Pads ===== -->
+  <section class="section alt" id="pads">
+    <div class="container">
+      <p class="kicker">PADS</p>
+      <h2 data-i18n="padsTitle">11 か所の発着ポイント</h2>
+      <p class="section-lead" data-i18n="padsLead">どの 2 か所を選んでも経路があり、全 110 通り（往復それぞれ）で自動飛行の着陸を確かめています。到着メニューには、行ける所だけが出ます。</p>
+      <div class="pads">
+        <div class="pad-col reveal">
+          <h3 data-i18n="padsIn">屋内</h3>
+          <ul>
+            <li><b>1F</b> <span data-i18n="p1">竹芝ガレリア</span></li>
+            <li><b>1F</b> <span data-i18n="p2">コンテンツメディアホール</span></li>
+            <li><b>2F</b> <span data-i18n="p3">店舗通路</span></li>
+            <li><b>3F</b> <span data-i18n="p4">イベントスペース前</span></li>
+            <li><b>6F</b> <span data-i18n="p5">オフィススカイロビー</span></li>
+            <li><b>10F</b> <span data-i18n="p6">オフィス</span></li>
+          </ul>
+        </div>
+        <div class="pad-col reveal">
+          <h3 data-i18n="padsOut">屋上・地上</h3>
+          <ul>
+            <li><b data-i18n="roof">屋上</b> <span data-i18n="p7">東京ポートシティ竹芝</span></li>
+            <li><b data-i18n="roof">屋上</b> <span data-i18n="p8">世界貿易センタービル</span></li>
+            <li><b data-i18n="roof">屋上</b> <span data-i18n="p9">港区役所</span></li>
+            <li><b data-i18n="ground">地上</b> <span data-i18n="p10">竹芝ふ頭</span></li>
+            <li><b data-i18n="ground">地上</b> <span data-i18n="p11">旧芝離宮恩賜庭園</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOD4 data ===== -->
+  <section class="section" id="data">
+    <div class="container feature reveal">
+      <figure class="shot"><img src="assets/gates.jpg" alt="" loading="lazy"></figure>
+      <div class="feature-text">
+        <p class="kicker">LOD4 DATA</p>
+        <h2 data-i18n="dataTitle">現実に通れる所だけを飛ぶ</h2>
+        <p data-i18n="dataBody">BIM から変換された LOD4 にも欠けている所があります。オフィス階にはエレベーターや設備シャフトの囲いがなく床に穴が開いたように見え、エレベーターは扉もかごもない縦穴、展示室の部分は床が欠けています。そうした所は通れない板で塞いで赤く表示し、階をまたぐのは竹芝ガレリアの吹き抜け・階段・エスカレーターだけ。自動でも手動でも同じ基準です。</p>
+        <ul class="chips">
+          <li data-i18n="dc1">欠けた床を赤で表示</li>
+          <li data-i18n="dc2">吹き抜け・階段・ES だけで階をまたぐ</li>
+          <li data-i18n="dc3">資料で確かめた吹き抜けの範囲</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">UNDER THE HOOD</p>
+      <h2 data-i18n="techTitle">本物のしくみで飛ぶ</h2>
+      <div class="cards">
+        <div class="card reveal">
+          <h3 data-i18n="t1Title">MuJoCo 物理</h3>
+          <p data-i18n="t1Body">Kyoto Drone と同じ 1.8 kg の X 型クアッド。4 つのロータに推力・反トルク・モーター遅れ。位置 PID と幾何学的姿勢制御（SO(3)）、質量推定と外乱オブザーバで飛びます。</p>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="t2Title">建物との衝突</h3>
+          <p data-i18n="t2Body">建物の内側を 0.25 m のボクセルから直方体にした約 17 万個の箱のうち、機体の周り 3.5 m にある箱だけを MuJoCo に割り当て直して衝突計算。地形は高さ場です。</p>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="t3Title">経路立案</h3>
+          <p data-i18n="t3Body">屋内は 0.5 m、屋外は 2 m 格子の 3D A*。壁から機体中心まで屋内 0.75 m・屋外 3 m 以上離れ、通路の中央を選びます。屋内と屋外は建物の開口や屋上でつながります。</p>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="t4Title">全組み合わせを試験</h3>
+          <p data-i18n="t4Body">11 か所の全 110 通りを、巡航 0.5・2・4 m/s で自動飛行させて着陸を確認。成功した組み合わせだけを到着メニューに出します。</p>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="t5Title">日本語 / English</h3>
+          <p data-i18n="t5Body">ボタンひとつで UI・発着ポイント・情報表示・イベントが英語に。飛んでいる最中でも切り替えられます。</p>
+        </div>
+        <div class="card reveal">
+          <h3 data-i18n="t6Title">飛行音</h3>
+          <p data-i18n="t6Body">ロータ音は 4 つのモーターの推力から合成。上昇や減速で音が変わり、ぶつかると衝突音が鳴ります。</p>
+        </div>
+      </div>
+      <figure class="shot wide reveal"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="engCap">英語表示: 竹芝の屋上 → 世界貿易センタービルの屋上（自動飛行）</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Desktop ===== -->
+  <section class="section" id="desktop">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="deskTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="deskLead">データを同梱しているので、インストールすればオフラインで動きます。</p>
+      <div class="desk-grid">
+        <div class="desk reveal">
+          <h3>macOS</h3>
+          <p data-i18n="deskMac">Apple Silicon（M1 以降）。.dmg をダウンロードして、アプリをアプリケーションフォルダへ。</p>
+        </div>
+        <div class="desk reveal">
+          <h3>Windows</h3>
+          <p data-i18n="deskWin">Windows 10 / 11（64 bit）。インストーラー（.exe）を実行。</p>
+        </div>
+      </div>
+      <div class="center">
+        <a href="https://cyber-matrix.netlify.app/products/takeshiba-drone" class="btn btn-primary btn-lg" data-i18n="deskBuy">デスクトップ版を入手</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="credits" data-i18n="credits">データ: 国土交通省 Project PLATEAU（東京都23区 竹芝地区 2022, CC BY 4.0）。物理: MuJoCo。描画: three.js。</p>
+      <p class="copy">© Cyber Matrix</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261016"></script>
+</body>
+</html>
