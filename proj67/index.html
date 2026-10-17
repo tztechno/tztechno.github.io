@@ -121,7 +121,7 @@
         </div>
         <div class="telemetry-item">
           <span class="tele-label"><i class="fa-solid fa-building-flag"></i> PLATEAU 3D MODELS</span>
-          <span class="tele-val">全国主要都市 LOD2/LOD1</span>
+          <span class="tele-val">全国441市区町村 LOD1</span>
         </div>
         <div class="telemetry-item">
           <span class="tele-label"><i class="fa-solid fa-microchip"></i> ENGINE & FPS</span>
@@ -163,7 +163,7 @@
               </div>
               <div class="hud-tag">
                 <i class="fa-solid fa-cube"></i>
-                <span>DYNAMIC LOD AUTO-RESOLVER</span>
+                <span>NATIONWIDE LOD1 STREAM</span>
               </div>
             </div>
           </div>
@@ -198,6 +198,7 @@
             <li><i class="fa-solid fa-check"></i> 宇宙軌道 (LEO) 〜 地表の無段階シームレスズーム</li>
             <li><i class="fa-solid fa-check"></i> 昼夜境界線・HDR太陽光レンダリング</li>
             <li><i class="fa-solid fa-check"></i> 主要都市・富士山サイバー発光マーカー</li>
+            <li><i class="fa-solid fa-check"></i> 右ドラッグ・矢印キーで傾き・回転自在のフリー視点</li>
           </ul>
         </div>
 
@@ -210,12 +211,12 @@
             </div>
             <h3 class="feature-heading">PLATEAU公式API リアルタイムストリーミング</h3>
             <p class="feature-body">
-              カメラが地上に近づくと空間インデックスが即座に作動。国土交通省の公式配信APIから東京都心・大阪・京都・名古屋などの最新LOD2/LOD1モデルをネット経由で自動フェッチし、即時にCesium 3D Tilesへ動的マウント。
+              カメラが高度3.5km以下に近づくと、国土交通省の公式配信APIから全国441市区町村のLOD1建築物モデルを自動ストリーミング。画面に入った市区町村のタイルだけをネット経由で取得し、Cesium 3D Tilesとして即時に描画します。
             </p>
           </div>
           <ul class="feature-bullets">
             <li><i class="fa-solid fa-check"></i> 事前巨大ダウンロード不要のネット動的展開</li>
-            <li><i class="fa-solid fa-check"></i> 東京・大阪・京都・名古屋・福岡等のLOD2精密モデル</li>
+            <li><i class="fa-solid fa-check"></i> 全国441市区町村のLOD1建築物を1つのタイルセットで網羅</li>
             <li><i class="fa-solid fa-check"></i> ローカルキャッシュによる2回目以降の爆速起動</li>
           </ul>
         </div>
@@ -264,13 +265,13 @@
     <section class="section-block" id="plateau">
       <div class="showcase-block">
         <div class="showcase-info">
-          <span class="showcase-badge">PROJECT PLATEAU LOD2 ARCHITECTURE</span>
-          <h2 class="showcase-title">実測ビルが夜景に浮かぶ。<br><span class="gradient-text-pink">東京・大阪・京都をフル再現。</span></h2>
+          <span class="showcase-badge">PROJECT PLATEAU LOD1 NATIONWIDE</span>
+          <h2 class="showcase-title">実測ビルが夜景に浮かぶ。<br><span class="gradient-text-pink">全国441市区町村をカバー。</span></h2>
           <p class="showcase-text">
-            国土交通省が進める「Project PLATEAU」の精緻な3D都市モデルを統合。東京都心の超高層ビル群から京都の歴史的景観、大阪・名古屋の中枢まで、実際の航空測量とBIMから生成された建築物ポリゴンが、あなたのPC上でシームレスに立ち並びます。
+            国土交通省が進める「Project PLATEAU」の3D都市モデルを統合。東京都心の超高層ビル群から地方都市の街並みまで、PLATEAUが整備した全国441市区町村のLOD1建築物モデル（建物の形と高さを表す立体モデル）が、あなたのPC上でシームレスに立ち並びます。
           </p>
           <p class="showcase-text">
-            ビルの屋根形状、壁面のディテール、階数・用途データに至るまで、官民オープンデータを最先端のCesiumJSシェーダーで近未来サイバーパンクの美しいビジュアルに昇華させました。
+            建物の計測高さ・階数・用途データに至るまで、官民オープンデータを最先端のCesiumJSシェーダーで近未来サイバーパンクの美しいビジュアルに昇華させました。
           </p>
           <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-primary-cta" style="margin-top: 1rem;">
             <span>ストアで詳細を見る</span>
@@ -393,7 +394,7 @@
               </div>
               <div class="sim-tele-row">
                 <span class="sim-tele-k">PLATEAU STREAM</span>
-                <span class="sim-tele-v" id="sim-val-lod">LOD2 ACTIVE (HIGH SPEC)</span>
+                <span class="sim-tele-v" id="sim-val-lod">LOD1 ACTIVE</span>
               </div>
               <div class="sim-tele-row">
                 <span class="sim-tele-k">BUILDINGS</span>
@@ -415,7 +416,7 @@
         <!-- Terminal Log Stream -->
         <div class="sim-terminal-stream" id="sim-terminal-stream">
           <div class="terminal-line">[SYSTEM] PLATEAU Dynamic 3D Tiles streaming engine initialized.</div>
-          <div class="terminal-line">[STREAM] Loaded regional tileset for Greater Tokyo (LOD2 Mesh).</div>
+          <div class="terminal-line">[STREAM] Mounted nationwide LOD1 tileset (all-bldg-lod1-latest).</div>
           <div class="terminal-line active">[ACTIVE] Cesium3D Tiles renderer: 60.0 FPS locked. Ready for telemetry navigation.</div>
         </div>
       </div>
@@ -442,6 +443,7 @@
           <li><i class="fa-solid fa-circle-check"></i> <span>Windows (.exe 64-bit) インストーラー対応</span></li>
           <li><i class="fa-solid fa-circle-check"></i> <span>国土交通省 Project PLATEAU 公式配信APIへの無制限ストリーミング</span></li>
           <li><i class="fa-solid fa-circle-check"></i> <span>CesiumJS 宇宙軌道 ⇄ 地表シームレスズーム＆夜景レンダリング</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>傾き・回転自在のフリー視点（マウス・ボタン・キーボード）</span></li>
           <li><i class="fa-solid fa-circle-check"></i> <span>一度訪れた都市を爆速再読込するスマートキャッシュ機構</span></li>
           <li><i class="fa-solid fa-circle-check"></i> <span>日本語・英語バイリンガル＆Web Audioサイバー音響</span></li>
         </ul>
@@ -482,7 +484,7 @@
             <i class="fa-solid fa-chevron-down faq-icon"></i>
           </div>
           <div class="faq-answer">
-            はい。本アプリケーションは国土交通省が公式に配信している 3D Tiles エンドポイント（api.plateauview.mlit.go.jp）に直接接続し、全国の主要都市の最新LOD2/LOD1モデルをネット経由でリアルタイムに取得します。自治体による都市モデルの更新も即座に反映されます。
+            はい。本アプリケーションは国土交通省が公式に配信している 3D Tiles エンドポイント（api.plateauview.mlit.go.jp）に直接接続し、全国441市区町村の最新LOD1建築物モデルをネット経由でリアルタイムに取得します。自治体による都市モデルの更新も即座に反映されます。
           </div>
         </div>
 

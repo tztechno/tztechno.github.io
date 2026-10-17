@@ -95,7 +95,7 @@ const cityData = {
     alt: 485,
     zone: 'ZONE-A / METRO CAPITAL',
     bldgs: '1,894,200 棟',
-    lod: 'LOD2 ACTIVE (HIGH SPEC)',
+    lod: 'LOD1 ACTIVE',
     radarPos: { x: 72, y: 55 },
     img: 'assets/plateau_city_twin.jpg',
     insp: {
@@ -113,7 +113,7 @@ const cityData = {
     alt: 320,
     zone: 'ZONE-B / KANSAI HUB',
     bldgs: '612,450 棟',
-    lod: 'LOD2 ACTIVE',
+    lod: 'LOD1 ACTIVE',
     radarPos: { x: 50, y: 64 },
     img: 'assets/plateau_city_twin.jpg',
     insp: {
@@ -131,7 +131,7 @@ const cityData = {
     alt: 180,
     zone: 'ZONE-K / CULTURAL TWIN',
     bldgs: '510,120 棟',
-    lod: 'LOD2 ACTIVE',
+    lod: 'LOD1 ACTIVE',
     radarPos: { x: 52, y: 62 },
     img: 'assets/plateau_city_twin.jpg',
     insp: {
@@ -149,7 +149,7 @@ const cityData = {
     alt: 420,
     zone: 'ZONE-C / CHUBU METRO',
     bldgs: '741,080 棟',
-    lod: 'LOD2 ACTIVE',
+    lod: 'LOD1 ACTIVE',
     radarPos: { x: 60, y: 60 },
     img: 'assets/plateau_city_twin.jpg',
     insp: {
@@ -184,7 +184,7 @@ const cityData = {
     lon: '138° 00\' 00" E',
     alt: 2200000,
     zone: 'LEO ORBIT / 2,200 KM',
-    bldgs: '全国 3,500万棟 (LOD1/2)',
+    bldgs: '全国 3,500万棟 (LOD1)',
     lod: 'ALL JAPAN SEAMLESS STREAM',
     radarPos: { x: 50, y: 50 },
     img: 'assets/hero_japan_orbit.jpg',
@@ -357,7 +357,7 @@ function initTerminalStream() {
   if (!terminal) return;
 
   const logTemplates = [
-    '[NET-STREAM] GET https://api.plateauview.mlit.go.jp/datacatalog/3dtiles/13100-bldg-lod2-latest/tileset.json (200 OK, 12ms)',
+    '[NET-STREAM] GET https://api.plateauview.mlit.go.jp/datacatalog/3dtiles/all-bldg-lod1-latest/tileset.json (200 OK, 12ms)',
     '[CACHE-HIT] Spatial Index Zone [35.6812, 139.7671] cached in Local IndexedDB',
     '[CESIUM-CONVERT] Dynamic b3dm to Cesium3DTileset conversion complete (Rendered: 4,120 bldgs)',
     '[TELEMETRY] Sensor array locked onto Chiyoda-ku / Minato-ku border line',
