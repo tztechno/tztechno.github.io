@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAPAN 3D MAP & PLATEAU VIEWER | Cyber Matrix デスクトップ＆Web</title>
+  <meta name="description" content="宇宙軌道2,200kmから路地のPLATEAU 3Dモデルまで。CesiumJSと国土交通省Project PLATEAU APIが直結した、日本列島全体を俯瞰・探索できるサイバー航空宇宙デジタルツイン。">
+  <meta name="keywords" content="PLATEAU, CesiumJS, 3D都市モデル, デジタルツイン, 日本地図, Cyber Matrix, 宇宙視点, 国土交通省, 3D Tiles, GIS">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/japan-map">
+  <meta property="og:title" content="JAPAN 3D MAP & PLATEAU VIEWER | Cyber Matrix">
+  <meta property="og:description" content="宇宙軌道2,200kmから路地のPLATEAU 3Dモデルまで。日本列島3D＆リアルタイムPLATEAU都市ストリーミング。">
+  <meta property="og:image" content="assets/hero_japan_orbit.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cyber-matrix.netlify.app/products/japan-map">
+  <meta property="twitter:title" content="JAPAN 3D MAP & PLATEAU VIEWER">
+  <meta property="twitter:description" content="宇宙軌道2,200kmから路地のPLATEAU 3Dモデルまで。日本列島3D＆リアルタイムPLATEAU都市ストリーミング。">
+  <meta property="twitter:image" content="assets/hero_japan_orbit.jpg">
+
+  <link rel="icon" type="image/png" href="assets/app-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Orbitron:wght@500;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- LP Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Starfield & Cyber Mesh Canvas -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="scanlines-overlay"></div>
+  <div class="cyber-grid-overlay"></div>
+
+  <!-- Main Container -->
+  <div class="page-container">
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="header-brand">
+        <div class="brand-icon-box">
+          <img src="assets/app-icon.png" alt="Japan Map Logo" class="brand-icon-img">
+        </div>
+        <div class="brand-titles">
+          <div class="brand-name">
+            <span>CYBER MATRIX</span>
+            <span class="brand-badge">N67</span>
+          </div>
+          <span class="brand-sub">JAPAN 3D MAP & PLATEAU</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features"><i class="fa-solid fa-satellite-dish"></i> <span>特徴</span></a></li>
+        <li><a href="#simulator"><i class="fa-solid fa-gamepad"></i> <span>HUD体験</span></a></li>
+        <li><a href="#plateau"><i class="fa-solid fa-city"></i> <span>PLATEAU連携</span></a></li>
+        <li><a href="#specs"><i class="fa-solid fa-laptop-code"></i> <span>仕様・動作環境</span></a></li>
+        <li><a href="#faq"><i class="fa-solid fa-circle-question"></i> <span>FAQ</span></a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button id="btn-sound-toggle" class="btn-sound active" title="サイバー効果音のON/OFF">
+          <i class="fa-solid fa-volume-high"></i>
+          <span>AUDIO ON</span>
+        </button>
+        <button id="btn-lang-toggle" class="btn-lang" title="日本語 / English">
+          <i class="fa-solid fa-globe"></i>
+          <span>JP</span>
+        </button>
+        <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-primary-cta" id="header-cta-store">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>ストアで購入 ¥150</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-pill-badge">
+        <div class="pulse-dot"></div>
+        <span class="hero-pill-text" data-i18n-key="heroKicker">CYBER MATRIX DESKTOP & WEB SERIES</span>
+        <span style="color: var(--border-subtle);">|</span>
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--emerald-data);"><i class="fa-solid fa-circle-check"></i> MLIT API DIRECT STREAM</span>
+      </div>
+
+      <h1 class="hero-title" data-i18n-key="heroTitle">
+        宇宙軌道2,200kmから、<br>
+        <span class="gradient-text-cyan">路地のPLATEAU 3Dモデルまで。</span>
+      </h1>
+
+      <p class="hero-subtitle" data-i18n-key="heroSub">
+        CesiumJS 3Dエンジンと国土交通省 Project PLATEAU 公式配信APIがダイレクト融合。宇宙ステーション高度から日本列島全体を俯瞰し、ズームインで実測3D都市モデルがリアルタイムに立ち並ぶサイバー航空宇宙デジタルツイン。
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-hero-store" id="hero-btn-store">
+          <i class="fa-solid fa-rocket"></i>
+          <span data-i18n-key="btnStore">Cyber Matrix ストアで購入</span>
+          <span class="btn-hero-price-badge">¥150 (税込)</span>
+        </a>
+        <a href="#simulator" class="btn-hero-demo" id="hero-btn-demo">
+          <i class="fa-solid fa-compass"></i>
+          <span data-i18n-key="btnDemo">インタラクティブ体験</span>
+        </a>
+      </div>
+
+      <!-- Quick Telemetry Strip -->
+      <div class="telemetry-strip">
+        <div class="telemetry-item">
+          <span class="tele-label"><i class="fa-solid fa-gauge-high"></i> OBSERVATION ALT</span>
+          <span class="tele-val">2,200 km ⇄ 0 m</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="tele-label"><i class="fa-solid fa-building-flag"></i> PLATEAU 3D MODELS</span>
+          <span class="tele-val">全国主要都市 LOD2/LOD1</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="tele-label"><i class="fa-solid fa-microchip"></i> ENGINE & FPS</span>
+          <span class="tele-val">CesiumJS 60 FPS</span>
+        </div>
+        <div class="telemetry-item">
+          <span class="tele-label"><i class="fa-solid fa-network-wired"></i> STREAM PROTOCOL</span>
+          <span class="tele-val">3D Tiles Dynamic Cache</span>
+        </div>
+      </div>
+
+      <!-- Hero Cinematic Visual Showcase -->
+      <div class="hero-visual-container">
+        <div class="hero-visual-frame">
+          <img src="assets/hero_japan_orbit.jpg" alt="Japan Map from Space Orbit" class="hero-visual-img">
+          
+          <!-- Cyber HUD Overlays -->
+          <div class="hero-hud-overlay">
+            <div class="hud-top-bar">
+              <div class="hud-tag">
+                <i class="fa-solid fa-satellite text-cyan-400"></i>
+                <span>TGT: JAPAN ARCHIPELAGO [ORBIT 2,200KM]</span>
+              </div>
+              <div class="hud-tag" style="border-color: rgba(16, 185, 129, 0.4); color: var(--emerald-data);">
+                <span class="pulse-dot"></span>
+                <span>CESIUM SENSOR ARRAY: NOMINAL</span>
+              </div>
+            </div>
+
+            <div class="hud-corner-reticle reticle-tl"></div>
+            <div class="hud-corner-reticle reticle-tr"></div>
+            <div class="hud-corner-reticle reticle-bl"></div>
+            <div class="hud-corner-reticle reticle-br"></div>
+
+            <div class="hud-bottom-bar">
+              <div class="hud-tag">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>GRID: GSI SEAMLESS + NASA VIIRS NIGHTLIGHTS</span>
+              </div>
+              <div class="hud-tag">
+                <i class="fa-solid fa-cube"></i>
+                <span>DYNAMIC LOD AUTO-RESOLVER</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="section-block" id="features">
+      <div class="section-header">
+        <span class="section-kicker" data-i18n-key="featKicker">CORE CAPABILITIES</span>
+        <h2 class="section-title" data-i18n-key="featTitle">4つの圧倒的デジタルツイン技術</h2>
+        <p class="section-desc">
+          宇宙工学と地理情報システム（GIS）の境界を打ち破る、革新的なリアルタイム可視化アーキテクチャ。
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="glass-panel feature-card">
+          <span class="feature-step-num">01</span>
+          <div>
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-earth-asia"></i>
+            </div>
+            <h3 class="feature-heading">宇宙軌道2,200km ＆ 大気散乱・夜間光</h3>
+            <p class="feature-body">
+              宇宙ステーション高度から弧を描く日本列島（北海道から南西諸島まで）を一望。太陽光連動の大気散乱（Atmosphere）とNASA VIIRS夜間光、Esri高解像度衛星写真・国土地理院シームレス空中写真がドラマチックに交差します。
+            </p>
+          </div>
+          <ul class="feature-bullets">
+            <li><i class="fa-solid fa-check"></i> 宇宙軌道 (LEO) 〜 地表の無段階シームレスズーム</li>
+            <li><i class="fa-solid fa-check"></i> 昼夜境界線・HDR太陽光レンダリング</li>
+            <li><i class="fa-solid fa-check"></i> 主要都市・富士山サイバー発光マーカー</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="glass-panel feature-card">
+          <span class="feature-step-num">02</span>
+          <div>
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h3 class="feature-heading">PLATEAU公式API リアルタイムストリーミング</h3>
+            <p class="feature-body">
+              カメラが地上に近づくと空間インデックスが即座に作動。国土交通省の公式配信APIから東京都心・大阪・京都・名古屋などの最新LOD2/LOD1モデルをネット経由で自動フェッチし、即時にCesium 3D Tilesへ動的マウント。
+            </p>
+          </div>
+          <ul class="feature-bullets">
+            <li><i class="fa-solid fa-check"></i> 事前巨大ダウンロード不要のネット動的展開</li>
+            <li><i class="fa-solid fa-check"></i> 東京・大阪・京都・名古屋・福岡等のLOD2精密モデル</li>
+            <li><i class="fa-solid fa-check"></i> ローカルキャッシュによる2回目以降の爆速起動</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="glass-panel feature-card">
+          <span class="feature-step-num">03</span>
+          <div>
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-crosshairs"></i>
+            </div>
+            <h3 class="feature-heading">航空宇宙HUD ＆ 2Dレーダーミニマップ</h3>
+            <p class="feature-body">
+              高度、地表ターゲット座標、カメラ位置、方位角（Heading）、仰角（Pitch）を秒間60回更新するテレメトリ。全国レーダーミニマップでクリック即座にテレポートでき、建物をタップすればCityGML情報がポップアップ。
+            </p>
+          </div>
+          <ul class="feature-bullets">
+            <li><i class="fa-solid fa-check"></i> 視覚障害を防ぐGlassmorphism折り畳みHUD</li>
+            <li><i class="fa-solid fa-check"></i> インタラクティブ視野コーン（FOV）レーダー</li>
+            <li><i class="fa-solid fa-check"></i> 建物名・階数・計測高さを暴くインスペクター</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="glass-panel feature-card">
+          <span class="feature-step-num">04</span>
+          <div>
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <h3 class="feature-heading">4大シェーダースタイル ＆ 時間帯切替</h3>
+            <p class="feature-body">
+              「近未来サイバーネオン」「洗練のデジタルホワイト」「高さヒートマップ」「リアルテクスチャ」の4シェーダーをワンクリックで切替。正午・夕暮れサンセット・サイバー夜間・リアルタイム太陽光を自由に制御可能。
+            </p>
+          </div>
+          <ul class="feature-bullets">
+            <li><i class="fa-solid fa-check"></i> 高層ビルが発光するCyber Neon Shader</li>
+            <li><i class="fa-solid fa-check"></i> 階数や高さをグラデーション可視化するHeatmap</li>
+            <li><i class="fa-solid fa-check"></i> Web Audio APIによるサイバーシンセ効果音</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase Detail Blocks -->
+    <section class="section-block" id="plateau">
+      <div class="showcase-block">
+        <div class="showcase-info">
+          <span class="showcase-badge">PROJECT PLATEAU LOD2 ARCHITECTURE</span>
+          <h2 class="showcase-title">実測ビルが夜景に浮かぶ。<br><span class="gradient-text-pink">東京・大阪・京都をフル再現。</span></h2>
+          <p class="showcase-text">
+            国土交通省が進める「Project PLATEAU」の精緻な3D都市モデルを統合。東京都心の超高層ビル群から京都の歴史的景観、大阪・名古屋の中枢まで、実際の航空測量とBIMから生成された建築物ポリゴンが、あなたのPC上でシームレスに立ち並びます。
+          </p>
+          <p class="showcase-text">
+            ビルの屋根形状、壁面のディテール、階数・用途データに至るまで、官民オープンデータを最先端のCesiumJSシェーダーで近未来サイバーパンクの美しいビジュアルに昇華させました。
+          </p>
+          <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-primary-cta" style="margin-top: 1rem;">
+            <span>ストアで詳細を見る</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="showcase-visual">
+          <img src="assets/plateau_city_twin.jpg" alt="PLATEAU Tokyo 3D Digital Twin">
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Simulator Component -->
+    <section class="section-block" id="simulator">
+      <div class="section-header">
+        <span class="section-kicker">INTERACTIVE EXPERIENCE</span>
+        <h2 class="section-title">HUD シミュレーター体験</h2>
+        <p class="section-desc">
+          ブラウザ上で操作できる簡易HUDプレビュー。都市のジャンプ、高度変更、シェーダー切替、テレメトリの連動を今すぐお試しいただけます。
+        </p>
+      </div>
+
+      <div class="simulator-section" id="sim-main-container">
+        <!-- Simulator Top Bar -->
+        <div class="sim-header">
+          <div class="sim-title-group">
+            <i class="fa-solid fa-terminal text-cyan-400"></i>
+            <span class="sim-title">ORBITAL HUD SIMULATOR [V1.0.0]</span>
+          </div>
+          <div class="sim-status">
+            <span class="pulse-dot"></span>
+            <span>SYSTEM ONLINE // PLATEAU NET STREAM: CONNECTED</span>
+          </div>
+        </div>
+
+        <!-- 3-Column Layout -->
+        <div class="sim-layout">
+          <!-- Left Column: Controls -->
+          <div class="sim-controls-panel">
+            <div>
+              <div class="sim-group-label"><i class="fa-solid fa-location-dot"></i> TARGET CITY JUMP</div>
+              <div class="city-jump-buttons">
+                <button class="btn-sim-city active" data-city="tokyo">東京 (Tokyo)</button>
+                <button class="btn-sim-city" data-city="osaka">大阪 (Osaka)</button>
+                <button class="btn-sim-city" data-city="kyoto">京都 (Kyoto)</button>
+                <button class="btn-sim-city" data-city="nagoya">名古屋 (Nagoya)</button>
+                <button class="btn-sim-city" data-city="fuji">富士山 (Mt. Fuji)</button>
+                <button class="btn-sim-city" data-city="orbit">宇宙軌道 (Orbit)</button>
+              </div>
+            </div>
+
+            <div class="altitude-slider-wrap">
+              <div class="sim-group-label" style="justify-content: space-between;">
+                <span><i class="fa-solid fa-arrows-up-down"></i> ALTITUDE</span>
+                <span id="sim-alt-display" class="font-mono text-cyan" style="font-weight:700;">485 m</span>
+              </div>
+              <input type="range" id="sim-alt-slider" class="alt-range-input" min="1" max="100" value="25">
+              <div class="alt-presets">
+                <button class="alt-preset-btn" data-alt="street">地表 120m</button>
+                <button class="alt-preset-btn" data-alt="high">上空 1.5km</button>
+                <button class="alt-preset-btn" data-alt="orbit">宇宙 2,200km</button>
+              </div>
+            </div>
+
+            <div>
+              <div class="sim-group-label"><i class="fa-solid fa-palette"></i> 3D SHADER STYLE</div>
+              <div class="city-jump-buttons">
+                <button class="btn-sim-city btn-sim-shader active" data-style="neon">サイバーネオン</button>
+                <button class="btn-sim-city btn-sim-shader" data-style="white">デジタルホワイト</button>
+                <button class="btn-sim-city btn-sim-shader" data-style="heat">ヒートマップ</button>
+                <button class="btn-sim-city btn-sim-shader" data-style="real">リアル</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Column: Viewport -->
+          <div class="sim-viewport style-neon" id="sim-viewport">
+            <img src="assets/plateau_city_twin.jpg" alt="Preview" id="sim-preview-img" class="sim-preview-image">
+            <div class="sim-hud-crosshair"></div>
+
+            <!-- Inspector Popup -->
+            <div class="sim-inspector-box" id="sim-inspector-box" title="クリックで別の建築物を解析">
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--emerald-data); margin-bottom: 2px;">
+                  <i class="fa-solid fa-magnifying-glass"></i> PLATEAU 建築物インスペクター (クリックで切替)
+                </div>
+                <div id="sim-insp-name" style="font-family: var(--font-orbitron); font-size: 0.95rem; font-weight: 700; color: #fff;">
+                  虎ノ門ヒルズ ステーションタワー
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-cyan);" id="sim-insp-id">
+                  gml:bldg_13103_2023_008942
+                </div>
+              </div>
+              <div style="text-align: right;">
+                <div id="sim-insp-height" class="font-mono text-cyan" style="font-size: 1.1rem; font-weight: 800;">
+                  266.0 m
+                </div>
+                <div id="sim-insp-floors" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-secondary);">
+                  地上49階 / 地下4階
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Telemetry & Radar -->
+          <div class="sim-data-panel">
+            <div class="sim-tele-card">
+              <div class="sim-group-label"><i class="fa-solid fa-chart-line"></i> TELEMETRY HUD</div>
+              <div class="sim-tele-row">
+                <span class="sim-tele-k">LATITUDE</span>
+                <span class="sim-tele-v" id="sim-val-lat">35° 41' 22" N</span>
+              </div>
+              <div class="sim-tele-row">
+                <span class="sim-tele-k">LONGITUDE</span>
+                <span class="sim-tele-v" id="sim-val-lon">139° 41' 30" E</span>
+              </div>
+              <div class="sim-tele-row">
+                <span class="sim-tele-k">OBS ZONE</span>
+                <span class="sim-tele-v" id="sim-val-zone">ZONE-A / METRO CAPITAL</span>
+              </div>
+              <div class="sim-tele-row">
+                <span class="sim-tele-k">PLATEAU STREAM</span>
+                <span class="sim-tele-v" id="sim-val-lod">LOD2 ACTIVE (HIGH SPEC)</span>
+              </div>
+              <div class="sim-tele-row">
+                <span class="sim-tele-k">BUILDINGS</span>
+                <span class="sim-tele-v" id="sim-val-bldgs">1,894,200 棟</span>
+              </div>
+            </div>
+
+            <!-- Radar Mini Map -->
+            <div class="sim-radar-widget">
+              <div class="sim-group-label"><i class="fa-solid fa-radar"></i> 2D RADAR MINI-MAP</div>
+              <div class="radar-screen">
+                <div class="radar-sweep"></div>
+                <div class="radar-dot" id="sim-radar-dot" style="left: 72%; top: 55%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal Log Stream -->
+        <div class="sim-terminal-stream" id="sim-terminal-stream">
+          <div class="terminal-line">[SYSTEM] PLATEAU Dynamic 3D Tiles streaming engine initialized.</div>
+          <div class="terminal-line">[STREAM] Loaded regional tileset for Greater Tokyo (LOD2 Mesh).</div>
+          <div class="terminal-line active">[ACTIVE] Cesium3D Tiles renderer: 60.0 FPS locked. Ready for telemetry navigation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing / Purchase Call-to-Action -->
+    <section class="pricing-section" id="specs">
+      <div class="pricing-card-spotlight">
+        <span class="price-pill-banner">CYBER MATRIX DESKTOP STOREFRONT</span>
+        <h2 class="hero-title" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin: 0 auto;" data-i18n-key="pricingTitle">
+          日本列島の3Dデジタルツインを<br>あなたのPCに。
+        </h2>
+        <p class="section-desc" style="margin-top: 1rem;">
+          ブラウザ制限から解放されたネイティブデスクトップアプリ（Tauri v2）とWeb版。超軽量・超高速起動、ローカルキャッシュによる快適なPLATEAU探索体験を。
+        </p>
+
+        <div class="price-display">
+          <span class="price-yen">¥150</span>
+          <span class="price-tax">(税込) / 買い切り型</span>
+        </div>
+
+        <ul class="pricing-benefits">
+          <li><i class="fa-solid fa-circle-check"></i> <span>macOS (.dmg Apple Silicon & Intel) ネイティブ対応</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>Windows (.exe 64-bit) インストーラー対応</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>国土交通省 Project PLATEAU 公式配信APIへの無制限ストリーミング</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>CesiumJS 宇宙軌道 ⇄ 地表シームレスズーム＆夜景レンダリング</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>一度訪れた都市を爆速再読込するスマートキャッシュ機構</span></li>
+          <li><i class="fa-solid fa-circle-check"></i> <span>日本語・英語バイリンガル＆Web Audioサイバー音響</span></li>
+        </ul>
+
+        <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-purchase-large" id="main-buy-button">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>今すぐ購入・ダウンロード</span>
+        </a>
+
+        <div class="platform-badges">
+          <div class="platform-item">
+            <i class="fa-brands fa-apple"></i>
+            <span>macOS 10.15+</span>
+          </div>
+          <div class="platform-item">
+            <i class="fa-brands fa-windows"></i>
+            <span>Windows 10/11</span>
+          </div>
+          <div class="platform-item">
+            <i class="fa-solid fa-globe"></i>
+            <span>Web (Chrome/Safari/Edge)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-block" id="faq">
+      <div class="section-header">
+        <span class="section-kicker">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="section-title">よくあるご質問</h2>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item active">
+          <div class="faq-question">
+            <span>Q. Project PLATEAUのデータは最新ですか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            はい。本アプリケーションは国土交通省が公式に配信している 3D Tiles エンドポイント（api.plateauview.mlit.go.jp）に直接接続し、全国の主要都市の最新LOD2/LOD1モデルをネット経由でリアルタイムに取得します。自治体による都市モデルの更新も即座に反映されます。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Q. ネット接続が途切れても使えますか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            宇宙軌道からの地球・日本列島俯瞰や衛星写真は内蔵データ・キャッシュにより動作しますが、ズームインして特定の都市のPLATEAU 3Dモデルを新規に読み込む際はインターネット通信が必要です。一度読み込んだタイルはローカルキャッシュに保存され、再表示時はオフラインでもスムーズに描画されます。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Q. どのようなPCスペックが必要ですか？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            CesiumJSおよびWebGL 2.0 / WebGPUが動作する一般的なPC・Macで快適にご利用いただけます。Apple Silicon（M1/M2/M3/M4）搭載Mac、またはIntel Core i5 / Ryzen 5以上、内蔵GPUまたは独立GPU（GTX 1060相当以上）、メモリ8GB以上を推奨します。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Q. Cyber Matrix ストアでの購入手順は？</span>
+            <i class="fa-solid fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            「ストアで購入」ボタンから Cyber Matrix の製品ページ（<a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-primary);">https://cyber-matrix.netlify.app/products/japan-map</a>）にアクセスし、決済を完了するとすぐに macOS版 (.dmg) および Windows版 (.exe) のインストーラーをダウンロードしていただけます。買い切り型で月額費用は一切かかりません。
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-container -->
+
+  <!-- Floating Sticky Bottom CTA Bar -->
+  <div class="floating-cta-bar" id="floating-cta-bar">
+    <div class="floating-info">
+      <img src="assets/app-icon.png" alt="Icon" style="width: 28px; height: 28px; border-radius: 6px;">
+      <div>
+        <div class="floating-title">JAPAN 3D MAP & PLATEAU</div>
+        <div class="floating-price">¥150 (税込)</div>
+      </div>
+    </div>
+    <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" class="btn-primary-cta" style="padding: 0.5rem 1.4rem; font-size: 0.85rem;">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>ストアで購入</span>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="page-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">CYBER MATRIX</div>
+          <p class="footer-desc">
+            ブラウザのサンドボックス制限を超え、PCのローカルリソースを100%引き出すハイエンドデスクトップシリーズ。極限の3DシミュレーターとデジタルツインをPCに直接デプロイ。
+          </p>
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--emerald-data);">
+            <i class="fa-solid fa-circle-nodes"></i> CYBER MATRIX DESKTOP STOREFRONT ACTIVE
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">PRODUCT SERIES</div>
+          <ul class="footer-links">
+            <li><a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer">Japan 3D Map (This App)</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/takeshiba-drone" target="_blank" rel="noopener noreferrer">Takeshiba Drone (LOD4)</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/nagoya-flood" target="_blank" rel="noopener noreferrer">Nagoya Flood Simulator</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/kyoto-drone" target="_blank" rel="noopener noreferrer">Kyoto Drone Simulator</a></li>
+            <li><a href="https://cyber-matrix.netlify.app/products/iss" target="_blank" rel="noopener noreferrer">ISS Earth Realtime Viewer</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">OFFICIAL LINKS</div>
+          <ul class="footer-links">
+            <li><a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer">Japan Map ストアページ</a></li>
+            <li><a href="https://cyber-matrix.netlify.app" target="_blank" rel="noopener noreferrer">Cyber Matrix トップ</a></li>
+            <li><a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener noreferrer">国土交通省 Project PLATEAU</a></li>
+            <li><a href="https://cesium.com/" target="_blank" rel="noopener noreferrer">CesiumJS Official</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 CYBER MATRIX. All Rights Reserved. Powered by CesiumJS & Project PLATEAU.</div>
+        <div style="display:flex; gap:1.25rem;">
+          <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted); text-decoration:none;">Privacy Policy</a>
+          <a href="https://cyber-matrix.netlify.app/products/japan-map" target="_blank" rel="noopener noreferrer" style="color:var(--text-muted); text-decoration:none;">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
