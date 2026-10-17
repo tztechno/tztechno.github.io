@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TOKYO VIEWER 3D — あのビルの名前が、わかる。</title>
+  <meta name="description" content="東京23区の建物と地形を3Dで再現。スカイツリーの展望台、渋谷の屋上、自宅のベランダ——好きな場所と高さから景色を眺め、見えているビルや山の名前を確かめられるデスクトップアプリ。" />
+  <meta property="og:title" content="TOKYO VIEWER 3D — あのビルの名前が、わかる。" />
+  <meta property="og:description" content="好きな場所・好きな高さから東京を眺め、見えているビルや山の名前を確かめられる 3D ビューア。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/hero.jpg" />
+  <meta name="theme-color" content="#0f1318" />
+  <link rel="icon" href="images/app-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1318;
+      --bg-2: #161b22;
+      --card: #1b212a;
+      --line: #2a323d;
+      --text: #e8edf3;
+      --muted: #9aa6b4;
+      --accent: #ff6b4a;
+      --accent-2: #ffd36a;
+      --radius: 14px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .en { font-family: Inter, "Noto Sans JP", sans-serif; letter-spacing: .02em; }
+
+    /* header */
+    header.top {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .logo img { width: 28px; height: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+      background: var(--accent); color: #1a0702; transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 45%, transparent); }
+    .btn.small { padding: 8px 16px; font-size: 14px; }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); box-shadow: none; }
+
+    /* hero */
+    .hero { padding: 72px 0 40px; text-align: center; }
+    .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .12em; }
+    .hero h1 { font-size: clamp(32px, 6vw, 60px); line-height: 1.25; margin: 14px 0 18px; font-weight: 900; }
+    .hero h1 .hl { color: var(--accent-2); }
+    .nb { display: inline-block; }
+    .hero p.lead { color: var(--muted); font-size: clamp(15px, 2vw, 18px); max-width: 700px; margin: 0 auto 30px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .price-note { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .shot {
+      margin-top: 48px; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+    figcaption { font-size: 13px; color: var(--muted); padding: 10px 14px; background: var(--bg-2); border-top: 1px solid var(--line); }
+
+    section { padding: 80px 0; }
+    section.alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h2 { font-size: clamp(24px, 4vw, 36px); line-height: 1.4; margin: 0 0 14px; font-weight: 900; }
+    .sec-lead { color: var(--muted); max-width: 720px; margin: 0 0 40px; }
+
+    /* story */
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .story blockquote { margin: 0; font-size: clamp(18px, 2.4vw, 22px); font-weight: 700; line-height: 1.7; border-left: 3px solid var(--accent); padding-left: 18px; }
+    .story p { color: var(--muted); }
+
+    /* views */
+    .views { display: grid; gap: 28px; }
+    .view { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+    .view .body { padding: 20px 22px 24px; }
+    .view h3 { margin: 0 0 6px; font-size: 20px; }
+    .view .meta { color: var(--accent-2); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .view p { margin: 0; color: var(--muted); font-size: 15px; }
+    .views-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    /* features */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .feat .num { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+    .feat h3 { margin: 6px 0 6px; font-size: 17px; }
+    .feat p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* split */
+    .split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
+    .split.rev { grid-template-columns: 1fr 1.3fr; }
+    .split .shot { margin-top: 0; }
+    ul.check { list-style: none; padding: 0; margin: 0; }
+    ul.check li { padding: 8px 0 8px 28px; position: relative; color: var(--muted); }
+    ul.check li::before { content: "▼"; position: absolute; left: 0; top: 9px; color: var(--accent-2); font-size: 13px; }
+    ul.check strong { color: var(--text); }
+    kbd { font: 600 12px Inter, sans-serif; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; color: var(--text); background: var(--card); }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: s; }
+    .step { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; position: relative; }
+    .step::before { counter-increment: s; content: counter(s); font-family: Inter, sans-serif; font-weight: 800; font-size: 14px; color: #1a0702; background: var(--accent); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 12px; }
+    .step h3 { margin: 0 0 6px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* buy */
+    .buy { text-align: center; }
+    .buy .card { max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 40px 28px; }
+    .buy .card img.icon { width: 88px; height: 88px; margin: 0 auto 6px; }
+    .price { font-size: 52px; font-weight: 800; line-height: 1; margin: 12px 0 4px; }
+    .price small { display: block; font-size: 15px; color: var(--muted); font-weight: 500; margin-top: 10px; }
+    .platforms { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0 10px; }
+    .chip { border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--muted); }
+    .req { color: var(--muted); font-size: 13px; margin: 0 0 26px; }
+
+    .hdr-right { display: flex; align-items: center; gap: 10px; }
+    .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang button { background: transparent; color: var(--muted); border: 0; padding: 6px 11px; white-space: nowrap; font: 600 13px Inter, "Noto Sans JP", sans-serif; cursor: pointer; }
+    .lang button[aria-pressed="true"] { background: var(--line); color: var(--text); }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+    footer p { margin: 4px 0; }
+
+    @media (max-width: 860px) {
+      .story, .split, .split.rev, .views-2 { grid-template-columns: 1fr; }
+      .split.rev > figure { order: -1; }
+      .features, .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .features, .steps { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .hero { padding-top: 48px; }
+      .wrap { padding: 0 16px; }
+      header.top .btn.small { padding: 7px 12px; font-size: 13px; }
+      .logo { font-size: 14px; gap: 7px; }
+      .hdr-right { gap: 6px; }
+      .lang button { padding: 6px 8px; }
+      .logo img { width: 24px; height: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="logo en" href="#">
+        <img src="images/app-icon.png" alt="" width="28" height="28" />
+        TOKYO VIEWER 3D
+      </a>
+      <div class="hdr-right">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="ja" aria-pressed="true" aria-label="日本語">JA</button>
+          <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+        <a class="btn small" href="https://cyber-matrix.netlify.app/products/tokyo" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow en">TOKYO VIEWER 3D — DESKTOP EDITION</div>
+        <h1 data-i18n="heroTitle"><span class="nb">窓から見える、</span><br /><span class="hl nb">あのビルの名前</span><span class="nb">がわかる。</span></h1>
+        <p class="lead" data-i18n="heroLead">東京23区の建物と地形を、3Dでまるごと再現。東京スカイツリーの展望台、渋谷の屋上、自宅のベランダなど、好きな場所と高さから景色を眺めて、見えているビルや山の名前を確かめられます。</p>
+        <div class="cta-row">
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/tokyo" data-i18n="heroBuy">¥150 で入手する</a>
+          <a class="btn ghost" href="#views" data-i18n="heroViews">景色を見る</a>
+        </div>
+        <div class="price-note" data-i18n="heroNote">macOS（Apple Silicon）／ Windows 10・11（64bit）・買い切り</div>
+        <figure class="shot" style="margin-left:0;margin-right:0">
+          <img src="images/hero.jpg" data-img="hero" width="1600" height="900" data-i18n-alt="heroAlt" alt="東京湾の上空から北西を見下ろした3D表示。お台場、レインボーブリッジ、都心のビル群に名前のラベルが付き、奥に山並みが見える" />
+          <figcaption data-i18n="heroCap">東京湾の上空から北西を向いた画面。手前にお台場とレインボーブリッジ、奥に都心のビル群と山並み。画像はすべてアプリの実際の画面です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- story -->
+    <section class="alt">
+      <div class="wrap story">
+        <blockquote data-i18n="storyQuote">「ベランダから見えるあのビル、何だろう？」<br />地図アプリを開いても、答えは出てこない。</blockquote>
+        <div>
+          <p data-i18n="storyP1">地図アプリは真上から見た地図です。でも知りたいのは、目の前の景色のどれが何か、ということ。</p>
+          <p data-i18n="storyP2">TOKYO VIEWER 3D は、立つ場所と目の高さを決めると、その位置から見える景色を3Dで描きます。見えている建物・駅・神社仏閣・山には名前のラベルが付き、▼ の先がその場所を指します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- views -->
+    <section id="views">
+      <div class="wrap">
+        <h2 data-i18n="viewsTitle">東京の展望台から、眺めてみる。</h2>
+        <p class="sec-lead" data-i18n="viewsLead">立つ場所と高さを決めて、見回すだけ。行ったことのない展望台からの景色も、その場で確かめられます。</p>
+        <div class="views">
+          <figure class="view" style="margin:0">
+            <img src="images/view-skytree.jpg" data-img="view-skytree" width="1600" height="900" loading="lazy" data-i18n-alt="skytreeAlt" alt="東京スカイツリーの展望回廊の高さから南西を見た3D表示。隅田川の向こうに日本橋・丸の内方面のビル群、地平線に富士山" />
+            <div class="body">
+              <div class="meta" data-i18n="skytreeMeta">東京スカイツリー 展望回廊　地上 約450m ／ 南西を向く</div>
+              <h3 data-i18n="skytreeTitle">スカイツリーからの景色</h3>
+              <p data-i18n="skytreeText">隅田川と両国の街並みの向こうに、日本橋・丸の内・汐留のビル群。地平線には富士山と宝永山まで見えます。</p>
+            </div>
+          </figure>
+          <div class="views-2">
+            <figure class="view" style="margin:0">
+              <img src="images/view-shibuya.jpg" data-img="view-shibuya" width="1600" height="900" loading="lazy" data-i18n-alt="shibuyaAlt" alt="渋谷駅上空から北を見た3D表示。代々木公園と明治神宮の森の向こうに新宿の高層ビル群" />
+              <div class="body">
+                <div class="meta" data-i18n="shibuyaMeta">渋谷駅の上空　地上 約270m ／ 北を向く</div>
+                <h3 data-i18n="shibuyaTitle">渋谷から新宿を望む</h3>
+                <p data-i18n="shibuyaText">明治神宮と代々木公園の森の向こうに、新宿の高層ビル群が並びます。</p>
+              </div>
+            </figure>
+            <figure class="view" style="margin:0">
+              <img src="images/view-fuji.jpg" data-img="view-fuji" width="1600" height="900" loading="lazy" data-i18n-alt="fujiAlt" alt="新宿の都庁の展望室の高さから西南西を望遠で見た3D表示。丹沢の山並みの奥に富士山 3776m と宝永山" />
+              <div class="body">
+                <div class="meta" data-i18n="fujiMeta">東京都庁 展望室　地上 約200m ／ 西南西を向く ／ 望遠（視野 18°）</div>
+                <h3 data-i18n="fujiTitle">都庁から富士山を見る</h3>
+                <p data-i18n="fujiText">約100km先の富士山も、地形データから正しい位置と高さで描かれます。山の名前と標高も表示されます。</p>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- free flight -->
+    <section class="alt">
+      <div class="wrap split">
+        <figure class="shot" style="margin:0">
+          <img src="images/free.jpg" data-img="free" width="1600" height="900" loading="lazy" data-i18n-alt="freeAlt" alt="新宿駅の上空を飛行しながら西を見た3D表示。西新宿の高層ビル群の奥に富士山、左下に移動ボタン" />
+          <figcaption data-i18n="freeCap">自由視点で新宿駅の上空へ。ビルの間を抜けた先に富士山が見えます。左下のボタンでも移動できます。</figcaption>
+        </figure>
+        <div>
+          <h2 data-i18n="freeTitle">ビルの間を、自由に飛ぶ。</h2>
+          <ul class="check">
+            <li data-i18n="free1"><strong>見ている方向へ進む</strong>：上を向けば昇り、下を向けば降ります</li>
+            <li data-i18n="free2"><strong>キーボードとマウス</strong>：<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> で移動、<kbd>E</kbd><kbd>Q</kbd> で上下、ホイールで前後、<kbd>Shift</kbd> で加速</li>
+            <li data-i18n="free3"><strong>速さは高さに合わせて</strong>：地面の近くはゆっくり、上空では速く</li>
+            <li data-i18n="free4"><strong>歩く視点にも切り替え</strong>：地面からの高さを保ったまま歩くモードもあります</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section>
+      <div class="wrap">
+        <h2 data-i18n="featTitle">しくみと機能</h2>
+        <p class="sec-lead" data-i18n="featLead">国土交通省の 3D 都市モデル「PLATEAU」と国土地理院のデータを、見ている場所の分だけインターネットから読み込んで、東京を実際の形で再現しています。</p>
+        <div class="features">
+          <div class="feat"><div class="num" data-i18n="f1Num">23区</div><h3 data-i18n="f1Title">東京23区の建物</h3><p data-i18n="f1Text">PLATEAU の23区データの建物を、立体で表示します。箱型（LOD1）、屋根の形まで（LOD2）、写真の貼られた外観から選べます。</p></div>
+          <div class="feat"><div class="num" data-i18n="f2Num">高さ自由</div><h3 data-i18n="f2Title">目の高さを指定</h3><p data-i18n="f2Text">「地面から」か「海抜」で、視点の高さを入力できます。家の2階なら 4.5m、展望台なら公表されている高さを入れます。</p></div>
+          <div class="feat"><div class="num en">4,698</div><h3 data-i18n="f3Title">件の名前ラベル</h3><p data-i18n="f3Text">駅・名所・神社仏閣・山に名前を表示します。▼ の先がその場所です。種類ごとに表示を切り替えられます。</p></div>
+          <div class="feat"><div class="num" data-i18n="f4Num">屋上へ</div><h3 data-i18n="f4Title">クリックで移動</h3><p data-i18n="f4Text">地図上のビルの屋上をクリックすると、その屋上に立った視点に切り替わります。</p></div>
+          <div class="feat"><div class="num en">×66</div><h3 data-i18n="f5Title">望遠ズーム</h3><p data-i18n="f5Text">立ち位置を変えずに、遠くのビルや山を約66倍まで拡大できます。その場で360°ぐるりと回転する機能もあります。</p></div>
+          <div class="feat"><div class="num en">JA / EN</div><h3 data-i18n="f6Title">日本語と英語</h3><p data-i18n="f6Text">ラベルと画面の表示を、ワンクリックで切り替えられます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- building info -->
+    <section class="alt">
+      <div class="wrap split rev">
+        <div>
+          <h2 data-i18n="infoTitle">気になるビルは、クリックで調べる。</h2>
+          <ul class="check">
+            <li data-i18n="info1"><strong>名前・用途</strong>：PLATEAU に登録されている名前と用途</li>
+            <li data-i18n="info2"><strong>高さ・地上階数</strong>：たとえば 116.2m・21階</li>
+            <li data-i18n="info3"><strong>所在地</strong>：区と町名まで</li>
+          </ul>
+        </div>
+        <figure class="shot" style="margin:0">
+          <img src="images/info.jpg" data-img="info" width="1600" height="900" loading="lazy" data-i18n-alt="infoAlt" alt="皇居外苑から丸の内のビルをクリックして、用途・所在地・高さ・地上階数のパネルが表示された3D表示" />
+          <figcaption data-i18n="infoCap">皇居外苑から丸の内のビルをクリック。オレンジに強調されて情報が表示されます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- how to -->
+    <section>
+      <div class="wrap">
+        <h2 data-i18n="stepsTitle">使い方は3ステップ</h2>
+        <p class="sec-lead" data-i18n="stepsLead">自宅のベランダからの景色を見る場合の例です。</p>
+        <div class="steps">
+          <div class="step"><h3 data-i18n="s1Title">場所を選ぶ</h3><p data-i18n="s1Text">「区へ移動」で近くまで飛び、「地点をクリック」で自宅の建物を選びます。緯度・経度を入力してもかまいません。</p></div>
+          <div class="step"><h3 data-i18n="s2Title">高さを決める</h3><p data-i18n="s2Text">基準を「地面から」にして、階数 × 約3m ＋ 1.6m（目の高さ）を入力します。10階なら 31.6m です。</p></div>
+          <div class="step"><h3 data-i18n="s3Title">見回す</h3><p data-i18n="s3Text">ドラッグで向きを変え、ホイールで拡大します。ラベルを見れば、どのビルか一目でわかります。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- buy -->
+    <section class="buy alt" id="buy">
+      <div class="wrap">
+        <div class="card">
+          <img class="icon" src="images/app-icon.png" alt="" width="88" height="88" />
+          <div class="eyebrow en">DESKTOP EDITION</div>
+          <div class="price en">¥150<small data-i18n="priceNote">税込・買い切り</small></div>
+          <div class="platforms">
+            <span class="chip">macOS (Apple Silicon)</span>
+            <span class="chip">Windows 10 / 11 (64-bit)</span>
+          </div>
+          <p class="req" data-i18n="req">建物と地形のデータは、表示中の場所の分だけ読み込みます。利用にはインターネット接続が必要です。</p>
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/tokyo" data-i18n="buyBtn">ダウンロードページへ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p data-i18n="foot1">掲載画像はすべて TOKYO VIEWER 3D の実際の画面です。</p>
+      <p data-i18n="foot2">3D 建物：<a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a>（国土交通省）／ 標高・ジオイド・航空写真：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>／ 名称：© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors、Wikidata ／ 描画：<a href="https://cesium.com/platform/cesiumjs/" target="_blank" rel="noopener">CesiumJS</a></p>
+      <p class="en">© Cyber Matrix</p>
+    </div>
+  </footer>
+
+  <script>
+    // Japanese is written in the markup; English lives here. Images have an "-en" variant
+    // captured with the app's English labels.
+    const EN = {
+      pageTitle: 'TOKYO VIEWER 3D — Know every building you see',
+      pageDesc: 'Tokyo’s 23 wards, buildings and terrain in 3D. Pick any spot and height — the Tokyo Skytree deck, a Shibuya rooftop, your balcony — and see the names of the buildings and mountains in view. A desktop app.',
+      navBuy: 'Get it',
+      heroTitle: 'Look out your window.<br /><span class="hl">Know every building</span> you see.',
+      heroLead: 'The buildings and terrain of Tokyo’s 23 wards, rebuilt in 3D. Stand on the Tokyo Skytree deck, a Shibuya rooftop or your own balcony, at any height, look around, and see what each building and mountain is called.',
+      heroBuy: 'Get it for ¥150',
+      heroViews: 'See the views',
+      heroNote: 'macOS (Apple Silicon) / Windows 10 & 11 (64-bit) · one-time purchase',
+      heroAlt: '3D view looking northwest from above Tokyo Bay, with name labels on Odaiba, the Rainbow Bridge and the central high-rises, and mountains on the horizon',
+      heroCap: 'Looking northwest from above Tokyo Bay: Odaiba and the Rainbow Bridge in front, the city centre and the mountains behind. Every image on this page is a real screen from the app.',
+      storyQuote: '“What’s that building I can see from my balcony?”<br />A map app can’t tell you.',
+      storyP1: 'A map app shows the city from straight above. What you want to know is which thing in front of you is which.',
+      storyP2: 'TOKYO VIEWER 3D draws the view from wherever you choose to stand, at the eye height you choose. Buildings, stations, temples, shrines and mountains in view carry name labels, and the ▼ under each one points to the place.',
+      viewsTitle: 'The view from Tokyo’s observation decks',
+      viewsLead: 'Choose where to stand and how high, then look around. You can see the view from an observation deck you have never been to.',
+      skytreeAlt: '3D view from the height of the Tokyo Skytree Tembo Galleria looking southwest: the Nihonbashi and Marunouchi high-rises beyond the Sumida River, and Mt. Fuji on the horizon',
+      skytreeMeta: 'Tokyo Skytree Tembo Galleria · about 450 m above ground · facing SW',
+      skytreeTitle: 'From Tokyo Skytree',
+      skytreeText: 'Beyond the Sumida River and the streets of Ryogoku rise the towers of Nihonbashi, Marunouchi and Shiodome. On the horizon, Mt. Fuji and Mt. Hoei.',
+      shibuyaAlt: '3D view looking north from above Shibuya Station: the Shinjuku skyline beyond the forest of Yoyogi Park and Meiji Jingu',
+      shibuyaMeta: 'Above Shibuya Station · about 270 m above ground · facing N',
+      shibuyaTitle: 'Shinjuku from Shibuya',
+      shibuyaText: 'The Shinjuku skyline lines up beyond the forest of Meiji Jingu and Yoyogi Park.',
+      fujiAlt: '3D telephoto view west-southwest from the height of the Tokyo Metropolitan Government observatory: Mt. Fuji 3776 m and Mt. Hoei behind the Tanzawa range',
+      fujiMeta: 'Tokyo Metropolitan Government observatory · about 200 m above ground · facing WSW · telephoto (18° view)',
+      fujiTitle: 'Mt. Fuji from the Metropolitan Government Building',
+      fujiText: 'Even Mt. Fuji, about 100 km away, is drawn at its true place and height from elevation data, with its name and elevation.',
+      freeAlt: '3D view flying above Shinjuku Station looking west: the West Shinjuku high-rises with Mt. Fuji behind, and movement buttons at the bottom left',
+      freeCap: 'Free flight over Shinjuku Station. Past the towers, Mt. Fuji. The buttons at the bottom left move you too.',
+      freeTitle: 'Fly freely between the towers.',
+      free1: '<strong>Go where you look</strong>: look up to climb, look down to descend',
+      free2: '<strong>Keyboard and mouse</strong>: <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move, <kbd>E</kbd><kbd>Q</kbd> up and down, the wheel for forward and back, <kbd>Shift</kbd> to speed up',
+      free3: '<strong>Speed follows height</strong>: slow near the ground, fast high up',
+      free4: '<strong>Or walk</strong>: a walking mode keeps your eye at a fixed height above the ground',
+      featTitle: 'How it works',
+      featLead: 'Tokyo is rebuilt in its real shape from PLATEAU, the 3D city model of Japan’s Ministry of Land, Infrastructure, Transport and Tourism, and from data by the Geospatial Information Authority of Japan, loaded from the internet only for the area you are looking at.',
+      f1Num: '23 wards',
+      f1Title: 'Buildings of all 23 wards',
+      f1Text: 'Every building in PLATEAU’s 23-ward data, in 3D. Choose plain blocks (LOD1), roof shapes (LOD2) or photo-textured façades.',
+      f2Num: 'Any height',
+      f2Title: 'Set your eye height',
+      f2Text: 'Enter the height above ground or above sea level. About 4.5 m for a second floor, or the published height of an observation deck.',
+      f3Title: 'name labels',
+      f3Text: 'Stations, sights, temples, shrines and mountains are labelled. The ▼ points to the place. Each kind can be turned on or off.',
+      f4Num: 'Rooftops',
+      f4Title: 'Click to go there',
+      f4Text: 'Click a building’s roof on the map and the view switches to standing on that roof.',
+      f5Title: 'Telephoto zoom',
+      f5Text: 'Zoom in on distant buildings and mountains up to about 66× without moving, or turn a full 360° in place.',
+      f6Title: 'Japanese & English',
+      f6Text: 'Switch labels and the interface with one click.',
+      infoTitle: 'Curious about a building? Click it.',
+      info1: '<strong>Name and usage</strong>: as recorded in PLATEAU',
+      info2: '<strong>Height and storeys</strong>: for example 116.2 m, 21 floors',
+      info3: '<strong>Address</strong>: down to the ward and district',
+      infoAlt: '3D view from the Kokyo Gaien gardens with a Marunouchi building clicked, showing a panel with its usage, address, height and number of storeys',
+      infoCap: 'A Marunouchi building clicked from the Kokyo Gaien gardens: it is highlighted in orange and its details appear.',
+      stepsTitle: 'Three steps',
+      stepsLead: 'For example, to see the view from your own balcony:',
+      s1Title: 'Choose the spot',
+      s1Text: 'Use “Go to a ward” to get close, then “Click a spot” to pick your building. You can also enter a latitude and longitude.',
+      s2Title: 'Set the height',
+      s2Text: 'Choose “Above ground” and enter floors × about 3 m + 1.6 m (eye height). For the 10th floor, that is 31.6 m.',
+      s3Title: 'Look around',
+      s3Text: 'Drag to turn and use the wheel to zoom. The labels tell you which building is which at a glance.',
+      priceNote: 'tax incl. · one-time purchase',
+      req: 'Building and terrain data are loaded only for the area on screen, so an internet connection is required.',
+      buyBtn: 'Go to the download page',
+      foot1: 'Every image on this page is a real screen from TOKYO VIEWER 3D.',
+      foot2: '3D buildings: <a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a> (MLIT) / Elevation, geoid and aerial photos: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan</a> / Names: © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, Wikidata / Rendering: <a href="https://cesium.com/platform/cesiumjs/" target="_blank" rel="noopener">CesiumJS</a>',
+    };
+
+    const JA = {
+      pageTitle: document.title,
+      pageDesc: document.querySelector('meta[name=description]').content,
+    };
+    document.querySelectorAll('[data-i18n]').forEach((el) => { JA[el.dataset.i18n] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-alt]').forEach((el) => { JA[el.dataset.i18nAlt] = el.alt; });
+
+    function setLang(lang) {
+      const dict = lang === 'en' ? EN : JA;
+      document.documentElement.lang = lang;
+      document.title = dict.pageTitle;
+      document.querySelector('meta[name=description]').content = dict.pageDesc;
+      document.querySelectorAll('[data-i18n]').forEach((el) => { if (dict[el.dataset.i18n] !== undefined) el.innerHTML = dict[el.dataset.i18n]; });
+      document.querySelectorAll('[data-i18n-alt]').forEach((el) => { el.alt = dict[el.dataset.i18nAlt]; });
+      document.querySelectorAll('img[data-img]').forEach((el) => { el.src = `images/${el.dataset.img}${lang === 'en' ? '-en' : ''}.jpg`; });
+      document.querySelectorAll('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+      try { localStorage.setItem('lp-lang', lang); } catch { /* storage may be unavailable */ }
+    }
+    document.querySelectorAll('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+    // ?lang=en|ja in the URL wins, then the last choice, then the browser language.
+    let initial = new URLSearchParams(location.search).get('lang');
+    if (initial !== 'en' && initial !== 'ja') {
+      try { initial = localStorage.getItem('lp-lang'); } catch { initial = null; }
+    }
+    if (initial !== 'en' && initial !== 'ja') initial = navigator.language.startsWith('ja') ? 'ja' : 'en';
+    if (initial === 'en') setLang('en');
+  </script>
+</body>
+</html>
