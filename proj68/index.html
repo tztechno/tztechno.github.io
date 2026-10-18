@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kyoto Roadster | 空飛ぶロードスターで、京都の空を物理で飛ぶ — MuJoCo × PLATEAU</title>
-  <meta name="description" content="10 個の噴射口を持つ空飛ぶロードスターを、MuJoCo 物理エンジンで飛ばすデスクトップシミュレーター。PLATEAU の 3D 都市モデル（建物 約 51 万棟）で再現した京都市全域を、水平のまま巡航し、空中で横転し、世界遺産の上空を避けて飛ぶ。墜落体験、強風・吊り荷、障害物の自律回避、マニュアル操縦、飛行記録の CSV 保存。macOS / Windows。">
+  <title>Volantis Kyoto | 空飛ぶ車 Volantis で、京都の空を物理で飛ぶ — MuJoCo × PLATEAU</title>
+  <meta name="description" content="10 個の噴射口を持つ空飛ぶ車 Volantis を、MuJoCo 物理エンジンで飛ばすデスクトップシミュレーター。PLATEAU の 3D 都市モデル（建物 約 51 万棟）で再現した京都市全域を、水平のまま巡航し、空中で横転し、世界遺産の上空を避けて飛ぶ。墜落体験、強風・吊り荷、障害物の自律回避、マニュアル操縦、飛行記録の CSV 保存。macOS / Windows。">
 
-  <meta property="og:title" content="Kyoto Roadster — MuJoCo × PLATEAU">
-  <meta property="og:description" content="10 個の噴射口を持つ空飛ぶロードスターで、京都市全域の 3D 街並みを物理シミュレーションで飛ぶ。">
+  <meta property="og:title" content="Volantis Kyoto — MuJoCo × PLATEAU">
+  <meta property="og:description" content="10 個の噴射口を持つ空飛ぶ車 Volantis で、京都市全域の 3D 街並みを物理シミュレーションで飛ぶ。">
   <meta property="og:image" content="assets/hero.jpg">
-  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/kyoto-roadstar">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/volantis_kyoto">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23ff7a1a%22/%3E%3Crect x=%2210%22 y=%224%22 width=%2212%22 height=%2224%22 rx=%225%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23ff7a1a%22%3E%3Ccircle cx=%2213%22 cy=%229%22 r=%221.8%22/%3E%3Ccircle cx=%2219%22 cy=%229%22 r=%221.8%22/%3E%3Ccircle cx=%2213%22 cy=%2223%22 r=%221.8%22/%3E%3Ccircle cx=%2219%22 cy=%2223%22 r=%221.8%22/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2224%22 rx=%226%22 fill=%22%23ff7a1a%22/%3E%3Crect x=%2210%22 y=%224%22 width=%2212%22 height=%2224%22 rx=%225%22 fill=%22%23fff%22/%3E%3Cg fill=%22%23ff7a1a%22%3E%3Ccircle cx=%2213%22 cy=%229%22 r=%221.8%22/%3E%3Ccircle cx=%2219%22 cy=%229%22 r=%221.8%22/%3E%3Ccircle cx=%2213%22 cy=%2223%22 r=%221.8%22/%3E%3Ccircle cx=%2219%22 cy=%2223%22 r=%221.8%22/%3E%3C/g%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -24,9 +24,9 @@
   <!-- ===== Navigation ===== -->
   <nav class="nav">
     <div class="container nav-inner">
-      <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="logo">
+      <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="logo">
         <span class="logo-mark" aria-hidden="true"></span>
-        <span class="logo-text">KYOTO ROADSTER</span>
+        <span class="logo-text">VOLANTIS KYOTO</span>
       </a>
       <ul class="nav-links">
         <li><a href="#machine" data-i18n="navMachine">機体</a></li>
@@ -37,7 +37,7 @@
       </ul>
       <div class="nav-actions">
         <button class="lang-btn" id="lang-btn" type="button">English</button>
-        <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
+        <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
       </div>
     </div>
   </nav>
@@ -48,10 +48,10 @@
     <div class="hero-shade"></div>
     <div class="container hero-content">
       <p class="eyebrow">MuJoCo × PLATEAU KYOTO</p>
-      <h1 data-i18n-html="heroTitle">空飛ぶロードスターで、<br><span class="accent">京都の空を物理で飛ぶ。</span></h1>
-      <p class="lead" data-i18n="heroLead">10 個の噴射口を持つ空飛ぶロードスターを、MuJoCo 物理エンジンで飛ばすシミュレーター。PLATEAU の 3D 都市モデルで再現した京都市全域（建物 約 51 万棟）を、後方噴射で水平のまま巡航し、空中で 360° 横転し、世界遺産の上空を避けて飛びます。直線で突っ込む墜落体験から、強風と吊り荷、障害物の自律回避、マニュアル操縦まで。飛行記録は CSV で保存して解析できます。</p>
+      <h1 data-i18n-html="heroTitle">空飛ぶ車 Volantis で、<br><span class="accent">京都の空を物理で飛ぶ。</span></h1>
+      <p class="lead" data-i18n="heroLead">10 個の噴射口を持つ空飛ぶ車 Volantis を、MuJoCo 物理エンジンで飛ばすシミュレーター。PLATEAU の 3D 都市モデルで再現した京都市全域（建物 約 51 万棟）を、後方噴射で水平のまま巡航し、空中で 360° 横転し、世界遺産の上空を避けて飛びます。直線で突っ込む墜落体験から、強風と吊り荷、障害物の自律回避、マニュアル操縦まで。飛行記録は CSV で保存して解析できます。</p>
       <div class="hero-cta">
-        <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
+        <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
         <a href="#machine" class="btn btn-ghost btn-lg" data-i18n="heroMore">機体を見る</a>
       </div>
       <p class="platforms">macOS (Apple Silicon) · Windows 10 / 11</p>
@@ -73,7 +73,7 @@
   <section class="section" id="machine">
     <div class="container">
       <p class="kicker">THE MACHINE</p>
-      <h2 data-i18n="macTitle">10 個の噴射口で飛ぶ、空飛ぶロードスター</h2>
+      <h2 data-i18n="macTitle">10 個の噴射口で飛ぶ、空飛ぶ車 Volantis</h2>
       <p class="section-lead" data-i18n="macLead">全長 0.90 m・全幅 0.40 m・2.4 kg のスケールモデル。プロペラ 4 つのドローンと違い、10 個の噴射口の推力を毎回まとめて配分して飛びます。</p>
 
       <article class="feature">
@@ -132,7 +132,7 @@
         <div class="feature-text">
           <span class="num">01</span>
           <h3 data-i18n="s1Title">直線飛行 — 失敗を体験する</h3>
-          <p data-i18n="s1Body">障害物を考えずに目的地へ一直線。京都駅を飛び立ったロードスターは、約 110 m 先のビルの壁に衝突して噴射が止まり、落下します。衝突速度と衝突対象が記録され、衝突音も鳴ります。</p>
+          <p data-i18n="s1Body">障害物を考えずに目的地へ一直線。京都駅を飛び立った Volantis は、約 110 m 先のビルの壁に衝突して噴射が止まり、落下します。衝突速度と衝突対象が記録され、衝突音も鳴ります。</p>
         </div>
       </article>
 
@@ -279,18 +279,18 @@
           <ul>
             <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
             <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
-            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="macSize">約 65 MB</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="macSize">約 68 MB</strong></li>
           </ul>
-          <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+          <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
         </div>
         <div class="platform">
           <h3>Windows</h3>
           <ul>
             <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
             <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
-            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="winSize">約 65 MB</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="winSize">約 68 MB</strong></li>
           </ul>
-          <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+          <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
         </div>
       </div>
       <p class="note" data-i18n="deskNote">※ 航空写真と地図は国土地理院から読み込むため、インターネット接続が必要です。</p>
@@ -301,7 +301,7 @@
   <section class="cta">
     <div class="container">
       <h2 data-i18n-html="ctaTitle">京都の空へ、<span class="accent">噴射して飛び立とう。</span></h2>
-      <a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" class="btn btn-primary btn-lg" data-i18n="ctaBuy">デスクトップ版を入手</a>
+      <a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" class="btn btn-primary btn-lg" data-i18n="ctaBuy">デスクトップ版を入手</a>
     </div>
   </section>
 
@@ -309,11 +309,12 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">KYOTO ROADSTER</span></div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">VOLANTIS KYOTO</span></div>
+        <p class="credits" data-i18n="disclaimer">Volantis V-01 は架空の車両です。車両・性能値はすべて架空の設定と物理計算に基づくもので、実在の企業・製品・人物とは一切関係ありません。</p>
         <p class="credits" data-i18n="credits">出典: 国土交通省 PLATEAU（京都市 2025）、国土地理院（シームレス空中写真・DEM・標準地図）、© OpenStreetMap contributors ／ 物理: MuJoCo ／ 描画: three.js</p>
       </div>
       <ul class="footer-links">
-        <li><a href="https://cyber-matrix.netlify.app/products/kyoto-roadstar" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/products/volantis_kyoto" data-i18n="fStore">販売ページ</a></li>
         <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
       </ul>
     </div>
