@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volantis Flight Lab | 10 基の噴射で、車を宙へ — 冷ガス噴射カー物理シミュレーター</title>
+  <meta name="description" content="架空の空飛ぶ車 Volantis V-01（実寸 4.45 m・1,800 kg）を、10 基の冷ガス噴射口・250 kg の圧縮空気・床下吸引ファンで飛ばす物理シミュレーター。平地から跳躍して空中 360° ロール、C 型スロープの天井を走って逆さまに射出。AUTO の成功保証、噴射口ごとの出力設定、リプレイと実速度 MP4 書き出し。macOS / Windows。">
+
+  <meta property="og:title" content="Volantis Flight Lab — 冷ガス噴射カー物理シミュレーター">
+  <meta property="og:description" content="10 基の噴射口と 250 kg の圧縮空気で、実寸の車を宙へ。跳躍・空中ロール・天井走行を物理計算で。">
+  <meta property="og:image" content="https://tztechno.github.io/proj69/assets/hero.jpg">
+  <meta property="og:url" content="https://tztechno.github.io/proj69/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261018">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">VOLANTIS FLIGHT LAB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#machine" data-i18n="navMachine">機体</a></li>
+        <li><a href="#tasks" data-i18n="navTasks">タスク</a></li>
+        <li><a href="#auto" data-i18n="navAuto">AUTO</a></li>
+        <li><a href="#replay" data-i18n="navReplay">リプレイ</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#desktop" data-i18n="navDesktop">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">COLD-GAS JET CAR PHYSICS</p>
+      <h1 data-i18n-html="heroTitle">10 基の噴射で、<br><span class="accent">車を宙へ放つ。</span></h1>
+      <p class="lead" data-i18n="heroLead">架空の空飛ぶ車 Volantis V-01 を、10 基の冷ガス噴射口と 250 kg の圧縮空気、床下の吸引ファンで飛ばす物理シミュレーター。平地から跳び上がって空中で 360° ロール、C 型スロープの天井を走って逆さまに射出。重さも噴射口の出力もコースも、自分で変えて試せます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
+        <a href="#machine" class="btn btn-ghost btn-lg" data-i18n="heroMore">機体を見る</a>
+      </div>
+      <p class="platforms">macOS (Apple Silicon) · Windows 10 / 11</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>10</strong><span data-i18n="statJets">個別に設定できる噴射口</span></div>
+      <div class="stat"><strong>250 kg</strong><span data-i18n="statAir">圧縮空気タンク</span></div>
+      <div class="stat"><strong>4.45 m</strong><span data-i18n="statSize">実寸の車体</span></div>
+      <div class="stat"><strong>180°</strong><span data-i18n="statRamp">スロープの最大斜度</span></div>
+      <div class="stat"><strong>1/360 s</strong><span data-i18n="statStep">推力配分の刻み</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Machine ===== -->
+  <section class="section" id="machine">
+    <div class="container">
+      <p class="kicker">THE MACHINE</p>
+      <h2 data-i18n="macTitle">Volantis V-01 — 噴射口で飛ぶ実寸クーペ</h2>
+      <p class="section-lead" data-i18n="macLead">全長 4.45 m・全幅 1.95 m・乾燥重量 1,800 kg の 2+2 クーペ。乗員と荷物、そして減っていく圧縮空気が、重さと慣性に反映されます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/side.jpg" alt="Volantis V-01 side view" loading="lazy"></figure>
+        <div class="feature-text">
+          <ul class="jets">
+            <li><i class="j-down"></i><div><b>D1–D4</b> <span data-i18n="jDownName">四隅の下向き噴射 ×4</span><small data-i18n="jDownBody">浮上・ロール・ピッチ・着地の減速</small></div></li>
+            <li><i class="j-rear"></i><div><b>R1–R4</b> <span data-i18n="jRearName">ジェットナセルの後方噴射 ×4</span><small data-i18n="jRearBody">ブースト加速</small></div></li>
+            <li><i class="j-front"></i><div><b>FL / FR</b> <span data-i18n="jFrontName">向きを変えられる前方噴射 ×2</span><small data-i18n="jFrontBody">逆噴射ブレーキと空中での向き変え。横向き・下向きの角度を設定可能</small></div></li>
+          </ul>
+          <p data-i18n="macBody">10 基の噴射口は、それぞれの取付位置から力を加えます。左右の推力差でロール、前後の差でピッチが生まれるので、片側だけを強く噴けば車体は回り始めます。噴射口ごとに最大推力を設定でき、不揃いにすれば車体の傾きとして現れます。</p>
+          <ul class="chips">
+            <li data-i18n="macC1">噴射口ごとの出力設定</li>
+            <li data-i18n="macC2">圧縮空気 250 kg</li>
+            <li data-i18n="macC3">床下吸引ファン</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Tasks ===== -->
+  <section class="section alt" id="tasks">
+    <div class="container">
+      <p class="kicker">TWO STUNTS</p>
+      <h2 data-i18n="taskTitle">2 つのスタント</h2>
+      <p class="section-lead" data-i18n="taskLead">障害物の大きさとスロープの角度を変えて、成立する条件を探します。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/roll.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">TASK 01</span>
+          <h3 data-i18n="t1Title">平地から跳躍し、空中で 360° ロール</h3>
+          <p data-i18n="t1Body">ジャンプ台はなし。離陸ラインで下向きの 4 基を点火して平地から跳び上がり、触れたら失敗の障害物を越えて、空中で右に 1 回転してから着地します。障害物の長さ（1〜10 m）と高さ（0.3〜3 m）は自由に変えられます。</p>
+          <ul class="chips">
+            <li data-i18n="t1c1">障害物 長さ・高さ可変</li>
+            <li data-i18n="t1c2">左右の推力差でロール</li>
+            <li data-i18n="t1c3">着地衝撃 3.5G 未満で成功</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/ramp_exit.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">TASK 02</span>
+          <h3 data-i18n="t2Title">C 型スロープの天井を走り、逆さまに射出</h3>
+          <p data-i18n="t2Body">床下の吸引ファンで壁に張り付き、垂直の壁から天井まで登り切って、頂点から逆さまのまま飛び出します。空中で 180° ハーフロールして車輪を下に向け、水平に戻して逆噴射で着地。スロープの最大斜度は 90°（垂直）から 180°（天井）まで変えられます。</p>
+          <ul class="chips">
+            <li data-i18n="t2c1">最大斜度 90°〜180°</li>
+            <li data-i18n="t2c2">グリップ = 摩擦係数 × 押し付け力</li>
+            <li data-i18n="t2c3">逆さま射出 → ハーフロール</li>
+          </ul>
+        </div>
+      </article>
+
+      <div class="duo">
+        <figure class="shot"><img src="assets/inverted.jpg" alt="" loading="lazy"><figcaption data-i18n="invCap">タスク 1: ロール中、上を向いた噴射口が車体を回す</figcaption></figure>
+        <figure class="shot"><img src="assets/ramp_land.jpg" alt="" loading="lazy"><figcaption data-i18n="landCap">タスク 2: 180° のスロープから射出し、蒸気を引いて着地へ</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUTO ===== -->
+  <section class="section" id="auto">
+    <div class="container feature">
+      <figure class="shot"><img src="assets/ui.jpg" alt="" loading="lazy"></figure>
+      <div class="feature-text">
+        <p class="kicker">GUARANTEED AUTO</p>
+        <h2 data-i18n="autoTitle">保証範囲内なら、AUTO は必ず成功する</h2>
+        <p data-i18n="autoBody">出発前に、重量・噴射口の出力・コースから助走速度・点火位置・狙う最高高度を計算。飛行中は高度と上昇速度から噴射を止め、ロール角から回転を止め、高さと落下速度から着地噴射の強さを毎ステップ判断します。右パネルのバッジが「AUTO保証内」なら成功、範囲外なら理由（推力不足・空気不足など）を表示します。</p>
+        <ul class="chips">
+          <li data-i18n="autoC1">飛行計画 + 閉ループ制御</li>
+          <li data-i18n="autoC2">範囲外の理由を表示</li>
+          <li data-i18n="autoC3">パワー自動最適化</li>
+          <li data-i18n="autoC4">SEMI / MANUAL も</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Replay ===== -->
+  <section class="section alt" id="replay">
+    <div class="container feature reverse">
+      <figure class="shot"><img src="assets/replay.jpg" alt="" loading="lazy"></figure>
+      <div class="feature-text">
+        <p class="kicker">REPLAY &amp; VIDEO</p>
+        <h2 data-i18n="repTitle">スローで見返し、実速度の MP4 で残す</h2>
+        <p data-i18n="repBody">走行はシミュレーション時刻つきで記録され、0.25×・0.5×・1×・2× で再生できます。動画保存は 1 コマずつ時刻を指定して MP4 に書き出すので、描画の遅いパソコンでも 1× は本当の物理速度。位置・姿勢・10 噴射口の推力は MuJoCo 形式の CSV でも保存できます。</p>
+        <ul class="chips">
+          <li data-i18n="repC1">0.25× 〜 2× 再生</li>
+          <li data-i18n="repC2">実速度 MP4 書き出し</li>
+          <li data-i18n="repC3">MuJoCo 形式 CSV</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">UNDER THE HOOD</p>
+      <h2 data-i18n="techTitle">物理で飛ぶしくみ</h2>
+      <div class="cards">
+        <div class="card">
+          <h3 data-i18n="c1Title">取付位置から力を加える</h3>
+          <p data-i18n="c1Body">10 基の噴射口は、それぞれの位置と向きで車体に力とモーメントを加えます。ロールもピッチも、魔法の回転力ではなく推力差から生まれます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c2Title">推力配分</h3>
+          <p data-i18n="c2Body">要求された揚力・ロール・ピッチを、各噴射口の上限を守って D1〜D4 に配分（1/360 秒ごと）。1 基だけ弱くしても、残りで釣り合いを取ります。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c3Title">圧縮空気 250 kg</h3>
+          <p data-i18n="c3Body">噴射速度 500 m/s として、推力 ÷ 500 の割合で空気が減ります。空になれば噴射は止まり、減った分だけ車体も軽くなります。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c4Title">床下吸引とグリップ</h3>
+          <p data-i18n="c4Body">床下の気圧を下げて車体を壁に押し付けます。タイヤが出せる力は「摩擦係数 × 押し付け力」まで。吸引が弱ければ、天井では落ちます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c5Title">ぎりぎりの着地噴射</h3>
+          <p data-i18n="c5Body">残りの高さと落下速度から必要な減速を毎回計算し、ぎりぎりまで自由落下してから噴射。空気を節約しながら、秒速 0.8 m で接地します。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c6Title">冷ガスの白い蒸気</h3>
+          <p data-i18n="c6Body">膨張して冷えた噴射ガスが白い霧になる様子を再現。地面に当たると広がって流れます。量はスライダーで調整できます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c7Title">ゲームパッド対応</h3>
+          <p data-i18n="c7Body">初期設定は 8BitDo Zero 2 のような十字キー＋ボタンだけのパッドで全操作が可能。Xbox / PS のプリセットや、ボタンの割り当て変更もできます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c8Title">5 つのカメラ</h3>
+          <p data-i18n="c8Body">追従・ボンネット・スタント近接・俯瞰・自由視点。自由視点は車を中心に回るので、どの瞬間も見逃しません。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="c9Title">日本語 / English</h3>
+          <p data-i18n="c9Body">ボタンひとつで画面もマニュアルも英語に。操作マニュアルは日本語と英語の両方を同梱しています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Desktop ===== -->
+  <section class="section alt" id="desktop">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="deskTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="deskLead">インストールしてすぐ飛べます。小さなアプリで、インターネット接続なしでも動作します。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="macSize">約 2.5 MB</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="winSize">約 1.7 MB</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 表示する画面は開発中のものです。仕様は予告なく変わることがあります。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">噴射口を点火して、<span class="accent">物理の限界を試そう。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary btn-lg" data-i18n="ctaBuy">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">VOLANTIS FLIGHT LAB</span></div>
+        <p class="credits" data-i18n="disclaimer">Volantis V-01 は架空の車両です。車両・性能値はすべて架空の設定と物理計算に基づくもので、実在の企業・製品・人物とは一切関係ありません。</p>
+        <p class="credits" data-i18n="credits">描画: three.js ／ デスクトップ: Tauri ／ オープンソースソフトウェアのライセンスはアプリ内「このアプリについて / ライセンス」に記載</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/volantis_fly" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261018"></script>
+</body>
+</html>
