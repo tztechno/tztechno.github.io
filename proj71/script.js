@@ -6,16 +6,16 @@ const translations = {
     navWeir: "越流堤と断面",
     navScenarios: "台風19号検証",
     navTech: "技術仕様",
-    navDownload: "デスクトップ版入手",
+    navDownload: "デスクトップ版を購入",
     langToggle: "English",
 
     // Hero
     heroTag: "PLATEAU × 国土地理院 DEM5A × THREE.JS",
     heroTitle: "荒川が溢れるとき、<br><span class=\"text-gradient\">調節池は何を守るのか。</span>",
     heroLead: "荒川第一調節池（彩湖・秋ヶ瀬公園）および越流堤・囲ぎょう堤・本堤の治水メカニズムを、32km × 14km の詳細3D地形と広域168kmの流域パノラマ上で完全シミュレーション。荒川の水位上昇、越流堤からの流入、水理公式に基づく連動計算、下流都心（岩淵水門）の水位低減効果まで、直感的に観察・解析できます。",
-    heroCtaDesktop: "デスクトップ版を入手",
-    heroCtaWeb: "シミュレーターを起動",
-    heroPlatforms: "macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · Web (WebGL / Three.js)",
+    heroCtaBuy: "デスクトップ版を購入する (¥150)",
+    heroCtaMore: "治水の仕組みを見る",
+    heroPlatforms: "macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · 買い切り ¥150",
 
     // Stats
     statAreaVal: "32 × 14 km",
@@ -106,18 +106,14 @@ const translations = {
     scen4Val: "約 -38 cm",
     scen4Note: "岩淵水門・下流域の決壊を防護",
 
-    // Download
-    dlTitle: "今すぐデスクトップ版をダウンロード",
-    dlDesc: "macOS、Windowsに対応。ネイティブ環境でGPUをフル活用し、滑らかで安定した3DシミュレーションとCSV解析を実行できます。",
-    dlMacTitle: "macOS 版 (DMG)",
-    dlMacMeta: "Apple Silicon (M1/M2/M3/M4) / Intel · macOS 11+",
-    dlMacBtn: "DMGをダウンロード",
-    dlWinTitle: "Windows 版 (EXE)",
-    dlWinMeta: "Windows 10 / 11 (64-bit) · NSIS Installer",
-    dlWinBtn: "EXEをダウンロード",
-    dlWebTitle: "ブラウザ版 (Web)",
-    dlWebMeta: "Google Chrome / Edge / Safari (WebGL2 対応)",
-    dlWebBtn: "ブラウザで今すぐ起動",
+    // Store / Purchase Section
+    storeKicker: "OFFICIAL DESKTOP APP",
+    storeTitle: "デスクトップ版の購入・入手（CYBER MATRIX）",
+    storeDesc: "Arakawa Flood デスクトップ版（macOS / Windows）は、公式ストア「CYBER MATRIX」にて買い切り ¥150（永久ライセンス）でご購入いただけます。ご購入後、すぐにインストーラーのダウンロードが開始されます。",
+    storePriceVal: "¥150",
+    storePriceLabel: "買い切り価格 (税込・永久ライセンス)",
+    storeBtn: "CYBER MATRIX で購入する (¥150)",
+    storeNote: "macOS (Apple Silicon / Intel dmg) · Windows 10 & 11 (64-bit exe) · オフライン完全動作 · CSV出力対応",
 
     // Footer
     footerCopyright: "© 2026 Arakawa Flood Project. All rights reserved.",
@@ -129,16 +125,16 @@ const translations = {
     navWeir: "Weir & Profile",
     navScenarios: "Typhoon Hagibis",
     navTech: "Tech Specs",
-    navDownload: "Get Desktop App",
+    navDownload: "Buy Desktop App",
     langToggle: "日本語",
 
     // Hero
     heroTag: "PLATEAU × GSI JAPAN DEM5A × THREE.JS",
     heroTitle: "When the Arakawa Floods,<br><span class=\"text-gradient\">What Does the Basin Protect?</span>",
     heroLead: "A comprehensive 3D flood simulator modeling the Arakawa Retarding Basin (Lake Saiko & Akigase Park), overflow weir, surrounding levee, and primary embankments over a 32km × 14km detailed terrain and 168km regional basin panorama. Observe and analyze river rise, inflow weir hydraulics, retarding storage dynamics, and urban water level reduction downstream.",
-    heroCtaDesktop: "Download Desktop App",
-    heroCtaWeb: "Launch Simulator",
-    heroPlatforms: "macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · Web (WebGL / Three.js)",
+    heroCtaBuy: "Buy Desktop Edition (¥150)",
+    heroCtaMore: "Explore Features",
+    heroPlatforms: "macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · One-time ¥150",
 
     // Stats
     statAreaVal: "32 × 14 km",
@@ -229,18 +225,14 @@ const translations = {
     scen4Val: "Approx. -38 cm",
     scen4Note: "Prevented overtopping at Iwabuchi Gate",
 
-    // Download
-    dlTitle: "Download Desktop Simulator Today",
-    dlDesc: "Available for macOS and Windows. Experience maximum GPU performance and unconstrained local CSV analysis in a native desktop app.",
-    dlMacTitle: "macOS Edition (DMG)",
-    dlMacMeta: "Apple Silicon (M1/M2/M3/M4) / Intel · macOS 11+",
-    dlMacBtn: "Download DMG",
-    dlWinTitle: "Windows Edition (EXE)",
-    dlWinMeta: "Windows 10 / 11 (64-bit) · NSIS Installer",
-    dlWinBtn: "Download EXE",
-    dlWebTitle: "Web Browser Edition",
-    dlWebMeta: "Chrome / Edge / Safari (WebGL2 Supported)",
-    dlWebBtn: "Launch in Browser",
+    // Store / Purchase Section
+    storeKicker: "OFFICIAL DESKTOP APP",
+    storeTitle: "Get Desktop Edition (CYBER MATRIX)",
+    storeDesc: "Arakawa Flood Desktop (macOS / Windows) is available on CYBER MATRIX store for a one-time perpetual purchase of ¥150. Operates fully offline, supports up to 4K resolution, and exports telemetry CSV data.",
+    storePriceVal: "¥150",
+    storePriceLabel: "One-Time Purchase (Tax incl. / Perpetual)",
+    storeBtn: "Buy on CYBER MATRIX (¥150)",
+    storeNote: "macOS (Apple Silicon / Intel dmg) · Windows 10 & 11 (64-bit exe) · Offline Ready · CSV Export",
 
     // Footer
     footerCopyright: "© 2026 Arakawa Flood Project. All rights reserved.",

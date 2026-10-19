@@ -42,13 +42,13 @@
           <li><a href="#cross-section" data-i18n="navWeir">越流堤と断面</a></li>
           <li><a href="#scenarios" data-i18n="navScenarios">台風19号検証</a></li>
           <li><a href="#tech" data-i18n="navTech">技術仕様</a></li>
-          <li><a href="#download" data-i18n="navDownload">デスクトップ版入手</a></li>
+          <li><a href="#store" data-i18n="navDownload">デスクトップ版を購入</a></li>
         </ul>
       </nav>
 
       <div class="nav-actions">
         <button id="lang-toggle" class="lang-toggle" type="button" data-i18n="langToggle">English</button>
-        <a href="#download" class="btn btn-primary btn-sm" data-i18n="navDownload">入手する</a>
+        <a href="https://cyber-matrix.netlify.app/products/arakawa_flood" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="navDownload">デスクトップ版を購入</a>
       </div>
     </div>
   </header>
@@ -72,18 +72,17 @@
       </p>
 
       <div class="hero-cta">
-        <a href="#download" class="btn btn-primary btn-lg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span data-i18n="heroCtaDesktop">デスクトップ版を入手</span>
+        <a href="https://cyber-matrix.netlify.app/products/arakawa_flood" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="heroCtaBuy">デスクトップ版を購入する (¥150)</span>
         </a>
-        <a href="http://localhost:5174/" target="_blank" class="btn btn-ghost btn-lg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          <span data-i18n="heroCtaWeb">シミュレーターを起動</span>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <span data-i18n="heroCtaMore">治水の仕組みを見る</span>
         </a>
       </div>
 
       <div class="hero-platforms">
-        <span data-i18n="heroPlatforms">macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · Web (WebGL / Three.js)</span>
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · 買い切り ¥150</span>
       </div>
     </div>
   </section>
@@ -320,50 +319,30 @@
     </div>
   </section>
 
-  <!-- ================= Download Section ================= -->
-  <section class="download-section" id="download">
+  <!-- ================= Store / Purchase Section ================= -->
+  <section class="download-section" id="store">
     <div class="container">
       <div class="download-card">
-        <h2 data-i18n="dlTitle">今すぐデスクトップ版をダウンロード</h2>
-        <p data-i18n="dlDesc">macOS、Windowsに対応。ネイティブ環境でGPUをフル活用し、滑らかで安定した3DシミュレーションとCSV解析を実行できます。</p>
+        <span class="kicker" data-i18n="storeKicker">OFFICIAL DESKTOP APP</span>
+        <h2 data-i18n="storeTitle">デスクトップ版の購入・入手（CYBER MATRIX）</h2>
+        <p data-i18n="storeDesc">Arakawa Flood デスクトップ版（macOS / Windows）は、公式ストア「CYBER MATRIX」にて買い切り ¥150（永久ライセンス）でご購入いただけます。ご購入後、すぐにインストーラーのダウンロードが開始されます。</p>
 
         <div class="download-options">
-          <!-- macOS Option -->
-          <div class="dl-box">
+          <div class="dl-box" style="max-width: 620px; margin: 0 auto; width: 100%;">
             <div class="dl-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             </div>
-            <h3 data-i18n="dlMacTitle">macOS 版 (DMG)</h3>
-            <div class="dl-meta" data-i18n="dlMacMeta">Apple Silicon (M1/M2/M3/M4) / Intel · macOS 11+</div>
-            <a href="ArakawaFlood_1.0.0_aarch64.dmg" download class="btn btn-primary" id="btn-dl-mac">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span data-i18n="dlMacBtn">DMGをダウンロード</span>
-            </a>
-          </div>
-
-          <!-- Windows Option -->
-          <div class="dl-box">
-            <div class="dl-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+            <h3>Arakawa Flood Desktop</h3>
+            <div style="margin: 12px 0 20px;">
+              <span class="text-gradient-amber" style="font-family: var(--font-display); font-size: 36px; font-weight: 900;" data-i18n="storePriceVal">¥150</span>
+              <span style="font-size: 13px; color: var(--text-muted); display: block; margin-top: 4px;" data-i18n="storePriceLabel">買い切り価格 (税込・永久ライセンス)</span>
             </div>
-            <h3 data-i18n="dlWinTitle">Windows 版 (EXE)</h3>
-            <div class="dl-meta" data-i18n="dlWinMeta">Windows 10 / 11 (64-bit) · NSIS Installer</div>
-            <a href="ArakawaFlood_1.0.0_x64-setup.exe" download class="btn btn-primary" id="btn-dl-win">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span data-i18n="dlWinBtn">EXEをダウンロード</span>
-            </a>
-          </div>
-
-          <!-- Web Option -->
-          <div class="dl-box">
-            <div class="dl-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-            </div>
-            <h3 data-i18n="dlWebTitle">ブラウザ版 (Web)</h3>
-            <div class="dl-meta" data-i18n="dlWebMeta">Google Chrome / Edge / Safari (WebGL2 対応)</div>
-            <a href="http://localhost:5174/" target="_blank" class="btn btn-ghost">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-              <span data-i18n="dlWebBtn">ブラウザで今すぐ起動</span>
+            <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 24px; line-height: 1.7;" data-i18n="storeNote">
+              macOS (Apple Silicon / Intel dmg) · Windows 10 & 11 (64-bit exe) · オフライン完全動作 · CSV出力対応
+            </p>
+            <a href="https://cyber-matrix.netlify.app/products/arakawa_flood" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg" style="width: 100%;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span data-i18n="storeBtn">CYBER MATRIX で購入する (¥150)</span>
             </a>
           </div>
         </div>
