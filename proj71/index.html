@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arakawa Flood | 荒川第一調節池・荒川流域 3D治水シミュレーター</title>
+  <meta name="description" content="荒川第一調節池（彩湖・秋ヶ瀬公園）および越流堤・囲ぎょう堤・本堤の治水メカニズムを、32km × 14km の詳細3D地形（国土地理院DEM5A）と168kmの流域パノラマ上でシミュレーション。荒川増水、越流、貯留、下流都心の水位低減効果まで直感的に観察・解析。">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Arakawa Flood — 荒川第一調節池・増水 3Dシミュレーター">
+  <meta property="og:description" content="荒川が溢れるとき、調節池は何を守るのか。国土地理院 5m DEM × Three.js で見る巨大治水インフラの全貌。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230284c7'/%3E%3Cpath d='M6 20 C10 14, 14 24, 18 17 C22 10, 26 19, 28 14 L28 26 L6 26 Z' fill='%2338bdf8' opacity='0.7'/%3E%3Cpath d='M4 22 C9 17, 13 25, 17 19 C21 13, 25 21, 28 16' stroke='%23ffffff' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11' cy='10' r='3' fill='%23fbbf24'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= Navigation ================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-badge">波</div>
+        <div class="logo-text">
+          <span>ARAKAWA FLOOD</span>
+          <span class="logo-sub">3D FLOOD SIMULATOR</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="navFeatures">治水のメカニズム</a></li>
+          <li><a href="#cross-section" data-i18n="navWeir">越流堤と断面</a></li>
+          <li><a href="#scenarios" data-i18n="navScenarios">台風19号検証</a></li>
+          <li><a href="#tech" data-i18n="navTech">技術仕様</a></li>
+          <li><a href="#download" data-i18n="navDownload">デスクトップ版入手</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-toggle" class="lang-toggle" type="button" data-i18n="langToggle">English</button>
+        <a href="#download" class="btn btn-primary btn-sm" data-i18n="navDownload">入手する</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-bg-layer"></div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-water-glow"></div>
+
+    <div class="container hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-pulse"></span>
+        <span data-i18n="heroTag">PLATEAU × 国土地理院 DEM5A × THREE.JS</span>
+      </div>
+
+      <h1 data-i18n-html="heroTitle">荒川が溢れるとき、<br><span class="text-gradient">調節池は何を守るのか。</span></h1>
+
+      <p class="lead" data-i18n="heroLead">
+        荒川第一調節池（彩湖・秋ヶ瀬公園）および越流堤・囲ぎょう堤・本堤の治水メカニズムを、32km × 14km の詳細3D地形と広域168kmの流域パノラマ上で完全シミュレーション。荒川の水位上昇、越流堤からの流入、水理公式に基づく連動計算、下流都心（岩淵水門）の水位低減効果まで、直感的に観察・解析できます。
+      </p>
+
+      <div class="hero-cta">
+        <a href="#download" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-i18n="heroCtaDesktop">デスクトップ版を入手</span>
+        </a>
+        <a href="http://localhost:5174/" target="_blank" class="btn btn-ghost btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          <span data-i18n="heroCtaWeb">シミュレーターを起動</span>
+        </a>
+      </div>
+
+      <div class="hero-platforms">
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon / Intel dmg) · Windows 10/11 (exe) · Web (WebGL / Three.js)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Key Stats ================= -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statAreaVal">32 × 14 km</div>
+        <div class="stat-label" data-i18n="statAreaLabel">詳細地形解析範囲</div>
+        <div class="stat-desc" data-i18n="statAreaDesc">国土地理院 5m レーザー標高 (DEM5A)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statCapVal">3,900 万 m³</div>
+        <div class="stat-label" data-i18n="statCapLabel">第一調節池 総貯留容量</div>
+        <div class="stat-desc" data-i18n="statCapDesc">東京ドーム約31杯分の大容量</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statWeirVal">A.P. +8.70 m</div>
+        <div class="stat-label" data-i18n="statWeirLabel">越流堤 天端標高</div>
+        <div class="stat-desc" data-i18n="statWeirDesc">超過洪水時に計画越流を開始</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statEffectVal">-38 cm</div>
+        <div class="stat-label" data-i18n="statEffectLabel">台風19号 水位低減効果</div>
+        <div class="stat-desc" data-i18n="statEffectDesc">岩淵水門（下流都心）の氾濫を阻止</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statPanoramaVal">168 km 四方</div>
+        <div class="stat-label" data-i18n="statPanoramaLabel">荒川流域 背景パノラマ</div>
+        <div class="stat-desc" data-i18n="statPanoramaDesc">秩父山地から東京湾まで俯瞰</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Core Features ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="featKicker">CORE FEATURES</span>
+        <h2 class="section-title" data-i18n="featTitle">水害から首都圏を守る、巨大治水インフラの全貌</h2>
+        <p class="section-lead" data-i18n="featLead">ただの氾濫マップではなく、堤防群と調節池が実際にどう連携して洪水を食い止めるかを、物理方程式とリアルタイム3Dで可視化します。</p>
+      </div>
+
+      <!-- Feature 1 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/weir.jpg" alt="越流堤と囲ぎょう堤の3Dモデル" loading="lazy">
+          <span class="visual-badge" data-i18n="badge1">高精度 DEM5A</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f1Num">01 / LEVEE & BASIN GEOMETRY</div>
+          <h3 class="feature-title" data-i18n="f1Title">国土地理院 DEM5A 実測による堤防群の精緻な3D化</h3>
+          <p class="feature-text" data-i18n="f1Desc">
+            越流堤（標高 A.P.+8.70m / T.P.+7.57m）、囲ぎょう堤（標高 約A.P.+15.1m）、荒川本堤（標高 約A.P.+15.2m）の法面・天端形状を国土地理院5mレーザー標高タイルから完全再現。掘削された彩湖の湖底形状まで高精度に再現しています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p1">計画越流水位（8.7m）で確実に水を池へ導く越流堤構造</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p2">荒川本川と調節池を隔て、洪水を安全に封じ込める囲ぎょう堤</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p3">さいたま・戸田（左岸）および朝霞・和光（右岸）を守り抜く巨大本堤</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-block reverse" id="cross-section">
+        <div class="feature-visual">
+          <img src="assets/cross_section.jpg" alt="リアルタイム横断断面図" loading="lazy">
+          <span class="visual-badge" data-i18n="badge2">リアルタイム断面</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f2Num">02 / CROSS SECTION DYNAMICS</div>
+          <h3 class="feature-title" data-i18n="f2Title">リアルタイム横断断面図で見る水位と堤防の攻防</h3>
+          <p class="feature-text" data-i18n="f2Desc">
+            画面下部に［朝霞市街地］—［右岸本堤］—［荒川本川］—［越流堤］—［囲ぎょう堤］—［彩湖・秋ヶ瀬公園］—［左岸本堤］—［戸田市街地］を横断するダイナミック断面図を常時描画。本川増水から越流、貯留、本堤防護のメカニズムが一目で分かります。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p1">水深スライダー（A.P.+1.5m〜+14.5m）とリアルタイム連動</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p2">広頂越流堰の水理公式による越流流入量 Q (m³/s) 計算</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p3">貯留容量曲線（H-V）に基づく調節池水位のダイナミック上昇</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-block" id="scenarios">
+        <div class="feature-visual">
+          <img src="assets/hero.jpg" alt="台風19号検証" loading="lazy">
+          <span class="visual-badge" data-i18n="badge3">台風19号 再現</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f3Num">03 / HISTORICAL REPRODUCTION</div>
+          <h3 class="feature-title" data-i18n="f3Title">令和元年 台風19号・過去最大洪水の治水効果を実証</h3>
+          <p class="feature-text" data-i18n="f3Desc">
+            2019年10月、荒川本川の水位が過去最高 A.P.+12.35m に達し、越流堤から約3,500万m³の洪水を調節池に貯留して東京都心の氾濫を防いだ歴史的事例を時系列で精密再現。計画規模(L1)および想定最大規模(L2)洪水にも対応。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p1">実測ハイドログラフに基づく時系列アニメーション再生</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p2">下流都心（岩淵水門・荒川区）の水位低減効果（-ΔH cm）を定量表示</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p3">30秒刻み計算結果を10分ごとのCSV（UTF-8 BOM付き、Excel対応）で保存</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/basin.jpg" alt="168km 流域パノラマ" loading="lazy">
+          <span class="visual-badge" data-i18n="badge4">168km 流域パノラマ</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f4Num">04 / WIDE BASIN PANORAMA</div>
+          <h3 class="feature-title" data-i18n="f4Title">秩父山地から東京湾まで、168km四方の広域背景パノラマ</h3>
+          <p class="feature-text" data-i18n="f4Desc">
+            32km × 14km の詳細3D地形の外側に、荒川流域全体をカバーする 168km 四方のパノラマ背景地形をシームレスに結合。水源の秩父連峰から、調節池群、隅田川分岐点、荒川放水路、そして東京湾へと注ぐ治水の全体像を俯瞰できます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p1">国土地理院 1秒DEMと航空写真による広域テクスチャマッピング</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p2">ワンクリックで広域パノラマと調節池近接視点をスムーズ遷移</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p3">施設・水門・橋梁・堤防の3D空間追従ラベル表示</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Typhoon 19 Verification Box -->
+      <div class="scenario-box">
+        <div class="scenario-header">
+          <div>
+            <span class="kicker" data-i18n="scenKicker">DISASTER VERIFICATION</span>
+            <h3 class="scenario-title" data-i18n="scenTitle">令和元年 台風19号 シミュレーション諸元</h3>
+          </div>
+          <div class="scenario-badge" data-i18n="scenBadge">実測データ完全再現</div>
+        </div>
+
+        <div class="scenario-grid">
+          <div class="scenario-item">
+            <div class="label" data-i18n="scen1Label">本川最高水位 (治水橋)</div>
+            <div class="value text-gradient-amber" data-i18n="scen1Val">A.P. +12.35 m</div>
+            <div class="note" data-i18n="scen1Note">越流堤天端(+8.70m)を大幅超過</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="scen2Label">第一調節池 貯留実績</div>
+            <div class="value text-gradient" data-i18n="scen2Val">3,500 万 m³</div>
+            <div class="note" data-i18n="scen2Note">総容量比 約90%（過去最大）</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="scen3Label">最大流入量 Qmax</div>
+            <div class="value text-gradient-amber" data-i18n="scen3Val">約 1,000 m³/s</div>
+            <div class="note" data-i18n="scen3Note">本川ピーク流量を大幅カット</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="scen4Label">下流都心 水位低減効果</div>
+            <div class="value text-gradient" data-i18n="scen4Val">約 -38 cm</div>
+            <div class="note" data-i18n="scen4Note">岩淵水門・下流域の決壊を防護</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Architecture & Tech Specs ================= -->
+  <section class="section" id="tech">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="techKicker">ARCHITECTURE & TECH</span>
+        <h2 class="section-title" data-i18n="techTitle">先端ウェブ技術と地理空間データの融合</h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 data-i18n="tech1Title">Three.js & WebGL2 シェーダー</h3>
+          <p data-i18n="tech1Desc">広大な標高メッシュと法面リボン、動的波紋水面を滑らかな60fpsでGPUレンダリング。低負荷かつフォトリアルな治水ビジュアルを実現。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3 data-i18n="tech2Title">平面直角座標系 & 標高換算</h3>
+          <p data-i18n="tech2Desc">国土地理院 EPSG:6677（第IX系）と WGS84 緯度経度を高精度相互変換。東京湾平均海面（T.P.）と荒川水系工事基準面（A.P.）の厳密換算に対応。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 data-i18n="tech3Title">Tauri v2 デスクトップ環境</h3>
+          <p data-i18n="tech3Desc">Rustベースの極めて軽量・高速・セキュアなデスクトップランタイム。メモリ消費を最小限に抑え、オフライン解析やデータ保存を強力サポート。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Download Section ================= -->
+  <section class="download-section" id="download">
+    <div class="container">
+      <div class="download-card">
+        <h2 data-i18n="dlTitle">今すぐデスクトップ版をダウンロード</h2>
+        <p data-i18n="dlDesc">macOS、Windowsに対応。ネイティブ環境でGPUをフル活用し、滑らかで安定した3DシミュレーションとCSV解析を実行できます。</p>
+
+        <div class="download-options">
+          <!-- macOS Option -->
+          <div class="dl-box">
+            <div class="dl-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
+            </div>
+            <h3 data-i18n="dlMacTitle">macOS 版 (DMG)</h3>
+            <div class="dl-meta" data-i18n="dlMacMeta">Apple Silicon (M1/M2/M3/M4) / Intel · macOS 11+</div>
+            <a href="ArakawaFlood_1.0.0_aarch64.dmg" download class="btn btn-primary" id="btn-dl-mac">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span data-i18n="dlMacBtn">DMGをダウンロード</span>
+            </a>
+          </div>
+
+          <!-- Windows Option -->
+          <div class="dl-box">
+            <div class="dl-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>
+            </div>
+            <h3 data-i18n="dlWinTitle">Windows 版 (EXE)</h3>
+            <div class="dl-meta" data-i18n="dlWinMeta">Windows 10 / 11 (64-bit) · NSIS Installer</div>
+            <a href="https://github.com/shun-ishii/N71_arakawa_flood/releases" target="_blank" class="btn btn-ghost" id="btn-dl-win">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span data-i18n="dlWinBtn">EXE (GitHub Release) を入手</span>
+            </a>
+          </div>
+
+          <!-- Web Option -->
+          <div class="dl-box">
+            <div class="dl-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            </div>
+            <h3 data-i18n="dlWebTitle">ブラウザ版 (Web)</h3>
+            <div class="dl-meta" data-i18n="dlWebMeta">Google Chrome / Edge / Safari (WebGL2 対応)</div>
+            <a href="http://localhost:5174/" target="_blank" class="btn btn-ghost">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              <span data-i18n="dlWebBtn">ブラウザで今すぐ起動</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-credits">
+        <p data-i18n="footerCopyright">© 2026 Arakawa Flood Project. All rights reserved.</p>
+        <p data-i18n="footerDataCredits">データ出典: 国土地理院（基盤地図情報 DEM5A、地理院タイル）、国土交通省 関東地方整備局 荒川調節池工事事務所、PLATEAU、© OpenStreetMap contributors</p>
+      </div>
+
+      <a href="#" class="btn btn-ghost btn-sm">↑ Back to Top</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
