@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>操作マニュアル (日本語) | 南海トラフ津波広域伝播シミュレーター</title>
+  <meta name="description" content="南海トラフ津波広域伝播シミュレーターの日本語版詳細操作マニュアル。画面操作、物理方程式、市街地連携用CSVエクスポート仕様、FAQを網羅。">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .manual-container {
+      max-width: 920px;
+      margin: 120px auto 80px;
+      padding: 0 1.5rem;
+    }
+    .manual-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 3rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .manual-card h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border-glow);
+      padding-bottom: 1rem;
+    }
+    .manual-card h2 {
+      font-size: 1.6rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .manual-card h3 {
+      font-size: 1.25rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.75rem;
+      color: #e2e8f0;
+    }
+    .manual-card p, .manual-card li {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .manual-card ul, .manual-card ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .manual-card code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent-cyan);
+      font-size: 0.9em;
+    }
+    .manual-card pre {
+      background: #040711;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+    .manual-card pre code {
+      background: transparent;
+      padding: 0;
+      color: #38bdf8;
+    }
+    .back-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .raw-md-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 12c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+            <path d="M2 17c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Nankai Tsunami</span>
+          <span class="brand-sub">Manual (JA)</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="manual_en.html" class="btn btn-outline btn-sm">English Manual</a>
+        <a href="index.html" class="btn btn-primary btn-sm">LPトップへ戻る</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="manual-container">
+    <div class="back-nav">
+      <a href="index.html" class="btn btn-outline btn-sm">← LPトップに戻る</a>
+      <a href="MANUAL_JA.md" download class="raw-md-link">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Markdownファイル (MANUAL_JA.md) をダウンロード
+      </a>
+    </div>
+
+    <article class="manual-card">
+      <h1>南海トラフ津波広域伝播シミュレーター 操作マニュアル</h1>
+
+      <h2>1. はじめに・システム概要</h2>
+      <p>本ソフトウェアは、南海トラフ巨大地震および連動型地震を想定し、任意の断層破壊シナリオから海底地殻変動を算出し、外洋から日本沿岸各地に至る津波の広域伝播をリアルタイムに物理シミュレーションする対話型シミュレーターです。</p>
+
+      <h3>開発目的と2段階シミュレーション構想</h3>
+      <ol>
+        <li><strong>フェーズ1（広域海洋伝播シミュレーション：本システム）</strong>:
+          <br>南海トラフ沿いの任意の場所で地震が発生した際、沿岸の各主要観測点（室戸岬沖、潮岬沖、駿河湾口、浜松沖、尾鷲沖、足摺岬沖、日向灘沖、紀伊水道など）における津波波高・流速ベクトル・流向・到達時間を高精度にシミュレーションします。</li>
+        <li><strong>フェーズ2（市街地津波遡上シミュレーションとの連携）</strong>:
+          <br>本システムから出力される時系列境界条件（CSV形式）を入力データとして使用し、宮古島等で実績のある高解像度市街地津波遡上シミュレーション（陸上構造物・街路への浸水計算）へとシームレスに接続します。</li>
+      </ol>
+
+      <h2>2. 動作環境とインストール</h2>
+      <h3>Webブラウザ版</h3>
+      <p>Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge に対応しています。</p>
+      <pre><code>cd nankai_trough
+npm install
+npm run dev</code></pre>
+      <p>ブラウザで <code>http://localhost:5173/</code> にアクセスします。</p>
+
+      <h3>デスクトップ版（Tauri）</h3>
+      <ul>
+        <li><strong>macOS</strong>: 公式ストアで配布される <code>NankaiTroughTsunami.dmg</code> を開き、アプリケーションフォルダにドラッグ＆ドロップして起動します。</li>
+        <li><strong>Windows</strong>: ワークフローによりビルドされるインストーラー（<code>.exe</code>）からセットアップ可能です。</li>
+      </ul>
+
+      <h2>3. 画面構成と基本操作</h2>
+      <h3>3.1 操作パネル（左列）</h3>
+      <ul>
+        <li><strong>地震シナリオ選択</strong>: 南海トラフ全域連動 (M9.1)、東南海地震単独 (M8.2)、南海地震単独 (M8.4)、東海地震単独 (M8.0)。</li>
+        <li><strong>パラメータ調整</strong>: マグニチュード（Mw 7.5〜9.3）、すべり量（Slip 2.0〜30.0m）。「波源を再計算して初期化」で瞬時に反映。</li>
+        <li><strong>地図クリックモード</strong>: 任意の場所をクリックして震源断層を再配置、または新しい観測地点（紀伊水道、伊勢湾など）を追加。</li>
+        <li><strong>シミュレーション制御</strong>: 再生/一時停止、速度（1x〜20x）、上限時間（30分〜180分）、<strong>「一括高速計算」</strong>（120分を数秒で計算）。</li>
+      </ul>
+
+      <h3>3.2 海洋シミュレーションマップ（中央）</h3>
+      <ul>
+        <li>海底地形（GEBCO）水深カラーマップ（浅海: 水色、海溝: 濃紺）と陸地陰影。</li>
+        <li>リアルタイム津波波面（赤: 隆起・波頭、青: 沈降・引き波）。</li>
+        <li>マウスホバーによる経緯度・水深・水位のリアルタイムHUD表示。</li>
+      </ul>
+
+      <h3>3.3 津波波形チャート（右列）</h3>
+      <ul>
+        <li>Chart.js によるリアルタイム時系列グラフ（選択地点重ね合わせ / 単一フォーカス / 全地点）。</li>
+        <li>最大波高、ピーク到達時刻、第1波到達時刻、最大時主流向の自動統計解析。</li>
+      </ul>
+
+      <h2>4. 市街地遡上連携用 CSV エクスポート仕様</h2>
+      <h3>2つの出力方式</h3>
+      <ol>
+        <li><strong>方式A: 全期間データ（Full Timeline CSV）</strong>:
+          <br>地震発生（t=0.0s）からの全期間（120分設定時は完全な1,801行）を出力。広域海洋の全体検証用。</li>
+        <li><strong>方式B: 市街地連携用トリミング波形（Trimmed City CSV）</strong>:
+          <br>第1波到達の2分前（120秒前）を <code>t=0.0s</code> に正規化し、初期の無駄時間をカットした実効波形。Phase 2 市街地シミュレーターの沖合境界面入力に最適。</li>
+      </ol>
+
+      <pre><code># Tsunami Boundary Wave Condition for City Simulation (Phase 2)
+# Location: 室戸岬沖 (高知) (Lon: 134.2, Lat: 33.2)
+# Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
+0.0,0.012,0.005,-0.002,0.005,111.8
+4.0,0.035,0.015,-0.008,0.017,118.1</code></pre>
+
+      <h2>5. 物理モデルと数値安定化</h2>
+      <ul>
+        <li><strong>Okada（1985）弾性転位モデル</strong>: 半無限弾性体表面の鉛直変位を解析的に算出。</li>
+        <li><strong>2次元非線形浅水流方程式（SWE）</strong>: Arakawa C-grid 上でスタガード差分、半陰解法マニング摩擦項により安定計算。</li>
+        <li><strong>Shapiro フィルター（Laplacian平滑化）</strong>: 潮岬沖等の急深海底崖で生じる $2\Delta x$ 寄生格子ノイズ（1分周期振動・0.5m跳ね）を微小拡散で除去。長周期津波エネルギーを99.9%保持。</li>
+        <li><strong>空間双線形補間</strong>: 周囲4海洋セルの加重平均でサンプリングし、単一格子セルの数値跳ねを排除。</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <p>© 2026 Nankai Trough Tsunami Simulator Project. <a href="index.html" style="color:var(--accent-cyan);">LPトップへ戻る</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

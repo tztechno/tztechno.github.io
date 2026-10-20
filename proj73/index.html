@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>南海トラフ津波広域伝播シミュレーター | Nankai Trough Tsunami Simulator</title>
+  <meta name="description" content="南海トラフ巨大地震に伴う津波の広域伝播を物理ベース（Okadaモデル×2次元浅水流方程式）で高精度に再現。沿岸観測点波形から市街地遡上シミュレーション（Phase 2）への連携境界データを即座に出力。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 12c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+            <path d="M2 17c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Nankai Tsunami</span>
+          <span class="brand-sub">Simulator</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features" data-i18n="navFeatures">特徴</a>
+        <a href="#architecture" data-i18n="navArchitecture">2段階構想</a>
+        <a href="#scenarios" data-i18n="navScenarios">想定シナリオ</a>
+        <a href="#physics" data-i18n="navPhysics">物理モデル</a>
+        <a href="#download" data-i18n="navDownload">ダウンロード</a>
+        <a href="#docs" data-i18n="navDocs">マニュアル</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switch">
+          <button id="btn-lang-ja" class="lang-btn active">JA</button>
+          <span class="lang-divider">/</span>
+          <button id="btn-lang-en" class="lang-btn">EN</button>
+        </div>
+        <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="btnGetApp">製品ページ・購入</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-glow"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">次世代型 物理津波シミュレーション基盤</span>
+          </div>
+          <h1 class="hero-title" data-i18n="heroTitle">
+            南海トラフ巨大津波を、<br>
+            <span class="gradient-text">極限の解像度</span>で可視化する。
+          </h1>
+          <p class="hero-desc" data-i18n="heroDesc">
+            Okada弾性転位モデルと2次元非線形浅水流方程式（SWE）を融合。外洋深海から沿岸各地への広域津波伝播を瞬時に解析し、宮古津波型・市街地遡上シミュレーション（Phase 2）へとシームレスに接続します。
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-download" id="hero-download-mac">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <div class="btn-text-wrap">
+                <span class="btn-subtext" data-i18n="btnStoreSub">公式ストア・販売ページ</span>
+                <span class="btn-maintext" data-i18n="btnStoreMain">製品版を入手する（cyber-matrix）</span>
+              </div>
+            </a>
+
+            <a href="#features" class="btn btn-outline" id="hero-download-win">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <span data-i18n="btnLearnMore">機能・シミュレーション詳細</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-val">3.6<span class="unit">MB</span></span>
+              <span class="stat-label" data-i18n="statSize">超軽量デスクトップ</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-val">120<span class="unit">分</span></span>
+              <span class="stat-label" data-i18n="statTime">数秒で一括高速計算</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-val">1,801<span class="unit">点</span></span>
+              <span class="stat-label" data-i18n="statRows">完全な時系列波形</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <div class="visual-header">
+              <div class="window-controls">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="visual-title">Nankai Trough 3D GIS Visualization</span>
+            </div>
+            <div class="visual-img-wrap">
+              <img src="assets/tsunami_hero.jpg" alt="南海トラフ津波シミュレーション 3D可視化" class="hero-render-img">
+              <div class="overlay-badge badge-top-right">
+                <span class="live-indicator"></span>
+                <span>M9.1 全域連動モデル</span>
+              </div>
+              <div class="overlay-badge badge-bottom-left">
+                <span>深海水深: -4,500m / 最大波高: 20m+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="featuresTitle">3つの核心技術とアドバンテージ</h2>
+          <p class="section-desc" data-i18n="featuresDesc">学術基準の物理モデル、実務に即した連携出力、そしてモダンな高速実行環境を兼ね備えています。</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <div class="feature-icon icon-cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat1Title">厳密な物理数値モデル</h3>
+            <p class="feature-desc" data-i18n="feat1Desc">
+              岡田（Okada 1985）弾性転位モデルにより断層パラメータから初期海底地殻変動を算出。スタガード格子（Arakawa C-grid）を用いた2次元非線形浅水流方程式（SWE）と半陰解法マニング摩擦項で、浅瀬から海溝深海まで絶対発散しない安定した時間発展を実現。
+            </p>
+            <div class="feature-tag-list">
+              <span>Okada 1985</span>
+              <span>Non-linear SWE</span>
+              <span>Arakawa C-Grid</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <div class="feature-icon icon-rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2Title">市街地遡上連携用 CSV 出力</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">
+              全期間時系列（方式A）に加え、第1波到達前2分を t=0 に正規化して無駄な初期時間を省いた「市街地連携用トリミング波形（方式B）」を出力。水位だけでなく東西・南北の流速ベクトル（U, V）や流向を含み、Phase 2 の都市浸水シミュレーターに即座に直結。
+            </p>
+            <div class="feature-tag-list">
+              <span>Time-Series CSV</span>
+              <span>Flow Velocity Vectors</span>
+              <span>Phase 2 Ready</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="feature-card">
+            <div class="feature-icon icon-amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat3Title">Shapiro フィルター & 超高速計算</h3>
+            <p class="feature-desc" data-i18n="feat3Desc">
+              潮岬沖などの急深海底崖で発生しやすい2Δxグリッド数値ノイズ（1分周期振動・0.5m跳ね）を消去するShapiroフィルターと空間双線形補間を搭載。長周期津波エネルギーを99.9%保持しつつ、数秒で120分の物理計算を一括実行できる超高速ソルバーです。
+            </p>
+            <div class="feature-tag-list">
+              <span>Shapiro Filter</span>
+              <span>Bilinear Sampling</span>
+              <span>Fast-Forward 120m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-Phase Architecture Section -->
+    <section class="section section-dark" id="architecture">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill" data-i18n="archBadge">シミュレーション連携構想</div>
+          <h2 class="section-title" data-i18n="archTitle">フェーズ1（広域海洋）からフェーズ2（市街地浸水）へ</h2>
+          <p class="section-desc" data-i18n="archDesc">南海トラフ軸で発生した津波エネルギーを、沿岸港湾・市街地構造物の破壊シミュレーションへと橋渡しします。</p>
+        </div>
+
+        <div class="architecture-visual-grid">
+          <div class="arch-box">
+            <div class="arch-badge">Phase 1 (本システム)</div>
+            <h3>広域海洋津波伝播シミュレーション</h3>
+            <p>震源断層破壊（Okada） ➔ GEBCO海底地形 ➔ 広域浅水流方程式（SWE） ➔ 沿岸指定地点（室戸、潮岬、駿河湾、紀伊水道等）における波高・流速・流向を時系列記録。</p>
+            <div class="arch-img-box">
+              <img src="assets/tsunami_hero.jpg" alt="Phase 1 広域伝播">
+            </div>
+          </div>
+
+          <div class="arch-arrow">
+            <div class="arrow-line"></div>
+            <div class="arrow-label">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+              <span>境界条件 CSV</span>
+              <span class="sub">(Elevation, U, V, Speed, Dir)</span>
+            </div>
+          </div>
+
+          <div class="arch-box">
+            <div class="arch-badge phase2">Phase 2 (沿岸・都市モデル)</div>
+            <h3>市街地津波遡上・建築物浸水シミュレーション</h3>
+            <p>宮古島等の実績モデルと同様の手法。湾口・沖合境界からトリミング波形を入力し、街路・防波堤・防潮堤・家屋への浸水深・流速・衝突力を詳細解析。</p>
+            <div class="arch-img-box">
+              <img src="assets/phase2_city.jpg" alt="Phase 2 市街地遡上">
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode A vs Mode B Table -->
+        <div class="csv-comparison-card">
+          <h3 class="comparison-title" data-i18n="compTableTitle">2つのエクスポート方式の使い分け</h3>
+          <div class="table-responsive">
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th>出力方式</th>
+                  <th>開始時間 (t=0)</th>
+                  <th>データ行数 (120分設定時)</th>
+                  <th>主な用途・メリット</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge-tag">方式A</span> <strong>全期間データ (Full Timeline)</strong></td>
+                  <td>地震発生の瞬間 (t = 0.0s)</td>
+                  <td>1,801 行 (4秒刻み)</td>
+                  <td>地震直後からの引き波・初動を含む広域海洋学的な全過程の検証・比較に最適。</td>
+                </tr>
+                <tr>
+                  <td><span class="badge-tag tag-cyan">方式B</span> <strong>市街地連携用トリミング (Trimmed City)</strong></td>
+                  <td>第1波到達の 120秒前 (t = 0.0s に正規化)</td>
+                  <td>主要波通過までの約30〜45分間</td>
+                  <td>Phase 2 の都市シミュレーションの計算コストを大幅削減し、即座に浸水解析を開始。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scenarios Showcase Section -->
+    <section class="section" id="scenarios">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="scenariosTitle">4大想定地震シナリオ</h2>
+          <p class="section-desc" data-i18n="scenariosDesc">内閣府想定クラスの最大規模連動型から歴史的単独地震まで、ワンクリックで切り替えて波形を比較できます。</p>
+        </div>
+
+        <div class="scenario-tabs">
+          <button class="scenario-tab-btn active" data-scenario="nankai_full">南海トラフ全域連動 (M9.1)</button>
+          <button class="scenario-tab-btn" data-scenario="tonankai">東南海地震単独 (M8.2)</button>
+          <button class="scenario-tab-btn" data-scenario="nankai_single">南海地震単独 (M8.4)</button>
+          <button class="scenario-tab-btn" data-scenario="tokai">東海地震単独 (M8.0)</button>
+        </div>
+
+        <div class="scenario-content-card" id="scenario-card">
+          <div class="scenario-info">
+            <div class="scenario-header-wrap">
+              <h3 id="sc-name">南海トラフ全域連動 (M9.1)</h3>
+              <span class="mag-badge" id="sc-mag">Mw 9.1</span>
+            </div>
+            <p id="sc-desc">駿河湾から日向灘に至るトラフ軸全域（東海・東南海・南海・日向灘の4セグメント）が一斉に破壊する内閣府想定クラスの最大規模地震。最大すべり量20m。</p>
+            
+            <div class="scenario-data-grid">
+              <div class="sc-data-item">
+                <span class="sc-data-label">波源断層数</span>
+                <span class="sc-data-val" id="sc-faults">4 セグメント (全域)</span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label">最大すべり量</span>
+                <span class="sc-data-val" id="sc-slip">20.0 m</span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label">最大予想津波高</span>
+                <span class="sc-data-val sc-danger" id="sc-height">20m 超 (高知・和歌山・静岡)</span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label">沿岸最速到達</span>
+                <span class="sc-data-val" id="sc-arrival">約 3〜5 分</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Wave Canvas Section -->
+    <section class="section section-dark" id="demo">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill">Interactive Demo</div>
+          <h2 class="section-title" data-i18n="demoTitle">インタラクティブ波面シミュレーター</h2>
+          <p class="section-desc" data-i18n="demoDesc">マップ内をクリックすると、任意の震源から津波が広域に同心円状に伝播する物理波紋を体験できます。</p>
+        </div>
+
+        <div class="canvas-interactive-wrapper">
+          <canvas id="waveCanvas" width="900" height="450"></canvas>
+          <div class="canvas-overlay-ui">
+            <div class="canvas-hud">
+              <span class="hud-status">● REALTIME 2D SWE RUNNING</span>
+              <span class="hud-hint" data-i18n="canvasClickHint">👆 キャンバスをクリックして津波を発生</span>
+            </div>
+            <button id="btn-canvas-reset" class="btn btn-sm btn-outline">波面をリセット</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product & Store Section -->
+    <section class="section" id="download">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill" data-i18n="storeBadge">公式ライセンス・販売</div>
+          <h2 class="section-title" data-i18n="downloadTitle">製品版のご購入・入手方法</h2>
+          <p class="section-desc" data-i18n="downloadDesc">製品版アプリ（macOS DMG / Windows EXE / フルデータセット）のご購入・ダウンロードは、公式ストア（cyber-matrix）にて承っております。</p>
+        </div>
+
+        <div class="download-grid">
+          <!-- macOS Card -->
+          <div class="download-card featured">
+            <div class="card-featured-ribbon">Recommended</div>
+            <div class="platform-icon">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.75 1.04-1.8 1.01-2.84-.89.04-1.98.6-2.61 1.34-.56.64-1.05 1.69-.92 2.71 1 .08 2.01-.52 2.52-1.21z"/>
+              </svg>
+            </div>
+            <h3>macOS デスクトップ版</h3>
+            <p class="card-meta">Apple Silicon (M1/M2/M3/M4/M5) & Intel 対応</p>
+            <p class="card-desc">Tauri v2 による完全ネイティブアプリ。完全オフライン環境で超高速に動作します。</p>
+            <div class="file-size-badge">パッケージ形式: <strong>DMG (3.6 MB)</strong></div>
+            <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span data-i18n="btnBuyMac">販売ページで購入・入手</span>
+            </a>
+          </div>
+
+          <!-- Windows Card -->
+          <div class="download-card">
+            <div class="platform-icon">
+              <svg viewBox="0 0 24 24" width="38" height="38" fill="currentColor">
+                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.949-1.801"/>
+              </svg>
+            </div>
+            <h3>Windows デスクトップ版</h3>
+            <p class="card-meta">Windows 10 / 11 (64-bit)</p>
+            <p class="card-desc">NSISインストーラーおよびポータブルEXEパッケージ。オフラインで高速実行可能です。</p>
+            <div class="file-size-badge">パッケージ形式: <strong>EXE / MSI インストーラー</strong></div>
+            <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span data-i18n="btnBuyWin">販売ページで購入・入手</span>
+            </a>
+          </div>
+
+          <!-- Web & Source Card -->
+          <div class="download-card">
+            <div class="platform-icon">
+              <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h3>Webブラウザ & 開発版</h3>
+            <p class="card-meta">Chrome, Safari, Firefox, Edge</p>
+            <p class="card-desc">Node.js環境があればローカル開発サーバーで即座に検証実行可能。</p>
+            <div class="file-size-badge">ローカル開発サーバー: <code>:5173</code></div>
+            <div class="code-box">
+              <code>cd nankai_trough<br>npm run dev</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation & Manual Links -->
+    <section class="section section-dark" id="docs">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="docsTitle">ドキュメント & マニュアル</h2>
+          <p class="section-desc" data-i18n="docsDesc">詳細な操作マニュアル、物理方程式、CSVフォーマット仕様書をご用意しています。</p>
+        </div>
+
+        <div class="docs-cards-grid">
+          <a href="manual_ja.html" class="doc-card">
+            <div class="doc-flag">🇯🇵</div>
+            <div class="doc-info">
+              <h4>日本語版 操作マニュアル (HTML & Markdown)</h4>
+              <p>全画面の操作手順、パラメータ解説、2つのCSV出力方式（全期間／トリミング）、FAQを網羅した完全日本語ガイド。</p>
+            </div>
+            <div class="doc-arrow">→</div>
+          </a>
+
+          <a href="manual_en.html" class="doc-card">
+            <div class="doc-flag">🇺🇸</div>
+            <div class="doc-info">
+              <h4>English User Manual (HTML & Markdown)</h4>
+              <p>Full comprehensive English documentation covering numerical modeling, UI usage, Phase 2 integration, and specs.</p>
+            </div>
+            <div class="doc-arrow">→</div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand-title">Nankai Trough Tsunami Simulator</span>
+        <p class="footer-desc">Physics-based simulation of broad-scale ocean tsunami propagation & urban inundation coupling.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">トップへ戻る</a>
+        <a href="manual_ja.html">日本語マニュアル</a>
+        <a href="manual_en.html">English Manual</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 Nankai Trough Tsunami Simulator Project. Built with Vite, TypeScript & Tauri.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
