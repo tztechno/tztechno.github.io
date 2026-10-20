@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miyako Taro Tsunami | 宮古・田老津波 3Dシミュレーター</title>
+  <meta name="description" content="岩手県宮古市・田老地区における津波の海岸押し寄せと、旧田老防潮堤（万里の長城）の治水・防御機能を観察・解析できる3Dシミュレーター。PLATEAU 3D都市モデル × 国土地理院 5m DEM × 浅水長波物理モデルによるリアルタイム解析。">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Miyako Taro Tsunami — 宮古・田老津波 3Dシミュレーター">
+  <meta property="og:description" content="津波が押し寄せるとき、防潮堤は何を守り、どこから越流するのか。国土地理院 5m DEM × PLATEAU × Three.js で見る防潮インフラと津波物理シミュレーション。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/app-icon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= Navigation ================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-badge">🌊</div>
+        <div class="logo-text">
+          <span>MIYAKO TSUNAMI</span>
+          <span class="logo-sub">3D TSUNAMI SIMULATOR</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="navFeatures">津波物理 & 防潮堤</a></li>
+          <li><a href="#scenarios" data-i18n="navScenarios">2011年震災・L2検証</a></li>
+          <li><a href="#hazard" data-i18n="navHazard">ハザード比較</a></li>
+          <li><a href="#tech" data-i18n="navTech">技術仕様</a></li>
+          <li><a href="#store" data-i18n="navDownload">デスクトップ版を購入</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-toggle" class="lang-toggle" type="button" data-i18n="langToggle">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/miyako_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="navDownload">デスクトップ版を購入</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-bg-layer" style="background-image: url('assets/hero.jpg');"></div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-water-glow"></div>
+
+    <div class="container hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-pulse"></span>
+        <span data-i18n="heroTag">PLATEAU × 国土地理院 DEM5A × 浅水長波物理モデル</span>
+      </div>
+
+      <h1 data-i18n-html="heroTitle">巨大津波が来襲するとき、<br><span class="text-gradient">防潮堤は何を守るのか。</span></h1>
+
+      <p class="lead" data-i18n="heroLead">
+        岩手県宮古市・田老地区（旧田老防潮堤・万里の長城）および宮古港・鍬ヶ崎・閉伊川河口域における津波の海岸押し寄せと防潮堤の治水・防御機能を観察・解析。国土地理院 5m レーザー標高 (DEM5A) と PLATEAU 3D 都市モデル、浅水変形・越流力学に基づくリアルタイム海洋物理シミュレーションを融合しました。
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/miyako_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="heroCtaBuy">デスクトップ版を購入する (¥980)</span>
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <span data-i18n="heroCtaMore">シミュレーションの仕組みを見る</span>
+        </a>
+      </div>
+
+      <div class="hero-platforms">
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon dmg) · Windows 10/11 (exe) · 買い切り ¥980</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Key Stats ================= -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statDemVal">5m レーザー</div>
+        <div class="stat-label" data-i18n="statDemLabel">標高解像度 (DEM5A)</div>
+        <div class="stat-desc" data-i18n="statDemDesc">国土地理院 基盤地図情報実測</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statSeawallVal">海抜 10.0 m</div>
+        <div class="stat-label" data-i18n="statSeawallLabel">旧田老防潮堤 天端標高</div>
+        <div class="stat-desc" data-i18n="statSeawallDesc">世界的に知られた万里の長城</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statAreaVal">宮古港 × 田老</div>
+        <div class="stat-label" data-i18n="statAreaLabel">2大沿岸重要拠点</div>
+        <div class="stat-desc" data-i18n="statAreaDesc">宮古湾・閉伊川河口から田老湾まで網羅</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statModelVal">局所慣性モデル</div>
+        <div class="stat-label" data-i18n="statModelLabel">浅水長波 2次元流体解析</div>
+        <div class="stat-desc" data-i18n="statModelDesc">de Almeida et al. θ重み付きスキーム</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statExportVal">4K / 60fps</div>
+        <div class="stat-label" data-i18n="statExportLabel">MP4動画 & CSV出力</div>
+        <div class="stat-desc" data-i18n="statExportDesc">WebCodecs高速録画 & Excel対応CSV</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Core Features ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="featKicker">CORE CAPABILITIES</span>
+        <h2 class="section-title" data-i18n="featTitle">海岸堤防と津波の攻防を、科学的に可視化</h2>
+        <p class="section-lead" data-i18n="featLead">津波の来襲から海岸浅水変形、防潮堤の越流、市街地浸水、引き波のプロセスを、物理方程式とリアルタイム3Dで直感的に追究できます。</p>
+      </div>
+
+      <!-- Feature 1 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/seawall.jpg" alt="旧田老防潮堤と津波越流の3Dシミュレーション" loading="lazy">
+          <span class="visual-badge" data-i18n="badge1">高精度 DEM5A × OSM</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f1Num">01 / SEAWALL & TERRAIN GEOMETRY</div>
+          <h3 class="feature-title" data-i18n="f1Title">田老防潮堤「万里の長城」× 宮古港 2大沿岸地域の精緻な3D化</h3>
+          <p class="feature-text" data-i18n="f1Desc">
+            昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを完全収録。OpenStreetMapと国土地理院DEM5Aの微地形から防潮堤の正確な稜線を整合し、急峻な三陸リアス地形を忠実に再現しています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p1">国土地理院 5m レーザー標高 (DEM5A) による精密な標高グリッド</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p2">PLATEAU 3D都市モデルの建物を配置し、浸水深でリアルタイム警戒色変化</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p3">防潮堤高さスライダー（0m〜22m）で動的な防潮堤改変・治水効果実験が可能</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/hero.jpg" alt="浅水長波方程式による海洋物理計算" loading="lazy">
+          <span class="visual-badge" data-i18n="badge2">三陸沖共通深海震源 × 局所慣性モデル</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f2Num">02 / PHYSICS DYNAMICS</div>
+          <h3 class="feature-title" data-i18n="f2Title">共通沖合深海震源モデル & 浅水変形・越流力学のリアルタイム解析</h3>
+          <p class="feature-text" data-i18n="f2Desc">
+            三陸沖日本海溝の震源域から伝播し、重茂半島を迂回して宮古湾口から湾奥へ一直線に突入する東日本大震災の物理伝播メカニズムを再現。浅水変形（Greenの法則）と防潮堤天端の越流現象を解き明かします。波の来襲方向（宮古港では50°中心に左右90度幅、16方位コンパス対応）や波高・周期も自由にカスタム可能です。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p1">CFL条件に応じた自動時間刻み調整による高精度かつ安定な数値計算</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p2">Web Worker による別スレッド計算で、60fpsのスムーズな描画・カメラ操作を維持</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p3">波源赤枠フレーム・観測ブイ・3D大型矢印のリアルタイム旋回と波先端距離表示</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-block" id="hazard">
+        <div class="feature-visual">
+          <img src="assets/hazard.jpg" alt="ハザードマップと2011年実績浸水深の比較" loading="lazy">
+          <span class="visual-badge" data-i18n="badge3">実測 & ハザードマップ比較</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f3Num">03 / HAZARD & GROUND TRUTH</div>
+          <h3 class="feature-title" data-i18n="f3Title">公表ハザードマップ & 2011年実測痕跡・5m高解像度浸水深との精密照合</h3>
+          <p class="feature-text" data-i18n="f3Desc">
+            岩手県公表の津波浸水想定ハザードマップ（標準8区分凡例）、復興支援調査アーカイブの宮古市100mメッシュ実績浸水深、さらに5mメッシュ高精度実績データ（再現率・CSI・浸水深RMSEをリアルタイム統計表示）、東日本大震災直後（2011年3月）の地理院空中写真をワンクリックでオーバーレイ表示できます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p1">津波痕跡調査の実測水位（59地点）との差分（平均差・RMSE）をリアルタイム評価</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p2">5mメッシュ実績浸水深との一致度（再現率・空振り・見逃し面積・CSI）を自動算定</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p3">震災直後のオルソ航空写真（toho1）のがれき分布と計算浸水域を直接対比</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Scenario Section ================= -->
+  <section class="section" id="scenarios" style="background: rgba(10, 18, 34, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="scenKicker">TSUNAMI SCENARIOS</span>
+        <h2 class="section-title" data-i18n="scenTitle">歴史的津波の再現から、最大想定L2の防災シミュレーション</h2>
+        <p class="section-lead" data-i18n="scenLead">過去の教訓と未来の防災計画を検証するための、多彩な津波シナリオプリセットを標準搭載。</p>
+      </div>
+
+      <div class="scenarios-grid">
+        <div class="scenario-card highlight">
+          <div class="scenario-badge" data-i18n="scen1Badge">実測照合済み</div>
+          <h3 class="scenario-title" data-i18n="scen1Title">東日本大震災 (2011年再現)</h3>
+          <div class="scenario-meta" data-i18n="scen1Meta">沖合波高 8.0m · 実測59地点キャリブレーション</div>
+          <p class="scenario-desc" data-i18n="scen1Desc">
+            田老地区の実測津波痕跡データ（信頼度A・B）に最も一致する沖合境界波高を設定。田老防潮堤を越流し市街地を呑み込んだ巨大津波の挙動を忠実に再現します。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171;" data-i18n="scen2Badge">最大級津波</div>
+          <h3 class="scenario-title" data-i18n="scen2Title">想定最大規模 L2津波 (岩手県公表)</h3>
+          <div class="scenario-meta" data-i18n="scen2Meta">沖合波高 19.5m · 最大クラスの巨大津波</div>
+          <p class="scenario-desc" data-i18n="scen2Desc">
+            発生頻度は極めて低いものの甚大な被害をもたらす最大クラスの津波。住民の高台避難や避難路の安全性検証に不可欠なシナリオです。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" data-i18n="scen3Badge">施設計画基準</div>
+          <h3 class="scenario-title" data-i18n="scen3Title">施設計画規模 L1津波</h3>
+          <div class="scenario-meta" data-i18n="scen3Meta">沖合波高 14.0m · 防潮堤設計波</div>
+          <p class="scenario-desc" data-i18n="scen3Desc">
+            新田老防潮堤（天端標高 T.P.+14.7m）などの海岸保全施設を設計する際の基準となる津波。防潮堤の防御限界と越流マージンを検証できます。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;" data-i18n="scen4Badge">防潮堤防護の歴史</div>
+          <h3 class="scenario-title" data-i18n="scen4Title">チリ地震津波 (1960年再現)</h3>
+          <div class="scenario-meta" data-i18n="scen4Meta">波高 5.5m · 田老地区 無被害の実績</div>
+          <p class="scenario-desc" data-i18n="scen4Desc">
+            旧田老防潮堤（10m）が津波を完全に阻止し、田老町が世界にその名を知られるきっかけとなった歴史的津波の防潮プロセスを検証できます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Tech Specs ================= -->
+  <section class="section" id="tech">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="techKicker">ARCHITECTURE & TECHNOLOGY</span>
+        <h2 class="section-title" data-i18n="techTitle">先端地理空間技術と流体ソルバーの融合</h2>
+        <p class="section-lead" data-i18n="techLead">Web標準技術の極限性能を引き出し、ブラウザおよびネイティブデスクトップで快適に動作するアーキテクチャ。</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-icon">⚡</div>
+          <h3 class="tech-title" data-i18n="tech1Title">Three.js & WebGL2 シェーダー</h3>
+          <p class="tech-desc" data-i18n="tech1Desc">
+            数万ポリゴンの地形メッシュとPLATEAU建築群、動的津波水面を滑らかな60fpsでGPUレンダリング。低負荷かつフォトリアルな津波表現を実現。
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🌐</div>
+          <h3 class="tech-title" data-i18n="tech2Title">Web Worker 非同期流体ソルバー</h3>
+          <p class="tech-desc" data-i18n="tech2Desc">
+            浅水長波方程式の局所慣性モデル（de Almeida et al.）をWeb Worker内で独立並列実行。描画スレッドを一切ブロックせず、長時間のシミュレーションも安定駆動。
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🦀</div>
+          <h3 class="tech-title" data-i18n="tech3Title">Tauri v2 デスクトップ環境</h3>
+          <p class="tech-desc" data-i18n="tech3Desc">
+            Rustベースの極めて軽量・高速なデスクトップランタイム。わずか数十MBの軽量バイナリでオフライン完全動作と高速データ出力を実現。
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🎥</div>
+          <h3 class="tech-title" data-i18n="tech4Title">WebCodecs & 4K動画エクスポート</h3>
+          <p class="tech-desc" data-i18n="tech4Desc">
+            mp4-muxer とハードウェア支援エンコードにより、キーフレーム補間や旋回カメラの津波シミュレーション動画を最大4K/60fpsでMP4書き出し。
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">📊</div>
+          <h3 class="tech-title" data-i18n="tech5Title">地点観察 & Excel CSV出力</h3>
+          <p class="tech-desc" data-i18n="tech5Desc">
+            地図上の任意の地点をクリックするだけで時系列水深グラフを表示。経過時間・波高・遡上高・浸水面積・浸水棟数をExcel対応UTF-8 BOM付きCSVで即座に出力。
+          </p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🗾</div>
+          <h3 class="tech-title" data-i18n="tech6Title">国土地理院 DEM5A & JGD2011</h3>
+          <p class="tech-desc" data-i18n="tech6Desc">
+            平面直角座標系第X系（EPSG:6678）とWGS84を高精度変換。国土地理院5mレーザー標高、東日本大震災空中写真、復興支援アーカイブ実績浸水深と完全一致。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Store Section ================= -->
+  <section class="section" id="store">
+    <div class="container">
+      <div class="store-box">
+        <div class="store-content">
+          <div class="store-badge" data-i18n="storeBadge">DESKTOP APP EDITION</div>
+          <h2 class="store-title" data-i18n="storeTitle">宮古・田老津波 3Dシミュレーター デスクトップ版</h2>
+          <p class="store-desc" data-i18n="storeDesc">
+            オフライン環境での完全動作、高精度シミュレーション、長時間の動画エクスポート、CSV解析データ出力に対応したデスクトップ専用パッケージ。
+          </p>
+
+          <div class="store-pricing">
+            <span class="store-price">¥980</span>
+            <span class="store-tax" data-i18n="storeTax">（税込・買い切りライセンス）</span>
+          </div>
+
+          <div class="store-buttons">
+            <a href="https://cyber-matrix.netlify.app/products/miyako_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-xl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span data-i18n="storeBtnBuy">購入・ダウンロード（Stripe決済）</span>
+            </a>
+          </div>
+
+          <div class="store-meta">
+            <div class="meta-item">
+              <strong>対応OS:</strong> macOS 12+ (Apple Silicon), Windows 10/11 (64-bit)
+            </div>
+            <div class="meta-item">
+              <strong>動作要件:</strong> WebGL2 対応GPU（Apple Mシリーズ / Intel UHD / GeForce / Radeon）
+            </div>
+            <div class="meta-item">
+              <strong>データ出典:</strong> 国土地理院（基盤地図情報DEM5A・空中写真・震災正射画像）、国土交通省 PLATEAU、OpenStreetMap、東北地方太平洋沖地震津波合同調査グループ
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">MIYAKO TSUNAMI 3D</div>
+        <div class="footer-copy">© 2026 TZ Techno / Cyber Matrix. All rights reserved.</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-matrix.netlify.app/products/miyako_tsunami" target="_blank" rel="noopener noreferrer">Cyber Matrix Store</a>
+        <a href="https://github.com/tztechno" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
