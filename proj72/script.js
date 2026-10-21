@@ -3,7 +3,7 @@ const translations = {
   ja: {
     // Nav
     navFeatures: "津波物理 & 防潮堤",
-    navScenarios: "2011年震災・L2検証",
+    navScenarios: "南海トラフ・2011震災・L2",
     navHazard: "ハザード比較",
     navTech: "技術仕様",
     navDownload: "デスクトップ版を購入",
@@ -70,10 +70,23 @@ const translations = {
     f3p3: "震災直後のオルソ航空写真（toho1）のがれき分布と計算浸水域を直接対比",
     badge3: "実測 & ハザードマップ比較",
 
+    // Feature 4
+    f4Num: "04 / WAVE SOURCE COUPLING & LAB",
+    f4Title: "南海トラフ波源CSVの連携・インポート ＆ 人工波発生機能",
+    f4Desc: "広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響を精緻にシミュレーション。任意のCSVファイルをドラッグ＆ドロップして波高・流速・流向を再現できるほか、水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。",
+    f4p1: "nankai_troughアプリ出力CSVに対応（Trimmed版 53.8分 / Full 2時間タイムライン）",
+    f4p2: "水面クリックによる人工波（パルス津波）の発生とリアルタイム波紋伝播",
+    f4p3: "シミュレーション経過時間と地震発生後時間（Time since EQ）のデュアルタイマー併記",
+    badge4: "波源CSV連携 × 人工波発生",
+
     // Scenarios
     scenKicker: "TSUNAMI SCENARIOS",
     scenTitle: "歴史的津波の再現から、最大想定L2の防災シミュレーション",
     scenLead: "過去の教訓と未来の防災計画を検証するための、多彩な津波シナリオプリセットを標準搭載。",
+    scen0Badge: "NEW 波源連携",
+    scen0Title: "南海トラフ巨大地震連動 (nankai_trough波源)",
+    scen0Meta: "沖合波高 4.08m · 2時間フルタイムライン / 境界CSV連携",
+    scen0Desc: "nankai_troughアプリが出力した宮古沖の時系列波源データを使用。地震発生から約18分で最大波高4.08m（引き波後）が到達し、旧田老防潮堤の防御力と市街地氾濫を精密に検証。",
     scen1Badge: "実測照合済み",
     scen1Title: "東日本大震災 (2011年再現)",
     scen1Meta: "沖合波高 8.0m · 実測59地点キャリブレーション",
@@ -121,7 +134,7 @@ const translations = {
   en: {
     // Nav
     navFeatures: "Physics & Seawall",
-    navScenarios: "2011 & L2 Scenarios",
+    navScenarios: "Nankai · 2011 · L2",
     navHazard: "Hazard Map Audit",
     navTech: "Tech Specs",
     navDownload: "Buy Desktop App",
@@ -188,10 +201,23 @@ const translations = {
     f3p3: "Direct debris field correlation using ortho-rectified aerial photography from 2011",
     badge3: "Surveyed Ground Truth",
 
+    // Feature 4
+    f4Num: "04 / WAVE SOURCE COUPLING & LAB",
+    f4Title: "Nankai Trough Wave CSV Coupling, Import & Wave Maker Lab",
+    f4Desc: "Directly couples with boundary wave CSV files exported by macro ocean simulators (e.g. nankai_trough app, peak 4.08m at Miyako offshore) to predict urban inundation. Drag-and-drop custom wave CSVs to simulate varying amplitudes, 2D velocity vectors (U/V), and 360-degree bearings. Also features an interactive wave-maker mode where clicking water surfaces spawns artificial ripple pulses. Displays dual timers for both calculation LAP time and absolute time elapsed since earthquake origin.",
+    f4p1: "Full support for nankai_trough CSV outputs (53.8-min trimmed and 2-hour full timelines)",
+    f4p2: "Interactive wave maker: click water to inject pulse ripples and observe seawall impact",
+    f4p3: "Dual real-time HUD timers: Simulation LAP time alongside time since earthquake origin",
+    badge4: "Wave CSV Coupling & Wave Maker",
+
     // Scenarios
     scenKicker: "TSUNAMI SCENARIOS",
     scenTitle: "From Historic Disasters to Maximum Probable L2 Scenarios",
     scenLead: "Pre-configured scenarios designed for disaster education and future resilience evaluation.",
+    scen0Badge: "NEW Coupling",
+    scen0Title: "Nankai Trough Megathrust (nankai_trough Wave Source)",
+    scen0Meta: "Offshore Height 4.08m · 2-Hour Timeline / Boundary CSV Coupling",
+    scen0Desc: "Driven by offshore time-series boundary CSV from nankai_trough app. Peak wave of 4.08m arrives ~18 min after rupture following initial drawdown, testing historic 10m seawall resilience against trans-regional waves.",
     scen1Badge: "Calibrated to 2011",
     scen1Title: "Great East Japan Earthquake (2011)",
     scen1Meta: "Offshore Height 8.0m · Calibrated across 59 survey stations",

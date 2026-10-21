@@ -39,7 +39,7 @@
       <nav>
         <ul class="nav-links">
           <li><a href="#features" data-i18n="navFeatures">津波物理 & 防潮堤</a></li>
-          <li><a href="#scenarios" data-i18n="navScenarios">2011年震災・L2検証</a></li>
+          <li><a href="#scenarios" data-i18n="navScenarios">南海トラフ・2011震災・L2</a></li>
           <li><a href="#hazard" data-i18n="navHazard">ハザード比較</a></li>
           <li><a href="#tech" data-i18n="navTech">技術仕様</a></li>
           <li><a href="#store" data-i18n="navDownload">デスクトップ版を購入</a></li>
@@ -217,6 +217,34 @@
           </ul>
         </div>
       </div>
+      <!-- Feature 4 -->
+      <div class="feature-block reverse" id="wave-import">
+        <div class="feature-visual">
+          <img src="assets/hero.jpg" alt="波源CSVインポートと人工波のリアルタイムシミュレーション" loading="lazy">
+          <span class="visual-badge" data-i18n="badge4">波源CSV連携 × 人工波発生</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f4Num">04 / WAVE SOURCE COUPLING & LAB</div>
+          <h3 class="feature-title" data-i18n="f4Title">南海トラフ波源CSVの連携・インポート ＆ 人工波発生機能</h3>
+          <p class="feature-text" data-i18n="f4Desc">
+            広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響を精緻にシミュレーション。任意のCSVファイルをドラッグ＆ドロップして波高・流速・流向を再現できるほか、水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p1">nankai_troughアプリ出力CSVに対応（Trimmed版 53.8分 / Full 2時間タイムライン）</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p2">水面クリックによる人工波（パルス津波）の発生とリアルタイム波紋伝播</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p3">シミュレーション経過時間と地震発生後時間（Time since EQ）のデュアルタイマー併記</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -230,6 +258,14 @@
       </div>
 
       <div class="scenarios-grid">
+        <div class="scenario-card highlight" style="border-color: rgba(0, 229, 255, 0.45); background: rgba(0, 229, 255, 0.04);">
+          <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen0Badge">NEW 波源連携</div>
+          <h3 class="scenario-title" data-i18n="scen0Title">南海トラフ巨大地震連動 (nankai_trough波源)</h3>
+          <div class="scenario-meta" data-i18n="scen0Meta">沖合波高 4.08m · 2時間フルタイムライン / 境界CSV連携</div>
+          <p class="scenario-desc" data-i18n="scen0Desc">
+            nankai_troughアプリが出力した宮古沖の時系列波源データを使用。地震発生から約18分で最大波高4.08m（引き波後）が到達し、旧田老防潮堤の防御力と市街地氾濫を精密に検証。
+          </p>
+        </div>
         <div class="scenario-card highlight">
           <div class="scenario-badge" data-i18n="scen1Badge">実測照合済み</div>
           <h3 class="scenario-title" data-i18n="scen1Title">東日本大震災 (2011年再現)</h3>
