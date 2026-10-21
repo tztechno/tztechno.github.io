@@ -68,7 +68,7 @@
       <h1 data-i18n-html="heroTitle">巨大津波が来襲するとき、<br><span class="text-gradient">防潮堤は何を守るのか。</span></h1>
 
       <p class="lead" data-i18n="heroLead">
-        岩手県宮古市・田老地区（旧田老防潮堤・万里の長城）および宮古港・鍬ヶ崎・閉伊川河口域における津波の海岸押し寄せと防潮堤の治水・防御機能を観察・解析。国土地理院 5m レーザー標高 (DEM5A) と PLATEAU 3D 都市モデル、浅水変形・越流力学に基づくリアルタイム海洋物理シミュレーションを融合しました。
+        岩手県宮古市・田老地区（旧田老防潮堤・万里の長城）および宮古港・鍬ヶ崎・閉伊川河口域における津波の海岸押し寄せと、旧田老防潮堤の防御機能を観察・解析。国土地理院 5m レーザー標高 (DEM5A) と PLATEAU 3D 都市モデル、浅水変形・越流力学に基づくリアルタイム海洋物理シミュレーションを融合しました。
       </p>
 
       <div class="hero-cta">
@@ -115,7 +115,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-num text-gradient" data-i18n="statExportVal">4K / 60fps</div>
+        <div class="stat-num text-gradient" data-i18n="statExportVal">1080p / 30fps</div>
         <div class="stat-label" data-i18n="statExportLabel">MP4動画 & CSV出力</div>
         <div class="stat-desc" data-i18n="statExportDesc">WebCodecs高速録画 & Excel対応CSV</div>
       </div>
@@ -141,12 +141,12 @@
           <div class="feature-num" data-i18n="f1Num">01 / SEAWALL & TERRAIN GEOMETRY</div>
           <h3 class="feature-title" data-i18n="f1Title">田老防潮堤「万里の長城」× 宮古港 2大沿岸地域の精緻な3D化</h3>
           <p class="feature-text" data-i18n="f1Desc">
-            昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを完全収録。OpenStreetMapと国土地理院DEM5Aの微地形から防潮堤の正確な稜線を整合し、急峻な三陸リアス地形を忠実に再現しています。
+            昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。田老の防潮堤は OpenStreetMap と国土地理院DEM5Aの微地形で稜線を整合し、急峻な三陸リアス地形を再現しています（宮古港の防潮堤・水門は位置が特定できないため未収録）。
           </p>
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f1p1">国土地理院 5m レーザー標高 (DEM5A) による精密な標高グリッド</span>
+              <span data-i18n="f1p1">陸地は国土地理院 5m レーザー標高 (DEM5A)、海底は japan.tif の実測水深グリッド</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -269,9 +269,9 @@
         <div class="scenario-card highlight">
           <div class="scenario-badge" data-i18n="scen1Badge">実測照合済み</div>
           <h3 class="scenario-title" data-i18n="scen1Title">東日本大震災 (2011年再現)</h3>
-          <div class="scenario-meta" data-i18n="scen1Meta">沖合波高 8.0m · 実測59地点キャリブレーション</div>
+          <div class="scenario-meta" data-i18n="scen1Meta">沖合波高 6.5m · 実測59地点キャリブレーション</div>
           <p class="scenario-desc" data-i18n="scen1Desc">
-            田老地区の実測津波痕跡データ（信頼度A・B）に最も一致する沖合境界波高を設定。田老防潮堤を越流し市街地を呑み込んだ巨大津波の挙動を忠実に再現します。
+            japan.tif の海底地形のもとで、田老地区の実測津波痕跡59地点（信頼度A・B）に最も一致する沖合境界波高（6.5m：差±2m以内20地点・RMSE 3.0m）を設定。田老防潮堤を越流し市街地へ浸水する津波の挙動を再現します。
           </p>
         </div>
 
@@ -341,9 +341,9 @@
 
         <div class="tech-card">
           <div class="tech-icon">🎥</div>
-          <h3 class="tech-title" data-i18n="tech4Title">WebCodecs & 4K動画エクスポート</h3>
+          <h3 class="tech-title" data-i18n="tech4Title">WebCodecs & MP4動画エクスポート</h3>
           <p class="tech-desc" data-i18n="tech4Desc">
-            mp4-muxer とハードウェア支援エンコードにより、キーフレーム補間や旋回カメラの津波シミュレーション動画を最大4K/60fpsでMP4書き出し。
+            mp4-muxer とハードウェア支援エンコードにより、キーフレーム補間や旋回カメラの津波シミュレーション動画を最大1920×1080・30fpsでMP4書き出し。
           </p>
         </div>
 
@@ -359,7 +359,7 @@
           <div class="tech-icon">🗾</div>
           <h3 class="tech-title" data-i18n="tech6Title">国土地理院 DEM5A & JGD2011</h3>
           <p class="tech-desc" data-i18n="tech6Desc">
-            平面直角座標系第X系（EPSG:6678）とWGS84を高精度変換。国土地理院5mレーザー標高、東日本大震災空中写真、復興支援アーカイブ実績浸水深と完全一致。
+            平面直角座標系第X系（EPSG:6678）とWGS84を変換し、国土地理院5mレーザー標高、japan.tif 海底地形、東日本大震災空中写真、復興支援アーカイブ実績浸水深を同じ座標系で重ね合わせ。
           </p>
         </div>
       </div>
@@ -397,7 +397,7 @@
               <strong>動作要件:</strong> WebGL2 対応GPU（Apple Mシリーズ / Intel UHD / GeForce / Radeon）
             </div>
             <div class="meta-item">
-              <strong>データ出典:</strong> 国土地理院（基盤地図情報DEM5A・空中写真・震災正射画像）、国土交通省 PLATEAU、OpenStreetMap、東北地方太平洋沖地震津波合同調査グループ
+              <strong>データ出典:</strong> 国土地理院（基盤地図情報DEM5A・空中写真・震災正射画像）、海底地形 japan.tif（15秒角 水深グリッド）、国土交通省 PLATEAU、OpenStreetMap、東北地方太平洋沖地震津波合同調査グループ
             </div>
           </div>
         </div>

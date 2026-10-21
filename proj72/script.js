@@ -12,7 +12,7 @@ const translations = {
     // Hero
     heroTag: "PLATEAU × 国土地理院 DEM5A × 浅水長波物理モデル",
     heroTitle: "巨大津波が来襲するとき、<br><span class=\"text-gradient\">防潮堤は何を守るのか。</span>",
-    heroLead: "岩手県宮古市・田老地区（旧田老防潮堤・万里の長城）および宮古港・鍬ヶ崎・閉伊川河口域における津波の海岸押し寄せと防潮堤の治水・防御機能を観察・解析。国土地理院 5m レーザー標高 (DEM5A) と PLATEAU 3D 都市モデル、浅水変形・越流力学に基づくリアルタイム海洋物理シミュレーションを融合しました。",
+    heroLead: "岩手県宮古市・田老地区（旧田老防潮堤・万里の長城）および宮古港・鍬ヶ崎・閉伊川河口域における津波の海岸押し寄せと、旧田老防潮堤の防御機能を観察・解析。国土地理院 5m レーザー標高 (DEM5A) と PLATEAU 3D 都市モデル、浅水変形・越流力学に基づくリアルタイム海洋物理シミュレーションを融合しました。",
     heroCtaBuy: "デスクトップ版を購入する (¥980)",
     heroCtaMore: "シミュレーションの仕組みを見る",
     heroPlatforms: "macOS (Apple Silicon dmg) · Windows 10/11 (exe) · 買い切り ¥980",
@@ -34,7 +34,7 @@ const translations = {
     statModelLabel: "浅水長波 2次元流体解析",
     statModelDesc: "de Almeida et al. θ重み付きスキーム",
 
-    statExportVal: "4K / 60fps",
+    statExportVal: "1080p / 30fps",
     statExportLabel: "MP4動画 & CSV出力",
     statExportDesc: "WebCodecs高速録画 & Excel対応CSV",
 
@@ -46,8 +46,8 @@ const translations = {
     // Feature 1
     f1Num: "01 / SEAWALL & TERRAIN GEOMETRY",
     f1Title: "田老防潮堤「万里の長城」× 宮古港 2大沿岸地域の精緻な3D化",
-    f1Desc: "昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを完全収録。OpenStreetMapと国土地理院DEM5Aの微地形から防潮堤の正確な稜線を整合し、急峻な三陸リアス地形を忠実に再現しています。",
-    f1p1: "国土地理院 5m レーザー標高 (DEM5A) による精密な標高グリッド",
+    f1Desc: "昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。田老の防潮堤は OpenStreetMap と国土地理院DEM5Aの微地形で稜線を整合し、急峻な三陸リアス地形を再現しています（宮古港の防潮堤・水門は位置が特定できないため未収録）。",
+    f1p1: "陸地は国土地理院 5m レーザー標高 (DEM5A)、海底は japan.tif の実測水深グリッド",
     f1p2: "PLATEAU 3D都市モデルの建物を配置し、浸水深でリアルタイム警戒色変化",
     f1p3: "防潮堤高さスライダー（0m〜22m）で動的な防潮堤改変・治水効果実験が可能",
     badge1: "高精度 DEM5A × OSM",
@@ -89,8 +89,8 @@ const translations = {
     scen0Desc: "nankai_troughアプリが出力した宮古沖の時系列波源データを使用。地震発生から約18分で最大波高4.08m（引き波後）が到達し、旧田老防潮堤の防御力と市街地氾濫を精密に検証。",
     scen1Badge: "実測照合済み",
     scen1Title: "東日本大震災 (2011年再現)",
-    scen1Meta: "沖合波高 8.0m · 実測59地点キャリブレーション",
-    scen1Desc: "田老地区の実測津波痕跡データ（信頼度A・B）に最も一致する沖合境界波高を設定。田老防潮堤を越流し市街地を呑み込んだ巨大津波の挙動を忠実に再現します。",
+    scen1Meta: "沖合波高 6.5m · 実測59地点キャリブレーション",
+    scen1Desc: "japan.tif の海底地形のもとで、田老地区の実測津波痕跡59地点（信頼度A・B）に最も一致する沖合境界波高（6.5m：差±2m以内20地点・RMSE 3.0m）を設定。田老防潮堤を越流し市街地へ浸水する津波の挙動を再現します。",
 
     scen2Badge: "最大級津波",
     scen2Title: "想定最大規模 L2津波 (岩手県公表)",
@@ -117,12 +117,12 @@ const translations = {
     tech2Desc: "浅水長波方程式の局所慣性モデル（de Almeida et al.）をWeb Worker内で独立並列実行。描画スレッドを一切ブロックせず、長時間のシミュレーションも安定駆動。",
     tech3Title: "Tauri v2 デスクトップ環境",
     tech3Desc: "Rustベースの極めて軽量・高速なデスクトップランタイム。わずか数十MBの軽量バイナリでオフライン完全動作と高速データ出力を実現。",
-    tech4Title: "WebCodecs & 4K動画エクスポート",
-    tech4Desc: "mp4-muxer とハードウェア支援エンコードにより、キーフレーム補間や旋回カメラの津波シミュレーション動画を最大4K/60fpsでMP4書き出し。",
+    tech4Title: "WebCodecs & MP4動画エクスポート",
+    tech4Desc: "mp4-muxer とハードウェア支援エンコードにより、キーフレーム補間や旋回カメラの津波シミュレーション動画を最大1920×1080・30fpsでMP4書き出し。",
     tech5Title: "地点観察 & Excel CSV出力",
     tech5Desc: "地図上の任意の地点をクリックするだけで時系列水深グラフを表示。経過時間・波高・遡上高・浸水面積・浸水棟数をExcel対応UTF-8 BOM付きCSVで即座に出力。",
     tech6Title: "国土地理院 DEM5A & JGD2011",
-    tech6Desc: "平面直角座標系第X系（EPSG:6678）とWGS84を高精度変換。国土地理院5mレーザー標高、東日本大震災空中写真、復興支援アーカイブ実績浸水深と完全一致。",
+    tech6Desc: "平面直角座標系第X系（EPSG:6678）とWGS84を変換し、国土地理院5mレーザー標高、japan.tif 海底地形、東日本大震災空中写真、復興支援アーカイブ実績浸水深を同じ座標系で重ね合わせ。",
 
     // Store
     storeBadge: "DESKTOP APP EDITION",
@@ -165,7 +165,7 @@ const translations = {
     statModelLabel: "2D Shallow Water Equations",
     statModelDesc: "de Almeida et al. θ-weighted scheme",
 
-    statExportVal: "4K / 60fps",
+    statExportVal: "1080p / 30fps",
     statExportLabel: "MP4 Video & CSV Export",
     statExportDesc: "WebCodecs hardware encode & Excel CSV",
 
@@ -177,8 +177,8 @@ const translations = {
     // Feature 1
     f1Num: "01 / SEAWALL & TERRAIN GEOMETRY",
     f1Title: "Dual-Region 3D Modeling: Taro Great Wall & Miyako Port Hub",
-    f1Desc: "Comprehensive 3D coverage of both Taro's historic 10.0m seawall and Miyako's primary port/urban center (Dezaki Pier, Kuwagasaki, Hei River mouth). Mapped from OpenStreetMap, GSI DEM5A laser profiling, and aerial survey data to reproduce steep ria cliffs and coastal floodplains.",
-    f1p1: "Sub-meter precision terrain grid powered by GSI Japan 5m laser profiling",
+    f1Desc: "Comprehensive 3D coverage of both Taro's historic 10.0m seawall and Miyako's primary port/urban center (Dezaki Pier, Kuwagasaki, Hei River mouth). The Taro seawall is aligned with OpenStreetMap and GSI DEM5A micro-topography over steep ria cliffs and coastal floodplains (Miyako Port seawalls and floodgates are not modeled, as their exact positions are unknown).",
+    f1p1: "Land from GSI 5m LiDAR elevation (DEM5A), seabed from the japan.tif bathymetry grid",
     f1p2: "PLATEAU 3D LOD1 building meshes dynamically shaded by flood depth alerts",
     f1p3: "Interactive seawall elevation slider (0m - 22m) for dynamic flood defense experiments",
     badge1: "LiDAR DEM5A × OSM",
@@ -220,8 +220,8 @@ const translations = {
     scen0Desc: "Driven by offshore time-series boundary CSV from nankai_trough app. Peak wave of 4.08m arrives ~18 min after rupture following initial drawdown, testing historic 10m seawall resilience against trans-regional waves.",
     scen1Badge: "Calibrated to 2011",
     scen1Title: "Great East Japan Earthquake (2011)",
-    scen1Meta: "Offshore Height 8.0m · Calibrated across 59 survey stations",
-    scen1Desc: "Configured to match surveyed high watermarks across Taro. Faithfully reproduces overtopping of the 10m seawall and rapid urban flooding.",
+    scen1Meta: "Offshore Height 6.5m · Calibrated across 59 survey stations",
+    scen1Desc: "On the japan.tif seabed, the offshore boundary height (6.5m: 20 of 59 surveyed watermarks within ±2m, RMSE 3.0m) is tuned to best match Taro's survey. Reproduces overtopping of the 10m seawall and the flooding of the town.",
 
     scen2Badge: "Maximum Probable",
     scen2Title: "Worst-Case L2 Scenario (Iwate Official)",
@@ -248,12 +248,12 @@ const translations = {
     tech2Desc: "Non-blocking background simulation of 2D shallow water equations ensures uninterrupted camera navigation.",
     tech3Title: "Tauri v2 Native Desktop Shell",
     tech3Desc: "Ultra-lean Rust backend delivering zero-latency desktop workflows with minimal RAM footprint.",
-    tech4Title: "WebCodecs Hardware 4K MP4 Encoder",
-    tech4Desc: "Direct GPU video export supporting smooth camera keyframe interpolation and orbit animations up to 4K 60fps.",
+    tech4Title: "WebCodecs Hardware MP4 Encoder",
+    tech4Desc: "Direct GPU video export supporting smooth camera keyframe interpolation and orbit animations up to 1920×1080 at 30fps.",
     tech5Title: "Station Observation & Excel CSV",
     tech5Desc: "Click any point on the map to inspect hydrographs and export full time-series data with Excel UTF-8 BOM.",
     tech6Title: "GSI DEM5A & EPSG:6678 (Zone X)",
-    tech6Desc: "Rigorous cartographic reprojection preserving centimeter-level height integrity across official datasets.",
+    tech6Desc: "Reprojects between plane rectangular Zone X (EPSG:6678) and WGS84 so GSI DEM5A terrain, japan.tif bathymetry, 2011 aerial photos and recorded inundation grids overlay in one coordinate system.",
 
     // Store
     storeBadge: "DESKTOP APP EDITION",
