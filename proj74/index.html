@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Osaka Tsunami | 大阪市津波 3Dシミュレーター</title>
+  <meta name="description" content="大阪湾から大阪港・市街地へ押し寄せる津波と、三大水門（安治川・尻無川・木津川）・防潮堤の防御を観察できる3Dシミュレーター。国土地理院10m標高 × PLATEAU × nankai_trough波源連携。">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Osaka Tsunami — 大阪市津波 3Dシミュレーター">
+  <meta property="og:description" content="ゼロメートル地帯を抱える大阪の街を、三大水門と防潮堤はどう守るのか。国土地理院DEM × PLATEAU × 浅水長波モデルで可視化。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/app-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= Navigation ================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-badge">🌊</div>
+        <div class="logo-text">
+          <span>OSAKA TSUNAMI</span>
+          <span class="logo-sub">3D TSUNAMI SIMULATOR</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="navFeatures">地形・水門・防潮堤</a></li>
+          <li><a href="#scenarios" data-i18n="navScenarios">津波シナリオ</a></li>
+          <li><a href="#tech" data-i18n="navTech">技術仕様</a></li>
+          <li><a href="#store" data-i18n="navDownload">デスクトップ版を購入</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-toggle" class="lang-toggle" type="button" data-i18n="langToggle">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/osaka_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="navDownload">デスクトップ版を購入</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-bg-layer" style="background-image: url('assets/hero.jpg');"></div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-water-glow"></div>
+
+    <div class="container hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-pulse"></span>
+        <span data-i18n="heroTag">国土地理院 DEM × PLATEAU × nankai_trough 波源連携</span>
+      </div>
+
+      <h1 data-i18n-html="heroTitle">津波が大阪湾に入ったとき、<br><span class="text-gradient">三大水門は街を守れるか。</span></h1>
+
+      <p class="lead" data-i18n="heroLead">
+        大阪湾から大阪港・河川・市街地へ押し寄せる津波と、安治川・尻無川・木津川の三大水門、防潮堤の防御をリアルタイム3Dで観察。T.P.0m を下回るゼロメートル地帯、夢洲・舞洲・咲洲の人工島、市内の河川網を国土地理院の10m標高で再現し、浅水長波モデルで浸水を計算します。
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/osaka_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="heroCtaBuy">デスクトップ版を購入する (¥980)</span>
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <span data-i18n="heroCtaMore">シミュレーションの仕組みを見る</span>
+        </a>
+      </div>
+
+      <div class="hero-platforms">
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon dmg) · Windows 10/11 (exe) · 買い切り ¥980</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Key Stats ================= -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statDemVal">10m メッシュ</div>
+        <div class="stat-label" data-i18n="statDemLabel">16 × 12 km 計算領域</div>
+        <div class="stat-desc" data-i18n="statDemDesc">国土地理院 DEM5A / DEM10B</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statGateVal">三大水門</div>
+        <div class="stat-label" data-i18n="statGateLabel">安治川・尻無川・木津川</div>
+        <div class="stat-desc" data-i18n="statGateDesc">全閉 / 全開 / 撤去 / 高さ可変</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statBldgVal">約 3.4 万棟</div>
+        <div class="stat-label" data-i18n="statBldgLabel">PLATEAU 建物</div>
+        <div class="stat-desc" data-i18n="statBldgDesc">浸水深 0.5m 以上で警戒色</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statSourceVal">内閣府ケース③</div>
+        <div class="stat-label" data-i18n="statSourceLabel">nankai_trough 計算波源</div>
+        <div class="stat-desc" data-i18n="statSourceDesc">大阪湾 最大 2.04m</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statAreaVal">63 × 56 km</div>
+        <div class="stat-label" data-i18n="statAreaLabel">周辺地形の背景</div>
+        <div class="stat-desc" data-i18n="statAreaDesc">大阪平野・六甲・生駒</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Core Features ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="featKicker">CORE CAPABILITIES</span>
+        <h2 class="section-title" data-i18n="featTitle">低い土地と水門の街を、津波の物理で検証する</h2>
+        <p class="section-lead" data-i18n="featLead">大阪湾からの入射、港内での反射・増幅、防潮堤の越流、河川の遡上、ゼロメートル地帯への浸水までを、3Dで追いかけられます。</p>
+      </div>
+
+      <!-- Feature 1 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/hero.jpg" alt="大阪港・人工島・河川網の3D地形" >
+          <span class="visual-badge" data-i18n="badge1">国土地理院 DEM5A / DEM10B</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f1Num">01 / TERRAIN & WATER NETWORK</div>
+          <h3 class="feature-title" data-i18n="f1Title">ゼロメートル地帯・人工島・河川網を 10m 精度で再現</h3>
+          <p class="feature-text" data-i18n="f1Desc">
+            国土地理院の標高データでは海と河川が欠測域になるため、海岸線と淀川・安治川・木津川・尻無川・道頓堀川・大川などの河道を正確に抽出できます。西淀川・此花・港・大正などの T.P.0m 未満の市街地はそのままの標高で、夢洲・舞洲・咲洲の人工島は陸地として配置しています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p1">陸地は国土地理院 DEM5A/DEM10B、海底は japan.tif（15秒角）の水深</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p2">PLATEAU の建物（約3.4万棟）を配置し、浸水深 0.5m 以上で赤く表示</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p3">地図をクリックすると、その地点の標高・水深・最大浸水深と時系列グラフを表示</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/gates.jpg" alt="三大水門と河川網の3D表示" >
+          <span class="visual-badge" data-i18n="badge2">三大水門 × 防潮堤</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f2Num">02 / FLOODGATES & SEAWALLS</div>
+          <h3 class="feature-title" data-i18n="f2Title">三大水門を閉じると、市内の河川網は湾から切り離される</h3>
+          <p class="feature-text" data-i18n="f2Desc">
+            安治川水門（T.P.+7.4m）・尻無川水門（+6.7m）・木津川水門（+7.2m）を河道の断面に合わせて配置。全閉にすると、堂島川・土佐堀川・大川・道頓堀川などの内側河川が湾から完全に切り離されます。防潮堤は実際の海岸線・河岸に沿って自動で配置し、水門の外側は T.P.+6.8m、内側の河川は T.P.+3.5m の護岸としています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p1">プリセット: 三大水門 全閉 / 全開（河川遡上の検証） / 防潮堤・水門なし</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p2">水門・堤防の天端高を 0〜15m のスライダーで変更し、越流の有無を比較</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p3">浸水面積・浸水建物数・最大遡上高・越流箇所数をリアルタイム表示</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/flood.jpg" alt="防潮堤を越流して市街地へ浸水する津波" >
+          <span class="visual-badge" data-i18n="badge3">越流・浸水の検証</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f3Num">03 / PHYSICS</div>
+          <h3 class="feature-title" data-i18n="f3Title">湾からの入射、港内での反射・増幅、そして越流</h3>
+          <p class="feature-text" data-i18n="f3Desc">
+            浅水長波の局所慣性モデル（de Almeida et al. 2012 の θ 重み付きスキーム）を Web Worker で計算。大阪湾側の境界には造波・吸収層を置き、湾から入る波を作りつつ、港から戻る反射波は外へ逃がします。港の奥の護岸で波が重なって高くなり、防潮堤を越えて低い市街地へ流れ込む様子を確認できます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p1">CFL 条件に応じた自動時間刻みで安定に計算</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p2">陸上の浸水は濁流色（深いほど濃く）、海面の上昇は明るい青、速い流れは白波で表示</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p3">カスタム波では、水面をクリックして人工波を起こす実験も可能</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/backdrop.jpg" alt="大阪平野・六甲・生駒を含む広域の3D地形" >
+          <span class="visual-badge" data-i18n="badge4">osaka.tif × 航空写真</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f4Num">04 / REGIONAL TERRAIN & FREE CAMERA</div>
+          <h3 class="feature-title" data-i18n="f4Title">大阪平野の広がりの中で、自由な視点から見る</h3>
+          <p class="feature-text" data-i18n="f4Desc">
+            計算領域の周囲には、1秒角 DEM（osaka.tif）と航空写真で大阪平野・六甲山地・生駒山地・大阪湾岸の約 63×56km を背景として表示。マウスで回転・移動・ズーム、WASD キーで前後左右、Q/E で上下に動けます。ダブルクリックで注視点を移し、視点ボタンで全景・大阪港・三大水門・市街地・広域・真上にすぐ切り替えられます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p1">夢洲・USJ・天保山・安治川水門などのランドマーク名を表示</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p2">シミュレーション結果を CSV（Excel 対応）で保存、3D 画面を MP4 動画で録画</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p3">日本語 / English 切り替え</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Scenario Section ================= -->
+  <section class="section" id="scenarios" style="background: rgba(10, 18, 34, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="scenKicker">TSUNAMI SCENARIOS</span>
+        <h2 class="section-title" data-i18n="scenTitle">広域計算の波源から、想定を超える仮想ケースまで</h2>
+        <p class="section-lead" data-i18n="scenLead">南海トラフ広域シミュレーター nankai_trough の計算結果をそのまま波源として読み込めます。</p>
+      </div>
+
+      <div class="scenarios-grid">
+        <div class="scenario-card highlight" style="border-color: rgba(0, 229, 255, 0.45); background: rgba(0, 229, 255, 0.04);">
+          <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen1Badge">nankai_trough 計算</div>
+          <h3 class="scenario-title" data-i18n="scen1Title">南海トラフ巨大地震 内閣府ケース③</h3>
+          <div class="scenario-meta" data-i18n="scen1Meta">大阪湾 最大 2.04m · 地震後 2時間10分</div>
+          <p class="scenario-desc" data-i18n="scen1Desc">
+            nankai_trough で内閣府(2012)の5ケースを計算し、大阪湾の水位が最大になったケース③「紀伊半島沖～四国沖」を収録。切り出し版と、地震発生から3時間の全期間版の2種類。三大水門を閉じた状態では市街地への浸水は起きません。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171;" data-i18n="scen2Badge">仮想・越流検証</div>
+          <h3 class="scenario-title" data-i18n="scen2Title">想定超過津波（沖合 4.5m）</h3>
+          <div class="scenario-meta" data-i18n="scen2Meta">正弦波 · 防潮堤 T.P.+6.8m を越流</div>
+          <p class="scenario-desc" data-i18n="scen2Desc">
+            港内での反射・増幅で護岸前面の水位が防潮堤を超えるケース。水門を閉じた状態でも約 1,000ha が浸水し、ゼロメートル地帯にも水が入ります（計算例）。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" data-i18n="scen3Badge">河川遡上の観察</div>
+          <h3 class="scenario-title" data-i18n="scen3Title">安政南海地震型（1854年・概略）</h3>
+          <div class="scenario-meta" data-i18n="scen3Meta">正弦波 · 沖合 2.5m</div>
+          <p class="scenario-desc" data-i18n="scen3Desc">
+            1854年の安政南海地震では津波が安治川・木津川を遡上しました。水門を全開にして、波が市内の河川へ入っていく様子を観察できます（波源計算ではない概略ケース）。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;" data-i18n="scen4Badge">CSV 読み込み · カスタム</div>
+          <h3 class="scenario-title" data-i18n="scen4Title">任意の波源 CSV / パラメータ</h3>
+          <div class="scenario-meta" data-i18n="scen4Meta">ドラッグ＆ドロップ · 波高 1〜15m</div>
+          <p class="scenario-desc" data-i18n="scen4Desc">
+            nankai_trough が出力した任意地点の境界波形 CSV を読み込み可能。カスタムモードでは波高・周期・来襲方向をスライダーで自由に設定できます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Tech Specs ================= -->
+  <section class="section" id="tech">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="techKicker">ARCHITECTURE & TECHNOLOGY</span>
+        <h2 class="section-title" data-i18n="techTitle">地理空間データと流体ソルバーの組み合わせ</h2>
+        <p class="section-lead" data-i18n="techLead">Web 技術で作り、Tauri のデスクトップアプリとしてオフラインで動作します。</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-icon">⚡</div>
+          <h3 class="tech-title" data-i18n="tech1Title">Three.js & WebGL</h3>
+          <p class="tech-desc" data-i18n="tech1Desc">192万セルの地形メッシュ、約3.4万棟の建物、毎フレーム変形する水面、広域の背景地形を GPU で描画。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🌐</div>
+          <h3 class="tech-title" data-i18n="tech2Title">Web Worker 流体ソルバー</h3>
+          <p class="tech-desc" data-i18n="tech2Desc">局所慣性モデルを別スレッドで計算し、描画とカメラ操作を止めずに長時間のシミュレーションを実行。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🦀</div>
+          <h3 class="tech-title" data-i18n="tech3Title">Tauri v2 デスクトップ</h3>
+          <p class="tech-desc" data-i18n="tech3Desc">Rust ベースの軽量ランタイム。インストール後はインターネット接続なしで動作します。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🔗</div>
+          <h3 class="tech-title" data-i18n="tech4Title">nankai_trough 波源連携</h3>
+          <p class="tech-desc" data-i18n="tech4Desc">広域シミュレーターが出力する時系列 CSV（水位・流速・流向）を、そのまま湾側の境界条件として使用。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">📊</div>
+          <h3 class="tech-title" data-i18n="tech5Title">CSV & MP4 出力</h3>
+          <p class="tech-desc" data-i18n="tech5Desc">経過時間・沖合波高・最大遡上高・浸水面積・浸水建物数を UTF-8 BOM 付き CSV で保存。3D 画面は 1280×720 の MP4 で録画。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-icon">🗾</div>
+          <h3 class="tech-title" data-i18n="tech6Title">JGD2011 平面直角座標</h3>
+          <p class="tech-desc" data-i18n="tech6Desc">第VI系（EPSG:6674）で国土地理院 DEM、japan.tif、osaka.tif、航空写真、PLATEAU 建物を同じ座標系に重ね合わせ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Store Section ================= -->
+  <section class="section" id="store">
+    <div class="container">
+      <div class="store-box">
+        <div class="store-content">
+          <div class="store-badge" data-i18n="storeBadge">DESKTOP APP EDITION</div>
+          <h2 class="store-title" data-i18n="storeTitle">大阪市津波 3Dシミュレーター デスクトップ版</h2>
+          <p class="store-desc" data-i18n="storeDesc">
+            オフラインで動作するデスクトップ版。nankai_trough 波源の読み込み、三大水門・防潮堤の設定変更、CSV・MP4 出力に対応しています。
+          </p>
+
+          <div class="store-pricing">
+            <span class="store-price">¥980</span>
+            <span class="store-tax" data-i18n="storeTax">（税込・買い切りライセンス）</span>
+          </div>
+
+          <div class="store-buttons">
+            <a href="https://cyber-matrix.netlify.app/products/osaka_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-xl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span data-i18n="storeBtnBuy">購入・ダウンロード（Stripe決済）</span>
+            </a>
+          </div>
+
+          <div class="store-meta">
+            <div class="meta-item">
+              <strong data-i18n="metaOsLabel">対応OS:</strong> macOS 12+ (Apple Silicon), Windows 10/11 (64-bit)
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaReqLabel">動作要件:</strong> <span data-i18n="metaReq">WebGL 対応 GPU</span>
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaSrcLabel">データ出典:</strong> <span data-i18n="metaSrc">国土地理院（DEM5A・DEM10B・シームレス空中写真）、海底地形 japan.tif（15秒角）、osaka.tif（1秒角 DEM）、国土交通省 PLATEAU、波源 nankai_trough（内閣府 2012 津波断層モデルの概略再現）</span>
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaNoteLabel">ご注意:</strong> <span data-i18n="metaNote">学習・可視化用のシミュレーターです。防潮堤・護岸の高さは代表値で、公的な浸水想定とは一致しません。避難の判断には自治体のハザードマップをご確認ください。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">OSAKA TSUNAMI 3D</div>
+        <div class="footer-copy">© 2026 TZ Techno / Cyber Matrix. All rights reserved.</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-matrix.netlify.app/products/osaka_tsunami" target="_blank" rel="noopener noreferrer">Cyber Matrix Store</a>
+        <a href="https://github.com/tztechno" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
