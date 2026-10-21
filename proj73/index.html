@@ -60,7 +60,7 @@
         <div class="hero-content">
           <div class="badge-pill">
             <span class="pulse-dot"></span>
-            <span data-i18n="heroBadge">次世代型 物理津波シミュレーション基盤</span>
+            <span data-i18n="heroBadge">v1.1.0 最新版: USGS Slab2・内閣府11領域・MP4録画搭載</span>
           </div>
           <h1 class="hero-title" data-i18n="heroTitle">
             南海トラフ巨大津波を、<br>
@@ -95,18 +95,18 @@
 
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-val">3.6<span class="unit">MB</span></span>
-              <span class="stat-label" data-i18n="statSize">超軽量デスクトップ</span>
+              <span class="stat-val">v1.1.0</span>
+              <span class="stat-label" data-i18n="statSize">超軽量 (3.7MB〜)</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-val">日本全国</span>
+              <span class="stat-label" data-i18n="statDomain">広域1.5分メッシュ</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
               <span class="stat-val">120<span class="unit">分</span></span>
               <span class="stat-label" data-i18n="statTime">数秒で一括高速計算</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-              <span class="stat-val">1,801<span class="unit">点</span></span>
-              <span class="stat-label" data-i18n="statRows">完全な時系列波形</span>
             </div>
           </div>
         </div>
@@ -138,12 +138,12 @@
     <section class="section" id="features">
       <div class="container">
         <div class="section-head text-center">
-          <h2 class="section-title" data-i18n="featuresTitle">3つの核心技術とアドバンテージ</h2>
-          <p class="section-desc" data-i18n="featuresDesc">学術基準の物理モデル、実務に即した連携出力、そしてモダンな高速実行環境を兼ね備えています。</p>
+          <h2 class="section-title" data-i18n="featuresTitle">4つの核心技術とアドバンテージ</h2>
+          <p class="section-desc" data-i18n="featuresDesc">学術基準の物理モデル、実務に即した連携出力、プレート境界の立体モデル、そしてモダンな高速実行環境を兼ね備えています。</p>
         </div>
 
         <div class="features-grid">
-          <!-- Card 1 -->
+          <!-- Card 1: Physics Model -->
           <div class="feature-card">
             <div class="feature-icon icon-cyan">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -161,7 +161,29 @@
             </div>
           </div>
 
-          <!-- Card 2 -->
+          <!-- Card 2: USGS Slab2 Model -->
+          <div class="feature-card">
+            <div class="feature-icon icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="22" y1="12" x2="18" y2="12"/>
+                <line x1="6" y1="12" x2="2" y2="12"/>
+                <line x1="12" y1="6" x2="12" y2="2"/>
+                <line x1="12" y1="22" x2="12" y2="18"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2Title">USGS Slab2 プレート境界補間</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">
+              沈み込むフィリピン海プレートおよび太平洋プレートの3次元形状データ（0.1度格子）を内蔵。「🎯 震源クリック指定」で地図上をクリックするだけで、プレート深さ・走向（strike）・傾斜（dip）を瞬時に双線形補間して物理的に妥当な断層面を自動構成。
+            </p>
+            <div class="feature-tag-list">
+              <span>USGS Slab2</span>
+              <span>Pick Epicenter</span>
+              <span>3D Geometry</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Phase 2 CSV Export -->
           <div class="feature-card">
             <div class="feature-icon icon-rose">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -172,8 +194,8 @@
                 <polyline points="10 9 9 9 8 9"/>
               </svg>
             </div>
-            <h3 class="feature-title" data-i18n="feat2Title">市街地遡上連携用 CSV 出力</h3>
-            <p class="feature-desc" data-i18n="feat2Desc">
+            <h3 class="feature-title" data-i18n="feat3Title">市街地遡上連携用 CSV 出力</h3>
+            <p class="feature-desc" data-i18n="feat3Desc">
               全期間時系列（方式A）に加え、第1波到達前2分を t=0 に正規化して無駄な初期時間を省いた「市街地連携用トリミング波形（方式B）」を出力。水位だけでなく東西・南北の流速ベクトル（U, V）や流向を含み、Phase 2 の都市浸水シミュレーターに即座に直結。
             </p>
             <div class="feature-tag-list">
@@ -183,21 +205,21 @@
             </div>
           </div>
 
-          <!-- Card 3 -->
+          <!-- Card 4: Video MP4 & Fast Solver -->
           <div class="feature-card">
             <div class="feature-icon icon-amber">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
               </svg>
             </div>
-            <h3 class="feature-title" data-i18n="feat3Title">Shapiro フィルター & 超高速計算</h3>
-            <p class="feature-desc" data-i18n="feat3Desc">
-              潮岬沖などの急深海底崖で発生しやすい2Δxグリッド数値ノイズ（1分周期振動・0.5m跳ね）を消去するShapiroフィルターと空間双線形補間を搭載。長周期津波エネルギーを99.9%保持しつつ、数秒で120分の物理計算を一括実行できる超高速ソルバーです。
+            <h3 class="feature-title" data-i18n="feat4Title">動画保存 (MP4) & 超高速計算</h3>
+            <p class="feature-desc" data-i18n="feat4Desc">
+              WebCodecs と MP4-Muxer による高速ハードウェアエンコードを搭載し、アニメーションをMP4動画としてワンクリックで直接保存。急深崖の数値ノイズを消去するShapiroフィルターを備え、120分の物理計算も数秒で一括実行できます。
             </p>
             <div class="feature-tag-list">
+              <span>MP4 Export</span>
               <span>Shapiro Filter</span>
-              <span>Bilinear Sampling</span>
               <span>Fast-Forward 120m</span>
             </div>
           </div>
@@ -282,15 +304,17 @@
     <section class="section" id="scenarios">
       <div class="container">
         <div class="section-head text-center">
-          <h2 class="section-title" data-i18n="scenariosTitle">4大想定地震シナリオ</h2>
-          <p class="section-desc" data-i18n="scenariosDesc">内閣府想定クラスの最大規模連動型から歴史的単独地震まで、ワンクリックで切り替えて波形を比較できます。</p>
+          <h2 class="section-title" data-i18n="scenariosTitle">内閣府想定・歴史地震・全国シナリオ</h2>
+          <p class="section-desc" data-i18n="scenariosDesc">内閣府モデル（全11ケース）から歴史地震、2011年東北沖地震までワンクリックで切り替えて波形を比較できます。</p>
         </div>
 
         <div class="scenario-tabs">
-          <button class="scenario-tab-btn active" data-scenario="nankai_full">南海トラフ全域連動 (M9.1)</button>
-          <button class="scenario-tab-btn" data-scenario="tonankai">東南海地震単独 (M8.2)</button>
-          <button class="scenario-tab-btn" data-scenario="nankai_single">南海地震単独 (M8.4)</button>
-          <button class="scenario-tab-btn" data-scenario="tokai">東海地震単独 (M8.0)</button>
+          <button class="scenario-tab-btn active" data-scenario="nankai_full">全域連動 (M9.1)</button>
+          <button class="scenario-tab-btn" data-scenario="cabinet_c1">内閣府ケース① (M9.1)</button>
+          <button class="scenario-tab-btn" data-scenario="tohoku_2011">2011年東北沖 (M9.0)</button>
+          <button class="scenario-tab-btn" data-scenario="tonankai">昭和東南海 (M8.2)</button>
+          <button class="scenario-tab-btn" data-scenario="nankai_single">昭和南海 (M8.4)</button>
+          <button class="scenario-tab-btn" data-scenario="tokai">東海地震 (M8.0)</button>
         </div>
 
         <div class="scenario-content-card" id="scenario-card">
@@ -358,16 +382,16 @@
         <div class="download-grid">
           <!-- macOS Card -->
           <div class="download-card featured">
-            <div class="card-featured-ribbon">Recommended</div>
+            <div class="card-featured-ribbon">v1.1.0 Release</div>
             <div class="platform-icon">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.75 1.04-1.8 1.01-2.84-.89.04-1.98.6-2.61 1.34-.56.64-1.05 1.69-.92 2.71 1 .08 2.01-.52 2.52-1.21z"/>
               </svg>
             </div>
             <h3>macOS デスクトップ版</h3>
-            <p class="card-meta">Apple Silicon (M1/M2/M3/M4/M5) & Intel 対応</p>
-            <p class="card-desc">Tauri v2 による完全ネイティブアプリ。完全オフライン環境で超高速に動作します。</p>
-            <div class="file-size-badge">パッケージ形式: <strong>DMG (3.6 MB)</strong></div>
+            <p class="card-meta">Apple Silicon (M1〜M5) & Intel 対応</p>
+            <p class="card-desc">Tauri v2 による完全ネイティブアプリ。完全オフライン環境で超高速に動作。MP4動画・CSVの自動ダイレクト保存対応。</p>
+            <div class="file-size-badge">パッケージ形式: <strong>DMG (約 5.0 MB / v1.1.0)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -387,8 +411,8 @@
             </div>
             <h3>Windows デスクトップ版</h3>
             <p class="card-meta">Windows 10 / 11 (64-bit)</p>
-            <p class="card-desc">NSISインストーラーおよびポータブルEXEパッケージ。オフラインで高速実行可能です。</p>
-            <div class="file-size-badge">パッケージ形式: <strong>EXE / MSI インストーラー</strong></div>
+            <p class="card-desc">NSISインストーラー形式。オフラインで高速実行可能。MP4動画・CSVの自動ダイレクト保存対応。</p>
+            <div class="file-size-badge">パッケージ形式: <strong>NSIS セットアップ EXE (約 3.7 MB / v1.1.0)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>

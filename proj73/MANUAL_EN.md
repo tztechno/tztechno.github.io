@@ -1,180 +1,365 @@
 # Nankai Trough Tsunami Simulator - User Manual
-**南海トラフ津波広域伝播シミュレーター 操作マニュアル (English Version)**
+**南海トラフ津波広域伝播シミュレーター 操作マニュアル (English)**
 
 ---
 
-## 1. Introduction & Overview
+## 1. Introduction
 
-The **Nankai Trough Tsunami Simulator** is an interactive, physically-based numerical simulation software designed to model the generation and broad-scale ocean propagation of mega-earthquake tsunamis along the Nankai Subduction Zone.
+This software computes the initial tsunami from seafloor deformation caused by an earthquake and simulates how the tsunami spreads across the seas around Japan. Although the app is named after the Nankai Trough, the simulation domain covers **all of Japan** (125.6°E–152.9°E, 22.0°N–48.0°N), so earthquakes outside the Nankai Trough, such as the 2011 Tohoku-oki earthquake, can also be simulated.
 
-### Project Goals & Two-Phase Simulation Architecture
-1. **Phase 1: Broad-Scale Ocean Tsunami Propagation (This Application)**:
-   * Computes seabed deformation from arbitrary fault rupture scenarios and simulates tsunami propagation across the Pacific Ocean toward the Japanese coastline.
-   * Accurately tracks **wave elevation, flow velocity vectors ($u, v$), direction, and arrival times** at key coastal observation points (e.g., Muroto, Shionomisaki, Suruga Bay, Hamamatsu, Owase, Ashizuri, Hyuganada, Kii Channel).
-2. **Phase 2: City Inundation & Run-up Simulation Integration**:
-   * Exports high-resolution time-series boundary condition data (CSV format) directly into localized Phase-2 city run-up simulators (such as urban building-inundation models established in Miyako and other coastal regions).
+### Two-phase concept
+1. **Phase 1 (regional propagation: this system)**
+   * Computes tsunami generation and propagation from an earthquake fault model and records **water level, current velocity, flow direction, and arrival time** at offshore observation points.
+2. **Phase 2 (link to urban inundation simulation)**
+   * The offshore water level and velocity time series (CSV) exported by this system serve as boundary conditions for a high-resolution urban run-up simulation.
+
+> [!IMPORTANT]
+> Wave heights in this system are values at **offshore observation points** in water tens to thousands of meters deep. Tsunami heights and run-up at the coast are larger because waves grow in shallow water (shoaling). For coastal damage estimates, use the Phase 2 urban simulation or official hazard assessments.
 
 ---
 
-## 2. Requirements & Installation
+## 2. Requirements and Launch
 
-### Web Browser Edition
-* **Supported Browsers**: Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge (latest versions recommended).
-* **Running Locally**:
+### 2.1 Web browser version
+* **Browsers**: Google Chrome, Microsoft Edge, Apple Safari, Mozilla Firefox (latest)
+* **Launch**:
   ```bash
   cd nankai_trough
   npm install
   npm run dev
   ```
   Open `http://localhost:5173/` in your browser.
+* **Where files are saved**: CSVs and videos go to the browser's usual download location.
 
-### Desktop App (Tauri)
-* **macOS**:
-  * Open `NankaiTroughTsunami.dmg` located in the project root, and drag & drop the app to your `Applications` folder.
-* **Windows**:
-  * An automated GitHub Actions workflow (`.github/workflows/build-windows.yml`) automatically builds Windows installer (`.exe`) bundles.
-* **Building from Source**:
+### 2.2 Desktop version (Tauri: macOS / Windows)
+* **macOS**: Open `NankaiTroughTsunami_<version>_aarch64.dmg` and drag the app into the Applications folder.
+* **Windows**: Run `NankaiTroughTsunami_<version>_x64-setup.exe` (built by the GitHub Actions workflow `.github/workflows/build-windows.yml`).
+* **Build from source**:
   ```bash
   cd nankai_trough_desktop
   npm install
-  npm run tauri dev    # Launch in development mode
-  npm run tauri build  # Build production bundles (DMG for macOS / EXE for Windows)
+  npm run tauri dev    # run in development mode
+  npm run tauri build  # release build (dmg / exe)
   ```
+* **Where files are saved**: CSVs and videos are written directly to the **Downloads folder**, and the saved location appears at the bottom right of the screen. If a file with the same name exists, a number is added, e.g. `name (1).csv`.
+
+### 2.3 Data preparation (for developers)
+The app's data files are in `public/` and can be rebuilt with these scripts (run in `nankai_trough/`).
+
+| Data | Command | Contents |
+|---|---|---|
+| `bathymetry.bin` / `bathymetry_meta.json` | `node scripts/process_bathymetry.mjs ../japan.tif 6` | Bathymetry (japan.tif, 15-arcsec) averaged by a factor of 6 into a 1.5-arcmin grid (about 2.8 km, 1093×1040 cells). A factor of 8 gives a lighter grid of about 3.7 km |
+| `slab.bin` / `slab_meta.json` | `python3 scripts/process_slab.py <depth grid.grd> ...` | Plate interface depth, strike, and dip (0.1° grid). Pass the depth grids of the kur, izu, and ryu regions from USGS Slab1.0 / Slab2. Requires numpy and scipy |
+
+Copy any rebuilt data to `nankai_trough_desktop/public/` as well.
 
 ---
 
-## 3. UI Overview & Operation Guide
-
-The user interface is organized into a clean **3-column layout**:
+## 3. Screen Layout
 
 ```
-+------------------------+------------------------------------+--------------------------+
-|   Left Panel (Config)  |    Center Map (Bathymetry & Wave)  |  Right Panel (Wave Chart)|
-| - Language (JA / EN)   | - GEBCO Bathymetry Color Relief    | - Real-time Wave Height  |
-| - Scenario Selector    | - Dynamic Tsunami Wavefront        |   Plot (Chart.js)        |
-| - Mw / Slip Sliders    |   (Red: Crest / Blue: Trough)      | - Multi-point Overlay    |
-| - Epicenter / Points   | - Rupture Fault Rectangles         | - Arrival Time & Flow Dir|
-| - Solver Controls      | - Observation Pins & Wave Badges   | - Phase 2 CSV Export     |
-| - Point Batch Selection| - Real-time Coords & Depth HUD     |                          |
-+------------------------+------------------------------------+--------------------------+
++--------------------------------------------------------------------------------+
+| Header: app name | elapsed time | max surge | status | JP/EN switch            |
++---------------------------+----------------------------------------------------+
+| Left sidebar              | Map (bathymetry, wave height, velocity, faults,    |
+|  1. Fault scenario        |      observation points)                           |
+|     └ Custom fault params |  Top left: domain name, lon/lat/depth/level at cursor |
+|  2. Simulation            |  Top right: Source Area / All Japan                |
+|     └ Record MP4          |  Bottom left: time since the earthquake            |
+|  3. Offshore forecast     |  Bottom right: wave height legend                  |
+|     └ CSV export          +----------------------------------------------------+
+|  4. Layer options         | Waveform chart (water level time series)           |
+|                           |  Selected / Single focus / All points              |
++---------------------------+----------------------------------------------------+
 ```
 
-### 3.1 Left Control Panel
-
-1. **Language Toggle**:
-   * Switch between `日本語` and `English` instantaneously with full UI and chart axis localization.
-2. **Earthquake Scenario Selection**:
-   * **Full Nankai Trough Megaquake (M9.1)**: Simultaneous rupture of 4 segments spanning from Suruga Bay to Hyuganada (Cabinet Office maximum model).
-   * **Tonankai Earthquake Alone (M8.2)**: 1944 Showa-Tonankai model focusing on Kumano-nada and Shionomisaki.
-   * **Nankai Earthquake Alone (M8.4)**: 1946 Showa-Nankai model centered off Kochi and Shikoku.
-   * **Tokai Earthquake Alone (M8.0)**: Suruga Trough to Enshu-nada rupture scenario.
-3. **Fault Parameter Tuning**:
-   * **Magnitude (Mw)**: Slider adjustment between 7.5 and 9.3; dislocation slip scales automatically following empirical seismological laws.
-   * **Slip (m)**: Direct adjustment of fault displacement (2.0 m to 30.0 m).
-   * **"Recompute & Reset"**: Recomputes Okada initial sea surface dislocation immediately.
-4. **Map Click Modes**:
-   * **Pick Epicenter**: Click anywhere on the ocean map to reposition the primary rupture fault.
-   * **Add Observation Point**: Click anywhere on coastal or bay areas (e.g., Kii Channel, Ise Bay) to dynamically instantiate a new monitoring gauge.
-5. **Simulation Controls**:
-   * **Play / Pause**: Start or pause numerical time integration.
-   * **Fast-Forward**: Skips screen rendering and solves the entire duration (up to 180 min) in seconds via headless compute loop (ideal for CSV preparation).
-   * **Speed Multiplier**: 1x, 2x, 5x, 10x, 20x real-time speed.
-   * **Max Duration**: 30 min, 60 min, 120 min, or 180 min (Default: 120 min).
-   * **Reset**: Rewinds solver clock to $t=0$ with pristine initial displacement.
-6. **Observation Point Selection**:
-   * Select all / Deselect all / Reset to defaults checkboxes for streamlined batch CSV exports.
-
-### 3.2 Center Map Area
-
-* **GEBCO Bathymetric Relief**:
-  * Land terrain in natural green/neutral tones, continental shelf (<200 m) in light cyan, and oceanic trenches (>4,000 m) in deep navy blue.
-* **Real-time Tsunami Wavefront**:
-  * **Warm Red**: Positive sea surface elevation (surge / wave crest).
-  * **Cool Blue**: Negative sea surface drawdown (depression / receding wave).
-* **Fault Geometry Overlays**:
-  * Visualizes strike, dip, rake, and geographic extent of the Okada dislocation segments.
-* **Real-time Cursor HUD**:
-  * Displays precise geographic coordinates (lon/lat), local bathymetric depth (or elevation), and instantaneous sea surface anomaly ($\eta$).
-
-### 3.3 Right Panel (Wave Chart & Analytics)
-
-* **Multi-Point Wave Elevation Chart (Chart.js)**:
-  * Dynamic line charts plotting surface elevation over time.
-  * **Modes**:
-    * **Selected Overlay**: Displays all checked observation points superimposed on a single time axis.
-    * **Focus Point**: Deep-dive into the currently selected station.
-    * **All Points**: Visualizes all registered stations simultaneously.
-* **Station Analytics Summary**:
-  * **Max Surge Height ($m$)**: Peak tsunami crest amplitude.
-  * **Peak Arrival Time**: Elapsed time when the maximum wave was recorded.
-  * **First Arrival Time**: Time when elevation anomaly first exceeded $\pm 0.15\text{ m}$.
-  * **Dominant Velocity & Direction**: 16-compass heading and azimuth angle at peak surge.
+* Click a section heading in the left sidebar to collapse or expand it.
+* The **JP / EN** buttons switch between Japanese and English (the choice is remembered).
 
 ---
 
-## 4. Phase-2 City Inundation CSV Export
+## 4. Earthquake Scenarios
 
-The simulator provides two standardized export modes tailored for boundary feeding into localized Phase-2 hydraulic run-up solvers:
+Choose from **Earthquake Model Preset** in "1. Earthquake Fault Scenario". The map zooms to the source area and a nearby representative observation point gets the focus.
 
-### 4.1 Export Modes
+| Preset | Type | Fault model | Source mark on the map |
+|---|---|---|---|
+| Full Nankai Trough Rupture (M9.1) | Simplified model | 4 segments: Tokai, Tonankai, Nankai, Hyuga-nada | Reference: estimated epicenter of the 1707 Hoei earthquake |
+| Tonankai Earthquake Alone (M8.2) | 1944 Showa-Tonankai type | 1 fault | Hypocenter (40 km deep, JMA) |
+| Nankai Earthquake Alone (M8.4) | 1946 Showa-Nankai type | 1 fault (its east end contains the hypocenter, matching the historical westward rupture) | Hypocenter (24 km deep, JMA) |
+| Tokai Earthquake Alone (M8.0) | Scenario earthquake | 1 fault | Reference: estimated epicenter of the 1854 Ansei-Tokai earthquake |
+| 2011 Tohoku-oki Earthquake (M9.0) | Reproduction of a historical event | 4 faults (off-Miyagi trench side 30 m, off-Miyagi deep, off-Iwate, off-Fukushima/Ibaraki) | Hypocenter (24 km deep, JMA) |
+| Cabinet Office Nankai Trough Megaquake Cases 1–5 (Mw9.1) | Government scenario (approximate reproduction) | Slip distribution made of 165 subfaults | Rupture start point (about 20 km deep) |
 
-1. **Mode A: Full Timeline Simulation Data (`exportFullCSV`)**
-   * **Purpose**: Macro-analysis and full-duration basin verification.
-   * **Characteristics**: Continuous time series starting strictly from earthquake rupture ($t = 0.0\text{ s}$) up to simulation end (e.g., 1801 rows for 120 min at 4s sampling intervals).
-   * **Filename**: `tsunami_boundary_full_<PointID>.csv`
+### 4.1 Cabinet Office Nankai Trough Megaquake (Cases 1–5)
+An approximate reproduction of the tsunami fault model in the second report (2012) of the Cabinet Office's study group on the Nankai Trough megaquake, built from the setting rules described in the report.
 
-2. **Mode B: City-Inundation Trimmed Waveform (`exportCityTrimmedCSV`)**
-   * **Purpose**: Direct offshore boundary input for Phase 2 urban CFD solvers.
-   * **Characteristics**: Normalizes time such that **2 minutes (120 s) prior to first wave arrival becomes $t = 0.0\text{ s}$**, preserving initial drawdown while discarding unneeded quiescent time.
-   * **Filename**: `tsunami_boundary_city_<PointID>.csv`
+* **Source area**: Suruga Bay to Hyuga-nada, from the trough axis down to a plate interface depth of about 37 km (about 140,000 km², Mw9.1, mean slip about 10–11 m)
+* **Slip**: background about 9 m, **large-slip area about 20 m (2× the mean)**, **very-large-slip area about 40 m (4× the mean, along the trough)**. The large-slip area covers about 20% of the total area and extends from about 20 km depth to the trough axis.
+* **Difference between cases**: every case ruptures the whole area; **only the position of the large-slip area differs**.
+  | Case | Position of the large/very-large-slip area |
+  |---|---|
+  | 1 | Suruga Bay to off Kii Peninsula |
+  | 2 | Off Kii Peninsula |
+  | 3 | Off Kii Peninsula to off Shikoku |
+  | 4 | Off Shikoku |
+  | 5 | Off Shikoku to off Kyushu |
+* **Rupture propagation**: rupture spreads at **2.5 km/s** from the rupture start point (near the center of the large-slip area, about 20 km deep), and deformation at each location develops over **1 minute** (not all at once).
+* **Map display**: subfaults are shaded red by slip (darker = more slip).
+* **Differences from the official model**: the official subfault data (about 5 km mesh) is only available on request, so the plate shape is approximated by bands of uniform dip, and slip proportional to plate convergence rate and smoothing of large-slip area edges are omitted. Cases 6–11 (splay fault, two large-slip areas) are not implemented.
+* **Maximum-class tsunami height**: the government's maximum-class tsunami height takes, at each location, the highest value among all cases. Run the cases one by one and compare the maximum at each point.
 
-### 4.2 CSV File Specification
+> [!NOTE]
+> The earlier Central Disaster Management Council model (2003) was built to envelope the tsunami records of five past earthquakes (Hoei, Ansei-Tokai, Ansei-Nankai, Showa-Tonankai, Showa-Nankai). The Cabinet Office model (2012) is not a composite of past events but a "maximum-class" scenario based on scientific knowledge.
 
+### 4.2 Map marks
+| Mark | Meaning |
+|---|---|
+| Red dashed rectangle + ★ | Surface projection of a fault segment and its center point (not the epicenter) |
+| Red shading (no outline) | Subfaults of the Cabinet Office model (darker = larger slip) |
+| Red circle with a white × | Hypocenter (JMA) or the rupture start point of the Cabinet Office model |
+| Hollow red circle with × | Reference: estimated epicenter of a historical earthquake of the same type (for scenario earthquakes with no official hypocenter) |
+
+Hypocenter and rupture start marks follow the "Fault Segments" layer. Historical hypocenters are display-only and not used in the computation (the Cabinet Office rupture start point is used to compute rupture propagation).
+
+---
+
+## 5. Setting the Source Fault
+
+### 5.1 Magnitude and slip
+* **Magnitude (Mw)**: 7.5–9.3. Moving it updates "Mean Slip" with the corresponding slip.
+* **Mean Slip**: 2.0–50.0 m.
+* **Recompute Source**: applies the settings to the tsunami source and returns to time 0. For presets made of several faults, the whole distribution is scaled **while keeping the slip pattern (e.g. large-slip areas)** so that the mean slip equals the specified value.
+
+### 5.2 Pick Epicenter (automatic setup along the plate interface)
+1. Choose a magnitude (the fault size is derived from it).
+2. Press **🎯 Pick Epicenter** and click the spot on the map to use as the source.
+3. The plate interface **depth, strike, and dip** at that spot are read from USGS Slab (a plate interface geometry model), and a thrust fault is placed along the interface automatically, with uplift on the trench side and subsidence on the land side.
+   * **Fault size**: from the scaling law for interplate earthquakes (Strasser et al., 2010), e.g. Mw8.0 → about 160 km long × 84 km wide, Mw9.0 → about 614 km × 189 km.
+   * **Slip**: computed so the seismic moment (rigidity 40 GPa) matches the magnitude.
+   * If the top edge of the fault would reach the surface, the fault is shifted landward so the top edge is 1 km deep.
+4. In these cases the **values in the Custom Fault Parameters panel (manual)** are used instead, and the reason is shown:
+   * The location is outside the plate interface data (Sea of Japan, inland areas, etc.)
+   * The plate interface is deeper than 60 km (too deep for an interplate earthquake)
+   * "Auto-set from plate interface geometry (USGS Slab)" is unchecked
+
+### 5.3 Custom fault parameters (manual adjustment)
+After Pick Epicenter, the "📐 Custom Fault Parameters" panel opens and shows the values of the placed fault.
+
+| Field | Range | Description |
+|---|---|---|
+| Strike (°) | 0–360 | Fault orientation (clockwise from north). The fault dips toward the right-hand side of the strike |
+| Dip (°) | 1–90 | Inclination of the fault plane |
+| Rake (°) | -180–180 | 90 is a pure thrust |
+| Length (km) / Width (km) | — | Size of the fault plane (width is measured along the dip) |
+| Top depth (km) | 0.5–100 | Depth of the top edge of the fault plane |
+
+Change the values and press **Recompute with these values** to rebuild the source with that fault (slip is recomputed from the current magnitude and fault area). Custom sources rupture all at once.
+
+---
+
+## 6. Running the Simulation
+
+Use "2. Propagation Simulation".
+
+| Control | Description |
+|---|---|
+| **▶ Start Simulation / Pause** | Advances the computation with animation |
+| **⚡ Fast-Forward** | Computes up to the max duration without drawing. A 120-minute run takes about 1 minute (depends on the PC) |
+| **↺ Reset** | Returns to the state at time 0 |
+| **Max Duration** | 60 min / 120 min (recommended) / 180 min |
+| **Playback Speed** | 1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC |
+
+* The time step is about 3 seconds.
+* **Elapsed Time** at the top and **Since EQ H:MM:SS** at the bottom left of the map are measured from the earthquake.
+* In the Cabinet Office model, deformation is added progressively during the few minutes the rupture spreads.
+
+---
+
+## 7. Map Controls and Display
+
+### 7.1 Controls
+* **Mouse wheel**: zoom (around the cursor)
+* **Drag**: pan
+* **🔍 Source Area**: fit the map to the selected scenario's source area
+* **⤢ All Japan**: show the whole domain
+* **Hover**: the top left shows longitude/latitude, depth (elevation on land), and the current water level at that spot
+* The map keeps its aspect ratio (it does not stretch with the window shape).
+
+### 7.2 Display
+| Display | Meaning |
+|---|---|
+| Wave height (crest) | Water level rise: cyan (small) → green → yellow → orange → red → white (10 m+) |
+| Wave height (trough) | Water level drop: purple to indigo |
+| White arrows | Velocity vectors (where speed ≥ 0.15 m/s) |
+| Colored dots | Observation points. The focused point has a blue dashed ring. Max wave height is added to the label once it exceeds 0.1 m |
+| White line from a point | Flow direction at the time of the maximum wave (points with max wave height ≥ 0.3 m) |
+| Pulsing ring around a point | The tsunami (max wave height ≥ 0.2 m) has arrived |
+
+### 7.3 Layer options
+In "4. Layer Options", toggle bathymetry, wave height, velocity vectors, and fault segments individually.
+
+---
+
+## 8. Observation Points and Waveform Chart
+
+### 8.1 Default observation points (13 points)
+| Region | Point | Lon | Lat |
+|---|---|---|---|
+| Nankai Trough | Offshore Muroto (Kochi) | 134.20 | 33.20 |
+| | Offshore Shionomisaki (Wakayama) | 135.75 | 33.38 |
+| | Offshore Hamamatsu (Shizuoka) | 137.70 | 34.50 |
+| | Suruga Bay Mouth (Shizuoka) | 138.55 | 34.70 |
+| | Offshore Owase (Mie) | 136.35 | 33.95 |
+| | Offshore Ashizuri (Kochi) | 133.00 | 32.65 |
+| | Offshore Hyuga-nada (Miyazaki) | 131.90 | 32.00 |
+| Tohoku Pacific coast<br>(near GPS wave gauges) | Offshore Northern Iwate (Kuji) | 142.10 | 40.12 |
+| | Offshore Miyako (Iwate) | 142.19 | 39.63 |
+| | Offshore Kamaishi (Iwate) | 142.07 | 39.26 |
+| | Offshore Northern Miyagi (Kesennuma) | 141.89 | 38.86 |
+| | Offshore Central Miyagi (Ishinomaki/Onagawa) | 141.68 | 38.23 |
+| | Offshore Fukushima (Onahama) | 141.18 | 36.97 |
+
+### 8.2 Working with observation points
+* **+ Add Custom Point**: press it, then click the sea on the map to add a point. Added points can be removed with ✕.
+* **Checkboxes**: choose which points are overlaid on the chart and included in batch CSV export (Select All / Deselect All available).
+* **Focused Point**: the point whose statistics appear in the chart heading. Clicking a card in the list or a point on the map also changes it.
+* **↺ Reset Points**: restores the 13 default points.
+* Each point in the list shows its max wave height and first arrival time (minutes).
+
+### 8.3 Waveform chart
+* The horizontal axis is **time since the earthquake**; the vertical axis is water level η (m).
+* View modes: **☑ Selected** (overlay checked points) / **🎯 Single Focus** / **🌐 All Points**
+* Heading statistics:
+  * **1st Arrival**: the first time the water level change reaches 0.15 m or more
+  * **Max Surge**: the highest water level at the point
+  * **Wave Influx Dir**: flow direction at the time of the maximum (16-point compass and degrees)
+
+> [!NOTE]
+> At points above or near the source area, the coseismic deformation itself changes the water level by 0.15 m or more right after the earthquake, so the first arrival can show "0 min 0 s" (for scenarios that rupture all at once). In scenarios with rupture propagation, such as the Cabinet Office model, the arrival time is when the rupture reaches the area.
+
+---
+
+## 9. Saving the Animation as Video (MP4)
+
+1. Choose the playback speed and max duration.
+2. Press **🎥 Record MP4**; the simulation starts while recording (from the beginning if already computed).
+3. Press **⏹ Stop & Save**, or let it reach the max duration, and the video file is saved.
+
+* The video includes what the map shows (with your zoom and view), the **scenario name**, the **time since the earthquake**, and the wave height legend.
+* Format: MP4 (H.264), 30 fps, up to 1920×1080. If MP4 is not supported, it is saved as WebM and a message says so.
+* Each drawn frame becomes one video frame, so **the video length depends on the playback speed** (during recording the simulation runs exactly at the playback speed).
+
+  | Playback speed | Approx. video length for a 120-minute run |
+  |---|---|
+  | 1x | about 80 s |
+  | 5x | about 40 s |
+  | 20x | about 11 s |
+  | 60x | about 4 s |
+* File name: `tsunami_<scenario ID>_<date time>.mp4`
+
+---
+
+## 10. CSV Export (Link to Urban Simulation)
+
+The buttons at the bottom of "3. Offshore Wave Forecast" export one CSV file **per checked observation point** (if none are checked, you are asked whether to export all points). Run the simulation or Fast-Forward first.
+
+### 10.1 Two export modes
+1. **Mode A: 📋 Full Timeline Data**
+   * All data from the earthquake (t=0) to the end of the run (about every 3 seconds; about 2,400 rows for 120 minutes).
+   * File name: `tsunami_boundary_full_<point ID>.csv`
+2. **Mode B: 🎯 City Simulation Wave**
+   * Uses **2 minutes before the first arrival as t=0** and cuts out the period until the main waves pass (35 minutes after the maximum wave or 45 minutes after the first arrival, whichever is later).
+   * Each row also lists the **time since the earthquake** (seconds and H:MM:SS), so you can tell when the trimmed waveform occurs after the earthquake.
+   * For points that no clear tsunami (≥ 0.05 m) has reached yet, you are asked whether to export Mode A instead.
+   * File name: `tsunami_boundary_city_<point ID>.csv`
+
+### 10.2 Mode B file format
 ```csv
 # Tsunami Boundary Wave Condition for City Simulation (Phase 2)
-# Location: Muroto Cape (Kochi) (Lon: 134.2, Lat: 33.2)
+# Location: 宮城中部沖 (石巻・女川) (Lon: 141.68, Lat: 38.23)
 # Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
-# Original Absolute First Arrival: 642.0 s
-# Original Absolute Max Surge: 6.82 m (at 1024.0 s)
-# Time Offset: -522.0 s (Absolute_Time_sec = Time_sec + 522.0)
-Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
-0.0,0.012,0.005,-0.002,0.005,111.8
-4.0,0.035,0.015,-0.008,0.017,118.1
+# Original Absolute First Arrival: 0.0 s (0:00:00 after earthquake)
+# Original Absolute Max Surge: 6.44 m (at 1659.0 s = 0:27:39 after earthquake)
+# Time Offset: -0.0 s (Absolute_Time_sec = Time_sec + 0.0)
+# Trimmed Window (time since earthquake): 0:00:00 - 1:00:00
+# Time_since_EQ_sec / Time_since_EQ_hms: elapsed time since the earthquake origin (rupture at 0 s)
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_since_EQ_sec,Time_since_EQ_hms
+0.0,-1.330,0.000,0.000,0.000,0.0,0.0,0:00:00
+3.0,-1.330,0.003,-0.001,0.004,0.0,3.0,0:00:03
 ...
 ```
+Mode A has 3 leading `#` lines and 6 columns, `Time_sec` to `Direction_deg`.
 
-| Column Name | Unit | Physical Description |
+### 10.3 Columns
+| Column | Unit | Description |
 |---|---|---|
-| `Time_sec` | seconds (s) | Elapsed time ($t=0$ at earthquake in Mode A; $t=0$ at 2-min before arrival in Mode B) |
-| `Elevation_m` | meters (m) | Water surface anomaly from mean sea level (positive = crest, negative = trough) |
-| `U_velocity_m_s` | m/s | East-West horizontal velocity ($+u$: Eastward, $-u$: Westward) |
-| `V_velocity_m_s` | m/s | North-South horizontal velocity ($+v$: Northward, $-v$: Southward) |
-| `Speed_m_s` | m/s | Flow speed magnitude $\sqrt{u^2 + v^2}$ |
-| `Direction_deg` | degrees | Nautical flow direction ($0^\circ$: North, $90^\circ$: East, $180^\circ$: South, $270^\circ$: West) |
+| `Time_sec` | s | Mode A: time since the earthquake. Mode B: time since the start of the trimmed window (2 minutes before the first arrival) |
+| `Elevation_m` | m | Water level change from still water (rise positive, drop negative) |
+| `U_velocity_m_s` | m/s | East-west velocity (eastward positive) |
+| `V_velocity_m_s` | m/s | North-south velocity (northward positive) |
+| `Speed_m_s` | m/s | Speed √(u²+v²) |
+| `Direction_deg` | deg | Flow direction (N 0°, E 90°, S 180°, W 270°) |
+| `Time_since_EQ_sec` | s | Mode B only. Time since the earthquake |
+| `Time_since_EQ_hms` | H:MM:SS | Mode B only. Time since the earthquake |
+
+The two `Time_since_EQ_*` columns are appended after the original six, so existing programs that read columns by position are not affected.
 
 ---
 
-## 5. Physical Modeling & Numerical Stabilization
+## 11. Physical Model Overview
 
-1. **Seabed Deformation (Okada 1985 Elastic Half-Space Model)**:
-   * Analytical vertical displacement computed from strike, dip, rake, depth, fault dimensions, and dislocation slip.
-2. **2D Nonlinear Shallow Water Equations (SWE)**:
-   * Continuity: $\frac{\partial \eta}{\partial t} + \frac{\partial M}{\partial x} + \frac{\partial N}{\partial y} = 0$
-   * Momentum: Staggered Leapfrog scheme integrated with semi-implicit Manning bottom friction.
-3. **Arakawa C-Grid Discretization**:
-   * Evaluates elevation $\eta$ at cell centers and horizontal volume fluxes $M, N$ at cell edges, ensuring strict local mass conservation.
-4. **Shapiro Filter (Laplacian Viscous Smoothing)**:
-   * Selectively dampens $2\Delta x$ high-frequency parasite grid oscillations (e.g., 1-minute numerical slope noise off Shionomisaki) while preserving 99.9% of the physical long-wave tsunami energy (wavelengths $>50\text{ km}$).
-5. **Spatial Bilinear Interpolation**:
-   * Evaluates elevation and flow velocity at observation coordinates via weighted 4-cell marine bilinear interpolation, eliminating integer grid step jumps.
+> [!NOTE]
+> See [PHYSICS_MODEL.md](PHYSICS_MODEL.md) for derivations and discretization details.
+
+1. **Initial source (Okada 1985)**: the vertical seafloor displacement from slip on rectangular faults is computed with the analytical half-space solution and used as the initial sea surface displacement. It matches the check values in Okada (1985). `depthKm` is the depth of the **top edge** of the fault plane. The outer edge of the computation range is tapered smoothly with a cosine.
+2. **Rupture propagation (Cabinet Office model)**: displacement is added over 1 minute starting at (distance from the rupture start point) ÷ 2.5 km/s.
+3. **Shallow water equations**: the 2D nonlinear long-wave equations are solved on an Arakawa C-grid. Because the domain spans 26° of latitude, **the east-west grid spacing varies with latitude and the continuity equation includes a spherical correction**.
+4. **Grid and time step**: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).
+5. **Bottom friction**: Manning's roughness 0.025 (semi-implicit).
+6. **Numerical noise suppression**: grid-scale oscillations over steep seafloor slopes are damped with weak Laplacian smoothing.
+7. **Open boundaries**: radiation boundary condition that limits reflection.
+8. **Observation point values**: bilinear interpolation from the four surrounding sea cells.
 
 ---
 
-## 6. Frequently Asked Questions (FAQ)
+## 12. Limitations
+* **Offshore values**: wave heights are offshore values (water depth of tens of meters or more), not coastal tsunami heights or run-up.
+* **Coarse grid**: with about 2.8 km cells, the inside of bays and ports and narrow straits are not resolved.
+* **Simplified fault models**: preset and Pick Epicenter faults are rectangles with uniform slip (or combinations of them). The Cabinet Office model is an approximate reproduction, not the official data.
+* **Pick Epicenter**: the plate interface is approximated by a single plane, so long faults (about 600 km for Mw9) differ more from the real curved interface. The plate interface data is currently USGS Slab1.0.
+* **Not modeled**: inundation and run-up on land, tides, Coriolis force, wave dispersion.
+* **Small far-field displacement**: for Mw9-class sources, a few centimeters of deformation can appear in seas hundreds of kilometers away (a physically correct result).
+* **Run time**: the Japan-wide domain (about 1.1 million cells) takes about 1 minute for a 120-minute run.
 
-* **Q: What is the difference between "Fast-Forward" and normal "Play"?**
-  * **A**: Normal "Play" renders every step on screen at the selected playback speed. "Fast-Forward" skips graphic rendering and executes 120 minutes of physics calculations (3,600 steps) headlessly in a few seconds, preparing data for immediate CSV export.
-* **Q: How do I measure tsunamis at custom coastal points (e.g., Kii Channel, Ise Bay)?**
-  * **A**: Click "+ Add Observation Point" in the left panel and click on any marine area on the map. A new station will be created and sampled starting strictly at $t=0$.
-* **Q: Which CSV format should I use for Phase-2 urban inundation simulations?**
-  * **A**: For city inundation models, **Mode B (Trimmed City CSV)** is strongly recommended to reduce simulation compute overhead while capturing full wave run-up dynamics. Use **Mode A (Full Timeline CSV)** if you need initial drawdown behavior starting from the earthquake rupture.
+---
+
+## 13. FAQ
+
+* **Q. What is the difference between "Fast-Forward" and playing?**
+  * A. Playing advances while drawing the map. Fast-Forward skips drawing and computes up to the max duration at once, which is convenient when you want to export CSVs.
+
+* **Q. How do I get tsunami data for an arbitrary location?**
+  * A. Press "+ Add Custom Point" and click the sea on the map. You can add points mid-run; recording starts from that moment.
+
+* **Q. Which CSV should I use for the urban simulation?**
+  * A. Use Mode B (City Simulation Wave) to start just before the first wave arrives, or Mode A (Full Timeline Data) if you need the whole process from the earthquake. Mode B also lists the time since the earthquake.
+
+* **Q. Is there a scenario that combines Cabinet Office Cases 1–5?**
+  * A. Each case is already a Mw9.1 megaquake that ruptures the whole area from Suruga Bay to Hyuga-nada; only the position of the large-slip area differs. Placing all large-slip areas at once would exceed the government scenario, so it is not provided. The government's maximum-class tsunami height takes the maximum over all cases at each location.
+
+* **Q. What happens if I use Pick Epicenter in the Sea of Japan?**
+  * A. The spot is outside the plate interface data or the interface is too deep, so the fault uses the values in the Custom Fault Parameters panel (manual). For earthquakes such as those along the eastern margin of the Sea of Japan, set the strike, dip, and other values manually.
+
+* **Q. Where are files saved in the desktop version?**
+  * A. In the Downloads folder. The saved location appears at the bottom right of the screen.
+
+---
+
+## 14. Data and References
+* **Bathymetry**: GEBCO 15-arcsec grid (`japan.tif`)
+* **Plate interface geometry**: Hayes, G. P., Wald, D. J., & Johnson, R. L. (2012). Slab1.0: A three-dimensional model of global subduction zone geometries. *J. Geophys. Res.*, 117, B01302. / Hayes, G. P. et al. (2018). Slab2, a comprehensive subduction zone geometry model. *Science*, 362, 58-61.
+* **Cabinet Office model**: Cabinet Office, Study Group on the Nankai Trough Megaquake Model (2012), Second Report, Tsunami Fault Model
+* **Hypocenters**: Japan Meteorological Agency (1944 Showa-Tonankai, 1946 Showa-Nankai, 2011 Tohoku-oki); Chronological Scientific Tables (estimated epicenters of the 1707 Hoei and 1854 Ansei-Tokai earthquakes)
+* **Fault deformation**: Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. *Bull. Seismol. Soc. Am.*, 75, 1135-1154.
+* **Fault dimensions**: Strasser, F. O., Arango, M. C., & Bommer, J. J. (2010). Scaling of the source dimensions of interface and intraslab subduction-zone earthquakes with moment magnitude. *Seismol. Res. Lett.*, 81, 941-950.

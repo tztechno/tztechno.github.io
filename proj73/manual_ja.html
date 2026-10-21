@@ -90,6 +90,52 @@
       color: var(--accent-cyan);
       margin-left: auto;
     }
+
+    /* manual-extra: 表・注記 (Markdown から生成) */
+    .manual-card table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 1.5rem;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+    }
+    .manual-card th, .manual-card td {
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .manual-card th {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+    .manual-card blockquote {
+      margin: 0 0 1.5rem;
+      padding: 0.75rem 1rem;
+      border-left: 4px solid var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.06);
+      border-radius: 0 8px 8px 0;
+    }
+    .manual-card blockquote.callout-important {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+    }
+    .manual-card blockquote p:last-child { margin-bottom: 0; }
+    .manual-card .callout-title {
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 0.25rem;
+    }
+    .manual-card hr {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 2rem 0;
+    }
+    .manual-card a { color: var(--accent-cyan); }
+    /* /manual-extra */
   </style>
 </head>
 <body>
@@ -131,78 +177,665 @@
     </div>
 
     <article class="manual-card">
-      <h1>南海トラフ津波広域伝播シミュレーター 操作マニュアル</h1>
-
-      <h2>1. はじめに・システム概要</h2>
-      <p>本ソフトウェアは、南海トラフ巨大地震および連動型地震を想定し、任意の断層破壊シナリオから海底地殻変動を算出し、外洋から日本沿岸各地に至る津波の広域伝播をリアルタイムに物理シミュレーションする対話型シミュレーターです。</p>
-
-      <h3>開発目的と2段階シミュレーション構想</h3>
-      <ol>
-        <li><strong>フェーズ1（広域海洋伝播シミュレーション：本システム）</strong>:
-          <br>南海トラフ沿いの任意の場所で地震が発生した際、沿岸の各主要観測点（室戸岬沖、潮岬沖、駿河湾口、浜松沖、尾鷲沖、足摺岬沖、日向灘沖、紀伊水道など）における津波波高・流速ベクトル・流向・到達時間を高精度にシミュレーションします。</li>
-        <li><strong>フェーズ2（市街地津波遡上シミュレーションとの連携）</strong>:
-          <br>本システムから出力される時系列境界条件（CSV形式）を入力データとして使用し、宮古島等で実績のある高解像度市街地津波遡上シミュレーション（陸上構造物・街路への浸水計算）へとシームレスに接続します。</li>
-      </ol>
-
-      <h2>2. 動作環境とインストール</h2>
-      <h3>Webブラウザ版</h3>
-      <p>Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge に対応しています。</p>
-      <pre><code>cd nankai_trough
+<h1>南海トラフ津波広域伝播シミュレーター 操作マニュアル</h1>
+<p><strong>Nankai Trough Tsunami Simulator - User Manual (Japanese)</strong></p>
+<hr>
+<h2>1. はじめに</h2>
+<p>本ソフトウェアは、地震による海底の地殻変動から津波の初期波形を求め、日本列島周辺の海域で津波が広がる様子を物理シミュレーションする対話型ツールです。アプリ名は「南海トラフ」ですが、計算範囲は<strong>日本全国</strong>（東経125.6°〜152.9°、北緯22.0°〜48.0°）で、南海トラフ以外の地震（2011年東北地方太平洋沖地震など）も扱えます。</p>
+<h3>2段階シミュレーションの構想</h3>
+<ol>
+<li><strong>フェーズ1（広域伝播：本システム）</strong><ul>
+<li>地震の断層モデルから津波の発生と伝播を計算し、各地の沖合観測点で<strong>水位・流速・流向・到達時刻</strong>を求めます。</li>
+</ul>
+</li>
+<li><strong>フェーズ2（市街地の津波遡上シミュレーションとの連携）</strong><ul>
+<li>本システムが出力する沖合の水位・流速の時系列（CSV）を、高解像度の市街地遡上シミュレーションの境界条件として使います。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>[!IMPORTANT]
+本システムの波高は、水深数十〜数千mの<strong>沖合の観測点での値</strong>です。海岸での津波高や遡上高は、浅い海で波が高くなる効果（浅水変形）によりこれより大きくなります。沿岸の被害想定には、フェーズ2の市街地シミュレーションや公的な想定をご利用ください。</p>
+</blockquote>
+<hr>
+<h2>2. 動作環境と起動方法</h2>
+<h3>2.1 Webブラウザ版</h3>
+<ul>
+<li><strong>対応ブラウザ</strong>: Google Chrome、Microsoft Edge、Apple Safari、Mozilla Firefox（最新版）</li>
+<li><strong>起動</strong>:<pre><code class="language-bash">cd nankai_trough
 npm install
-npm run dev</code></pre>
-      <p>ブラウザで <code>http://localhost:5173/</code> にアクセスします。</p>
-
-      <h3>デスクトップ版（Tauri）</h3>
-      <ul>
-        <li><strong>macOS</strong>: 公式ストアで配布される <code>NankaiTroughTsunami.dmg</code> を開き、アプリケーションフォルダにドラッグ＆ドロップして起動します。</li>
-        <li><strong>Windows</strong>: ワークフローによりビルドされるインストーラー（<code>.exe</code>）からセットアップ可能です。</li>
-      </ul>
-
-      <h2>3. 画面構成と基本操作</h2>
-      <h3>3.1 操作パネル（左列）</h3>
-      <ul>
-        <li><strong>地震シナリオ選択</strong>: 南海トラフ全域連動 (M9.1)、東南海地震単独 (M8.2)、南海地震単独 (M8.4)、東海地震単独 (M8.0)。</li>
-        <li><strong>パラメータ調整</strong>: マグニチュード（Mw 7.5〜9.3）、すべり量（Slip 2.0〜30.0m）。「波源を再計算して初期化」で瞬時に反映。</li>
-        <li><strong>地図クリックモード</strong>: 任意の場所をクリックして震源断層を再配置、または新しい観測地点（紀伊水道、伊勢湾など）を追加。</li>
-        <li><strong>シミュレーション制御</strong>: 再生/一時停止、速度（1x〜20x）、上限時間（30分〜180分）、<strong>「一括高速計算」</strong>（120分を数秒で計算）。</li>
-      </ul>
-
-      <h3>3.2 海洋シミュレーションマップ（中央）</h3>
-      <ul>
-        <li>海底地形（GEBCO）水深カラーマップ（浅海: 水色、海溝: 濃紺）と陸地陰影。</li>
-        <li>リアルタイム津波波面（赤: 隆起・波頭、青: 沈降・引き波）。</li>
-        <li>マウスホバーによる経緯度・水深・水位のリアルタイムHUD表示。</li>
-      </ul>
-
-      <h3>3.3 津波波形チャート（右列）</h3>
-      <ul>
-        <li>Chart.js によるリアルタイム時系列グラフ（選択地点重ね合わせ / 単一フォーカス / 全地点）。</li>
-        <li>最大波高、ピーク到達時刻、第1波到達時刻、最大時主流向の自動統計解析。</li>
-      </ul>
-
-      <h2>4. 市街地遡上連携用 CSV エクスポート仕様</h2>
-      <h3>2つの出力方式</h3>
-      <ol>
-        <li><strong>方式A: 全期間データ（Full Timeline CSV）</strong>:
-          <br>地震発生（t=0.0s）からの全期間（120分設定時は完全な1,801行）を出力。広域海洋の全体検証用。</li>
-        <li><strong>方式B: 市街地連携用トリミング波形（Trimmed City CSV）</strong>:
-          <br>第1波到達の2分前（120秒前）を <code>t=0.0s</code> に正規化し、初期の無駄時間をカットした実効波形。Phase 2 市街地シミュレーターの沖合境界面入力に最適。</li>
-      </ol>
-
-      <pre><code># Tsunami Boundary Wave Condition for City Simulation (Phase 2)
-# Location: 室戸岬沖 (高知) (Lon: 134.2, Lat: 33.2)
+npm run dev
+</code></pre>
+ブラウザで <code>http://localhost:5173/</code> を開きます。</li>
+<li><strong>ファイルの保存先</strong>: CSV・動画はブラウザの通常のダウンロード先に保存されます。</li>
+</ul>
+<h3>2.2 デスクトップ版（Tauri: macOS / Windows）</h3>
+<ul>
+<li><strong>macOS</strong>: <code>NankaiTroughTsunami_&lt;版&gt;_aarch64.dmg</code> を開き、アプリをアプリケーションフォルダへドラッグします。</li>
+<li><strong>Windows</strong>: <code>NankaiTroughTsunami_&lt;版&gt;_x64-setup.exe</code> を実行します（GitHub Actions のワークフロー <code>.github/workflows/build-windows.yml</code> で生成）。</li>
+<li><strong>ソースからのビルド</strong>:<pre><code class="language-bash">cd nankai_trough_desktop
+npm install
+npm run tauri dev    # 開発モードで起動
+npm run tauri build  # 配布用ビルド (dmg / exe)
+</code></pre>
+</li>
+<li><strong>ファイルの保存先</strong>: CSV・動画は**「ダウンロード」フォルダ**に直接保存され、画面右下に保存先が通知されます。同名のファイルがある場合は <code>ファイル名 (1).csv</code> のように番号が付きます。</li>
+</ul>
+<h3>2.3 データの準備（開発者向け）</h3>
+<p>アプリが使うデータは <code>public/</code> にあり、次のスクリプトで作り直せます（<code>nankai_trough/</code> で実行）。</p>
+<table>
+<thead>
+<tr>
+<th>データ</th>
+<th>作成コマンド</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bathymetry.bin</code> / <code>bathymetry_meta.json</code></td>
+<td><code>node scripts/process_bathymetry.mjs ../japan.tif 6</code></td>
+<td>海底地形 (japan.tif, 15秒メッシュ) を係数6で平均化した1.5分メッシュ (約2.8km, 1093×1040格子)。係数を8にすると約3.7kmメッシュで計算が軽くなります</td>
+</tr>
+<tr>
+<td><code>slab.bin</code> / <code>slab_meta.json</code></td>
+<td><code>python3 scripts/process_slab.py &lt;深さグリッド.grd&gt; ...</code></td>
+<td>プレート境界の深さ・走向・傾斜 (0.1度格子)。USGS Slab1.0 / Slab2 の kur・izu・ryu 地域の深さグリッドを指定。numpy・scipy が必要</td>
+</tr>
+</tbody></table>
+<p>変更したデータは、デスクトップ版の <code>nankai_trough_desktop/public/</code> にもコピーしてください。</p>
+<hr>
+<h2>3. 画面構成</h2>
+<pre><code>+--------------------------------------------------------------------------------+
+| ヘッダー: アプリ名 | 経過時間 | 最大波高 | 状態表示 | JP/EN 切替                 |
++---------------------------+----------------------------------------------------+
+| 左サイドバー              | 地図 (海底地形・津波波高・流速ベクトル・断層・観測点) |
+|  1. 震源断層シナリオ      |  左上: 解析領域名・カーソル位置の経緯度/水深/水位   |
+|     └ カスタム断層パラメータ|  右上: 震源域へ / 全国表示                        |
+|  2. 伝播シミュレーション  |  左下: 地震発生からの経過時間                      |
+|     └ MP4録画             |  右下: 津波高の凡例                                |
+|  3. 各地の沖合到達予測    +----------------------------------------------------+
+|     └ CSV出力             | 波形グラフ (水位の時系列)                          |
+|  4. 表示レイヤー切替      |  選択地点 / 単一フォーカス / 全地点 の表示切替     |
++---------------------------+----------------------------------------------------+
+</code></pre>
+<ul>
+<li>左サイドバーの各セクションは、見出しをクリックすると開閉できます。</li>
+<li><strong>JP / EN</strong> ボタンで日本語・英語を切り替えます（設定は保存されます）。</li>
+</ul>
+<hr>
+<h2>4. 地震シナリオ</h2>
+<p>「1. 震源断層シナリオ」の <strong>地震モデルプリセット</strong> から選びます。選ぶと地図がその震源域に合わせて表示され、近くの代表観測点がフォーカスされます。</p>
+<table>
+<thead>
+<tr>
+<th>プリセット</th>
+<th>種類</th>
+<th>断層モデル</th>
+<th>地図上の震源マーク</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>南海トラフ全域連動 (M9.1)</td>
+<td>簡易モデル</td>
+<td>東海・東南海・南海・日向灘の4枚</td>
+<td>参考: 1707年宝永地震の推定震央</td>
+</tr>
+<tr>
+<td>東南海地震単独 (M8.2)</td>
+<td>1944年昭和東南海地震型</td>
+<td>1枚</td>
+<td>震源 (深さ40km、気象庁)</td>
+</tr>
+<tr>
+<td>南海地震単独 (M8.4)</td>
+<td>1946年昭和南海地震型</td>
+<td>1枚 (震源から西へ破壊が進んだ史実に合わせ、東端が震源を含む配置)</td>
+<td>震源 (深さ24km、気象庁)</td>
+</tr>
+<tr>
+<td>東海地震単独 (M8.0)</td>
+<td>想定地震</td>
+<td>1枚</td>
+<td>参考: 1854年安政東海地震の推定震央</td>
+</tr>
+<tr>
+<td>2011年 東北地方太平洋沖地震 (M9.0)</td>
+<td>歴史地震の再現</td>
+<td>4枚 (宮城沖海溝寄り30m・宮城沖深部・岩手沖・福島茨城沖)</td>
+<td>震源 (深さ24km、気象庁)</td>
+</tr>
+<tr>
+<td>内閣府 南海トラフ巨大地震 ケース①〜⑤ (Mw9.1)</td>
+<td>政府想定 (概略再現)</td>
+<td>小断層165枚によるすべり分布</td>
+<td>破壊開始点 (深さ約20km)</td>
+</tr>
+</tbody></table>
+<h3>4.1 内閣府 南海トラフ巨大地震（ケース①〜⑤）</h3>
+<p>内閣府「南海トラフの巨大地震モデル検討会」第二次報告（2012年）の津波断層モデルを、報告書に書かれた設定ルールから概略再現したものです。</p>
+<ul>
+<li><strong>想定震源域</strong>: 駿河湾〜日向灘、トラフ軸からプレート境界の深さ約37kmまで（面積 約14万km²、Mw9.1、平均すべり量 約10〜11m）</li>
+<li><strong>すべり量</strong>: 背景領域 約9m、<strong>大すべり域 約20m（平均の2倍）</strong>、<strong>超大すべり域 約40m（平均の4倍、トラフ沿い）</strong>。大すべり域は全体面積の約20%で、深さ約20kmからトラフ軸までに置きます。</li>
+<li><strong>ケースの違い</strong>: 全域が破壊する点は共通で、<strong>大すべり域の位置だけが異なります</strong>。<table>
+<thead>
+<tr>
+<th>ケース</th>
+<th>大すべり域・超大すべり域の位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>①</td>
+<td>駿河湾〜紀伊半島沖</td>
+</tr>
+<tr>
+<td>②</td>
+<td>紀伊半島沖</td>
+</tr>
+<tr>
+<td>③</td>
+<td>紀伊半島沖〜四国沖</td>
+</tr>
+<tr>
+<td>④</td>
+<td>四国沖</td>
+</tr>
+<tr>
+<td>⑤</td>
+<td>四国沖〜九州沖</td>
+</tr>
+</tbody></table>
+</li>
+<li><strong>破壊の伝わり方</strong>: 破壊開始点（大すべり域の中心付近、深さ約20km）から <strong>2.5km/s</strong> で破壊が広がり、各地点の地殻変動は <strong>1分</strong>かけて生じます（全域同時ではありません）。</li>
+<li><strong>地図表示</strong>: 小断層をすべり量に応じた濃さの赤で塗り分けます（濃いほど大きくすべる）。</li>
+<li><strong>公式モデルとの違い</strong>: 公式の小断層データ（約5kmメッシュ）は申請制のため、プレート形状を一様な傾斜の帯で近似し、プレートの沈み込み速度に比例したすべり配分や大すべり域境界の平滑化は省略しています。ケース⑥〜⑪（分岐断層・大すべり域2箇所）は未実装です。</li>
+<li><strong>最大クラスの津波高の考え方</strong>: 政府の「最大クラスの津波高」は、各地点で全ケースのうち最も高い値をとったものです。ケースを順に計算し、地点ごとに最大値を比べてください。</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+旧来の中央防災会議（2003年）のモデルは、過去5地震（宝永・安政東海・安政南海・昭和東南海・昭和南海）の津波記録を包絡するように作られたモデルです。内閣府（2012年）のモデルは、過去の地震の寄せ集めではなく、科学的知見に基づく「最大クラス」の想定です。</p>
+</blockquote>
+<h3>4.2 地図上のマークの意味</h3>
+<table>
+<thead>
+<tr>
+<th>マーク</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>赤い点線の長方形 ＋ ★</td>
+<td>断層セグメントの地表投影と、その中心点（震央ではありません）</td>
+</tr>
+<tr>
+<td>赤い塗り分け（枠線なし）</td>
+<td>内閣府モデルの小断層（濃いほどすべり量が大きい）</td>
+</tr>
+<tr>
+<td>赤丸に白い ×</td>
+<td>震源（気象庁）または内閣府モデルの破壊開始点</td>
+</tr>
+<tr>
+<td>中抜きの赤丸に ×</td>
+<td>参考: 同じ型の歴史地震の推定震央（想定地震のため公式の震源がないもの）</td>
+</tr>
+</tbody></table>
+<p>震源・破壊開始点のマークは「震源断層」レイヤーと連動して表示されます。歴史地震の震源は表示のみで、計算には使いません（内閣府モデルの破壊開始点は破壊伝播の計算に使います）。</p>
+<hr>
+<h2>5. 震源断層の設定</h2>
+<h3>5.1 マグニチュードとすべり量</h3>
+<ul>
+<li><strong>マグニチュード (Mw)</strong>: 7.5〜9.3。動かすと、対応するすべり量が「平均すべり量」に反映されます。</li>
+<li><strong>平均すべり量 (Slip)</strong>: 2.0〜50.0m。</li>
+<li><strong>波源を再生成</strong>: 設定を波源に反映し、時刻0に戻します。複数の断層からなるプリセットでは、<strong>すべり分布（大すべり域など）の比率を保ったまま</strong>平均すべり量が指定値になるよう全体を比例させます。</li>
+</ul>
+<h3>5.2 震源クリック指定（プレート境界に沿った自動設定）</h3>
+<ol>
+<li>マグニチュードを選びます（断層の大きさはマグニチュードから決まります）。</li>
+<li><strong>🎯 震源クリック指定</strong> を押し、地図上の震源にしたい場所をクリックします。</li>
+<li>クリック地点のプレート境界の<strong>深さ・走向・傾斜</strong>を USGS Slab（プレート境界形状モデル）から読み取り、プレート境界に沿った逆断層を自動で置きます。海溝側が隆起し、陸側が沈降する向きになります。<ul>
+<li><strong>断層の大きさ</strong>: プレート間地震のスケーリング則（Strasser et al., 2010）で決めます（例: Mw8.0 → 長さ約160km×幅約84km、Mw9.0 → 約614km×189km）。</li>
+<li><strong>すべり量</strong>: 地震モーメント（剛性率 40GPa）がマグニチュードに合うよう計算します。</li>
+<li>断層の上端が地表に出る場合は、上端が深さ1kmになるよう陸側へずらします。</li>
+</ul>
+</li>
+<li>次の場合は、自動設定の代わりに <strong>カスタム断層パラメータ欄の値（手動）</strong> を使い、その理由を表示します。<ul>
+<li>プレート境界データの範囲外（日本海、陸域の内陸など）</li>
+<li>プレート境界が深さ60kmより深い（プレート間地震としては深すぎる）</li>
+<li>「プレート境界の形状 (USGS Slab) から自動設定」のチェックを外している</li>
+</ul>
+</li>
+</ol>
+<h3>5.3 カスタム断層パラメータ（手動調整）</h3>
+<p>震源クリック指定をすると「📐 カスタム断層パラメータ」欄が開き、配置された断層の値が表示されます。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>範囲</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>走向 (°)</td>
+<td>0〜360</td>
+<td>断層の向き（北から時計回り）。傾斜する向きは走向の右手側</td>
+</tr>
+<tr>
+<td>傾斜 (°)</td>
+<td>1〜90</td>
+<td>断層面の傾き</td>
+</tr>
+<tr>
+<td>すべり角 (°)</td>
+<td>-180〜180</td>
+<td>90 が純粋な逆断層</td>
+</tr>
+<tr>
+<td>長さ (km) / 幅 (km)</td>
+<td>—</td>
+<td>断層面の大きさ（幅は傾斜方向に沿った長さ）</td>
+</tr>
+<tr>
+<td>上端深さ (km)</td>
+<td>0.5〜100</td>
+<td>断層面の上端の深さ</td>
+</tr>
+</tbody></table>
+<p>値を変えて <strong>この値で波源を再生成</strong> を押すと、その断層で波源を作り直します（すべり量は現在のマグニチュードと断層面積から再計算）。カスタム震源は全域同時に破壊します。</p>
+<hr>
+<h2>6. シミュレーションの実行</h2>
+<p>「2. 伝播シミュレーション」で操作します。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>▶ シミュレーション開始 / 一時停止</strong></td>
+<td>アニメーションしながら計算を進めます</td>
+</tr>
+<tr>
+<td><strong>⚡ 一括高速計算</strong></td>
+<td>描画を省いて計算上限時間まで一気に計算します。120分の計算に約1分かかります（PCの性能による）</td>
+</tr>
+<tr>
+<td><strong>↺ リセット</strong></td>
+<td>時刻0の状態に戻します</td>
+</tr>
+<tr>
+<td><strong>計算上限時間</strong></td>
+<td>60分 / 120分（推奨）/ 180分</td>
+</tr>
+<tr>
+<td><strong>再生速度</strong></td>
+<td>1x / 5x / 20x / 60x。1フレームあたりに進めるシミュレーション時間（秒）の目安です。60x などでは操作の応答性を保つため1フレームの計算時間を制限するので、実際の進みは PC の性能に応じて遅くなります</td>
+</tr>
+</tbody></table>
+<ul>
+<li>計算の時間刻みは約3秒です。</li>
+<li>画面上部の <strong>経過時間</strong> と地図左下の <strong>地震発生から H:MM:SS</strong> は、地震発生からの時間です。</li>
+<li>内閣府モデルでは破壊が広がる数分間、地殻変動が順次加わっていきます。</li>
+</ul>
+<hr>
+<h2>7. 地図の操作と表示</h2>
+<h3>7.1 操作</h3>
+<ul>
+<li><strong>ホイール</strong>: ズーム（カーソル位置を中心に拡大・縮小）</li>
+<li><strong>ドラッグ</strong>: 表示範囲の移動</li>
+<li><strong>🔍 震源域へ</strong>: 選択中のシナリオの震源域に合わせて表示</li>
+<li><strong>⤢ 全国表示</strong>: 解析領域全体を表示</li>
+<li><strong>カーソルを合わせる</strong>: 左上に経緯度、水深（陸は標高）、その地点の現在の水位が表示されます</li>
+<li>地図の縦横比は保たれます（ウィンドウの形に合わせて伸び縮みしません）。</li>
+</ul>
+<h3>7.2 表示の意味</h3>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>津波波高（押し波）</td>
+<td>水位上昇。シアン（小）→ 緑 → 黄 → オレンジ → 赤 → 白（10m以上）</td>
+</tr>
+<tr>
+<td>津波波高（引き波）</td>
+<td>水位低下。紫〜藍色</td>
+</tr>
+<tr>
+<td>白い矢印</td>
+<td>流速ベクトル（流速0.15m/s以上の場所）</td>
+</tr>
+<tr>
+<td>観測点の色付きの丸</td>
+<td>観測地点。フォーカス中は青い点線の輪。最大波高が0.1mを超えるとラベルに表示</td>
+</tr>
+<tr>
+<td>観測点から伸びる白線</td>
+<td>最大波が来たときの流れの向き（最大波高0.3m以上の地点）</td>
+</tr>
+<tr>
+<td>観測点の周りの脈打つ輪</td>
+<td>津波（最大波高0.2m以上）が到達した地点</td>
+</tr>
+</tbody></table>
+<h3>7.3 表示レイヤー切替</h3>
+<p>「4. 表示レイヤー切替」で、海底地形・津波波高・流速ベクトル・震源断層の表示をそれぞれ切り替えられます。</p>
+<hr>
+<h2>8. 観測地点と波形グラフ</h2>
+<h3>8.1 既定の観測地点（13地点）</h3>
+<table>
+<thead>
+<tr>
+<th>地域</th>
+<th>観測地点</th>
+<th>経度</th>
+<th>緯度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>南海トラフ</td>
+<td>室戸岬沖 (高知)</td>
+<td>134.20</td>
+<td>33.20</td>
+</tr>
+<tr>
+<td></td>
+<td>潮岬沖 (和歌山)</td>
+<td>135.75</td>
+<td>33.38</td>
+</tr>
+<tr>
+<td></td>
+<td>浜松沖 (静岡)</td>
+<td>137.70</td>
+<td>34.50</td>
+</tr>
+<tr>
+<td></td>
+<td>駿河湾口 (静岡)</td>
+<td>138.55</td>
+<td>34.70</td>
+</tr>
+<tr>
+<td></td>
+<td>尾鷲沖 (三重)</td>
+<td>136.35</td>
+<td>33.95</td>
+</tr>
+<tr>
+<td></td>
+<td>足摺岬沖 (高知)</td>
+<td>133.00</td>
+<td>32.65</td>
+</tr>
+<tr>
+<td></td>
+<td>日向灘沖 (宮崎)</td>
+<td>131.90</td>
+<td>32.00</td>
+</tr>
+<tr>
+<td>東北太平洋沿岸<br>(GPS波浪計付近)</td>
+<td>岩手北部沖 (久慈)</td>
+<td>142.10</td>
+<td>40.12</td>
+</tr>
+<tr>
+<td></td>
+<td>宮古沖 (岩手)</td>
+<td>142.19</td>
+<td>39.63</td>
+</tr>
+<tr>
+<td></td>
+<td>釜石沖 (岩手)</td>
+<td>142.07</td>
+<td>39.26</td>
+</tr>
+<tr>
+<td></td>
+<td>宮城北部沖 (気仙沼)</td>
+<td>141.89</td>
+<td>38.86</td>
+</tr>
+<tr>
+<td></td>
+<td>宮城中部沖 (石巻・女川)</td>
+<td>141.68</td>
+<td>38.23</td>
+</tr>
+<tr>
+<td></td>
+<td>福島沖 (小名浜)</td>
+<td>141.18</td>
+<td>36.97</td>
+</tr>
+</tbody></table>
+<h3>8.2 観測地点の操作</h3>
+<ul>
+<li><strong>＋ 指定点追加</strong>: 押してから地図の海域をクリックすると観測地点を追加します。追加した地点は ✕ で削除できます。</li>
+<li><strong>チェックボックス</strong>: グラフの重ね合わせ表示と CSV 一括出力の対象を選びます（全選択・全解除あり）。</li>
+<li><strong>詳細フォーカス地点</strong>: グラフ見出しの統計を表示する地点です。リストのカードや地図上の地点をクリックしても切り替わります。</li>
+<li><strong>↺ 初期化</strong>: 既定の13地点に戻します。</li>
+<li>リストの各地点には、最大波高と第1波の到達時刻（分）が表示されます。</li>
+</ul>
+<h3>8.3 波形グラフ</h3>
+<ul>
+<li>横軸は<strong>地震発生からの経過時間</strong>、縦軸は水位 η (m) です。</li>
+<li>表示切替: <strong>☑ 選択地点</strong>（チェックした地点を重ねる）/ <strong>🎯 単一フォーカス</strong> / <strong>🌐 全地点</strong></li>
+<li>見出しの統計:<ul>
+<li><strong>第1波到達</strong>: 水位変動の大きさが初めて0.15m以上になった時刻</li>
+<li><strong>最大波高</strong>: その地点の最大水位</li>
+<li><strong>波侵入方向</strong>: 最大水位のときの流れの向き（16方位と度数）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+震源域の真上や近くの観測地点では、地震直後の地殻変動そのもので水位が0.15m以上変わるため、第1波到達が「0分0秒」になることがあります（全域同時破壊のシナリオ）。内閣府モデルのように破壊が伝播するシナリオでは、破壊が届いた時刻が到達時刻になります。</p>
+</blockquote>
+<hr>
+<h2>9. アニメーションの動画保存（MP4）</h2>
+<ol>
+<li>再生速度と計算上限時間を選びます。</li>
+<li><strong>🎥 MP4録画</strong> を押すと、録画しながらシミュレーションが始まります（計算済みの場合は最初から）。</li>
+<li><strong>⏹ 録画停止・保存</strong> を押すか、計算上限時間に達すると、動画ファイルが保存されます。</li>
+</ol>
+<ul>
+<li><p>動画には地図の表示内容（ズーム・表示範囲もそのまま）、<strong>シナリオ名</strong>、<strong>地震発生からの経過時間</strong>、津波高の凡例が入ります。</p>
+</li>
+<li><p>形式: MP4 (H.264)、30fps、最大 1920×1080。MP4 に対応していない環境では WebM で保存し、その旨を表示します。</p>
+</li>
+<li><p>描画1フレームが動画の1フレームになるため、<strong>動画の長さは再生速度で決まります</strong>（録画中は再生速度どおりに計算します）。</p>
+<table>
+<thead>
+<tr>
+<th>再生速度</th>
+<th>120分の計算の動画の長さ（目安）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1x</td>
+<td>約80秒</td>
+</tr>
+<tr>
+<td>5x</td>
+<td>約40秒</td>
+</tr>
+<tr>
+<td>20x</td>
+<td>約11秒</td>
+</tr>
+<tr>
+<td>60x</td>
+<td>約4秒</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>ファイル名: <code>tsunami_&lt;シナリオID&gt;_&lt;日時&gt;.mp4</code></p>
+</li>
+</ul>
+<hr>
+<h2>10. CSV出力（市街地シミュレーションとの連携）</h2>
+<p>「3. 各地の沖合到達予測」の下部のボタンで、<strong>チェックした観測地点ごとに</strong>CSVファイルを出力します（チェックがない場合は全地点の出力を確認します）。先にシミュレーションの再生か一括高速計算を行ってください。</p>
+<h3>10.1 2つの出力方式</h3>
+<ol>
+<li><strong>方式A: 📋 全期間データ</strong><ul>
+<li>地震発生（t=0）から計算終了までの全データ（約3秒間隔。120分なら約2,400行）。</li>
+<li>ファイル名: <code>tsunami_boundary_full_&lt;観測点ID&gt;.csv</code></li>
+</ul>
+</li>
+<li><strong>方式B: 🎯 市街地連携用波形</strong><ul>
+<li>第1波到達の<strong>2分前を t=0</strong> として、主要な波が通過するまで（最大波の35分後、または第1波到達の45分後のうち遅い方）を切り出します。</li>
+<li>各行に<strong>地震発生からの経過時間</strong>（秒、時:分:秒）も記載するので、切り出した波形が地震後のいつの時間帯かがわかります。</li>
+<li>明確な津波（0.05m以上）がまだ到達していない地点では、方式Aで出力するか確認します。</li>
+<li>ファイル名: <code>tsunami_boundary_city_&lt;観測点ID&gt;.csv</code></li>
+</ul>
+</li>
+</ol>
+<h3>10.2 方式Bのファイル形式</h3>
+<pre><code class="language-csv"># Tsunami Boundary Wave Condition for City Simulation (Phase 2)
+# Location: 宮城中部沖 (石巻・女川) (Lon: 141.68, Lat: 38.23)
 # Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
-Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
-0.0,0.012,0.005,-0.002,0.005,111.8
-4.0,0.035,0.015,-0.008,0.017,118.1</code></pre>
+# Original Absolute First Arrival: 0.0 s (0:00:00 after earthquake)
+# Original Absolute Max Surge: 6.44 m (at 1659.0 s = 0:27:39 after earthquake)
+# Time Offset: -0.0 s (Absolute_Time_sec = Time_sec + 0.0)
+# Trimmed Window (time since earthquake): 0:00:00 - 1:00:00
+# Time_since_EQ_sec / Time_since_EQ_hms: elapsed time since the earthquake origin (rupture at 0 s)
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_since_EQ_sec,Time_since_EQ_hms
+0.0,-1.330,0.000,0.000,0.000,0.0,0.0,0:00:00
+3.0,-1.330,0.003,-0.001,0.004,0.0,3.0,0:00:03
+...
+</code></pre>
+<p>方式Aは先頭の <code>#</code> 行が3行で、列は <code>Time_sec</code> 〜 <code>Direction_deg</code> の6列です。</p>
+<h3>10.3 列の説明</h3>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>単位</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Time_sec</code></td>
+<td>秒</td>
+<td>方式A: 地震発生からの時間。方式B: 切り出し開始（第1波到達の2分前）からの時間</td>
+</tr>
+<tr>
+<td><code>Elevation_m</code></td>
+<td>m</td>
+<td>静水面からの水位変動（上昇が正、低下が負）</td>
+</tr>
+<tr>
+<td><code>U_velocity_m_s</code></td>
+<td>m/s</td>
+<td>東西方向の流速（東向きが正）</td>
+</tr>
+<tr>
+<td><code>V_velocity_m_s</code></td>
+<td>m/s</td>
+<td>南北方向の流速（北向きが正）</td>
+</tr>
+<tr>
+<td><code>Speed_m_s</code></td>
+<td>m/s</td>
+<td>流速の大きさ √(u²+v²)</td>
+</tr>
+<tr>
+<td><code>Direction_deg</code></td>
+<td>度</td>
+<td>流れの向き（北0°、東90°、南180°、西270°）</td>
+</tr>
+<tr>
+<td><code>Time_since_EQ_sec</code></td>
+<td>秒</td>
+<td>方式Bのみ。地震発生からの時間</td>
+</tr>
+<tr>
+<td><code>Time_since_EQ_hms</code></td>
+<td>時:分:秒</td>
+<td>方式Bのみ。地震発生からの時間</td>
+</tr>
+</tbody></table>
+<p><code>Time_since_EQ_*</code> の2列は既存の6列の後ろに追加しているので、列番号で読み込む既存の連携プログラムにも影響しません。</p>
+<hr>
+<h2>11. 物理モデルの概要</h2>
+<blockquote>
+<p>[!NOTE]
+式の導出や離散化の詳細は <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> を参照してください。</p>
+</blockquote>
+<ol>
+<li><strong>初期波源（Okada 1985）</strong>: 矩形断層のすべりによる海底の鉛直変位を半無限弾性体の解析解で求め、海面の初期変位とします。Okada (1985) の検算値と一致することを確認しています。<code>depthKm</code> は断層面の<strong>上端の深さ</strong>です。計算範囲の外縁はコサイン型に滑らかに打ち切ります。</li>
+<li><strong>破壊伝播（内閣府モデル）</strong>: 破壊開始点からの距離 ÷ 2.5km/s の時刻から、1分かけて変位を加えます。</li>
+<li><strong>浅水流方程式</strong>: 2次元の非線形長波方程式を Arakawa C グリッド上で解きます。南北に26度の範囲を扱うため、<strong>緯度ごとに東西の格子間隔を変え、連続の式に球面座標の補正</strong>を入れています。</li>
+<li><strong>格子・時間刻み</strong>: 1.5分メッシュ（約2.8km）、時間刻み約3秒（CFL条件を満たすよう自動調整）。</li>
+<li><strong>海底摩擦</strong>: マニングの粗度係数 0.025（半陰解法）。</li>
+<li><strong>数値ノイズ抑制</strong>: 急な海底斜面で生じる格子規模の振動を、弱いラプラシアン平滑化で抑えます。</li>
+<li><strong>外洋境界</strong>: 波を反射しにくい放射境界条件。</li>
+<li><strong>観測点の値</strong>: 周囲の海のセル4つから双線形補間で求めます。</li>
+</ol>
+<hr>
+<h2>12. 制約と注意事項</h2>
+<ul>
+<li><strong>沖合の値</strong>: 本システムの波高は沖合（水深数十m以深）の値で、海岸での津波高・遡上高ではありません。</li>
+<li><strong>格子の粗さ</strong>: 約2.8kmメッシュのため、湾や港の内部、狭い海峡の地形は表現できません。</li>
+<li><strong>断層モデルの簡略化</strong>: プリセットや震源クリック指定の断層は、一様なすべりの矩形断層（またはその組み合わせ）です。内閣府モデルも公式データではなく概略再現です。</li>
+<li><strong>震源クリック指定</strong>: プレート境界は1枚の平面で近似するため、長大な断層（Mw9クラスで約600km）では実際の曲がったプレート境界との差が大きくなります。プレート境界データは現在 USGS Slab1.0 です。</li>
+<li><strong>考慮していない現象</strong>: 陸の浸水・遡上、潮汐、コリオリ力、波の分散性。</li>
+<li><strong>遠方の小さな変位</strong>: Mw9クラスの震源では、数百km離れた海域にも数cmの地殻変動が表示されることがあります（計算上正しい値です）。</li>
+<li><strong>計算時間</strong>: 全国範囲（約110万格子）を計算するため、120分の計算に約1分かかります。</li>
+</ul>
+<hr>
+<h2>13. よくある質問（FAQ）</h2>
+<ul>
+<li><p><strong>Q. 「一括高速計算」と「再生」の違いは？</strong></p>
+<ul>
+<li>A. 再生は画面を描画しながら進めます。一括高速計算は描画を省いて計算上限時間まで一気に計算するので、CSVを出力したいときに便利です。</li>
+</ul>
+</li>
+<li><p><strong>Q. 任意の地点の津波データがほしいときは？</strong></p>
+<ul>
+<li>A. 「＋ 指定点追加」を押してから、地図上の海域をクリックしてください。計算の途中でも追加でき、その時点から記録します。</li>
+</ul>
+</li>
+<li><p><strong>Q. 市街地シミュレーションにはどちらのCSVを使えばよい？</strong></p>
+<ul>
+<li>A. 第1波が迫る直前から計算を始めたい場合は方式B（市街地連携用波形）を、地震直後からの全過程が必要な場合は方式A（全期間データ）を使ってください。方式Bにも地震発生からの経過時間が記載されています。</li>
+</ul>
+</li>
+<li><p><strong>Q. 内閣府のケース①〜⑤を全部まとめたシナリオはないの？</strong></p>
+<ul>
+<li>A. 各ケースはどれも「駿河湾〜日向灘の全域が破壊する Mw9.1 の巨大地震」で、違いは大すべり域の位置だけです。全ケースの大すべり域を同時に置くと政府の想定を超えるため、用意していません。政府の最大クラスの津波高は、地点ごとに全ケースの最大値をとったものです。</li>
+</ul>
+</li>
+<li><p><strong>Q. 震源クリック指定で日本海側をクリックすると？</strong></p>
+<ul>
+<li>A. プレート境界データの範囲外か、プレート境界が深すぎるため、カスタム断層パラメータ欄の値（手動）で断層を置きます。日本海東縁の地震などは、走向・傾斜などを手動で設定してください。</li>
+</ul>
+</li>
+<li><p><strong>Q. デスクトップ版で保存したファイルはどこ？</strong></p>
+<ul>
+<li>A. 「ダウンロード」フォルダです。保存すると画面右下に保存先が表示されます。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>14. データ・文献の出典</h2>
+<ul>
+<li><strong>海底地形</strong>: GEBCO 15秒グリッド（<code>japan.tif</code>）</li>
+<li><strong>プレート境界形状</strong>: Hayes, G. P., Wald, D. J., &amp; Johnson, R. L. (2012). Slab1.0: A three-dimensional model of global subduction zone geometries. <em>J. Geophys. Res.</em>, 117, B01302. / Hayes, G. P. et al. (2018). Slab2, a comprehensive subduction zone geometry model. <em>Science</em>, 362, 58-61.</li>
+<li><strong>内閣府モデル</strong>: 内閣府 南海トラフの巨大地震モデル検討会 (2012) 第二次報告 津波断層モデル編</li>
+<li><strong>震源</strong>: 気象庁（1944年昭和東南海地震、1946年昭和南海地震、2011年東北地方太平洋沖地震）、理科年表（1707年宝永地震、1854年安政東海地震の推定震央）</li>
+<li><strong>断層の地殻変動</strong>: Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. <em>Bull. Seismol. Soc. Am.</em>, 75, 1135-1154.</li>
+<li><strong>断層の大きさ</strong>: Strasser, F. O., Arango, M. C., &amp; Bommer, J. J. (2010). Scaling of the source dimensions of interface and intraslab subduction-zone earthquakes with moment magnitude. <em>Seismol. Res. Lett.</em>, 81, 941-950.</li>
+</ul>
 
-      <h2>5. 物理モデルと数値安定化</h2>
-      <ul>
-        <li><strong>Okada（1985）弾性転位モデル</strong>: 半無限弾性体表面の鉛直変位を解析的に算出。</li>
-        <li><strong>2次元非線形浅水流方程式（SWE）</strong>: Arakawa C-grid 上でスタガード差分、半陰解法マニング摩擦項により安定計算。</li>
-        <li><strong>Shapiro フィルター（Laplacian平滑化）</strong>: 潮岬沖等の急深海底崖で生じる $2\Delta x$ 寄生格子ノイズ（1分周期振動・0.5m跳ね）を微小拡散で除去。長周期津波エネルギーを99.9%保持。</li>
-        <li><strong>空間双線形補間</strong>: 周囲4海洋セルの加重平均でサンプリングし、単一格子セルの数値跳ねを排除。</li>
-      </ul>
+
     </article>
   </main>
 
