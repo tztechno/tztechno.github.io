@@ -91,6 +91,8 @@
       margin-left: auto;
     }
 
+
+
     /* manual-extra: 表・注記 (Markdown から生成) */
     .manual-card table {
       width: 100%;
@@ -193,9 +195,7 @@
 </ul>
 </li>
 </ol>
-<blockquote>
-<p>[!IMPORTANT]
-本システムの波高は、水深数十〜数千mの<strong>沖合の観測点での値</strong>です。海岸での津波高や遡上高は、浅い海で波が高くなる効果（浅水変形）によりこれより大きくなります。沿岸の被害想定には、フェーズ2の市街地シミュレーションや公的な想定をご利用ください。</p>
+<blockquote class="callout-important"><p class="callout-title">重要</p><p>本システムの波高は、水深数十〜数千mの<strong>沖合の観測点での値</strong>です。海岸での津波高や遡上高は、浅い海で波が高くなる効果（浅水変形）によりこれより大きくなります。沿岸の被害想定には、フェーズ2の市街地シミュレーションや公的な想定をご利用ください。</p>
 </blockquote>
 <hr>
 <h2>2. 動作環境と起動方法</h2>
@@ -301,7 +301,7 @@ npm run tauri build  # 配布用ビルド (dmg / exe)
 <tr>
 <td>2011年 東北地方太平洋沖地震 (M9.0)</td>
 <td>歴史地震の再現</td>
-<td>4枚 (宮城沖海溝寄り30m・宮城沖深部・岩手沖・福島茨城沖)</td>
+<td>4枚 (宮城沖海溝寄り24m・宮城沖深部22m・岩手沖23m・福島茨城沖10m。GPS波浪計の最大波高に合わせて調整)</td>
 <td>震源 (深さ24km、気象庁)</td>
 </tr>
 <tr>
@@ -350,9 +350,7 @@ npm run tauri build  # 配布用ビルド (dmg / exe)
 <li><strong>公式モデルとの違い</strong>: 公式の小断層データ（約5kmメッシュ）は申請制のため、プレート形状を一様な傾斜の帯で近似し、プレートの沈み込み速度に比例したすべり配分や大すべり域境界の平滑化は省略しています。ケース⑥〜⑪（分岐断層・大すべり域2箇所）は未実装です。</li>
 <li><strong>最大クラスの津波高の考え方</strong>: 政府の「最大クラスの津波高」は、各地点で全ケースのうち最も高い値をとったものです。ケースを順に計算し、地点ごとに最大値を比べてください。</li>
 </ul>
-<blockquote>
-<p>[!NOTE]
-旧来の中央防災会議（2003年）のモデルは、過去5地震（宝永・安政東海・安政南海・昭和東南海・昭和南海）の津波記録を包絡するように作られたモデルです。内閣府（2012年）のモデルは、過去の地震の寄せ集めではなく、科学的知見に基づく「最大クラス」の想定です。</p>
+<blockquote class="callout-note"><p class="callout-title">注記</p><p>旧来の中央防災会議（2003年）のモデルは、過去5地震（宝永・安政東海・安政南海・昭和東南海・昭和南海）の津波記録を包絡するように作られたモデルです。内閣府（2012年）のモデルは、過去の地震の寄せ集めではなく、科学的知見に基づく「最大クラス」の想定です。</p>
 </blockquote>
 <h3>4.2 地図上のマークの意味</h3>
 <table>
@@ -471,6 +469,10 @@ npm run tauri build  # 配布用ビルド (dmg / exe)
 <tr>
 <td><strong>再生速度</strong></td>
 <td>1x / 5x / 20x / 60x。1フレームあたりに進めるシミュレーション時間（秒）の目安です。60x などでは操作の応答性を保つため1フレームの計算時間を制限するので、実際の進みは PC の性能に応じて遅くなります</td>
+</tr>
+<tr>
+<td><strong>数値フィルター</strong></td>
+<td>格子規模の数値振動を抑える平滑化の方式。<strong>4次Shapiro（推奨）</strong>／ラプラシアン 弱／ラプラシアン 旧設定／なし（比較用）。変更すると計算を最初からやり直します。旧設定は最大波高を最大で約4割低く計算していたため、旧版の結果と比べるとき以外は推奨設定を使ってください</td>
 </tr>
 </tbody></table>
 <ul>
@@ -634,9 +636,7 @@ npm run tauri build  # 配布用ビルド (dmg / exe)
 </ul>
 </li>
 </ul>
-<blockquote>
-<p>[!NOTE]
-震源域の真上や近くの観測地点では、地震直後の地殻変動そのもので水位が0.15m以上変わるため、第1波到達が「0分0秒」になることがあります（全域同時破壊のシナリオ）。内閣府モデルのように破壊が伝播するシナリオでは、破壊が届いた時刻が到達時刻になります。</p>
+<blockquote class="callout-note"><p class="callout-title">注記</p><p>震源域の真上や近くの観測地点では、地震直後の地殻変動そのもので水位が0.15m以上変わるため、第1波到達が「0分0秒」になることがあります（全域同時破壊のシナリオ）。内閣府モデルのように破壊が伝播するシナリオでは、破壊が届いた時刻が到達時刻になります。</p>
 </blockquote>
 <hr>
 <h2>9. アニメーションの動画保存（MP4）</h2>
@@ -765,9 +765,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <p><code>Time_since_EQ_*</code> の2列は既存の6列の後ろに追加しているので、列番号で読み込む既存の連携プログラムにも影響しません。</p>
 <hr>
 <h2>11. 物理モデルの概要</h2>
-<blockquote>
-<p>[!NOTE]
-式の導出や離散化の詳細は <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> を参照してください。</p>
+<blockquote class="callout-note"><p class="callout-title">注記</p><p>式の導出や離散化の詳細は <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> を参照してください。</p>
 </blockquote>
 <ol>
 <li><strong>初期波源（Okada 1985）</strong>: 矩形断層のすべりによる海底の鉛直変位を半無限弾性体の解析解で求め、海面の初期変位とします。Okada (1985) の検算値と一致することを確認しています。<code>depthKm</code> は断層面の<strong>上端の深さ</strong>です。計算範囲の外縁はコサイン型に滑らかに打ち切ります。</li>
@@ -775,8 +773,8 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <li><strong>浅水流方程式</strong>: 2次元の非線形長波方程式を Arakawa C グリッド上で解きます。南北に26度の範囲を扱うため、<strong>緯度ごとに東西の格子間隔を変え、連続の式に球面座標の補正</strong>を入れています。</li>
 <li><strong>格子・時間刻み</strong>: 1.5分メッシュ（約2.8km）、時間刻み約3秒（CFL条件を満たすよう自動調整）。</li>
 <li><strong>海底摩擦</strong>: マニングの粗度係数 0.025（半陰解法）。</li>
-<li><strong>数値ノイズ抑制</strong>: 急な海底斜面で生じる格子規模の振動を、弱いラプラシアン平滑化で抑えます。</li>
-<li><strong>外洋境界</strong>: 波を反射しにくい放射境界条件。</li>
+<li><strong>数値ノイズ抑制</strong>: 急な海底斜面で生じる格子規模の振動を、4次 Shapiro フィルターで抑えます（津波の主な波長はほとんど減衰させません）。</li>
+<li><strong>外洋境界</strong>: 外周約100 kmの吸収層と放射条件で、計算範囲の外へ出た波が反射して戻らないようにしています。</li>
 <li><strong>観測点の値</strong>: 周囲の海のセル4つから双線形補間で求めます。</li>
 </ol>
 <hr>
@@ -788,6 +786,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <li><strong>震源クリック指定</strong>: プレート境界は1枚の平面で近似するため、長大な断層（Mw9クラスで約600km）では実際の曲がったプレート境界との差が大きくなります。プレート境界データは現在 USGS Slab1.0 です。</li>
 <li><strong>考慮していない現象</strong>: 陸の浸水・遡上、潮汐、コリオリ力、波の分散性。</li>
 <li><strong>遠方の小さな変位</strong>: Mw9クラスの震源では、数百km離れた海域にも数cmの地殻変動が表示されることがあります（計算上正しい値です）。</li>
+<li><strong>計算範囲の外周</strong>: 外周約100 kmは波を吸収する層なので、その中の水位は実際より小さくなります。観測地点は外周から離れた場所に置いてください。</li>
 <li><strong>計算時間</strong>: 全国範囲（約110万格子）を計算するため、120分の計算に約1分かかります。</li>
 </ul>
 <hr>
@@ -834,8 +833,6 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <li><strong>断層の地殻変動</strong>: Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. <em>Bull. Seismol. Soc. Am.</em>, 75, 1135-1154.</li>
 <li><strong>断層の大きさ</strong>: Strasser, F. O., Arango, M. C., &amp; Bommer, J. J. (2010). Scaling of the source dimensions of interface and intraslab subduction-zone earthquakes with moment magnitude. <em>Seismol. Res. Lett.</em>, 81, 941-950.</li>
 </ul>
-
-
     </article>
   </main>
 

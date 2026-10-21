@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>南海トラフ津波広域伝播シミュレーター | Nankai Trough Tsunami Simulator</title>
-  <meta name="description" content="南海トラフ巨大地震に伴う津波の広域伝播を物理ベース（Okadaモデル×2次元浅水流方程式）で高精度に再現。沿岸観測点波形から市街地遡上シミュレーション（Phase 2）への連携境界データを即座に出力。">
+  <meta name="description" content="南海トラフ地震・2011年東北地方太平洋沖地震などの津波の広域伝播を、Okadaモデルと2次元長波方程式で日本全国について計算。沖合観測点の水位・流速を、市街地遡上シミュレーション（Phase 2）の境界条件として出力。">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,8 +35,8 @@
         <a href="#features" data-i18n="navFeatures">特徴</a>
         <a href="#architecture" data-i18n="navArchitecture">2段階構想</a>
         <a href="#scenarios" data-i18n="navScenarios">想定シナリオ</a>
-        <a href="#physics" data-i18n="navPhysics">物理モデル</a>
-        <a href="#download" data-i18n="navDownload">ダウンロード</a>
+        <a href="#docs" data-i18n="navPhysics">物理モデル</a>
+        <a href="#download" data-i18n="navDownload">購入・入手</a>
         <a href="#docs" data-i18n="navDocs">マニュアル</a>
       </nav>
 
@@ -60,15 +60,10 @@
         <div class="hero-content">
           <div class="badge-pill">
             <span class="pulse-dot"></span>
-            <span data-i18n="heroBadge">v1.1.0 最新版: USGS Slab2・内閣府11領域・MP4録画搭載</span>
+            <span data-i18n="heroBadge">v1.2.0 最新版: 4次Shapiroフィルター・境界の無反射化・東北モデル再調整</span>
           </div>
-          <h1 class="hero-title" data-i18n="heroTitle">
-            南海トラフ巨大津波を、<br>
-            <span class="gradient-text">極限の解像度</span>で可視化する。
-          </h1>
-          <p class="hero-desc" data-i18n="heroDesc">
-            Okada弾性転位モデルと2次元非線形浅水流方程式（SWE）を融合。外洋深海から沿岸各地への広域津波伝播を瞬時に解析し、宮古津波型・市街地遡上シミュレーション（Phase 2）へとシームレスに接続します。
-          </p>
+          <h1 class="hero-title" data-i18n="heroTitle">南海トラフから日本全国まで、<br><span class="gradient-text">津波の広がり</span>を計算する。</h1>
+          <p class="hero-desc" data-i18n="heroDesc">Okada弾性転位モデルと2次元長波方程式（浅水方程式）で、日本全国の海域の津波伝播を計算。沖合観測点の水位・流速を、市街地遡上シミュレーション（Phase 2）の境界条件としてそのまま出力します。</p>
 
           <div class="hero-cta-group">
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-download" id="hero-download-mac">
@@ -95,18 +90,18 @@
 
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-val">v1.1.0</span>
-              <span class="stat-label" data-i18n="statSize">超軽量 (3.7MB〜)</span>
+              <span class="stat-val">v1.2.0</span>
+              <span class="stat-label" data-i18n="statSize">軽量 (約4〜5MB)</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <span class="stat-val">日本全国</span>
+              <span class="stat-val" data-i18n="statDomainVal">日本全国</span>
               <span class="stat-label" data-i18n="statDomain">広域1.5分メッシュ</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <span class="stat-val">120<span class="unit">分</span></span>
-              <span class="stat-label" data-i18n="statTime">数秒で一括高速計算</span>
+              <span class="stat-val" data-i18n="statTimeVal">120<span class="unit">分</span></span></span>
+              <span class="stat-label" data-i18n="statTime">約1分で一括計算</span>
             </div>
           </div>
         </div>
@@ -117,16 +112,16 @@
               <div class="window-controls">
                 <span></span><span></span><span></span>
               </div>
-              <span class="visual-title">Nankai Trough 3D GIS Visualization</span>
+              <span class="visual-title" data-i18n="heroVisualTitle">アプリ実画面 (v1.2.0)</span>
             </div>
             <div class="visual-img-wrap">
-              <img src="assets/tsunami_hero.jpg" alt="南海トラフ津波シミュレーション 3D可視化" class="hero-render-img">
+              <img src="assets/app_full_ui.jpg" alt="南海トラフ津波広域伝播シミュレーターの画面 (南海トラフ全域連動 M9.1、地震発生から26分)" data-i18n-alt="altHero" class="hero-render-img">
               <div class="overlay-badge badge-top-right">
                 <span class="live-indicator"></span>
-                <span>M9.1 全域連動モデル</span>
+                <span data-i18n="heroBadgeScenario">南海トラフ全域連動 (M9.1)</span>
               </div>
               <div class="overlay-badge badge-bottom-left">
-                <span>深海水深: -4,500m / 最大波高: 20m+</span>
+                <span data-i18n="heroBadgeTime">地震発生から26分</span>
               </div>
             </div>
           </div>
@@ -138,8 +133,8 @@
     <section class="section" id="features">
       <div class="container">
         <div class="section-head text-center">
-          <h2 class="section-title" data-i18n="featuresTitle">4つの核心技術とアドバンテージ</h2>
-          <p class="section-desc" data-i18n="featuresDesc">学術基準の物理モデル、実務に即した連携出力、プレート境界の立体モデル、そしてモダンな高速実行環境を兼ね備えています。</p>
+          <h2 class="section-title" data-i18n="featuresTitle">4つの主な機能</h2>
+          <p class="section-desc" data-i18n="featuresDesc">論文の式に基づく津波の計算、市街地シミュレーション向けのデータ出力、プレート境界に沿った震源の設定、動画保存ができます。</p>
         </div>
 
         <div class="features-grid">
@@ -150,13 +145,11 @@
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
             </div>
-            <h3 class="feature-title" data-i18n="feat1Title">厳密な物理数値モデル</h3>
-            <p class="feature-desc" data-i18n="feat1Desc">
-              岡田（Okada 1985）弾性転位モデルにより断層パラメータから初期海底地殻変動を算出。スタガード格子（Arakawa C-grid）を用いた2次元非線形浅水流方程式（SWE）と半陰解法マニング摩擦項で、浅瀬から海溝深海まで絶対発散しない安定した時間発展を実現。
-            </p>
+            <h3 class="feature-title" data-i18n="feat1Title">物理モデルに基づく計算</h3>
+            <p class="feature-desc" data-i18n="feat1Desc">Okada (1985) の弾性転位モデルで、断層運動による海底の隆起・沈降を計算（文献の検算値と一致を確認）。Arakawa C格子上の2次元長波方程式を、緯度ごとの格子間隔補正と半陰解法のマニング摩擦で安定に解きます。</p>
             <div class="feature-tag-list">
               <span>Okada 1985</span>
-              <span>Non-linear SWE</span>
+              <span>Shallow Water Eq.</span>
               <span>Arakawa C-Grid</span>
             </div>
           </div>
@@ -172,12 +165,10 @@
                 <line x1="12" y1="22" x2="12" y2="18"/>
               </svg>
             </div>
-            <h3 class="feature-title" data-i18n="feat2Title">USGS Slab2 プレート境界補間</h3>
-            <p class="feature-desc" data-i18n="feat2Desc">
-              沈み込むフィリピン海プレートおよび太平洋プレートの3次元形状データ（0.1度格子）を内蔵。「🎯 震源クリック指定」で地図上をクリックするだけで、プレート深さ・走向（strike）・傾斜（dip）を瞬時に双線形補間して物理的に妥当な断層面を自動構成。
-            </p>
+            <h3 class="feature-title" data-i18n="feat2Title">プレート境界に沿った震源の自動設定</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">千島・日本海溝、伊豆・小笠原、南海トラフ・琉球のプレート境界形状（USGS Slab1.0、0.1度格子。Slab2にも対応）を内蔵。「🎯 震源クリック指定」で地図をクリックすると、その地点のプレート境界の深さ・走向・傾斜に沿って、マグニチュードに応じた大きさの断層を自動で配置。手動での微調整もできます。</p>
             <div class="feature-tag-list">
-              <span>USGS Slab2</span>
+              <span>USGS Slab1.0 / Slab2</span>
               <span>Pick Epicenter</span>
               <span>3D Geometry</span>
             </div>
@@ -195,9 +186,7 @@
               </svg>
             </div>
             <h3 class="feature-title" data-i18n="feat3Title">市街地遡上連携用 CSV 出力</h3>
-            <p class="feature-desc" data-i18n="feat3Desc">
-              全期間時系列（方式A）に加え、第1波到達前2分を t=0 に正規化して無駄な初期時間を省いた「市街地連携用トリミング波形（方式B）」を出力。水位だけでなく東西・南北の流速ベクトル（U, V）や流向を含み、Phase 2 の都市浸水シミュレーターに即座に直結。
-            </p>
+            <p class="feature-desc" data-i18n="feat3Desc">全期間の時系列（方式A）に加え、第1波到達の2分前を t=0 として主要な波だけを切り出した「市街地連携用波形（方式B）」を出力。水位・東西/南北の流速（U, V）・流向に加え、各行に地震発生からの経過時間も記載します。</p>
             <div class="feature-tag-list">
               <span>Time-Series CSV</span>
               <span>Flow Velocity Vectors</span>
@@ -213,14 +202,12 @@
                 <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
               </svg>
             </div>
-            <h3 class="feature-title" data-i18n="feat4Title">動画保存 (MP4) & 超高速計算</h3>
-            <p class="feature-desc" data-i18n="feat4Desc">
-              WebCodecs と MP4-Muxer による高速ハードウェアエンコードを搭載し、アニメーションをMP4動画としてワンクリックで直接保存。急深崖の数値ノイズを消去するShapiroフィルターを備え、120分の物理計算も数秒で一括実行できます。
-            </p>
+            <h3 class="feature-title" data-i18n="feat4Title">動画保存 (MP4) と数値安定化</h3>
+            <p class="feature-desc" data-i18n="feat4Desc">WebCodecs と mp4-muxer で、アニメーションをMP4動画としてワンクリックで保存。4次Shapiroフィルターで格子規模の数値ノイズだけを取り除き、外周の吸収層で計算範囲の端からの反射を防ぎます。日本全国・120分の計算は約1分。</p>
             <div class="feature-tag-list">
               <span>MP4 Export</span>
-              <span>Shapiro Filter</span>
-              <span>Fast-Forward 120m</span>
+              <span>4th-order Shapiro</span>
+              <span>Absorbing Boundary</span>
             </div>
           </div>
         </div>
@@ -233,16 +220,16 @@
         <div class="section-head text-center">
           <div class="badge-pill" data-i18n="archBadge">シミュレーション連携構想</div>
           <h2 class="section-title" data-i18n="archTitle">フェーズ1（広域海洋）からフェーズ2（市街地浸水）へ</h2>
-          <p class="section-desc" data-i18n="archDesc">南海トラフ軸で発生した津波エネルギーを、沿岸港湾・市街地構造物の破壊シミュレーションへと橋渡しします。</p>
+          <p class="section-desc" data-i18n="archDesc">沖合で計算した津波の水位・流速を、沿岸・市街地の浸水シミュレーションへ橋渡しします。</p>
         </div>
 
         <div class="architecture-visual-grid">
           <div class="arch-box">
-            <div class="arch-badge">Phase 1 (本システム)</div>
-            <h3>広域海洋津波伝播シミュレーション</h3>
-            <p>震源断層破壊（Okada） ➔ GEBCO海底地形 ➔ 広域浅水流方程式（SWE） ➔ 沿岸指定地点（室戸、潮岬、駿河湾、紀伊水道等）における波高・流速・流向を時系列記録。</p>
+            <div class="arch-badge" data-i18n="archPhase1Badge">Phase 1 (本システム)</div>
+            <h3 data-i18n="archPhase1Title">広域の津波伝播シミュレーション</h3>
+            <p data-i18n="archPhase1Desc">震源断層（Okada） ➔ GEBCO海底地形（日本全国・1.5分メッシュ） ➔ 2次元長波方程式 ➔ 沖合観測点（室戸岬沖・潮岬沖・駿河湾口・宮城中部沖など既定13地点＋任意地点）の水位・流速・流向を時系列で記録。</p>
             <div class="arch-img-box">
-              <img src="assets/tsunami_hero.jpg" alt="Phase 1 広域伝播">
+              <img src="assets/app_cao_case1.jpg" alt="Phase 1 広域伝播 (内閣府ケース①、地震発生から9分のアプリ画面)" data-i18n-alt="altPhase1">
             </div>
           </div>
 
@@ -252,18 +239,19 @@
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
               </svg>
-              <span>境界条件 CSV</span>
-              <span class="sub">(Elevation, U, V, Speed, Dir)</span>
+              <span data-i18n="archArrowLabel">境界条件 CSV</span>
+              <span class="sub">(Elevation, U, V, Speed, Dir, Time since EQ)</span>
             </div>
           </div>
 
           <div class="arch-box">
-            <div class="arch-badge phase2">Phase 2 (沿岸・都市モデル)</div>
-            <h3>市街地津波遡上・建築物浸水シミュレーション</h3>
-            <p>宮古島等の実績モデルと同様の手法。湾口・沖合境界からトリミング波形を入力し、街路・防波堤・防潮堤・家屋への浸水深・流速・衝突力を詳細解析。</p>
+            <div class="arch-badge phase2" data-i18n="archPhase2Badge">Phase 2 (沿岸・都市モデル)</div>
+            <h3 data-i18n="archPhase2Title">市街地の津波遡上・浸水シミュレーション</h3>
+            <p data-i18n="archPhase2Desc">本システムとは別の高解像度モデル。湾口・沖合の境界から本システムの波形を入力し、街路・防波堤・防潮堤・家屋への浸水深・流速を解析します。</p>
             <div class="arch-img-box">
-              <img src="assets/phase2_city.jpg" alt="Phase 2 市街地遡上">
+              <img src="assets/phase2_city.jpg" alt="Phase 2 市街地遡上 (イメージ図)" data-i18n-alt="altPhase2">
             </div>
+            <p class="img-caption" data-i18n="phase2ImageNote">※画像はイメージです</p>
           </div>
         </div>
 
@@ -274,24 +262,24 @@
             <table class="styled-table">
               <thead>
                 <tr>
-                  <th>出力方式</th>
-                  <th>開始時間 (t=0)</th>
-                  <th>データ行数 (120分設定時)</th>
-                  <th>主な用途・メリット</th>
+                  <th data-i18n="compThMode">出力方式</th>
+                  <th data-i18n="compThStart">開始時間 (t=0)</th>
+                  <th data-i18n="compThRows">データの範囲 (120分の計算)</th>
+                  <th data-i18n="compThUse">主な用途</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><span class="badge-tag">方式A</span> <strong>全期間データ (Full Timeline)</strong></td>
-                  <td>地震発生の瞬間 (t = 0.0s)</td>
-                  <td>1,801 行 (4秒刻み)</td>
-                  <td>地震直後からの引き波・初動を含む広域海洋学的な全過程の検証・比較に最適。</td>
+                  <td data-i18n="compModeA"><span class="badge-tag">方式A</span> <strong>全期間データ</strong></td>
+                  <td data-i18n="compStartA">地震発生の瞬間 (t = 0 s)</td>
+                  <td data-i18n="compRowsA">約 2,400 行 (3秒刻み)</td>
+                  <td data-i18n="compUseA">地震直後からの引き波・初動を含む全過程の確認・比較。</td>
                 </tr>
                 <tr>
-                  <td><span class="badge-tag tag-cyan">方式B</span> <strong>市街地連携用トリミング (Trimmed City)</strong></td>
-                  <td>第1波到達の 120秒前 (t = 0.0s に正規化)</td>
-                  <td>主要波通過までの約30〜45分間</td>
-                  <td>Phase 2 の都市シミュレーションの計算コストを大幅削減し、即座に浸水解析を開始。</td>
+                  <td data-i18n="compModeB"><span class="badge-tag tag-cyan">方式B</span> <strong>市街地連携用波形</strong></td>
+                  <td data-i18n="compStartB">第1波到達の2分前を t = 0 とする</td>
+                  <td data-i18n="compRowsB">主要波の通過まで（最大波の35分後または第1波到達の45分後の遅い方）。各行に地震発生からの経過時間つき</td>
+                  <td data-i18n="compUseB">Phase 2 の市街地シミュレーションの境界条件。地震前の静かな時間を省き、計算時間を抑えられる。</td>
                 </tr>
               </tbody>
             </table>
@@ -305,7 +293,7 @@
       <div class="container">
         <div class="section-head text-center">
           <h2 class="section-title" data-i18n="scenariosTitle">内閣府想定・歴史地震・全国シナリオ</h2>
-          <p class="section-desc" data-i18n="scenariosDesc">内閣府モデル（全11ケース）から歴史地震、2011年東北沖地震までワンクリックで切り替えて波形を比較できます。</p>
+          <p class="section-desc" data-i18n="scenariosDesc">内閣府の南海トラフ巨大地震モデル（ケース①〜⑤の概略再現）、歴史地震、2011年東北地方太平洋沖地震を切り替えて比較できます。</p>
         </div>
 
         <div class="scenario-tabs">
@@ -323,26 +311,27 @@
               <h3 id="sc-name">南海トラフ全域連動 (M9.1)</h3>
               <span class="mag-badge" id="sc-mag">Mw 9.1</span>
             </div>
-            <p id="sc-desc">駿河湾から日向灘に至るトラフ軸全域（東海・東南海・南海・日向灘の4セグメント）が一斉に破壊する内閣府想定クラスの最大規模地震。最大すべり量20m。</p>
+            <p id="sc-desc"></p>
             
             <div class="scenario-data-grid">
               <div class="sc-data-item">
-                <span class="sc-data-label">波源断層数</span>
-                <span class="sc-data-val" id="sc-faults">4 セグメント (全域)</span>
+                <span class="sc-data-label" data-i18n="scLabelFaults">断層モデル</span>
+                <span class="sc-data-val" id="sc-faults"></span>
               </div>
               <div class="sc-data-item">
-                <span class="sc-data-label">最大すべり量</span>
-                <span class="sc-data-val" id="sc-slip">20.0 m</span>
+                <span class="sc-data-label" data-i18n="scLabelSlip">最大すべり量</span>
+                <span class="sc-data-val" id="sc-slip"></span>
               </div>
               <div class="sc-data-item">
-                <span class="sc-data-label">最大予想津波高</span>
-                <span class="sc-data-val sc-danger" id="sc-height">20m 超 (高知・和歌山・静岡)</span>
+                <span class="sc-data-label" data-i18n="scLabelHeight">沖合観測点の最大水位 (計算値)</span>
+                <span class="sc-data-val sc-danger" id="sc-height"></span>
               </div>
               <div class="sc-data-item">
-                <span class="sc-data-label">沿岸最速到達</span>
-                <span class="sc-data-val" id="sc-arrival">約 3〜5 分</span>
+                <span class="sc-data-label" data-i18n="scLabelArrival">最大波の時刻 (地震発生から)</span>
+                <span class="sc-data-val" id="sc-arrival"></span>
               </div>
             </div>
+            <p class="sc-note" data-i18n="scNote">※本アプリ v1.2.0 で2時間計算した、沖合の観測点（水深数十〜数千m）の値です。海岸での津波高・遡上高は、浅い海で波が高くなるためこれより大きくなります。</p>
           </div>
         </div>
       </div>
@@ -353,18 +342,18 @@
       <div class="container">
         <div class="section-head text-center">
           <div class="badge-pill">Interactive Demo</div>
-          <h2 class="section-title" data-i18n="demoTitle">インタラクティブ波面シミュレーター</h2>
-          <p class="section-desc" data-i18n="demoDesc">マップ内をクリックすると、任意の震源から津波が広域に同心円状に伝播する物理波紋を体験できます。</p>
+          <h2 class="section-title" data-i18n="demoTitle">波の広がりの簡易デモ</h2>
+          <p class="section-desc" data-i18n="demoDesc">クリックした場所から波が広がる様子を、簡易な2次元波動方程式で表示するデモです。実際のアプリとは異なり、断層モデルや実際の海底地形は使っていません（上ほど浅い海として速度だけを変えています）。</p>
         </div>
 
         <div class="canvas-interactive-wrapper">
           <canvas id="waveCanvas" width="900" height="450"></canvas>
           <div class="canvas-overlay-ui">
             <div class="canvas-hud">
-              <span class="hud-status">● REALTIME 2D SWE RUNNING</span>
-              <span class="hud-hint" data-i18n="canvasClickHint">👆 キャンバスをクリックして津波を発生</span>
+              <span class="hud-status" data-i18n="demoHud">● 簡易デモ (2次元波動方程式)</span>
+              <span class="hud-hint" data-i18n="canvasClickHint">👆 クリックすると波が発生します</span>
             </div>
-            <button id="btn-canvas-reset" class="btn btn-sm btn-outline">波面をリセット</button>
+            <button id="btn-canvas-reset" class="btn btn-sm btn-outline" data-i18n="canvasReset">波面をリセット</button>
           </div>
         </div>
       </div>
@@ -376,22 +365,22 @@
         <div class="section-head text-center">
           <div class="badge-pill" data-i18n="storeBadge">公式ライセンス・販売</div>
           <h2 class="section-title" data-i18n="downloadTitle">製品版のご購入・入手方法</h2>
-          <p class="section-desc" data-i18n="downloadDesc">製品版アプリ（macOS DMG / Windows EXE / フルデータセット）のご購入・ダウンロードは、公式ストア（cyber-matrix）にて承っております。</p>
+          <p class="section-desc" data-i18n="downloadDesc">製品版アプリ（macOS DMG / Windows EXE。海底地形・プレート境界データを同梱）のご購入・ダウンロードは、公式ストア（cyber-matrix）で承っております。</p>
         </div>
 
         <div class="download-grid">
           <!-- macOS Card -->
           <div class="download-card featured">
-            <div class="card-featured-ribbon">v1.1.0 Release</div>
+            <div class="card-featured-ribbon">v1.2.0 Release</div>
             <div class="platform-icon">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.75 1.04-1.8 1.01-2.84-.89.04-1.98.6-2.61 1.34-.56.64-1.05 1.69-.92 2.71 1 .08 2.01-.52 2.52-1.21z"/>
               </svg>
             </div>
-            <h3>macOS デスクトップ版</h3>
-            <p class="card-meta">Apple Silicon (M1〜M5) & Intel 対応</p>
-            <p class="card-desc">Tauri v2 による完全ネイティブアプリ。完全オフライン環境で超高速に動作。MP4動画・CSVの自動ダイレクト保存対応。</p>
-            <div class="file-size-badge">パッケージ形式: <strong>DMG (約 5.0 MB / v1.1.0)</strong></div>
+            <h3 data-i18n="macTitle">macOS デスクトップ版</h3>
+            <p class="card-meta" data-i18n="macMeta">Apple Silicon (M1以降) 対応・macOS 10.15以降</p>
+            <p class="card-desc" data-i18n="macDesc">Tauri v2 製のデスクトップアプリ。計算はすべてPC内で行い、インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。</p>
+            <div class="file-size-badge" data-i18n="macPkg">パッケージ形式: <strong>DMG (約 5.0 MB / v1.2.0)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -409,10 +398,10 @@
                 <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.949-1.801"/>
               </svg>
             </div>
-            <h3>Windows デスクトップ版</h3>
+            <h3 data-i18n="winTitle">Windows デスクトップ版</h3>
             <p class="card-meta">Windows 10 / 11 (64-bit)</p>
-            <p class="card-desc">NSISインストーラー形式。オフラインで高速実行可能。MP4動画・CSVの自動ダイレクト保存対応。</p>
-            <div class="file-size-badge">パッケージ形式: <strong>NSIS セットアップ EXE (約 3.7 MB / v1.1.0)</strong></div>
+            <p class="card-desc" data-i18n="winDesc">NSIS インストーラー形式。インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。</p>
+            <div class="file-size-badge" data-i18n="winPkg">パッケージ形式: <strong>NSIS セットアップ EXE (約 3.9 MB / v1.2.0)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -432,10 +421,10 @@
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
               </svg>
             </div>
-            <h3>Webブラウザ & 開発版</h3>
+            <h3 data-i18n="webTitle">Webブラウザ & 開発版</h3>
             <p class="card-meta">Chrome, Safari, Firefox, Edge</p>
-            <p class="card-desc">Node.js環境があればローカル開発サーバーで即座に検証実行可能。</p>
-            <div class="file-size-badge">ローカル開発サーバー: <code>:5173</code></div>
+            <p class="card-desc" data-i18n="webDesc">Node.js があれば、ローカルの開発サーバーで動かせます。</p>
+            <div class="file-size-badge" data-i18n="webPkg">ローカル開発サーバー: <code>:5173</code></div>
             <div class="code-box">
               <code>cd nankai_trough<br>npm run dev</code>
             </div>
@@ -449,15 +438,15 @@
       <div class="container">
         <div class="section-head text-center">
           <h2 class="section-title" data-i18n="docsTitle">ドキュメント & マニュアル</h2>
-          <p class="section-desc" data-i18n="docsDesc">詳細な操作マニュアル、物理方程式、CSVフォーマット仕様書をご用意しています。</p>
+          <p class="section-desc" data-i18n="docsDesc">詳細な操作マニュアル（日本語・英語）と、物理モデル解説書をご用意しています。</p>
         </div>
 
         <div class="docs-cards-grid">
           <a href="manual_ja.html" class="doc-card">
             <div class="doc-flag">🇯🇵</div>
             <div class="doc-info">
-              <h4>日本語版 操作マニュアル (HTML & Markdown)</h4>
-              <p>全画面の操作手順、パラメータ解説、2つのCSV出力方式（全期間／トリミング）、FAQを網羅した完全日本語ガイド。</p>
+              <h4 data-i18n="jaManualTitle">日本語版 操作マニュアル (HTML & Markdown)</h4>
+              <p data-i18n="jaManualDesc">画面構成、地震シナリオ、震源断層の設定、動画保存、Phase 2 向けCSV出力、注意事項、FAQ をまとめた日本語の利用ガイド。</p>
             </div>
             <div class="doc-arrow">→</div>
           </a>
@@ -466,7 +455,16 @@
             <div class="doc-flag">🇺🇸</div>
             <div class="doc-info">
               <h4>English User Manual (HTML & Markdown)</h4>
-              <p>Full comprehensive English documentation covering numerical modeling, UI usage, Phase 2 integration, and specs.</p>
+              <p>Full English user guide: screen layout, scenarios, source fault setup, MP4 recording, CSV export for Phase 2, limitations, and FAQ.</p>
+            </div>
+            <div class="doc-arrow">→</div>
+          </a>
+
+          <a href="PHYSICS_MODEL.md" class="doc-card" id="physics">
+            <div class="doc-flag">📐</div>
+            <div class="doc-info">
+              <h4 data-i18n="physicsDocTitle">物理モデル解説書 (Markdown・日本語)</h4>
+              <p data-i18n="physicsDocDesc">Okada (1985) の式、内閣府モデルの再構成方法、球面座標の長波方程式、数値フィルター・吸収層の検証結果、2011年東北の再現性まで、実装に即して解説。</p>
             </div>
             <div class="doc-arrow">→</div>
           </a>
@@ -483,8 +481,8 @@
         <p class="footer-desc">Physics-based simulation of broad-scale ocean tsunami propagation & urban inundation coupling.</p>
       </div>
       <div class="footer-links">
-        <a href="#hero">トップへ戻る</a>
-        <a href="manual_ja.html">日本語マニュアル</a>
+        <a href="#hero" data-i18n="footerTop">トップへ戻る</a>
+        <a href="manual_ja.html" data-i18n="footerJaManual">日本語マニュアル</a>
         <a href="manual_en.html">English Manual</a>
       </div>
     </div>

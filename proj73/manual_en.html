@@ -91,6 +91,8 @@
       margin-left: auto;
     }
 
+
+
     /* manual-extra: 表・注記 (Markdown から生成) */
     .manual-card table {
       width: 100%;
@@ -193,9 +195,7 @@
 </ul>
 </li>
 </ol>
-<blockquote>
-<p>[!IMPORTANT]
-Wave heights in this system are values at <strong>offshore observation points</strong> in water tens to thousands of meters deep. Tsunami heights and run-up at the coast are larger because waves grow in shallow water (shoaling). For coastal damage estimates, use the Phase 2 urban simulation or official hazard assessments.</p>
+<blockquote class="callout-important"><p class="callout-title">Important</p><p>Wave heights in this system are values at <strong>offshore observation points</strong> in water tens to thousands of meters deep. Tsunami heights and run-up at the coast are larger because waves grow in shallow water (shoaling). For coastal damage estimates, use the Phase 2 urban simulation or official hazard assessments.</p>
 </blockquote>
 <hr>
 <h2>2. Requirements and Launch</h2>
@@ -302,7 +302,7 @@ npm run tauri build  # release build (dmg / exe)
 <tr>
 <td>2011 Tohoku-oki Earthquake (M9.0)</td>
 <td>Reproduction of a historical event</td>
-<td>4 faults (off-Miyagi trench side 30 m, off-Miyagi deep, off-Iwate, off-Fukushima/Ibaraki)</td>
+<td>4 faults (off-Miyagi trench side 24 m, off-Miyagi deep 22 m, off-Iwate 23 m, off-Fukushima/Ibaraki 10 m; tuned to GPS wave gauge peaks)</td>
 <td>Hypocenter (24 km deep, JMA)</td>
 </tr>
 <tr>
@@ -351,9 +351,7 @@ npm run tauri build  # release build (dmg / exe)
 <li><strong>Differences from the official model</strong>: the official subfault data (about 5 km mesh) is only available on request, so the plate shape is approximated by bands of uniform dip, and slip proportional to plate convergence rate and smoothing of large-slip area edges are omitted. Cases 6–11 (splay fault, two large-slip areas) are not implemented.</li>
 <li><strong>Maximum-class tsunami height</strong>: the government&#39;s maximum-class tsunami height takes, at each location, the highest value among all cases. Run the cases one by one and compare the maximum at each point.</li>
 </ul>
-<blockquote>
-<p>[!NOTE]
-The earlier Central Disaster Management Council model (2003) was built to envelope the tsunami records of five past earthquakes (Hoei, Ansei-Tokai, Ansei-Nankai, Showa-Tonankai, Showa-Nankai). The Cabinet Office model (2012) is not a composite of past events but a &quot;maximum-class&quot; scenario based on scientific knowledge.</p>
+<blockquote class="callout-note"><p class="callout-title">Note</p><p>The earlier Central Disaster Management Council model (2003) was built to envelope the tsunami records of five past earthquakes (Hoei, Ansei-Tokai, Ansei-Nankai, Showa-Tonankai, Showa-Nankai). The Cabinet Office model (2012) is not a composite of past events but a &quot;maximum-class&quot; scenario based on scientific knowledge.</p>
 </blockquote>
 <h3>4.2 Map marks</h3>
 <table>
@@ -472,6 +470,10 @@ The earlier Central Disaster Management Council model (2003) was built to envelo
 <tr>
 <td><strong>Playback Speed</strong></td>
 <td>1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC</td>
+</tr>
+<tr>
+<td><strong>Numerical Filter</strong></td>
+<td>Smoothing that suppresses grid-scale numerical oscillations: <strong>4th-order Shapiro (recommended)</strong> / Laplacian, weak / Laplacian, legacy / None (for comparison). Changing it restarts the simulation. The legacy setting underestimated maximum wave heights by up to about 40%, so use the recommended setting unless you are comparing with earlier results</td>
 </tr>
 </tbody></table>
 <ul>
@@ -635,9 +637,7 @@ The earlier Central Disaster Management Council model (2003) was built to envelo
 </ul>
 </li>
 </ul>
-<blockquote>
-<p>[!NOTE]
-At points above or near the source area, the coseismic deformation itself changes the water level by 0.15 m or more right after the earthquake, so the first arrival can show &quot;0 min 0 s&quot; (for scenarios that rupture all at once). In scenarios with rupture propagation, such as the Cabinet Office model, the arrival time is when the rupture reaches the area.</p>
+<blockquote class="callout-note"><p class="callout-title">Note</p><p>At points above or near the source area, the coseismic deformation itself changes the water level by 0.15 m or more right after the earthquake, so the first arrival can show &quot;0 min 0 s&quot; (for scenarios that rupture all at once). In scenarios with rupture propagation, such as the Cabinet Office model, the arrival time is when the rupture reaches the area.</p>
 </blockquote>
 <hr>
 <h2>9. Saving the Animation as Video (MP4)</h2>
@@ -766,9 +766,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <p>The two <code>Time_since_EQ_*</code> columns are appended after the original six, so existing programs that read columns by position are not affected.</p>
 <hr>
 <h2>11. Physical Model Overview</h2>
-<blockquote>
-<p>[!NOTE]
-See <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> for derivations and discretization details.</p>
+<blockquote class="callout-note"><p class="callout-title">Note</p><p>See <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> for derivations and discretization details.</p>
 </blockquote>
 <ol>
 <li><strong>Initial source (Okada 1985)</strong>: the vertical seafloor displacement from slip on rectangular faults is computed with the analytical half-space solution and used as the initial sea surface displacement. It matches the check values in Okada (1985). <code>depthKm</code> is the depth of the <strong>top edge</strong> of the fault plane. The outer edge of the computation range is tapered smoothly with a cosine.</li>
@@ -776,8 +774,8 @@ See <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> for derivations and discreti
 <li><strong>Shallow water equations</strong>: the 2D nonlinear long-wave equations are solved on an Arakawa C-grid. Because the domain spans 26° of latitude, <strong>the east-west grid spacing varies with latitude and the continuity equation includes a spherical correction</strong>.</li>
 <li><strong>Grid and time step</strong>: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).</li>
 <li><strong>Bottom friction</strong>: Manning&#39;s roughness 0.025 (semi-implicit).</li>
-<li><strong>Numerical noise suppression</strong>: grid-scale oscillations over steep seafloor slopes are damped with weak Laplacian smoothing.</li>
-<li><strong>Open boundaries</strong>: radiation boundary condition that limits reflection.</li>
+<li><strong>Numerical noise suppression</strong>: grid-scale oscillations over steep seafloor slopes are damped with a 4th-order Shapiro filter (the main tsunami wavelengths are barely affected).</li>
+<li><strong>Open boundaries</strong>: an absorbing layer about 100 km wide along the domain edges plus a radiation condition keep waves that leave the domain from reflecting back.</li>
 <li><strong>Observation point values</strong>: bilinear interpolation from the four surrounding sea cells.</li>
 </ol>
 <hr>
@@ -789,6 +787,7 @@ See <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> for derivations and discreti
 <li><strong>Pick Epicenter</strong>: the plate interface is approximated by a single plane, so long faults (about 600 km for Mw9) differ more from the real curved interface. The plate interface data is currently USGS Slab1.0.</li>
 <li><strong>Not modeled</strong>: inundation and run-up on land, tides, Coriolis force, wave dispersion.</li>
 <li><strong>Small far-field displacement</strong>: for Mw9-class sources, a few centimeters of deformation can appear in seas hundreds of kilometers away (a physically correct result).</li>
+<li><strong>Domain edges</strong>: the outer ~100 km is an absorbing layer, so water levels there are lower than in reality. Place observation points away from the edges.</li>
 <li><strong>Run time</strong>: the Japan-wide domain (about 1.1 million cells) takes about 1 minute for a 120-minute run.</li>
 </ul>
 <hr>
@@ -835,8 +834,6 @@ See <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> for derivations and discreti
 <li><strong>Fault deformation</strong>: Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. <em>Bull. Seismol. Soc. Am.</em>, 75, 1135-1154.</li>
 <li><strong>Fault dimensions</strong>: Strasser, F. O., Arango, M. C., &amp; Bommer, J. J. (2010). Scaling of the source dimensions of interface and intraslab subduction-zone earthquakes with moment magnitude. <em>Seismol. Res. Lett.</em>, 81, 941-950.</li>
 </ul>
-
-
     </article>
   </main>
 

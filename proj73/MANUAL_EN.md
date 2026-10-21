@@ -88,7 +88,7 @@ Choose from **Earthquake Model Preset** in "1. Earthquake Fault Scenario". The m
 | Tonankai Earthquake Alone (M8.2) | 1944 Showa-Tonankai type | 1 fault | Hypocenter (40 km deep, JMA) |
 | Nankai Earthquake Alone (M8.4) | 1946 Showa-Nankai type | 1 fault (its east end contains the hypocenter, matching the historical westward rupture) | Hypocenter (24 km deep, JMA) |
 | Tokai Earthquake Alone (M8.0) | Scenario earthquake | 1 fault | Reference: estimated epicenter of the 1854 Ansei-Tokai earthquake |
-| 2011 Tohoku-oki Earthquake (M9.0) | Reproduction of a historical event | 4 faults (off-Miyagi trench side 30 m, off-Miyagi deep, off-Iwate, off-Fukushima/Ibaraki) | Hypocenter (24 km deep, JMA) |
+| 2011 Tohoku-oki Earthquake (M9.0) | Reproduction of a historical event | 4 faults (off-Miyagi trench side 24 m, off-Miyagi deep 22 m, off-Iwate 23 m, off-Fukushima/Ibaraki 10 m; tuned to GPS wave gauge peaks) | Hypocenter (24 km deep, JMA) |
 | Cabinet Office Nankai Trough Megaquake Cases 1–5 (Mw9.1) | Government scenario (approximate reproduction) | Slip distribution made of 165 subfaults | Rupture start point (about 20 km deep) |
 
 ### 4.1 Cabinet Office Nankai Trough Megaquake (Cases 1–5)
@@ -169,6 +169,7 @@ Use "2. Propagation Simulation".
 | **↺ Reset** | Returns to the state at time 0 |
 | **Max Duration** | 60 min / 120 min (recommended) / 180 min |
 | **Playback Speed** | 1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC |
+| **Numerical Filter** | Smoothing that suppresses grid-scale numerical oscillations: **4th-order Shapiro (recommended)** / Laplacian, weak / Laplacian, legacy / None (for comparison). Changing it restarts the simulation. The legacy setting underestimated maximum wave heights by up to about 40%, so use the recommended setting unless you are comparing with earlier results |
 
 * The time step is about 3 seconds.
 * **Elapsed Time** at the top and **Since EQ H:MM:SS** at the bottom left of the map are measured from the earthquake.
@@ -317,8 +318,8 @@ The two `Time_since_EQ_*` columns are appended after the original six, so existi
 3. **Shallow water equations**: the 2D nonlinear long-wave equations are solved on an Arakawa C-grid. Because the domain spans 26° of latitude, **the east-west grid spacing varies with latitude and the continuity equation includes a spherical correction**.
 4. **Grid and time step**: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).
 5. **Bottom friction**: Manning's roughness 0.025 (semi-implicit).
-6. **Numerical noise suppression**: grid-scale oscillations over steep seafloor slopes are damped with weak Laplacian smoothing.
-7. **Open boundaries**: radiation boundary condition that limits reflection.
+6. **Numerical noise suppression**: grid-scale oscillations over steep seafloor slopes are damped with a 4th-order Shapiro filter (the main tsunami wavelengths are barely affected).
+7. **Open boundaries**: an absorbing layer about 100 km wide along the domain edges plus a radiation condition keep waves that leave the domain from reflecting back.
 8. **Observation point values**: bilinear interpolation from the four surrounding sea cells.
 
 ---
@@ -330,6 +331,7 @@ The two `Time_since_EQ_*` columns are appended after the original six, so existi
 * **Pick Epicenter**: the plate interface is approximated by a single plane, so long faults (about 600 km for Mw9) differ more from the real curved interface. The plate interface data is currently USGS Slab1.0.
 * **Not modeled**: inundation and run-up on land, tides, Coriolis force, wave dispersion.
 * **Small far-field displacement**: for Mw9-class sources, a few centimeters of deformation can appear in seas hundreds of kilometers away (a physically correct result).
+* **Domain edges**: the outer ~100 km is an absorbing layer, so water levels there are lower than in reality. Place observation points away from the edges.
 * **Run time**: the Japan-wide domain (about 1.1 million cells) takes about 1 minute for a 120-minute run.
 
 ---
