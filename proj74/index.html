@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Osaka Tsunami | 大阪市津波 3Dシミュレーター</title>
-  <meta name="description" content="大阪湾から大阪港・市街地へ押し寄せる津波と、三大水門（安治川・尻無川・木津川）・防潮堤の防御を観察できる3Dシミュレーター。国土地理院10m標高 × PLATEAU × nankai_trough波源連携。">
+  <meta name="description" content="大阪湾から大阪港・市街地へ押し寄せる津波と、三大水門（安治川・尻無川・木津川）・防潮堤の防御を観察できる3Dシミュレーター。大阪市全域・国土地理院標高 × PLATEAU × nankai_trough波源連携。">
 
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Osaka Tsunami — 大阪市津波 3Dシミュレーター">
@@ -65,7 +65,7 @@
       <h1 data-i18n-html="heroTitle">津波が大阪湾に入ったとき、<br><span class="text-gradient">三大水門は街を守れるか。</span></h1>
 
       <p class="lead" data-i18n="heroLead">
-        大阪湾から大阪港・河川・市街地へ押し寄せる津波と、安治川・尻無川・木津川の三大水門、防潮堤の防御をリアルタイム3Dで観察。T.P.0m を下回るゼロメートル地帯、夢洲・舞洲・咲洲の人工島、市内の河川網を国土地理院の10m標高で再現し、浅水長波モデルで浸水を計算します。
+        大阪湾から大阪港・河川・市街地へ押し寄せる津波と、安治川・尻無川・木津川の三大水門、防潮堤の防御をリアルタイム3Dで観察。T.P.0m を下回るゼロメートル地帯、夢洲・舞洲・咲洲の人工島、市内の河川網を国土地理院の標高から大阪市全域（24×21.6km）の15mメッシュで再現し、浅水長波モデルで浸水を計算します。
       </p>
 
       <div class="hero-cta">
@@ -88,8 +88,8 @@
   <section class="stats-section">
     <div class="container stats-grid">
       <div class="stat-card">
-        <div class="stat-num text-gradient" data-i18n="statDemVal">10m メッシュ</div>
-        <div class="stat-label" data-i18n="statDemLabel">16 × 12 km 計算領域</div>
+        <div class="stat-num text-gradient" data-i18n="statDemVal">15m メッシュ</div>
+        <div class="stat-label" data-i18n="statDemLabel">大阪市全域 24 × 21.6 km</div>
         <div class="stat-desc" data-i18n="statDemDesc">国土地理院 DEM5A / DEM10B</div>
       </div>
 
@@ -102,7 +102,7 @@
       <div class="stat-card">
         <div class="stat-num text-gradient" data-i18n="statBldgVal">約 3.4 万棟</div>
         <div class="stat-label" data-i18n="statBldgLabel">PLATEAU 建物</div>
-        <div class="stat-desc" data-i18n="statBldgDesc">浸水深 0.5m 以上で警戒色</div>
+        <div class="stat-desc" data-i18n="statBldgDesc">全域は約3.4万棟、2m詳細タイル内は全棟</div>
       </div>
 
       <div class="stat-card">
@@ -125,7 +125,7 @@
       <div class="section-header">
         <span class="kicker" data-i18n="featKicker">CORE CAPABILITIES</span>
         <h2 class="section-title" data-i18n="featTitle">低い土地と水門の街を、津波の物理で検証する</h2>
-        <p class="section-lead" data-i18n="featLead">大阪湾からの入射、港内での反射・増幅、防潮堤の越流、河川の遡上、ゼロメートル地帯への浸水までを、3Dで追いかけられます。</p>
+        <p class="section-lead" data-i18n="featLead">大阪湾からの入射、港内での反射・増幅、防潮堤の越流、河川の遡上、ゼロメートル地帯への浸水までを、3Dで追いかけられます。気になる場所は 1〜3km 四方の 2m 詳細タイル（PLATEAU 全建物）を GPU で計算できます。</p>
       </div>
 
       <!-- Feature 1 -->
@@ -136,7 +136,7 @@
         </div>
         <div class="feature-info">
           <div class="feature-num" data-i18n="f1Num">01 / TERRAIN & WATER NETWORK</div>
-          <h3 class="feature-title" data-i18n="f1Title">ゼロメートル地帯・人工島・河川網を 10m 精度で再現</h3>
+          <h3 class="feature-title" data-i18n="f1Title">大阪市全域のゼロメートル地帯・人工島・河川網を再現</h3>
           <p class="feature-text" data-i18n="f1Desc">
             国土地理院の標高データでは海と河川が欠測域になるため、海岸線と淀川・安治川・木津川・尻無川・道頓堀川・大川などの河道を正確に抽出できます。西淀川・此花・港・大正などの T.P.0m 未満の市街地はそのままの標高で、夢洲・舞洲・咲洲の人工島は陸地として配置しています。
           </p>
@@ -147,7 +147,7 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f1p2">PLATEAU の建物（約3.4万棟）を配置し、浸水深 0.5m 以上で赤く表示</span>
+              <span data-i18n="f1p2">全域は PLATEAU 建物を約3.4万棟、2m 詳細タイル（1〜3km四方）の中は全棟を実際の平面形で配置。まわりの水深が 0.5m 以上になると赤く表示</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -180,7 +180,7 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f2p3">浸水面積・浸水建物数・最大遡上高・越流箇所数をリアルタイム表示</span>
+              <span data-i18n="f2p3">浸水面積・浸水建物数・最大遡上高をリアルタイム表示</span>
             </li>
           </ul>
         </div>
@@ -201,7 +201,7 @@
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f3p1">CFL 条件に応じた自動時間刻みで安定に計算</span>
+              <span data-i18n="f3p1">CFL 条件に応じた自動時間刻みで安定に計算。計算時間は最大4時間まで選択可能</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -230,11 +230,11 @@
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f4p1">夢洲・USJ・天保山・安治川水門などのランドマーク名を表示</span>
+              <span data-i18n="f4p1">夢洲・USJ・天保山・安治川水門などのランドマーク名を表示。大阪城天守閣は PLATEAU の寸法から詳細モデルで再現</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f4p2">シミュレーション結果を CSV（Excel 対応）で保存、3D 画面を MP4 動画で録画</span>
+              <span data-i18n="f4p2">結果と地点ハイドログラフを CSV（Excel 対応）で保存、3D 画面を MP4 動画で録画</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -308,7 +308,7 @@
         <div class="tech-card">
           <div class="tech-icon">⚡</div>
           <h3 class="tech-title" data-i18n="tech1Title">Three.js & WebGL</h3>
-          <p class="tech-desc" data-i18n="tech1Desc">192万セルの地形メッシュ、約3.4万棟の建物、毎フレーム変形する水面、広域の背景地形を GPU で描画。</p>
+          <p class="tech-desc" data-i18n="tech1Desc">230万セルの地形メッシュ、約3.4万棟の建物、毎フレーム変形する水面、広域の背景地形を GPU で描画。</p>
         </div>
 
         <div class="tech-card">
