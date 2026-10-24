@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Underwater Drone | 想像の深海を、物理で潜る — MuJoCo 水中ドローン（ROV）シミュレーター</title>
+  <meta name="description" content="MuJoCo 物理エンジンで動く水中ドローン（ROV）を、想像の海底で操縦するデスクトップシミュレーター。波と潮流をスライダーで細かく調整、5 つの約 300 m コースと自由潜航、手動から全自動までの 5 つの操縦モード。macOS / Windows。">
+
+  <meta property="og:title" content="Underwater Drone — MuJoCo ROV Simulator">
+  <meta property="og:description" content="想像の深海を、物理で潜る。波と潮流に揺られる水中ドローンのシミュレーター。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/underwater_drone">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2300c8a8%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%229%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%223%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%223%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261024">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">UNDERWATER DRONE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">特長</a></li>
+        <li><a href="#courses" data-i18n="navCourses">コース</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#desktop" data-i18n="navDesktop">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="btn btn-primary btn-sm" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="caustics" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">MuJoCo × OCEAN PHYSICS</p>
+      <h1 data-i18n-html="heroTitle">想像の深海を、<br><span class="accent">物理で潜る。</span></h1>
+      <p class="lead" data-i18n="heroLead">MuJoCo 物理エンジンで動く 6 スラスターの水中ドローン（ROV）を、想像の海底で操縦するシミュレーター。サンゴ礁、沈没帆船、熱水噴出孔、水深 80 m の海溝、海底基地。うねりと潮流に揺られながらゲートをくぐり、タイムを競います。波と潮流はスライダーで細かく調整でき、手動から全自動まで 5 つの操縦モードで、何を自分で操り何を機械に任せるかを選べます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">特長を見る</a>
+      </div>
+      <p class="platforms">macOS (Apple Silicon) · Windows 10 / 11</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>2 ms</strong><span data-i18n="statStep">MuJoCo 物理の刻み</span></div>
+      <div class="stat"><strong>6</strong><span data-i18n="statThr">ベクトルスラスター</span></div>
+      <div class="stat"><strong>5 + 1</strong><span data-i18n="statCourse">コース＋自由潜航</span></div>
+      <div class="stat"><strong>~300 m</strong><span data-i18n="statLen">1 コースの全長</span></div>
+      <div class="stat"><strong>0–5 m</strong><span data-i18n="statWave">調整できる波高</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">潜る前から、潜った後まで</h2>
+      <p class="section-lead" data-i18n="featLead">コースを選び、条件を決め、START で潜る。ゴールのゲートでタイムが確定します。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/title.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">表紙 — 潜航前点検とコース選択</h3>
+          <p data-i18n="f1Body">起動すると、海底の等深線の上で機体がゆっくり回り、前方ソナーの扇が掃引する表紙が現れます。物理エンジンの読み込みは「潜航前点検」としてチェックリストに。6 つのコースから選んで「コースへ」を押すと、T0〜T5 のスラスターが順に始動し、機体はスタート地点で待機します。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">3D 機体のターンテーブル</li>
+            <li data-i18n="f1c2">キー 1〜6 でコース選択</li>
+            <li data-i18n="f1c3">START を押すまで機体は停止</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/modes.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">何が手動で、何が自動か — いつも見える</h3>
+          <p data-i18n="f2Body">完全手動・深度維持・高度維持・定点保持・自動航行の 5 モード。画面下の帯に、前後・左右・上下・旋回の 4 軸それぞれを「手動」「手動＋保持」「自動（目標は自分で動かせる）」「自動」のどれで飛んでいるかを常に表示し、操作中の軸は光ります。深度維持なら水深は機械に任せ、前後・左右・旋回に集中できます。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">4 軸の役割を常時表示</li>
+            <li data-i18n="f2c2">目標深度・対底高度をスライダーで</li>
+            <li data-i18n="f2c3">キーを押せば即手動に</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/ocean.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">波と潮流を、操縦と同じくらい細かく</h3>
+          <p data-i18n="f3Body">波は高さ・周期・進む方位・方向の広がり（一方向のうねり〜三角波）・機体が受ける力の 5 項目、潮流は速さ・方位・海底付近での減速・乱流の 4 項目を、すべてスライダーで設定。波の動きは深さとともに弱まり、いまの水深に表層の何 % の揺れが届いているかがその場で表示されます。水面も同じ波で揺れます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">波高 0〜5 m / 周期 2〜16 s</li>
+            <li data-i18n="f3c2">潮流 0〜2.5 m/s</li>
+            <li data-i18n="f3c3">キー 0 で波なしに</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/autopilot.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">自動航行 — 暗黒の海溝もゲートを順に</h3>
+          <p data-i18n="f4Body">自動航行にすると、機体は向き・深さ・速さを自分で決めて、コースのゲートを順にくぐります。海底から 2.5 m より下には降りず、潮流で横に流されれば打ち消します。全コースを、波なしでも、波 1.8 m・潮流 0.5 m/s でも完走できることを確かめてあります。操縦キーに触れれば、その場で手動に戻ります。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/ready.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">コース全体図と、映像を隠さない START</h3>
+          <p data-i18n="f5Body">右側のコース全体図は、選んだコースのスタート・ゲート・ゴールを海底の深さの濃淡と等深線の上に描きます。ゲートは実寸の円で水深つき、通った区間は実線に。START・再開・もう一度のボタンは画面左下の小さなカードにまとめ、3D の海中を隠しません。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Courses ===== -->
+  <section class="section alt" id="courses">
+    <div class="container">
+      <p class="kicker">COURSES</p>
+      <h2 data-i18n="cTitle">5 つのコースと自由潜航</h2>
+      <p class="section-lead" data-i18n="cLead">どのコースも約 300 m、6〜8 個のゲートを順にくぐります。目標タイムは平均 1.6 m/s。</p>
+      <div class="courses">
+        <div class="course"><span class="cno">01</span><h3 data-i18n="c1">サンゴ礁と岩礁アーチ</h3><p class="cmeta">330 m · 7 gates · −15 m</p><p data-i18n="c1b">岩礁アーチを抜け、北の浅瀬を大きく一周。浅いので波を強く感じます。</p></div>
+        <div class="course"><span class="cno">02</span><h3 data-i18n="c2">沈没帆船「レヴィアタン号」</h3><p class="cmeta">340 m · 8 gates · −16 m</p><p data-i18n="c2b">18 世紀の帆船を一周してから、錨の散乱域と北東の砂丘へ。</p></div>
+        <div class="course"><span class="cno">03</span><h3 data-i18n="c3">熱水噴出孔の火山カルデラ</h3><p class="cmeta">310 m · 7 gates · −34 m</p><p data-i18n="c3b">カルデラを横断し外輪山を回って、ブラックスモーカー群のそばへ。上昇流に注意。</p></div>
+        <div class="course"><span class="cno">04</span><h3 data-i18n="c4">深海海溝アビス</h3><p class="cmeta">360 m · 6 gates · −78 m</p><p data-i18n="c4b">崖から海溝へ降り、光の届かない海溝底を南へ、北へと縦走。前照灯とソナーが頼り。</p></div>
+        <div class="course"><span class="cno">05</span><h3 data-i18n="c5">海底基地「ノーチラス」</h3><p class="cmeta">290 m · 8 gates · −28 m</p><p data-i18n="c5b">基地の周りを偵察し、最後は着底クレードル直上の半径 3.5 m のゲートへ精密に。</p></div>
+        <div class="course"><span class="cno">06</span><h3 data-i18n="c6">自由潜航</h3><p class="cmeta">~300 × 300 m</p><p data-i18n="c6b">ゲートなし。全海域を探検しながら、波と潮流を変えて機体の挙動を試せます。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">UNDER THE HOOD</p>
+      <h2 data-i18n="techTitle">本物のしくみで潜る</h2>
+      <div class="cards">
+        <div class="card">
+          <h3 data-i18n="t1Title">MuJoCo 物理</h3>
+          <p data-i18n="t1Body">12.5 kg の ROV を 2 ms 刻みで計算。水平 4 基（45° 配置）と垂直 2 基のスラスター、海底の高さ場や沈没船・基地ドームとの衝突。最高速度は約 2.9 m/s、旋回は約 70°/秒。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t2Title">流体の力</h3>
+          <p data-i18n="t2Body">水に対する速度で決まる二次＋線形の抗力、回転の減衰、浮力と復原モーメント（浮心が重心の 8 cm 上）。わずかな正浮力で、電源が切れると浮かび上がります。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t3Title">波（エアリー波）</h3>
+          <p data-i18n="t3Body">3 成分のうねりの水の動きと加速度から、フルード＝クリロフ力と付加質量を計算。動きは深さとともに e<sup>kz</sup> で弱まり、周期の長いうねりほど深くまで届きます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t4Title">潮流と乱流</h3>
+          <p data-i18n="t4Body">一様な潮流が、海底から約 8 m 以内では境界層で弱まります。そこにランダムな乱流が重なり、熱水噴出孔の真上では最大 1.2 m/s の上昇流が機体を押し上げます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t5Title">自動制御</h3>
+          <p data-i18n="t5Body">深度・対底高度・方位・位置の PD / PID 制御と、ゲートへの見通し誘導。潮流による横流れを打ち消し、地形の起伏に合わせて高度を保ちます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t6Title">見下ろす視点</h3>
+          <p data-i18n="t6Body">追尾（見下ろし角 5〜85°）・コックピット（下向き角を調整）・自由・真上の 4 視点。どれも水平を保ち、水面側を見上げることはありません。カメラは水中・海底の上に留まります。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t7Title">計器とソナー</h3>
+          <p data-i18n="t7Body">人工水平儀、前方 60°・40 m の音響ソナー、コース全体図、6 基のスラスター出力。深度・対底高度・速力・方位・水温・水圧も表示します。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t8Title">キーボードとゲームパッド</h3>
+          <p data-i18n="t8Body">WASD・Space/C・Q/E で 4 軸を操縦。ゲームパッドは左右スティックとアナログトリガーで、浮上・潜航の強さも指の引き具合で調整できます。</p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="t9Title">日本語 / English</h3>
+          <p data-i18n="t9Body">ボタンひとつで、表紙・パネル・計器・アプリ内マニュアルまで英語に切り替わります。授業やデモ、海外のゲストへの紹介にも。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Desktop ===== -->
+  <section class="section alt" id="desktop">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="deskTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="deskLead">インストールしてすぐ潜れます。インターネット接続は不要です。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="macSize">約 9 MB</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="winSize">約 4 MB</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">深海へ、<span class="accent">潜航開始。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/underwater_drone" class="btn btn-primary btn-lg" data-i18n="ctaBuy">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">UNDERWATER DRONE</span></div>
+        <p class="credits" data-i18n="credits">物理: MuJoCo ／ 描画: three.js ／ アプリ: Tauri ／ 海底・コースはすべて架空です。</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/underwater_drone" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261024"></script>
+</body>
+</html>
