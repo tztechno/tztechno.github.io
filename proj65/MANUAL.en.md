@@ -1,6 +1,6 @@
 # Nagoya Flood — User Manual
 
-A web application that rains on terrain built from Nagoya's 3D city model (PLATEAU) and a terrain raster (`nagoya.tif`), with the ground corrected by the base elevation of every building, and shows — and records — the city flooding in 3D.
+A web application that rains on terrain built from Nagoya's 3D city model (PLATEAU), GSI 5 m elevation data and a basin-wide elevation raster (`nagoya.tif`, SRTM), with the ground corrected by the base elevation of every building, and shows — and records — the city flooding in 3D.
 
 - Rain falls on the whole `nagoya.tif` extent (about 82 km × 76 km), so water flowing in from outside the area of interest is included (a two-level computation: a 30 m basin grid plus a 2 m detailed grid)
 - Pick any place by its address and look at the flooding building by building (2 m grid)
@@ -86,8 +86,8 @@ The links under the region information save the corrected terrain and the terrai
 3. Choose the "Tile size" (1 / 2 / 3 km square)
 4. Press the button
    - Candidate inside the current tile: "📍 Show this place (area) (in the current tile)" → shown without rebuilding
-   - Outside the tile: "Build and show this tile" → the data is fetched from the internet and the tile is built in about 30 s to 1 min, then opened automatically
-     - Terrain: GSI 5 m elevation tiles (national base-map data, the same source as the PLATEAU terrain model; about 4 cm apart on average)
+   - Outside the tile: "Build and show this tile" → the data is fetched from the internet and the tile is built in about 10–20 s (depending on the computer and the connection), then opened automatically
+     - Terrain: GSI 5 m elevation tiles (DEM5A) interpolated onto the 2 m grid and corrected with the base elevations of the PLATEAU buildings. Compared with the PLATEAU terrain model used for the bundled regions, the median difference over the 7 bundled regions is about 5 cm (tens of centimetres in places)
      - Buildings and flood inundation assumption areas: PLATEAU API (CityGML per mesh)
      - Aerial photos: GSI tiles
    - Tiles you build are kept inside the app and listed with "★". Remove one with "Delete this tile" under the region information
@@ -105,7 +105,7 @@ You can also **click** the basin map at the bottom left to pick a place.
 - Town areas are the census town / aza boundaries. A town split into several parts (e.g. 八田町 and 八田町字下長草) is shown as a whole; "栄" without a chome covers 栄 1- to 5-chome
 - "📍 Go to the place" brings you back to the pin or area at any time
 - Pins and areas are kept in the URL, so they survive a reload or a bookmark
-- Buildings and detailed terrain exist only inside Nagoya city (PLATEAU). Tiles outside the city use terrain interpolated from the tif (~30 m) and have no buildings
+- Tiles can also be built outside Nagoya. The terrain is the GSI 5 m elevation (the 30 m basin grid where it is unavailable); buildings and flood inundation assumption areas are included when the municipality has PLATEAU data (otherwise there are no buildings and no ground correction)
 
 ---
 
@@ -128,7 +128,9 @@ The rain appears as bars (every 10 minutes) in the chart at the bottom, and the 
 | Item | Meaning | Guide |
 |---|---|---|
 | Also rain on the whole basin … and compute the inflow from outside the region | When on, the same rain falls on the whole tif and the water flowing into the tile from outside is computed | Normally on (needed for correct depths in hollows and lowlands) |
-| Sewer drainage capacity (mm/h) | Drainage subtracted uniformly everywhere | Default 50 |
+| Sewer drainage capacity (mm/h) | Drainage subtracted uniformly inside the region (tile). With the next item on, the basin uses the same value | Default 50 |
+| Same drainage outside the region (basin) | Shown when the basin inflow is on. Turn it off to set the drainage outside the region separately (basin cells that overlap the tile keep the region's value) | Normally on |
+| Drainage outside the region (basin, mm/h) | With the item above off, the drainage subtracted uniformly from the basin outside the tile. It also stands for other losses such as infiltration and for the coarseness of the basin grid | Start from the region's value |
 | Roughness n (Manning) | How hard it is for water to flow over the ground | About 0.04 in urban areas |
 | Time computed after the rain (h) | Keeps computing after the rain stops; make it longer to watch the water recede | 1–6 |
 | Save interval (min) | How often results are recorded for playback and the chart. It does not change the computation itself | Normally 5; 1–2 for smooth videos |
@@ -181,7 +183,7 @@ Once a run has finished (or while it is paused), the **"📄 Save this point as 
 | Part | Contents |
 |---|---|
 | Point | Region, latitude/longitude, JGD2011 plane VII coordinates, grid cell and size, ground elevation; for a building also its ID, use, floors, height and base elevation |
-| Conditions | Rainfall pattern and its settings, total rainfall, peak intensity, rain duration, time computed after the rain, sewer capacity, roughness, inflow from the basin, safety factor (CFL), save interval |
+| Conditions | Rainfall pattern and its settings, total rainfall, peak intensity, rain duration, time computed after the rain, sewer capacity, roughness, inflow from the basin, drainage outside the region (with inflow), safety factor (CFL), save interval |
 | Results | Maximum depth and its time, when flooding (>0.1 m) began (for a building, the maximum depth around it), assumed depth for each river |
 | Time series | Elapsed time, rainfall intensity, cumulative rainfall, ground elevation, depth and water-surface elevation at every save interval (on each row ground + depth = water surface; for a building, the street cell around it with the deepest water at that time) |
 
@@ -292,7 +294,7 @@ You can record after a run (or while paused), or while showing a hazard layer as
 
 ## 11. How the computation works (summary)
 
-- **Terrain**: the PLATEAU DEM on a 2 m grid; inside buildings the ground is set to the building base elevation, and the difference is blended smoothly into the surrounding streets
+- **Terrain**: the PLATEAU DEM (TIN) for the bundled regions, and the GSI 5 m elevation (DEM5A) for tiles built from an address, on a 2 m grid; inside buildings the ground is set to the building base elevation, and the difference is blended smoothly over about 15 m into the surrounding streets. The 30 m basin grid is `nagoya.tif` (SRTM), replaced by the PLATEAU DEM inside Nagoya city
 - **Buildings**: obstacles up to their roof height; rain on a roof flows off its edges onto the surrounding ground
 - **Water flow**: driven by differences in water-surface elevation (local inertial equations with Manning friction). Where water ponds and its surface becomes level, the flow stops; once it reaches the lowest rim, it spills over
 - **Two-level computation**: the whole tif (30 m grid) and the tile (2 m grid) are computed together, and the tile takes the basin water level at its boundary. The sea (Ise Bay, Nagoya Port) absorbs water at a level of 0 m
@@ -302,9 +304,10 @@ You can record after a run (or while paused), or while showing a hazard layer as
 
 ## 12. Notes and limitations
 
-- Sewers are approximated by a uniform drainage capacity. The pipe network, overflow from manholes, pumping stations, underground storage and river water levels are not modelled. Water in hollows may recede more slowly than in reality
+- Sewers are approximated by a uniform drainage capacity (one value inside the region and one outside it). The pipe network, overflow from manholes, pumping stations, underground storage and river water levels are not modelled. Water in hollows may recede more slowly than in reality
 - The basin run uses a 30 m grid, so river capacity and levees are represented only roughly. Flooding along rivers may be overestimated
 - In places, the PLATEAU DEM includes structures such as railway embankments as terrain
+- The basin raster `nagoya.tif` (SRTM) is a 1 m-step surface model that partly includes buildings and trees. To keep rain from being trapped in false pits, depressions outside Nagoya city are filled, so real low-lying land outside the city (such as zero-metre areas) ponds less than it should, and flow along rivers outside the city can be too slow
 - An address given only down to the town is shown as the town's area (not a representative point)
 - Some label names come from OpenStreetMap and may contain variant spellings or outdated names. Some English place names are automatic romanisations and their readings may be wrong
 - The results are computations under assumed conditions. For evacuation and disaster-prevention decisions, use the official hazard maps of the local government
@@ -328,7 +331,7 @@ You can record after a run (or while paused), or while showing a hazard layer as
 ## 14. Sources
 
 - 3D city model (Project PLATEAU) Nagoya, Ministry of Land, Infrastructure, Transport and Tourism — buildings, terrain, flood inundation assumption areas
-- GSI tiles (seamless aerial photos) and address search API — Geospatial Information Authority of Japan
+- GSI tiles (5 m elevation tiles DEM5A, seamless aerial photos) and address search API — Geospatial Information Authority of Japan
 - 2020 Population Census small-area (town / chome / aza) boundaries — Statistics Bureau of Japan, e-Stat
 - Place names (stations, mountains, sights, high-rises) — © OpenStreetMap contributors (ODbL)
-- Elevation (outside the tile and outside Nagoya) — `nagoya.tif`
+- Basin elevation (`nagoya.tif`) — NASA SRTM GL1 (1 arc-second), obtained from OpenTopography
