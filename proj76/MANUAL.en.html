@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiroshima Landslide — User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23101a2e%22/%3E%3Cpath d=%22M3 27L13 9l4 5 3-3 9 16z%22 fill=%22%233f7a4a%22/%3E%3Cpath d=%22M15 12c1 5-1 9 3 15h6c-4-5-4-10-9-15z%22 fill=%22%23d98a3d%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261026">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">HIROSHIMA LANDSLIDE</span></a>
+    <ul class="nav-links"><li><a href="index.html">Top</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="hiroshima-landslide-—-user-manual">Hiroshima Landslide — User Manual</h1>
+<p>A web application that uses the Hiroshima City 3D city model (PLATEAU: terrain, buildings, sediment-disaster warning areas) and wide-area elevation data (<code>hiroshima.tif</code>, SRTM) to show in 3D how heavy rain wets the soil on the slopes until they fail, how the failed soil runs down as a debris flow, and how it buries the buildings in town — and to record it as a video.</p>
+<ul>
+<li>The rise of the water table in the soil and the drop of the slope safety factor are computed on the GPU</li>
+<li>The debris from the failures runs down the hollows and spreads on the fans; its extent, depth and impact pressure on buildings are computed</li>
+<li>You can also click a slope to make it fail (&quot;what if this slope gave way&quot;)</li>
+<li>Results can be compared with the warning areas designated by Hiroshima Prefecture</li>
+<li>Videos (MP4) with any camera angle or camera move</li>
+</ul>
+<p>For the method and the data processing see README.md (Japanese).</p>
+<p><em>日本語版: <a href="MANUAL.ja.html">MANUAL.ja.md</a></em></p>
+<hr>
+<h2 id="1-starting">1. Starting</h2>
+<p><strong>Desktop apps (macOS / Windows)</strong>: on macOS open <code>HiroshimaLandslide_&lt;version&gt;_aarch64.dmg</code> and drag the app into Applications (first launch: right-click → Open; Apple Silicon). On Windows run <code>HiroshimaLandslide_&lt;version&gt;_x64-setup.exe</code> (Windows 10 / 11). Recordings, CSV and GeoTIFF files are saved to the Downloads folder; address search and new tiles need an internet connection.</p>
+<p><strong>Web version (development)</strong>:</p>
+<pre><code class="language-bash">cd hiroshima_landslide
+npm install
+npm run dev
+</code></pre>
+<p>Open <code>http://localhost:5176/</code>. A browser with WebGL2 and float render targets is needed (current Chrome / Edge / Safari). The GPU largely decides the speed.</p>
+<h2 id="2-screen">2. Screen</h2>
+<p>The title screen comes first; START (Enter) opens the app, and the region list on the right opens a region. The Title button at the top left brings it back. The left panel holds the settings 1–7; the 3D view shows the time, rainfall, failed area and debris volume at the top left and the legend at the top right; the wide-area map at the bottom left shows the whole tif with the region in red (click it to pick a place for a new tile); the bottom bar holds playback and the chart. The button at the top right of the panel switches between Japanese and English.</p>
+<h2 id="3-regions">3. Regions</h2>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Yagi / Midorii, Asaminami-ku</td>
+<td>Debris flows before dawn on 20 Aug 2014, foot of Mt. Abu (2.4 km square)</td>
+</tr>
+<tr>
+<td>Yamamoto, Asaminami-ku</td>
+<td>Slope failures, Aug 2014</td>
+</tr>
+<tr>
+<td>Kabe-higashi, Asakita-ku</td>
+<td>Debris flows, Aug 2014</td>
+</tr>
+<tr>
+<td>Yano-higashi, Aki-ku</td>
+<td>Debris flow, July 2018 (western Japan floods)</td>
+</tr>
+</tbody></table>
+<p><strong>New tile</strong>: open &quot;Make a new tile from an address or place name&quot;, search (in Japanese), pick a candidate and a size (1/2/3 km), then &quot;Build and show this tile&quot; — or click the wide-area map. Terrain (GSI 5 m DEM), buildings and warning areas (PLATEAU) and aerial photos are fetched in 10–20 s and kept in the browser (★ in the list).</p>
+<h2 id="4-rainfall">4. Rainfall</h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hiroshima Aug 2014 type (Miiri, synthetic)</td>
+<td>10 h from 21:00 on 19 Aug, matched to 101 mm max hourly, 217.5 mm in 3 h, 257 mm in 24 h</td>
+</tr>
+<tr>
+<td>Western Japan July 2018 type (synthetic)</td>
+<td>48 h from 00:00 on 5 July, ~430 mm, 48 mm/h peak on the evening of the 6th</td>
+</tr>
+<tr>
+<td>Paste observations (hourly mm)</td>
+<td>e.g. from the JMA past-weather data, oldest first; optional start date-time for the clock</td>
+</tr>
+<tr>
+<td>Constant / centre-peaked / linear rainband / custom (10 min)</td>
+<td>Hypothetical rain</td>
+</tr>
+</tbody></table>
+<p>&quot;Time computed after the rain&quot; continues the run after the rain (groundwater can still converge). Frames are saved every few minutes while it rains and every few seconds while debris moves; the interval grows automatically so a run fits in about 800 frames.</p>
+<h2 id="5-soil-and-failure">5. Soil and failure</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Soil depth on slopes</td>
+<td>1.5 m</td>
+<td>Thicker in hollows (up to 1.6×), thinner on slopes steeper than 35°</td>
+</tr>
+<tr>
+<td>Cohesion c&#39;</td>
+<td>8 kPa</td>
+<td>Soil cohesion plus root reinforcement</td>
+</tr>
+<tr>
+<td>Friction angle φ&#39;</td>
+<td>35°</td>
+<td></td>
+</tr>
+<tr>
+<td>Unit weight γ</td>
+<td>18 kN/m³</td>
+<td></td>
+</tr>
+<tr>
+<td>Hydraulic conductivity k</td>
+<td>0.1 cm/s</td>
+<td>Lateral, including the macropores of forest soils</td>
+</tr>
+<tr>
+<td>Infiltration capacity</td>
+<td>80 mm/h</td>
+<td></td>
+</tr>
+<tr>
+<td>Effective porosity</td>
+<td>0.3</td>
+<td></td>
+</tr>
+<tr>
+<td>Initial saturation</td>
+<td>0.2</td>
+<td>Antecedent wetness; the soil then drains for 12 h before the storm</td>
+</tr>
+<tr>
+<td>Progressive failure FS</td>
+<td>1.1</td>
+<td>A cell just upslope of a failure fails too below this FS</td>
+</tr>
+<tr>
+<td>Judge failures from the rain</td>
+<td>on</td>
+<td>Off: only the sources you set fail</td>
+</tr>
+</tbody></table>
+<p>Debris flow: Coulomb friction μ (deposits on slopes gentler than about atan μ), turbulence ξ, bulking (debris volume per failed soil volume) and entrainment coefficient E.</p>
+<p><strong>Failure sources</strong>: set a radius and a time (minutes after the start), press &quot;＋ Click on a slope to add&quot; and click slopes in the 3D view (up to 8, drawn as magenta rings); press the button again to stop. Turn off &quot;Judge failures from the rain&quot; to study only those sources.</p>
+<h2 id="6-running">6. Running</h2>
+<p>Press &quot;▶ Start&quot;. While it rains only the soil water is stepped (up to 60 s per step); once a slope fails the run switches to short steps (0.01–0.5 s, CFL) for the debris flow, and back when the debris has stopped. After the run the panel lists the number and area of failures, the failed volume, the area reached and covered by debris, and the buildings buried or hit hard.</p>
+<h2 id="7-results">7. Results</h2>
+<p>Playback runs frame by frame, so hours of rain go by quickly and a few minutes of debris flow play slowly. Clicking a point shows its slope, soil depth, safety factor before the rain and when saturated, failure time, max debris depth, arrival time, max speed and impact pressure, and the warning areas; for a building, a damage verdict from the burial depth and the impact pressure. The chart shows the rain, the point&#39;s safety factor (green, FS = 1 dashed) and debris depth (brown), and the failure time (red line). The point can be saved as CSV with the conditions and the time series. After the run, &quot;Max debris depth&quot; and &quot;Failure / erosion depth&quot; can be saved as GeoTIFF (EPSG:6671).</p>
+<h2 id="8-display">8. Display</h2>
+<p>Ground: aerial photo / elevation tint / soil saturation / safety factor FS / slope angle. Debris: realistic mud / depth classes. Buildings: white / burial depth / impact pressure. Failed and eroded slopes are lowered by the lost soil and shown as bare soil; walls are muddy below the debris line. Controls: left drag rotate, right drag pan, wheel zoom to the cursor, double-click to set the centre of rotation, L to lock the view.</p>
+<h2 id="9-warning-areas">9. Warning areas</h2>
+<p>&quot;6. Sediment-disaster warning areas&quot; drapes the PLATEAU areas (steep-slope failure, debris flow, landslide): warning areas in yellow, special warning areas in red, with their area and the buildings inside; after a run, the share of the debris extent inside them and of the buried buildings. The areas are drawn from the terrain, not from a simulation.</p>
+<h2 id="10-recording">10. Recording</h2>
+<p>Choose the resolution (up to 4K), fps, length, time range and camera (fixed / keyframes / orbit), then &quot;● Record and save&quot;. With &quot;One saved frame per equal time&quot; the debris flow plays in slow motion; without it the video speed is proportional to time. Frames are rendered one by one and encoded to MP4 (H.264).</p>
+<h2 id="11-method-in-brief">11. Method in brief</h2>
+<ol>
+<li>Rain infiltrates up to the infiltration capacity and raises a water table in the soil, which drains downslope along the bedrock (Darcy) and collects in the hollows.</li>
+<li>Infinite-slope safety factor FS = [c&#39; + (γD − γw·hw)cos²θ·tanφ&#39;] / (γD·sinθcosθ); the soil column fails when FS &lt; 1.</li>
+<li>The failed soil (× bulking) flows under gravity along the debris surface with Voellmy friction (Coulomb + turbulent), deposits where the ground flattens, and entrains soil on steep beds.</li>
+<li>Buildings stop the debris up to their roofs; burial depth and impact pressure (ρv²) give a damage guide.</li>
+</ol>
+<h2 id="12-limitations">12. Limitations</h2>
+<p>A first-order model with uniform soil: it shows which hollows are prone to fail and how far debris may travel, not the exact failure sites. The 2014 / 2018 patterns are synthetic hyetographs matched to published figures; paste observations for real data. The delay of infiltration through the unsaturated zone, overland flow, stream discharge, check dams and boulder fronts are not modelled. 30 kPa is a rough guide for damage to wooden houses. The wide-area terrain (SRTM) is for display only.</p>
+<h2 id="13-sources">13. Sources</h2>
+<p>3D city model (Project PLATEAU) Hiroshima City, MLIT; GSI tiles (aerial photos, elevation); hiroshima.tif (NASA SRTM GL1); © OpenStreetMap contributors; GSI address search; e-Stat 2020 census small-area boundaries.</p>
+
+  </article></main>
+</body>
+</html>

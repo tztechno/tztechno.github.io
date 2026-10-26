@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hiroshima Landslide | 山が崩れたら、土砂はどこまで来るのか — PLATEAU × GPU 土砂災害シミュレーター</title>
+  <meta name="description" content="広島市の 3D 都市モデル PLATEAU（建物・地形・土砂災害警戒区域）で、豪雨による斜面崩壊と土石流を GPU で計算し、土砂が谷を流れ下って建物を埋めていく様子を 3D で見て、録画できる土砂災害シミュレーター。2014 年 8 月（安佐南区・安佐北区）と 2018 年 7 月（安芸区）の被災地を同梱。住所からタイル作成、警戒区域との比較、MP4 録画（最大 4K）、日本語 / English。">
+
+  <meta property="og:title" content="Hiroshima Landslide — PLATEAU × GPU 土砂災害シミュレーター">
+  <meta property="og:description" content="山が崩れたら、土砂はどこまで来るのか。雨で斜面が崩れ、土石流が街の建物を埋めていく様子を、建物単位で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/hiroshima_landslide">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/hiroshima_landslide">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23101a2e%22/%3E%3Cpath d=%22M3 27L13 9l4 5 3-3 9 16z%22 fill=%22%233f7a4a%22/%3E%3Cpath d=%22M15 12c1 5-1 9 3 15h6c-4-5-4-10-9-15z%22 fill=%22%23d98a3d%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261026">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">HIROSHIMA LANDSLIDE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#events" data-i18n="navEvents">再現する災害</a></li>
+        <li><a href="#zones" data-i18n="navZones">警戒区域と比較</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-rain" aria-hidden="true"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">PLATEAU × GPU · HIROSHIMA</p>
+      <h1 data-i18n-html="heroTitle">山が崩れたら、<br><span class="accent">土砂はどこまで来るのか。</span></h1>
+      <p class="lead" data-i18n="heroLead">広島市の 3D 都市モデル PLATEAU（建物・地形・土砂災害警戒区域）で、豪雨による斜面崩壊と土石流を GPU で計算する土砂災害シミュレーター。雨が土にしみ込んで谷に集まり、斜面が崩れ、土石流が谷を流れ下って住宅地の建物を埋めていく ── その一連の流れを 2 m 格子・建物単位で計算し、好きな角度から見て、そのまま動画にできます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statEventN">4 地区</strong><span data-i18n="statEvent">2014・2018 年の被災地</span></div>
+      <div class="stat"><strong data-i18n="statBldgN">37 万棟</strong><span data-i18n="statBldg">PLATEAU の建物（広島市）</span></div>
+      <div class="stat"><strong>2 m</strong><span data-i18n="statGrid">計算の格子</span></div>
+      <div class="stat"><strong data-i18n="statTimeN">約 7 分</strong><span data-i18n="statTime">10 時間分の豪雨（2.4 km 四方）</span></div>
+      <div class="stat"><strong>4K</strong><span data-i18n="statRec">MP4 で録画</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">雨から崩壊、土石流、建物の被害まで</h2>
+      <p class="section-lead" data-i18n="featLead">降雨の条件と土の性質を決めて計算すると、斜面が湿って崩れ、土砂が街に届くまでを、時間を追って確かめられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/wet.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">雨は土にしみ込み、谷に集まる</h3>
+          <p data-i18n="f1Body">降った雨は土の中の地下水位を上げ、岩盤に沿って斜面の下へ流れて、谷の頭（0 次谷）に集まります。地表を「土壌の飽和度」で塗ると、谷筋から先に青く飽和していく様子が見えます。地下水位が上がると斜面の安全率が下がり、1 を下回ったところで土層が崩れます。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">2014 年広島型・2018 年西日本豪雨型（模擬）</li>
+            <li data-i18n="f1c2">観測値の貼り付け</li>
+            <li data-i18n="f1c3">土層厚・粘着力・透水係数</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/debris.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">崩れた土砂は、谷を下って街へ</h3>
+          <p data-i18n="f2Body">崩れた土は水を含んだ土石流になり、地表の勾配に沿って谷を流れ下ります。急な河床では土を削り取って量を増し、緩い扇状地に出ると広がって止まります。崩れた斜面は土がなくなった分だけ低くなり、むき出しの土の色で残ります。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">Voellmy 摩擦の土石流</li>
+            <li data-i18n="f2c2">河床の侵食</li>
+            <li data-i18n="f2c3">最大堆積深の表示</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/burial.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">建物ひとつひとつの被害を見る</h3>
+          <p data-i18n="f3Body">PLATEAU の建物は屋根の高さまでの障害物として、土砂をせき止めます。建物の周りに積もった土砂の深さ（埋没深）と、ぶつかった土砂の勢い（衝撃圧）で色分けし、壁は土砂より下が泥の色になります。建物をクリックすると、「床上相当の埋没」「1 階が埋没」「損壊のおそれ」の判定と、土砂の深さの時間変化が出ます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">埋没深・衝撃圧で色分け</li>
+            <li data-i18n="f3c2">地点の結果を CSV で保存</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/ui.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">「ここが崩れたら」を試す</h3>
+          <p data-i18n="f4Body">斜面をクリックして崩壊源を指定すると、決めた時刻にそこが崩れます。家の裏の谷が崩れたら土砂はどこまで来るのか、どの家が埋まるのかを、谷ごとに確かめられます。住所や地名を入れれば、その場所のタイル（1〜3 km 四方）をアプリの中で作れます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">崩壊源を最大 8 か所</li>
+            <li data-i18n="f4c2">住所からタイル作成</li>
+            <li data-i18n="f4c3">安全率・傾斜の地図</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/flow.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">好きな角度で見て、そのまま動画に</h3>
+          <p data-i18n="f5Body">何時間もの降雨は早送りに、数分の土石流はスローモーションに ── 保存したコマ単位で再生するので、崩れる瞬間を見逃しません。録画は 1 コマずつ描いてから MP4 にするので、PC の速さに関係なく滑らか。日時・雨量・崩壊面積・凡例・地名も動画に入ります。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">最大 3840 × 2160・60 fps</li>
+            <li data-i18n="f5c2">固定・キーフレーム・旋回</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Events ===== -->
+  <section class="section alt" id="events">
+    <div class="container">
+      <p class="kicker">PAST DISASTERS</p>
+      <h2 data-i18n="evTitle">広島の被災地を、同じ雨で</h2>
+      <p class="section-lead" data-i18n="evLead">大きな土砂災害が起きた 4 地区をアプリに同梱しています。公表された雨量に合わせた降雨パターンで、どの谷が崩れ、土砂がどこまで届くかを確かめられます。</p>
+      <div class="split">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <ul class="spec">
+          <li><b data-i18n="ev1a">安佐南区 八木・緑井（2014 年 8 月 20 日）</b><span data-i18n="ev1b">阿武山の麓。未明の豪雨で多数の土石流が住宅地を襲った。2.4 km 四方</span></li>
+          <li><b data-i18n="ev2a">安佐南区 山本（2014 年 8 月）</b><span data-i18n="ev2b">山裾の住宅地のがけ崩れ</span></li>
+          <li><b data-i18n="ev3a">安佐北区 可部東（2014 年 8 月）</b><span data-i18n="ev3b">可部の山裾。土石流の被害を受けた可部東六丁目を含む</span></li>
+          <li><b data-i18n="ev4a">安芸区 矢野東（2018 年 7 月 6 日）</b><span data-i18n="ev4b">西日本豪雨。長く続いた雨の後の強雨で、土石流が団地に流れ込んだ</span></li>
+        </ul>
+      </div>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="r1a">2014 年型の雨で八木・緑井を計算すると</h3><p data-i18n="r1b">最初の崩壊は 8 月 20 日 3 時 22 分（実際に土石流が多発したのは 3〜4 時ごろ）。崩壊は 131 か所・約 8 ha、土砂は約 11 万 m³、0.5 m 以上埋没した建物は 185 棟でした。</p></div>
+        <div class="tech"><h3 data-i18n="r2a">2018 年型の雨で矢野東を計算すると</h3><p data-i18n="r2b">2 日間の雨で土が湿った後、6 日夜の強雨で崩壊が集中。崩壊は約 4 ha、土砂は約 6 万 m³、0.5 m 以上埋没した建物は 93 棟でした。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">表紙: 広島の地形の等高線と降る雨のなか、斜面が崩れ、土石流が麓の家々に向かって流れ下る</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Zones ===== -->
+  <section class="section" id="zones">
+    <div class="container">
+      <p class="kicker">WARNING AREAS</p>
+      <h2 data-i18n="zTitle">土砂災害警戒区域と並べる</h2>
+      <p class="section-lead" data-i18n="zLead">県が指定した危ない場所と、計算で土砂が届いた範囲を、同じ画面で重ねて見られます。</p>
+      <article class="feature">
+        <figure class="shot"><img src="assets/zones.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <p data-i18n="zBody">PLATEAU に含まれる広島県の土砂災害警戒区域（イエロー）・特別警戒区域（レッド）を、急傾斜地の崩壊・土石流・地すべりの種類ごとに地表に重ねます。計算が終わると、土砂の到達範囲のうち区域内の割合と、埋没した建物のうち区域内の棟数を突き合わせます。</p>
+          <p class="note" data-i18n="zNote">警戒区域は地形から定めた区域で、このシミュレーションの結果とは別のものです。比較は、危ない場所の傾向を見る参考です。</p>
+        </div>
+      </article>
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/fs.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <h3 data-i18n="fsTitle">降雨前の斜面の安全率</h3>
+          <p data-i18n="fsBody">地表を「斜面の安全率」で塗ると、雨が降る前にどの斜面が崩れに近いかが分かります。計算は、雨なしで 12 時間排水させた状態から始まり、普段の雨で崩れるはずの土は薄くしてあるので、どの斜面も安全率 1.2 以上で豪雨を迎えます。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">しくみ</h2>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="t1a">地下水と斜面の安定</h3><p data-i18n="t1b">雨は浸透能までしみ込み、土層の中の地下水が Darcy 則で斜面の下へ流れます。各セルで無限長斜面の安全率を計算し、1 を下回ると崩壊。すぐ下が崩れると上の斜面も続けて崩れる進行性崩壊も入れています。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">GPU の土石流</h3><p data-i18n="t2b">崩れた土を、局所慣性方程式と Voellmy 摩擦（Coulomb + 乱流）で流します。地下水・崩壊・土石流を、同じ 2 m 格子の上で毎ステップ WebGL2 のシェーダーで連成して解きます。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">二つの時間の尺度</h3><p data-i18n="t3b">雨が降っている間は最大 60 秒の時間刻みで土の水だけを進め、どこかが崩れると 0.01〜0.5 秒の刻みに自動で切り替えて土石流を計算します。数時間の豪雨と数分の土石流を、一続きに計算できます。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">PLATEAU の建物と地形</h3><p data-i18n="t4b">PLATEAU の地形（TIN）を 2 m 格子にし、建物の底面の高さで地盤を補正。建物は屋根までの障害物として、土砂をせき止め、埋もれます。周りには hiroshima.tif の 55 × 53 km の地形と航空写真を描きます。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="enCap">英語表示: 画面・地名・住所・録画の文字まで切り替わります</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。既定の 4 地区、広域の地形、地名、町丁界のデータをアプリに同梱しています。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeV">約 125 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 住所検索、新しいタイルの作成（国土地理院の標高・航空写真、PLATEAU の建物・土砂災害警戒区域）にはインターネット接続が必要です。GPU（WebGL2）を使います。録画・CSV・GeoTIFF は「ダウンロード」フォルダに保存されます。</p>
+      <p class="note" data-i18n="startNote">※ 計算時間の目安は Apple M5 での実測値です。GPU の性能により変わります。</p>
+      <p class="warn" data-i18n="warn">一様な土質を仮定した概略モデルで、個々の崩壊地点や被害を予測するものではありません。2014 年・2018 年の降雨パターンは公表値に合わせた模擬波形です。避難や防災の判断には、自治体の土砂災害ハザードマップと気象庁・自治体の情報をお使いください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">その谷が崩れたら、<span class="accent">どの家まで届くのか。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">HIROSHIMA LANDSLIDE</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土交通省 PLATEAU（広島市 2022）、国土地理院（シームレス空中写真・標高タイル・住所検索）、NASA SRTM GL1、総務省統計局 e-Stat（2020 年国勢調査 小地域境界）、© OpenStreetMap contributors ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/hiroshima_landslide" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">Manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261026"></script>
+</body>
+</html>
