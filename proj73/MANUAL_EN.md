@@ -313,7 +313,6 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 | `Speed_m_s` | m/s | Speed √(u²+v²) |
 | `Direction_deg` | deg | Flow direction (N 0°, E 90°, S 180°, W 270°) |
 
-The two `Time_since_EQ_*` columns are appended after the original six, so existing programs that read columns by position are not affected.
 
 ---
 

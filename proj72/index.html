@@ -164,13 +164,13 @@
       <div class="feature-block reverse">
         <div class="feature-visual">
           <img src="assets/hero.jpg" alt="浅水長波方程式による海洋物理計算" loading="lazy">
-          <span class="visual-badge" data-i18n="badge2">三陸沖共通深海震源 × 局所慣性モデル</span>
+          <span class="visual-badge" data-i18n="badge2">沖合境界入射 × 局所慣性モデル</span>
         </div>
         <div class="feature-info">
           <div class="feature-num" data-i18n="f2Num">02 / PHYSICS DYNAMICS</div>
-          <h3 class="feature-title" data-i18n="f2Title">共通沖合深海震源モデル & 浅水変形・越流力学のリアルタイム解析</h3>
+          <h3 class="feature-title" data-i18n="f2Title">沖合境界からの津波入射 & 浅水変形・越流力学のリアルタイム解析</h3>
           <p class="feature-text" data-i18n="f2Desc">
-            三陸沖日本海溝の震源域から伝播し、重茂半島を迂回して宮古湾口から湾奥へ一直線に突入する東日本大震災の物理伝播メカニズムを再現。浅水変形（Greenの法則）と防潮堤天端の越流現象を解き明かします。波の来襲方向（宮古港では50°中心に左右90度幅、16方位コンパス対応）や波高・周期も自由にカスタム可能です。
+            計算域の沖合境界から、指定した方向の平面波として津波を入射。重茂半島を迂回して宮古湾口から湾奥へ進む津波の浅水変形（Greenの法則）と防潮堤天端の越流をリアルタイムに計算します。波の来襲方向（宮古港では50°中心に左右90度幅、16方位コンパス対応）や波高・周期も自由にカスタム可能です。
           </p>
           <ul class="feature-points">
             <li>
@@ -227,12 +227,12 @@
           <div class="feature-num" data-i18n="f4Num">04 / WAVE SOURCE COUPLING & LAB</div>
           <h3 class="feature-title" data-i18n="f4Title">南海トラフ波源CSVの連携・インポート ＆ 人工波発生機能</h3>
           <p class="feature-text" data-i18n="f4Desc">
-            広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響を精緻にシミュレーション。任意のCSVファイルをドラッグ＆ドロップして波高・流速・流向を再現できるほか、水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。
+            広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響をシミュレーション。CSVの水位を沖合境界に与え、流速・流向から来襲方向を自動判定します。地震直後の水位（地殻変動による沈降・隆起）は0に補正し、CSVの地点は地図上にマーカーで表示。水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。
           </p>
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f4p1">nankai_troughアプリ出力CSVに対応（Trimmed版 53.8分 / Full 2時間タイムライン）</span>
+              <span data-i18n="f4p1">nankai_troughアプリの全期間CSV（地震発生 t=0 から）に対応。旧形式の切り出しCSVも読込可</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>

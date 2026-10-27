@@ -312,7 +312,6 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 | `Speed_m_s` | m/s | 流速の大きさ √(u²+v²) |
 | `Direction_deg` | 度 | 流れの向き（北0°、東90°、南180°、西270°） |
 
-`Time_since_EQ_*` の2列は既存の6列の後ろに追加しているので、列番号で読み込む既存の連携プログラムにも影響しません。
 
 ---
 
@@ -352,7 +351,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 * **Q. 任意の地点の津波データがほしいときは？**
   * A. 「＋ 指定点追加」を押してから、地図上の海域をクリックしてください。計算の途中でも追加でき、その時点から記録します。
 
-* **Q. 市街地シミュレーションにはどちらのCSVを使えばよい？**
+* **Q. 市街地シミュレーションにはどのCSVを使えばよい？**
   * A. 全期間データ（`tsunami_boundary_full_<観測点ID>.csv`）を使ってください。`Time_sec` が地震発生からの時間なので、そのまま境界条件として使えます。計算は最後まで進めてから出力してください。
 
 * **Q. 内閣府のケース①〜⑤を全部まとめたシナリオはないの？**

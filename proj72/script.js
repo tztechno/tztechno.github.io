@@ -54,12 +54,12 @@ const translations = {
 
     // Feature 2
     f2Num: "02 / PHYSICS DYNAMICS",
-    f2Title: "共通沖合深海震源モデル & 浅水変形・越流力学のリアルタイム解析",
-    f2Desc: "三陸沖日本海溝の震源域から伝播し、重茂半島を迂回して宮古湾口から湾奥へ一直線に突入する東日本大震災の物理伝播メカニズムを再現。浅水変形（Greenの法則）と防潮堤天端の越流現象を解き明かします。波の来襲方向（宮古港では50°中心に左右90度幅、16方位コンパス対応）や波高・周期も自由にカスタム可能です。",
+    f2Title: "沖合境界からの津波入射 & 浅水変形・越流力学のリアルタイム解析",
+    f2Desc: "計算域の沖合境界から、指定した方向の平面波として津波を入射。重茂半島を迂回して宮古湾口から湾奥へ進む津波の浅水変形（Greenの法則）と防潮堤天端の越流をリアルタイムに計算します。波の来襲方向（宮古港では50°中心に左右90度幅、16方位コンパス対応）や波高・周期も自由にカスタム可能です。",
     f2p1: "CFL条件に応じた自動時間刻み調整による高精度かつ安定な数値計算",
     f2p2: "Web Worker による別スレッド計算で、60fpsのスムーズな描画・カメラ操作を維持",
     f2p3: "波源赤枠フレーム・観測ブイ・3D大型矢印のリアルタイム旋回と波先端距離表示",
-    badge2: "三陸沖共通深海震源 × 局所慣性モデル",
+    badge2: "沖合境界入射 × 局所慣性モデル",
 
     // Feature 3
     f3Num: "03 / HAZARD & GROUND TRUTH",
@@ -73,8 +73,8 @@ const translations = {
     // Feature 4
     f4Num: "04 / WAVE SOURCE COUPLING & LAB",
     f4Title: "南海トラフ波源CSVの連携・インポート ＆ 人工波発生機能",
-    f4Desc: "広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響を精緻にシミュレーション。任意のCSVファイルをドラッグ＆ドロップして波高・流速・流向を再現できるほか、水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。",
-    f4p1: "nankai_troughアプリ出力CSVに対応（Trimmed版 53.8分 / Full 2時間タイムライン）",
+    f4Desc: "広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響をシミュレーション。CSVの水位を沖合境界に与え、流速・流向から来襲方向を自動判定します。地震直後の水位（地殻変動による沈降・隆起）は0に補正し、CSVの地点は地図上にマーカーで表示。水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。",
+    f4p1: "nankai_troughアプリの全期間CSV（地震発生 t=0 から）に対応。旧形式の切り出しCSVも読込可",
     f4p2: "水面クリックによる人工波（パルス津波）の発生とリアルタイム波紋伝播",
     f4p3: "シミュレーション経過時間と地震発生後時間（Time since EQ）のデュアルタイマー併記",
     badge4: "波源CSV連携 × 人工波発生",
@@ -185,12 +185,12 @@ const translations = {
 
     // Feature 2
     f2Num: "02 / PHYSICS DYNAMICS",
-    f2Title: "Shared Deep-Ocean Epicenter Model & 2D Hydrodynamic Solver",
-    f2Desc: "Reproduces the 2011 tsunami mechanics propagating from the Sanriku Japan Trench, bypassing the mountainous Omoe Peninsula to surge straight into Miyako Bay. Features dynamic wave direction controls (±90° range around 50° NE with 16-point compass for Miyako Port) alongside custom wave height and period.",
+    f2Title: "Offshore Boundary Wave Input & 2D Hydrodynamic Solver",
+    f2Desc: "The tsunami enters through the offshore edges of the computed region as a plane wave from the chosen direction. Computes in real time how it shoals (Green's law) past the mountainous Omoe Peninsula into Miyako Bay and overtops seawall crests. Features dynamic wave direction controls (±90° range around 50° NE with 16-point compass for Miyako Port) alongside custom wave height and period.",
     f2p1: "Adaptive CFL time-stepping ensuring unconditional numerical stability",
     f2p2: "Dedicated Web Worker thread execution maintaining smooth 60fps rendering",
     f2p3: "Real-time rotatable offshore source frame, observation buoys, and 3D propagation arrows",
-    badge2: "Shared Epicenter Model",
+    badge2: "Offshore Boundary Input × Local Inertia",
 
     // Feature 3
     f3Num: "03 / HAZARD & GROUND TRUTH",
@@ -204,8 +204,8 @@ const translations = {
     // Feature 4
     f4Num: "04 / WAVE SOURCE COUPLING & LAB",
     f4Title: "Nankai Trough Wave CSV Coupling, Import & Wave Maker Lab",
-    f4Desc: "Directly couples with boundary wave CSV files exported by macro ocean simulators (e.g. nankai_trough app, peak 4.08m at Miyako offshore) to predict urban inundation. Drag-and-drop custom wave CSVs to simulate varying amplitudes, 2D velocity vectors (U/V), and 360-degree bearings. Also features an interactive wave-maker mode where clicking water surfaces spawns artificial ripple pulses. Displays dual timers for both calculation LAP time and absolute time elapsed since earthquake origin.",
-    f4p1: "Full support for nankai_trough CSV outputs (53.8-min trimmed and 2-hour full timelines)",
+    f4Desc: "Directly loads boundary wave CSV files exported by macro ocean simulators (e.g. nankai_trough app, peak 4.08m at Miyako offshore) to predict urban inundation. The CSV water level drives the offshore boundary, and the incoming direction is derived from the velocity and flow direction. The level right after the earthquake (coseismic subsidence or uplift) is corrected to 0, and the CSV location is shown as a marker on the map. Also features an interactive wave-maker mode where clicking water surfaces spawns artificial ripple pulses. Displays dual timers for both calculation LAP time and absolute time elapsed since earthquake origin.",
+    f4p1: "Supports nankai_trough full-timeline CSVs (from the earthquake, t=0); older trimmed CSVs also load",
     f4p2: "Interactive wave maker: click water to inject pulse ripples and observe seawall impact",
     f4p3: "Dual real-time HUD timers: Simulation LAP time alongside time since earthquake origin",
     badge4: "Wave CSV Coupling & Wave Maker",

@@ -186,7 +186,7 @@
               </svg>
             </div>
             <h3 class="feature-title" data-i18n="feat3Title">市街地遡上連携用 CSV 出力</h3>
-            <p class="feature-desc" data-i18n="feat3Desc">全期間の時系列（方式A）に加え、第1波到達の2分前を t=0 として主要な波だけを切り出した「市街地連携用波形（方式B）」を出力。水位・東西/南北の流速（U, V）・流向に加え、各行に地震発生からの経過時間も記載します。</p>
+            <p class="feature-desc" data-i18n="feat3Desc">地震発生（t=0）から計算終了までの全期間の時系列を観測地点ごとにCSVで出力。水位・東西/南北の流速（U, V）・流向を3秒間隔で記録し、Time_sec がそのまま地震発生からの時間になります。計算の途中で出力しようとすると確認メッセージが出ます。</p>
             <div class="feature-tag-list">
               <span>Time-Series CSV</span>
               <span>Flow Velocity Vectors</span>
@@ -255,14 +255,14 @@
           </div>
         </div>
 
-        <!-- Mode A vs Mode B Table -->
+        <!-- CSV export table -->
         <div class="csv-comparison-card">
-          <h3 class="comparison-title" data-i18n="compTableTitle">2つのエクスポート方式の使い分け</h3>
+          <h3 class="comparison-title" data-i18n="compTableTitle">CSV出力の内容</h3>
           <div class="table-responsive">
             <table class="styled-table">
               <thead>
                 <tr>
-                  <th data-i18n="compThMode">出力方式</th>
+                  <th data-i18n="compThMode">出力データ</th>
                   <th data-i18n="compThStart">開始時間 (t=0)</th>
                   <th data-i18n="compThRows">データの範囲 (120分の計算)</th>
                   <th data-i18n="compThUse">主な用途</th>
@@ -270,16 +270,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td data-i18n="compModeA"><span class="badge-tag">方式A</span> <strong>全期間データ</strong></td>
+                  <td data-i18n="compModeA"><strong>全期間データ</strong></td>
                   <td data-i18n="compStartA">地震発生の瞬間 (t = 0 s)</td>
                   <td data-i18n="compRowsA">約 2,400 行 (3秒刻み)</td>
-                  <td data-i18n="compUseA">地震直後からの引き波・初動を含む全過程の確認・比較。</td>
-                </tr>
-                <tr>
-                  <td data-i18n="compModeB"><span class="badge-tag tag-cyan">方式B</span> <strong>市街地連携用波形</strong></td>
-                  <td data-i18n="compStartB">第1波到達の2分前を t = 0 とする</td>
-                  <td data-i18n="compRowsB">主要波の通過まで（最大波の35分後または第1波到達の45分後の遅い方）。各行に地震発生からの経過時間つき</td>
-                  <td data-i18n="compUseB">Phase 2 の市街地シミュレーションの境界条件。地震前の静かな時間を省き、計算時間を抑えられる。</td>
+                  <td data-i18n="compUseA">Phase 2 の市街地シミュレーションの境界条件、および地震直後からの引き波・初動を含む全過程の確認・比較。沿岸の主要な波は地震の20〜30分後に来ることが多いので、最後まで計算してから出力します。</td>
                 </tr>
               </tbody>
             </table>

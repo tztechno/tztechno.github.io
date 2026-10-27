@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>操作マニュアル (日本語) | 南海トラフ津波広域伝播シミュレーター</title>
-  <meta name="description" content="南海トラフ津波広域伝播シミュレーターの日本語版詳細操作マニュアル。画面操作、物理方程式、市街地連携用CSVエクスポート仕様、FAQを網羅。">
+  <meta name="description" content="南海トラフ津波広域伝播シミュレーターの日本語版詳細操作マニュアル。画面操作、物理方程式、CSVエクスポート仕様、FAQを網羅。">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -716,36 +716,26 @@ npm run tauri build  # 配布用ビルド (dmg / exe)
 <hr>
 <h2>10. CSV出力（市街地シミュレーションとの連携）</h2>
 <p>「3. 各地の沖合到達予測」の下部のボタンで、<strong>チェックした観測地点ごとに</strong>CSVファイルを出力します（チェックがない場合は全地点の出力を確認します）。先にシミュレーションの再生か一括高速計算を行ってください。</p>
-<h3>10.1 2つの出力方式</h3>
-<ol>
-<li><strong>方式A: 📋 全期間データ</strong><ul>
-<li>地震発生（t=0）から計算終了までの全データ（約3秒間隔。120分なら約2,400行）。</li>
+<h3>10.1 出力内容（📋 全期間データ）</h3>
+<ul>
+<li>地震発生（t=0）から、計算が進んだ時刻までの全データ（約3秒間隔。120分なら約2,400行）。</li>
+<li><code>Time_sec</code> は地震発生からの時間です。市街地シミュレーションでもそのまま地震発生からの時刻として使えます。</li>
+<li>計算が設定時間（例: 120分）に達する前に出力すると、途中までのデータになることを確認します。沿岸の主要な波は地震の20〜30分後に来ることが多いので、最後まで計算してから出力してください。</li>
 <li>ファイル名: <code>tsunami_boundary_full_&lt;観測点ID&gt;.csv</code></li>
 </ul>
-</li>
-<li><strong>方式B: 🎯 市街地連携用波形</strong><ul>
-<li>第1波到達の<strong>2分前を t=0</strong> として、主要な波が通過するまで（最大波の35分後、または第1波到達の45分後のうち遅い方）を切り出します。</li>
-<li>各行に<strong>地震発生からの経過時間</strong>（秒、時:分:秒）も記載するので、切り出した波形が地震後のいつの時間帯かがわかります。</li>
-<li>明確な津波（0.05m以上）がまだ到達していない地点では、方式Aで出力するか確認します。</li>
-<li>ファイル名: <code>tsunami_boundary_city_&lt;観測点ID&gt;.csv</code></li>
-</ul>
-</li>
-</ol>
-<h3>10.2 方式Bのファイル形式</h3>
-<pre><code class="language-csv"># Tsunami Boundary Wave Condition for City Simulation (Phase 2)
-# Location: 宮城中部沖 (石巻・女川) (Lon: 141.68, Lat: 38.23)
-# Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
-# Original Absolute First Arrival: 0.0 s (0:00:00 after earthquake)
-# Original Absolute Max Surge: 6.44 m (at 1659.0 s = 0:27:39 after earthquake)
-# Time Offset: -0.0 s (Absolute_Time_sec = Time_sec + 0.0)
-# Trimmed Window (time since earthquake): 0:00:00 - 1:00:00
-# Time_since_EQ_sec / Time_since_EQ_hms: elapsed time since the earthquake origin (rupture at 0 s)
-Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_since_EQ_sec,Time_since_EQ_hms
-0.0,-1.330,0.000,0.000,0.000,0.0,0.0,0:00:00
-3.0,-1.330,0.003,-0.001,0.004,0.0,3.0,0:00:03
+<h3>10.2 ファイル形式</h3>
+<pre><code class="language-csv"># Tsunami Wave Boundary Condition for Phase 2 Simulation (Full Timeline)
+# Location: 宮古沖 (岩手) (Lon: 142.19, Lat: 39.63)
+# Max Wave Height: 5.56 m, First Arrival: 186 s
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
+0.0,-0.910,0.000,0.000,0.000,0.0
+3.0,-0.910,0.000,0.000,0.001,0.0
 ...
 </code></pre>
-<p>方式Aは先頭の <code>#</code> 行が3行で、列は <code>Time_sec</code> 〜 <code>Direction_deg</code> の6列です。</p>
+<ul>
+<li>1行目の <code>Elevation_m</code> は、地震直後の地殻変動（海底の沈降・隆起）による海面の変化です。</li>
+<li><code>First Arrival</code> は、この初期水位から0.15m以上変化した最初の時刻です。</li>
+</ul>
 <h3>10.3 列の説明</h3>
 <table>
 <thead>
@@ -758,7 +748,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <tbody><tr>
 <td><code>Time_sec</code></td>
 <td>秒</td>
-<td>方式A: 地震発生からの時間。方式B: 切り出し開始（第1波到達の2分前）からの時間</td>
+<td>地震発生からの時間</td>
 </tr>
 <tr>
 <td><code>Elevation_m</code></td>
@@ -785,18 +775,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <td>度</td>
 <td>流れの向き（北0°、東90°、南180°、西270°）</td>
 </tr>
-<tr>
-<td><code>Time_since_EQ_sec</code></td>
-<td>秒</td>
-<td>方式Bのみ。地震発生からの時間</td>
-</tr>
-<tr>
-<td><code>Time_since_EQ_hms</code></td>
-<td>時:分:秒</td>
-<td>方式Bのみ。地震発生からの時間</td>
-</tr>
 </tbody></table>
-<p><code>Time_since_EQ_*</code> の2列は既存の6列の後ろに追加しているので、列番号で読み込む既存の連携プログラムにも影響しません。</p>
 <hr>
 <h2>11. 物理モデルの概要</h2>
 <blockquote class="callout-note"><p class="callout-title">注記</p><p>式の導出や離散化の詳細は <a href="PHYSICS_MODEL.md">PHYSICS_MODEL.md</a> を参照してください。</p>
@@ -836,9 +815,9 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
 <li>A. 「＋ 指定点追加」を押してから、地図上の海域をクリックしてください。計算の途中でも追加でき、その時点から記録します。</li>
 </ul>
 </li>
-<li><p><strong>Q. 市街地シミュレーションにはどちらのCSVを使えばよい？</strong></p>
+<li><p><strong>Q. 市街地シミュレーションにはどのCSVを使えばよい？</strong></p>
 <ul>
-<li>A. 第1波が迫る直前から計算を始めたい場合は方式B（市街地連携用波形）を、地震直後からの全過程が必要な場合は方式A（全期間データ）を使ってください。方式Bにも地震発生からの経過時間が記載されています。</li>
+<li>A. 全期間データ（<code>tsunami_boundary_full_&lt;観測点ID&gt;.csv</code>）を使ってください。<code>Time_sec</code> が地震発生からの時間なので、そのまま境界条件として使えます。計算は最後まで進めてから出力してください。</li>
 </ul>
 </li>
 <li><p><strong>Q. 内閣府のケース①〜⑤を全部まとめたシナリオはないの？</strong></p>
