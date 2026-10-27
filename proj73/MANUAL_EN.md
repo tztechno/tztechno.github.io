@@ -166,6 +166,7 @@ Use "2. Propagation Simulation".
 |---|---|
 | **▶ Start Simulation / Pause** | Advances the computation with animation |
 | **⚡ Fast-Forward** | Computes up to the max duration without drawing. A 120-minute run takes about 1 minute (depends on the PC) |
+| **🎬 Export Video** | Exports the computed result as an MP4 video of the chosen length (10–60 s) (section 9.1) |
 | **↺ Reset** | Returns to the state at time 0 |
 | **Max Duration** | 60 min / 120 min (recommended) / 180 min |
 | **Playback Speed** | 1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC |
@@ -243,6 +244,24 @@ In "4. Layer Options", toggle bathymetry, wave height, velocity vectors, and fau
 
 ## 9. Saving the Animation as Video (MP4)
 
+There are two ways to save a video.
+
+| Method | When to use it |
+|---|---|
+| **9.1 Export the computed result (🎬 Export Video)** | You want the result as a video of a fixed length (recommended) |
+| **9.2 Record while playing (🎥 Record MP4)** | You want to record the playback exactly as shown on screen |
+
+### 9.1 Export the computed result (🎬 Export Video)
+1. Choose the scenario and max duration (it's fine if you have already computed it, e.g. with Fast-Forward).
+2. Choose the **Video length** (10 s / 20 s / 40 s / 60 s) and press **🎬 Export Video**.
+3. The app recomputes from the earthquake to the max duration while building the video, and saves it when done. Progress is shown as a percentage in the status at the top.
+
+* The computation gives the same result every time, so the exported video matches the computed run (Fast-Forward does not keep intermediate frames, so the run is recomputed to make the video).
+* Frames are taken at equal steps of simulated time, so the video has exactly the chosen length. Example: a 120-minute run exported as 20 seconds gives 600 frames (12 simulated seconds per frame).
+* Exporting a 120-minute run takes about 1–2 minutes (depends on the PC).
+* During export, controls that change the computation (play, scenario, etc.) are disabled. Press **⏹ Cancel Export** to stop and save the video up to that point.
+
+### 9.2 Record while playing (🎥 Record MP4)
 1. Choose the playback speed and max duration.
 2. Press **🎥 Record MP4**; the simulation starts while recording (from the beginning if already computed).
 3. Press **⏹ Stop & Save**, or let it reach the max duration, and the video file is saved.
@@ -257,7 +276,7 @@ In "4. Layer Options", toggle bathymetry, wave height, velocity vectors, and fau
   | 5x | about 40 s |
   | 20x | about 11 s |
   | 60x | about 4 s |
-* File name: `tsunami_<scenario ID>_<date time>.mp4`
+* File name: `tsunami_<scenario ID>_<date time>.mp4` (same for 9.1 and 9.2)
 
 ---
 

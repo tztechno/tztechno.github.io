@@ -460,6 +460,10 @@ npm run tauri build  # release build (dmg / exe)
 <td>Computes up to the max duration without drawing. A 120-minute run takes about 1 minute (depends on the PC)</td>
 </tr>
 <tr>
+<td><strong>🎬 Export Video</strong></td>
+<td>Exports the computed result as an MP4 video of the chosen length (10–60 s) (section 9.1)</td>
+</tr>
+<tr>
 <td><strong>↺ Reset</strong></td>
 <td>Returns to the state at time 0</td>
 </tr>
@@ -641,6 +645,36 @@ npm run tauri build  # release build (dmg / exe)
 </blockquote>
 <hr>
 <h2>9. Saving the Animation as Video (MP4)</h2>
+<p>There are two ways to save a video.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>When to use it</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>9.1 Export the computed result (🎬 Export Video)</strong></td>
+<td>You want the result as a video of a fixed length (recommended)</td>
+</tr>
+<tr>
+<td><strong>9.2 Record while playing (🎥 Record MP4)</strong></td>
+<td>You want to record the playback exactly as shown on screen</td>
+</tr>
+</tbody></table>
+<h3>9.1 Export the computed result (🎬 Export Video)</h3>
+<ol>
+<li>Choose the scenario and max duration (it&#39;s fine if you have already computed it, e.g. with Fast-Forward).</li>
+<li>Choose the <strong>Video length</strong> (10 s / 20 s / 40 s / 60 s) and press <strong>🎬 Export Video</strong>.</li>
+<li>The app recomputes from the earthquake to the max duration while building the video, and saves it when done. Progress is shown as a percentage in the status at the top.</li>
+</ol>
+<ul>
+<li>The computation gives the same result every time, so the exported video matches the computed run (Fast-Forward does not keep intermediate frames, so the run is recomputed to make the video).</li>
+<li>Frames are taken at equal steps of simulated time, so the video has exactly the chosen length. Example: a 120-minute run exported as 20 seconds gives 600 frames (12 simulated seconds per frame).</li>
+<li>Exporting a 120-minute run takes about 1–2 minutes (depends on the PC).</li>
+<li>During export, controls that change the computation (play, scenario, etc.) are disabled. Press <strong>⏹ Cancel Export</strong> to stop and save the video up to that point.</li>
+</ul>
+<h3>9.2 Record while playing (🎥 Record MP4)</h3>
 <ol>
 <li>Choose the playback speed and max duration.</li>
 <li>Press <strong>🎥 Record MP4</strong>; the simulation starts while recording (from the beginning if already computed).</li>
@@ -677,7 +711,7 @@ npm run tauri build  # release build (dmg / exe)
 </tr>
 </tbody></table>
 </li>
-<li><p>File name: <code>tsunami_&lt;scenario ID&gt;_&lt;date time&gt;.mp4</code></p>
+<li><p>File name: <code>tsunami_&lt;scenario ID&gt;_&lt;date time&gt;.mp4</code> (same for 9.1 and 9.2)</p>
 </li>
 </ul>
 <hr>
