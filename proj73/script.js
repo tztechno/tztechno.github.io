@@ -16,7 +16,7 @@ const TRANSLATIONS = {
     navDownload: '購入・入手',
     navDocs: 'マニュアル',
     btnGetApp: '製品ページ・購入',
-    heroBadge: 'v1.3.0 最新版: 計算結果を、長さを指定してMP4動画に書き出し',
+    heroBadge: 'v1.3.1 最新版: 計算結果を、長さを指定してMP4動画に書き出し',
     heroTitle: "南海トラフから日本全国まで、<br><span class=\"gradient-text\">津波の広がり</span>を計算する。",
     heroDesc: 'Okada弾性転位モデルと2次元長波方程式（浅水方程式）で、日本全国の海域の津波伝播を計算。沖合観測点の水位・流速を、市街地遡上シミュレーション（Phase 2）の境界条件としてそのまま出力します。',
     btnStoreSub: '公式ストア・販売ページ',
@@ -65,7 +65,7 @@ const TRANSLATIONS = {
     scLabelSlip: '最大すべり量',
     scLabelHeight: '沖合観測点の最大水位 (計算値)',
     scLabelArrival: '最大波の時刻 (地震発生から)',
-    scNote: '※本アプリ（v1.3.0。計算方法は v1.2.0 と同じ）で2時間計算した、沖合の観測点（水深数十〜数千m）の値です。海岸での津波高・遡上高は、浅い海で波が高くなるためこれより大きくなります。',
+    scNote: '※本アプリ（v1.3.1。計算方法は v1.2.0 と同じ）で2時間計算した、沖合の観測点（水深数十〜数千m）の値です。海岸での津波高・遡上高は、浅い海で波が高くなるためこれより大きくなります。',
     macMeta: 'Apple Silicon (M1以降) 対応・macOS 10.15以降',
     physicsDocTitle: '物理モデル解説書 (Markdown・日本語)',
     physicsDocDesc: 'Okada (1985) の式、内閣府モデルの再構成方法、球面座標の長波方程式、数値フィルター・吸収層の検証結果、2011年東北の再現性まで、実装に即して解説。',
@@ -88,10 +88,10 @@ const TRANSLATIONS = {
     demoHud: "● 簡易デモ (2次元波動方程式)",
     macTitle: "macOS デスクトップ版",
     macDesc: "Tauri v2 製のデスクトップアプリ。計算はすべてPC内で行い、インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。",
-    macPkg: "パッケージ形式: <strong>DMG (約 5.0 MB / v1.3.0)</strong>",
+    macPkg: "パッケージ形式: <strong>DMG (約 5.0 MB / v1.3.1)</strong>",
     winTitle: "Windows デスクトップ版",
     winDesc: "NSIS インストーラー形式。インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。",
-    winPkg: "パッケージ形式: <strong>NSIS セットアップ EXE (約 3.9 MB / v1.3.0)</strong>",
+    winPkg: "パッケージ形式: <strong>NSIS セットアップ EXE (約 3.9 MB / v1.3.1)</strong>",
     webTitle: "Webブラウザ & 開発版",
     webDesc: "Node.js があれば、ローカルの開発サーバーで動かせます。",
     webPkg: "ローカル開発サーバー: <code>:5173</code>",
@@ -112,7 +112,7 @@ const TRANSLATIONS = {
     navDownload: 'Pricing / Store',
     navDocs: 'Manuals',
     btnGetApp: 'Product Page / Store',
-    heroBadge: 'v1.3.0: Export the Computed Result as an MP4 Video of a Chosen Length',
+    heroBadge: 'v1.3.1: Export the Computed Result as an MP4 Video of a Chosen Length',
     heroTitle: "Simulate how <span class=\"gradient-text\">tsunamis spread</span><br>across the seas around Japan.",
     heroDesc: 'Computes tsunami propagation across the seas around all of Japan with the Okada elastic dislocation model and the 2D long-wave (shallow water) equations, and exports offshore water levels and velocities as boundary conditions for Phase-2 urban inundation simulations.',
     btnStoreSub: 'Official Store & Licensing',
@@ -161,7 +161,7 @@ const TRANSLATIONS = {
     scLabelSlip: 'Max slip',
     scLabelHeight: 'Max offshore water level (computed)',
     scLabelArrival: 'Time of max wave (after the earthquake)',
-    scNote: '* Values computed with this app (v1.3.0; same computation as v1.2.0) over 2 hours at offshore points (water depth of tens to thousands of meters). Coastal tsunami heights and run-up are larger because waves grow in shallow water.',
+    scNote: '* Values computed with this app (v1.3.1; same computation as v1.2.0) over 2 hours at offshore points (water depth of tens to thousands of meters). Coastal tsunami heights and run-up are larger because waves grow in shallow water.',
     macMeta: 'Apple Silicon (M1 or later), macOS 10.15+',
     physicsDocTitle: 'Physics Model Specification (Markdown, Japanese)',
     physicsDocDesc: 'Okada (1985) equations, how the Cabinet Office model is reconstructed, long-wave equations in spherical coordinates, filter and absorbing-boundary verification, and the 2011 Tohoku reproduction, as implemented.',
@@ -184,10 +184,10 @@ const TRANSLATIONS = {
     demoHud: "● Simplified demo (2D wave equation)",
     macTitle: "macOS desktop app",
     macDesc: "Desktop app built with Tauri v2. All computation runs on your PC and works without an internet connection. CSV files and MP4 videos are saved to the Downloads folder.",
-    macPkg: "Package: <strong>DMG (about 5.0 MB / v1.3.0)</strong>",
+    macPkg: "Package: <strong>DMG (about 5.0 MB / v1.3.1)</strong>",
     winTitle: "Windows desktop app",
     winDesc: "NSIS installer. Works without an internet connection. CSV files and MP4 videos are saved to the Downloads folder.",
-    winPkg: "Package: <strong>NSIS setup EXE (about 3.9 MB / v1.3.0)</strong>",
+    winPkg: "Package: <strong>NSIS setup EXE (about 3.9 MB / v1.3.1)</strong>",
     webTitle: "Web browser & development build",
     webDesc: "Runs on a local development server if you have Node.js.",
     webPkg: "Local dev server: <code>:5173</code>",
@@ -203,7 +203,7 @@ const TRANSLATIONS = {
 };
 
 // Scenario Database for Interactive Tabs
-// 値は本アプリ v1.2.0 (v1.3.0 も計算方法は同じ) で2時間計算した沖合観測点の最大水位とその時刻
+// 値は本アプリ v1.2.0 (v1.3.1 も計算方法は同じ) で2時間計算した沖合観測点の最大水位とその時刻
 const SCENARIOS = {
   nankai_full: {
     name_ja: '南海トラフ全域連動 (M9.1)',

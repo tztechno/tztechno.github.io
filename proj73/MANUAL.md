@@ -14,7 +14,7 @@ Detailed documentation is available in both **Japanese** and **English**:
   * シミュレーションの実行・地図の操作と表示
   * 観測地点と波形グラフ
   * アニメーションの動画保存（MP4）
-  * CSV出力（全期間 / 市街地連携用、地震発生からの経過時間つき）
+  * CSV出力（地震発生からの全期間）
   * 物理モデルの概要・制約と注意事項・FAQ・出典
 
 * 🇺🇸 **[English User Manual](./MANUAL_EN.md)**
@@ -26,7 +26,7 @@ Detailed documentation is available in both **Japanese** and **English**:
   * Running the simulation, map controls & display
   * Observation points & waveform chart
   * Saving the animation as video (MP4)
-  * CSV export (full timeline / city simulation, with time since the earthquake)
+  * CSV export (full timeline from the earthquake)
   * Physical model overview, limitations, FAQ, references
 
 ---

@@ -283,44 +283,34 @@
 
 「3. 各地の沖合到達予測」の下部のボタンで、**チェックした観測地点ごとに**CSVファイルを出力します（チェックがない場合は全地点の出力を確認します）。先にシミュレーションの再生か一括高速計算を行ってください。
 
-### 10.1 2つの出力方式
-1. **方式A: 📋 全期間データ**
-   * 地震発生（t=0）から計算終了までの全データ（約3秒間隔。120分なら約2,400行）。
-   * ファイル名: `tsunami_boundary_full_<観測点ID>.csv`
-2. **方式B: 🎯 市街地連携用波形**
-   * 第1波到達の**2分前を t=0** として、主要な波が通過するまで（最大波の35分後、または第1波到達の45分後のうち遅い方）を切り出します。
-   * 各行に**地震発生からの経過時間**（秒、時:分:秒）も記載するので、切り出した波形が地震後のいつの時間帯かがわかります。
-   * 明確な津波（0.05m以上）がまだ到達していない地点では、方式Aで出力するか確認します。
-   * ファイル名: `tsunami_boundary_city_<観測点ID>.csv`
+### 10.1 出力内容（📋 全期間データ）
+* 地震発生（t=0）から、計算が進んだ時刻までの全データ（約3秒間隔。120分なら約2,400行）。
+* `Time_sec` は地震発生からの時間です。市街地シミュレーションでもそのまま地震発生からの時刻として使えます。
+* 計算が設定時間（例: 120分）に達する前に出力すると、途中までのデータになることを確認します。沿岸の主要な波は地震の20〜30分後に来ることが多いので、最後まで計算してから出力してください。
+* ファイル名: `tsunami_boundary_full_<観測点ID>.csv`
 
-### 10.2 方式Bのファイル形式
+### 10.2 ファイル形式
 ```csv
-# Tsunami Boundary Wave Condition for City Simulation (Phase 2)
-# Location: 宮城中部沖 (石巻・女川) (Lon: 141.68, Lat: 38.23)
-# Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
-# Original Absolute First Arrival: 0.0 s (0:00:00 after earthquake)
-# Original Absolute Max Surge: 6.44 m (at 1659.0 s = 0:27:39 after earthquake)
-# Time Offset: -0.0 s (Absolute_Time_sec = Time_sec + 0.0)
-# Trimmed Window (time since earthquake): 0:00:00 - 1:00:00
-# Time_since_EQ_sec / Time_since_EQ_hms: elapsed time since the earthquake origin (rupture at 0 s)
-Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_since_EQ_sec,Time_since_EQ_hms
-0.0,-1.330,0.000,0.000,0.000,0.0,0.0,0:00:00
-3.0,-1.330,0.003,-0.001,0.004,0.0,3.0,0:00:03
+# Tsunami Wave Boundary Condition for Phase 2 Simulation (Full Timeline)
+# Location: 宮古沖 (岩手) (Lon: 142.19, Lat: 39.63)
+# Max Wave Height: 5.56 m, First Arrival: 186 s
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
+0.0,-0.910,0.000,0.000,0.000,0.0
+3.0,-0.910,0.000,0.000,0.001,0.0
 ...
 ```
-方式Aは先頭の `#` 行が3行で、列は `Time_sec` 〜 `Direction_deg` の6列です。
+* 1行目の `Elevation_m` は、地震直後の地殻変動（海底の沈降・隆起）による海面の変化です。
+* `First Arrival` は、この初期水位から0.15m以上変化した最初の時刻です。
 
 ### 10.3 列の説明
 | 列名 | 単位 | 内容 |
 |---|---|---|
-| `Time_sec` | 秒 | 方式A: 地震発生からの時間。方式B: 切り出し開始（第1波到達の2分前）からの時間 |
+| `Time_sec` | 秒 | 地震発生からの時間 |
 | `Elevation_m` | m | 静水面からの水位変動（上昇が正、低下が負） |
 | `U_velocity_m_s` | m/s | 東西方向の流速（東向きが正） |
 | `V_velocity_m_s` | m/s | 南北方向の流速（北向きが正） |
 | `Speed_m_s` | m/s | 流速の大きさ √(u²+v²) |
 | `Direction_deg` | 度 | 流れの向き（北0°、東90°、南180°、西270°） |
-| `Time_since_EQ_sec` | 秒 | 方式Bのみ。地震発生からの時間 |
-| `Time_since_EQ_hms` | 時:分:秒 | 方式Bのみ。地震発生からの時間 |
 
 `Time_since_EQ_*` の2列は既存の6列の後ろに追加しているので、列番号で読み込む既存の連携プログラムにも影響しません。
 
@@ -363,7 +353,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_
   * A. 「＋ 指定点追加」を押してから、地図上の海域をクリックしてください。計算の途中でも追加でき、その時点から記録します。
 
 * **Q. 市街地シミュレーションにはどちらのCSVを使えばよい？**
-  * A. 第1波が迫る直前から計算を始めたい場合は方式B（市街地連携用波形）を、地震直後からの全過程が必要な場合は方式A（全期間データ）を使ってください。方式Bにも地震発生からの経過時間が記載されています。
+  * A. 全期間データ（`tsunami_boundary_full_<観測点ID>.csv`）を使ってください。`Time_sec` が地震発生からの時間なので、そのまま境界条件として使えます。計算は最後まで進めてから出力してください。
 
 * **Q. 内閣府のケース①〜⑤を全部まとめたシナリオはないの？**
   * A. 各ケースはどれも「駿河湾〜日向灘の全域が破壊する Mw9.1 の巨大地震」で、違いは大すべり域の位置だけです。全ケースの大すべり域を同時に置くと政府の想定を超えるため、用意していません。政府の最大クラスの津波高は、地点ごとに全ケースの最大値をとったものです。

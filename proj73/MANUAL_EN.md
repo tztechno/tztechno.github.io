@@ -284,44 +284,34 @@ There are two ways to save a video.
 
 The buttons at the bottom of "3. Offshore Wave Forecast" export one CSV file **per checked observation point** (if none are checked, you are asked whether to export all points). Run the simulation or Fast-Forward first.
 
-### 10.1 Two export modes
-1. **Mode A: 📋 Full Timeline Data**
-   * All data from the earthquake (t=0) to the end of the run (about every 3 seconds; about 2,400 rows for 120 minutes).
-   * File name: `tsunami_boundary_full_<point ID>.csv`
-2. **Mode B: 🎯 City Simulation Wave**
-   * Uses **2 minutes before the first arrival as t=0** and cuts out the period until the main waves pass (35 minutes after the maximum wave or 45 minutes after the first arrival, whichever is later).
-   * Each row also lists the **time since the earthquake** (seconds and H:MM:SS), so you can tell when the trimmed waveform occurs after the earthquake.
-   * For points that no clear tsunami (≥ 0.05 m) has reached yet, you are asked whether to export Mode A instead.
-   * File name: `tsunami_boundary_city_<point ID>.csv`
+### 10.1 What is exported (📋 Full Timeline Data)
+* All data from the earthquake (t=0) up to the time the run has reached (about every 3 seconds; about 2,400 rows for 120 minutes).
+* `Time_sec` is the time since the earthquake, so an urban simulation can use it directly as time since the earthquake.
+* If you export before the run reaches its set length (e.g. 120 minutes), you are asked to confirm that the data stops part-way. The main coastal waves often arrive 20-30 minutes after the earthquake, so finish the run before exporting.
+* File name: `tsunami_boundary_full_<point ID>.csv`
 
-### 10.2 Mode B file format
+### 10.2 File format
 ```csv
-# Tsunami Boundary Wave Condition for City Simulation (Phase 2)
-# Location: 宮城中部沖 (石巻・女川) (Lon: 141.68, Lat: 38.23)
-# Mode: Trimmed Effective Wave (Shifted to t=0 at 2-min before arrival)
-# Original Absolute First Arrival: 0.0 s (0:00:00 after earthquake)
-# Original Absolute Max Surge: 6.44 m (at 1659.0 s = 0:27:39 after earthquake)
-# Time Offset: -0.0 s (Absolute_Time_sec = Time_sec + 0.0)
-# Trimmed Window (time since earthquake): 0:00:00 - 1:00:00
-# Time_since_EQ_sec / Time_since_EQ_hms: elapsed time since the earthquake origin (rupture at 0 s)
-Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg,Time_since_EQ_sec,Time_since_EQ_hms
-0.0,-1.330,0.000,0.000,0.000,0.0,0.0,0:00:00
-3.0,-1.330,0.003,-0.001,0.004,0.0,3.0,0:00:03
+# Tsunami Wave Boundary Condition for Phase 2 Simulation (Full Timeline)
+# Location: 宮古沖 (岩手) (Lon: 142.19, Lat: 39.63)
+# Max Wave Height: 5.56 m, First Arrival: 186 s
+Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
+0.0,-0.910,0.000,0.000,0.000,0.0
+3.0,-0.910,0.000,0.000,0.001,0.0
 ...
 ```
-Mode A has 3 leading `#` lines and 6 columns, `Time_sec` to `Direction_deg`.
+* `Elevation_m` in the first row is the sea-surface change from the coseismic seafloor subsidence or uplift.
+* `First Arrival` is the first time the level differs from this initial level by 0.15 m or more.
 
 ### 10.3 Columns
 | Column | Unit | Description |
 |---|---|---|
-| `Time_sec` | s | Mode A: time since the earthquake. Mode B: time since the start of the trimmed window (2 minutes before the first arrival) |
+| `Time_sec` | s | Time since the earthquake |
 | `Elevation_m` | m | Water level change from still water (rise positive, drop negative) |
 | `U_velocity_m_s` | m/s | East-west velocity (eastward positive) |
 | `V_velocity_m_s` | m/s | North-south velocity (northward positive) |
 | `Speed_m_s` | m/s | Speed √(u²+v²) |
 | `Direction_deg` | deg | Flow direction (N 0°, E 90°, S 180°, W 270°) |
-| `Time_since_EQ_sec` | s | Mode B only. Time since the earthquake |
-| `Time_since_EQ_hms` | H:MM:SS | Mode B only. Time since the earthquake |
 
 The two `Time_since_EQ_*` columns are appended after the original six, so existing programs that read columns by position are not affected.
 
@@ -364,7 +354,7 @@ The two `Time_since_EQ_*` columns are appended after the original six, so existi
   * A. Press "+ Add Custom Point" and click the sea on the map. You can add points mid-run; recording starts from that moment.
 
 * **Q. Which CSV should I use for the urban simulation?**
-  * A. Use Mode B (City Simulation Wave) to start just before the first wave arrives, or Mode A (Full Timeline Data) if you need the whole process from the earthquake. Mode B also lists the time since the earthquake.
+  * A. Use the full timeline data (`tsunami_boundary_full_<point ID>.csv`). `Time_sec` is the time since the earthquake, so it can be used directly as the boundary condition. Finish the run before exporting.
 
 * **Q. Is there a scenario that combines Cabinet Office Cases 1–5?**
   * A. Each case is already a Mw9.1 megaquake that ruptures the whole area from Suruga Bay to Hyuga-nada; only the position of the large-slip area differs. Placing all large-slip areas at once would exceed the government scenario, so it is not provided. The government's maximum-class tsunami height takes the maximum over all cases at each location.
