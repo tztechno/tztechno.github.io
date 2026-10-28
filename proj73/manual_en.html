@@ -237,6 +237,11 @@ npm run tauri build  # release build (dmg / exe)
 <td>Bathymetry (japan.tif, 15-arcsec) averaged by a factor of 6 into a 1.5-arcmin grid (about 2.8 km, 1093×1040 cells). A factor of 8 gives a lighter grid of about 3.7 km</td>
 </tr>
 <tr>
+<td><code>bathymetry_osaka_bay.bin</code> / <code>_meta.json</code></td>
+<td><code>node scripts/process_bathymetry.mjs ../japan.tif 1 --bounds 134.55,135.55,34.0,34.75 --name osaka_bay</code></td>
+<td>High-resolution area for Osaka Bay and the northern Kii Channel (cut out at the original 15-arcsec, 240×180 cells)</td>
+</tr>
+<tr>
 <td><code>slab.bin</code> / <code>slab_meta.json</code></td>
 <td><code>python3 scripts/process_slab.py &lt;depth grid.grd&gt; ...</code></td>
 <td>Plate interface depth, strike, and dip (0.1° grid). Pass the depth grids of the kur, izu, and ryu regions from USGS Slab1.0 / Slab2. Requires numpy and scipy</td>
@@ -476,6 +481,10 @@ npm run tauri build  # release build (dmg / exe)
 <td>1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC</td>
 </tr>
 <tr>
+<td><strong>High resolution for Osaka Bay &amp; northern Kii Channel</strong></td>
+<td>When on (default), only this area is computed on a 15-arcsec grid (about 400 m) (section 11). You can turn it off for comparison. Changing it restarts the simulation</td>
+</tr>
+<tr>
 <td><strong>Numerical Filter</strong></td>
 <td>Smoothing that suppresses grid-scale numerical oscillations: <strong>4th-order Shapiro (recommended)</strong> / Laplacian, weak / Laplacian, legacy / None (for comparison). Changing it restarts the simulation. The legacy setting underestimated maximum wave heights by up to about 40%, so use the recommended setting unless you are comparing with earlier results</td>
 </tr>
@@ -517,6 +526,10 @@ npm run tauri build  # release build (dmg / exe)
 <td>Velocity vectors (where speed ≥ 0.15 m/s)</td>
 </tr>
 <tr>
+<td>Yellow dashed frame</td>
+<td>High-resolution area (Osaka Bay &amp; northern Kii Channel, 15-arcsec). Inside it, terrain, wave height, and velocity come from the fine grid</td>
+</tr>
+<tr>
 <td>Colored dots</td>
 <td>Observation points. The focused point has a blue dashed ring. Max wave height is added to the label once it exceeds 0.1 m</td>
 </tr>
@@ -533,7 +546,7 @@ npm run tauri build  # release build (dmg / exe)
 <p>In &quot;4. Layer Options&quot;, toggle bathymetry, wave height, velocity vectors, and fault segments individually.</p>
 <hr>
 <h2>8. Observation Points and Waveform Chart</h2>
-<h3>8.1 Default observation points (13 points)</h3>
+<h3>8.1 Default observation points (20 points)</h3>
 <table>
 <thead>
 <tr>
@@ -599,6 +612,30 @@ npm run tauri build  # release build (dmg / exe)
 </tr>
 <tr>
 <td></td>
+<td>Offshore Taro (Iwate) *</td>
+<td>142.07</td>
+<td>39.74</td>
+</tr>
+<tr>
+<td></td>
+<td>Miyako Bay Mouth (Iwate) *</td>
+<td>142.01</td>
+<td>39.69</td>
+</tr>
+<tr>
+<td></td>
+<td>Offshore Taro (Iwate)<br>*wave source for Taro in miyako_tsunami</td>
+<td>142.07</td>
+<td>39.74</td>
+</tr>
+<tr>
+<td></td>
+<td>Miyako Bay Mouth (Iwate)<br>*wave source for Miyako Port in miyako_tsunami</td>
+<td>142.01</td>
+<td>39.69</td>
+</tr>
+<tr>
+<td></td>
 <td>Offshore Kamaishi (Iwate)</td>
 <td>142.07</td>
 <td>39.26</td>
@@ -621,13 +658,45 @@ npm run tauri build  # release build (dmg / exe)
 <td>141.18</td>
 <td>36.97</td>
 </tr>
+<tr>
+<td>Osaka Bay &amp; northern Kii Channel<br>(high-resolution area)</td>
+<td>Tomogashima Strait (Kitan Strait)</td>
+<td>135.05</td>
+<td>34.28</td>
+</tr>
+<tr>
+<td></td>
+<td>Off Wakayama Port</td>
+<td>135.08</td>
+<td>34.20</td>
+</tr>
+<tr>
+<td></td>
+<td>Off Kansai Airport</td>
+<td>135.20</td>
+<td>34.43</td>
+</tr>
+<tr>
+<td></td>
+<td>Off Osaka Port</td>
+<td>135.35</td>
+<td>34.60</td>
+</tr>
+<tr>
+<td></td>
+<td>Off Kobe Port</td>
+<td>135.22</td>
+<td>34.64</td>
+</tr>
 </tbody></table>
 <h3>8.2 Working with observation points</h3>
 <ul>
 <li><strong>+ Add Custom Point</strong>: press it, then click the sea on the map to add a point. Added points can be removed with ✕.</li>
 <li><strong>Checkboxes</strong>: choose which points are overlaid on the chart and included in batch CSV export (Select All / Deselect All available).</li>
 <li><strong>Focused Point</strong>: the point whose statistics appear in the chart heading. Clicking a card in the list or a point on the map also changes it.</li>
-<li><strong>↺ Reset Points</strong>: restores the 13 default points.</li>
+<li><strong>↺ Reset Points</strong>: restores the 20 default points.</li>
+<li>* Offshore Taro and Miyako Bay Mouth are placed just outside the inflow boundaries of the Taro and Miyako Bay areas of the urban simulator MIYAKO TSUNAMI. Their CSVs can be used as the wave source for each area.</li>
+<li>Points inside the high-resolution area (the 5 default Osaka Bay points and any you add there) record values from the fine grid.</li>
 <li>Each point in the list shows its max wave height and first arrival time (minutes).</li>
 </ul>
 <h3>8.3 Waveform chart</h3>
@@ -785,7 +854,10 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 <li><strong>Initial source (Okada 1985)</strong>: the vertical seafloor displacement from slip on rectangular faults is computed with the analytical half-space solution and used as the initial sea surface displacement. It matches the check values in Okada (1985). <code>depthKm</code> is the depth of the <strong>top edge</strong> of the fault plane. The outer edge of the computation range is tapered smoothly with a cosine.</li>
 <li><strong>Rupture propagation (Cabinet Office model)</strong>: displacement is added over 1 minute starting at (distance from the rupture start point) ÷ 2.5 km/s.</li>
 <li><strong>Shallow water equations</strong>: the 2D nonlinear long-wave equations are solved on an Arakawa C-grid. Because the domain spans 26° of latitude, <strong>the east-west grid spacing varies with latitude and the continuity equation includes a spherical correction</strong>.</li>
-<li><strong>Grid and time step</strong>: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).</li>
+<li><strong>Grid and time step</strong>: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).<ul>
+<li><strong>High-resolution area (nested grid)</strong>: only Osaka Bay and the northern Kii Channel (134.55°E–135.55°E, 34.0°N–34.75°N) are computed on a 15-arcsec grid (about 460 m north-south, 380 m east-west). Every step, the Japan-wide water level is interpolated onto the fine grid&#39;s outer ring and the interior is solved with the same equations (one-way nesting; the fine results are not fed back to the Japan-wide grid). The Naruto, Tomogashima, and Akashi straits are each resolved by about 10 cells.</li>
+</ul>
+</li>
 <li><strong>Bottom friction</strong>: Manning&#39;s roughness 0.025 (semi-implicit).</li>
 <li><strong>Numerical noise suppression</strong>: grid-scale oscillations over steep seafloor slopes are damped with a 4th-order Shapiro filter (the main tsunami wavelengths are barely affected).</li>
 <li><strong>Open boundaries</strong>: an absorbing layer about 100 km wide along the domain edges plus a radiation condition keep waves that leave the domain from reflecting back.</li>
@@ -795,7 +867,8 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 <h2>12. Limitations</h2>
 <ul>
 <li><strong>Offshore values</strong>: wave heights are offshore values (water depth of tens of meters or more), not coastal tsunami heights or run-up.</li>
-<li><strong>Coarse grid</strong>: with about 2.8 km cells, the inside of bays and ports and narrow straits are not resolved.</li>
+<li><strong>Coarse grid</strong>: with about 2.8 km cells, the inside of bays and ports and narrow straits are not resolved. Only Osaka Bay and the northern Kii Channel use the ~400 m high-resolution area, which still cannot represent quay walls or breakwaters inside ports.</li>
+<li><strong>Coast in the high-resolution area</strong>: the fine grid computes cells only a few meters deep near the shore, so water levels raised by reflection at the coast can appear (run-up on land is not computed, so the coast acts as a wall).</li>
 <li><strong>Simplified fault models</strong>: preset and Pick Epicenter faults are rectangles with uniform slip (or combinations of them). The Cabinet Office model is an approximate reproduction, not the official data.</li>
 <li><strong>Pick Epicenter</strong>: the plate interface is approximated by a single plane, so long faults (about 600 km for Mw9) differ more from the real curved interface. The plate interface data is currently USGS Slab1.0.</li>
 <li><strong>Not modeled</strong>: inundation and run-up on land, tides, Coriolis force, wave dispersion.</li>

@@ -60,7 +60,7 @@
         <div class="hero-content">
           <div class="badge-pill">
             <span class="pulse-dot"></span>
-            <span data-i18n="heroBadge">v1.3.1 最新版: 計算結果を、長さを指定してMP4動画に書き出し</span>
+            <span data-i18n="heroBadge">v1.4.1 最新版: 大阪湾・紀伊水道北部の高解像度計算、田老沖・宮古湾口沖を追加</span>
           </div>
           <h1 class="hero-title" data-i18n="heroTitle">南海トラフから日本全国まで、<br><span class="gradient-text">津波の広がり</span>を計算する。</h1>
           <p class="hero-desc" data-i18n="heroDesc">Okada弾性転位モデルと2次元長波方程式（浅水方程式）で、日本全国の海域の津波伝播を計算。沖合観測点の水位・流速を、市街地遡上シミュレーション（Phase 2）の境界条件としてそのまま出力します。</p>
@@ -90,17 +90,17 @@
 
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-val">v1.3.1</span>
+              <span class="stat-val">v1.4.1</span>
               <span class="stat-label" data-i18n="statSize">軽量 (約4〜5MB)</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
               <span class="stat-val" data-i18n="statDomainVal">日本全国</span>
-              <span class="stat-label" data-i18n="statDomain">広域1.5分メッシュ</span>
+              <span class="stat-label" data-i18n="statDomain">1.5分メッシュ (大阪湾は15秒)</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
-              <span class="stat-val" data-i18n="statTimeVal">120<span class="unit">分</span></span></span>
+              <span class="stat-val" data-i18n="statTimeVal">120<span class="unit">分</span></span></span></span>
               <span class="stat-label" data-i18n="statTime">約1分で一括計算</span>
             </div>
           </div>
@@ -146,7 +146,7 @@
               </svg>
             </div>
             <h3 class="feature-title" data-i18n="feat1Title">物理モデルに基づく計算</h3>
-            <p class="feature-desc" data-i18n="feat1Desc">Okada (1985) の弾性転位モデルで、断層運動による海底の隆起・沈降を計算（文献の検算値と一致を確認）。Arakawa C格子上の2次元長波方程式を、緯度ごとの格子間隔補正と半陰解法のマニング摩擦で安定に解きます。</p>
+            <p class="feature-desc" data-i18n="feat1Desc">Okada (1985) の弾性転位モデルで、断層運動による海底の隆起・沈降を計算（文献の検算値と一致を確認）。Arakawa C格子上の2次元長波方程式を、緯度ごとの格子間隔補正と半陰解法のマニング摩擦で安定に解きます。日本全国は約2.8km、大阪湾・紀伊水道北部だけは約400mの細かい格子（入れ子格子）で計算し、鳴門・友ヶ島・明石の各海峡も表せます。</p>
             <div class="feature-tag-list">
               <span>Okada 1985</span>
               <span>Shallow Water Eq.</span>
@@ -227,7 +227,7 @@
           <div class="arch-box">
             <div class="arch-badge" data-i18n="archPhase1Badge">Phase 1 (本システム)</div>
             <h3 data-i18n="archPhase1Title">広域の津波伝播シミュレーション</h3>
-            <p data-i18n="archPhase1Desc">震源断層（Okada） ➔ GEBCO海底地形（日本全国・1.5分メッシュ） ➔ 2次元長波方程式 ➔ 沖合観測点（室戸岬沖・潮岬沖・駿河湾口・宮城中部沖など既定13地点＋任意地点）の水位・流速・流向を時系列で記録。</p>
+            <p data-i18n="archPhase1Desc">震源断層（Okada） ➔ GEBCO海底地形（日本全国・1.5分メッシュ、大阪湾・紀伊水道北部は15秒） ➔ 2次元長波方程式 ➔ 沖合観測点（室戸岬沖・潮岬沖・駿河湾口・宮城中部沖・大阪港沖など既定20地点＋任意地点）の水位・流速・流向を時系列で記録。</p>
             <div class="arch-img-box">
               <img src="assets/app_cao_case1.jpg" alt="Phase 1 広域伝播 (内閣府ケース①、地震発生から9分のアプリ画面)" data-i18n-alt="altPhase1">
             </div>
@@ -247,7 +247,7 @@
           <div class="arch-box">
             <div class="arch-badge phase2" data-i18n="archPhase2Badge">Phase 2 (沿岸・都市モデル)</div>
             <h3 data-i18n="archPhase2Title">市街地の津波遡上・浸水シミュレーション</h3>
-            <p data-i18n="archPhase2Desc">本システムとは別の高解像度モデル。湾口・沖合の境界から本システムの波形を入力し、街路・防波堤・防潮堤・家屋への浸水深・流速を解析します。</p>
+            <p data-i18n="archPhase2Desc">本システムとは別の高解像度モデル。湾口・沖合の境界から本システムの波形を入力し、街路・防波堤・防潮堤・家屋への浸水深・流速を解析します。既定の田老沖・宮古湾口沖は、MIYAKO TSUNAMI の田老地区・宮古湾の波源として使えます。</p>
             <div class="arch-img-box">
               <img src="assets/phase2_city.jpg" alt="Phase 2 市街地遡上 (イメージ図)" data-i18n-alt="altPhase2">
             </div>
@@ -325,7 +325,7 @@
                 <span class="sc-data-val" id="sc-arrival"></span>
               </div>
             </div>
-            <p class="sc-note" data-i18n="scNote">※本アプリ（v1.3.1。計算方法は v1.2.0 と同じ）で2時間計算した、沖合の観測点（水深数十〜数千m）の値です。海岸での津波高・遡上高は、浅い海で波が高くなるためこれより大きくなります。</p>
+            <p class="sc-note" data-i18n="scNote">※本アプリ（v1.4.1。これらの地点は高解像度領域の外で、計算方法は v1.2.0 と同じ）で2時間計算した、沖合の観測点（水深数十〜数千m）の値です。海岸での津波高・遡上高は、浅い海で波が高くなるためこれより大きくなります。</p>
           </div>
         </div>
       </div>
@@ -365,7 +365,7 @@
         <div class="download-grid">
           <!-- macOS Card -->
           <div class="download-card featured">
-            <div class="card-featured-ribbon">v1.3.1 Release</div>
+            <div class="card-featured-ribbon">v1.4.1 Release</div>
             <div class="platform-icon">
               <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.75 1.04-1.8 1.01-2.84-.89.04-1.98.6-2.61 1.34-.56.64-1.05 1.69-.92 2.71 1 .08 2.01-.52 2.52-1.21z"/>
@@ -374,7 +374,7 @@
             <h3 data-i18n="macTitle">macOS デスクトップ版</h3>
             <p class="card-meta" data-i18n="macMeta">Apple Silicon (M1以降) 対応・macOS 10.15以降</p>
             <p class="card-desc" data-i18n="macDesc">Tauri v2 製のデスクトップアプリ。計算はすべてPC内で行い、インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。</p>
-            <div class="file-size-badge" data-i18n="macPkg">パッケージ形式: <strong>DMG (約 5.0 MB / v1.3.1)</strong></div>
+            <div class="file-size-badge" data-i18n="macPkg">パッケージ形式: <strong>DMG (約 5.0 MB / v1.4.1)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -395,7 +395,7 @@
             <h3 data-i18n="winTitle">Windows デスクトップ版</h3>
             <p class="card-meta">Windows 10 / 11 (64-bit)</p>
             <p class="card-desc" data-i18n="winDesc">NSIS インストーラー形式。インターネット接続なしでも動作します。CSV・MP4動画は「ダウンロード」フォルダに保存。</p>
-            <div class="file-size-badge" data-i18n="winPkg">パッケージ形式: <strong>NSIS セットアップ EXE (約 3.9 MB / v1.3.1)</strong></div>
+            <div class="file-size-badge" data-i18n="winPkg">パッケージ形式: <strong>NSIS セットアップ EXE (約 3.9 MB / v1.4.1)</strong></div>
             <a href="https://cyber-matrix.netlify.app/products/nankai_trouph" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-block">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
