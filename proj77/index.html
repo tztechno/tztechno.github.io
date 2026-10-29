@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>東京都 ルートナビ | Tokyo Route Finder — 徒歩・自動車 2ルート比較ナビ</title>
+    <meta
+      name="description"
+      content="東京都全域（23区・多摩エリア）に対応。出発地(A)から目的地(B)までの「徒歩（人）」と「自動車（車）」の最適2ルートを瞬時に算出・比較できるインタラクティブルート検索アプリ。"
+    />
+    <style>
+      :root {
+        --bg-dark: #070b19;
+        --bg-card: #0f172a;
+        --bg-card-hover: #1e293b;
+        --border-subtle: rgba(148, 163, 184, 0.16);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --route-magenta: #ff007f;
+        --route-blue: #0055ff;
+        --accent-cyan: #38bdf8;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+          'Noto Sans JP', 'Segoe UI', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(7, 11, 25, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .header-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+      }
+
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--route-magenta), var(--route-blue));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(255, 0, 127, 0.35);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lang-switch {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-main);
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .lang-switch:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: var(--accent-cyan);
+      }
+
+      .btn-cta-sm {
+        background: linear-gradient(135deg, var(--route-magenta), #d9006c);
+        color: #ffffff;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 0.84rem;
+        font-weight: 800;
+        box-shadow: 0 4px 14px rgba(255, 0, 127, 0.4);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .btn-cta-sm:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 0, 127, 0.55);
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        padding: 84px 24px 72px;
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.08fr 0.92fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        left: -120px;
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(255, 0, 127, 0.16) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        right: -100px;
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(0, 85, 255, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.1);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        color: var(--accent-cyan);
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.1rem, 4vw, 3.25rem);
+        line-height: 1.18;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #ff3399, #38bdf8, #3b82f6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-lead {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        max-width: 560px;
+      }
+
+      .cta-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+      }
+
+      .btn-cta-main {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 32px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--route-magenta), var(--route-blue));
+        color: #ffffff;
+        font-size: 1.05rem;
+        font-weight: 800;
+        box-shadow: 0 10px 30px rgba(255, 0, 127, 0.35);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+
+      .btn-cta-main:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 36px rgba(255, 0, 127, 0.55);
+      }
+
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 15px 24px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-subtle);
+        color: var(--text-main);
+        font-size: 0.95rem;
+        font-weight: 700;
+        transition: background 0.18s;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.11);
+      }
+
+      /* Hero Visual Mockup */
+      .map-preview-card {
+        background: linear-gradient(160deg, #111c35, #0b1324);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 22px;
+        padding: 20px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      }
+
+      .mock-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .mock-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .mock-dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #334155;
+      }
+
+      .mock-dots span:nth-child(1) {
+        background: #ef4444;
+      }
+      .mock-dots span:nth-child(2) {
+        background: #f59e0b;
+      }
+      .mock-dots span:nth-child(3) {
+        background: #10b981;
+      }
+
+      .mock-tag {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+        font-weight: 700;
+      }
+
+      .svg-map-box {
+        width: 100%;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #0d1627;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .legend-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .legend-item {
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .legend-swatch {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .legend-title {
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .legend-sub {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+      }
+
+      /* Features Grid */
+      .section {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 68px 24px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.6rem, 3vw, 2.25rem);
+        font-weight: 900;
+        margin-bottom: 10px;
+      }
+
+      .section-header p {
+        color: var(--text-muted);
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 22px;
+      }
+
+      .feature-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 18px;
+        padding: 26px 24px;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(56, 189, 248, 0.45);
+      }
+
+      .feature-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(56, 189, 248, 0.12);
+        color: var(--accent-cyan);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        margin-bottom: 16px;
+      }
+
+      .feature-card h3 {
+        font-size: 1.08rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+
+      .feature-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      /* Comparison Table */
+      .comparison-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      th,
+      td {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-subtle);
+        font-size: 0.92rem;
+      }
+
+      th {
+        background: rgba(255, 255, 255, 0.03);
+        font-weight: 800;
+        color: #e2e8f0;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* CTA Banner */
+      .bottom-cta {
+        max-width: 1180px;
+        margin: 20px auto 80px;
+        padding: 0 24px;
+      }
+
+      .bottom-cta-card {
+        background: linear-gradient(135deg, rgba(255, 0, 127, 0.18), rgba(0, 85, 255, 0.22));
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 24px;
+        padding: 52px 32px;
+        text-align: center;
+      }
+
+      .bottom-cta-card h2 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 900;
+        margin-bottom: 12px;
+      }
+
+      .bottom-cta-card p {
+        color: var(--text-muted);
+        margin-bottom: 28px;
+      }
+
+      footer {
+        border-top: 1px solid var(--border-subtle);
+        padding: 28px 24px;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.84rem;
+      }
+
+      [data-lang='en'] {
+        display: none;
+      }
+
+      body.lang-en [data-lang='ja'] {
+        display: none;
+      }
+
+      body.lang-en [data-lang='en'] {
+        display: revert;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding-top: 48px;
+        }
+        .legend-bar {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="https://cyber-matrix.netlify.app/products/tokyo_route" class="brand">
+          <span class="brand-badge">TR</span>
+          <span data-lang="ja">東京都 ルートナビ</span>
+          <span data-lang="en">Tokyo Route Finder</span>
+        </a>
+
+        <div class="header-actions">
+          <button type="button" class="lang-switch" id="langToggleBtn">
+            English / 日本語
+          </button>
+          <a
+            href="https://cyber-matrix.netlify.app/products/tokyo_route"
+            class="btn-cta-sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span data-lang="ja">アプリを開く →</span>
+            <span data-lang="en">Launch App →</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <div class="eyebrow">
+          <span>●</span>
+          <span data-lang="ja">東京都全域対応 ・ 徒歩 / 自動車 2ルート同時比較</span>
+          <span data-lang="en">All-Tokyo Coverage • Walk &amp; Drive 2-Route Comparison</span>
+        </div>
+
+        <h1 data-lang="ja">
+          地点Aから地点Bへ。<br />
+          <span class="gradient-text">人と車の最適2ルート</span>を瞬時に可視化。
+        </h1>
+        <h1 data-lang="en">
+          From Point A to Point B.<br />
+          Visualize <span class="gradient-text">2 Optimal Routes</span> for Walk &amp; Car.
+        </h1>
+
+        <p class="hero-lead" data-lang="ja">
+          OpenStreetMap の実道路グラフデータと OSRM エンジンを活用。渋谷・新宿・東京・浅草から多摩エリアまで、歩行者専用道や一方通行規制を考慮した「第1候補（推奨）」と「第2候補（代替）」を鮮やかなカラーで比較できます。
+        </p>
+        <p class="hero-lead" data-lang="en">
+          Powered by OpenStreetMap vector road graphs and OSRM. Compare Option 1 (Fastest) and Option 2 (Alternative) across all of Tokyo with full awareness of pedestrian paths, park trails, and vehicle one-way regulations.
+        </p>
+
+        <div class="cta-group">
+          <a
+            href="https://cyber-matrix.netlify.app/products/tokyo_route"
+            class="btn-cta-main"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span data-lang="ja">今すぐルート検索を使う</span>
+            <span data-lang="en">Open Tokyo Route Finder</span>
+            <span>↗</span>
+          </a>
+          <a href="#features" class="btn-secondary">
+            <span data-lang="ja">機能・検索の仕組みを見る</span>
+            <span data-lang="en">Explore Features</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive-style Map Preview Graphic -->
+      <div class="map-preview-card">
+        <div class="mock-top">
+          <div class="mock-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="mock-tag">Shibuya Sta. (A) → Tokyo Tower (B)</span>
+        </div>
+
+        <div class="svg-map-box">
+          <svg viewBox="0 0 520 310" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <!-- Map Grid Background -->
+            <rect width="520" height="310" fill="#0b1324" />
+            <g stroke="#1e293b" stroke-width="1">
+              <line x1="0" y1="60" x2="520" y2="60" />
+              <line x1="0" y1="120" x2="520" y2="120" />
+              <line x1="0" y1="180" x2="520" y2="180" />
+              <line x1="0" y1="240" x2="520" y2="240" />
+              <line x1="90" y1="0" x2="90" y2="310" />
+              <line x1="190" y1="0" x2="190" y2="310" />
+              <line x1="290" y1="0" x2="290" y2="310" />
+              <line x1="390" y1="0" x2="390" y2="310" />
+            </g>
+            <!-- Secondary Roads -->
+            <path
+              d="M 30 260 Q 150 200 260 210 T 480 90"
+              fill="none"
+              stroke="#334155"
+              stroke-width="4"
+            />
+            <path
+              d="M 60 50 Q 210 90 310 150 T 470 260"
+              fill="none"
+              stroke="#334155"
+              stroke-width="3"
+            />
+
+            <!-- Route 2: Electric Blue (Alternative) -->
+            <path
+              d="M 85 225 C 145 255, 255 250, 325 195 S 405 130, 435 95"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="10"
+              stroke-linecap="round"
+              opacity="0.85"
+            />
+            <path
+              d="M 85 225 C 145 255, 255 250, 325 195 S 405 130, 435 95"
+              fill="none"
+              stroke="#0055FF"
+              stroke-width="6"
+              stroke-dasharray="10 7"
+              stroke-linecap="round"
+            />
+
+            <!-- Route 1: Neon Magenta (Recommended) -->
+            <path
+              d="M 85 225 C 130 140, 235 110, 315 115 S 395 105, 435 95"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="12"
+              stroke-linecap="round"
+            />
+            <path
+              d="M 85 225 C 130 140, 235 110, 315 115 S 395 105, 435 95"
+              fill="none"
+              stroke="#FF007F"
+              stroke-width="7.5"
+              stroke-linecap="round"
+            />
+
+            <!-- Pin A -->
+            <circle cx="85" cy="225" r="16" fill="#dc2626" stroke="#ffffff" stroke-width="3" />
+            <text
+              x="85"
+              y="230"
+              text-anchor="middle"
+              fill="#ffffff"
+              font-size="13"
+              font-weight="800"
+              font-family="sans-serif"
+            >
+              A
+            </text>
+
+            <!-- Pin B -->
+            <circle cx="435" cy="95" r="16" fill="#0f172a" stroke="#ffffff" stroke-width="3" />
+            <text
+              x="435"
+              y="100"
+              text-anchor="middle"
+              fill="#ffffff"
+              font-size="13"
+              font-weight="800"
+              font-family="sans-serif"
+            >
+              B
+            </text>
+          </svg>
+        </div>
+
+        <div class="legend-bar">
+          <div class="legend-item">
+            <span class="legend-swatch" style="background: #ff007f"></span>
+            <div>
+              <div class="legend-title" data-lang="ja">第1候補（推奨・最短）</div>
+              <div class="legend-title" data-lang="en">Option 1 (Fastest)</div>
+              <div class="legend-sub">Neon Magenta (#FF007F)</div>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background: #0055ff"></span>
+            <div>
+              <div class="legend-title" data-lang="ja">第2候補（代替ルート）</div>
+              <div class="legend-title" data-lang="en">Option 2 (Alternative)</div>
+              <div class="legend-sub">Electric Blue (#0055FF)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section" id="features">
+      <div class="section-header">
+        <h2 data-lang="ja">主な特徴・機能</h2>
+        <h2 data-lang="en">Key Features</h2>
+        <p data-lang="ja">
+          直感的な操作と実道路ネットワーク解析を組み合わせ、東京都内の移動シミュレーションを快適にサポートします。
+        </p>
+        <p data-lang="en">
+          Combining intuitive pin controls with real-world street graph analysis across Tokyo.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚶‍♂️</div>
+          <h3 data-lang="ja">徒歩（人）と自動車（車）の切替</h3>
+          <h3 data-lang="en">Walk &amp; Car Mode Switching</h3>
+          <p data-lang="ja">
+            徒歩モードでは公園内の遊歩道・階段・歩道を通る最短距離を選択。車モードでは一方通行規制や幹線道路の制限速度を考慮した最短時間ルートを算出します。
+          </p>
+          <p data-lang="en">
+            Walking mode uses park trails, stairs, and pedestrian paths for the shortest distance. Driving mode respects one-way regulations and prioritizes faster arterial roads.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <h3 data-lang="ja">3通りの地点指定方法</h3>
+          <h3 data-lang="en">3 Flexible Ways to Pick Points</h3>
+          <p data-lang="ja">
+            ①地図クリック＆ピンのドラッグ移動、②東京都内18箇所の主要スポット選択（東京駅・新宿・渋谷・浅草・吉祥寺・立川など）、③フリーワード住所・施設検索に対応。
+          </p>
+          <p data-lang="en">
+            Set Point A &amp; Point B by (1) clicking/dragging pins on the map, (2) choosing from 18 Tokyo landmarks, or (3) searching any address or station name.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 data-lang="ja">視認性の高い2ルート同時比較</h3>
+          <h3 data-lang="en">High-Contrast 2-Route Comparison</h3>
+          <p data-lang="ja">
+            地図背景に埋もれないネオンマゼンタ（第1候補）とビビッドブルー（第2候補）＋二重アウトライン描画で、2つの経路と所要時間・距離を一目で比較できます。
+          </p>
+          <p data-lang="en">
+            Rendered in high-contrast Neon Magenta and Electric Blue with double outlines so both routes stand out clearly over detailed city maps.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3 data-lang="ja">日英バイリンガル＆マニュアル内蔵</h3>
+          <h3 data-lang="en">Bilingual UI (JA / EN) &amp; Built-in Manual</h3>
+          <p data-lang="ja">
+            ワンクリックでUI・スポット名・右左折ナビゲーション案内を日本語⇔英語で切り替え可能。アプリ内には日英対応の使い方マニュアルも搭載しています。
+          </p>
+          <p data-lang="en">
+            Switch all UI labels, landmark presets, and turn-by-turn street directions between Japanese and English anytime.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Walk vs Car Comparison -->
+    <section class="section">
+      <div class="section-header">
+        <h2 data-lang="ja">「人（徒歩）」と「車（自動車）」の経路選択の違い</h2>
+        <h2 data-lang="en">How Walking &amp; Driving Routes Differ</h2>
+      </div>
+
+      <div class="comparison-box">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <span data-lang="ja">比較項目</span>
+                <span data-lang="en">Criteria</span>
+              </th>
+              <th>
+                <span data-lang="ja">徒歩（人）モード</span>
+                <span data-lang="en">Walking (Foot) Mode</span>
+              </th>
+              <th>
+                <span data-lang="ja">自動車（車）モード</span>
+                <span data-lang="en">Driving (Car) Mode</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong data-lang="ja">優先する基準</strong>
+                <strong data-lang="en">Optimization Goal</strong>
+              </td>
+              <td>
+                <span data-lang="ja">物理的な「距離の短さ」を最優先</span>
+                <span data-lang="en">Shortest physical distance</span>
+              </td>
+              <td>
+                <span data-lang="ja">幹線道路を活用した「所要時間の短さ」を最優先</span>
+                <span data-lang="en">Fastest travel time via arterial roads</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong data-lang="ja">公園・歩行者専用道・階段</strong>
+                <strong data-lang="en">Parks, Footways &amp; Stairs</strong>
+              </td>
+              <td>
+                <span data-lang="ja">通行可能（代々木公園や上野公園内もショートカット）</span>
+                <span data-lang="en">Allowed (shortcuts through parks &amp; plazas)</span>
+              </td>
+              <td>
+                <span data-lang="ja">進入不可（外周の車道へ迂回）</span>
+                <span data-lang="en">Prohibited (detours around vehicle roads)</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong data-lang="ja">一方通行・右左折規制</strong>
+                <strong data-lang="en">One-Way &amp; Turn Restrictions</strong>
+              </td>
+              <td>
+                <span data-lang="ja">車の一方通行に関係なく双方向へ歩行可能</span>
+                <span data-lang="en">Walks both directions regardless of vehicle one-ways</span>
+              </td>
+              <td>
+                <span data-lang="ja">一方通行・進入禁止・右左折コストを厳密に遵守</span>
+                <span data-lang="en">Strictly obeys one-way streets &amp; turn penalties</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+      <div class="bottom-cta-card">
+        <h2 data-lang="ja">東京都内の2ルート検索を今すぐ体験</h2>
+        <h2 data-lang="en">Try Tokyo Route Finder Now</h2>
+        <p data-lang="ja">
+          ブラウザからAPIキー不要ですぐに利用できます。地図上のクリックやスポット選択でルートを比較してみましょう。
+        </p>
+        <p data-lang="en">
+          No API key required. Launch the interactive map in your browser and compare routes across Tokyo.
+        </p>
+        <a
+          href="https://cyber-matrix.netlify.app/products/tokyo_route"
+          class="btn-cta-main"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span data-lang="ja">アプリを開く（cyber-matrix.netlify.app）</span>
+          <span data-lang="en">Launch Web App (cyber-matrix.netlify.app)</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        &copy; Tokyo Route Finder — Powered by OpenStreetMap, Leaflet &amp; OSRM. |
+        <a
+          href="https://cyber-matrix.netlify.app/products/tokyo_route"
+          style="color: #38bdf8; text-decoration: underline"
+        >
+          https://cyber-matrix.netlify.app/products/tokyo_route
+        </a>
+      </p>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('langToggleBtn');
+      btn.addEventListener('click', () => {
+        document.body.classList.toggle('lang-en');
+      });
+    </script>
+  </body>
+</html>
