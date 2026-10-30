@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yatsushiro Fault | 活断層が動いたら、揺れと断層のずれはどこまで及ぶのか — 日奈久断層帯 3D 地震シミュレーター</title>
+  <meta name="description" content="熊本県八代市を通る布田川・日奈久断層帯の活断層を、国土地理院の地形・建物・航空写真の 3D 表示に重ね、活断層が動いたときの震度・PGV、地表の断層変位、建物 1 棟ごとの被害、地震による斜面崩壊と土石流を GPU で計算する地震シミュレーター。日奈久区間・全区間連動・八代海区間・2016 年熊本地震型など 7 つのシナリオ、八代市の 7 地区を同梱。住所からタイル作成、土砂災害警戒区域との比較、MP4 録画（最大 4K）、日本語 / English。">
+
+  <meta property="og:title" content="Yatsushiro Fault — 日奈久断層帯 3D 地震シミュレーター">
+  <meta property="og:description" content="活断層が動いたら、揺れと断層のずれはどこまで及ぶのか。八代市の街と山を、建物単位で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/yashiro_fault">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/yashiro_fault">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23101a2e%22/%3E%3Cpath d=%22M17 32l6-22 4 4 5-8v26z%22 fill=%22%233f7a4a%22/%3E%3Cpath d=%22M4 32L26 0h4L8 32z%22 fill=%22%23ff3b2f%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261030">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">YATSUSHIRO FAULT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#faults" data-i18n="navFaults">断層と区間</a></li>
+        <li><a href="#scenarios" data-i18n="navScen">シナリオ</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">HINAGU FAULT ZONE × GPU · YATSUSHIRO</p>
+      <h1 data-i18n-html="heroTitle">活断層が動いたら、<br><span class="accent">揺れはどこまで及ぶのか。</span></h1>
+      <p class="lead" data-i18n="heroLead">熊本県八代市の山麓を通る日奈久断層帯。国土地理院の活断層図と八代市の断層地図から断層の位置を取り込み、地形・建物・航空写真の 3D 表示に重ねて、断層が動いたときの揺れ（震度・最大地動速度）、地表に現れる断層のずれ、建物 1 棟ごとの被害、揺れで崩れる斜面と土石流を GPU で計算します。好きな角度から見て、そのまま動画にできます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statSecN">6 区間</strong><span data-i18n="statSec">布田川・日奈久断層帯</span></div>
+      <div class="stat"><strong data-i18n="statScenN">7 シナリオ</strong><span data-i18n="statScen">M7.3 〜 8.1 と熊本地震型</span></div>
+      <div class="stat"><strong data-i18n="statAreaN">7 地区</strong><span data-i18n="statArea">八代市の既定タイル</span></div>
+      <div class="stat"><strong>2 m</strong><span data-i18n="statGrid">計算の格子</span></div>
+      <div class="stat"><strong>4K</strong><span data-i18n="statRec">MP4 で録画</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">断層の位置から、揺れ・建物被害・斜面崩壊まで</h2>
+      <p class="section-lead" data-i18n="featLead">シナリオを選ぶと、動く区間と地震の規模がまとめて設定されます。断層からの距離と地形から揺れを求め、建物と斜面がどうなるかを、地図の上で確かめられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/fault.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">断層はどこを通っているか</h3>
+          <p data-i18n="f1Body">国土地理院の活断層図の断層線を、航空写真の 3D 地形に重ねます。断層から 20 m 以内（地表のずれの危険帯）・100 m 以内（近傍の警戒帯）を塗り分け、地表を「活断層からの距離」で塗ると、断層のすぐ近くにある家や道路が一目で分かります。日奈久区間は八代平野と九州山地の境目、山の麓を通っています。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">国土地理院 活断層図</li>
+            <li data-i18n="f1c2">八代市 断層地図</li>
+            <li data-i18n="f1c3">20 m / 100 m / 300 m 帯</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/pgv.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">どこが、どれだけ揺れるか</h3>
+          <p data-i18n="f2Body">断層からの距離と地震の規模から地下の揺れを求め、地盤で増幅させて、2 m ごとの計測震度・最大地動速度（PGV）・最大加速度（PGA）を出します。軟らかい八代平野は強く、固い山の斜面は弱く揺れ、断層の近くでは揺れのパルスと平野の縁での増幅が加わります。断層破壊が広がり、地震波が届いていく様子もアニメーションで見られます。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">震度 4〜7 の分布</li>
+            <li data-i18n="f2c2">PGV・PGA</li>
+            <li data-i18n="f2c3">地震波 3D アニメーション</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/damage.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">建物ひとつひとつの被害を見る</h3>
+          <p data-i18n="f3Body">建物ごとの揺れから、被害率曲線で全壊・半壊・一部損壊を判定し、断層の直上で大きなずれを受けた建物は「断層変位による損壊」として色分けします。建物をクリックすると、その場所の震度・PGV・断層からの距離・被害の判定が出て、CSV で保存できます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">断層変位・全壊・半壊・一部損壊</li>
+            <li data-i18n="f3c2">震度階級で色分け</li>
+            <li data-i18n="f3c3">地点の結果を CSV で保存</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/slide.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">揺れで斜面が崩れ、土砂が流れ下る</h3>
+          <p data-i18n="f4Body">揺れの水平の力を加えて斜面の安全率を計算し、崩れた土砂を土石流として谷に流します。断層沿いの急な山麓は崩れやすく、雨で土が湿っていると被害が広がります。「豪雨のあとの地震」の複合災害も、雨だけの場合との比較もできます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">地震時の斜面安全率</li>
+            <li data-i18n="f4c2">Voellmy 摩擦の土石流</li>
+            <li data-i18n="f4c3">豪雨＋地震の複合災害</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/zones.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">警戒区域と並べ、好きな場所を作る</h3>
+          <p data-i18n="f5Body">重ねるハザードマップの土砂災害警戒区域（イエロー）・特別警戒区域（レッド）を、土石流・急傾斜地の崩壊・地すべりの種類ごとに重ねます。住所や地名を入れれば、その場所のタイル（1〜3 km 四方）をアプリの中で作れ、断層・警戒区域・建物もその場で取り込みます。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">土砂災害警戒区域の比較</li>
+            <li data-i18n="f5c2">住所からタイル作成</li>
+            <li data-i18n="f5c3">最大 3840 × 2160・60 fps で録画</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Faults ===== -->
+  <section class="section alt" id="faults">
+    <div class="container">
+      <p class="kicker">FAULT SECTIONS</p>
+      <h2 data-i18n="secTitle">布田川・日奈久断層帯の 6 区間</h2>
+      <p class="section-lead" data-i18n="secLead">陸の断層は国土地理院の活断層図から、海の中や地下に隠れた断層は八代市の断層地図から取り込み、地震調査研究推進本部の評価に沿った 6 つの区間に分けています。シナリオごとに、動く区間だけを使って揺れを計算します。</p>
+      <div class="split">
+        <figure class="shot map"><img src="assets/sections.jpg" alt="" loading="lazy"><figcaption data-i18n="secCap">広域 60 × 64 km（宇土半島〜八代海〜九州山地）。区間ごとに色分けした断層</figcaption></figure>
+        <ul class="spec">
+          <li><b><i class="sw" style="background:#e63c28"></i><span data-i18n="s1a">布田川区間</span></b><span data-i18n="s1b">布田川断層帯。2016 年熊本地震の本震で動いた区間</span></li>
+          <li><b><i class="sw" style="background:#f08c1e"></i><span data-i18n="s2a">宇土区間</span></b><span data-i18n="s2b">布田川断層帯。宇土市付近の地下の区間</span></li>
+          <li><b><i class="sw" style="background:#c85ac8"></i><span data-i18n="s3a">宇土半島北岸区間</span></b><span data-i18n="s3b">布田川断層帯。宇土半島北岸の海域</span></li>
+          <li><b><i class="sw" style="background:#28aa46"></i><span data-i18n="s4a">高野－白旗区間</span></b><span data-i18n="s4b">日奈久断層帯の北端。熊本地震で布田川区間と一緒に動いた</span></li>
+          <li><b><i class="sw" style="background:#e1141e"></i><span data-i18n="s5a">日奈久区間</span></b><span data-i18n="s5b">日奈久断層帯。宇城市から八代市の山麓（鏡・宮地・妙見・日奈久）を通る約 40 km</span></li>
+          <li><b><i class="sw" style="background:#1e96dc"></i><span data-i18n="s6a">八代海区間</span></b><span data-i18n="s6b">日奈久断層帯。日奈久沖から水俣沖へ、八代海の海底を走る</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scenarios ===== -->
+  <section class="section" id="scenarios">
+    <div class="container">
+      <p class="kicker">SCENARIOS</p>
+      <h2 data-i18n="scTitle">7 つの地震シナリオ</h2>
+      <p class="section-lead" data-i18n="scLead">規模は政府の長期評価を目安にしています。マグニチュード、断層上端の深さ、横ずれ・縦ずれの量、継続時間は自由に変えられます。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="c1a">日奈久区間の地震（M7.5 程度）</h3><p data-i18n="c1b">八代市の山麓を通る区間の直下型地震。断層沿いで震度 7 と地表のずれ、八代平野で強い揺れ、山麓の急斜面で地震時の崩壊。</p></div>
+        <div class="tech"><h3 data-i18n="c2a">日奈久断層帯 全区間連動（M7.8〜8.1 程度）</h3><p data-i18n="c2b">高野－白旗・日奈久・八代海の 3 区間、約 80 km が同時に動く最大級のケース。八代市全域が震度 6 強〜7 になり、揺れも長く続きます。</p></div>
+        <div class="tech"><h3 data-i18n="c3a">八代海区間の地震（M7.3 程度）</h3><p data-i18n="c3b">震源は海の中。八代市内に地表のずれは出ず、二見・日奈久など南部の沿岸で揺れが強まります（津波は計算していません）。</p></div>
+        <div class="tech"><h3 data-i18n="c4a">2016 年 熊本地震（本震）型</h3><p data-i18n="c4b">布田川区間と高野－白旗区間が連動した本震（M7.3）の破壊を再現し、震源から離れた八代市での揺れを比べます。</p></div>
+        <div class="tech"><h3 data-i18n="c5a">地表断層変位集中型・複合災害</h3><p data-i18n="c5b">断層線の直上に大きな段差が現れる場合と、梅雨末期の大雨で土が湿った直後に地震が起きる最悪のケース。</p></div>
+        <div class="tech"><h3 data-i18n="c6a">比較用：豪雨だけ</h3><p data-i18n="c6b">令和 2 年 7 月豪雨（球磨川流域）型の雨だけで斜面がどう崩れるかを計算し、地震による被害と比べます。</p></div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="r1a">日奈久温泉で日奈久区間の地震を計算すると</h3><p data-i18n="r1b">2 km 四方・2,391 棟のタイルで、最大震度 6 強（計測震度 6.47）、PGV 最大 160 cm/s、地表の断層変位 最大 2.4 m。断層変位による損壊 120 棟、全壊 778 棟、半壊 761 棟と判定されました。</p></div>
+        <div class="tech"><h3 data-i18n="r2a">妙見町で全区間連動を計算すると</h3><p data-i18n="r2b">1 km 四方・572 棟のタイルで、最大震度 7（計測震度 6.58）、PGV 最大 186 cm/s、断層変位 最大 3.6 m。震度 7 の範囲は 13.7 ha でした。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">表紙: 広域の地形と 7 つの既定地区。日奈久温泉・宮地・八代市街地・二見・千丁・東陽・坂本</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">しくみ</h2>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="t1a">断層からの距離</h3><p data-i18n="t1b">活断層図のタイル画像から断層線の位置を取り出し、八代市の断層地図は経緯度線から位置を合わせて読み取ります。各点に区間と隆起側の向きを持たせ、2 m のセルごとに、動く区間までの符号付きの距離を求めます。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">揺れの強さ</h3><p data-i18n="t2b">司・翠川（1999）の距離減衰式で地下の PGV を求め、地形から推定した地盤で増幅。断層近傍のパルス、上盤側の増幅、平野の縁の増幅を加え、PGV から計測震度に換算します。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">断層変位と建物被害</h3><p data-i18n="t3b">断層上端が浅いほど地表に大きなずれが現れ、縦ずれは 3D 地形に段差として表示。建物は PGV の被害率曲線で全壊・半壊・一部損壊を判定し、断層直上で大きなずれを受けた建物は断層変位による損壊とします。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">地震時の斜面崩壊（GPU）</h3><p data-i18n="t4b">地震波が届いた所から水平震度を加えて無限長斜面の安全率を計算し、崩れた土砂は Voellmy 摩擦の土石流として WebGL2 のシェーダーで流します。土の中の水・崩壊・土石流を同じ 2 m 格子で解きます。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="enCap">英語表示: 画面・地名・住所・録画の文字まで切り替わります</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。既定の 7 地区、広域の地形、活断層、土砂災害警戒区域、地名、町丁界のデータをアプリに同梱しています。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeMac">約 220 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeWin">約 230 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 住所検索、新しいタイルの作成（国土地理院の標高・建物・航空写真・活断層図、重ねるハザードマップ）にはインターネット接続が必要です。GPU（WebGL2）を使います。録画・CSV・GeoTIFF は「ダウンロード」フォルダに保存されます。</p>
+      <p class="warn" data-i18n="warn">公開データと簡略化した計算式による想定の一例で、国・熊本県・八代市の公式の被害想定ではありません。地盤の詳しい調査結果や建物の建築年は反映していません。八代市の断層地図から取り込んだ海域・伏在部の断層には ±100 m 程度の位置の誤差があります。津波・火災・液状化・余震は計算していません。避難や防災の判断には、八代市のハザードマップと気象庁・自治体の情報をお使いください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">あの山の麓の断層が動いたら、<span class="accent">わが家はどれだけ揺れるのか。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/yashiro_fault" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">YATSUSHIRO FAULT</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土地理院（活断層図〈都市圏活断層図〉・標高タイル・建物・シームレス空中写真・重ねるハザードマップ・住所検索）、八代市「断層地図」、総務省統計局 e-Stat（2020 年国勢調査 小地域境界）、© OpenStreetMap contributors ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/yashiro_fault" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261030"></script>
+</body>
+</html>
