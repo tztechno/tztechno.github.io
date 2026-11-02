@@ -141,20 +141,20 @@
           <div class="feature-num" data-i18n="f1Num">01 / SEAWALL & TERRAIN GEOMETRY</div>
           <h3 class="feature-title" data-i18n="f1Title">田老防潮堤「万里の長城」× 宮古港 2大沿岸地域の精緻な3D化</h3>
           <p class="feature-text" data-i18n="f1Desc">
-            昭和三陸津波後に築かれた田老地区の第1防潮堤（海抜10.0m）に加え、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。田老の防潮堤は OpenStreetMap と国土地理院DEM5Aの微地形で稜線を整合し、急峻な三陸リアス地形を再現しています（宮古港の防潮堤・水門は位置が特定できないため未収録）。
+            田老地区と、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。田老は地形と防潮堤をセットで「当時（2011年震災前）」と「現在」に切り替えられます。当時は X 字の旧防潮堤（第一＋海側、海抜10m）、現在は第一防潮堤と新田老防潮堤（T.P.+14.7m）です（宮古港の防潮堤・水門は位置が特定できないため未収録）。
           </p>
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f1p1">陸地は国土地理院 5m レーザー標高 (DEM5A)、海底は japan.tif の実測水深グリッド</span>
+              <span data-i18n="f1p1">陸地は現在が国土地理院 5m レーザー標高 (DEM5A)、当時が2012年作成の5mメッシュ標高。海底は japan.tif の実測水深グリッド</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f1p2">PLATEAU 3D都市モデルの建物を配置し、浸水深でリアルタイム警戒色変化</span>
+              <span data-i18n="f1p2">現在は PLATEAU 3D都市モデルの建物を配置し、浸水深でリアルタイム警戒色変化（当時は建物データがないため建物なし）</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f1p3">防潮堤高さスライダー（0m〜22m）で動的な防潮堤改変・治水効果実験が可能</span>
+              <span data-i18n="f1p3">潮位スライダー（0〜5m）で満潮を考慮し、海面全体を上げて津波を重ねて計算</span>
             </li>
           </ul>
         </div>
@@ -204,7 +204,7 @@
           <ul class="feature-points">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-              <span data-i18n="f3p1">津波痕跡調査の実測水位（59地点）との差分（平均差・RMSE）をリアルタイム評価</span>
+              <span data-i18n="f3p1">津波痕跡調査の実測水位（70地点・現況地形整合地点の分離集計）との差分（平均差・RMSE）をリアルタイム評価</span>
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -227,7 +227,7 @@
           <div class="feature-num" data-i18n="f4Num">04 / WAVE SOURCE COUPLING & LAB</div>
           <h3 class="feature-title" data-i18n="f4Title">南海トラフ波源CSVの連携・インポート ＆ 人工波発生機能</h3>
           <p class="feature-text" data-i18n="f4Desc">
-            広域シミュレーター（nankai_trough等）が出力した時系列波源データCSV（宮古沖・最大波高4.08m）を直接読み込み、市街地への浸水影響をシミュレーション。CSVの水位を沖合境界に与え、流速・流向から来襲方向を自動判定します。地震直後の水位（地殻変動による沈降・隆起）は0に補正し、CSVの地点は地図上にマーカーで表示。水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。
+            広域シミュレーター（nankai_trough等）が出力した時系列波源データCSVを直接読み込み、市街地への浸水影響をシミュレーション。CSVの水位を沖合境界に与え、流速・流向から来襲方向を自動判定します。地震直後の水位（地殻変動による沈降・隆起）は0に補正し、CSVの地点は地図上にマーカーで表示。水面をクリックして人工波・波紋を起こすインタラクティブな実験機能も搭載。タイマーには「計算時間 (LAP)」と「地震発生後」をリアルタイム併記します。
           </p>
           <ul class="feature-points">
             <li>
@@ -260,18 +260,18 @@
       <div class="scenarios-grid">
         <div class="scenario-card highlight" style="border-color: rgba(0, 229, 255, 0.45); background: rgba(0, 229, 255, 0.04);">
           <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen0Badge">NEW 波源連携</div>
-          <h3 class="scenario-title" data-i18n="scen0Title">南海トラフ巨大地震連動 (nankai_trough波源)</h3>
-          <div class="scenario-meta" data-i18n="scen0Meta">沖合波高 4.08m · 2時間フルタイムライン / 境界CSV連携</div>
+          <h3 class="scenario-title" data-i18n="scen0Title">南海トラフ全域連動 M9.1 (nankai_trough波源)</h3>
+          <div class="scenario-meta" data-i18n="scen0Meta">縁の波 最大 田老 約0.6m・宮古港 約1.7m · 地震後8時間まで</div>
           <p class="scenario-desc" data-i18n="scen0Desc">
-            nankai_troughアプリが出力した宮古沖の時系列波源データを使用。地震発生から約18分で最大波高4.08m（引き波後）が到達し、旧田老防潮堤の防御力と市街地氾濫を精密に検証。
+            nankai_trough で宮古・田老沖だけ15秒メッシュ（約400m）に細かくして計算し、計算域の縁に沿って1kmごとに取り出した波形を、その場所の縁から入力します。宮古は波源から遠く、波は地震の約1時間50分後から届きます。
           </p>
         </div>
         <div class="scenario-card highlight">
           <div class="scenario-badge" data-i18n="scen1Badge">実測照合済み</div>
           <h3 class="scenario-title" data-i18n="scen1Title">東日本大震災 (2011年再現)</h3>
-          <div class="scenario-meta" data-i18n="scen1Meta">沖合波高 6.5m · 実測59地点キャリブレーション</div>
+          <div class="scenario-meta" data-i18n="scen1Meta">nankai_trough 波源 · 倍率0.6を実測に合わせて決定</div>
           <p class="scenario-desc" data-i18n="scen1Desc">
-            japan.tif の海底地形のもとで、田老地区の実測津波痕跡59地点（信頼度A・B）に最も一致する沖合境界波高（6.5m：差±2m以内20地点・RMSE 3.0m）を設定。田老防潮堤を越流し市街地へ浸水する津波の挙動を再現します。
+            nankai_trough で2011年の地震（M9.0）を入れ子格子で計算し、計算域の縁で取り出した波形を入力。当時の地形（2012年作成の5mメッシュ標高）と X 字の旧防潮堤で、田老の実績5mメッシュとの一致は CSI 0.91、地形と矛盾しない実測43地点で平均差−0.3m・RMSE 4.1m です。
           </p>
         </div>
 
