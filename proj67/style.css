@@ -712,6 +712,31 @@ body {
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
 }
 
+/* Newest feature spans the whole grid row instead of wrapping alone */
+.feature-card.feature-wide {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 900px) {
+  .feature-card.feature-wide {
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .feature-card.feature-wide > div {
+    flex: 1.4;
+  }
+
+  .feature-card.feature-wide .feature-bullets {
+    flex: 1;
+    border-top: none;
+    border-left: 1px solid var(--border-subtle);
+    padding-top: 0;
+    padding-left: 2rem;
+  }
+}
+
 .feature-step-num {
   position: absolute;
   top: 1.25rem;
