@@ -46,7 +46,7 @@ const translations = {
     // Feature 1
     f1Num: "01 / SEAWALL & TERRAIN GEOMETRY",
     f1Title: "田老防潮堤「万里の長城」× 宮古港 2大沿岸地域の精緻な3D化",
-    f1Desc: "田老地区と、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。田老は地形と防潮堤をセットで「当時（2011年震災前）」と「現在」に切り替えられます。当時は X 字の旧防潮堤（第一＋海側、海抜10m）、現在は第一防潮堤と新田老防潮堤（T.P.+14.7m）です（宮古港の防潮堤・水門は位置が特定できないため未収録）。",
+    f1Desc: "田老地区と、宮古市最大の市街地・港湾部である宮古港（出崎埠頭・藤原埠頭・鍬ヶ崎・閉伊川河口）の2大エリアを収録。両地区とも地形と防潮堤をセットで「当時（2011年震災前）」と「現在」に切り替えられます。田老は当時が X 字の旧防潮堤（第一＋海側、海抜10m）、現在が第一防潮堤と新田老防潮堤（T.P.+14.7m）。宮古港は当時が閉伊川の堤防（約4m）、現在が2mかさ上げした堤防（約6m）と河口の水門です（宮古港の岸壁沿いの防潮堤は未収録）。",
     f1p1: "陸地は現在が国土地理院 5m レーザー標高 (DEM5A)、当時が2012年作成の5mメッシュ標高。海底は japan.tif の実測水深グリッド",
     f1p2: "現在は PLATEAU 3D都市モデルの建物を配置し、浸水深でリアルタイム警戒色変化（当時は建物データがないため建物なし）",
     f1p3: "潮位スライダー（0〜5m）で満潮を考慮し、海面全体を上げて津波を重ねて計算",
@@ -177,7 +177,7 @@ const translations = {
     // Feature 1
     f1Num: "01 / SEAWALL & TERRAIN GEOMETRY",
     f1Title: "Dual-Region 3D Modeling: Taro Great Wall & Miyako Port Hub",
-    f1Desc: "Comprehensive 3D coverage of both Taro and Miyako's primary port/urban center (Dezaki Pier, Kuwagasaki, Hei River mouth). Taro switches terrain and seawalls together between \"at the time\" (before 2011: the old X-shaped first and seaward walls, 10m) and \"present\" (the first wall plus the new T.P.+14.7m Taro seawall). Miyako Port seawalls and floodgates are not modeled, as their exact positions are unknown.",
+    f1Desc: "Comprehensive 3D coverage of both Taro and Miyako's primary port/urban center (Dezaki Pier, Kuwagasaki, Hei River mouth). Both regions switch terrain and seawalls together between \"at the time\" (before 2011) and \"present\". Taro: the old X-shaped first and seaward walls (10m) then, the first wall plus the new T.P.+14.7m Taro seawall now. Miyako Port: Hei River levees (about 4m) then, levees raised to about 6m plus a river-mouth floodgate now (the seawalls along the port quays are not modeled).",
     f1p1: "Land from GSI 5m LiDAR elevation (DEM5A) for the present and a 5m mesh made in 2012 for the time of the tsunami; seabed from the japan.tif bathymetry grid",
     f1p2: "PLATEAU 3D LOD1 building meshes in the present option, dynamically shaded by flood depth alerts (no building data for the time of the tsunami)",
     f1p3: "Tide slider (0-5m) for high tide: raises the whole sea, with the tsunami riding on top",
