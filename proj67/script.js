@@ -478,7 +478,7 @@ const translations = {
     btnStore: 'Cyber Matrix ストアで購入',
     btnDemo: 'インタラクティブ体験',
     featKicker: 'CORE CAPABILITIES',
-    featTitle: '5つの圧倒的デジタルツイン技術',
+    featTitle: '6つの圧倒的デジタルツイン技術',
     pricingTitle: '日本列島の3DデジタルツインをあなたのPCに',
   },
   en: {
@@ -488,7 +488,7 @@ const translations = {
     btnStore: 'Get on Cyber Matrix Store',
     btnDemo: 'Launch Interactive Demo',
     featKicker: 'CORE CAPABILITIES',
-    featTitle: '5 Extreme Digital Twin Engines',
+    featTitle: '6 Extreme Digital Twin Engines',
     pricingTitle: 'Deploy Japan 3D Digital Twin to Your PC',
   },
 };
