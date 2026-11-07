@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Drone | 迎撃機 4 機の体当たりを自律回避して飛ぶ 5 機 MuJoCo 物理シミュレーター</title>
+  <meta name="description" content="A 地点から B 地点へ向かうドローン D0 と、B の手前で待ち伏せして体当たりを狙う迎撃ドローン d1〜d4 の全 5 機を MuJoCo で剛体物理シミュレートするデスクトップアプリ。目視カメラ・リアルタイム位置共有・カルマンフィルタ融合の 4 認識方式、外乱オブザーバとオンライン質量推定、CSV 保存、日本語 / English。">
+
+  <meta property="og:title" content="Escape Drone — 自律障害物回避＆迎撃突破シミュレーター (MuJoCo)">
+  <meta property="og:description" content="5 台のクアッドローターを MuJoCo で 500 Hz 物理演算。迎撃機 4 機の会合点突入を、目視カメラ・位置共有・カルマン融合と 3 秒先読み速度プランナでかわして B 地点へ着陸せよ。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/escape_drone">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/escape_drone">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231a7aff%22/%3E%3Cpath d=%22M5 24 L16 8 L27 24%22 stroke=%22%23fff%22 stroke-width=%223%22 fill=%22none%22/%3E%3Ccircle cx=%2216%22 cy=%228%22 r=%223.5%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/escape_drone" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">ESCAPE DRONE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#presets" data-i18n="navPresets">8 つの実験シナリオ</a></li>
+        <li><a href="#tech" data-i18n="navTech">認識と回避のしくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/escape_drone" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">MUJOCO 500 HZ × SENSOR FUSION × PREDICTIVE EVASION</p>
+      <h1 data-i18n-html="heroTitle">待ち伏せる 4 機の迎撃ドローンを、<br><span class="accent">物理と先読み制御でかわし抜け。</span></h1>
+      <p class="lead" data-i18n="heroLead">A 地点から B 地点へ向かうミッション機 D0 と、B の手前 C1〜C4 で上空待機し体当たりを狙う 4 機の迎撃ドローン d1〜d4。接触すれば両機とも即墜落するルールのもと、全 5 機を MuJoCo（2 ms ステップ・500 Hz）の剛体力学と自律制御（AUTO）で同時シミュレートします。前方カメラによる「目視」、通信遅延・誤差つきの「リアルタイム位置共有」、両者を統合する「カルマンフィルタ融合」、さらに強風や未知の機体重量まで、条件を変えて回避性能を比較・CSV 保存できる実験環境です。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/escape_drone" class="btn btn-primary btn-lg" data-i18n="heroGet">macOS デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon .dmg) · オフライン動作 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statN">5 機同時</strong><span data-i18n="statNSub">MuJoCo 自由剛体（500 Hz）</span></div>
+      <div class="stat"><strong data-i18n="statPercN">4 認識方式</strong><span data-i18n="statPerc">リアルタイム・目視・融合・なし</span></div>
+      <div class="stat"><strong data-i18n="statPresetN">8 シナリオ</strong><span data-i18n="statPreset">強風・重量・通信劣化・融合比較</span></div>
+      <div class="stat"><strong data-i18n="statCamN">4 視点＋地図</strong><span data-i18n="statCam">追従・迎撃機・自由・全体＋ミニマップ</span></div>
+      <div class="stat"><strong data-i18n="statCsvN">CSV 出力</strong><span data-i18n="statCsv">全 36 列の試行条件・結果ログ</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">「どう見つけるか」と「どうよけるか」を剛体物理で検証する</h2>
+      <p class="section-lead" data-i18n="featLead">D0 も迎撃機 d1〜d4 もすべて同じ物理法則のなかで 4 基のロータを回して飛んでいます。センサーの視野角や通信の遅れ、風の乱れ、機体の重さが、ギリギリの回避にどう影響するかを可視化します。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">3 秒先まで会合点を先読みする、速度空間サンプリング回避</h3>
+          <p data-i18n="f1Body">B の手前 C1〜C4 で待機する迎撃機 d1〜d4 は、D0 が攻撃開始距離（既定 110 m）に入ると予測会合点へ向けて全速で突入します。D0 は 20 Hz ごとに水平 24 方向 × 4 速さ × 上下 3 段階の候補速度を生成し、「自分がその速度で飛び、迎撃機が追尾してきたときの 3 秒間の軌道」を前進シミュレーション。安全距離・ルートからのずれ・地面との距離のコストが最小となる回避速度をリアルタイムに選びます。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">3 秒先読み速度プランナ（20 Hz）</li>
+            <li data-i18n="f1c2">迎撃機の会合点予測突入</li>
+            <li data-i18n="f1c3">接触時は両機とも即墜落</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/visual.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">前方カメラの「目視」と、遅れ・誤差のある「位置共有」をカルマン融合</h3>
+          <p data-i18n="f2Body">前方カメラ（既定視野 120°・検知距離 70 m）で写った機体だけを追跡する「目視」モードでは、距離推定誤差（6 %）や死角からの急接近が脅威になります。一方、Remote ID などの「リアルタイム位置共有」も、更新 1 Hz・遅れ 0.5 s・誤差 3 m・欠落 10 % の現実的な通信品質では終盤の急旋回に遅れます。「目視＋リアルタイム」モードは両者を単一のカルマンフィルタで融合し、遠くの脅威にカメラを向けつつ近距離を高精度に捉えます。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">カメラ視野扇形＆首振りスキャン</li>
+            <li data-i18n="f2c2">通信周期・遅れ・誤差・欠落率</li>
+            <li data-i18n="f2c3">カルマンフィルタによるセンサー融合</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/wind.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">強風・突風・未知の追加重量に、外乱オブザーバと質量推定で適応</h3>
+          <p data-i18n="f3Body">高度に応じた対数風速分布、Ornstein-Uhlenbeck 乱流、不定期な突風が全機に作用します。さらに D0 に最大 +3.0 kg の未知の追加質量を載せると推力余裕が減少。各機の幾何学的 SE(3) 制御器は、ロータ推力と実測加速度の差から水平風外力を打ち消す「外乱オブザーバ（DOB）」と、鉛直加速度から機体質量を学習する「オンライン質量推定」を毎ステップ実行します。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">MuJoCo 500 Hz（2 ms ステップ）</li>
+            <li data-i18n="f3c2">外乱オブザーバ（DOB）</li>
+            <li data-i18n="f3c3">オンライン質量推定</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/fusion.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">D0 の認識（推定位置・不確かさ・視野）と迎撃機の狙い点を 3D 可視化</h3>
+          <p data-i18n="f4Body">3D 画面と右下のミニマップには、D0 が認識している迎撃機の推定位置が黄色のワイヤーフレーム球（最優先脅威はオレンジ、見失って予測追尾中は半透明）として描かれ、カメラの視野扇形や D0 の指令速度ベクトル矢印、迎撃機が狙う予測会合点への赤破線まで一目で把握できます。再生速度を ×0.25 に落とせば、数メートル差ですれ違う瞬間や迎撃機同士の同士討ちをじっくり観察できます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">追従・迎撃機・自由・全体の 4 視点</li>
+            <li data-i18n="f4c2">×0.25〜×4 再生速度</li>
+            <li data-i18n="f4c3">戦術ミニマップ＆イベントログ</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/result.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">試行履歴の自動記録と、Excel でそのまま開ける 36 列 CSV 保存</h3>
+          <p data-i18n="f5Body">ミッション終了ごとに、成否・理由・飛行時間・飛行距離・最接近距離と機体名・回避回数・撃墜された迎撃機数・D0 の推定質量・d1〜d4 の最終状態が自動で履歴に記録されます。「CSV 保存」ボタンを押すと、macOS の「ダウンロード（Downloads）」フォルダへ UTF-8 BOM 付き CSV（36 列）を直接出力。シードや認識方式を変えた比較実験に最適です。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">全 36 列の試行サマリー CSV</li>
+            <li data-i18n="f5c2">Downloads フォルダへ直接保存</li>
+            <li data-i18n="f5c3">乱数シードによる完全再現</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/english.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">06</span>
+          <h3 data-i18n="f6Title">日本語と English を、ワンクリック（または L キー）で切替</h3>
+          <p data-i18n="f6Body">左パネル右上の言語ボタン（または L キー）で、8 種のシナリオ名・全パラメータ・テレメトリー表・イベントログ・3D パッドラベル・結果画面・出力 CSV の列名まで、すべてが日本語と英語で即座に切り替わります。日本語・英語の詳細マニュアルも同梱しています。</p>
+          <ul class="chips">
+            <li data-i18n="f6c1">日本語 / English 即時切替</li>
+            <li data-i18n="f6c2">日英マニュアル付属</li>
+            <li data-i18n="f6c3">完全オフライン動作</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Presets ===== -->
+  <section class="section alt" id="presets">
+    <div class="container">
+      <p class="kicker">8 SCENARIO PRESETS</p>
+      <h2 data-i18n="prTitle">ワンクリックで比較できる、8 つの実験シナリオ</h2>
+      <p class="section-lead" data-i18n="prLead">穏やかな理想条件から、強風・重い機体・死角のあるカメラ・遅延と誤差のある位置共有、そしてセンサー融合まで。シナリオを選んで ▶ 開始を押すだけで比較できます。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="p1a">リアルタイム把握 / 目視のみ</h3><p data-i18n="p1b">理想的な位置共有で全方位を把握する基本条件と、前方カメラ（視野 120°・70 m）だけで首振りスキャンしながら避ける目視条件。</p></div>
+        <div class="tech"><h3 data-i18n="p2a">強風 / 重い機体</h3><p data-i18n="p2b">北西風 9 m/s＋突風 5 m/s・乱流を外乱オブザーバで補償する強風条件と、D0 に +1.5 kg を載せてオンライン質量推定と限られた推力余裕で飛ぶ重量条件。</p></div>
+        <div class="tech"><h3 data-i18n="p3a">強風＋重量＋目視 / リアルタイム</h3><p data-i18n="p3b">強風＋重量の過酷な条件で「カメラのみ」と「現実的な位置共有のみ（1 Hz・遅れ 0.5 s・誤差 3 m・欠落 10 %）」をそれぞれ試す高難度シナリオ。</p></div>
+        <div class="tech"><h3 data-i18n="p4a">強風＋重量＋融合 / 回避なし</h3><p data-i18n="p4b">同じ過酷条件で位置共有とカメラをカルマンフィルタ融合して突破率を高めるシナリオと、回避を切って迎撃されるベースライン比較。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/map.jpg" alt="" loading="lazy"><figcaption data-i18n="prCap">「全体」視点から見たフィールド全景。A（左）から折れ線ルートを通って B（右・緑の防護リング）へ向かう D0 と、C1〜C4 から迎撃に向かう d1〜d4</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Architecture ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">PERCEPTION &amp; CONTROL ARCHITECTURE</p>
+      <h2 data-i18n="techTitle">認識・推定・先読み回避・幾何学的制御の 4 層ループ</h2>
+      <p class="section-lead" data-i18n="techLead">センサーの不確かさを考慮した状態推定から、迎撃機の動きを織り込んだ速度選択、そして風と未知質量に耐える低レベル制御までを一貫して実装しています。</p>
+      <div class="split">
+        <figure class="shot map"><img src="assets/fusion.jpg" alt="" loading="lazy"><figcaption data-i18n="techCap">黄・オレンジの網目球は D0 が推定する迎撃機の位置と安全距離、黄色い扇形は前方カメラの視野、赤い破線は迎撃機の予測会合ライン</figcaption></figure>
+        <ul class="spec">
+          <li><b><i class="sw" style="background:#38bdf8"></i><span data-i18n="t1a">1. 位置共有＆前方カメラのカルマンフィルタ融合</span></b><span data-i18n="t1b">低周期・遅延つきの無線位置共有と、視野制限・距離ノイズつきの前方カメラ検知を単一のカルマンフィルタで統合。推定分散が大きいほど安全距離マージンを自動で広げます。</span></li>
+          <li><b><i class="sw" style="background:#a78bfa"></i><span data-i18n="t2a">2. アクティブ・カメラスキャン（首振り視線制御）</span></b><span data-i18n="t2b">脅威がないときはカメラを左右に振って死角を減らし、位置共有や目視で脅威を捉えると最も危険な迎撃機の方向へカメラをロックオンします。</span></li>
+          <li><b><i class="sw" style="background:#fbbf24"></i><span data-i18n="t3a">3. 迎撃機の追尾を織り込んだ 3 秒先読み回避（20 Hz）</span></b><span data-i18n="t3b">288 通りの 3 次元候補速度それぞれについて、迎撃機が比例航法で追いかけてくる動きを 3 秒先までシミュレーションし、最小コストの回避ベクトルを選択します。</span></li>
+          <li><b><i class="sw" style="background:#f43f5e"></i><span data-i18n="t4a">4. 幾何学的 SE(3) 制御＋外乱オブザーバ＋質量推定（500 Hz）</span></b><span data-i18n="t4b">Lee の幾何学的姿勢制御に水平外乱オブザーバ（DOB）とオンライン質量推定を組み合わせ、推力飽和時は高度維持を優先しながら 4 ロータ推力を配分します。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Start (macOS .dmg only) ===== -->
+  <section class="section alt" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">macOS デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐに使える Tauri v2 製のネイティブアプリです。MuJoCo WASM エンジンを内蔵し、インターネット接続なしで単体動作します。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 / M2 / M3 / M4)</strong></li>
+            <li><span data-i18n="priceLabel">価格</span><strong data-i18n="priceVal">¥150（買い切り）</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/escape_drone" class="btn btn-primary" data-i18n="getMac">macOS 版を入手（¥150）</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 完全オフラインで動作します。試行結果の CSV ファイルはお使いの Mac の「ダウンロード（Downloads）」フォルダに直接保存されます。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">自律ドローンの認識・センサー融合・回避制御を、<span class="accent">あなたの Mac で実験する。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/escape_drone" class="btn btn-primary btn-lg" data-i18n="ctaGet">macOS デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">ESCAPE DRONE</span></div>
+        <p class="credits" data-i18n="credits">物理演算: MuJoCo (WebAssembly, 2 ms ステップ・5 自由剛体) ／ 状態推定: カルマンフィルタ（目視＋位置共有融合） ／ 回避計画: 3 秒先読み速度サンプリング ／ 描画: Three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/escape_drone" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">User manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261107"></script>
+</body>
+</html>

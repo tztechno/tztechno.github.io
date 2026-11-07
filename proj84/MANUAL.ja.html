@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Drone ユーザーマニュアル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231a7aff%22/%3E%3Cpath d=%22M5 24 L16 8 L27 24%22 stroke=%22%23fff%22 stroke-width=%223%22 fill=%22none%22/%3E%3Ccircle cx=%2216%22 cy=%228%22 r=%223.5%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">ESCAPE DRONE</span></a>
+    <ul class="nav-links"><li><a href="index.html">トップ</a></li><li><a href="MANUAL.en.html">English</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="escape-drone--使用マニュアル日本語">Escape Drone —
+使用マニュアル（日本語）</h1>
+<p><a href="MANUAL.en.html">English manual</a></p>
+<p><strong>Escape Drone</strong> は、物理エンジン
+<strong>MuJoCo（WebAssembly）</strong> で 5
+台のクアッドローターを同時に剛体シミュレートするデスクトップ／ブラウザアプリです。</p>
+<p>逃げる機体 <strong>D0</strong> が A 地点から B
+地点へ決められたルートを飛び、B の手前で待ち構える 4 機の迎撃ドローン
+<strong>d1〜d4</strong> の体当たり（比例航法・会合点突入）を避けて B
+に着陸できるかを検証します。全機が自律制御（AUTO）で飛び、手動操縦は行いません。<strong>風・乱流・突風・未知の追加質量（重い機体）・通信遅延や誤差・障害物の認識方式（目視カメラ／リアルタイム位置共有／センサー融合）</strong>
+などの条件を自在に変えて試行し、結果を CSV で保存できます。</p>
+<p>画面は左パネル右上のボタン（または <kbd>L</kbd> キー）で
+<strong>日本語と英語（English）</strong>
+をいつでも切り替えられます。</p>
+<hr />
+<h2 id="目次">目次</h2>
+<ol type="1">
+<li><a href="#1-起動方法">起動方法</a></li>
+<li><a href="#2-言語の切り替え日本語--english">言語の切り替え（日本語 /
+English）</a></li>
+<li><a href="#3-シミュレーションの設定">シミュレーションの設定</a></li>
+<li><a href="#4-画面の見かた">画面の見かた</a></li>
+<li><a href="#5-シナリオ8-種類のプリセット">シナリオ（8
+種類のプリセット）</a></li>
+<li><a href="#6-条件の設定">条件の設定</a></li>
+<li><a href="#7-認識方式4-モード">認識方式（4 モード）</a></li>
+<li><a
+href="#8-実行と操作ショートカット">実行と操作・ショートカット</a></li>
+<li><a href="#9-結果と-csv-保存">結果と CSV 保存</a></li>
+<li><a
+href="#10-ヘッドレス実行大量試行">ヘッドレス実行（大量試行）</a></li>
+<li><a
+href="#11-物理制御回避アルゴリズムのしくみ">物理・制御・回避アルゴリズムのしくみ</a></li>
+<li><a href="#12-制約と注意困ったとき">制約と注意・困ったとき</a></li>
+</ol>
+<hr />
+<h2 id="1-起動方法">1. 起動方法</h2>
+<p>完全オフライン（インターネット接続なし）で動作します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">版</th>
+<th style="text-align: left;">起動のしかた</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>macOS
+デスクトップ版（.dmg）</strong></td>
+<td style="text-align: left;"><code>EscapeDrone_1.0.0_aarch64.dmg</code>
+を開き、<code>EscapeDrone</code>
+を「アプリケーション」フォルダへドラッグして起動します。初回起動時に「開発元を確認できません」と表示された場合は、Finder
+でアプリアイコンを <strong>右クリック（Control +
+クリック）→「開く」</strong> を選んでください。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ブラウザ / 開発版</strong></td>
+<td style="text-align: left;"><code>escape_drone</code> フォルダで
+<code>npm install</code>（初回のみ）に続いて <code>npm run dev</code>
+を実行し、ブラウザで <code>http://localhost:5173</code>
+を開きます。配布用の静的ファイルは <code>npm run build</code> で
+<code>dist/</code> に生成されます。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-言語の切り替え日本語--english">2. 言語の切り替え（日本語 /
+English）</h2>
+<ul>
+<li>左パネル最上部の <strong>「EN」/「日本語」ボタン</strong>
+をクリックすると、その場で全画面の表示言語が切り替わります。</li>
+<li>キーボードの <kbd>L</kbd> キーでも切り替えられます。</li>
+<li>選択した言語はストレージに保存され、次回起動時にも維持されます。</li>
+<li>URL パラメータ <code>?lang=en</code> または <code>?lang=ja</code>
+で初期言語を指定することもできます。</li>
+</ul>
+<p>切り替わる対象:
+パネル見出し・プリセット名と説明・パラメータ名と選択肢・カメラ名・HUD・テレメトリー表・イベントログ・3D
+空間内のパッドラベル（<code>A 出発</code> /
+<code>A Start</code>、<code>B 目的地</code> /
+<code>B Target</code>）・結果ダイアログ・出力される CSV の列名と値。</p>
+<hr />
+<h2 id="3-シミュレーションの設定">3. シミュレーションの設定</h2>
+<h3 id="配置">配置</h3>
+<p>真上から見た配置です（x は東、y は北、単位 m）。</p>
+<pre><code>            C1(95,55)        C3(165,40)
+ A(-220,0) ──── ルート（高度 25 m）──────────── B(220,0)
+                     C2(125,-55)     C4(185,-35)</code></pre>
+<table>
+<thead>
+<tr>
+<th>地点</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A（出発）</strong></td>
+<td>D0 の出発地。真上に高度 25 m まで上昇してからルートに入ります</td>
+</tr>
+<tr>
+<td><strong>B（目的地）</strong></td>
+<td>目的地。半径 15 m の<strong>防護エリア</strong>があり、D0
+が入ると迎撃機は攻撃をやめて離脱します</td>
+</tr>
+<tr>
+<td><strong>ルート</strong></td>
+<td><code>A(-220, 0)</code> → <code>(-110, 45)</code> →
+<code>(20, -35)</code> → <code>(130, 10)</code> → <code>B(220, 0)</code>
+の折れ線（高度 25 m）</td>
+</tr>
+<tr>
+<td><strong>C1〜C4</strong></td>
+<td>迎撃機 d1〜d4 の待機地点。待機高度は C1: 22 m・C2: 30 m・C3: 18
+m・C4: 26 m（シードにより ±5 m）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="機体">機体</h3>
+<table>
+<thead>
+<tr>
+<th>機体</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D0（白・青）</strong></td>
+<td>質量 1.84 kg、ロータ 1 基あたり最大推力 13 N（推力重量比 約
+2.9）</td>
+</tr>
+<tr>
+<td><strong>d1〜d4（赤）</strong></td>
+<td>同じ機体にプロペラガード付き（当たり判定が少し広い）、ロータ最大推力
+15 N</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ルール">ルール</h3>
+<ul>
+<li>ドローン同士が接触すると、<strong>両方が墜落</strong>します（速度に関係なく）。迎撃機同士がぶつかって相討ちになることもあります。</li>
+<li>2 m/s
+を超える速さで地面に当たるか、大きく傾いて接地すると墜落です。</li>
+<li><strong>成功（Success）</strong>: D0 が防護エリアに到達し、B
+に着陸する。</li>
+<li><strong>失敗（Failed）</strong>: D0 が墜落する、または 180
+秒以内に着陸できない。</li>
+</ul>
+<p>迎撃機は地上レーダーで D0 の位置を常に知っている想定です。D0
+が攻撃開始距離（既定 110
+m）に入ると、予測した会合点に向けて突入します。</p>
+<hr />
+<h2 id="4-画面の見かた">4. 画面の見かた</h2>
+<table>
+<thead>
+<tr>
+<th>場所</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>左パネル</strong></td>
+<td>1. シナリオ、2. 条件、開始 / 一時停止 /
+リセット、再生速度、カメラ、表示の切り替え、試行結果履歴と CSV
+保存、言語切替（EN / 日本語）</td>
+</tr>
+<tr>
+<td><strong>上中央（HUD）</strong></td>
+<td>経過時間とシナリオ名、現在の状態（「回避中 — d2」「迎撃機
+接近中」「ミッション成功」など）</td>
+</tr>
+<tr>
+<td><strong>右上（テレメトリー）</strong></td>
+<td>全 5 機のリアルタイム状態表と D0
+の認識・質量推定・風速データ（下表）</td>
+</tr>
+<tr>
+<td><strong>右下（ミニマップ）</strong></td>
+<td>真上から見たルート・各地点・機体・D0
+の推定位置・前方カメラの視野扇形</td>
+</tr>
+<tr>
+<td><strong>左下（イベントログ）</strong></td>
+<td>攻撃開始、かわした機体と最接近距離、接触・墜落、防護エリア到達、成功
+/ 失敗、CSV 保存通知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="テレメトリー">テレメトリー</h3>
+<p>上の表は機体ごとの <strong>状態・高度・速度・距離</strong>
+です。距離は、D0 の行では B までの水平距離、迎撃機の行では D0 までの 3
+次元距離です。</p>
+<table>
+<thead>
+<tr>
+<th>状態</th>
+<th>D0（日本語 / English）</th>
+<th>d1〜d4（日本語 / English）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>地上</td>
+<td>地上待機 / Standby</td>
+<td>地上 / Ground</td>
+</tr>
+<tr>
+<td>飛行中</td>
+<td>離陸 / Takeoff → 巡航 / Cruise（回避中は「回避 / Evading」） → B
+上空 / Over B → 着陸中 / Landing → 着陸完了 / Landed</td>
+<td>上昇 / Climb → 待機 / Loiter → 攻撃 / Attack → 離脱 / RTB</td>
+</tr>
+<tr>
+<td>墜落</td>
+<td>墜落 / Crashed</td>
+<td>墜落 / Crashed</td>
+</tr>
+</tbody>
+</table>
+<p>下の欄の項目は次のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>項目（日本語 / English）</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D0 認識</strong> / D0 Perception</td>
+<td>認識方式と、追跡中の機体数・この瞬間に見えている（情報が届いた）機体数</td>
+</tr>
+<tr>
+<td><strong>計画クリアランス</strong> / Planned Clearance</td>
+<td>回避計画が見込んでいる、迎撃機との最小距離</td>
+</tr>
+<tr>
+<td><strong>最接近</strong> / Closest Pass</td>
+<td>これまでで最も近づいた迎撃機とその距離</td>
+</tr>
+<tr>
+<td><strong>D0 質量推定</strong> / D0 Mass Est.</td>
+<td>制御器が飛行中に推定した質量と、実際の質量</td>
+</tr>
+<tr>
+<td><strong>風（D0 位置）</strong> / Wind (at D0)</td>
+<td>D0 の位置での風速。突風中は「突風 / Gust」と表示</td>
+</tr>
+<tr>
+<td><strong>撃墜された迎撃機</strong> / Interceptors Down</td>
+<td>墜落した迎撃機の数（<code>/ 4</code>）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3d-画面の表示">3D 画面の表示</h3>
+<p>パネルの「カメラ」欄のチェックで表示を切り替えます。</p>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>航跡</strong> (Flight trails)</td>
+<td>青 = D0、赤 = 迎撃機 d1〜d4</td>
+</tr>
+<tr>
+<td><strong>D0 の認識</strong> (D0 perception)</td>
+<td><strong>黄色の網目の球</strong> = D0
+が推定している迎撃機の位置（半径 =
+安全距離）。最も危険な機体はオレンジ、見失っている間は薄く表示。<strong>黄色の扇形</strong>
+=
+カメラの視野と検知距離（カメラを使う方式のとき）。<strong>矢印</strong>
+= D0 が選んだ速度（緑 = ルート飛行、オレンジ = 回避中）</td>
+</tr>
+<tr>
+<td><strong>迎撃機の狙い点</strong> (Interceptor aim lines)</td>
+<td>攻撃中の迎撃機から、予測した会合点への赤い破線</td>
+</tr>
+</tbody>
+</table>
+<p>墜落した地点にはオレンジの閃光が出ます。</p>
+<hr />
+<h2 id="5-シナリオ8-種類のプリセット">5. シナリオ（8
+種類のプリセット）</h2>
+<p>パネルの「1.
+シナリオ」から選ぶと、条件がまとめて設定されます（シードは現在の値を維持します）。</p>
+<table>
+<thead>
+<tr>
+<th>シナリオ（日本語 / English）</th>
+<th>認識方式</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>リアルタイム把握</strong> / Real-Time Share</td>
+<td>リアルタイム（理想）</td>
+<td>無風・標準機体</td>
+</tr>
+<tr>
+<td><strong>目視のみ</strong> / Visual Only</td>
+<td>目視</td>
+<td>無風・標準機体。前方カメラ（視野 120°・70 m）のみ</td>
+</tr>
+<tr>
+<td><strong>強風</strong> / Strong Wind</td>
+<td>リアルタイム（理想）</td>
+<td>北西から 9 m/s、突風 +5 m/s、乱流 0.25</td>
+</tr>
+<tr>
+<td><strong>重い機体</strong> / Heavy Craft</td>
+<td>リアルタイム（理想）</td>
+<td>D0 に未知の追加質量 +1.5 kg</td>
+</tr>
+<tr>
+<td><strong>強風＋重量＋目視</strong> / Hard: Visual</td>
+<td>目視</td>
+<td>南南西から 8 m/s、突風 +4 m/s、乱流 0.25、D0 に +1.2 kg</td>
+</tr>
+<tr>
+<td><strong>強風＋重量＋リアルタイム</strong> / Hard: Real-Time</td>
+<td>リアルタイム（現実的）</td>
+<td>同上。位置共有は 1 Hz・遅れ 0.5 s・誤差 3 m・欠落 10 %</td>
+</tr>
+<tr>
+<td><strong>強風＋重量＋目視＋リアルタイム</strong> / Hard: Sensor
+Fusion</td>
+<td>目視＋リアルタイム</td>
+<td>同上。位置共有と前方カメラをカルマンフィルタで融合</td>
+</tr>
+<tr>
+<td><strong>回避なし（比較）</strong> / No Evasion (Baseline)</td>
+<td>回避しない</td>
+<td>無風・標準機体。迎撃機に撃墜される比較用</td>
+</tr>
+</tbody>
+</table>
+<p>後半の 3
+つの厳しい条件（Hard）は、同じ環境・機体条件で認識方式だけを変えてあるため、「カメラだけ」「現実的な位置共有だけ」「両方のセンサー融合」の違いを直接比較できます。</p>
+<p>条件を手で変えると、シナリオ名は「カスタム / Custom」になります。</p>
+<hr />
+<h2 id="6-条件の設定">6. 条件の設定</h2>
+<p>パネルの「2.
+条件」で変えます。<strong>条件を変えると、その場で最初からやり直し</strong>になります。</p>
+<h3 id="d0逃げる機体">D0（逃げる機体）</h3>
+<table>
+<thead>
+<tr>
+<th>項目（日本語 / English）</th>
+<th>範囲</th>
+<th>既定</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>障害物の認識</strong> / Obstacle Perception</td>
+<td>—</td>
+<td>リアルタイム</td>
+<td>次章を参照</td>
+</tr>
+<tr>
+<td><strong>巡航速度</strong> / Cruise Speed</td>
+<td>5〜15 m/s</td>
+<td>10</td>
+<td>ルートを飛ぶ速さ</td>
+</tr>
+<tr>
+<td><strong>回避時の最高速度</strong> / Max Evade Speed</td>
+<td>6〜20 m/s</td>
+<td>14</td>
+<td>回避するときに出してよい速さ</td>
+</tr>
+<tr>
+<td><strong>追加質量（重い機体）</strong> / Extra Mass</td>
+<td>0〜3 kg</td>
+<td>0</td>
+<td>制御器には知らせません。飛行中に質量を推定して適応します。重いほど推力の余裕が減り、急な回避ができません</td>
+</tr>
+<tr>
+<td><strong>安全距離</strong> / Safe Distance</td>
+<td>1〜8 m</td>
+<td>3</td>
+<td>迎撃機との間に確保しようとする距離</td>
+</tr>
+<tr>
+<td><strong>カメラ視野</strong> / Camera FOV</td>
+<td>40〜360°</td>
+<td>120</td>
+<td>前方カメラの水平視野（垂直は ±35° 固定）</td>
+</tr>
+<tr>
+<td><strong>目視の検知距離</strong> / Visual Range</td>
+<td>20〜150 m</td>
+<td>70</td>
+<td>これより遠い機体はカメラで見つけられません</td>
+</tr>
+</tbody>
+</table>
+<h3 id="リアルタイム位置共有">リアルタイム位置共有</h3>
+<p>「リアルタイム」と「目視＋リアルタイム」で使います。既定は理想値（毎フレーム・誤差なし）です。</p>
+<table>
+<thead>
+<tr>
+<th>項目（日本語 / English）</th>
+<th>範囲</th>
+<th>既定</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>更新周期</strong> / Broadcast Rate</td>
+<td>0.5〜20 Hz</td>
+<td>20</td>
+<td>位置情報が届く頻度</td>
+</tr>
+<tr>
+<td><strong>遅れ</strong> / Comms Latency</td>
+<td>0〜2 s</td>
+<td>0</td>
+<td>届いた情報がどれだけ古いか</td>
+</tr>
+<tr>
+<td><strong>位置誤差</strong> / Position Error</td>
+<td>0〜10 m</td>
+<td>0</td>
+<td>GNSS などの位置の誤差（1σ）</td>
+</tr>
+<tr>
+<td><strong>欠落率</strong> / Packet Loss</td>
+<td>0〜90 %</td>
+<td>0</td>
+<td>届かない情報の割合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d1d4迎撃機">d1〜d4（迎撃機）</h3>
+<table>
+<thead>
+<tr>
+<th>項目（日本語 / English）</th>
+<th>範囲</th>
+<th>既定</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>攻撃速度</strong> / Attack Speed</td>
+<td>6〜20 m/s</td>
+<td>12</td>
+<td>突入するときの速さ（シードにより ±0.8 m/s）</td>
+</tr>
+<tr>
+<td><strong>攻撃開始距離</strong> / Trigger Distance</td>
+<td>30〜250 m</td>
+<td>110</td>
+<td>D0 がこの距離に入ると攻撃開始（シードにより ±15 m）</td>
+</tr>
+<tr>
+<td><strong>追加質量</strong> / Extra Mass</td>
+<td>0〜3 kg</td>
+<td>0</td>
+<td>迎撃機に載せる重さ</td>
+</tr>
+<tr>
+<td><strong>迎撃機同士の衝突回避</strong> / Mutual Avoidance</td>
+<td>—</td>
+<td>あり</td>
+<td>迎撃機どうしが 6 m
+以内に近づくと離れようとします。オフにすると迎撃機同士の同士討ちが増えます</td>
+</tr>
+</tbody>
+</table>
+<h3 id="環境">環境</h3>
+<table>
+<thead>
+<tr>
+<th>項目（日本語 / English）</th>
+<th>範囲</th>
+<th>既定</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>風速</strong> / Wind Speed</td>
+<td>0〜15 m/s</td>
+<td>0</td>
+<td>平均風速（高度 60 m 基準、地表に近いほど弱い対数分布）</td>
+</tr>
+<tr>
+<td><strong>風向</strong> / Wind Direction (From)</td>
+<td>0〜359°</td>
+<td>北 (N)</td>
+<td>風が<strong>吹いてくる</strong>方向</td>
+</tr>
+<tr>
+<td><strong>突風</strong> / Wind Gust</td>
+<td>0〜10 m/s</td>
+<td>0</td>
+<td>数秒続く突風の強さ（不定期に発生）</td>
+</tr>
+<tr>
+<td><strong>乱流</strong> / Turbulence</td>
+<td>0〜0.6</td>
+<td>0</td>
+<td>平均風速に対する乱れの強さ</td>
+</tr>
+<tr>
+<td><strong>乱数シード</strong> / Random Seed</td>
+<td>1〜50</td>
+<td>1</td>
+<td>下記を参照</td>
+</tr>
+</tbody>
+</table>
+<p><strong>乱数シード</strong>を変えると、風の乱れと突風のタイミング、カメラ・位置共有の誤差と検知・欠落、迎撃機ごとの待機高度・攻撃速度・攻撃開始距離・離陸時刻のばらつきが変わります。同じシードと同じ条件なら、毎回同じ結果が再現されます。</p>
+<hr />
+<h2 id="7-認識方式4-モード">7. 認識方式（4 モード）</h2>
+<p>D0 が迎撃機をどう知るかを選びます。</p>
+<h3 id="1-リアルタイム位置把握real-time-position-share">1.
+リアルタイム位置把握（Real-Time Position Share）</h3>
+<p>位置共有（Remote
+ID・UTM・地上レーダーなど）で、<strong>全方向・距離に関係なく</strong>全機の位置と速度を受け取ります。</p>
+<ul>
+<li>既定（理想値）では、真の位置・速度がそのまま分かります。</li>
+<li>更新周期・遅れ・誤差・欠落を設定すると、届いた情報から位置と速度を推定し、次の情報が届くまでは予測で補います。終盤に迎撃機が急に向きを変えると、情報の遅れの分だけ反応が遅れます。</li>
+</ul>
+<h3 id="2-目視前方カメラ--visual">2. 目視（前方カメラ / Visual）</h3>
+<p>D0 のカメラに<strong>写った機体だけ</strong>を認識します。</p>
+<ul>
+<li>視野（既定 120°）と検知距離（既定 70
+m）の外は見えません。遠いほど見つけにくくなります（検知距離ちょうどで約
+4 割）。</li>
+<li>方向は正確ですが、距離は写った大きさから推定するので誤差が大きく（距離の約
+6 %）、0.1 秒の遅れがあります。</li>
+<li>見えた位置からカルマンフィルタで位置と速度を推定し、見失っても 4
+秒間は予測で追い続けます。推定が不確かなほど、安全距離を広めに取ります。</li>
+<li>脅威がないときはカメラを左右に振って見回し、脅威を見つけたらその方向にカメラを向けます。</li>
+<li>弱点は、死角（後方・真横）から来る機体です。</li>
+</ul>
+<h3 id="3-目視リアルタイムvisual--real-time-fusion">3.
+目視＋リアルタイム（Visual + Real-Time Fusion）</h3>
+<p>位置共有とカメラの両方を、1
+つのカルマンフィルタにまとめて推定します。</p>
+<ul>
+<li>遠くの機体や死角の機体は位置共有で把握し、その方向にカメラを向けます。</li>
+<li>近づいた機体はカメラで、遅れと誤差の小さい位置を得ます。</li>
+<li>位置共有に遅れや誤差がある現実的な条件で、両者を組み合わせた高い生存率を発揮します。</li>
+</ul>
+<h3 id="4-回避しないno-evasion">4. 回避しない（No Evasion）</h3>
+<p>迎撃機を無視してルートどおりに飛びます。比較用です。</p>
+<hr />
+<h2 id="8-実行と操作ショートカット">8. 実行と操作・ショートカット</h2>
+<table>
+<thead>
+<tr>
+<th>ボタン / キー</th>
+<th>動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>▶ 開始</strong> / <kbd>Space</kbd></td>
+<td>全機の自動運転を開始。実行後は「▶ 最初から / ▶
+Restart」になり、押すと同じ条件で最初からやり直します</td>
+</tr>
+<tr>
+<td><strong>Ⅱ</strong> / <kbd>Space</kbd></td>
+<td>一時停止 / 再開</td>
+</tr>
+<tr>
+<td><strong>↺ リセット</strong> / <kbd>R</kbd></td>
+<td>最初の状態（全機地上）に戻す</td>
+</tr>
+<tr>
+<td><strong>再生速度</strong></td>
+<td><code>×0.25</code> / <code>×0.5</code> / <code>×1</code> /
+<code>×2</code> /
+<code>×4</code>。すれ違いの瞬間はスロー再生がおすすめです</td>
+</tr>
+<tr>
+<td><strong>カメラ</strong> / <kbd>C</kbd></td>
+<td>下表の 4 種類を順番に切り替え</td>
+</tr>
+<tr>
+<td><strong>EN / 日本語</strong> / <kbd>L</kbd></td>
+<td>表示言語を日本語と英語で切り替え</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>カメラ（日本語 / English）</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>追従</strong> / Chase</td>
+<td>D0 の後ろから追いかける</td>
+</tr>
+<tr>
+<td><strong>迎撃機</strong> / Interceptor</td>
+<td>D0 に最も近い攻撃中の迎撃機の後ろから追いかける</td>
+</tr>
+<tr>
+<td><strong>自由</strong> / Orbit</td>
+<td>マウスドラッグで回転・右ドラッグで移動・ホイールでズーム（注視点は
+D0 に追従）</td>
+</tr>
+<tr>
+<td><strong>全体</strong> / Overview</td>
+<td>配置全体を上空から見渡す</td>
+</tr>
+</tbody>
+</table>
+<p>試行が終わると約 1.8 秒後に結果画面が出ます。終了後も 6
+秒ほどは物理計算が続き、墜落した機体が落ちていく様子を見られます。</p>
+<hr />
+<h2 id="9-結果と-csv-保存">9. 結果と CSV 保存</h2>
+<h3 id="結果画面">結果画面</h3>
+<p>成功 /
+失敗とその理由、飛行時間、飛行距離、迎撃機の最接近、墜落した迎撃機の数、主な条件を表示します。</p>
+<ul>
+<li><strong>📄 CSV 保存 / Save CSV</strong>: それまでの全試行を CSV
+で保存</li>
+<li><strong>もう一度 / Run Again</strong>: 同じ条件で最初から実行</li>
+<li><strong>閉じる / Close</strong>: 結果画面を閉じる</li>
+</ul>
+<h3 id="試行結果の履歴と保存先">試行結果の履歴と保存先</h3>
+<p>試行が終わるたびに、自動で 1
+行ずつ記録されます（途中でリセットした試行は記録されません）。</p>
+<ul>
+<li>パネル下の「試行結果」に件数と直近 30 件を表示します。</li>
+<li>記録はローカルストレージに保存され、アプリを再起動しても残ります。</li>
+<li><strong>macOS デスクトップ版</strong>では、「CSV 保存」を押すと Mac
+の <strong>「ダウンロード（<code>~/Downloads</code>）」フォルダ</strong>
+に <code>escape_drone_trials_日付_時刻.csv</code>
+が直接保存され、左下のイベントログに保存先のフルパスが表示されます。ブラウザ版では通常のファイルダウンロードになります。</li>
+</ul>
+<h3 id="csv-の列全-36-列">CSV の列（全 36 列）</h3>
+<p>1 試行 1 行です。UTF-8（BOM 付き）なので Excel
+でそのまま文字化けせずに開けます。表示言語が英語のときは英語ヘッダー・英語表記で出力されます。</p>
+<table>
+<thead>
+<tr>
+<th>区分</th>
+<th>列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>試行</strong></td>
+<td>日時、プリセット、シード</td>
+</tr>
+<tr>
+<td><strong>条件</strong></td>
+<td>認識方式、風速、風向、突風、乱流、D0 追加質量、迎撃機追加質量、D0
+巡航速度、D0
+回避最高速度、迎撃機攻撃速度、攻撃開始距離、安全距離、カメラ視野、目視検知距離、位置共有周期・遅れ・誤差・欠落率、迎撃機相互回避</td>
+</tr>
+<tr>
+<td><strong>結果</strong></td>
+<td>結果（成功 / 失敗）、理由、飛行時間、D0
+飛行距離、最接近距離、最接近機、回避回数、墜落した迎撃機数、D0
+質量推定、D0 実質量、d1〜d4 の最終状態（「健在」または「墜落: D0
+と接触」など）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-ヘッドレス実行大量試行">10. ヘッドレス実行（大量試行）</h2>
+<p>画面を出さずに、Node.js
+で多数の試行をまとめて高速実行できます（ソース同梱時）。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> escape_drone</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts                       <span class="co"># 全シナリオ × シード 1〜3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 10                <span class="co"># 全シナリオ × シード 1〜10</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts hardfusion 20         <span class="co"># 1 つのシナリオだけ</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 10 <span class="at">--csv</span> out.csv  <span class="co"># 結果を CSV に書き出す（列はアプリと同じ）</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">V</span><span class="op">=</span>1 <span class="ex">node</span> tools/sim-test.ts visual 2          <span class="co"># イベントログも表示</span></span></code></pre></div>
+<p>シナリオ ID: <code>realtime</code> / <code>visual</code> /
+<code>wind</code> / <code>heavy</code> / <code>hard</code> /
+<code>hardnet</code> / <code>hardfusion</code> / <code>none</code></p>
+<hr />
+<h2 id="11-物理制御回避アルゴリズムのしくみ">11.
+物理・制御・回避アルゴリズムのしくみ</h2>
+<h3 id="物理srcsimts">物理（<code>src/sim.ts</code>）</h3>
+<ul>
+<li>5 機を 1 つの MuJoCo モデルで <strong>2 ms（500 Hz）</strong>
+ごとに剛体力学計算します。</li>
+<li>各機は 4 つのロータを持ち、推力には一次遅れ（時定数
+<code>0.035 s</code>）があります。</li>
+<li>空気抵抗は、風（対数高度分布＋Ornstein-Uhlenbeck
+乱流＋突風）に対する相対速度から計算します。</li>
+<li>地面との接触や機体同士の接触は、MuJoCo
+の厳密な接触判定をそのまま使います。</li>
+</ul>
+<h3 id="制御各機共通幾何学的-se3-制御">制御（各機共通・幾何学的 SE(3)
+制御）</h3>
+<ul>
+<li>位置・速度の指令から必要な推力と姿勢（Lee et al.
+幾何学的姿勢制御）を求め、4 つのロータ推力に配分します。</li>
+<li><strong>外乱オブザーバ（DOB）</strong>:
+実際の加速度とロータが生む加速度の差から風などの水平外力をリアルタイムに推定し、打ち消します。</li>
+<li><strong>オンライン質量推定</strong>:
+推力と鉛直方向の加速度から未知の質量を飛行中に推定し、追加質量に適応します。</li>
+<li>推力が飽和するときは鉛直方向（高度維持）を優先し、残りを水平方向の加速と回避に配分します。</li>
+</ul>
+<h3 id="d0-の回避srcpilotts">D0 の回避（<code>src/pilot.ts</code>）</h3>
+<ol type="1">
+<li>ルート上の 18 m 先を目標に、巡航速度で進む基準速度を求めます。</li>
+<li>迎撃機が 90 m 以内にいると、水平方向（15° 刻み・24 方向）× 速さ（4
+段階）× 上下速度（3 段階）の候補速度ベクトルを生成します。</li>
+<li>候補ごとに、D0 がその速度で 3
+秒間飛んだ場合と、迎撃機が比例航法（会合点予測）で D0
+を追いかけてくる動きを先読み計算します。</li>
+<li>安全距離（推定不確かさに応じたマージン加算）を割り込む度合い、ルートからのずれ、地面との近さ、指令の急変を合計したコストが最小の候補速度を
+20 Hz で選びます。</li>
+</ol>
+<h3 id="迎撃機-d1d4-の誘導">迎撃機 d1〜d4 の誘導</h3>
+<ul>
+<li>自分の攻撃速度で D0
+と出会える点（会合点）を予測し、そこへ向けて全速で突入します（最大 4
+秒先まで先読み）。</li>
+<li>「迎撃機同士の衝突回避」がオンのときは、味方機が 6 m
+以内に近づくと反発速度を加えます。</li>
+</ul>
+<hr />
+<h2 id="12-制約と注意困ったとき">12. 制約と注意・困ったとき</h2>
+<ul>
+<li><strong>本シミュレーションの結果だけで、実機の飛行安全性を保証することはできません。</strong>
+空力・センサーのモデルは簡略化しています。</li>
+<li>画面での 1
+回ごとの結果は乱数シード（突風のタイミングや初期配置の微差）に左右されます。認識方式や条件の優劣を定量比較するときは、シードを変えて複数回試行してください。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>対処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>macOS で初回起動時に警告が出る</td>
+<td>Finder で <code>EscapeDrone</code> を <strong>右クリック（Control +
+クリック）→「開く」</strong> を選んでください</td>
+</tr>
+<tr>
+<td>試行結果の履歴をリセットしたい</td>
+<td>左パネル下部「試行結果」の <strong>「消去 / Clear」</strong>
+ボタンを押してください</td>
+</tr>
+<tr>
+<td>動きが重い</td>
+<td>再生速度を <code>×1</code>
+以下にするか、「航跡」のチェックを外してください</td>
+</tr>
+</tbody>
+</table>
+
+  </article></main>
+</body>
+</html>

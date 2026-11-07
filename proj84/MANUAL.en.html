@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escape Drone User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%231a7aff%22/%3E%3Cpath d=%22M5 24 L16 8 L27 24%22 stroke=%22%23fff%22 stroke-width=%223%22 fill=%22none%22/%3E%3Ccircle cx=%2216%22 cy=%228%22 r=%223.5%22 fill=%22%23fff%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">ESCAPE DRONE</span></a>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="escape-drone--user-manual-english">Escape Drone — User Manual
+(English)</h1>
+<p><a href="MANUAL.ja.html">日本語マニュアル</a></p>
+<p><strong>Escape Drone</strong> is a desktop and browser simulator that
+runs five quadrotors simultaneously in full 6-DOF rigid-body physics
+using <strong>MuJoCo (WebAssembly)</strong>.</p>
+<p>An escaping drone <strong>D0</strong> flies a planned route from
+Point A to Point B while four interceptor drones <strong>d1–d4</strong>
+waiting ahead of B attempt to ram it mid-air using lead-pursuit
+guidance. All five crafts fly autonomously (AUTO) with no manual
+piloting. You can vary <strong>wind speed, gusts, turbulence,
+unannounced payload mass, communication latency/noise, and obstacle
+perception modes (forward camera, real-time position sharing, or Kalman
+sensor fusion)</strong> and export all trial results as CSV files.</p>
+<p>Switch the entire interface between <strong>Japanese and
+English</strong> at any time with the button at the top right of the
+left panel (or press <kbd>L</kbd>).</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-getting-started">Getting Started</a></li>
+<li><a href="#2-switching-language-日本語--english">Switching Language
+(日本語 / English)</a></li>
+<li><a href="#3-simulation-setup">Simulation Setup</a></li>
+<li><a href="#4-screen-layout">Screen Layout</a></li>
+<li><a href="#5-scenarios-8-presets">Scenarios (8 Presets)</a></li>
+<li><a href="#6-parameters-in-detail">Parameters in Detail</a></li>
+<li><a href="#7-perception-modes-4-modes">Perception Modes (4
+Modes)</a></li>
+<li><a href="#8-controls--keyboard-shortcuts">Controls &amp; Keyboard
+Shortcuts</a></li>
+<li><a href="#9-trial-history--csv-export">Trial History &amp; CSV
+Export</a></li>
+<li><a href="#10-headless-cli-batch-runs">Headless CLI Batch
+Runs</a></li>
+<li><a href="#11-how-the-physics-control--evasion-work">How the Physics,
+Control &amp; Evasion Work</a></li>
+<li><a href="#12-limitations--troubleshooting">Limitations &amp;
+Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="1-getting-started">1. Getting Started</h2>
+<p>Escape Drone runs completely offline — no internet connection or
+external account is required.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Edition</th>
+<th style="text-align: left;">How to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>macOS Desktop (.dmg)</strong></td>
+<td style="text-align: left;">Open
+<code>EscapeDrone_1.0.0_aarch64.dmg</code>, drag
+<code>EscapeDrone</code> into your <strong>Applications</strong> folder,
+and launch it. On first launch, if macOS shows an unverified-developer
+prompt, <strong>right-click (Control-click) the app icon in Finder and
+choose "Open"</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Browser / Dev</strong></td>
+<td style="text-align: left;">In the <code>escape_drone</code>
+directory, run <code>npm install</code> (first time) followed by
+<code>npm run dev</code>, then open <code>http://localhost:5173</code>.
+Production static files can be built into <code>dist/</code> with
+<code>npm run build</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-switching-language-日本語--english">2. Switching Language
+(日本語 / English)</h2>
+<ul>
+<li>Click the <strong>"EN" / "日本語" button</strong> at the top right
+of the left panel to switch the entire interface immediately.</li>
+<li>Or press <kbd>L</kbd> on the keyboard.</li>
+<li>Your language preference is saved in local storage and restored on
+future launches.</li>
+<li>In a browser, you can also pass <code>?lang=en</code> or
+<code>?lang=ja</code> in the URL.</li>
+</ul>
+<p>Everything updates immediately: panel headings, scenario preset names
+and descriptions, parameter labels and dropdown options, camera buttons,
+HUD status, live telemetry table and metrics, event log entries, 3D
+scene pad labels (<code>A Start</code> / <code>B Target</code>), the
+end-of-trial summary modal, and exported CSV headers and values.</p>
+<hr />
+<h2 id="3-simulation-setup">3. Simulation Setup</h2>
+<h3 id="field-layout">Field Layout</h3>
+<p>Top-down view of the arena (<code>x</code> = East, <code>y</code> =
+North, in meters):</p>
+<pre><code>            C1(95,55)        C3(165,40)
+ A(-220,0) ──── Route (25 m altitude) ──────── B(220,0)
+                     C2(125,-55)     C4(185,-35)</code></pre>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A (Start)</strong></td>
+<td>D0's departure pad. D0 climbs straight up to 25 m altitude before
+entering the route</td>
+</tr>
+<tr>
+<td><strong>B (Target)</strong></td>
+<td>Destination pad. Surrounded by a <strong>15 m radius safe
+zone</strong>; once D0 enters this circle, all interceptors break off
+their attack</td>
+</tr>
+<tr>
+<td><strong>Route</strong></td>
+<td>Polyline <code>A(-220, 0)</code> → <code>(-110, 45)</code> →
+<code>(20, -35)</code> → <code>(130, 10)</code> → <code>B(220, 0)</code>
+at 25 m altitude</td>
+</tr>
+<tr>
+<td><strong>C1–C4</strong></td>
+<td>Interceptor loiter posts ahead of B. Nominal waiting altitudes: C1
+22 m, C2 30 m, C3 18 m, C4 26 m (±5 m per random seed)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aircraft-specifications">Aircraft Specifications</h3>
+<table>
+<thead>
+<tr>
+<th>Craft</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D0 (White / Blue)</strong></td>
+<td>1.84 kg airframe mass, 13 N max thrust per rotor (thrust-to-weight
+ratio ~2.9)</td>
+</tr>
+<tr>
+<td><strong>d1–d4 (Red)</strong></td>
+<td>Same airframe fitted with propeller guards (wider collision radius),
+15 N max thrust per rotor</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rules">Rules</h3>
+<ul>
+<li><strong>Drone-to-drone contact</strong>: If any two drones touch in
+mid-air, <strong>both crash immediately</strong> regardless of relative
+speed (interceptors can also collide with each other).</li>
+<li><strong>Ground impact</strong>: Hitting the ground at &gt; 2 m/s
+vertical/normal speed or with excessive tilt causes a crash.</li>
+<li><strong>Mission Succeeded</strong>: D0 reaches the B safe zone and
+lands on pad B.</li>
+<li><strong>Mission Failed</strong>: D0 crashes, or fails to land within
+180 seconds.</li>
+</ul>
+<p>Interceptors are assumed to receive D0's position from ground radar
+at all times. As soon as D0 enters an interceptor's trigger distance
+(default 110 m), that interceptor dives toward the predicted intercept
+point.</p>
+<hr />
+<h2 id="4-screen-layout">4. Screen Layout</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Left Panel</strong></td>
+<td>1. Scenarios, 2. Parameters, Start / Pause / Reset buttons, Playback
+speed (<code>×0.25</code>–<code>×4</code>), Camera mode, 3D overlay
+checkboxes, Trial History &amp; CSV export, Language switch
+(<code>EN</code> / <code>日本語</code>)</td>
+</tr>
+<tr>
+<td><strong>Top Center (HUD)</strong></td>
+<td>Elapsed mission time <code>T+...s</code>, active scenario name, and
+live state (<code>Evading — d2</code>,
+<code>Interceptor Approaching</code>, <code>Mission Succeeded</code>,
+etc.)</td>
+</tr>
+<tr>
+<td><strong>Top Right (Telemetry)</strong></td>
+<td>Per-craft status table (<code>D0</code>,
+<code>d1</code>–<code>d4</code>) and key-value metrics for perception,
+clearance, closest pass, mass estimation, wind, and downed
+interceptors</td>
+</tr>
+<tr>
+<td><strong>Bottom Right (Minimap)</strong></td>
+<td>Top-down tactical map showing the route, pads A/B/C1–C4, live drone
+positions, D0's estimated tracks, and camera FOV wedge</td>
+</tr>
+<tr>
+<td><strong>Bottom Left (Event Log)</strong></td>
+<td>Timestamped feed of attack launches, near-miss evasions, mid-air
+collisions, crashes, safe-zone arrival, and CSV save notifications</td>
+</tr>
+</tbody>
+</table>
+<h3 id="telemetry-table--metrics">Telemetry Table &amp; Metrics</h3>
+<p>The upper table lists <strong>Status, Alt (m), Spd (m/s), and Dist
+(m)</strong> for every craft. For <code>D0</code>, <code>Dist</code> is
+the horizontal distance remaining to <code>B</code>; for
+<code>d1–d4</code>, <code>Dist</code> is the 3D distance to
+<code>D0</code>.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>D0</th>
+<th>d1–d4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On ground</td>
+<td><code>Standby</code></td>
+<td><code>Ground</code></td>
+</tr>
+<tr>
+<td>Airborne</td>
+<td><code>Takeoff</code> → <code>Cruise</code> (<code>Evading</code>
+during evasion) → <code>Over B</code> → <code>Landing</code> →
+<code>Landed</code></td>
+<td><code>Climb</code> → <code>Loiter</code> → <code>Attack</code> →
+<code>RTB</code></td>
+</tr>
+<tr>
+<td>Down</td>
+<td><code>Crashed</code></td>
+<td><code>Crashed</code></td>
+</tr>
+</tbody>
+</table>
+<p>Key-value metrics below the table:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D0 Perception</strong></td>
+<td>Active perception mode, number of tracked interceptors, and number
+currently visible / received</td>
+</tr>
+<tr>
+<td><strong>Planned Clearance</strong></td>
+<td>Minimum separation predicted by D0's velocity planner over the
+look-ahead horizon</td>
+</tr>
+<tr>
+<td><strong>Closest Pass</strong></td>
+<td>Closest approach distance recorded so far and which interceptor
+achieved it</td>
+</tr>
+<tr>
+<td><strong>D0 Mass Est.</strong></td>
+<td>Online mass estimated in flight by D0's controller vs. true total
+mass</td>
+</tr>
+<tr>
+<td><strong>Wind (at D0)</strong></td>
+<td>Instantaneous wind speed at D0's position (<code>Gust</code>
+indicator during gusts)</td>
+</tr>
+<tr>
+<td><strong>Interceptors Down</strong></td>
+<td>Number of interceptors that have crashed (<code>/ 4</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3d-overlays">3D Overlays</h3>
+<p>Toggle overlays in the <strong>Camera</strong> section of the left
+panel:</p>
+<table>
+<thead>
+<tr>
+<th>Overlay</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flight trails</strong></td>
+<td>Blue trail = D0, Red trails = interceptors d1–d4</td>
+</tr>
+<tr>
+<td><strong>D0 perception (tracks &amp; FOV)</strong></td>
+<td><strong>Yellow wireframe spheres</strong> = D0's estimated
+interceptor positions (radius = safe distance; orange = primary threat;
+faint = coasting on prediction). <strong>Yellow sector</strong> =
+forward camera field of view and detection range. <strong>Arrow</strong>
+= D0's commanded velocity (green = cruising along route, orange =
+evading)</td>
+</tr>
+<tr>
+<td><strong>Interceptor aim lines</strong></td>
+<td>Dashed red line from each attacking interceptor to its predicted
+lead-pursuit intercept point</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-scenarios-8-presets">5. Scenarios (8 Presets)</h2>
+<p>Select a preset under <strong>1. Scenarios</strong> to load a
+complete test configuration (preserving your current random seed):</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Perception Mode</th>
+<th>Conditions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Real-Time Share</strong></td>
+<td>Real-Time (ideal)</td>
+<td>Calm wind, standard airframe mass</td>
+</tr>
+<tr>
+<td><strong>Visual Only</strong></td>
+<td>Visual</td>
+<td>Calm wind, standard airframe. Forward camera only (120° FOV, 70 m
+range)</td>
+</tr>
+<tr>
+<td><strong>Strong Wind</strong></td>
+<td>Real-Time (ideal)</td>
+<td>9 m/s NW wind + 5 m/s gusts + 0.25 turbulence</td>
+</tr>
+<tr>
+<td><strong>Heavy Craft</strong></td>
+<td>Real-Time (ideal)</td>
+<td>+1.5 kg unannounced extra mass on D0</td>
+</tr>
+<tr>
+<td><strong>Hard: Visual</strong></td>
+<td>Visual</td>
+<td>8 m/s SSW wind + 4 m/s gusts + 0.25 turbulence + 1.2 kg extra mass
+on D0</td>
+</tr>
+<tr>
+<td><strong>Hard: Real-Time</strong></td>
+<td>Real-Time (realistic)</td>
+<td>Same harsh environment; position sharing degraded to 1 Hz, 0.5 s
+latency, 3 m error, 10% packet loss</td>
+</tr>
+<tr>
+<td><strong>Hard: Sensor Fusion</strong></td>
+<td>Visual + Real-Time</td>
+<td>Same harsh environment &amp; realistic link, fusing shared positions
+with the forward camera</td>
+</tr>
+<tr>
+<td><strong>No Evasion (Baseline)</strong></td>
+<td>No Evasion</td>
+<td>Calm wind, standard craft; D0 ignores interceptors for baseline
+comparison</td>
+</tr>
+</tbody>
+</table>
+<p>The three <strong>Hard</strong> scenarios use identical wind and
+payload settings while varying only the perception architecture, making
+it easy to compare <strong>Visual Only vs. Realistic Broadcast vs.
+Sensor Fusion</strong>.</p>
+<hr />
+<h2 id="6-parameters-in-detail">6. Parameters in Detail</h2>
+<p>Adjusting any parameter under <strong>2. Parameters</strong>
+immediately resets the mission with the new setting.</p>
+<h3 id="d0-escaping-drone">D0 (Escaping Drone)</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Obstacle Perception</strong></td>
+<td>—</td>
+<td>Real-Time</td>
+<td>See Section 7</td>
+</tr>
+<tr>
+<td><strong>Cruise Speed</strong></td>
+<td>5–15 m/s</td>
+<td>10</td>
+<td>Nominal speed along the route</td>
+</tr>
+<tr>
+<td><strong>Max Evade Speed</strong></td>
+<td>6–20 m/s</td>
+<td>14</td>
+<td>Maximum speed D0 may command during evasion</td>
+</tr>
+<tr>
+<td><strong>Extra Mass (Heavy)</strong></td>
+<td>0–3 kg</td>
+<td>0</td>
+<td>Unannounced payload added to D0. The controller estimates total mass
+online from vertical acceleration</td>
+</tr>
+<tr>
+<td><strong>Safe Distance</strong></td>
+<td>1–8 m</td>
+<td>3</td>
+<td>Target clearance radius around each interceptor</td>
+</tr>
+<tr>
+<td><strong>Camera FOV</strong></td>
+<td>40–360°</td>
+<td>120</td>
+<td>Horizontal field of view of the forward camera (vertical FOV is
+fixed at ±35°)</td>
+</tr>
+<tr>
+<td><strong>Visual Range</strong></td>
+<td>20–150 m</td>
+<td>70</td>
+<td>Maximum detection range of the forward camera</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-time-position-share-real-time--fusion">Real-Time Position
+Share (Real-Time / Fusion)</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Broadcast Rate</strong></td>
+<td>0.5–20 Hz</td>
+<td>20</td>
+<td>How often interceptor position reports arrive</td>
+</tr>
+<tr>
+<td><strong>Comms Latency</strong></td>
+<td>0–2 s</td>
+<td>0</td>
+<td>Age of each received position report</td>
+</tr>
+<tr>
+<td><strong>Position Error</strong></td>
+<td>0–10 m</td>
+<td>0</td>
+<td>1σ Gaussian position noise (e.g. GNSS inaccuracy)</td>
+</tr>
+<tr>
+<td><strong>Packet Loss</strong></td>
+<td>0–90 %</td>
+<td>0</td>
+<td>Probability that an individual broadcast packet is dropped</td>
+</tr>
+</tbody>
+</table>
+<h3 id="d1d4-interceptors">d1–d4 (Interceptors)</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attack Speed</strong></td>
+<td>6–20 m/s</td>
+<td>12</td>
+<td>Ramming speed during attack (±0.8 m/s per seed)</td>
+</tr>
+<tr>
+<td><strong>Trigger Distance</strong></td>
+<td>30–250 m</td>
+<td>110</td>
+<td>Distance to D0 at which each interceptor launches its attack (±15 m
+per seed)</td>
+</tr>
+<tr>
+<td><strong>Extra Mass</strong></td>
+<td>0–3 kg</td>
+<td>0</td>
+<td>Extra payload on each interceptor</td>
+</tr>
+<tr>
+<td><strong>Mutual Avoidance</strong></td>
+<td>On / Off</td>
+<td>On</td>
+<td>Interceptors within 6 m of each other repel to avoid mid-air
+friendly fire</td>
+</tr>
+</tbody>
+</table>
+<h3 id="environment">Environment</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Range</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wind Speed</strong></td>
+<td>0–15 m/s</td>
+<td>0</td>
+<td>Mean wind speed at 60 m reference height (logarithmic profile near
+ground)</td>
+</tr>
+<tr>
+<td><strong>Wind Direction (From)</strong></td>
+<td>0–359°</td>
+<td>N</td>
+<td>Compass direction the wind blows <strong>from</strong></td>
+</tr>
+<tr>
+<td><strong>Wind Gust</strong></td>
+<td>0–10 m/s</td>
+<td>0</td>
+<td>Peak extra wind speed during intermittent multi-second gusts</td>
+</tr>
+<tr>
+<td><strong>Turbulence</strong></td>
+<td>0–0.6</td>
+<td>0</td>
+<td>Colored (Ornstein-Uhlenbeck) turbulence intensity relative to mean
+wind</td>
+</tr>
+<tr>
+<td><strong>Random Seed</strong></td>
+<td>1–50</td>
+<td>1</td>
+<td>Controls wind turbulence/gust timing, sensor noise, and interceptor
+variations. Identical seed + parameters always produce identical
+results</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-perception-modes-4-modes">7. Perception Modes (4 Modes)</h2>
+<h3 id="1-real-time-position-share-realtime">1. Real-Time Position Share
+(<code>realtime</code>)</h3>
+<p>D0 receives omnidirectional position and velocity reports for all
+interceptors (e.g., via Remote ID, UTM, or ground radar).</p>
+<ul>
+<li>Under default ideal settings, true states are known every
+frame.</li>
+<li>When latency, low update rate, noise, or packet loss are configured,
+an alpha-beta / Kalman tracker extrapolates interceptor trajectories
+between updates.</li>
+</ul>
+<h3 id="2-visual-visual">2. Visual (<code>visual</code>)</h3>
+<p>D0 detects <strong>only interceptors inside its forward camera
+frustum</strong>.</p>
+<ul>
+<li>Interceptors outside the horizontal FOV (default 120°) or beyond
+<code>Visual Range</code> (default 70 m) are invisible. Detection
+probability decreases with distance.</li>
+<li>Bearing is accurate, but range estimated from apparent size carries
+~6% noise and 0.1 s latency.</li>
+<li>A Kalman filter estimates 3D position and velocity and coasts for up
+to 4 s if a target leaves the FOV. Higher position uncertainty
+automatically inflates the effective safety margin.</li>
+<li>When no threat is tracked, D0 pans its camera left and right to
+scan; once a threat is found, the camera slews toward the
+highest-priority threat.</li>
+</ul>
+<h3 id="3-visual--real-time-fusion-fusion">3. Visual + Real-Time Fusion
+(<code>fusion</code>)</h3>
+<p>Fuses radio broadcasts and forward-camera detections in a single
+Kalman filter:</p>
+<ul>
+<li>Distant or blind-spot interceptors are picked up early via radio
+broadcasts, cueing the camera toward them.</li>
+<li>As an interceptor closes in, low-latency camera measurements sharpen
+the track for precise last-second evasion.</li>
+</ul>
+<h3 id="4-no-evasion-none">4. No Evasion (<code>none</code>)</h3>
+<p>D0 flies the route ignoring all interceptors. Useful as an
+experimental baseline.</p>
+<hr />
+<h2 id="8-controls--keyboard-shortcuts">8. Controls &amp; Keyboard
+Shortcuts</h2>
+<table>
+<thead>
+<tr>
+<th>Button / Key</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>▶ Start</strong> / <kbd>Space</kbd></td>
+<td>Launch all drones in AUTO mode (becomes <strong>▶ Restart</strong>
+once running)</td>
+</tr>
+<tr>
+<td><strong>Ⅱ</strong> / <kbd>Space</kbd></td>
+<td>Pause / Resume simulation</td>
+</tr>
+<tr>
+<td><strong>↺ Reset</strong> / <kbd>R</kbd></td>
+<td>Reset mission to initial ground state</td>
+</tr>
+<tr>
+<td><strong>Playback Speed</strong></td>
+<td><code>×0.25</code> / <code>×0.5</code> / <code>×1</code> /
+<code>×2</code> / <code>×4</code> (use <code>×0.25</code> or
+<code>×0.5</code> to inspect close passes)</td>
+</tr>
+<tr>
+<td><strong>Camera</strong> / <kbd>C</kbd></td>
+<td>Cycle through <strong>Chase</strong> (behind D0),
+<strong>Interceptor</strong> (behind closest attacker),
+<strong>Orbit</strong> (free mouse orbit around D0), and
+<strong>Overview</strong> (full arena)</td>
+</tr>
+<tr>
+<td><strong>EN / 日本語</strong> / <kbd>L</kbd></td>
+<td>Toggle interface language between English and Japanese</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-trial-history--csv-export">9. Trial History &amp; CSV
+Export</h2>
+<p>Every completed trial is automatically appended to the <strong>Trial
+History</strong> list in the left panel (persisted in
+<code>localStorage</code>).</p>
+<ul>
+<li>Click <strong>Save CSV</strong> (in the left panel or in the
+end-of-mission modal) to export all recorded trials as a UTF-8 BOM CSV
+file (<code>escape_drone_trials_YYYYMMDD_HHMMSS.csv</code>, 36
+columns).</li>
+<li>In the <strong>macOS Desktop App</strong>, clicking <strong>Save
+CSV</strong> writes the file directly to your macOS
+<strong><code>Downloads</code> (<code>~/Downloads</code>)</strong>
+folder and logs the full saved path in the bottom-left event log.</li>
+</ul>
+<hr />
+<h2 id="10-headless-cli-batch-runs">10. Headless CLI Batch Runs</h2>
+<p>When working with the source repository, you can run fast headless
+batch experiments in Node.js:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> escape_drone</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts                       <span class="co"># All presets × seeds 1–3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 10                <span class="co"># All presets × seeds 1–10</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts hardfusion 20         <span class="co"># Single preset across 20 seeds</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 10 <span class="at">--csv</span> out.csv  <span class="co"># Write results to CSV</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">V</span><span class="op">=</span>1 <span class="ex">node</span> tools/sim-test.ts visual 2          <span class="co"># Print event logs</span></span></code></pre></div>
+<hr />
+<h2 id="11-how-the-physics-control--evasion-work">11. How the Physics,
+Control &amp; Evasion Work</h2>
+<ul>
+<li><strong>MuJoCo Physics (<code>src/sim.ts</code>)</strong>: All 5
+quadrotors are stepped at <strong>2 ms (500 Hz)</strong> in a single
+MuJoCo model with first-order rotor thrust lag (<code>0.035 s</code>),
+quadratic airframe drag + linear rotor drag against the local wind
+vector, and exact MuJoCo geom contact detection.</li>
+<li><strong>Geometric SE(3) Control + DOB + Mass Estimation</strong>:
+Each drone runs a geometric attitude/position controller (Lee et al.)
+augmented with a horizontal <strong>Disturbance Observer (DOB)</strong>
+that estimates and cancels wind forces, plus an <strong>online mass
+estimator</strong> that learns unannounced payload weight from vertical
+thrust vs. acceleration.</li>
+<li><strong>Predictive Velocity-Space Evasion
+(<code>src/pilot.ts</code>)</strong>: At 20 Hz, when any tracked
+interceptor is within 90 m, D0 samples candidate 3D velocities (24
+azimuths × 4 speeds × 3 vertical rates) and forward-simulates 3.0 s of
+both D0's motion and the interceptors' lead-pursuit response, selecting
+the velocity that minimizes collision risk, route deviation, ground
+proximity, and control jerk.</li>
+</ul>
+<hr />
+<h2 id="12-limitations--troubleshooting">12. Limitations &amp;
+Troubleshooting</h2>
+<ul>
+<li><strong>Simulation disclaimer</strong>: Aerodynamic and sensor
+models are simplified for interactive experimentation and do not
+guarantee real-world flight safety.</li>
+<li><strong>macOS Gatekeeper prompt</strong>: On first launch,
+right-click (Control-click) <code>EscapeDrone.app</code> in Finder and
+select <strong>Open</strong>.</li>
+<li><strong>Performance</strong>: If frame rate drops, lower playback
+speed to <code>×1</code> or uncheck <strong>Flight trails</strong>.</li>
+</ul>
+
+  </article></main>
+</body>
+</html>
