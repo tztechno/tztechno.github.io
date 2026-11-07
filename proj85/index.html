@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Drone | 100 機のドローンショーを MuJoCo で 1 機ずつ物理シミュレート — 自律群制御＆衝突回避シミュレーター</title>
+  <meta name="description" content="地上 10×10 の待機から離陸、隊形 A・B への空間変形、帰還・着陸まで、100 機の小型クアッドローターを MuJoCo で剛体物理シミュレートするデスクトップアプリ。ハンガリアン法による交差しない最適割当（CAPT）、位置共有と相互速度障害物（RVO）による自律衝突回避、故障落下機の弾道予測回避、強風・通信劣化・追加質量実験、CSV 出力、日本語 / English。">
+
+  <meta property="og:title" content="Show Drone — 100 機ドローンショー物理シミュレーター (MuJoCo)">
+  <meta property="og:description" content="夜空に浮かぶ 100 機の光を、1 機ずつの物理と自律衝突回避で。球・ハート・二重螺旋・土星・富士山など 12 種の隊形、強風や故障落下の実験、CSV 保存。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/show_drone">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/show_drone">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b1330%22/%3E%3Cg fill=%22%23ffd23a%22%3E%3Ccircle cx=%228%22 cy=%2210%22 r=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%226%22 r=%222.2%22/%3E%3Ccircle cx=%2224%22 cy=%2210%22 r=%222.2%22/%3E%3Ccircle cx=%2210%22 cy=%2219%22 r=%222.2%22/%3E%3Ccircle cx=%2222%22 cy=%2219%22 r=%222.2%22/%3E%3Ccircle cx=%2216%22 cy=%2226%22 r=%222.2%22/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/show_drone" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHOW DRONE</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#presets" data-i18n="navPresets">8 つの実験プリセット</a></li>
+        <li><a href="#tech" data-i18n="navTech">衝突回避のしくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/show_drone" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">MUJOCO WASM × 100-DRONE SWARM × RVO AVOIDANCE</p>
+      <h1 data-i18n-html="heroTitle">夜空に浮かぶ 100 機の光を、<br><span class="accent">1 機ずつの物理と自律回避で。</span></h1>
+      <p class="lead" data-i18n="heroLead">地上に 10 行 × 10 列で並んだ 100 機の小型クアッドローターが一斉に離陸し、上空で隊形 A を描き、隊形 B へと変形して再び地上へ帰還・着陸するまでの全工程を、MuJoCo の剛体物理（4 ms ステップ）で 1 機ずつシミュレートします。ハンガリアン法による交差しない軌道割当、機体間の位置共有と相互速度障害物（RVO）による衝突回避、落下機の弾道予測による巻き込み回避まで、群制御の裏側を自由視点と CSV ログで実験できます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/show_drone" class="btn btn-primary btn-lg" data-i18n="heroGet">macOS デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon .dmg) · オフライン動作 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statN">100 機</strong><span data-i18n="statNSub">MuJoCo 自由剛体（250 Hz）</span></div>
+      <div class="stat"><strong data-i18n="statFormN">12 種類</strong><span data-i18n="statForm">立体・平面の隊形（A → B）</span></div>
+      <div class="stat"><strong data-i18n="statPresetN">8 シナリオ</strong><span data-i18n="statPreset">強風・通信劣化・無作為・故障</span></div>
+      <div class="stat"><strong data-i18n="statCamN">5 視点</strong><span data-i18n="statCam">観客席・俯瞰・真上・真横・機体追従</span></div>
+      <div class="stat"><strong data-i18n="statCsvN">CSV 出力</strong><span data-i18n="statCsv">試行サマリー＆全 100 機の軌跡</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">ドローンショーの「美しさ」と「ぶつからない理由」を同時に解き明かす</h2>
+      <p class="section-lead" data-i18n="featLead">単なるアニメーション再生ではありません。400 基のロータが推力を生み、風に流され、通信で互いの位置を教え合いながら衝突を避ける、100 機の自律飛行シミュレーターです。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">12 種類の隊形を自由に組み合わせ、A から B へ空間モーフィング</h3>
+          <p data-i18n="f1Body">球・ハート・星・二重螺旋・土星・文字「N85」・ウェーブ・立方体・スマイル・富士山と太陽・三重リング・水平グリッドの 12 種類から隊形 A と B を自由に選べます。ハンガリアン法で移動距離の二乗和が最小になるよう目標スロットを割り当て、共通の最小ジャーク軌道で滑らかに変形するため、最適割当では 100 機の経路が一度も交差しません。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">12 種類の隊形（🎲 ランダム選択可）</li>
+            <li data-i18n="f1c2">維持中の鉛直軸回転</li>
+            <li data-i18n="f1c3">ハンガリアン最適割当（CAPT）</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/heart.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">1 機ずつが MuJoCo の剛体。強風・突風・未知の重量にも適応</h3>
+          <p data-i18n="f2Body">100 機すべてが独立した 6 自由度剛体として 4 ms 刻みで物理計算されます。ロータ推力の一次遅れ、機体抗力、高さ方向の対数風速分布と乱流・突風を再現。各機の制御器（幾何学的 SE(3) 制御）は、飛行中の加速度から水平方向の風外乱（外乱オブザーバ）と未知の追加質量（オンライン質量推定）をリアルタイムに推定して目標位置を保ちます。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">MuJoCo 250 Hz 物理演算</li>
+            <li data-i18n="f2c2">外乱オブザーバ（DOB）</li>
+            <li data-i18n="f2c3">オンライン質量推定</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/avoid.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">経路が交差しても、位置共有と RVO で自律的に避け合う</h3>
+          <p data-i18n="f3Body">目標スロットを「無作為割当」にすると、100 機の移動経路が空間中で激しく交差します。各機は周期的に自分の位置・速度をブロードキャストし（通信遅延・誤差・パケット欠落も設定可能）、2.5 秒以内に安全距離を割り込みそうな相手を検知すると、相互速度障害物（RVO）にもとづいて約 80 通りの候補速度から最適な回避速度を選択。回避中の機体はオレンジ色のハローで強調表示されます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">サンプリング型 RVO 回避</li>
+            <li data-i18n="f3c2">通信周期・遅れ・誤差・欠落率</li>
+            <li data-i18n="f3c3">正面対向時の右よけバイアス</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/fail.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">故障して落ちてくる機体の弾道を予測し、真下の機体がよける</h3>
+          <p data-i18n="f4Body">飛行中に動力を失った故障機や空中接触した機体は、プロペラが壊れて回転しながら自由落下し、他の機体に当たれば連鎖墜落（巻き込み）を引き起こします。「落下機を予測回避」をオンにすると、墜落機が最後に発信する Mayday 信号から周囲の機体が重力落下の放物線軌道を 3 秒先まで予測し、通常の 1.5 倍のマージンをとって落下経路の下から自律退避します。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">Mayday 発信＋放物線落下予測</li>
+            <li data-i18n="f4c2">巻き込み墜落の比較実験</li>
+            <li data-i18n="f4c3">閃光・火花・炎の尾・残骸表示</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/result.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">5 つのカメラ視点、試行履歴、結果＆全機軌跡の CSV 出力</h3>
+          <p data-i18n="f5Body">観客席・俯瞰・真上・真横・機体追従（3D 画面のドローンを直接クリックして追従可）の 5 視点と、夜空／昼間、光跡、目標位置、回避強調の表示切替を搭載。ショー終了時には最接近距離や隊形誤差 RMS、回避回数を集計し、1 試行 1 行の「結果 CSV」と 0.2 秒ごとの全 100 機ログ「軌跡 CSV（約 4 万行）」を「ダウンロード」フォルダへワンクリックで保存できます。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">クリックで任意の機体を追従</li>
+            <li data-i18n="f5c2">結果 CSV（47 列）</li>
+            <li data-i18n="f5c3">全 100 機の軌跡 CSV</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/english.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">06</span>
+          <h3 data-i18n="f6Title">日本語と English を、ボタンひとつで</h3>
+          <p data-i18n="f6Body">左パネル右上の言語ボタン（または L キー）で、プリセット・パラメータ・テレメトリー・イベントログ・3D 空間ラベル・結果集計・CSV ヘッダーまで、すべてが日本語と英語で即座に切り替わります。日本語・英語の詳細マニュアルも付属しています。</p>
+          <ul class="chips">
+            <li data-i18n="f6c1">日本語 / English 即時切替</li>
+            <li data-i18n="f6c2">日英マニュアル付属</li>
+            <li data-i18n="f6c3">オフライン単体動作</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Presets ===== -->
+  <section class="section alt" id="presets">
+    <div class="container">
+      <p class="kicker">8 SCENARIO PRESETS</p>
+      <h2 data-i18n="prTitle">ワンクリックで試せる、8 つの実験シナリオ</h2>
+      <p class="section-lead" data-i18n="prLead">穏やかな標準ショーから、強風・通信遅延・交差軌道・動力喪失まで。プリセットを選んで ▶ 開始を押すだけで、自律群制御の限界と効果を目の前で比較できます。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="p1a">標準 / 強風</h3><p data-i18n="p1b">無風・最適割当の基本ショー（球→ハート）と、西風 8 m/s＋突風 4 m/s・乱流の中で外乱オブザーバと距離維持が働く強風シナリオ。</p></div>
+        <div class="tech"><h3 data-i18n="p2a">通信劣化 / 重い機体＋風</h3><p data-i18n="p2b">位置共有が 2 Hz・遅れ 0.5 s・誤差 1 m・欠落 20 % に劣化した条件と、未知の +0.25 kg ペイロードをオンライン質量推定で補償する条件。</p></div>
+        <div class="tech"><h3 data-i18n="p3a">無作為割当 / 回避なし比較</h3><p data-i18n="p3b">経路が激しく交差する無作為割当で RVO 回避が全機を守る様子と、回避を切ったときに空中衝突が多発する比較シナリオ。</p></div>
+        <div class="tech"><h3 data-i18n="p4a">高速・密集 / 機体故障</h3><p data-i18n="p4b">12 m/s・間隔 1.8 m・回転つきの高機動ショー（立方体→土星）と、飛行中に 5 機が動力喪失して落下する中での弾道予測回避シナリオ。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/top.jpg" alt="" loading="lazy"><figcaption data-i18n="prCap">「無作為割当」プリセットを真上視点から。交差する経路のなかでオレンジ色の回避中機体が互いに距離を保ちながら二重螺旋へ変形</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Avoidance Architecture ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">4-LAYER SAFETY ARCHITECTURE</p>
+      <h2 data-i18n="techTitle">ドローン同士がぶつからないための 4 段階の仕組み</h2>
+      <p class="section-lead" data-i18n="techLead">商用ドローンショーの事前軌道計画から、レベル 3.5 目視外飛行や自律スウォーム（群飛行）で求められる戦術的衝突回避（DAA）まで、4 つの層をすべて実装しています。</p>
+      <div class="split">
+        <figure class="shot map"><img src="assets/avoid.jpg" alt="" loading="lazy"><figcaption data-i18n="techCap">オレンジ色のハローは RVO 衝突回避が作動している機体、淡い点は本来の計画目標位置</figcaption></figure>
+        <ul class="spec">
+          <li><b><i class="sw" style="background:#38bdf8"></i><span data-i18n="t1a">1. 最適スロット割当（CAPT / ハンガリアン法）</span></b><span data-i18n="t1b">移動距離の二乗和を最小化し、全機が共通の最小ジャーク時間則で直線移動することで、計画段階での経路交差をゼロにします。</span></li>
+          <li><b><i class="sw" style="background:#a78bfa"></i><span data-i18n="t2a">2. 機体間の位置共有と等速外挿</span></b><span data-i18n="t2b">各機が周期的に位置・速度を放送。通信遅延・測位誤差・パケット欠落がある中で、経過時間から他機の現在位置を外挿推定します。</span></li>
+          <li><b><i class="sw" style="background:#fbbf24"></i><span data-i18n="t3a">3. サンプリング型 RVO（相互速度障害物）</span></b><span data-i18n="t3b">2.5 秒以内に安全距離を割り込む恐れがあるとき、周囲 26 方向×3 速さの候補速度を評価し、相手と半分ずつ避ける最適速度を選びます。</span></li>
+          <li><b><i class="sw" style="background:#f43f5e"></i><span data-i18n="t4a">4. 落下機の弾道予測による巻き込み回避</span></b><span data-i18n="t4b">故障・接触機の最後の Mayday 通信から重力落下の放物線を 3 秒先まで予測し、通常の 1.5 倍の安全半径で落下経路の柱から退避します。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Start (macOS .dmg only) ===== -->
+  <section class="section alt" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">macOS デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐに使える Tauri 製のネイティブアプリです。MuJoCo WASM エンジンを内蔵し、インターネット接続なしで単体動作します。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 / M2 / M3 / M4)</strong></li>
+            <li><span data-i18n="priceLabel">価格</span><strong data-i18n="priceVal">¥150（買い切り）</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/show_drone" class="btn btn-primary" data-i18n="getMac">macOS 版を入手（¥150）</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 完全オフラインで動作します。結果 CSV と軌跡 CSV はお使いの Mac の「ダウンロード（Downloads）」フォルダに直接保存されます。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">100 機のドローンショーと群制御を、<span class="accent">あなたの手元で実験する。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/show_drone" class="btn btn-primary btn-lg" data-i18n="ctaGet">macOS デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHOW DRONE</span></div>
+        <p class="credits" data-i18n="credits">物理演算: MuJoCo (WebAssembly, 4 ms ステップ・100 自由剛体) ／ 軌道割当: ハンガリアン法 (CAPT) ／ 衝突回避: 位置共有＋相互速度障害物 (RVO)＋落下弾道予測 ／ 描画: Three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/show_drone" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">User manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261107"></script>
+</body>
+</html>
+

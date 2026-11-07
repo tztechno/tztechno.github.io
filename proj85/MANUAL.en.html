@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Drone User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1428%22/%3E%3Ccircle cx=%229%22 cy=%229%22 r=%223.2%22 fill=%22%234dd2ff%22/%3E%3Ccircle cx=%2223%22 cy=%229%22 r=%223.2%22 fill=%22%23ffb547%22/%3E%3Ccircle cx=%229%22 cy=%2223%22 r=%223.2%22 fill=%22%23ffb547%22/%3E%3Ccircle cx=%2223%22 cy=%2223%22 r=%223.2%22 fill=%22%234dd2ff%22/%3E%3Cpath d=%22M11.5 11.5L20.5 20.5M20.5 11.5L11.5 20.5%22 stroke=%22%23e8f1ff%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%223%22 fill=%22%23ff5d7a%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHOW DRONE</span></a>
+    <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="show-drone-user-manual-english">Show Drone — User Manual
+(English)</h1>
+<p><a href="MANUAL.ja.md">日本語マニュアル</a></p>
+<p><strong>Show Drone</strong> is a desktop and browser simulator that
+runs a 100-quadrotor drone light show in full rigid-body physics using
+<strong>MuJoCo (WebAssembly)</strong>.</p>
+<p>All 100 drones start in a 10 × 10 grid on the ground, take off
+together, form <strong>Formation A</strong> in the sky, morph into
+<strong>Formation B</strong>, and return to the ground to land — all
+under autonomous onboard control (AUTO). You can inject strong winds,
+turbulence, degraded communications, random slot assignments, and
+mid-air power failures to observe how <strong>shared-position
+broadcasting, Reciprocal Velocity Obstacles (RVO) collision avoidance,
+and ballistic wreck dodging</strong> keep the swarm safe, inspect the
+show from any 3D viewpoint, and export full CSV logs.</p>
+<p>Switch the entire interface between <strong>Japanese and
+English</strong> at any time with the button at the top right of the
+left panel (or press <kbd>L</kbd>).</p>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-getting-started">Getting Started</a></li>
+<li><a href="#2-switching-language-日本語--english">Switching Language
+(日本語 / English)</a></li>
+<li><a href="#3-show-schedule--12-formations">Show Schedule &amp; 12
+Formations</a></li>
+<li><a href="#4-screen-layout">Screen Layout</a></li>
+<li><a href="#5-presets-8-scenarios">Presets (8 Scenarios)</a></li>
+<li><a href="#6-parameters-in-detail">Parameters in Detail</a></li>
+<li><a href="#7-cameras--display-options">Cameras &amp; Display
+Options</a></li>
+<li><a href="#8-run-history--csv-export">Run History &amp; CSV
+Export</a></li>
+<li><a href="#9-how-the-physics-assignment--avoidance-work">How the
+Physics, Assignment &amp; Avoidance Work</a></li>
+<li><a href="#10-headless-cli-batch-runs">Headless CLI Batch
+Runs</a></li>
+<li><a href="#11-keyboard-shortcuts">Keyboard Shortcuts</a></li>
+<li><a href="#12-troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="getting-started">1. Getting Started</h2>
+<p>Show Drone runs completely offline — no internet connection or
+account is required.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Edition</th>
+<th style="text-align: left;">How to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>macOS Desktop (.dmg)</strong></td>
+<td style="text-align: left;">Open
+<code>ShowDrone_1.0.0_aarch64.dmg</code>, drag <code>ShowDrone</code>
+into your <strong>Applications</strong> folder, and launch it. On first
+launch, if macOS shows an unverified-developer prompt,
+<strong>right-click (Control-click) the app icon in Finder and choose
+“Open”</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Browser / Dev</strong></td>
+<td style="text-align: left;">In the <code>show_drone</code> directory,
+run <code>npm install</code> (first time) followed by
+<code>npm run dev</code>, then open
+<code>http://localhost:5173</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="switching-language-日本語-english">2. Switching Language (日本語
+/ English)</h2>
+<ul>
+<li>Click the <strong>“EN” / “日本語” button</strong> at the top right
+of the left panel to switch the entire interface immediately.</li>
+<li>Or press <kbd>L</kbd> on the keyboard.</li>
+<li>Your language preference is saved in local storage and restored on
+future launches.</li>
+<li>In a browser, you can also pass <code>?lang=en</code> or
+<code>?lang=ja</code> in the URL.</li>
+</ul>
+<p>Everything updates on the fly: panel headings, preset names and
+descriptions, formation names, parameter labels and tooltips, camera
+buttons, HUD, live telemetry, event log entries, 3D scene labels
+(“Audience” stand and mid-air collision tags), the end-of-show summary
+dialog, and exported CSV column headers.</p>
+<hr />
+<h2 id="show-schedule-12-formations">3. Show Schedule &amp; 12
+Formations</h2>
+<h3 id="the-7-phases-of-a-show">The 7 Phases of a Show</h3>
+<ol type="1">
+<li><strong>Standby (<code>pad</code>)</strong>: 100 drones sit parked
+on a 10 × 10 grid of ground pads.</li>
+<li><strong>Takeoff (<code>takeoff</code>)</strong>: All drones climb
+straight up to the staging altitude (<code>6 m</code>).</li>
+<li><strong>To Form A (<code>toA</code>)</strong>: Drones fly along
+minimum-jerk trajectories to their assigned slots in Formation A.</li>
+<li><strong>Form A (<code>holdA</code>)</strong>: Drones hold Formation
+A for the configured hold duration (optionally rotating around the
+vertical axis).</li>
+<li><strong>To Form B (<code>toB</code>)</strong>: Drones morph directly
+from Formation A into Formation B.</li>
+<li><strong>Form B (<code>holdB</code>)</strong>: Drones hold Formation
+B for the configured hold duration.</li>
+<li><strong>Return &amp; Land (<code>return</code> /
+<code>land</code>)</strong>: Surviving drones return to <code>6 m</code>
+above free ground pads (avoiding pads where a crashed wreck lies),
+descend gently, and disarm upon touchdown.</li>
+</ol>
+<h3 id="built-in-formations">12 Built-In Formations</h3>
+<p>Pick any combination of Formation A and Formation B (or click
+<strong>🎲 Random</strong>):</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Formation</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Horizontal Grid</strong>
+(<code>grid</code>)</td>
+<td style="text-align: left;">10 × 10 rainbow-gradient horizontal grid
+in the sky</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sphere</strong>
+(<code>sphere</code>)</td>
+<td style="text-align: left;">3D Fibonacci sphere with even spacing
+across the surface</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Heart</strong>
+(<code>heart</code>)</td>
+<td style="text-align: left;">Double-outlined vertical heart facing the
+audience (red &amp; pink)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Star</strong>
+(<code>star</code>)</td>
+<td style="text-align: left;">Double five-pointed vertical star facing
+the audience (gold &amp; amber)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Double Helix</strong>
+(<code>helix</code>)</td>
+<td style="text-align: left;">Intertwined cyan and magenta 3D DNA double
+helix</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Saturn</strong>
+(<code>saturn</code>)</td>
+<td style="text-align: left;">3D planet with tilted double rings</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Text “N85”</strong>
+(<code>text</code>)</td>
+<td style="text-align: left;">Vertical neon “N85” lettering facing the
+audience</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Wave</strong>
+(<code>wave</code>)</td>
+<td style="text-align: left;">3D sinusoidal wave surface</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cube</strong>
+(<code>cube</code>)</td>
+<td style="text-align: left;">Hollow 3D RGB cube</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Smile</strong>
+(<code>smile</code>)</td>
+<td style="text-align: left;">Vertical smiley face facing the
+audience</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mt. Fuji &amp; Sun</strong>
+(<code>fuji</code>)</td>
+<td style="text-align: left;">Snow-capped blue Mt. Fuji with a red
+sun</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Triple Rings</strong>
+(<code>rings</code>)</td>
+<td style="text-align: left;">Three vertical rings (red, green, blue)
+intersecting at 60° angles</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="screen-layout">4. Screen Layout</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Area</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Left Panel</strong></td>
+<td style="text-align: left;">1. Presets, 2. Formation previews (front
+X-Z projection and dimensions of A &amp; B), 3. Parameters, Start /
+Pause / Reset buttons, Playback speed
+(<code>×0.5</code>–<code>×8</code>), Camera modes, Display toggles, Run
+History &amp; CSV export</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Top Center (HUD)</strong></td>
+<td style="text-align: left;">Elapsed time <code>T+...s</code>, active
+preset name, current phase and progress bar</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Top Right
+(Telemetry)</strong></td>
+<td style="text-align: left;">Live counters for <strong>Flying / Landed
+/ Crashed</strong> drones, Formations A → B, RMS slot-tracking error,
+currently avoiding drones (and cumulative drone-seconds), closest
+approach distance &amp; pair, mid-air collisions (and chain crashes
+caused by falling wrecks), power failures, wind speed at formation
+altitude, online mass estimate vs. true mass, followed drone
+(<code>#0</code>–<code>#99</code>) status, and the phase progress
+strip</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bottom Left (Event
+Log)</strong></td>
+<td style="text-align: left;">Timestamped feed of phase transitions,
+mid-air collisions, power losses, wreck chain crashes, and CSV save
+confirmations</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Center Modal
+(Summary)</strong></td>
+<td style="text-align: left;">Appears ~1.5 s after the show ends with a
+full breakdown and one-click buttons to export <strong>Runs CSV</strong>
+and <strong>Track CSV</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="presets-8-scenarios">5. Presets (8 Scenarios)</h2>
+<p>Click any preset under <strong>1. Presets</strong> to load a curated
+test scenario (keeping your current random seed):</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Preset</th>
+<th style="text-align: left;">What it demonstrates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Standard</strong></td>
+<td style="text-align: left;">Calm wind, optimal assignment, collision
+avoidance on (Sphere → Heart). Non-crossing paths; all 100 drones
+complete the show cleanly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Strong Wind</strong></td>
+<td style="text-align: left;">8 m/s mean west wind + 4 m/s gusts + 0.3
+turbulence. The disturbance observer tilts the drones into the wind
+while RVO keeps safe spacing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Degraded Comms</strong></td>
+<td style="text-align: left;">Position broadcasts drop to 2 Hz with 0.5
+s latency, 1 m position noise, and 20% packet loss in 4 m/s wind. Tests
+avoidance under uncertain neighbour beliefs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Random Assign</strong></td>
+<td style="text-align: left;">Assigns formation slots at random
+(Horizontal Grid → Double Helix). Paths cross everywhere in 3D space,
+triggering heavy RVO collision avoidance (highlighted in orange).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Random + No Avoid</strong></td>
+<td style="text-align: left;">Same random crossing paths with collision
+avoidance turned off — baseline comparison showing mid-air collisions
+and tumbling wrecks.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fast &amp; Tight</strong></td>
+<td style="text-align: left;">Top speed 12 m/s, max accel 5 m/s², tight
+1.8 m spacing, and rotation enabled (Cube → Saturn).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Power Failures</strong></td>
+<td style="text-align: left;">5 drones lose power mid-flight and fall
+freely. With <strong>Dodge Falling Wrecks</strong> on, drones below
+predict the ballistic fall column and move out of the way. Turn it off
+to compare chain crashes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Heavy + Wind</strong></td>
+<td style="text-align: left;">+0.25 kg unknown payload per drone (~55%
+heavier than the 0.45 kg airframe) in 6 m/s wind. Each controller
+estimates the extra mass online after takeoff.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="parameters-in-detail">6. Parameters in Detail</h2>
+<p>Changing any parameter resets the show immediately with the new
+setting.</p>
+<h3 id="program">Program</h3>
+<ul>
+<li><strong>Formation A / Formation B</strong>: Select from the 12
+shapes.</li>
+<li><strong>Hold Time</strong> (<code>2</code>–<code>30</code> s,
+default <code>8</code> s): How long each formation is held.</li>
+<li><strong>Rotate in Hold</strong> (default Off): Rotates the formation
+about the vertical axis while holding (half a turn for 3D solids, a full
+turn for flat 2D shapes so they end facing the audience). Hold duration
+is automatically extended if needed so rim speed stays
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>4</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> m/s</mtext></mrow></mrow><annotation encoding="application/x-tex">\le 4\text{ m/s}</annotation></semantics></math>
+and centripetal acceleration stays
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≤</mo><mn>60</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">\le 60\%</annotation></semantics></math>
+of max acceleration.</li>
+<li><strong>Center Altitude</strong> (<code>20</code>–<code>100</code>
+m, default <code>40</code> m): Target altitude of the formation center
+(automatically raised if needed to keep the bottom at least
+<code>12 m</code> above the ground).</li>
+<li><strong>Form Spacing</strong> (<code>1.5</code>–<code>6.0</code> m,
+default <code>2.5</code> m): Typical nearest-neighbour spacing inside
+formations.</li>
+<li><strong>Pad Spacing</strong> (<code>1.2</code>–<code>5.0</code> m,
+default <code>2.5</code> m): Pitch of the 10 × 10 launch/landing grid on
+the ground.</li>
+</ul>
+<h3 id="motion">Motion</h3>
+<ul>
+<li><strong>Max Speed</strong> (<code>2</code>–<code>14</code> m/s,
+default <code>6</code> m/s) &amp; <strong>Max Accel</strong>
+(<code>1</code>–<code>8</code> m/s², default <code>2.5</code> m/s²):
+Limits used to size the minimum-jerk transition duration.</li>
+<li><strong>Slot Assignment</strong>:
+<ul>
+<li><strong>Optimal (non-crossing)</strong>: Hungarian algorithm
+minimising total squared distance (CAPT).</li>
+<li><strong>Random (crossing paths)</strong>: Shuffled assignment that
+forces trajectories to cross.</li>
+</ul></li>
+</ul>
+<h3 id="collision-avoidance-shared-positions">Collision Avoidance
+(Shared Positions)</h3>
+<ul>
+<li><strong>Collision Avoidance</strong> (default On): Enables sampled
+Reciprocal Velocity Obstacles (RVO).</li>
+<li><strong>Dodge Falling Wrecks</strong> (default On): When a drone
+crashes or loses power, it sends a final Mayday packet; other drones
+predict its parabolic free-fall trajectory and clear a vertical column
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.5</mn><mo>×</mo><mtext mathvariant="normal">Safe Distance</mtext></mrow><annotation encoding="application/x-tex">1.5 \times \text{Safe Distance}</annotation></semantics></math>
+around it.</li>
+<li><strong>Safe Distance</strong> (<code>0.5</code>–<code>3.0</code> m,
+default <code>1.2</code> m): Desired center-to-center clearance
+maintained by avoidance (physical rotor-hull radius is
+<code>0.19 m</code>, so contact occurs at <code>0.38 m</code>
+center-to-center).</li>
+<li><strong>Sense Range</strong> (<code>3</code>–<code>30</code> m,
+default <code>12</code> m): Neighbours beyond this distance are ignored
+by local avoidance.</li>
+<li><strong>Broadcast Rate</strong> (<code>1</code>–<code>50</code> Hz,
+default <code>10</code> Hz), <strong>Comms Latency</strong>
+(<code>0</code>–<code>1.0</code> s, default <code>0.1</code> s),
+<strong>Position Error</strong> (<code>0</code>–<code>3.0</code> m,
+default <code>0.1</code> m), <strong>Packet Loss</strong>
+(<code>0</code>–<code>80</code> %, default <code>0</code> %): Network
+quality parameters for shared position broadcasts.</li>
+<li><strong>Power Failures</strong> (<code>0</code>–<code>20</code>,
+default <code>0</code>): Number of drones that suffer sudden motor
+cutoff mid-show.</li>
+</ul>
+<h3 id="craft-environment">Craft &amp; Environment</h3>
+<ul>
+<li><strong>Extra Payload</strong> (<code>0</code>–<code>0.5</code> kg,
+default <code>0</code> kg): Unannounced mass added to every 0.45 kg
+quadrotor; estimated online from thrust vs. vertical acceleration.</li>
+<li><strong>Max Rotor Thrust</strong> (<code>2.0</code>–<code>5.0</code>
+N, default <code>3.0</code> N): Peak thrust per rotor (4 rotors per
+craft).</li>
+<li><strong>Wind Speed</strong> (<code>0</code>–<code>14</code> m/s),
+<strong>Wind Direction</strong> (8 compass points, direction wind blows
+<em>from</em>), <strong>Wind Gust</strong>
+(<code>0</code>–<code>8</code> m/s), <strong>Turbulence</strong>
+(<code>0</code>–<code>0.6</code>): Log-profile mean wind + shared and
+per-drone Ornstein-Uhlenbeck turbulence eddies + intermittent
+gusts.</li>
+<li><strong>Random Seed</strong> (<code>1</code>–<code>50</code>,
+default <code>1</code>): Deterministic seed for wind turbulence, network
+noise, random assignment, and failure timing.</li>
+</ul>
+<hr />
+<h2 id="cameras-display-options">7. Cameras &amp; Display Options</h2>
+<h3 id="camera-modes-free-orbit">5 Camera Modes + Free Orbit</h3>
+<ul>
+<li><strong>Audience</strong>: View from the spectator stand on the
+south side (<code>y = -130 m</code>).</li>
+<li><strong>Aerial</strong>: Oblique overview of the entire field and
+sky.</li>
+<li><strong>Top</strong>: Straight-down orthographic-like perspective
+ideal for inspecting path crossings.</li>
+<li><strong>Side</strong>: Profile view from the east showing altitude
+layering and falling wrecks.</li>
+<li><strong>Follow</strong>: Tracks drone
+<code>#0</code>–<code>#99</code>. <strong>Click any drone directly in
+the 3D view</strong> to lock the camera onto it.</li>
+</ul>
+<p>In any camera mode, use <strong>Left-drag</strong> to orbit,
+<strong>Right-drag</strong> to pan, <strong>Wheel</strong> to zoom, or
+check <strong>Auto-orbit</strong>.</p>
+<h3 id="display-checkboxes">Display Checkboxes</h3>
+<ul>
+<li><strong>Night sky</strong>: Uncheck for a bright daytime sky and
+green grass field.</li>
+<li><strong>Light trails</strong>: Renders a 3.6-second glowing ribbon
+behind each drone (and fiery orange trails behind falling wrecks).</li>
+<li><strong>Target slots</strong>: Shows the planned reference position
+of each drone as a small dot so you can see wind or avoidance
+offsets.</li>
+<li><strong>Highlight avoidance</strong>: Surrounds drones actively
+executing an RVO dodge with an orange halo.</li>
+</ul>
+<hr />
+<h2 id="run-history-csv-export">8. Run History &amp; CSV Export</h2>
+<p>Every completed show is automatically appended to <strong>Run
+History</strong> at the bottom of the left panel and persisted in local
+storage.</p>
+<ul>
+<li><strong>Runs CSV</strong>: Exports all recorded runs (1 row per run,
+47 columns covering all parameters, outcome, duration, landed/crashed
+counts, mid-air collisions, chain crashes, closest approach distance
+&amp; pair, formation A/B RMS &amp; max errors, avoidance count &amp;
+drone-seconds, and crashed drone IDs).</li>
+<li><strong>Track CSV</strong>: Exports the full 0.2-second trajectory
+log of all 100 drones from the most recent run (~40,000 rows: time,
+phase, drone ID, state, position, velocity, reference position, tracking
+error, and avoidance flag).</li>
+</ul>
+<blockquote>
+<p><strong>Where files are saved</strong>: In the macOS desktop app
+(<code>.dmg</code>), CSV files are written directly to your
+<strong>Downloads</strong> folder and the full file path is shown in the
+bottom-left event log. In a browser, standard file downloads are
+triggered. All CSV files include a UTF-8 BOM so they open cleanly in
+Microsoft Excel.</p>
+</blockquote>
+<hr />
+<h2 id="how-the-physics-assignment-avoidance-work">9. How the Physics,
+Assignment &amp; Avoidance Work</h2>
+<ol type="1">
+<li><strong>MuJoCo Rigid-Body Physics &amp; Controller
+(<code>src/sim.ts</code>)</strong>:
+<ul>
+<li>Each of the 100 quadrotors is a 6-DOF rigid body stepped at
+<code>4 ms</code> (250 Hz) with first-order motor lag
+(<code>0.03 s</code>), quadratic airframe drag, linear rotor drag, and
+wind forces.</li>
+<li>Each drone runs a geometric SE(3) position &amp; attitude controller
+(Lee et al.) augmented with an online <strong>mass estimator</strong>
+and a horizontal <strong>disturbance observer (DOB)</strong>.</li>
+<li>Any contact between two drones’ rotor-envelope cylinders
+(<code>0.19 m</code> radius) breaks their props and sends both tumbling
+to the ground.</li>
+</ul></li>
+<li><strong>Optimal Non-Crossing Slot Assignment
+(<code>src/assign.ts</code>)</strong>:
+<ul>
+<li>Formation transitions solve the linear assignment problem via the
+<strong>Hungarian algorithm</strong> (<code>O(n^3)</code>) with squared
+Euclidean distance as cost. Combined with a shared minimum-jerk time law
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo stretchy="false" form="prefix">(</mo><mi>τ</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>10</mn><msup><mi>τ</mi><mn>3</mn></msup><mo>−</mo><mn>15</mn><msup><mi>τ</mi><mn>4</mn></msup><mo>+</mo><mn>6</mn><msup><mi>τ</mi><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">s(\tau) = 10\tau^3 - 15\tau^4 + 6\tau^5</annotation></semantics></math>,
+trajectories are guaranteed not to cross (CAPT, Turpin et al.,
+2014).</li>
+</ul></li>
+<li><strong>Broadcast Network &amp; Sampled RVO Avoidance
+(<code>src/show.ts</code>)</strong>:
+<ul>
+<li>Drones broadcast position and velocity at <code>netRate</code>.
+Receivers extrapolate neighbour positions across <code>netLatency</code>
+and packet drops.</li>
+<li>At 50 Hz, if a drone’s preferred velocity (planned velocity +
+exponential return toward the reference path) predicts a clearance
+violation within <code>2.5 s</code>, it evaluates ~80 candidate
+velocities across 26 3D directions and 3 speed magnitudes, minimising
+deviation from plan + chattering penalty + right-hand rule bias +
+time-to-conflict risk under the Reciprocal Velocity Obstacle
+assumption.</li>
+</ul></li>
+<li><strong>Ballistic Wreck Dodging</strong>:
+<ul>
+<li>When a failing drone broadcasts a final Mayday, neighbours propagate
+its parabolic free fall under gravity
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><mn>9.81</mn><msup><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> m/s</mtext></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">g = 9.81\text{ m/s}^2</annotation></semantics></math>
+up to <code>3.0 s</code> ahead and take 100% of the evasion
+responsibility with a
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.5</mn><mo>×</mo><mtext mathvariant="normal">Safe Distance</mtext></mrow><annotation encoding="application/x-tex">1.5 \times \text{Safe Distance}</annotation></semantics></math>
+horizontal cylinder margin.</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="headless-cli-batch-runs">10. Headless CLI Batch Runs</h2>
+<p>You can run fast headless batch simulations from Node.js inside
+<code>show_drone/</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the standard preset with seed 1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run test:sim</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run all 8 presets across 3 seeds (24 runs) and save summary to runs.csv</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 3 <span class="at">--csv</span> runs.csv</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run preset &quot;fail&quot; with seed 1, print event log (V=1), and save trajectories to track.csv</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">V</span><span class="op">=</span>1 <span class="ex">node</span> tools/sim-test.ts fail 1 <span class="at">--track</span> track.csv</span></code></pre></div>
+<hr />
+<h2 id="keyboard-shortcuts">11. Keyboard Shortcuts</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>Space</kbd></td>
+<td style="text-align: left;">Start / Pause / Resume show</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">Reset show</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>C</kbd></td>
+<td style="text-align: left;">Cycle camera mode (Audience → Aerial → Top
+→ Side → Follow)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>[</kbd> / <kbd>]</kbd></td>
+<td style="text-align: left;">Previous / next drone ID while in Follow
+camera mode</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>L</kbd></td>
+<td style="text-align: left;">Toggle interface language (日本語 ↔︎
+English)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="troubleshooting">12. Troubleshooting</h2>
+<ul>
+<li><strong>macOS says “ShowDrone cannot be opened because the developer
+cannot be verified”</strong>:
+<ul>
+<li>In Finder, <strong>right-click (or Control-click) the
+<code>ShowDrone</code> app icon and select “Open”</strong>, then confirm
+in the dialog. Subsequent launches work normally with a
+double-click.</li>
+</ul></li>
+<li><strong>Frame rate drops at high playback speeds</strong>:
+<ul>
+<li>Lower playback speed to <code>×1</code> or <code>×2</code>, or
+uncheck <strong>Light trails</strong> to reduce GPU line-segment
+updates.</li>
+</ul></li>
+<li><strong>Drones don’t collide even under “Random Assign”</strong>:
+<ul>
+<li><strong>Collision Avoidance</strong> is enabled by default and
+actively steers drones around crossing paths. Choose the <strong>Random
++ No Avoid</strong> preset or uncheck <strong>Collision
+Avoidance</strong> to observe unmitigated mid-air collisions.</li>
+</ul></li>
+</ul>
+  </article></main>
+</body>
+</html>

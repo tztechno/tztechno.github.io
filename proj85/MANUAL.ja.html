@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Drone ユーザーマニュアル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1428%22/%3E%3Ccircle cx=%229%22 cy=%229%22 r=%223.2%22 fill=%22%234dd2ff%22/%3E%3Ccircle cx=%2223%22 cy=%229%22 r=%223.2%22 fill=%22%23ffb547%22/%3E%3Ccircle cx=%229%22 cy=%2223%22 r=%223.2%22 fill=%22%23ffb547%22/%3E%3Ccircle cx=%2223%22 cy=%2223%22 r=%223.2%22 fill=%22%234dd2ff%22/%3E%3Cpath d=%22M11.5 11.5L20.5 20.5M20.5 11.5L11.5 20.5%22 stroke=%22%23e8f1ff%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%223%22 fill=%22%23ff5d7a%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHOW DRONE</span></a>
+    <ul class="nav-links"><li><a href="index.html">トップ</a></li><li><a href="MANUAL.en.html">English</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="show-drone-使用マニュアル日本語">Show Drone —
+使用マニュアル（日本語）</h1>
+<p><a href="MANUAL.en.md">English manual</a></p>
+<p><strong>Show Drone</strong> は、100
+機の小型クアッドローターによるドローンライトショーを
+<strong>MuJoCo（WebAssembly）</strong> で 1
+機ずつ剛体物理シミュレートするデスクトップ／ブラウザアプリです。</p>
+<p>地上 10 行 × 10 列（計 100 機）の待機状態から一斉に離陸し、上空で
+<strong>隊形 A</strong> を描き、さらに <strong>隊形 B</strong>
+へと変形して再び地上へ帰還・着陸するまでの全工程を、全機自律制御（AUTO）で再現します。風・乱流・通信遅延・無作為割当・機体故障（動力喪失による落下）などの厳しい条件を与え、<strong>機体間の位置共有と相互速度障害物（RVO）による衝突回避</strong>や<strong>落下機の弾道予測による巻き込み回避</strong>がどのように働くかを
+3D 自由視点と CSV ログで検証できます。</p>
+<p>画面は左パネル右上のボタン（または <kbd>L</kbd> キー）で
+<strong>日本語と英語（English）</strong>
+をいつでも切り替えられます。</p>
+<hr />
+<h2 id="目次">目次</h2>
+<ol type="1">
+<li><a href="#1-起動方法">起動方法</a></li>
+<li><a href="#2-言語の切り替え日本語--english">言語の切り替え（日本語 /
+English）</a></li>
+<li><a href="#3-ショーの流れと-12-種類の隊形">ショーの流れと 12
+種類の隊形</a></li>
+<li><a href="#4-画面の見かた">画面の見かた</a></li>
+<li><a href="#5-プリセット8-種類">プリセット（8 種類）</a></li>
+<li><a href="#6-条件パラメータの詳細">条件パラメータの詳細</a></li>
+<li><a href="#7-視点と表示オプション">視点と表示オプション</a></li>
+<li><a href="#8-結果の記録と-csv-出力">結果の記録と CSV 出力</a></li>
+<li><a
+href="#9-物理モデル割当衝突回避のしくみ">物理モデル・割当・衝突回避のしくみ</a></li>
+<li><a
+href="#10-ヘッドレス実行コマンドライン大量試行">ヘッドレス実行（コマンドライン大量試行）</a></li>
+<li><a
+href="#11-キーボードショートカット">キーボードショートカット</a></li>
+<li><a href="#12-困ったとき">困ったとき</a></li>
+</ol>
+<hr />
+<h2 id="起動方法">1. 起動方法</h2>
+<p>オフライン（インターネット接続なし）でも動作します。</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">版</th>
+<th style="text-align: left;">起動のしかた</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>macOS
+デスクトップ版（.dmg）</strong></td>
+<td style="text-align: left;"><code>ShowDrone_1.0.0_aarch64.dmg</code>
+を開き、<code>ShowDrone</code>
+を「アプリケーション」フォルダへドラッグして起動します。初回に「開発元を確認できません」と表示された場合は、Finder
+でアプリアイコンを <strong>右クリック（Control +
+クリック）→「開く」</strong> を選んでください。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ブラウザ / 開発版</strong></td>
+<td style="text-align: left;"><code>show_drone</code> フォルダで
+<code>npm install</code>（初回のみ）に続いて <code>npm run dev</code>
+を実行し、ブラウザで <code>http://localhost:5173</code>
+を開きます。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="言語の切り替え日本語-english">2. 言語の切り替え（日本語 /
+English）</h2>
+<ul>
+<li>左パネル最上部の <strong>「EN」/「日本語」ボタン</strong>
+をクリックすると、その場で全画面の表示言語が切り替わります。</li>
+<li>キーボードの <kbd>L</kbd> キーでも切り替えられます。</li>
+<li>選択した言語はブラウザ／アプリのストレージに保存され、次回起動時にも維持されます。</li>
+<li>URL パラメータ <code>?lang=en</code> または <code>?lang=ja</code>
+で初期言語を指定することもできます。</li>
+</ul>
+<p>切り替わる対象:
+パネル見出し・プリセット名と説明・隊形名・パラメータ名とツールチップ・視点ボタン・HUD・テレメトリー・イベントログ・3D
+空間内のラベル（「観客席」、衝突ラベル）・結果ダイアログ・出力される CSV
+のヘッダーと状態名。</p>
+<hr />
+<h2 id="ショーの流れと-12-種類の隊形">3. ショーの流れと 12
+種類の隊形</h2>
+<h3 id="ショーのフェーズ全-7-工程">ショーのフェーズ（全 7 工程）</h3>
+<ol type="1">
+<li><strong>待機（Standby）</strong>: 地上の発着パッドに 10 行 × 10
+列（計 100 機）で整列します。</li>
+<li><strong>離陸（Takeoff）</strong>: 全機が真上のステージング高度（6
+m）まで垂直上昇します。</li>
+<li><strong>隊形 A へ（To Form A）</strong>: 割り当てられた隊形 A
+の目標スロットへ最小ジャーク軌道で移動します。</li>
+<li><strong>隊形 A 維持（Form A）</strong>: 指定した維持時間のあいだ隊形
+A を保ちます（「維持中に回転」がオンの場合は鉛直軸まわりに回転）。</li>
+<li><strong>隊形 B へ（To Form B）</strong>: 隊形 A から隊形 B
+の目標スロットへ空間変形（モーフィング）します。</li>
+<li><strong>隊形 B 維持（Form B）</strong>: 指定した維持時間のあいだ隊形
+B を保ちます。</li>
+<li><strong>帰還・着陸（Return &amp; Land）</strong>:
+地上の空き発着パッド（墜落機の残骸がないパッド）の上空 6 m
+へ戻り、ゆっくり降下して接地・モーター停止します。生存している全機が着陸するとショー完了です。</li>
+</ol>
+<h3 id="選べる隊形12-種類">選べる隊形（12 種類）</h3>
+<p>隊形 A・B それぞれに以下の 12
+種類を自由に組み合わせられます（<strong>「🎲 ランダム」</strong>
+ボタンで A・B をランダム選択）。</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">隊形（日本語 / English）</th>
+<th style="text-align: left;">形状の特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>水平グリッド</strong> / Horizontal
+Grid</td>
+<td style="text-align: left;">空中に水平に広がる 10 × 10
+のグラデーション格子</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>球</strong> / Sphere</td>
+<td
+style="text-align: left;">フィボナッチ格子で球面上に均等配置された立体球</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ハート</strong> / Heart</td>
+<td
+style="text-align: left;">観客席に向いた二重輪郭のハート（赤・ピンク）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>星</strong> / Star</td>
+<td
+style="text-align: left;">観客席に向いた内外二重の五芒星（ゴールド・アンバー）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>二重螺旋</strong> / Double
+Helix</td>
+<td style="text-align: left;">シアンとマゼンタの 2 本の鎖が絡み合う立体
+DNA 螺旋</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>土星</strong> / Saturn</td>
+<td style="text-align: left;">球体と傾いた二重の環からなる立体土星</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>文字「N85」</strong> / Text
+“N85”</td>
+<td
+style="text-align: left;">観客席に向かって浮かび上がる「N85」のネオン文字</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ウェーブ</strong> / Wave</td>
+<td style="text-align: left;">正弦波で立体的にうねる 10 × 10 の曲面</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>立方体</strong> / Cube</td>
+<td style="text-align: left;">3D 空間に浮かぶ中空キューブ</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>スマイル</strong> / Smile</td>
+<td style="text-align: left;">観客席に向いた笑顔のアイコン</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>富士山と太陽</strong> / Mt. Fuji
+&amp; Sun</td>
+<td style="text-align: left;">冠雪した青い稜線の富士山と赤い太陽</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>三重リング</strong> / Triple
+Rings</td>
+<td style="text-align: left;">60° ずつ交差する赤・緑・青の 3
+つの立体リング</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="画面の見かた">4. 画面の見かた</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">画面位置</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>左パネル</strong></td>
+<td style="text-align: left;">1. プリセット、2. 隊形プレビュー（A・B
+の正面図と寸法）、3. 条件スライダー、開始 / 一時停止 /
+リセット、再生速度（×0.5〜×8）、視点切替、表示オプション、試行結果履歴と
+CSV 保存</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>上部中央（HUD）</strong></td>
+<td style="text-align: left;">経過時間
+<code>T+...s</code>、現在のプリセット名、現在のフェーズ名と進捗バー</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>右上（テレメトリー）</strong></td>
+<td
+style="text-align: left;"><strong>飛行中・着陸・墜落</strong>の機数カウンター、隊形
+A→B、目標位置との RMS
+誤差、現在回避中の機数（および延べ機・秒）、これまでの最接近距離と機体ペア、空中衝突件数（うち落下機の巻き込み数）、故障数、隊形高度での風速、制御器のオンライン質量推定値、追従中の機体（<code>#0</code>〜<code>#99</code>）の状態・高度・速度、下部にフェーズ進行インジケーター</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>左下（イベントログ）</strong></td>
+<td
+style="text-align: left;">フェーズ移行、空中衝突、故障による動力喪失、落下機による巻き込み、ショー終了などのタイムスタンプ付きログ</td>
+</tr>
+<tr>
+<td
+style="text-align: left;"><strong>中央モーダル（終了時）</strong></td>
+<td style="text-align: left;">ショー完了から約 1.5
+秒後に集計サマリーを表示。その場で「結果 CSV」「軌跡
+CSV」を保存可能</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="プリセット8-種類">5. プリセット（8 種類）</h2>
+<p>左パネル「1.
+プリセット」からワンクリックで代表的な実験条件を呼び出せます（乱数シードは現在の値を維持します）。</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">プリセット</th>
+<th style="text-align: left;">内容と観察ポイント</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>標準</strong> (Standard)</td>
+<td style="text-align: left;">無風・最適割当・衝突回避あり（球 →
+ハート）。経路が交差せず、全 100
+機がきれいに隊形を描いて着陸します。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>強風</strong> (Strong Wind)</td>
+<td style="text-align: left;">西から平均 8 m/s ＋ 突風 4 m/s・乱流
+0.3。外乱オブザーバが風に抗して姿勢を傾け、流された機体同士が安全距離を保つよう微調整します。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>通信劣化</strong> (Degraded
+Comms)</td>
+<td style="text-align: left;">位置共有が 2 Hz・遅れ 0.5 s・位置誤差 1
+m・欠落 20 %、風 4
+m/s。周囲の機体の位置推定があいまいになる中での回避挙動を観察できます。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>無作為割当</strong> (Random
+Assign)</td>
+<td
+style="text-align: left;">目標スロットをランダムに割り当てます（水平グリッド
+→ 二重螺旋）。100 機の経路が空間中で激しく交差するため、RVO
+衝突回避がフル稼働（オレンジ色の強調表示が多発）して空中衝突を防ぎます。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>無作為＋回避なし</strong> (Random
++ No Avoid)</td>
+<td
+style="text-align: left;">上と同じ無作為割当で「衝突回避」をオフにした比較用プリセット。交差する経路上で次々と空中衝突・墜落が発生します。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>高速・密集</strong> (Fast &amp;
+Tight)</td>
+<td style="text-align: left;">最高速度 12 m/s・最大加速度 5
+m/s²・隊形間隔 1.8 m・維持中回転あり（立方体 →
+土星）。高機動かつ狭い間隔でのショーです。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>機体故障</strong> (Power
+Failures)</td>
+<td style="text-align: left;">飛行中に 5
+機がランダムな時刻に動力を失って自由落下します。「落下機を予測回避」がオンなら、下方にいる機体が弾道を予測して退避し、連鎖墜落（巻き込み）を防ぎます。オフにして比較すると巻き込み墜落の違いが分かります。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>重い機体＋風</strong> (Heavy +
+Wind)</td>
+<td style="text-align: left;">各機に +0.25 kg の未知の追加質量（本体
+0.45 kg に対して約 +55 %）と風 6
+m/s。離陸後に制御器がオンラインで質量を推定して推力を補正します。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="条件パラメータの詳細">6. 条件パラメータの詳細</h2>
+<p>条件を変更すると、自動的にショーがリセットされて新しい条件が反映されます。</p>
+<h3 id="演目program">演目（Program）</h3>
+<ul>
+<li><strong>隊形 A / 隊形 B</strong>: 12 種類から選択。</li>
+<li><strong>維持時間</strong> (<code>2</code>〜<code>30</code> s, 既定
+<code>8</code> s): 隊形 A・B それぞれを空中で維持する秒数。</li>
+<li><strong>維持中に回転</strong> (既定 オフ):
+オンにすると、維持時間中に鉛直軸まわりに回転します（立体形状は半回転、平面形状は観客席へ向き直るよう
+1 回転）。外周の速さが 4 m/s 以下、遠心加速度が最大加速度の 60 %
+以下になるよう維持時間が自動延長されます。</li>
+<li><strong>隊形の中心高度</strong> (<code>20</code>〜<code>100</code>
+m, 既定 <code>40</code> m): 隊形の中心の高さ（下端が地上 12 m
+以上になるよう自動調整）。</li>
+<li><strong>隊形の機体間隔</strong> (<code>1.5</code>〜<code>6.0</code>
+m, 既定 <code>2.5</code> m):
+隊形内で隣り合う機体同士の代表的な距離。</li>
+<li><strong>地上の機体間隔</strong> (<code>1.2</code>〜<code>5.0</code>
+m, 既定 <code>2.5</code> m): 地上 10 × 10
+グリッドの発着パッド間隔。</li>
+</ul>
+<h3 id="移動motion">移動（Motion）</h3>
+<ul>
+<li><strong>最高速度</strong> (<code>2</code>〜<code>14</code> m/s, 既定
+<code>6</code> m/s): 隊形移動時の計画最高速度。</li>
+<li><strong>最大加速度</strong> (<code>1</code>〜<code>8</code> m/s²,
+既定 <code>2.5</code> m/s²): 隊形移動時の計画最大加速度。</li>
+<li><strong>目標点の割当</strong>:
+<ul>
+<li><strong>最適割当（交差しない）</strong>:
+ハンガリアン法で移動距離の二乗和を最小化（CAPT）。</li>
+<li><strong>無作為（交差する）</strong>:
+ランダムに割り当て、意図的に経路交差を発生させます。</li>
+</ul></li>
+</ul>
+<h3 id="衝突回避collision-avoidance">衝突回避（Collision
+Avoidance）</h3>
+<ul>
+<li><strong>衝突回避</strong> (既定 オン):
+相互速度障害物（RVO）による自律衝突回避のオン／オフ。</li>
+<li><strong>落下機を予測回避</strong> (既定 オン):
+墜落機が最後に発信する Mayday
+信号から重力落下の放物線軌道を予測し、落下経路の下から退避する機能のオン／オフ。</li>
+<li><strong>安全距離</strong> (<code>0.5</code>〜<code>3.0</code> m,
+既定 <code>1.2</code> m):
+回避アルゴリズムが確保しようとする機体中心間のクリアランス（機体のプロペラ外周半径は
+<code>0.19</code> m、接触判定は中心間 <code>0.38</code> m）。</li>
+<li><strong>認識範囲</strong> (<code>3</code>〜<code>30</code> m, 既定
+<code>12</code> m):
+この距離より遠くにいる機体は回避計算から除外します。</li>
+<li><strong>位置共有の周期</strong> (<code>1</code>〜<code>50</code> Hz,
+既定 <code>10</code> Hz) / <strong>遅れ</strong>
+(<code>0</code>〜<code>1.0</code> s, 既定 <code>0.1</code> s) /
+<strong>位置誤差</strong> (<code>0</code>〜<code>3.0</code> m, 既定
+<code>0.1</code> m) / <strong>欠落率</strong>
+(<code>0</code>〜<code>80</code> %, 既定 <code>0</code> %):
+機体間ブロードキャスト通信の品質パラメータ。</li>
+<li><strong>故障させる機数</strong> (<code>0</code>〜<code>20</code> 機,
+既定 <code>0</code> 機): ショーの途中（12〜48
+秒の間）で動力を失わせる機体数。</li>
+</ul>
+<h3 id="機体環境craft-environment">機体・環境（Craft &amp;
+Environment）</h3>
+<ul>
+<li><strong>追加質量</strong> (<code>0</code>〜<code>0.5</code> kg, 既定
+<code>0</code> kg): 本体質量（約 <code>0.45</code>
+kg）に上乗せするペイロード。制御器には事前に知らされず、飛行中の鉛直加速度と推力の関係からオンライン推定されます。</li>
+<li><strong>ロータ最大推力</strong> (<code>2.0</code>〜<code>5.0</code>
+N, 既定 <code>3.0</code> N): ロータ 1 基あたりの最大推力（4 基合計で
+<code>4 × fMax</code>）。</li>
+<li><strong>風速</strong> (<code>0</code>〜<code>14</code> m/s) /
+<strong>風向</strong> (8 方位) / <strong>突風</strong>
+(<code>0</code>〜<code>8</code> m/s) / <strong>乱流</strong>
+(<code>0</code>〜<code>0.6</code>):
+高度に応じた対数風速プロファイル、全機共通の乱流成分（Ornstein-Uhlenbeck
+過程）、機体ごとの局所渦、数秒間吹く突風を合成して各機に空気抵抗として作用します。</li>
+<li><strong>乱数シード</strong> (<code>1</code>〜<code>50</code>, 既定
+<code>1</code>):
+風のゆらぎ、通信誤差・欠落、無作為割当、故障機と故障時刻を決めるシード値。同じ条件・同じシードなら結果は完全に再現されます。</li>
+</ul>
+<hr />
+<h2 id="視点と表示オプション">7. 視点と表示オプション</h2>
+<h3 id="カメラ視点5-モード自由操作">カメラ視点（5
+モード＋自由操作）</h3>
+<ul>
+<li><strong>観客席 (Audience)</strong>:
+南側（<code>y = -130 m</code>）の観客席から空を見上げる視点。</li>
+<li><strong>俯瞰 (Aerial)</strong>:
+斜め上空から会場全体と隊形を見渡す視点。</li>
+<li><strong>真上 (Top)</strong>:
+水平方向の隊形や移動経路の交差が分かりやすい真上視点。</li>
+<li><strong>真横 (Side)</strong>:
+高度変化や落下機の放物線が見やすい東側からの真横視点。</li>
+<li><strong>機体追従 (Follow)</strong>:
+指定した番号（<code>#0</code>〜<code>#99</code>）の機体を追いかける視点。<strong>3D
+画面内のドローンを直接クリック</strong>しても、その機体の追従に切り替わります。</li>
+</ul>
+<p>どの視点でもマウス操作（<strong>左ドラッグ: 回転 / 右ドラッグ:
+平行移動 / ホイール: ズーム</strong>）および
+<strong>「自動旋回」</strong> チェックボックスが使えます。</p>
+<h3 id="表示の切り替え">表示の切り替え</h3>
+<ul>
+<li><strong>夜空 (Night sky)</strong>:
+オフにすると昼間の明るい空と緑の地面に切り替わります。</li>
+<li><strong>光跡 (Light trails)</strong>: 各機の直近約 3.6 秒間の軌跡を
+LED
+色で残します（落下中の機体は炎のようなオレンジの尾を引きます）。</li>
+<li><strong>目標位置 (Target slots)</strong>:
+各機が本来目指している計画軌道上の目標点を淡い点で表示します。強風時や回避中にどれだけ計画位置からオフセットしているかが一目で分かります。</li>
+<li><strong>回避中を強調 (Highlight avoidance)</strong>: RVO
+衝突回避が作動している機体をオレンジ色のハローで強調します。</li>
+</ul>
+<hr />
+<h2 id="結果の記録と-csv-出力">8. 結果の記録と CSV 出力</h2>
+<p>ショーが終了するたびに、左パネル下部の「試行結果」リストに結果が自動記録されます（ブラウザ／アプリのローカルストレージに保存されるため、再起動しても残ります）。</p>
+<ul>
+<li><strong>結果 CSV (Runs CSV)</strong>: 記録されている全試行の条件（26
+項目）と結果（ショー時間、着陸・墜落数、空中衝突数、巻き込み数、最接近距離とペア、隊形
+A/B の誤差 RMS・最大、回避回数・延べ時間、墜落機 ID など）を 1 試行 1
+行の CSV として保存します。</li>
+<li><strong>軌跡 CSV (Track CSV)</strong>: 直近の試行における全 100 機の
+0.2 秒ごとの状態（時刻、フェーズ、機体番号、状態、位置
+<code>x, y, z</code>、速度
+<code>vx, vy, vz</code>、目標位置、目標との差、回避中フラグ）を保存します。</li>
+</ul>
+<blockquote>
+<p><strong>保存先</strong>: デスクトップアプリ版（.dmg）ではお使いの Mac
+の <strong>「ダウンロード（Downloads）」フォルダ</strong>
+に直接書き出され、保存先のフルパスが左下のイベントログに表示されます。ブラウザ版では通常のダウンロードとして保存されます。いずれも
+UTF-8（BOM 付き）のため Excel でそのまま文字化けせずに開けます。</p>
+</blockquote>
+<hr />
+<h2 id="物理モデル割当衝突回避のしくみ">9.
+物理モデル・割当・衝突回避のしくみ</h2>
+<ol type="1">
+<li><strong>剛体物理と制御（<code>src/sim.ts</code>）</strong>:
+<ul>
+<li>100 機すべてが MuJoCo の 6
+自由度剛体（<code>freejoint</code>）として 4 ms ステップ（250
+Hz）で計算されます。</li>
+<li>各ロータの推力はモーター時定数 <code>0.03 s</code>
+の一次遅れを持ち、機体座標系の推力・反トルクおよび相対風速に応じた空気抵抗・ロータードラグが毎ステップ加わります。</li>
+<li>制御器は SE(3) 上の幾何学的位置・姿勢制御（Lee et
+al.）に、水平方向の風・抗力を推定して打ち消す<strong>外乱オブザーバ（DOB）</strong>と、鉛直加速度から未知のペイロードを推定する<strong>オンライン質量推定</strong>を組み合わせています。</li>
+<li>機体同士のプロペラ外周円筒（半径
+<code>0.19 m</code>）が接触すると、回転中のプロペラが破損したとして<strong>速度によらず両機とも墜落</strong>します。</li>
+</ul></li>
+<li><strong>交差しない目標割当（<code>src/assign.ts</code>）</strong>:
+<ul>
+<li>隊形変形時はハンガリアン法（Kuhn-Munkres 法）で移動距離の二乗和
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><mo stretchy="false" form="postfix">∥</mo><msub><mi>p</mi><mi>i</mi></msub><mo>−</mo><msub><mi>q</mi><mrow><mi>π</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo stretchy="false" form="postfix">)</mo></mrow></msub><msup><mo stretchy="false" form="postfix">∥</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\sum \|p_i - q_{\pi(i)}\|^2</annotation></semantics></math>
+を最小化します。全機が同一の 5
+次多項式（最小ジャーク時間則）で直線移動すると、開始点同士・目標点同士の間隔が保たれている限りどの
+2 機の経路も交差しない性質（CAPT: Turpin et al.,
+2014）を利用しています。</li>
+</ul></li>
+<li><strong>位置共有とサンプリング型 RVO
+衝突回避（<code>src/show.ts</code>）</strong>:
+<ul>
+<li>各機は周期 <code>netRate</code>
+で自己位置・速度をブロードキャストし、受信側は通信遅延
+<code>netLatency</code>
+分だけ等速直線外挿して他機の現在位置を推定します。</li>
+<li>50 Hz の誘導ループで、周囲 <code>senseR</code> 以内の機体と先読み
+<code>2.5 s</code> 以内に安全距離 <code>safeR</code>
+を割り込む恐れがある場合、周囲 26 方向 × 3 段階の速さ＋加減速の約 80
+通りの候補速度を評価し、「計画速度からの乖離＋前回選択速度からの変化（チャタリング防止）＋正面対向時の右よけバイアス＋衝突までの残り時間ペナルティ」の和が最小となる回避速度を選択します。</li>
+</ul></li>
+<li><strong>落下機の弾道予測回避</strong>:
+<ul>
+<li>故障や接触で墜落した機体が最後に送る「墜落」メッセージから、周囲の機体は重力加速度による放物線落下軌道を
+<code>3.0 s</code> 先まで予測し、通常の 1.5
+倍の安全半径をとって落下経路の円柱領域から退避します。</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="ヘッドレス実行コマンドライン大量試行">10.
+ヘッドレス実行（コマンドライン大量試行）</h2>
+<p>Node.js から GUI なしで高速にシミュレーションを回し、統計や CSV
+を取得できます（<code>show_drone</code> ディレクトリで実行）。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 標準プリセットをシード 1 で実行</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run test:sim</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 全 8 プリセット × シード 1〜3（計 24 試行）を実行し、結果を runs.csv に保存</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">node</span> tools/sim-test.ts all 3 <span class="at">--csv</span> runs.csv</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 特定のプリセット（例: fail）を実行して全機の軌跡を track.csv に保存（V=1 でイベントログ表示）</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">V</span><span class="op">=</span>1 <span class="ex">node</span> tools/sim-test.ts fail 1 <span class="at">--track</span> track.csv</span></code></pre></div>
+<hr />
+<h2 id="キーボードショートカット">11. キーボードショートカット</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">キー</th>
+<th style="text-align: left;">動作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>Space</kbd></td>
+<td style="text-align: left;">ショーの開始 ／ 一時停止・再開</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">リセット（最初からやり直す）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>C</kbd></td>
+<td style="text-align: left;">カメラ視点モードを順に切り替え</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>[</kbd> / <kbd>]</kbd></td>
+<td
+style="text-align: left;">機体追従モード時、追従する機体番号（<code>#0</code>〜<code>#99</code>）を前後に切り替え</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>L</kbd></td>
+<td style="text-align: left;">表示言語の切り替え（日本語 ↔︎
+English）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="困ったとき">12. 困ったとき</h2>
+<ul>
+<li><strong>macOS
+で「開発元を確認できません」と表示されて開けない</strong>:
+<ul>
+<li>Finder で <code>ShowDrone</code> アプリアイコンを
+<strong>右クリック（または Control
+キーを押しながらクリック）し、「開く」</strong> を選んでください。2
+回目以降は通常のダブルクリックで起動できます。</li>
+</ul></li>
+<li><strong>動作が重い・フレームレートが下がる</strong>:
+<ul>
+<li>再生速度を <code>×1</code> または <code>×0.5</code>
+に下げるか、「光跡」のチェックを外すと描画負荷が軽くなります。</li>
+</ul></li>
+<li><strong>無作為割当にしても衝突しない</strong>:
+<ul>
+<li>既定では「衝突回避」がオンになっているため、経路が交差しても RVO
+回避によって衝突を防ぎます。衝突の様子を確認したい場合は「無作為＋回避なし」プリセットを選ぶか、「衝突回避」のチェックを外してください。</li>
+</ul></li>
+</ul>
+  </article></main>
+</body>
+</html>
