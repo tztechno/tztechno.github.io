@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Dashboard User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Cpath d=%22M23.5 6.5l-4.6 4.6-11-3.2-1.6 1.6 8.9 4.9-4.2 4.2-3-.6-1.2 1.2 3.4 2.2 2.2 3.4 1.2-1.2-.6-3 4.2-4.2 4.9 8.9 1.6-1.6-3.2-11 4.6-4.6c.9-.9.9-2.1 0-2.9-.8-.8-2-.8-2.9 0z%22 fill=%22%23ffb547%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FLIGHT DASHBOARD</span></a>
+    <ul class="nav-links"><li><a href="index.html">Top</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="flight-dashboard-user-manual-english">Flight Dashboard User
+Manual (English)</h1>
+<p>A desktop app that shows aircraft around the world in real time on a
+3D globe. Watch takeoffs and landings from above or from the ground at
+an airport, ride along with an aircraft, and replay past flight data
+(CSV).</p>
+<ul>
+<li>Supported OS: macOS 11+ (Apple Silicon) / Windows 10 and 11
+(64-bit)</li>
+<li>Data: OpenSky Network (aircraft positions), Esri / OpenStreetMap
+(maps), GSI Japan and AWS Terrain Tiles (terrain)</li>
+<li>Languages: English / 日本語 (toggle with the button at the top right
+of the panel)</li>
+</ul>
+<hr />
+<h2 id="1-installation">1. Installation</h2>
+<h3 id="macos">macOS</h3>
+<ol type="1">
+<li>Open <code>Flight Dashboard_x.y.z_aarch64.dmg</code> and drag
+<code>Flight Dashboard</code> into Applications.</li>
+<li>The first time, <strong>right-click the app in Finder →
+Open</strong> (the app is not notarized by Apple, so a double-click
+shows a warning).</li>
+</ol>
+<h3 id="windows">Windows</h3>
+<ol type="1">
+<li>Run <code>Flight Dashboard_x.y.z_x64-setup.exe</code>.</li>
+<li>If you see “Windows protected your PC”, click <strong>More info →
+Run anyway</strong>.</li>
+<li>Follow the installer.</li>
+</ol>
+<h2 id="2-first-launch-and-opensky-credentials">2. First launch and
+OpenSky credentials</h2>
+<p>On launch, the “OpenSky credentials” window opens.</p>
+<table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Credits per day</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enter Client ID / Client Secret and click “Verify &amp; save”</td>
+<td>4,000</td>
+<td>Create an API client on your OpenSky account page. The app checks
+the credentials with OpenSky before saving</td>
+</tr>
+<tr>
+<td>“Use anonymously”</td>
+<td>400</td>
+<td>No sign-up needed. Enough for occasional use</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The Client Secret is stored in the OS secure storage (macOS:
+Keychain / Windows: Credential Manager), never in the app’s files.</li>
+<li>To change it later, click <strong>“Anonymous ⚙” / “OpenSky signed in
+⚙”</strong> at the top left, or choose “OpenSky Credentials…” (⌘,) from
+the menu.</li>
+</ul>
+<h3 id="how-far-the-credits-go">How far the credits go</h3>
+<p>Each update costs 1 (small area) to 4 (whole world) credits depending
+on the area. Below “Fetch area” the panel shows an estimate of daily
+usage with the current settings, highlighted in yellow when it exceeds
+the limit.</p>
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Time until the daily limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Airport area (1 credit), every 15 s, signed in</td>
+<td>about 16.7 hours</td>
+</tr>
+<tr>
+<td>Whole world (4 credits), every 15 s, signed in</td>
+<td>about 4.2 hours</td>
+</tr>
+<tr>
+<td>Airport area, every 30 s, anonymous</td>
+<td>about 3.3 hours</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-the-screen">3. The screen</h2>
+<ul>
+<li><strong>Left panel</strong>: aircraft shown, last/next update,
+credits left, and settings. Toggle with ☰</li>
+<li><strong>Map</strong>: aircraft icons (rotated to heading, colored by
+altitude: green = low → magenta = high)</li>
+<li><strong>Click an aircraft</strong>: details at the bottom right
+(flight, country, category, altitude, speed, track, vertical rate,
+position, squawk)</li>
+</ul>
+<h2 id="4-live-view-settings">4. Live view settings</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Update interval</td>
+<td>5–300 s (10 s minimum when anonymous). “⏸ Pause”, “↻ Update
+now”</td>
+</tr>
+<tr>
+<td>Fetch area</td>
+<td>“Visible area” (only what is on screen — saves credits) / “Whole
+world”</td>
+</tr>
+<tr>
+<td>Interpolate positions from speed</td>
+<td>Moves aircraft smoothly between updates</td>
+</tr>
+<tr>
+<td>Show aircraft on the ground</td>
+<td>Taxiing / parked aircraft (only those that are received)</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Dark / Light / OpenStreetMap / Satellite</td>
+</tr>
+<tr>
+<td>Show 3D terrain</td>
+<td>Mountains and valleys in 3D (10 m mesh in Japan)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>e.g. <code>JAL123</code>, <code>ANA</code>, <code>86d4a1</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-viewpoints">5. Viewpoints</h2>
+<h3 id="free-camera">Free camera</h3>
+<ul>
+<li>Mouse: left-drag = pan, wheel / right-drag = zoom, Ctrl+left-drag /
+middle-drag = tilt &amp; rotate</li>
+<li>Double-click = fly closer, Shift+double-click = ground view at that
+spot</li>
+<li>Keyboard: W/S forward/back, A/D left/right, R,E up, F,Q down, arrows
+to look around, Shift = faster</li>
+<li>Buttons: Top-down / Oblique / Horizon / North up / Japan /
+World</li>
+</ul>
+<h3 id="ride-an-aircraft">Ride an aircraft</h3>
+<p>Click an aircraft → “🛫 Cockpit” or “🎥 Chase”. Drag or arrows to
+look around, wheel for distance (chase), Esc to exit. Check “Follow” to
+keep the aircraft centered while staying in map view.</p>
+<h2 id="6-airports">6. Airports</h2>
+<ol type="1">
+<li>Choose an airport under “Airports” to fly above it at an angle
+(Haneda, Narita, Kansai, Itami, Centrair, New Chitose, Fukuoka, Naha and
+10 airports abroad).</li>
+<li>Near airports, aircraft are shown as <strong>true-scale 3D
+models</strong> (sized by category). Live aircraft are highlighted with
+color, outline and a flight-number label. Note: parked aircraft visible
+in the satellite photo were there when the photo was taken; they are not
+live.</li>
+<li>Switch views with the buttons: From above (🛩 Oblique / 🛰 Top-down),
+From the ground (🛬 Under the approach / 🛫 Beside the runway).</li>
+</ol>
+<h3 id="ground-view-controls">Ground view controls</h3>
+<ul>
+<li>Drag = look around, wheel = zoom (up to ~30×), click an aircraft =
+follow it with your eyes</li>
+<li>Height: slider (1.7 m–3,000 m, logarithmic) or “On ground”,
+“Observation deck”, “300m”, “1500m”; R/F keys also work</li>
+<li>WASD = walk, double-click = move there, “↻ Turn around”, Esc =
+exit</li>
+<li>“🧭 From my location”: look up at the sky above you (location
+permission required)</li>
+<li>“📍 From screen center”: stand at the center of the map</li>
+</ul>
+<h2 id="7-export-tracks-to-csv">7. Export tracks to CSV</h2>
+<p>From “Track CSV” in the aircraft details:</p>
+<ul>
+<li><strong>⬇ Observed history</strong>: positions collected since the
+app started (incl. speed and vertical rate). No credits used</li>
+<li><strong>⬇ Full path since takeoff</strong>: fetched from OpenSky
+records (4 credits per request)</li>
+</ul>
+<p>Files are saved to your Downloads folder.</p>
+<h2 id="8-replay-flight-data-csv">8. Replay flight data (CSV)</h2>
+<p>Click “📂 Open CSV” or drag &amp; drop CSV files onto the window.
+Live updates pause and replay mode starts.</p>
+<ul>
+<li>Play/pause (Space), speed ×1–×300, slider to seek, Follow, Fit all,
+“Exit replay”</li>
+<li>Open several files at once to replay them together in different
+colors</li>
+<li>Formats: Flightradar24 CSV, this app’s track CSV, any CSV with time,
+latitude and longitude columns</li>
+</ul>
+<h3 id="csv-requirements-summary">CSV requirements (summary)</h3>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Column names</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time (required)</td>
+<td><code>time</code> <code>timestamp</code> <code>unix_time</code>
+<code>utc</code></td>
+<td>UNIX seconds / ms, ISO 8601. No time zone = UTC</td>
+</tr>
+<tr>
+<td>Latitude/longitude (required)</td>
+<td><code>latitude</code>/<code>lat</code>,
+<code>longitude</code>/<code>lon</code>, or <code>position</code>
+("lat,lon")</td>
+<td>Decimal degrees</td>
+</tr>
+<tr>
+<td>Altitude</td>
+<td><code>altitude_ft</code> <code>alt_m</code>
+<code>altitude</code></td>
+<td><code>_m</code> in the name = meters, otherwise feet (can be changed
+in the panel)</td>
+</tr>
+<tr>
+<td>Flight / aircraft ID</td>
+<td><code>callsign</code>, <code>icao24</code></td>
+<td>Each aircraft ID is treated as a separate flight</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9-recording">9. Recording</h2>
+<p>“● Start recording” records the map area as video; “■ Stop recording”
+saves it (macOS: MP4/WebM, Windows: WebM). “Burn date/time and aircraft
+count into the video” adds a timestamp at the bottom right. Files go to
+your Downloads folder.</p>
+<h2 id="10-language">10. Language</h2>
+<p>Use the <strong>EN / 日本語</strong> button at the top right of the
+panel. Your choice is remembered. The credentials window opens in the
+same language as the app. The menu bar follows the OS language.</p>
+<h2 id="11-troubleshooting">11. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause and fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Flight Dashboard wants to access key … in your keychain” on launch
+(macOS)</td>
+<td>Appears right after replacing the app, when it reads the previously
+saved Client Secret. Click “Always Allow”</td>
+</tr>
+<tr>
+<td>“Rate limited” message</td>
+<td>You used up today’s credits. Use a longer interval or “Visible area”
+(credits reset daily)</td>
+</tr>
+<tr>
+<td>No aircraft on the ground at an airport</td>
+<td>If no volunteer receiver has line of sight to the airport surface,
+ground traffic cannot be received (e.g. Osaka Itami). Airborne aircraft
+are still shown</td>
+</tr>
+<tr>
+<td>Aircraft sparse or disappearing</td>
+<td>Outside receiver coverage — common over oceans and mountains</td>
+</tr>
+<tr>
+<td>“From my location” does not work</td>
+<td>Allow location access for the app in OS settings (Windows: Location
+services)</td>
+</tr>
+<tr>
+<td>Spiky noise on the terrain</td>
+<td>Fixed in the latest version</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12-data-and-privacy">12. Data and privacy</h2>
+<ul>
+<li>Aircraft positions: <a href="https://opensky-network.org/">OpenSky
+Network</a> (ADS-B data from a volunteer receiver network; intended for
+non-commercial and research use)</li>
+<li>Maps: Esri, OpenStreetMap contributors / Terrain: GSI Japan
+elevation tiles, AWS Terrain Tiles</li>
+<li>The app connects only to OpenSky and the map/terrain services. Your
+credentials are kept in the OS secure storage and sent only to OpenSky
+for authentication.</li>
+</ul>
+  </article></main>
+</body>
+</html>
