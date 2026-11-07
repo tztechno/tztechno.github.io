@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RainViewer 3D | いま降っている雨も、あの日の豪雨も、3D の地球儀で — リアルタイム降水レーダー＆衛星ビューア</title>
+  <meta name="description" content="RainViewer の雨雲レーダー（直近 2 時間＋30 分予測）、NASA GIBS の GPM IMERG 全球降水（2000 年〜）・ひまわり赤外線雲・MODIS 衛星写真、OpenWeatherMap の気圧・風速・気温を、CesiumJS の 3D 地球儀に重ねて見るデスクトップアプリ。過去の豪雨プリセット、タイムラプス再生、時刻入り PNG 保存、降水データの CSV 出力、日本語 / English。">
+
+  <meta property="og:title" content="RainViewer 3D — リアルタイム降水レーダー＆衛星ビューア">
+  <meta property="og:description" content="いま降っている雨も、あの日の豪雨も。世界の雨雲を 3D の地球儀で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/rain_viewer">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/rain_viewer">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Ccircle cx=%2216%22 cy=%2217%22 r=%2210%22 fill=%22%231e5aa8%22/%3E%3Cpath d=%22M8 15c0-3 3-4 5-3 1-3 6-4 8-1 3 0 4 3 3 4z%22 fill=%22%23fff%22/%3E%3Cpath d=%22M12 18l-1 3M16 18l-1 4M20 18l-1 3%22 stroke=%22%2300d2ff%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">RAINVIEWER 3D</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#layers" data-i18n="navLayers">レイヤー</a></li>
+        <li><a href="#archive" data-i18n="navArchive">過去の豪雨</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg')"></div>
+    <div class="hero-rain" aria-hidden="true"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">RAINVIEWER × NASA GIBS × CESIUMJS</p>
+      <h1 data-i18n-html="heroTitle">いま降っている雨も、<br><span class="accent">あの日の豪雨も。</span></h1>
+      <p class="lead" data-i18n="heroLead">世界の雨雲レーダー（直近 2 時間と 30 分先の予測）、NASA の衛星が捉えた 2000 年以降の全球降水、気象衛星ひまわりの赤外線雲画像を、ぐるりと回せる 3D の地球儀に重ねて表示します。日付と時刻を選べば過去の台風や線状降水帯へタイムトラベル。再生して雨雲の動きを追い、時刻入りの画像や降水データの CSV としてそのまま保存できます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statLayersN">7 レイヤー</strong><span data-i18n="statLayers">雨雲・衛星・気圧・風・気温</span></div>
+      <div class="stat"><strong data-i18n="statYearN">2000 年〜</strong><span data-i18n="statYear">GPM IMERG 全球降水</span></div>
+      <div class="stat"><strong data-i18n="statLiveN">10 分</strong><span data-i18n="statLive">ごとの雨雲レーダー</span></div>
+      <div class="stat"><strong data-i18n="statCsvN">300 × 300</strong><span data-i18n="statCsv">点の降水 CSV</span></div>
+      <div class="stat"><strong data-i18n="statFreeN">登録不要</strong><span data-i18n="statFree">雨雲・衛星データ</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">雨雲の「いま」と「あの日」を、ひとつの地球儀で</h2>
+      <p class="section-lead" data-i18n="featLead">データの取得や地図の準備は不要です。起動すれば最新の雨雲が表示され、ボタンひとつで世界のどこへでも、過去のどの日へでも移動できます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">いま、どこで降っているか</h3>
+          <p data-i18n="f1Body">RainViewer の世界の雨雲レーダーを、10 分ごとの最新フレームで表示します。スライダーで直近 2 時間をさかのぼり、30 分先までの予測（ナウキャスト）も確認できます。再生ボタンで雨雲が流れていく様子をアニメーションに。約 5 分ごとに自動で更新されます。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">直近 2 時間＋30 分予測</li>
+            <li data-i18n="f1c2">雨と雪を色分け</li>
+            <li data-i18n="f1c3">9 種類の配色パレット</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/imerg.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">あの日の豪雨へ、タイムトラベル</h3>
+          <p data-i18n="f2Body">カレンダーで日付と時刻（UTC、日本時間を併記）を選ぶと、NASA / JAXA の GPM IMERG 全球降水を 30 分ごと、または 1 日分まとめて表示します。2000 年 6 月から今日まで。平成 30 年 7 月豪雨、令和 2 年 7 月豪雨、令和元年東日本台風などはプリセットからワンクリックで呼び出せます。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">2000 年 6 月〜現在</li>
+            <li data-i18n="f2c2">30 分 / 日次</li>
+            <li data-i18n="f2c3">台風・豪雨プリセット</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/himawari.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">雲を、宇宙から見る</h3>
+          <p data-i18n="f3Body">気象衛星ひまわりの赤外線画像（10 分ごと）で、雲の高さと広がりを地球規模で確かめられます。白く冷たい雲頂ほど発達した積乱雲や台風です。NASA の MODIS 衛星写真なら、人の目で見たのに近い色で 2000 年以降の毎日の雲が見られます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">ひまわり 10 分ごと</li>
+            <li data-i18n="f3c2">MODIS トゥルーカラー</li>
+            <li data-i18n="f3c3">タイムラプス再生</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/truecolor.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">画像と CSV で、そのまま残す</h3>
+          <p data-i18n="f4Body">カメラボタンひとつで、表示中の地球儀を PNG で保存。観測時刻（UTC と日本時間）、レイヤー名、視点の位置、凡例が画像に書き込まれるので、資料やレポートにそのまま貼れます。CSV ボタンでは、画面に映っている範囲の降水強度（mm/h）を緯度経度の格子で書き出せます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">時刻・凡例入り PNG</li>
+            <li data-i18n="f4c2">降水強度 mm/h の CSV</li>
+            <li data-i18n="f4c3">「ダウンロード」に保存</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/english.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">日本語と English を、ボタンひとつで</h3>
+          <p data-i18n="f5Body">画面右上のボタン（または L キー）で、メニュー・凡例・通知・地球儀上の都市名・保存する画像の文字まで、すべてが日本語と英語で切り替わります。海外の方との共有や、英語の資料づくりにも。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">日本語 / English</li>
+            <li data-i18n="f5c2">キーボード操作</li>
+            <li data-i18n="f5c3">全画面表示</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Layers ===== -->
+  <section class="section alt" id="layers">
+    <div class="container">
+      <p class="kicker">LAYERS</p>
+      <h2 data-i18n="layTitle">7 つの気象・衛星レイヤー</h2>
+      <p class="section-lead" data-i18n="layLead">左上のレイヤーバーで切り替えます。雨雲と衛星のデータは登録なしで使えます。気圧・風速・気温には OpenWeatherMap の無料 API キーが必要です。</p>
+      <div class="split">
+        <figure class="shot map"><img src="assets/live_global.jpg" alt="" loading="lazy"><figcaption data-i18n="layCap">全球ビュー: アジア一帯の雨雲レーダー（LIVE）</figcaption></figure>
+        <ul class="spec">
+          <li><b><i class="sw" style="background:#22c55e"></i><span data-i18n="l1a">雨雲・降水</span></b><span data-i18n="l1b">RainViewer の雨雲レーダー。過去日時では GPM IMERG に自動で切り替え</span></li>
+          <li><b><i class="sw" style="background:#e2e8f0"></i><span data-i18n="l2a">ひまわり赤外線雲</span></b><span data-i18n="l2b">気象衛星ひまわり 8/9 号 Band 13。10 分ごと、直近 2〜3 か月</span></li>
+          <li><b><i class="sw" style="background:#f97316"></i><span data-i18n="l3a">全球降水 (IMERG)</span></b><span data-i18n="l3b">NASA / JAXA の衛星降水推定。2000 年 6 月〜、30 分 / 日次</span></li>
+          <li><b><i class="sw" style="background:#38bdf8"></i><span data-i18n="l4a">衛星雲 (可視光)</span></b><span data-i18n="l4b">NASA Terra / MODIS のトゥルーカラー写真。2000 年 2 月〜、日次</span></li>
+          <li><b><i class="sw" style="background:#7c3aed"></i><span data-i18n="l5a">気圧 / 風速 / 気温</span></b><span data-i18n="l5b">OpenWeatherMap の全球マップ（無料 API キーが必要）</span></li>
+          <li><b><i class="sw" style="background:#0b1730;border:1px solid #38bdf8"></i><span data-i18n="l6a">ベースマップ</span></b><span data-i18n="l6b">Dark Earth（データが映える暗い地図）/ Blue Marble（衛星写真）</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Archive ===== -->
+  <section class="section" id="archive">
+    <div class="container">
+      <p class="kicker">ARCHIVE PRESETS</p>
+      <h2 data-i18n="arTitle">記憶に残る豪雨を、もう一度</h2>
+      <p class="section-lead" data-i18n="arLead">プリセットを選ぶと、日付・時刻・レイヤー・地域がまとめて設定されます。前後 3 時間・1 日のコマ送りや再生で、雨域が移っていく様子を追えます。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="p1a">平成 30 年 7 月豪雨（西日本豪雨）</h3><p data-i18n="p1b">2018-07-06 12:00 UTC。梅雨前線に沿って西日本から東日本へ連なる強い雨域を、GPM IMERG の降水強度で。</p></div>
+        <div class="tech"><h3 data-i18n="p2a">令和 2 年 7 月豪雨（熊本豪雨）</h3><p data-i18n="p2b">2020-07-03 21:00 UTC。球磨川流域に線状降水帯がかかった夜明け前の降水。</p></div>
+        <div class="tech"><h3 data-i18n="p3a">令和元年 東日本台風（台風 19 号）</h3><p data-i18n="p3b">2019-10-12 10:00 UTC。伊豆半島への上陸前後、関東・甲信・東北に広がった雨。</p></div>
+        <div class="tech"><h3 data-i18n="p4a">令和 3 年 8 月の大雨</h3><p data-i18n="p4b">2021-08-13 21:00 UTC。停滞した前線が九州から中国地方に長く雨を降らせた日。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/imerg.jpg" alt="" loading="lazy"><figcaption data-i18n="arCap">平成 30 年 7 月豪雨（2018-07-06 12:00 UTC / 21:00 JST）、GPM IMERG 30 分降水強度</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section alt" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APPS</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。軽量な Tauri 製のアプリで、起動するとすぐ最新の雨雲が表示されます。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeMac">約 3 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+        <div class="platform">
+          <h3>Windows</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー / ポータブル版</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeWin">約 2 MB（ポータブル版 約 6 MB）</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 雨雲・衛星・地図のデータはその場でインターネットから取得するため、インターネット接続が必要です。画像（PNG）と CSV は「ダウンロード」フォルダに保存されます。</p>
+      <p class="warn" data-i18n="warn">表示される画像や CSV の値は、公開されているタイル画像の色から読み取った推定値です。気象庁や自治体の公式の観測値・警報に代わるものではありません。避難や防災の判断には、気象庁・自治体の情報をお使いください。ひまわりの赤外線画像は NASA 側で直近 2〜3 か月分のみ公開されています。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">世界の雨雲を、<span class="accent">手のひらの地球儀で。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/rain_viewer" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">RAINVIEWER 3D</span></div>
+        <p class="credits" data-i18n="credits">出典: RainViewer API（雨雲レーダー）、NASA GIBS / Earthdata（JAXA GPM IMERG、気象庁 ひまわり 8・9 号、NASA Terra MODIS）、OpenWeatherMap Weather Maps、Esri（World Dark Gray・World Imagery・World Boundaries and Places） ／ 描画: CesiumJS</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/rain_viewer" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">User manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261107"></script>
+</body>
+</html>

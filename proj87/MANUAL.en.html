@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RainViewer 3D User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Ccircle cx=%2216%22 cy=%2217%22 r=%2210%22 fill=%22%231e5aa8%22/%3E%3Cpath d=%22M8 15c0-3 3-4 5-3 1-3 6-4 8-1 3 0 4 3 3 4z%22 fill=%22%23fff%22/%3E%3Cpath d=%22M12 18l-1 3M16 18l-1 4M20 18l-1 3%22 stroke=%22%2300d2ff%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">RAINVIEWER 3D</span></a>
+    <ul class="nav-links"><li><a href="index.html">Top</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="rainviewer-3d--user-manual-english">RainViewer 3D — User Manual
+(English)</h1>
+<p><a href="MANUAL.ja.html">日本語マニュアル</a></p>
+<p>RainViewer 3D shows precipitation radar and weather-satellite imagery
+on a 3D globe (CesiumJS).</p>
+<ul>
+<li><strong>Current rain</strong>: RainViewer precipitation radar (last
+2 hours + 30-minute nowcast)</li>
+<li><strong>Past rain and clouds</strong>: NASA GIBS satellite data (any
+date and time from 2000 to today)</li>
+<li><strong>Pressure, wind, temperature</strong>: OpenWeatherMap maps
+(free API key required)</li>
+</ul>
+<p>The interface can be switched between <strong>Japanese and
+English</strong>.</p>
+<blockquote>
+<p><strong>Note</strong> — Images and CSV values are estimates read from
+public map tiles. For safety decisions, use official sources such as
+your national weather service.</p>
+</blockquote>
+<hr />
+<h2 id="contents">Contents</h2>
+<ol type="1">
+<li><a href="#1-starting-the-app">Starting the app</a></li>
+<li><a href="#2-switching-language-日本語--english">Switching language
+(日本語 / English)</a></li>
+<li><a href="#3-screen-layout">Screen layout</a></li>
+<li><a href="#4-live-mode-last-2-hours--nowcast">LIVE mode (last 2 hours
++ nowcast)</a></li>
+<li><a href="#5-archive-mode-calendar">Archive mode (calendar)</a></li>
+<li><a href="#6-weather-and-satellite-layers">Weather and satellite
+layers</a></li>
+<li><a href="#7-region-jumps-and-camera-control">Region jumps and camera
+control</a></li>
+<li><a href="#8-saving-an-image-png">Saving an image (PNG)</a></li>
+<li><a href="#9-saving-precipitation-data-csv">Saving precipitation data
+(CSV)</a></li>
+<li><a href="#10-settings-panel">Settings panel</a></li>
+<li><a href="#11-setting-up-an-openweathermap-api-key">Setting up an
+OpenWeatherMap API key</a></li>
+<li><a href="#12-keyboard-shortcuts">Keyboard shortcuts</a></li>
+<li><a href="#13-troubleshooting">Troubleshooting</a></li>
+<li><a href="#14-data-sources">Data sources</a></li>
+</ol>
+<hr />
+<h2 id="1-starting-the-app">1. Starting the app</h2>
+<p>An internet connection is required (maps, radar and satellite images
+are downloaded live).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">How to start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>macOS (.dmg)</strong></td>
+<td style="text-align: left;">Open
+<code>RainViewer3D_1.0.0_aarch64.dmg</code>, drag
+<code>RainViewer3D</code> into Applications, then launch it.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Windows (.exe)</strong></td>
+<td style="text-align: left;">Run
+<code>RainViewer3D_1.0.0_x64-setup.exe</code> to install. To run without
+installing, start <code>RainViewer3D_portable.exe</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Browser</strong></td>
+<td style="text-align: left;">In the <code>rain_viewer</code> folder run
+<code>python3 -m http.server 8088</code>, then open
+<code>http://localhost:8088/index.html</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>If a security warning appears the first time, see <a
+href="#13-troubleshooting">13. Troubleshooting</a>.</p>
+<hr />
+<h2 id="2-switching-language-日本語--english">2. Switching language
+(日本語 / English)</h2>
+<ul>
+<li>Press the <strong>language button</strong> at the top right (a text
+icon labeled "EN" or "日本語").</li>
+<li>Or press <kbd>L</kbd> on the keyboard.</li>
+<li>Your choice is remembered next time.</li>
+<li>On first launch the language follows your computer's (browser's)
+language setting.</li>
+<li>In the browser version you can also add <code>?lang=en</code> or
+<code>?lang=ja</code> to the URL.</li>
+</ul>
+<p>What changes: buttons, menus, legend, notifications, city names on
+the globe and the text drawn on saved images. CSV column names
+(<code>time_utc, lat, lon …</code>) are always in English.</p>
+<hr />
+<h2 id="3-screen-layout">3. Screen layout</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Area</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Top (header)</strong></td>
+<td style="text-align: left;">Region buttons, LIVE / archive badge,
+displayed time (UTC), action buttons (calendar, save image, CSV,
+refresh, settings, language, help, full screen)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Top left (layer bar)</strong></td>
+<td style="text-align: left;">Choose the weather / satellite layer.
+Click "Layers" to collapse it.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bottom right
+(legend)</strong></td>
+<td style="text-align: left;">Colors and values (precipitation in mm/h,
+pressure in hPa, etc.). The arrow minimizes it.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bottom (time panel)</strong></td>
+<td style="text-align: left;">Observation time, mode switch (LIVE · last
+2 h / Archive date/time), time slider, play buttons</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Right (settings
+panel)</strong></td>
+<td style="text-align: left;">Base map, opacity, color palette, borders
+and other display settings (<kbd>S</kbd>)</td>
+</tr>
+</tbody>
+</table>
+<p>Times are shown in <strong>UTC</strong>, with Japan Standard Time
+(JST = UTC+9) alongside.</p>
+<hr />
+<h2 id="4-live-mode-last-2-hours--nowcast">4. LIVE mode (last 2 hours +
+nowcast)</h2>
+<p>This is the mode at startup. It shows RainViewer precipitation
+radar.</p>
+<ul>
+<li>Choose <strong>"LIVE · last 2 h"</strong> in the bottom panel to
+enter this mode.</li>
+<li><strong>Time slider</strong>: pick any frame in the last 2 hours
+(10-minute steps) or the forecast up to 30 minutes ahead (nowcast).</li>
+<li><strong>▶ (play)</strong>: steps through the frames automatically;
+press again to stop (<kbd>Space</kbd>).</li>
+<li><strong>⏮ / ⏭</strong>: move 10 minutes back / forward (<kbd>←</kbd>
+/ <kbd>→</kbd>).</li>
+<li><strong>"Latest"</strong>: return to the latest observed frame.</li>
+<li>Data refreshes automatically about every 5 minutes. Press
+<strong>Refresh</strong> (<kbd>R</kbd>) to update now.</li>
+</ul>
+<p>Forecast frames are marked like "+10 min forecast" next to the
+time.</p>
+<hr />
+<h2 id="5-archive-mode-calendar">5. Archive mode (calendar)</h2>
+<p>Shows rain and clouds for a past date and time, using NASA GIBS
+data.</p>
+<ol type="1">
+<li>Press <strong>"Archive date/time"</strong> in the bottom panel (or
+the calendar button in the header, or <kbd>T</kbd>).</li>
+<li>Choose <strong>Date (UTC)</strong> and <strong>Time (UTC)</strong>.
+Japan time (JST) is shown to the right.</li>
+<li>If the precipitation layer is active, it switches automatically to
+<strong>GPM IMERG global precipitation</strong>.</li>
+</ol>
+<h3 id="stepping-and-playback">Stepping and playback</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Button</th>
+<th style="text-align: left;">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-1 d</code> / <code>+1 d</code></td>
+<td style="text-align: left;">One day back / forward</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-3h</code> / <code>+3h</code></td>
+<td style="text-align: left;">Three hours back / forward</td>
+</tr>
+<tr>
+<td style="text-align: left;">⏮ / ⏭</td>
+<td style="text-align: left;">One frame back / forward (Himawari 10 min,
+IMERG 30 min, visible satellite 1 day)</td>
+</tr>
+<tr>
+<td style="text-align: left;">▶</td>
+<td style="text-align: left;">Time-lapse playback (press again to
+stop)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Time slider</td>
+<td style="text-align: left;">Move through 00:00 – 23:50 UTC of the
+selected day</td>
+</tr>
+</tbody>
+</table>
+<h3 id="precipitation-interval-imerg">Precipitation interval
+(IMERG)</h3>
+<ul>
+<li><strong>30-minute (follows time)</strong>: precipitation for each
+30-minute period</li>
+<li><strong>Daily composite</strong>: precipitation for the whole
+day</li>
+</ul>
+<h3 id="past-typhoon-and-heavy-rain-presets">Past typhoon and heavy-rain
+presets</h3>
+<p>Pick an event from "Past typhoon / heavy-rain presets" to set the
+date, time, layer and region at once. Examples: Typhoon Hagibis (2019),
+the July 2020 Kumamoto floods, the July 2018 western Japan floods.</p>
+<h3 id="available-periods">Available periods</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">From</th>
+<th style="text-align: left;">Interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Himawari IR clouds</td>
+<td style="text-align: left;">roughly the last 2–3 months (NASA removes
+older data)</td>
+<td style="text-align: left;">10 min</td>
+</tr>
+<tr>
+<td style="text-align: left;">GPM IMERG global precipitation</td>
+<td style="text-align: left;">June 2000</td>
+<td style="text-align: left;">30 min / 1 day</td>
+</tr>
+<tr>
+<td style="text-align: left;">MODIS visible imagery</td>
+<td style="text-align: left;">February 2000</td>
+<td style="text-align: left;">1 day</td>
+</tr>
+</tbody>
+</table>
+<p>The most recent few hours to a day may not yet be published by NASA.
+If nothing appears, choose a slightly earlier time.</p>
+<hr />
+<h2 id="6-weather-and-satellite-layers">6. Weather and satellite
+layers</h2>
+<p>Choose from the layer bar at the top left or the settings panel
+(<kbd>W</kbd> cycles through them).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">What it shows</th>
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">API key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Precipitation</td>
+<td style="text-align: left;">Rain radar (GPM IMERG in archive
+mode)</td>
+<td style="text-align: left;">RainViewer / NASA</td>
+<td style="text-align: left;">Not needed</td>
+</tr>
+<tr>
+<td style="text-align: left;">Himawari IR clouds</td>
+<td style="text-align: left;">Himawari infrared imagery; whiter =
+higher, colder cloud tops</td>
+<td style="text-align: left;">NASA GIBS / JMA</td>
+<td style="text-align: left;">Not needed</td>
+</tr>
+<tr>
+<td style="text-align: left;">Global precip. (IMERG)</td>
+<td style="text-align: left;">Satellite-estimated precipitation
+worldwide</td>
+<td style="text-align: left;">NASA GIBS / JAXA</td>
+<td style="text-align: left;">Not needed</td>
+</tr>
+<tr>
+<td style="text-align: left;">Satellite (visible)</td>
+<td style="text-align: left;">Natural-color satellite photo (one per
+day)</td>
+<td style="text-align: left;">NASA GIBS (MODIS)</td>
+<td style="text-align: left;">Not needed</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pressure (hPa)</td>
+<td style="text-align: left;">Sea-level pressure</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>Required</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Wind (m/s)</td>
+<td style="text-align: left;">Surface wind speed</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>Required</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Temp. (°C)</td>
+<td style="text-align: left;">Surface air temperature</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>Required</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Choosing a NASA layer switches to archive mode automatically.</p>
+<hr />
+<h2 id="7-region-jumps-and-camera-control">7. Region jumps and camera
+control</h2>
+<h3 id="region-jumps">Region jumps</h3>
+<p>Use the header buttons or number keys.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Region</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>1</kbd></td>
+<td style="text-align: left;">Japan</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>2</kbd></td>
+<td style="text-align: left;">China</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>3</kbd></td>
+<td style="text-align: left;">United States</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>4</kbd></td>
+<td style="text-align: left;">Europe</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>5</kbd></td>
+<td style="text-align: left;">Australia</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>6</kbd></td>
+<td style="text-align: left;">Global</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mouse">Mouse</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Left drag</td>
+<td style="text-align: left;">Rotate the globe</td>
+</tr>
+<tr>
+<td style="text-align: left;">Wheel / pinch</td>
+<td style="text-align: left;">Zoom in / out</td>
+</tr>
+<tr>
+<td style="text-align: left;">Right drag</td>
+<td style="text-align: left;">Zoom in / out</td>
+</tr>
+<tr>
+<td style="text-align: left;">Middle drag (Ctrl + left drag)</td>
+<td style="text-align: left;">Tilt the view</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-saving-an-image-png">8. Saving an image (PNG)</h2>
+<p>Press the camera button, <strong>"Save"</strong> in the bottom panel,
+or <kbd>P</kbd> to save the current globe view as a PNG.</p>
+<p>The image includes:</p>
+<ul>
+<li>Bottom left: the displayed time (UTC), Japan time, layer name,
+region, camera position and altitude</li>
+<li>Bottom right: the legend (colors and values)</li>
+</ul>
+<p>Example file name:
+<code>RainViewer3D_radar_2026-11-07_0010UTC.png</code></p>
+<p><strong>Where it is saved</strong></p>
+<ul>
+<li>Desktop app (macOS / Windows): your <strong>Downloads
+folder</strong>. If a file with the same name exists, <code> (2)</code>
+is added; nothing is overwritten. The full path is shown in the
+notification.</li>
+<li>Browser: your browser's download location</li>
+</ul>
+<hr />
+<h2 id="9-saving-precipitation-data-csv">9. Saving precipitation data
+(CSV)</h2>
+<p>Press <strong>CSV</strong> or <kbd>C</kbd> to save precipitation for
+<strong>the area currently on screen</strong> as a CSV file. Available
+only while the "Precipitation" or "Global precip. (IMERG)" layer is
+shown.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Column</th>
+<th style="text-align: left;">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>time_utc</code></td>
+<td style="text-align: left;">Data time (UTC)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>lat</code>, <code>lon</code></td>
+<td style="text-align: left;">Latitude, longitude</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>dbz</code></td>
+<td style="text-align: left;">Radar reflectivity (RainViewer LIVE
+only)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>precip_mm_h</code></td>
+<td style="text-align: left;">Precipitation rate (mm/h)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>precip_type</code></td>
+<td style="text-align: left;"><code>rain</code> / <code>snow</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>source</code></td>
+<td style="text-align: left;">Data source</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The grid is at most 300 × 300 points; wider views give coarser
+spacing.</li>
+<li>Values are estimated from tile image colors:
+<ul>
+<li>LIVE: RainViewer colors → dBZ, then Marshall-Palmer (rain
+Z=200R^1.6, snow Z=2000R^2) → mm/h</li>
+<li>Archive / IMERG: NASA GIBS color map → mm/h bins</li>
+</ul></li>
+<li>Files are saved to the same place as PNG images.</li>
+</ul>
+<hr />
+<h2 id="10-settings-panel">10. Settings panel</h2>
+<p>Open it with the settings button in the header (<kbd>S</kbd>).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Item</th>
+<th style="text-align: left;">What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Active weather / satellite layer</td>
+<td style="text-align: left;">Switch layers (same as the layer bar)</td>
+</tr>
+<tr>
+<td style="text-align: left;">OpenWeatherMap API settings</td>
+<td style="text-align: left;">Enter, save or delete the API key</td>
+</tr>
+<tr>
+<td style="text-align: left;">Earth base map</td>
+<td style="text-align: left;"><strong>Dark Earth</strong> (dark map;
+weather data stands out) / <strong>Blue Marble</strong> (satellite
+imagery)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Layer opacity</td>
+<td style="text-align: left;">Strength of the weather layer
+(15–100%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Radar color palette</td>
+<td style="text-align: left;">Radar colors (Universal Blue, TITAN, …).
+LIVE precipitation layer only</td>
+</tr>
+<tr>
+<td style="text-align: left;">Smoothing / Snow colors</td>
+<td style="text-align: left;">Smoother radar echoes / show snow in
+separate colors</td>
+</tr>
+<tr>
+<td style="text-align: left;">Borders, city labels, atmosphere glow,
+auto-rotation</td>
+<td style="text-align: left;">Globe display effects</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-setting-up-an-openweathermap-api-key">11. Setting up an
+OpenWeatherMap API key</h2>
+<p>The pressure, wind and temperature layers need a <strong>free
+OpenWeatherMap API key</strong>.</p>
+<ol type="1">
+<li>Create an account on the <a
+href="https://home.openweathermap.org/users/sign_up">OpenWeatherMap
+sign-up page</a> (no credit card needed).</li>
+<li>Copy the 32-character key from the <strong>[API keys]</strong> tab
+of your account page.</li>
+<li>Selecting one of these layers opens a key dialog; paste the key and
+press "Save and show layer" (you can also enter it in the settings
+panel).</li>
+</ol>
+<ul>
+<li>The key is stored only on this computer (in the app / browser).</li>
+<li>A new key can take from a few minutes up to about 2 hours to become
+active.</li>
+<li>To remove it, press "Delete key" in the settings panel.</li>
+</ul>
+<hr />
+<h2 id="12-keyboard-shortcuts">12. Keyboard shortcuts</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Key</th>
+<th style="text-align: left;">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>T</kbd></td>
+<td style="text-align: left;">LIVE ⇄ archive mode</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>Space</kbd></td>
+<td style="text-align: left;">Play / pause</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>←</kbd> / <kbd>→</kbd></td>
+<td style="text-align: left;">Previous / next frame</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>W</kbd></td>
+<td style="text-align: left;">Cycle layers</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>1</kbd>–<kbd>6</kbd></td>
+<td style="text-align: left;">Jump to a region</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>P</kbd></td>
+<td style="text-align: left;">Save image (PNG)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>C</kbd></td>
+<td style="text-align: left;">Save precipitation CSV</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">Reload data</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>S</kbd></td>
+<td style="text-align: left;">Open / close settings</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>L</kbd></td>
+<td style="text-align: left;">Switch language (日本語 / English)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>I</kbd></td>
+<td style="text-align: left;">About &amp; credits</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>F</kbd></td>
+<td style="text-align: left;">Full screen</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>Esc</kbd></td>
+<td style="text-align: left;">Close panels and dialogs</td>
+</tr>
+</tbody>
+</table>
+<p>Shortcuts are ignored while the cursor is in a text field.</p>
+<hr />
+<h2 id="13-troubleshooting">13. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Problem</th>
+<th style="text-align: left;">What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">macOS says the app "can't be opened
+because the developer cannot be verified"</td>
+<td style="text-align: left;"><strong>Right-click the app →
+Open</strong>, or press "Open Anyway" in System Settings → Privacy &amp;
+Security. If it still won't open, run
+<code>xattr -cr /Applications/RainViewer3D.app</code> in Terminal.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Windows shows "Windows protected your
+PC"</td>
+<td style="text-align: left;">Click <strong>More info → Run
+anyway</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">The globe is black or no images
+appear</td>
+<td style="text-align: left;">Check your internet connection and press
+<kbd>R</kbd>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Nothing shows for a past date</td>
+<td style="text-align: left;">The data may not be published yet; try 1–2
+days earlier. Himawari data covers only about the last 2–3 months (use
+GPM IMERG precipitation for past typhoons).</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pressure, wind or temperature don't
+appear</td>
+<td style="text-align: left;">Check your API key. New keys take time to
+activate.</td>
+</tr>
+<tr>
+<td style="text-align: left;">The CSV button does nothing</td>
+<td style="text-align: left;">Switch to the "Precipitation" or "Global
+precip. (IMERG)" layer first.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Can't find a saved file</td>
+<td style="text-align: left;">The desktop app saves to your Downloads
+folder; the path is shown in the notification.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-data-sources">14. Data sources</h2>
+<ul>
+<li>Real-time radar: <a
+href="https://www.rainviewer.com/api.html">RainViewer API</a></li>
+<li>Past precipitation, Himawari IR, satellite imagery: <a
+href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs">NASA
+GIBS</a> (JAXA GPM IMERG / JMA Himawari-8/9 / NASA Terra MODIS)</li>
+<li>Pressure, wind, temperature: <a
+href="https://openweathermap.org/api/weather-map-1">OpenWeatherMap
+Weather Maps</a></li>
+<li>Base maps and boundaries: Esri World Dark Gray / World Imagery /
+World Boundaries and Places</li>
+<li>3D globe engine: <a
+href="https://cesium.com/platform/cesiumjs/">CesiumJS</a></li>
+</ul>
+  </article></main>
+</body>
+</html>

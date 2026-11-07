@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RainViewer 3D 使用マニュアル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Ccircle cx=%2216%22 cy=%2217%22 r=%2210%22 fill=%22%231e5aa8%22/%3E%3Cpath d=%22M8 15c0-3 3-4 5-3 1-3 6-4 8-1 3 0 4 3 3 4z%22 fill=%22%23fff%22/%3E%3Cpath d=%22M12 18l-1 3M16 18l-1 4M20 18l-1 3%22 stroke=%22%2300d2ff%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261107">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">RAINVIEWER 3D</span></a>
+    <ul class="nav-links"><li><a href="index.html">トップ</a></li><li><a href="MANUAL.en.html">English</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1 id="rainviewer-3d--使用マニュアル日本語">RainViewer 3D —
+使用マニュアル（日本語）</h1>
+<p><a href="MANUAL.en.html">English manual</a></p>
+<p>RainViewer 3D は、3D
+地球儀（CesiumJS）の上に雨雲レーダーや気象衛星の画像を重ねて表示するアプリです。</p>
+<ul>
+<li><strong>今の雨雲</strong>: RainViewer の降水レーダー（直近 2
+時間＋30 分先の予測）</li>
+<li><strong>過去の雨や雲</strong>: NASA GIBS の衛星データ（2000
+年から今日まで、日付と時刻を指定）</li>
+<li><strong>気圧・風速・気温</strong>: OpenWeatherMap の地図（無料の API
+キーが必要）</li>
+</ul>
+<p>画面は <strong>日本語と英語</strong> を切り替えられます。</p>
+<blockquote>
+<p><strong>注意</strong> — 表示される画像や CSV
+の値は、公開されているタイル画像から読み取った推定値です。
+防災上の判断には、気象庁など公式の情報を使ってください。</p>
+</blockquote>
+<hr />
+<h2 id="目次">目次</h2>
+<ol type="1">
+<li><a href="#1-起動方法">起動方法</a></li>
+<li><a href="#2-言語の切り替え日本語--english">言語の切り替え（日本語 /
+English）</a></li>
+<li><a href="#3-画面の構成">画面の構成</a></li>
+<li><a href="#4-live-モード直近-2-時間予測">LIVE モード（直近 2
+時間＋予測）</a></li>
+<li><a
+href="#5-過去日時指定モードカレンダー">過去日時指定モード（カレンダー）</a></li>
+<li><a href="#6-気象衛星レイヤー">気象・衛星レイヤー</a></li>
+<li><a
+href="#7-地域ジャンプと視点の操作">地域ジャンプと視点の操作</a></li>
+<li><a href="#8-画像pngの保存">画像（PNG）の保存</a></li>
+<li><a href="#9-降水データの-csv-保存">降水データの CSV 保存</a></li>
+<li><a href="#10-設定パネル">設定パネル</a></li>
+<li><a href="#11-openweathermap-api-キーの設定">OpenWeatherMap API
+キーの設定</a></li>
+<li><a
+href="#12-キーボードショートカット">キーボードショートカット</a></li>
+<li><a href="#13-困ったとき">困ったとき</a></li>
+<li><a href="#14-データ出典">データ出典</a></li>
+</ol>
+<hr />
+<h2 id="1-起動方法">1. 起動方法</h2>
+<p>インターネット接続が必要です（地図・レーダー・衛星画像をその場で取得します）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">版</th>
+<th style="text-align: left;">起動のしかた</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Mac（.dmg）</strong></td>
+<td
+style="text-align: left;"><code>RainViewer3D_1.0.0_aarch64.dmg</code>
+を開き、<code>RainViewer3D</code>
+を「アプリケーション」フォルダへドラッグして起動します。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Windows（.exe）</strong></td>
+<td
+style="text-align: left;"><code>RainViewer3D_1.0.0_x64-setup.exe</code>
+を実行してインストールします。インストールせずに使う場合は
+<code>RainViewer3D_portable.exe</code> をそのまま実行します。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ブラウザ版</strong></td>
+<td style="text-align: left;"><code>rain_viewer</code> フォルダで
+<code>python3 -m http.server 8088</code> を実行し、ブラウザで
+<code>http://localhost:8088/index.html</code> を開きます。</td>
+</tr>
+</tbody>
+</table>
+<p>初めて開くときの警告（「開発元を確認できません」など）は、<a
+href="#13-困ったとき">13. 困ったとき</a> を見てください。</p>
+<hr />
+<h2 id="2-言語の切り替え日本語--english">2. 言語の切り替え（日本語 /
+English）</h2>
+<ul>
+<li>画面右上の
+<strong>言語ボタン</strong>（文字アイコンの横に「EN」または「日本語」と表示）を押します。</li>
+<li>キーボードの <kbd>L</kbd> でも切り替えられます。</li>
+<li>選んだ言語は次回の起動時にも使われます。</li>
+<li>最初の起動では、パソコン（ブラウザ）の言語設定に合わせて選ばれます。</li>
+<li>ブラウザ版では URL に <code>?lang=en</code> または
+<code>?lang=ja</code> を付けて言語を指定することもできます。</li>
+</ul>
+<p>切り替わるもの:
+ボタン・メニュー・凡例・通知メッセージ・地球儀上の都市名・保存する画像の文字。
+CSV
+の列名（<code>time_utc, lat, lon …</code>）は、言語に関係なく英語のままです。</p>
+<hr />
+<h2 id="3-画面の構成">3. 画面の構成</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">場所</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>上部（ヘッダー）</strong></td>
+<td style="text-align: left;">地域ジャンプボタン、LIVE /
+過去指定の表示、表示中の時刻（UTC）、操作ボタン（カレンダー・画像保存・CSV・更新・設定・言語・ヘルプ・全画面）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>左上（レイヤーバー）</strong></td>
+<td
+style="text-align: left;">表示する気象・衛星レイヤーの切り替え。「レイヤー」の文字を押すと折りたためます。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>右下（凡例）</strong></td>
+<td style="text-align: left;">色と値の対応（降水量 mm/h、気圧 hPa
+など）。右上の矢印で最小化できます。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>下部（時刻パネル）</strong></td>
+<td style="text-align: left;">観測時刻、モード切り替え（LIVE・直近2h /
+過去日時指定）、タイムスライダー、再生ボタン</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>右側（設定パネル）</strong></td>
+<td
+style="text-align: left;">ベースマップ、不透明度、配色、国境線などの表示設定（<kbd>S</kbd>
+で開閉）</td>
+</tr>
+</tbody>
+</table>
+<p>時刻は <strong>UTC（協定世界時）</strong> が基本で、日本時間（JST =
+UTC+9）を横に併記しています。</p>
+<hr />
+<h2 id="4-live-モード直近-2-時間予測">4. LIVE モード（直近 2
+時間＋予測）</h2>
+<p>起動直後のモードです。RainViewer の雨雲レーダーを表示します。</p>
+<ul>
+<li>下部パネルの <strong>「LIVE・直近2h」</strong>
+を選ぶと、このモードになります。</li>
+<li><strong>タイムスライダー</strong>: 直近 2 時間（10 分間隔）と、30
+分先までの予測（ナウキャスト）を選べます。</li>
+<li><strong>▶（再生）</strong>:
+コマを順に自動で進めます。もう一度押すと止まります（<kbd>Space</kbd>）。</li>
+<li><strong>⏮ / ⏭</strong>: 10 分ずつ前後に動かします（<kbd>←</kbd> /
+<kbd>→</kbd>）。</li>
+<li><strong>「最新へ」</strong>: 最新の観測コマに戻ります。</li>
+<li>データは約 5 分ごとに自動で更新されます。すぐ更新したいときは
+<strong>更新</strong> ボタン（<kbd>R</kbd>）を押します。</li>
+</ul>
+<p>予測のコマを表示しているときは、時刻の横に「+10分
+予測」のように表示されます。</p>
+<hr />
+<h2 id="5-過去日時指定モードカレンダー">5.
+過去日時指定モード（カレンダー）</h2>
+<p>過去の日付・時刻の雨や雲を表示します（NASA GIBS
+のデータを使います）。</p>
+<ol type="1">
+<li>下部パネルの <strong>「過去日時指定」</strong>
+を押します（ヘッダーのカレンダーボタンや <kbd>T</kbd>
+でも切り替え可）。</li>
+<li><strong>日付 (UTC)</strong> と <strong>時刻 (UTC)</strong>
+を選びます。右側に日本時間（JST）が表示されます。</li>
+<li>雨雲レイヤーを選んでいる場合は、自動的に <strong>GPM IMERG
+全球降水</strong> の画像に切り替わります。</li>
+</ol>
+<h3 id="コマ送り再生">コマ送り・再生</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ボタン</th>
+<th style="text-align: left;">動き</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-1日</code> / <code>+1日</code></td>
+<td style="text-align: left;">1 日前 / 1 日後</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-3h</code> / <code>+3h</code></td>
+<td style="text-align: left;">3 時間前 / 3 時間後</td>
+</tr>
+<tr>
+<td style="text-align: left;">⏮ / ⏭</td>
+<td style="text-align: left;">1 コマ前 / 1 コマ後（ひまわり 10 分、IMERG
+30 分、可視光衛星 1 日）</td>
+</tr>
+<tr>
+<td style="text-align: left;">▶</td>
+<td
+style="text-align: left;">タイムラプス再生（もう一度押すと停止）</td>
+</tr>
+<tr>
+<td style="text-align: left;">時刻スライダー</td>
+<td style="text-align: left;">その日の 00:00〜23:50 UTC を移動</td>
+</tr>
+</tbody>
+</table>
+<h3 id="降水間隔imerg">降水間隔（IMERG）</h3>
+<ul>
+<li><strong>30分刻み (時刻連動)</strong>: 指定した時刻の 30
+分ごとの降水</li>
+<li><strong>1日合成 (日次平均)</strong>: その日 1
+日分をまとめた降水</li>
+</ul>
+<h3 id="過去の台風豪雨プリセット">過去の台風・豪雨プリセット</h3>
+<p>「過去の台風・豪雨プリセット」から事例を選ぶと、日付・時刻・レイヤー・地域が一度に設定されます。
+例: 令和元年東日本台風（台風 19 号）、令和 2 年 7
+月豪雨（熊本豪雨）、平成 30 年 7 月豪雨（西日本豪雨）など。</p>
+<h3 id="選べる期間">選べる期間</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">データ</th>
+<th style="text-align: left;">期間</th>
+<th style="text-align: left;">間隔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ひまわり赤外線雲</td>
+<td style="text-align: left;">直近 2〜3 か月ほど（NASA
+側で古いデータから順に消えます）</td>
+<td style="text-align: left;">10 分</td>
+</tr>
+<tr>
+<td style="text-align: left;">GPM IMERG 全球降水</td>
+<td style="text-align: left;">2000 年 6 月〜</td>
+<td style="text-align: left;">30 分 / 1 日</td>
+</tr>
+<tr>
+<td style="text-align: left;">MODIS 可視光衛星</td>
+<td style="text-align: left;">2000 年 2 月〜</td>
+<td style="text-align: left;">1 日</td>
+</tr>
+</tbody>
+</table>
+<p>最新の数時間〜1 日ほどは、NASA
+側でまだデータが用意されていないことがあります（画像が出ない場合は少し前の日時を選んでください）。</p>
+<hr />
+<h2 id="6-気象衛星レイヤー">6. 気象・衛星レイヤー</h2>
+<p>左上のレイヤーバー、または設定パネルで選びます（<kbd>W</kbd>
+で順番に切り替え）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">レイヤー</th>
+<th style="text-align: left;">内容</th>
+<th style="text-align: left;">データ</th>
+<th style="text-align: left;">API キー</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">雨雲・降水</td>
+<td style="text-align: left;">雨雲レーダー（過去日時では GPM
+IMERG）</td>
+<td style="text-align: left;">RainViewer / NASA</td>
+<td style="text-align: left;">不要</td>
+</tr>
+<tr>
+<td style="text-align: left;">ひまわり赤外線雲</td>
+<td
+style="text-align: left;">気象衛星ひまわりの赤外線画像。白いほど雲頂が高く冷たい</td>
+<td style="text-align: left;">NASA GIBS / 気象庁</td>
+<td style="text-align: left;">不要</td>
+</tr>
+<tr>
+<td style="text-align: left;">全球降水 (IMERG)</td>
+<td style="text-align: left;">衛星から推定した全世界の降水強度</td>
+<td style="text-align: left;">NASA GIBS / JAXA</td>
+<td style="text-align: left;">不要</td>
+</tr>
+<tr>
+<td style="text-align: left;">衛星雲 (可視光)</td>
+<td style="text-align: left;">人の目で見た色に近い衛星写真（1 日 1
+枚）</td>
+<td style="text-align: left;">NASA GIBS (MODIS)</td>
+<td style="text-align: left;">不要</td>
+</tr>
+<tr>
+<td style="text-align: left;">気圧 (hPa)</td>
+<td style="text-align: left;">海面気圧</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>必要</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">風速 (m/s)</td>
+<td style="text-align: left;">地上の風速</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>必要</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">気温 (°C)</td>
+<td style="text-align: left;">地上の気温</td>
+<td style="text-align: left;">OpenWeatherMap</td>
+<td style="text-align: left;"><strong>必要</strong></td>
+</tr>
+</tbody>
+</table>
+<p>NASA
+のレイヤーを選ぶと、自動的に過去日時指定モードに切り替わります。</p>
+<hr />
+<h2 id="7-地域ジャンプと視点の操作">7. 地域ジャンプと視点の操作</h2>
+<h3 id="地域ジャンプ">地域ジャンプ</h3>
+<p>ヘッダーのボタン、または数字キーで移動します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">キー</th>
+<th style="text-align: left;">地域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>1</kbd></td>
+<td style="text-align: left;">日本</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>2</kbd></td>
+<td style="text-align: left;">中国</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>3</kbd></td>
+<td style="text-align: left;">アメリカ</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>4</kbd></td>
+<td style="text-align: left;">ヨーロッパ</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>5</kbd></td>
+<td style="text-align: left;">オーストラリア</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>6</kbd></td>
+<td style="text-align: left;">全球</td>
+</tr>
+</tbody>
+</table>
+<h3 id="マウス操作">マウス操作</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">操作</th>
+<th style="text-align: left;">動き</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">左ドラッグ</td>
+<td style="text-align: left;">地球を回す</td>
+</tr>
+<tr>
+<td style="text-align: left;">ホイール / ピンチ</td>
+<td style="text-align: left;">拡大・縮小</td>
+</tr>
+<tr>
+<td style="text-align: left;">右ドラッグ</td>
+<td style="text-align: left;">拡大・縮小</td>
+</tr>
+<tr>
+<td style="text-align: left;">中ボタンドラッグ（Ctrl + 左ドラッグ）</td>
+<td style="text-align: left;">視点を傾ける</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-画像pngの保存">8. 画像（PNG）の保存</h2>
+<p>カメラボタン、下部パネルの <strong>「保存」</strong>、または
+<kbd>P</kbd> で、今見ている地球儀を PNG 画像として保存します。</p>
+<p>画像には次の情報が書き込まれます。</p>
+<ul>
+<li>左下:
+表示中の時刻（UTC）、日本時間、レイヤー名、地域、カメラの位置と高度</li>
+<li>右下: 凡例（色と値の対応）</li>
+</ul>
+<p>ファイル名の例:
+<code>RainViewer3D_radar_2026-11-07_0010UTC.png</code></p>
+<p><strong>保存先</strong></p>
+<ul>
+<li>デスクトップ版（Mac / Windows）:
+<strong>「ダウンロード」フォルダ</strong>。同じ名前のファイルがあるときは
+<code>(2)</code>
+を付けて保存し、上書きはしません。保存先のパスは通知に表示されます。</li>
+<li>ブラウザ版: ブラウザのダウンロード先</li>
+</ul>
+<hr />
+<h2 id="9-降水データの-csv-保存">9. 降水データの CSV 保存</h2>
+<p><strong>CSV</strong> ボタン、または <kbd>C</kbd>
+で、<strong>今画面に映っている範囲</strong> の降水データを CSV
+ファイルに保存します。 「雨雲・降水」または「全球降水
+(IMERG)」レイヤーを表示しているときだけ使えます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">列</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>time_utc</code></td>
+<td style="text-align: left;">データの時刻（UTC）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>lat</code>, <code>lon</code></td>
+<td style="text-align: left;">緯度・経度</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>dbz</code></td>
+<td style="text-align: left;">レーダー反射強度（LIVE の RainViewer
+のみ）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>precip_mm_h</code></td>
+<td style="text-align: left;">降水強度（mm/h）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>precip_type</code></td>
+<td style="text-align: left;"><code>rain</code>（雨）/
+<code>snow</code>（雪）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>source</code></td>
+<td style="text-align: left;">データの出どころ</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>格子は最大 300 × 300
+点です。広い範囲ほど点の間隔が粗くなります。</li>
+<li>値はタイル画像の色から逆算した推定値です。
+<ul>
+<li>LIVE: RainViewer の色表で dBZ に戻し、Marshall-Palmer 式（雨
+Z=200R^1.6、雪 Z=2000R^2）で mm/h に換算</li>
+<li>過去日時 / IMERG: NASA GIBS のカラーマップで mm/h の階級に変換</li>
+</ul></li>
+<li>保存先は PNG と同じです。</li>
+</ul>
+<hr />
+<h2 id="10-設定パネル">10. 設定パネル</h2>
+<p>ヘッダーの設定ボタン（<kbd>S</kbd>）で開きます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">項目</th>
+<th style="text-align: left;">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">表示中の気象・衛星レイヤー</td>
+<td
+style="text-align: left;">レイヤーの切り替え（レイヤーバーと同じ）</td>
+</tr>
+<tr>
+<td style="text-align: left;">OpenWeatherMap API 設定</td>
+<td style="text-align: left;">API キーの入力・保存・削除</td>
+</tr>
+<tr>
+<td style="text-align: left;">地球ベースマップ</td>
+<td style="text-align: left;"><strong>Dark
+Earth</strong>（暗い地図、気象データが見やすい）/ <strong>Blue
+Marble</strong>（衛星写真）</td>
+</tr>
+<tr>
+<td style="text-align: left;">レイヤー不透明度</td>
+<td style="text-align: left;">気象レイヤーの濃さ（15〜100%）</td>
+</tr>
+<tr>
+<td style="text-align: left;">雨雲配色パレット</td>
+<td style="text-align: left;">雨雲レーダーの色（Universal Blue、TITAN
+など）。LIVE の雨雲レイヤーのみ</td>
+</tr>
+<tr>
+<td style="text-align: left;">補間スムージング / 降雪カラー識別</td>
+<td style="text-align: left;">雨雲をなめらかに表示 /
+雪を別の色で表示</td>
+</tr>
+<tr>
+<td
+style="text-align: left;">国境線・主要都市マーカー・大気グロー・自転</td>
+<td style="text-align: left;">地球儀の表示効果</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-openweathermap-api-キーの設定">11. OpenWeatherMap API
+キーの設定</h2>
+<p>気圧・風速・気温のレイヤーには、OpenWeatherMap の <strong>無料の API
+キー</strong> が必要です。</p>
+<ol type="1">
+<li><a
+href="https://home.openweathermap.org/users/sign_up">OpenWeatherMap
+の登録ページ</a> でアカウントを作ります（クレジットカード不要）。</li>
+<li>マイページの <strong>[API keys]</strong> タブにある 32
+文字のキーをコピーします。</li>
+<li>気圧などのレイヤーを選ぶと入力画面が開くので、キーを貼り付けて「保存してレイヤーを表示」を押します（設定パネルからも入力できます）。</li>
+</ol>
+<ul>
+<li>キーはこのパソコン（ブラウザ）の中だけに保存されます。</li>
+<li>発行したばかりのキーは、使えるようになるまで数分〜2
+時間ほどかかることがあります。</li>
+<li>削除するときは設定パネルの「キー削除」を押します。</li>
+</ul>
+<hr />
+<h2 id="12-キーボードショートカット">12. キーボードショートカット</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">キー</th>
+<th style="text-align: left;">動き</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><kbd>T</kbd></td>
+<td style="text-align: left;">LIVE ⇄ 過去日時指定モード</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>Space</kbd></td>
+<td style="text-align: left;">再生 / 一時停止</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>←</kbd> / <kbd>→</kbd></td>
+<td style="text-align: left;">前 / 次のコマ</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>W</kbd></td>
+<td style="text-align: left;">レイヤーを順に切り替え</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>1</kbd>〜<kbd>6</kbd></td>
+<td style="text-align: left;">地域へジャンプ</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>P</kbd></td>
+<td style="text-align: left;">画像（PNG）保存</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>C</kbd></td>
+<td style="text-align: left;">降水データ CSV 保存</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>R</kbd></td>
+<td style="text-align: left;">データを再取得</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>S</kbd></td>
+<td style="text-align: left;">設定パネルの開閉</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>L</kbd></td>
+<td style="text-align: left;">言語の切り替え（日本語 / English）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>I</kbd></td>
+<td style="text-align: left;">概要・クレジットの表示</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>F</kbd></td>
+<td style="text-align: left;">全画面表示</td>
+</tr>
+<tr>
+<td style="text-align: left;"><kbd>Esc</kbd></td>
+<td style="text-align: left;">パネル・画面を閉じる</td>
+</tr>
+</tbody>
+</table>
+<p>文字入力欄にカーソルがあるときは、ショートカットは働きません。</p>
+<hr />
+<h2 id="13-困ったとき">13. 困ったとき</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">症状</th>
+<th style="text-align: left;">対処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Mac
+で「開発元を確認できないため開けません」と出る</td>
+<td style="text-align: left;">アプリを <strong>右クリック
+→「開く」</strong> を選びます。または「システム設定 →
+プライバシーとセキュリティ」の「このまま開く」を押します。それでも開けないときは、ターミナルで
+<code>xattr -cr /Applications/RainViewer3D.app</code>
+を実行します。</td>
+</tr>
+<tr>
+<td style="text-align: left;">Windows で「PC を保護しました」と出る</td>
+<td style="text-align: left;"><strong>「詳細情報」→「実行」</strong>
+を押します。</td>
+</tr>
+<tr>
+<td style="text-align: left;">地球儀が真っ黒、画像が出ない</td>
+<td style="text-align: left;">インターネット接続を確認し、<kbd>R</kbd>
+で再取得します。</td>
+</tr>
+<tr>
+<td style="text-align: left;">過去日時で雨や雲が表示されない</td>
+<td
+style="text-align: left;">その日時のデータがまだ公開されていない可能性があります。1〜2
+日前の日時を選んでください。ひまわりは直近 2〜3
+か月ほどのデータしかありません（過去の台風はGPM IMERG
+の降水で見てください）。</td>
+</tr>
+<tr>
+<td style="text-align: left;">気圧・風速・気温が出ない</td>
+<td style="text-align: left;">API
+キーを確認してください。発行直後は有効になるまで時間がかかります。</td>
+</tr>
+<tr>
+<td style="text-align: left;">CSV ボタンを押しても保存されない</td>
+<td style="text-align: left;">「雨雲・降水」か「全球降水
+(IMERG)」レイヤーに切り替えてから押してください。</td>
+</tr>
+<tr>
+<td style="text-align: left;">保存したファイルが見つからない</td>
+<td
+style="text-align: left;">デスクトップ版は「ダウンロード」フォルダに保存されます。通知に保存先のパスが表示されます。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="14-データ出典">14. データ出典</h2>
+<ul>
+<li>リアルタイム雨雲レーダー: <a
+href="https://www.rainviewer.com/api.html">RainViewer API</a></li>
+<li>過去の降水・ひまわり赤外線・衛星画像: <a
+href="https://earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs">NASA
+GIBS</a>（JAXA GPM IMERG / 気象庁 ひまわり 8・9 号 / NASA Terra
+MODIS）</li>
+<li>気圧・風速・気温: <a
+href="https://openweathermap.org/api/weather-map-1">OpenWeatherMap
+Weather Maps</a></li>
+<li>ベースマップ・境界線: Esri World Dark Gray / World Imagery / World
+Boundaries and Places</li>
+<li>3D 地球儀エンジン: <a
+href="https://cesium.com/platform/cesiumjs/">CesiumJS</a></li>
+</ul>
+  </article></main>
+</body>
+</html>
