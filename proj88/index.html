@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TOKYO SOLAR — その場所は、何時に日陰になる？</title>
+  <meta name="description" content="東京23区の実際の建物に、好きな日時の太陽で影を落とすデスクトップアプリ。日の出から日の入までの影の動きを再生し、地上から太陽を見上げ、画像や動画で保存できます。" />
+  <meta property="og:title" content="TOKYO SOLAR — その場所は、何時に日陰になる？" />
+  <meta property="og:description" content="東京23区の建物に、好きな日時の太陽で影を落とす 3D 日影シミュレーター。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/hero.jpg" />
+  <meta name="theme-color" content="#11151c" />
+  <link rel="icon" href="images/app-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #11151c;
+      --bg-2: #171c25;
+      --card: #1d232e;
+      --line: #2b3340;
+      --text: #e9edf3;
+      --muted: #9ba6b5;
+      --accent: #ffb020;
+      --accent-2: #ffd54a;
+      --sky: #6db0ff;
+      --radius: 14px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .en { font-family: Inter, "Noto Sans JP", sans-serif; letter-spacing: .02em; }
+
+    /* header */
+    header.top {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .logo img { width: 28px; height: 28px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px; font-weight: 700; text-decoration: none;
+      background: var(--accent); color: #1f1300; transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 45%, transparent); }
+    .btn.small { padding: 8px 16px; font-size: 14px; }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); box-shadow: none; }
+
+    /* hero */
+    .hero { padding: 72px 0 40px; text-align: center; background: radial-gradient(ellipse 60% 50% at 75% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%); }
+    .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .12em; }
+    .hero h1 { font-size: clamp(32px, 6vw, 60px); line-height: 1.25; margin: 14px 0 18px; font-weight: 900; }
+    .hero h1 .hl { color: var(--accent-2); }
+    .nb { display: inline-block; }
+    .hero p.lead { color: var(--muted); font-size: clamp(15px, 2vw, 18px); max-width: 720px; margin: 0 auto 30px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .price-note { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .shot {
+      margin-top: 48px; border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0,0,0,.5); background: var(--card);
+    }
+    figcaption { font-size: 13px; color: var(--muted); padding: 10px 14px; background: var(--bg-2); border-top: 1px solid var(--line); }
+
+    section { padding: 80px 0; }
+    section.alt { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    h2 { font-size: clamp(24px, 4vw, 36px); line-height: 1.4; margin: 0 0 14px; font-weight: 900; }
+    .sec-lead { color: var(--muted); max-width: 760px; margin: 0 0 40px; }
+
+    /* story */
+    .story { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .story blockquote { margin: 0; font-size: clamp(18px, 2.4vw, 22px); font-weight: 700; line-height: 1.7; border-left: 3px solid var(--accent); padding-left: 18px; }
+    .story p { color: var(--muted); }
+
+    /* seasons */
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .season { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--card); margin: 0; }
+    .season .body { padding: 18px 20px 22px; }
+    .season h3 { margin: 0 0 4px; font-size: 19px; }
+    .season .meta { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .season.summer .meta { color: #ff9f7a; }
+    .season.winter .meta { color: var(--sky); }
+    .season p { margin: 0; color: var(--muted); font-size: 15px; }
+    .big { font: 800 34px/1.1 Inter, sans-serif; color: var(--text); margin: 6px 0; }
+    .big small { font-size: 14px; color: var(--muted); font-weight: 600; margin-left: 6px; }
+
+    /* features */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feat { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+    .feat .num { font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1.2; }
+    .feat h3 { margin: 6px 0 6px; font-size: 17px; }
+    .feat p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* split */
+    .split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; }
+    .split.rev { grid-template-columns: 1fr 1.3fr; }
+    .split .shot { margin-top: 0; }
+    ul.check { list-style: none; padding: 0; margin: 0; }
+    ul.check li { padding: 8px 0 8px 28px; position: relative; color: var(--muted); }
+    ul.check li::before { content: "☀"; position: absolute; left: 0; top: 8px; color: var(--accent-2); font-size: 14px; }
+    ul.check strong { color: var(--text); }
+    kbd { font: 600 12px Inter, sans-serif; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; color: var(--text); background: var(--card); }
+
+    /* steps */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: s; }
+    .step { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; position: relative; }
+    .step::before { counter-increment: s; content: counter(s); font-family: Inter, sans-serif; font-weight: 800; font-size: 14px; color: #1f1300; background: var(--accent); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 10px; }
+    .step h3 { margin: 0 0 6px; font-size: 17px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    /* buy */
+    .buy { text-align: center; }
+    .buy .card { max-width: 560px; margin: 0 auto; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 40px 28px; }
+    .buy .card img.icon { width: 96px; height: 96px; margin: 0 auto 6px; }
+    .buy h2 { margin: 8px 0 6px; }
+    .platforms { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 18px 0 10px; }
+    .chip { border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; font-size: 13px; color: var(--muted); }
+    .req { color: var(--muted); font-size: 13px; margin: 0 0 26px; }
+
+    .hdr-right { display: flex; align-items: center; gap: 10px; }
+    .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang button { background: transparent; color: var(--muted); border: 0; padding: 6px 11px; white-space: nowrap; font: 600 13px Inter, "Noto Sans JP", sans-serif; cursor: pointer; }
+    .lang button[aria-pressed="true"] { background: var(--line); color: var(--text); }
+    .note-box { margin-top: 28px; border-left: 3px solid var(--accent); background: var(--card); border-radius: 8px; padding: 12px 16px; color: var(--muted); font-size: 14px; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+    footer p { margin: 4px 0; }
+
+    @media (max-width: 860px) {
+      .story, .split, .split.rev, .pair { grid-template-columns: 1fr; }
+      .split.rev > figure { order: -1; }
+      .features, .steps { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      .features, .steps { grid-template-columns: 1fr; }
+      section { padding: 60px 0; }
+      .hero { padding-top: 48px; }
+      .wrap { padding: 0 16px; }
+      header.top .btn.small { padding: 7px 12px; font-size: 13px; }
+      .logo { font-size: 14px; gap: 7px; }
+      .hdr-right { gap: 6px; }
+      .lang button { padding: 6px 8px; }
+      .logo img { width: 24px; height: 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="logo en" href="#">
+        <img src="images/app-icon.png" alt="" width="28" height="28" />
+        TOKYO SOLAR
+      </a>
+      <div class="hdr-right">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="ja" aria-pressed="true" aria-label="日本語">JA</button>
+          <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+        <a class="btn small" href="https://cyber-matrix.netlify.app/products/tokyo_solar" data-i18n="navBuy">入手する</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow en">TOKYO SOLAR — DESKTOP EDITION</div>
+        <h1 data-i18n="heroTitle"><span class="nb">その場所は、</span><br /><span class="hl nb">何時に日陰になる？</span></h1>
+        <p class="lead" data-i18n="heroLead">東京23区の実際の建物に、好きな日付・時刻の太陽で影を落とす 3D 日影シミュレーター。日の出から日の入までの影の動きを再生し、地上から太陽を見上げ、画像や動画で保存できます。</p>
+        <div class="cta-row">
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/tokyo_solar" data-i18n="heroBuy">入手する</a>
+          <a class="btn ghost" href="#day" data-i18n="heroDay">1日の影の動きを見る</a>
+        </div>
+        <div class="price-note" data-i18n="heroNote">macOS（Apple Silicon）・インターネット接続が必要です</div>
+        <figure class="shot" style="margin-left:0;margin-right:0">
+          <img src="images/hero.jpg" data-img="hero" width="1600" height="900" data-i18n-alt="heroAlt" alt="冬至の14時30分、西新宿の高層ビル群を斜め上から見た3D表示。新宿中央公園や街並みに長い影が北東へ伸び、右上に太陽の高度18.5°・影の長さ2.99倍のパネル" />
+          <figcaption data-i18n="heroCap">冬至の 14:30、西新宿。太陽の高度は 18.5° で、影は建物の高さの約3倍まで北東へ伸びます。画像・動画はすべてアプリの実際の画面です。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- story -->
+    <section class="alt">
+      <div class="wrap story">
+        <blockquote data-i18n="storyQuote">「この部屋、冬の午後に日は当たる？」<br />「あの公園のベンチは、何時から日陰？」</blockquote>
+        <div>
+          <p data-i18n="storyP1">日当たりは、季節と時刻と、まわりの建物で決まります。でも、それを現地で確かめられるのは、その日・その時刻だけ。</p>
+          <p data-i18n="storyP2">TOKYO SOLAR は、国土交通省の 3D 都市モデル PLATEAU の建物に、天文計算で求めた太陽の光を当てて影を描きます。冬至の朝も、夏至の夕方も、画面の上で何度でも確かめられます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- day animation -->
+    <section id="day">
+      <div class="wrap">
+        <h2 data-i18n="dayTitle">日の出から日の入まで、影の動きを再生。</h2>
+        <p class="sec-lead" data-i18n="dayLead">▶ を押すと、その日の日の出から日の入までを 10〜80 秒で再生します。● を押せば、そのまま動画（MP4）で保存できます。</p>
+        <figure class="shot" style="margin:0">
+          <video id="day-video" data-video="day" src="images/day.mp4" poster="images/day.jpg" width="1280" height="720" autoplay muted loop playsinline preload="metadata" data-i18n-aria="dayAlt" aria-label="冬至の西新宿で、日の出から日の入までの影の動きを10秒で再生した動画"></video>
+          <figcaption data-i18n="dayCap">冬至の西新宿、日の出（6:48）から日の入（16:31）までを 10 秒で。アプリの録画機能で保存した動画そのままで、左下の時刻・太陽の情報と右上の軌跡図も自動で入ります。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- seasons -->
+    <section class="alt">
+      <div class="wrap">
+        <h2 data-i18n="seasonTitle">同じ正午でも、夏と冬でこんなに違う。</h2>
+        <p class="sec-lead" data-i18n="seasonLead">東京駅・丸の内を真上から。日付を変えるだけで、季節による影の違いがひと目でわかります。春分・夏至・秋分・冬至はボタン一つで選べます。</p>
+        <div class="pair">
+          <figure class="season summer">
+            <img src="images/summer.jpg" data-img="summer" width="1600" height="900" loading="lazy" data-i18n-alt="summerAlt" alt="夏至の正午、東京駅を真上から見た3D表示。影は建物のすぐ足元にだけ短く落ちている" />
+            <div class="body">
+              <div class="meta" data-i18n="summerMeta">夏至（6月21日）12:00</div>
+              <div class="big en">0.23 ×<small data-i18n="ratioUnit">建物の高さ</small></div>
+              <p data-i18n="summerText">太陽の高度は 77°。影は高さの4分の1ほどで、ほぼ足元に収まります。</p>
+            </div>
+          </figure>
+          <figure class="season winter">
+            <img src="images/winter.jpg" data-img="winter" width="1600" height="900" loading="lazy" data-i18n-alt="winterAlt" alt="冬至の正午、東京駅を真上から見た3D表示。ビルの影が北へ長く伸び、駅舎や線路の多くを覆っている" />
+            <div class="body">
+              <div class="meta" data-i18n="winterMeta">冬至（12月22日）12:00</div>
+              <div class="big en">1.68 ×<small data-i18n="ratioUnit">建物の高さ</small></div>
+              <p data-i18n="winterText">太陽の高度は 31°。正午でも影は高さの1.7倍。100 m のビルなら 168 m 先まで日陰です。</p>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- free view -->
+    <section>
+      <div class="wrap split">
+        <figure class="shot" style="margin:0">
+          <img src="images/free.jpg" data-img="free" width="1600" height="900" loading="lazy" data-i18n-alt="freeAlt" alt="丸の内の駅前広場の地上30mから西南西の太陽を見た3D表示。手前のビルが太陽をさえぎりかけている" />
+          <figcaption data-i18n="freeCap">丸の内の駅前広場、地上 30 m から 15:20 の太陽を見たところ。もうすぐ手前のビルの陰に入ります。</figcaption>
+        </figure>
+        <div>
+          <h2 data-i18n="freeTitle">その窓から、太陽は見える？</h2>
+          <ul class="check">
+            <li data-i18n="free1"><strong>好きな場所に立つ</strong>：地図をクリックした地点に。建物をクリックすれば、その屋上に立てます</li>
+            <li data-i18n="free2"><strong>高さを指定</strong>：地面から何メートルかを入力。マンション10階なら約 30 m</li>
+            <li data-i18n="free3"><strong>太陽を見る・追う</strong>：ボタン一つで太陽の方向へ。再生中も太陽を向き続けます</li>
+            <li data-i18n="free5"><strong>1日の日照がわかる</strong>：立った地点に日が当たる時間帯と合計時間を自動で計算。タイムバーが日なた・日かげの帯になります</li>
+            <li data-i18n="free4"><strong>歩いて見回す</strong>：ドラッグで見回し、<kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> で移動、<kbd>E</kbd><kbd>Q</kbd> で上下</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- features -->
+    <section class="alt">
+      <div class="wrap">
+        <h2 data-i18n="featTitle">しくみと機能</h2>
+        <p class="sec-lead" data-i18n="featLead">PLATEAU の建物と国土地理院の地形・航空写真を、選んだ範囲の分だけインターネットから読み込み、天文計算で求めた太陽の向きで影を描きます。</p>
+        <div class="features">
+          <div class="feat"><div class="num" data-i18n="f1Num">23区</div><h3 data-i18n="f1Title">実際の建物で計算</h3><p data-i18n="f1Text">国土交通省 PLATEAU の 3D 都市モデル。建物から地面へ、建物から建物へ落ちる影を描きます。</p></div>
+          <div class="feat"><div class="num en">NOAA</div><h3 data-i18n="f2Title">天文計算の太陽位置</h3><p data-i18n="f2Text">米国海洋大気庁（NOAA）の計算式で、日付・時刻・場所から太陽の高度と方位を求めます。大気差も補正します。</p></div>
+          <div class="feat"><div class="num en">300 m – 2 km</div><h3 data-i18n="f3Title">調べる範囲を選ぶ</h3><p data-i18n="f3Text">住所検索・主な場所・地図クリック・緯度経度で中心を決め、正方形の範囲を表示します。</p></div>
+          <div class="feat"><div class="num en">PNG / MP4</div><h3 data-i18n="f4Title">画像と動画で保存</h3><p data-i18n="f4Text">今の画面を PNG で、1日の影の動きを MP4 で保存。日時・太陽の高度と方位が画面に入ります。</p></div>
+          <div class="feat"><div class="num" data-i18n="f5Num">軌跡図</div><h3 data-i18n="f5Title">太陽の通り道</h3><p data-i18n="f5Text">その日の太陽の通り道を 3D と天空図で表示。夏至・冬至の軌跡と比べられます。日の出・南中・日の入の時刻も。</p></div>
+          <div class="feat"><div class="num en">JA / EN</div><h3 data-i18n="f6Title">日本語と英語</h3><p data-i18n="f6Text">画面の表示と、保存する画像・動画の文字を、ワンクリックで切り替えられます。使い方マニュアルも日英対応。</p></div>
+        </div>
+        <div class="note-box" data-i18n="noteBox">影は 3D 表示から求めた目安です。建築基準法の日影規制の正式な検討（測定面や敷地境界からの距離など）の代わりにはなりません。表示範囲の外の建物の影は含みません。</div>
+      </div>
+    </section>
+
+    <!-- building info -->
+    <section>
+      <div class="wrap split rev">
+        <div>
+          <h2 data-i18n="infoTitle">そのビルの影は、何メートル？</h2>
+          <ul class="check">
+            <li data-i18n="info1"><strong>クリックで調べる</strong>：名前・用途・高さ・地上階数・住所</li>
+            <li data-i18n="info2"><strong>今の影の長さと向き</strong>：高さ 67.8 m のビルなら、秋の朝 9:30 で約 87 m、北西へ</li>
+            <li data-i18n="info3"><strong>時刻を動かせば</strong>：影の長さもその場で変わります</li>
+          </ul>
+        </div>
+        <figure class="shot" style="margin:0">
+          <img src="images/info.jpg" data-img="info" width="1600" height="900" loading="lazy" data-i18n-alt="infoAlt" alt="虎ノ門のビルをクリックしてオレンジに強調し、高さ67.8m・16階・影の長さ約87m（北西向き）のパネルが表示された3D表示" />
+          <figcaption data-i18n="infoCap">虎ノ門、10月15日 9:30。クリックしたビルがオレンジになり、その時刻の影の長さが表示されます。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- how to -->
+    <section class="alt">
+      <div class="wrap">
+        <h2 data-i18n="stepsTitle">使い方は3ステップ</h2>
+        <p class="sec-lead" data-i18n="stepsLead">引っ越し先のマンションの、冬の日当たりを調べる例です。</p>
+        <div class="steps">
+          <div class="step"><h3 data-i18n="s1Title">場所を選ぶ</h3><p data-i18n="s1Text">住所で検索するか、地図をクリックして中心を決めます。範囲は 300 m〜2 km から。</p></div>
+          <div class="step"><h3 data-i18n="s2Title">日付を決める</h3><p data-i18n="s2Text">「冬至」ボタンで、いちばん影が長くなる日に。時刻はスライダーで動かします。</p></div>
+          <div class="step"><h3 data-i18n="s3Title">再生して確かめる</h3><p data-i18n="s3Text">▶ で1日の影の動きを再生。自由視点でその階の高さに立ち、太陽が見えるか確かめます。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- buy -->
+    <section class="buy" id="buy">
+      <div class="wrap">
+        <div class="card">
+          <img class="icon" src="images/app-icon.png" alt="" width="96" height="96" />
+          <div class="eyebrow en">DESKTOP EDITION</div>
+          <h2 class="en">TOKYO SOLAR</h2>
+          <div class="platforms">
+            <span class="chip">macOS (Apple Silicon)</span>
+          </div>
+          <p class="req" data-i18n="req">建物と地形のデータは、表示中の範囲の分だけ読み込みます。利用にはインターネット接続が必要です。</p>
+          <a class="btn" href="https://cyber-matrix.netlify.app/products/tokyo_solar" data-i18n="buyBtn">ダウンロードページへ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p data-i18n="foot1">掲載画像・動画はすべて TOKYO SOLAR の実際の画面です。</p>
+      <p data-i18n="foot2">3D 建物：<a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a>（国土交通省）／ 標高・ジオイド・航空写真・地図・住所検索：<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">国土地理院</a>／ 太陽位置：NOAA / Meeus のアルゴリズム ／ 描画：CesiumJS</p>
+      <p class="en">© Cyber Matrix</p>
+    </div>
+  </footer>
+
+  <script>
+    // Japanese is written in the markup; English lives here. Images and the video have an
+    // "-en" variant captured with the app in English.
+    const EN = {
+      pageTitle: 'TOKYO SOLAR — When does this spot fall into shade?',
+      pageDesc: 'A desktop app that casts shadows on the real buildings of Tokyo’s 23 wards for any date and time. Play the shadows from sunrise to sunset, look up at the sun from the street, and save images and videos.',
+      navBuy: 'Get it',
+      heroTitle: '<span class="nb">When does this spot</span><br /><span class="hl nb">fall into shade?</span>',
+      heroLead: 'A 3D shadow simulator that lights the real buildings of Tokyo’s 23 wards with the sun of any date and time. Play the shadows from sunrise to sunset, look up at the sun from the street, and save it all as images and videos.',
+      heroBuy: 'Get it',
+      heroDay: 'Watch a day of shadows',
+      heroNote: 'macOS (Apple Silicon) · requires an internet connection',
+      heroAlt: '3D view of the Nishi-Shinjuku high-rises from above at 14:30 on the December solstice, with long shadows stretching north-east across Shinjuku Central Park, and a panel showing a sun altitude of 18.5° and a shadow ratio of 2.99',
+      heroCap: 'Nishi-Shinjuku at 14:30 on the December solstice. The sun is 18.5° high, so shadows stretch north-east to about three times the building height. Every image and video here is a real screen from the app.',
+      storyQuote: '“Will this flat get any sun on winter afternoons?”<br />“When does that park bench go into shade?”',
+      storyP1: 'Sunlight depends on the season, the time of day and the buildings around you. On site, you can only check it for that one day and time.',
+      storyP2: 'TOKYO SOLAR shines an astronomically computed sun on the buildings of PLATEAU, the 3D city model of Japan’s Ministry of Land, Infrastructure, Transport and Tourism. Check a winter-solstice morning or a midsummer evening as often as you like.',
+      dayTitle: 'Play the shadows from sunrise to sunset.',
+      dayLead: 'Press ▶ to play the chosen day from sunrise to sunset in 10–80 seconds. Press ● to save it as a video (MP4).',
+      dayAlt: 'Video of the shadows in Nishi-Shinjuku on the December solstice, from sunrise to sunset in 10 seconds',
+      dayCap: 'Nishi-Shinjuku on the December solstice, sunrise (6:48) to sunset (16:31) in 10 seconds. This is the app’s own recording, with the time and sun data at the bottom left and the sun-path chart at the top right added automatically.',
+      seasonTitle: 'Same noon, very different shadows.',
+      seasonLead: 'Tokyo Station / Marunouchi from straight above. Change the date and the seasonal difference is plain to see. The equinoxes and solstices are one click away.',
+      summerAlt: 'Top-down 3D view of Tokyo Station at noon on the June solstice: short shadows right at the foot of each building',
+      summerMeta: 'June solstice (21 June) 12:00',
+      ratioUnit: 'the height',
+      summerText: 'The sun is 77° high. Shadows are about a quarter of the height and stay close to the buildings.',
+      winterAlt: 'Top-down 3D view of Tokyo Station at noon on the December solstice: building shadows stretch far north and cover much of the station and tracks',
+      winterMeta: 'December solstice (22 December) 12:00',
+      winterText: 'The sun is 31° high. Even at noon shadows are 1.7 times the height: a 100 m building shades 168 m.',
+      freeAlt: '3D view from 30 m above the Marunouchi station plaza looking at the sun in the west-south-west, as a building starts to block it',
+      freeCap: 'From 30 m above the Marunouchi station plaza at 15:20. The sun is about to slip behind the building in front.',
+      freeTitle: 'Can you see the sun from that window?',
+      free1: '<strong>Stand anywhere</strong>: at the point you click on the map, or on the roof of the building you click',
+      free2: '<strong>Set the height</strong>: metres above the ground. About 30 m for a 10th floor',
+      free3: '<strong>Look at the sun, or follow it</strong>: one click turns you to the sun, and it keeps you facing it while the day plays',
+      free5: '<strong>See the day’s sunlight</strong>: the sunlit periods and total hours at the spot where you stand are computed automatically, and the time bar turns into sun and shade bands',
+      free4: '<strong>Walk and look around</strong>: drag to look, <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to move, <kbd>E</kbd><kbd>Q</kbd> up and down',
+      featTitle: 'How it works',
+      featLead: 'PLATEAU buildings and GSI terrain and aerial photos are loaded from the internet for just the area you choose, and lit by an astronomically computed sun.',
+      f1Num: '23 wards',
+      f1Title: 'Real buildings',
+      f1Text: 'PLATEAU, the national 3D city model. Shadows fall from buildings onto the ground and onto other buildings.',
+      f2Title: 'Astronomical sun position',
+      f2Text: 'The NOAA (US National Oceanic and Atmospheric Administration) equations give the sun’s altitude and azimuth for any date, time and place, corrected for refraction.',
+      f3Title: 'Choose the area',
+      f3Text: 'Set the center by address search, landmark, map click or coordinates, and see a square area around it.',
+      f4Title: 'Save images and videos',
+      f4Text: 'Save the view as PNG and a whole day of shadows as MP4, with the date, time and sun position written in.',
+      f5Num: 'Sun path',
+      f5Title: 'The sun’s path',
+      f5Text: 'The day’s path of the sun in 3D and on a sky chart, compared with the solstices, plus sunrise, solar noon and sunset.',
+      f6Title: 'Japanese & English',
+      f6Text: 'Switch the interface — and the text in saved images and videos — with one click. The manual is in both languages too.',
+      noteBox: 'Shadows are an estimate from the 3D rendering. This is not a substitute for a formal study under Japan’s building shadow regulations (measurement planes, distances from site boundaries, etc.). Shadows of buildings outside the chosen area are not included.',
+      infoTitle: 'How long is that building’s shadow?',
+      info1: '<strong>Click to look it up</strong>: name, usage, height, storeys, address',
+      info2: '<strong>Its shadow right now</strong>: a 67.8 m building casts about 87 m toward the north-west at 9:30 on an autumn morning',
+      info3: '<strong>Move the time</strong> and the shadow length updates on the spot',
+      infoAlt: '3D view of Toranomon with a building clicked and highlighted in orange, and a panel showing a height of 67.8 m, 16 storeys and a shadow about 87 m long toward the north-west',
+      infoCap: 'Toranomon at 9:30 on 15 October. The clicked building turns orange and its shadow length at that time is shown.',
+      stepsTitle: 'Three steps',
+      stepsLead: 'For example, to check the winter sunlight at a flat you are thinking of moving to:',
+      s1Title: 'Choose the place',
+      s1Text: 'Search an address or click the map to set the center. Pick an area from 300 m to 2 km.',
+      s2Title: 'Choose the day',
+      s2Text: 'Press “Dec solstice” for the day with the longest shadows, then move the time with the slider.',
+      s3Title: 'Play and check',
+      s3Text: 'Press ▶ to watch the day. In free view, stand at the height of the floor and see whether the sun reaches you.',
+      req: 'Building and terrain data are loaded only for the area on screen, so an internet connection is required.',
+      buyBtn: 'Go to the download page',
+      foot1: 'Every image and video on this page is a real screen from TOKYO SOLAR.',
+      foot2: '3D buildings: <a href="https://www.mlit.go.jp/plateau/" target="_blank" rel="noopener">PLATEAU</a> (MLIT) / Elevation, geoid, aerial photos, maps and address search: <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">GSI Japan</a> / Sun position: NOAA / Meeus algorithm / Rendering: CesiumJS',
+    };
+
+    const JA = {
+      pageTitle: document.title,
+      pageDesc: document.querySelector('meta[name=description]').content,
+    };
+    document.querySelectorAll('[data-i18n]').forEach((el) => { JA[el.dataset.i18n] = el.innerHTML; });
+    document.querySelectorAll('[data-i18n-alt]').forEach((el) => { JA[el.dataset.i18nAlt] = el.alt; });
+    document.querySelectorAll('[data-i18n-aria]').forEach((el) => { JA[el.dataset.i18nAria] = el.getAttribute('aria-label'); });
+
+    function setLang(lang) {
+      const dict = lang === 'en' ? EN : JA;
+      const sfx = lang === 'en' ? '-en' : '';
+      document.documentElement.lang = lang;
+      document.title = dict.pageTitle;
+      document.querySelector('meta[name=description]').content = dict.pageDesc;
+      document.querySelectorAll('[data-i18n]').forEach((el) => { if (dict[el.dataset.i18n] !== undefined) el.innerHTML = dict[el.dataset.i18n]; });
+      document.querySelectorAll('[data-i18n-alt]').forEach((el) => { el.alt = dict[el.dataset.i18nAlt]; });
+      document.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', dict[el.dataset.i18nAria]); });
+      document.querySelectorAll('img[data-img]').forEach((el) => { el.src = `images/${el.dataset.img}${sfx}.jpg`; });
+      document.querySelectorAll('video[data-video]').forEach((v) => {
+        const src = `images/${v.dataset.video}${sfx}.mp4`;
+        if (v.getAttribute('src') === src) return;
+        v.poster = `images/${v.dataset.video}${sfx}.jpg`;
+        v.src = src;
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && v.getBoundingClientRect().top < innerHeight) v.play().catch(() => {});
+      });
+      document.querySelectorAll('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+      try { localStorage.setItem('lp-lang', lang); } catch { /* storage may be unavailable */ }
+    }
+    document.querySelectorAll('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+    // Play the video while it is on screen, pause it off screen. With reduced motion,
+    // show the poster with controls instead.
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('video[data-video]').forEach((v) => {
+      if (reduced) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; return; }
+      v.muted = true;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.25 }).observe(v);
+      } else v.play().catch(() => {});
+    });
+
+    // ?lang=en|ja in the URL wins, then the last choice, then the browser language.
+    let initial = new URLSearchParams(location.search).get('lang');
+    if (initial !== 'en' && initial !== 'ja') {
+      try { initial = localStorage.getItem('lp-lang'); } catch { initial = null; }
+    }
+    if (initial !== 'en' && initial !== 'ja') initial = navigator.language.startsWith('ja') ? 'ja' : 'en';
+    if (initial === 'en') setLang('en');
+  </script>
+</body>
+</html>
