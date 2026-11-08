@@ -3,41 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flight Dashboard | 世界の空を、いま飛んでいる飛行機ごと 3D の地球儀で — リアルタイム航空機トラッカー</title>
-  <meta name="description" content="OpenSky Network の ADS-B データで世界中の航空機をリアルタイムに CesiumJS の 3D 地球儀へ表示するデスクトップアプリ。空港を上空・地上から眺める実寸 3D 表示、コックピット／後方追尾視点、地形、軌跡 CSV の保存、Flightradar24 などの CSV 再生、録画、日本語 / English。">
+  <title>Flight Viewer | フライトの CSV を、3D の地球儀でもう一度飛ばす — フライトデータ再生ビューア</title>
+  <meta name="description" content="Flightradar24 などのフライトデータ CSV を読み込み、CesiumJS の 3D 地球儀の上で 3D モデルを時刻どおりに飛ばして再生する macOS アプリ。高度グラフ、出来事の一覧、後方追尾・操縦席視点、3D 地形、高度カーテン、時間帯の自動推定、録画、日本語 / English。">
 
-  <meta property="og:title" content="Flight Dashboard — リアルタイム航空機トラッカー 3D">
-  <meta property="og:description" content="世界の空を、いま飛んでいる飛行機ごと。空港の上空から、滑走路脇から、操縦席から。">
+  <meta property="og:title" content="Flight Viewer — フライトデータ再生ビューア 3D">
+  <meta property="og:description" content="フライトの CSV を、3D の地球儀でもう一度飛ばす。">
   <meta property="og:image" content="assets/hero.jpg">
-  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/flight_dashboard">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/flight_viewer">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/flight_dashboard">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/flight_viewer">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Cpath d=%22M23.5 6.5l-4.6 4.6-11-3.2-1.6 1.6 8.9 4.9-4.2 4.2-3-.6-1.2 1.2 3.4 2.2 2.2 3.4 1.2-1.2-.6-3 4.2-4.2 4.9 8.9 1.6-1.6-3.2-11 4.6-4.6c.9-.9.9-2.1 0-2.9-.8-.8-2-.8-2.9 0z%22 fill=%22%23ffb547%22/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b2a40%22/%3E%3Cpath d=%22M5 24c4-10 12-15 22-16%22 stroke=%22%235ce1e6%22 stroke-width=%222.2%22 stroke-dasharray=%223 2.5%22 fill=%22none%22/%3E%3Ccircle cx=%2210%22 cy=%2222%22 r=%225%22 fill=%22%23ffb547%22/%3E%3Cpath d=%22M8.6 19.6v4.8l4-2.4z%22 fill=%22%230b2a40%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261107">
+  <link rel="stylesheet" href="style.css?v=20261108">
 </head>
 <body>
 
   <!-- ===== Navigation ===== -->
   <nav class="nav">
     <div class="container nav-inner">
-      <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="logo">
+      <a href="https://cyber-matrix.netlify.app/products/flight_viewer" class="logo">
         <span class="logo-mark" aria-hidden="true"></span>
-        <span class="logo-text">FLIGHT DASHBOARD</span>
+        <span class="logo-text">FLIGHT VIEWER</span>
       </a>
       <ul class="nav-links">
         <li><a href="#features" data-i18n="navFeatures">できること</a></li>
-        <li><a href="#airports" data-i18n="navAirports">空港を見る</a></li>
-        <li><a href="#opensky" data-i18n="navData">データと料金</a></li>
+        <li><a href="#csv" data-i18n="navCsv">読み込める CSV</a></li>
         <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
       </ul>
       <div class="nav-actions">
         <button class="lang-btn" id="lang-btn" type="button">English</button>
-        <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+        <a href="https://cyber-matrix.netlify.app/products/flight_viewer" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
       </div>
     </div>
   </nav>
@@ -47,25 +46,25 @@
     <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg')"></div>
     <div class="hero-shade"></div>
     <div class="container hero-content">
-      <p class="eyebrow">OPENSKY NETWORK × ADS-B × CESIUMJS</p>
-      <h1 data-i18n-html="heroTitle">世界の空を、<br><span class="accent">いま飛んでいる飛行機ごと。</span></h1>
-      <p class="lead" data-i18n="heroLead">世界中の航空機が発信する ADS-B の位置情報を、ぐるりと回せる 3D の地球儀にリアルタイムで表示します。空港を選べば上空から実寸の 3D モデルで発着を見下ろし、ボタンひとつで滑走路脇や進入路の下に立って、降りてくる機体を見上げられます。気になる便に乗り込んでコックピットから眺めたり、軌跡を CSV で保存して後から再生したりもできます。</p>
+      <p class="eyebrow">CSV × 3D REPLAY × CESIUMJS</p>
+      <h1 data-i18n-html="heroTitle">フライトの CSV を、<br><span class="accent">3D の地球儀でもう一度飛ばす。</span></h1>
+      <p class="lead" data-i18n="heroLead">Flightradar24 などで保存したフライトデータ（CSV）を開くだけで、3D の機体が記録の時刻どおりに地球儀の上を飛びます。高度の推移をグラフで追い、記録の中の出来事へワンクリックで移動。機体の後ろから、操縦席から、山並みや空港を眺めながら、あのフライトをもう一度たどれます。</p>
       <div class="hero-cta">
-        <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="https://cyber-matrix.netlify.app/products/flight_viewer" class="btn btn-primary btn-lg" data-i18n="heroGet">macOS 版を入手</a>
         <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
       </div>
-      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English</p>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · 日本語 / English · 登録・API キー不要</p>
     </div>
   </header>
 
   <!-- ===== Stats ===== -->
   <section class="stats">
     <div class="container stats-grid">
-      <div class="stat"><strong data-i18n="statLiveN">5 秒〜</strong><span data-i18n="statLive">間隔で位置を更新</span></div>
-      <div class="stat"><strong data-i18n="statApN">18 空港</strong><span data-i18n="statAp">上空・地上ビューのプリセット</span></div>
+      <div class="stat"><strong data-i18n="statCsvN">CSV</strong><span data-i18n="statCsv">ドラッグ＆ドロップで読み込み</span></div>
+      <div class="stat"><strong data-i18n="statSpeedN">×0.25〜×300</strong><span data-i18n="statSpeed">再生速度</span></div>
       <div class="stat"><strong data-i18n="statViewN">4 視点</strong><span data-i18n="statView">自由・追尾・後方・操縦席</span></div>
-      <div class="stat"><strong data-i18n="statCsvN">CSV</strong><span data-i18n="statCsv">軌跡の保存と再生</span></div>
-      <div class="stat"><strong data-i18n="statFreeN">登録不要</strong><span data-i18n="statFree">匿名アクセスでもすぐ使える</span></div>
+      <div class="stat"><strong data-i18n="statMultiN">複数便</strong><span data-i18n="statMulti">重ねて同時に再生</span></div>
+      <div class="stat"><strong data-i18n="statFreeN">登録不要</strong><span data-i18n="statFree">API キーもアカウントも不要</span></div>
     </div>
   </section>
 
@@ -73,75 +72,47 @@
   <section class="section" id="features">
     <div class="container">
       <p class="kicker">FEATURES</p>
-      <h2 data-i18n="featTitle">見上げた空の「あの飛行機」が、地球儀の上に</h2>
-      <p class="section-lead" data-i18n="featLead">アカウントも設定もなしで、起動すればすぐに世界の航空機が表示されます。拡大すれば便名・高度・速度まで、ボタンひとつで空港や好きな場所へ移動できます。</p>
+      <h2 data-i18n="featTitle">記録された数字が、空を飛ぶ姿に変わる</h2>
+      <p class="section-lead" data-i18n="featLead">表計算ソフトでは見えなかった上昇・巡航・降下の様子や、旋回の位置関係が、3D の地球儀の上でひと目でわかります。</p>
 
       <article class="feature">
         <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
         <div class="feature-text">
           <span class="num">01</span>
-          <h3 data-i18n="f1Title">世界の航空機を、リアルタイムに</h3>
-          <p data-i18n="f1Body">飛行機のアイコンは機首の向きに回転し、高度で色分けされます。更新の合間は速度と方位から滑らかに補間して動かすので、数秒おきのデータでも自然に流れて見えます。更新間隔は 5〜300 秒で調整でき、画面に映る範囲だけを取得してデータ量を節約することもできます。</p>
+          <h3 data-i18n="f1Title">CSV を開くだけで、3D の再生</h3>
+          <p data-i18n="f1Body">CSV をウィンドウにドロップすると、3D の機体が記録の時刻どおりに飛び、通ってきた軌跡を光る線で残します。全経路を薄く表示したり、地面まで垂らした「高度カーテン」で上昇・降下を立体的に見せたり。複数の便を色分けして重ねれば、同じ時間帯の動きを比べられます。</p>
           <ul class="chips">
-            <li data-i18n="f1c1">高度で色分け</li>
-            <li data-i18n="f1c2">便名・ICAO24 で検索</li>
-            <li data-i18n="f1c3">更新間隔 5〜300 秒</li>
+            <li data-i18n="f1c1">ドラッグ＆ドロップ</li>
+            <li data-i18n="f1c2">複数便を色分け</li>
+            <li data-i18n="f1c3">高度カーテン</li>
           </ul>
         </div>
       </article>
 
       <article class="feature reverse">
-        <figure class="shot"><img src="assets/airport.jpg" alt="" loading="lazy"></figure>
+        <figure class="shot"><img src="assets/chase.jpg" alt="" loading="lazy"></figure>
         <div class="feature-text">
           <span class="num">02</span>
-          <h3 data-i18n="f2Title">空港を、実寸の 3D で見下ろす</h3>
-          <p data-i18n="f2Body">空港を選ぶと斜め上空へ移動し、周辺の機体が実寸の 3D モデルに切り替わります。大型機・中型機・小型機で大きさが変わり、滑走路や誘導路との比率もそのまま。リアルタイムの機体は色と輪郭、便名ラベルで強調されるので、衛星写真に写り込んだ駐機機とひと目で見分けられます。</p>
+          <h3 data-i18n="f2Title">機体の後ろから、操縦席から</h3>
+          <p data-i18n="f2Body">視点は「自由」「追尾」「後方」「操縦席」の 4 種類。ドラッグやキーで見回し、ホイールで距離を変えられます。地形表示をオンにすれば、日本は国土地理院、海外は AWS の標高データで山並みが立体に。進入経路と地形の関係もよくわかります。</p>
           <ul class="chips">
-            <li data-i18n="f2c1">実寸 3D モデル</li>
-            <li data-i18n="f2c2">便名・高度ラベル</li>
-            <li data-i18n="f2c3">真上 / 斜め</li>
+            <li data-i18n="f2c1">後方追尾 / 操縦席</li>
+            <li data-i18n="f2c2">3D 地形</li>
+            <li data-i18n="f2c3">キーボード飛行</li>
           </ul>
         </div>
       </article>
 
       <article class="feature">
-        <figure class="shot"><img src="assets/ground.jpg" alt="" loading="lazy"></figure>
+        <figure class="shot"><img src="assets/cockpit.jpg" alt="" loading="lazy"></figure>
         <div class="feature-text">
           <span class="num">03</span>
-          <h3 data-i18n="f3Title">滑走路脇から、降りてくる機体を見上げる</h3>
-          <p data-i18n="f3Body">「進入路の下」「滑走路脇」を選べば、地上に立った視点に切り替わります。目線の高さは 1.7 m から展望デッキ、上空 3,000 m まで。ホイールで最大約 30 倍の望遠、機体をクリックすれば目で追い続けます。現在地や地図の好きな地点から空を見上げることもできます。</p>
+          <h3 data-i18n="f3Title">高度グラフと出来事で、場面へ一瞬で</h3>
+          <p data-i18n="f3Body">画面下の高度グラフは全便の高度の推移を表示し、クリックやドラッグでその時刻へ移動します。CSV に note 列があれば「出来事」として一覧になり、クリックでその 5 秒前へ。通過するとバナーで知らせます。高度・対地速度・昇降率・方位も常に表示。</p>
           <ul class="chips">
-            <li data-i18n="f3c1">望遠 最大約 30 倍</li>
-            <li data-i18n="f3c2">クリックで自動追跡</li>
-            <li data-i18n="f3c3">現在地から見る</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="feature reverse">
-        <figure class="shot"><img src="assets/terrain.jpg" alt="" loading="lazy"></figure>
-        <div class="feature-text">
-          <span class="num">04</span>
-          <h3 data-i18n="f4Title">機体に乗り込み、山並みの上を飛ぶ</h3>
-          <p data-i18n="f4Body">気になる便をクリックして「コックピット」か「後方追尾」を選べば、その機体と一緒に飛ぶ視点になります。地形表示をオンにすると、富士山や日本アルプスが立体に。日本は国土地理院の 10 m メッシュ、海外は AWS の標高データを使います。キーボードで自由に飛び回るカメラもあります。</p>
-          <ul class="chips">
-            <li data-i18n="f4c1">コックピット / 後方追尾</li>
-            <li data-i18n="f4c2">3D 地形</li>
-            <li data-i18n="f4c3">キーボード飛行</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="feature">
-        <figure class="shot"><img src="assets/replay.jpg" alt="" loading="lazy"></figure>
-        <div class="feature-text">
-          <span class="num">05</span>
-          <h3 data-i18n="f5Title">軌跡を保存して、あとから再生</h3>
-          <p data-i18n="f5Body">機体の軌跡は CSV で保存できます。アプリが受信した観測履歴（速度・昇降率つき）と、OpenSky に記録された離陸からの全経路の 2 種類。Flightradar24 などの CSV もそのまま読み込めて、3D モデルが時刻どおりに飛ぶ様子を ×1〜×300 で再生できます。複数の便を重ねての比較や、録画（MP4 / WebM）も。</p>
-          <ul class="chips">
-            <li data-i18n="f5c1">軌跡 CSV の書き出し</li>
-            <li data-i18n="f5c2">Flightradar24 CSV 対応</li>
-            <li data-i18n="f5c3">録画</li>
+            <li data-i18n="f3c1">高度グラフでシーク</li>
+            <li data-i18n="f3c2">出来事の一覧</li>
+            <li data-i18n="f3c3">速度・昇降率を表示</li>
           </ul>
         </div>
       </article>
@@ -149,91 +120,63 @@
       <article class="feature reverse">
         <figure class="shot"><img src="assets/english.jpg" alt="" loading="lazy"></figure>
         <div class="feature-text">
-          <span class="num">06</span>
-          <h3 data-i18n="f6Title">日本語と English を、ボタンひとつで</h3>
-          <p data-i18n="f6Body">パネル右上のボタンで、メニュー・機体情報・通知・設定画面まで日本語と英語が切り替わります。日本語・英語の使用マニュアルも付属しています。</p>
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">現地の時刻で、日本語と English で</h3>
+          <p data-i18n="f4Body">時刻は、最初の位置と日付から現地の時間帯を推定して表示します（米国の夏時間にも対応）。UTC・日本時間・米国東部時間などに切り替えも自由。画面は日本語と英語をボタンひとつで切り替えられ、再生の様子は時刻・高度入りの動画として録画できます。</p>
           <ul class="chips">
-            <li data-i18n="f6c1">日本語 / English</li>
-            <li data-i18n="f6c2">マニュアル付属</li>
-            <li data-i18n="f6c3">全画面表示</li>
+            <li data-i18n="f4c1">現地時刻を自動推定</li>
+            <li data-i18n="f4c2">日本語 / English</li>
+            <li data-i18n="f4c3">録画（時刻入り）</li>
           </ul>
         </div>
       </article>
     </div>
   </section>
 
-  <!-- ===== Airports ===== -->
-  <section class="section alt" id="airports">
+  <!-- ===== CSV ===== -->
+  <section class="section alt" id="csv">
     <div class="container">
-      <p class="kicker">AIRPORT PRESETS</p>
-      <h2 data-i18n="apTitle">18 の空港を、上空からも地上からも</h2>
-      <p class="section-lead" data-i18n="apLead">空港を選ぶだけで、斜め上空・真上・進入路の下・滑走路脇の 4 つの視点に切り替えられます。視点は着陸方向に合わせて自動で向きます。</p>
+      <p class="kicker">CSV FORMATS</p>
+      <h2 data-i18n="csvTitle">読み込める CSV</h2>
+      <p class="section-lead" data-i18n="csvLead">列名から自動で判別します。時刻・緯度・経度の 3 つがあれば、たいていの CSV は読み込めます。</p>
       <div class="tech-grid">
-        <div class="tech"><h3 data-i18n="ap1a">日本</h3><p data-i18n="ap1b">羽田・成田・関西・伊丹・中部・新千歳・福岡・那覇</p></div>
-        <div class="tech"><h3 data-i18n="ap2a">アジア・中東</h3><p data-i18n="ap2b">ソウル仁川・香港・シンガポール チャンギ・ドバイ</p></div>
-        <div class="tech"><h3 data-i18n="ap3a">ヨーロッパ</h3><p data-i18n="ap3b">ロンドン ヒースロー・パリ シャルル・ド・ゴール・フランクフルト</p></div>
-        <div class="tech"><h3 data-i18n="ap4a">アメリカ</h3><p data-i18n="ap4b">ニューヨーク JFK・ロサンゼルス・サンフランシスコ</p></div>
+        <div class="tech"><h3 data-i18n="c1a">Flightradar24</h3><p data-i18n="c1b">ダウンロードした CSV（Timestamp・Position・Altitude など）をそのまま。高度はフィート</p></div>
+        <div class="tech"><h3 data-i18n="c2a">Flight Dashboard</h3><p data-i18n="c2b">Flight Dashboard で保存した軌跡 CSV（観測履歴 / 離陸からの全経路）</p></div>
+        <div class="tech"><h3 data-i18n="c3a">汎用の CSV</h3><p data-i18n="c3b">time / timestamp・latitude・longitude の列。UNIX 時刻や ISO 8601、高度は列名で m / ft を判定</p></div>
+        <div class="tech"><h3 data-i18n="c4a">出来事のメモ</h3><p data-i18n="c4b">note 列に書いた内容が「出来事」として一覧・グラフ・バナーに表示されます</p></div>
       </div>
-      <figure class="shot wide"><img src="assets/airport.jpg" alt="" loading="lazy"><figcaption data-i18n="apCap">東京 羽田（HND）を斜め上空から。便名ラベルのついた機体がリアルタイムの航空機</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- ===== Data & OpenSky ===== -->
-  <section class="section" id="opensky">
-    <div class="container">
-      <p class="kicker">DATA</p>
-      <h2 data-i18n="osTitle">データは OpenSky Network から。登録なしでも使えます</h2>
-      <p class="section-lead" data-i18n="osLead">航空機の位置は、世界中のボランティアの受信網が集める OpenSky Network の ADS-B データです。アプリはお使いのパソコンから直接取得します。</p>
-      <div class="split">
-        <figure class="shot map"><img src="assets/ground.jpg" alt="" loading="lazy"><figcaption data-i18n="osCap">羽田の滑走路脇・高さ 300 m から</figcaption></figure>
-        <ul class="spec">
-          <li><b><i class="sw" style="background:#22c55e"></i><span data-i18n="o1a">匿名アクセス（登録不要）</span></b><span data-i18n="o1b">1 日 400 クレジット。空港付近を 30 秒間隔なら約 3 時間</span></li>
-          <li><b><i class="sw" style="background:#38bdf8"></i><span data-i18n="o2a">OpenSky の無料アカウント</span></b><span data-i18n="o2b">1 日 4,000 クレジット。空港付近を 15 秒間隔なら約 16 時間。アプリに Client ID / Secret を入力</span></li>
-          <li><b><i class="sw" style="background:#ffb547"></i><span data-i18n="o3a">手元に保存</span></b><span data-i18n="o3b">認証情報はこのパソコンのアプリ設定フォルダに、本人だけが読める形で保存</span></li>
-          <li><b><i class="sw" style="background:#c39bff"></i><span data-i18n="o4a">節約のしくみ</span></b><span data-i18n="o4b">表示範囲だけを取得、1 日の消費量の目安を常に表示、タブ非表示中は取得を停止</span></li>
-        </ul>
-      </div>
+      <figure class="shot wide"><img src="assets/hero.jpg" alt="" loading="lazy"><figcaption data-i18n="csvCap">Flightradar24 形式の CSV と Flight Dashboard の軌跡 CSV を重ねて再生（高度カーテン表示）</figcaption></figure>
     </div>
   </section>
 
   <!-- ===== Start ===== -->
-  <section class="section alt" id="start">
+  <section class="section" id="start">
     <div class="container">
-      <p class="kicker">DESKTOP APPS</p>
-      <h2 data-i18n="startTitle">デスクトップ版</h2>
-      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。軽量な Tauri 製のアプリで、起動するとすぐ世界の航空機が表示されます。</p>
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">デスクトップ版（macOS）</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。軽量な Tauri 製のアプリで、アカウント登録や API キーは不要です。</p>
       <div class="platform-grid">
         <div class="platform">
           <h3>macOS</h3>
           <ul>
             <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
             <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
-            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeMac">約 3 MB</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeMac">約 2 MB</strong></li>
             <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
           </ul>
-          <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
-        </div>
-        <div class="platform">
-          <h3>Windows</h3>
-          <ul>
-            <li><span data-i18n="pkgLabel">形式</span><strong data-i18n="winPkg">.exe インストーラー</strong></li>
-            <li><span data-i18n="cpuLabel">対応</span><strong>Windows 10 / 11 (x64)</strong></li>
-            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeWin">約 2 MB</strong></li>
-            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
-          </ul>
-          <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="btn btn-primary" data-i18n="getWin">Windows 版を入手</a>
+          <a href="https://cyber-matrix.netlify.app/products/flight_viewer" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
         </div>
       </div>
-      <p class="note" data-i18n="deskNote">※ 航空機・地図・地形のデータはその場でインターネットから取得するため、インターネット接続が必要です。軌跡 CSV と録画は「ダウンロード」フォルダに保存されます。</p>
-      <p class="warn" data-i18n="warn">表示される位置は、ボランティアの受信網が受け取った ADS-B 信号にもとづくもので、数秒〜数十秒の遅れや、受信範囲外での欠落があります（空港の地上や海上、山間部など）。航空機の運航や安全に関わる判断には使用できません。OpenSky Network のデータは非商用・研究目的での利用が前提です。</p>
+      <p class="note" data-i18n="deskNote">※ 地図と地形はその場でインターネットから取得するため、インターネット接続が必要です。フライトデータ（CSV）はお手元のファイルを読み込みます（アプリがフライトデータを取得・販売するものではありません）。録画は「ダウンロード」フォルダに保存されます。</p>
+      <p class="warn" data-i18n="warn">再生される位置・高度は読み込んだ CSV の値を点と点の間で補間したもので、記録の精度に依存します。航空機の運航や事故調査などの判断には使用できません。CSV の利用は、それぞれのデータ提供元の利用規約に従ってください。</p>
     </div>
   </section>
 
   <!-- ===== Final CTA ===== -->
   <section class="cta">
     <div class="container">
-      <h2 data-i18n-html="ctaTitle">見上げた空の飛行機を、<span class="accent">手のひらの地球儀で。</span></h2>
-      <a href="https://cyber-matrix.netlify.app/products/flight_dashboard" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+      <h2 data-i18n-html="ctaTitle">あのフライトを、<span class="accent">もう一度空へ。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/flight_viewer" class="btn btn-primary btn-lg" data-i18n="ctaGet">macOS 版を入手</a>
     </div>
   </section>
 
@@ -241,11 +184,11 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FLIGHT DASHBOARD</span></div>
-        <p class="credits" data-i18n="credits">出典: OpenSky Network（航空機の位置・ADS-B）、Esri（World Imagery・Canvas）、OpenStreetMap contributors、国土地理院 標高タイル、AWS Terrain Tiles（Mapzen） ／ 3D モデル: Cesium ／ 描画: CesiumJS</p>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FLIGHT VIEWER</span></div>
+        <p class="credits" data-i18n="credits">地図: Esri（World Imagery・Canvas）、OpenStreetMap contributors ／ 地形: 国土地理院 標高タイル、AWS Terrain Tiles（Mapzen） ／ 3D モデル: Cesium ／ 描画: CesiumJS</p>
       </div>
       <ul class="footer-links">
-        <li><a href="https://cyber-matrix.netlify.app/products/flight_dashboard" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/products/flight_viewer" data-i18n="fStore">販売ページ</a></li>
         <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
         <li><a href="MANUAL.en.html">User manual (EN)</a></li>
         <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
@@ -253,6 +196,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261107"></script>
+  <script src="script.js?v=20261108"></script>
 </body>
 </html>

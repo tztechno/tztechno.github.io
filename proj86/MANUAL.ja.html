@@ -3,216 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flight Dashboard 使用マニュアル</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b1730%22/%3E%3Cpath d=%22M23.5 6.5l-4.6 4.6-11-3.2-1.6 1.6 8.9 4.9-4.2 4.2-3-.6-1.2 1.2 3.4 2.2 2.2 3.4 1.2-1.2-.6-3 4.2-4.2 4.9 8.9 1.6-1.6-3.2-11 4.6-4.6c.9-.9.9-2.1 0-2.9-.8-.8-2-.8-2.9 0z%22 fill=%22%23ffb547%22/%3E%3C/svg%3E">
+  <title>Flight Viewer 使用マニュアル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b2a40%22/%3E%3Cpath d=%22M5 24c4-10 12-15 22-16%22 stroke=%22%235ce1e6%22 stroke-width=%222.2%22 stroke-dasharray=%223 2.5%22 fill=%22none%22/%3E%3Ccircle cx=%2210%22 cy=%2222%22 r=%225%22 fill=%22%23ffb547%22/%3E%3Cpath d=%22M8.6 19.6v4.8l4-2.4z%22 fill=%22%230b2a40%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261107">
+  <link rel="stylesheet" href="style.css?v=20261108">
 </head>
 <body>
   <nav class="nav"><div class="container nav-inner">
-    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FLIGHT DASHBOARD</span></a>
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FLIGHT VIEWER</span></a>
     <ul class="nav-links"><li><a href="index.html">トップ</a></li><li><a href="MANUAL.en.html">English</a></li></ul>
   </div></nav>
   <main class="manual container"><article>
-<h1 id="flight-dashboard-ユーザーマニュアル日本語">Flight Dashboard
+<h1 id="flight-viewer-ユーザーマニュアル日本語">Flight Viewer
 ユーザーマニュアル（日本語）</h1>
-<p>世界中の飛行機を、リアルタイムに 3D
-の地球儀の上で表示するデスクトップアプリです。
-空港の上空や地上から離着陸を眺めたり、機体に乗った視点で追いかけたり、過去のフライトデータ（CSV）を再生したりできます。</p>
+<p>フライトデータ（CSV）を読み込み、CesiumJS の 3D 地球儀の上で 3D
+の機体を記録の時刻どおりに飛ばして再生するアプリです。</p>
 <ul>
-<li>対応 OS：macOS 11 以降（Apple Silicon）／ Windows 10・11（64
-ビット）</li>
-<li>データ：OpenSky Network（航空機の位置）、Esri /
-OpenStreetMap（地図）、国土地理院・AWS Terrain Tiles（地形）</li>
+<li>対応 OS：macOS 11 以降（Apple Silicon）</li>
+<li>必要なもの：インターネット接続（地図と地形の取得）。アカウント登録・API
+キーは不要</li>
 <li>表示言語：日本語 / English（パネル右上のボタンで切り替え）</li>
 </ul>
 <hr />
 <h2 id="1-インストール">1. インストール</h2>
-<h3 id="macos">macOS</h3>
 <ol type="1">
-<li><code>Flight Dashboard_x.y.z_aarch64.dmg</code>
-を開き、<code>Flight Dashboard</code>
+<li><code>Flight Viewer_x.y.z_aarch64.dmg</code>
+を開き、<code>Flight Viewer</code>
 を「アプリケーション」へドラッグします。</li>
-<li>初回は Finder でアプリを <strong>右クリック →「開く」</strong>
-を選びます（Apple
-の公証を受けていないため、ダブルクリックでは警告が出ます）。</li>
+<li>初回は「開発元を確認できない」と表示されます（Apple
+の公証を受けていないため）。
+<ul>
+<li>macOS 14 以前：Finder でアプリを右クリック →「開く」</li>
+<li>macOS 15 以降：一度開こうとしたあと、「システム設定 →
+プライバシーとセキュリティ」の下にある「このまま開く」を押す</li>
+</ul></li>
 </ol>
-<h3 id="windows">Windows</h3>
-<ol type="1">
-<li><code>Flight Dashboard_x.y.z_x64-setup.exe</code>
-を実行します。</li>
-<li>「Windows によって PC
-が保護されました」と表示されたら、<strong>「詳細情報」→「実行」</strong>
-を選びます。</li>
-<li>インストーラーの案内に従ってインストールします。</li>
-</ol>
-<h2 id="2-初回起動と-opensky-の認証情報">2. 初回起動と OpenSky
-の認証情報</h2>
-<p>起動すると「OpenSky の認証情報」画面が開きます。</p>
-<table>
-<thead>
-<tr>
-<th>選択</th>
-<th>1 日に使えるクレジット</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Client ID / Client Secret を入力して「確認して保存」</td>
-<td>4,000</td>
-<td>OpenSky のアカウントページで API
-クライアントを作成して入力します。保存前に OpenSky
-で認証できるか確認します</td>
-</tr>
-<tr>
-<td>「匿名で使う」</td>
-<td>400</td>
-<td>登録不要。たまに見る程度なら十分です</td>
-</tr>
-</tbody>
-</table>
+<h2 id="2-csv-を開く">2. CSV を開く</h2>
 <ul>
-<li>認証情報は、このパソコンのアプリ設定フォルダ（<code>settings.json</code>）に保存されます。ほかのユーザーからは読めない権限で保存し、外部へ送るのは
-OpenSky の認証時だけです。</li>
-<li>あとから変更するには、画面左上の <strong>「匿名アクセス
-⚙」／「OpenSky 認証済み ⚙」</strong> を押すか、メニューの「OpenSky
-の認証情報…」（⌘,）を選びます。</li>
+<li>左パネルの「📂 CSV を開く」、またはウィンドウへ CSV
+をドラッグ＆ドロップします。</li>
+<li>「追加で開く」にチェックすると、表示中の便に重ねて追加します。複数の便は色分けされます。</li>
+<li>「表示中の便」で、表示／非表示（チェック）、選択（クリック）、閉じる（×）ができます。</li>
 </ul>
-<h3 id="クレジットの目安">クレジットの目安</h3>
-<p>1
-回の更新で消費するクレジットは、取得する範囲の広さで決まります（狭い範囲
-1 ／〜全世界 4）。パネルの「取得範囲」の下に、今の設定での 1
-日あたりの消費量の目安が表示されます。上限を超える設定は黄色で警告されます。</p>
-<table>
-<thead>
-<tr>
-<th>例</th>
-<th>1 日の上限までに使える時間</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>空港付近（1 クレジット）を 15 秒間隔・認証あり</td>
-<td>約 16.7 時間</td>
-</tr>
-<tr>
-<td>全世界（4 クレジット）を 15 秒間隔・認証あり</td>
-<td>約 4.2 時間</td>
-</tr>
-<tr>
-<td>空港付近を 30 秒間隔・匿名</td>
-<td>約 3.3 時間</td>
-</tr>
-</tbody>
-</table>
-<h2 id="3-画面の見かた">3. 画面の見かた</h2>
-<ul>
-<li><strong>左のパネル</strong>：表示中の機体数・最終更新・次の更新・残りクレジット、各種設定。☰
-で表示／非表示</li>
-<li><strong>地図</strong>：飛行機のアイコン（機首方向に回転、高度で色分け：緑＝低い
-→ 赤紫＝高い）</li>
-<li><strong>機体をクリック</strong>：右下に詳細（便名・国籍・種別・高度・速度・方位・昇降率・位置・スコーク）</li>
-</ul>
-<h2 id="4-リアルタイム表示の設定">4. リアルタイム表示の設定</h2>
-<table>
-<thead>
-<tr>
-<th>項目</th>
-<th>内容</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>更新間隔</td>
-<td>5〜300 秒（匿名は 10 秒以上）。「⏸ 一時停止」「↻ 今すぐ更新」</td>
-</tr>
-<tr>
-<td>取得範囲</td>
-<td>「表示範囲」（画面に映る範囲だけ取得・節約）／「全世界」</td>
-</tr>
-<tr>
-<td>機体位置を速度から補間</td>
-<td>更新の合間も速度と方位から滑らかに動かします</td>
-</tr>
-<tr>
-<td>地上の機体も表示</td>
-<td>地上走行中・駐機中の機体（受信できたもののみ）</td>
-</tr>
-<tr>
-<td>地図</td>
-<td>ダーク／ライト／OpenStreetMap／衛星写真</td>
-</tr>
-<tr>
-<td>地形（標高）を立体表示</td>
-<td>山や谷を立体に。日本は国土地理院 10 m メッシュ</td>
-</tr>
-<tr>
-<td>便名 / ICAO24 で検索</td>
-<td>例：<code>JAL123</code>、<code>ANA</code>、<code>86d4a1</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="5-視点">5. 視点</h2>
-<h3 id="自由視点">自由視点</h3>
-<ul>
-<li>マウス：左ドラッグ＝移動、ホイール／右ドラッグ＝ズーム、Ctrl＋左ドラッグ／中ドラッグ＝傾き・回転</li>
-<li>ダブルクリック＝その地点へ寄る、Shift＋ダブルクリック＝その地点の地上視点</li>
-<li>キーボード：W/S 前後、A/D 左右、R・E 上昇、F・Q
-下降、矢印で見回し、Shift で高速</li>
-<li>ボタン：真上／斜め／水平／北を上／日本／世界</li>
-</ul>
-<h3 id="機体に乗る">機体に乗る</h3>
-<p>機体をクリック →「🛫 コックピット」または「🎥
-後方追尾」。ドラッグか矢印で見回し、ホイールで距離（後方追尾）、Esc
-で終了。
-「追尾」にチェックすると、地図表示のまま機体を画面中央に捉え続けます。</p>
-<h2 id="6-空港を見る">6. 空港を見る</h2>
-<ol type="1">
-<li>「空港を見る」で空港を選ぶと、斜め上空からの視点に移動します（羽田・成田・関西・伊丹・中部・新千歳・福岡・那覇ほか海外
-10 空港）。</li>
-<li>空港付近では、機体が <strong>実寸の 3D
-モデル</strong>（大型・中型・小型で大きさが変わる）で表示されます。リアルタイムの機体は色・輪郭・便名ラベルで強調されます。
-※
-衛星写真に写っている駐機機は撮影時のもので、リアルタイムの機体ではありません。</li>
-<li>ボタンで視点を切り替えます：上空から（🛩 斜め／🛰 真上）、地上から（🛬
-進入路の下／🛫 滑走路脇）。</li>
-</ol>
-<h3 id="地上視点の操作">地上視点の操作</h3>
-<ul>
-<li>ドラッグ＝見回し、ホイール＝望遠（最大約 30
-倍）、機体クリック＝目で追う（自動追跡）</li>
-<li>高さ：スライダー（1.7 m〜3,000
-m、対数目盛）または「地上」「展望デッキ」「300m」「1500m」。R/F
-キーでも調整</li>
-<li>WASD＝歩いて移動、ダブルクリック＝その地点へ移動、「↻
-後ろを向く」、Esc＝終了</li>
-<li>「🧭
-現在地から見る」：現在地の上空を見上げます（位置情報の許可が必要）</li>
-<li>「📍 画面中央から見る」：地図の中央の地点に立ちます</li>
-</ul>
-<h2 id="7-軌跡を-csv-に保存">7. 軌跡を CSV に保存</h2>
-<p>機体をクリックした詳細パネルの「軌跡 CSV」から：</p>
-<ul>
-<li><strong>⬇
-観測履歴</strong>：アプリを開いてから取得した位置（速度・昇降率など含む）。クレジット消費なし</li>
-<li><strong>⬇ 離陸からの全経路</strong>：OpenSky
-の記録から離陸以降の経路を取得（1 回 4 クレジット）</li>
-</ul>
-<p>保存先は「ダウンロード」フォルダです。</p>
-<h2 id="8-フライトデータの再生csv">8. フライトデータの再生（CSV）</h2>
-<p>「📂 CSV を開く」、またはウィンドウへ CSV
-をドラッグ＆ドロップすると、リアルタイム表示を止めて再生モードになります。</p>
-<ul>
-<li>再生／一時停止（Space）、速度
-×1〜×300、スライダーで時刻移動、追尾、全体表示、「再生を終了」</li>
-<li>複数ファイルを同時に開くと色分けして重ねて再生します</li>
-<li>対応形式：Flightradar24 の CSV、このアプリの軌跡
-CSV、時刻・緯度・経度の列がある CSV</li>
-</ul>
-<h3 id="csv-の要件概要">CSV の要件（概要）</h3>
+<h3 id="読み込める-csv">読み込める CSV</h3>
 <table>
 <thead>
 <tr>
@@ -225,88 +60,139 @@ CSV、時刻・緯度・経度の列がある CSV</li>
 <tr>
 <td>時刻（必須）</td>
 <td><code>time</code> <code>timestamp</code> <code>unix_time</code>
-<code>utc</code></td>
-<td>UNIX 秒／ミリ秒、ISO 8601。タイムゾーン無しは UTC</td>
+<code>utc</code> <code>datetime</code></td>
+<td>UNIX 秒／ミリ秒、ISO
+8601、<code>2026-11-01 17:49:00</code>、<code>2026/11/01 17:49:00</code>。タイムゾーン無しは
+UTC</td>
 </tr>
 <tr>
 <td>緯度・経度（必須）</td>
-<td><code>latitude</code>/<code>lat</code>、<code>longitude</code>/<code>lon</code>、または
+<td><code>latitude</code>/<code>lat</code>、<code>longitude</code>/<code>lon</code>/<code>lng</code>、または
 <code>position</code>（"緯度,経度"）</td>
 <td>10 進数の度</td>
 </tr>
 <tr>
 <td>高度</td>
-<td><code>altitude_ft</code> <code>alt_m</code>
-<code>altitude</code></td>
-<td>列名に <code>_m</code> →
-メートル、それ以外はフィート（パネルで変更可）</td>
+<td><code>altitude_ft</code> <code>alt_m</code> <code>altitude</code>
+<code>baro_altitude_m</code></td>
+<td>列名に <code>_m</code> → メートル、<code>ft</code> →
+フィート、それ以外はフィート（パネルで変更可）</td>
 </tr>
 <tr>
 <td>便名・機体 ID</td>
-<td><code>callsign</code>、<code>icao24</code></td>
+<td><code>callsign</code> <code>flight</code>、<code>icao24</code>
+<code>hex</code> <code>registration</code></td>
 <td>機体 ID ごとに別の便として扱います</td>
+</tr>
+<tr>
+<td>地上</td>
+<td><code>on_ground</code></td>
+<td><code>true</code>/<code>1</code>/<code>yes</code> の行は高度 0</td>
+</tr>
+<tr>
+<td>出来事</td>
+<td><code>note</code> <code>event</code> <code>remark</code></td>
+<td>空でない行が「出来事」になります</td>
 </tr>
 </tbody>
 </table>
-<h2 id="9-録画">9. 録画</h2>
-<p>「● 録画開始」で地図部分を動画として記録し、「■
-録画停止」で保存します（macOS：MP4／WebM、Windows：WebM）。
-「日時と機体数を映像に焼き込む」で、画面右下に日時を表示した状態で記録します。保存先は「ダウンロード」フォルダです。</p>
-<h2 id="10-表示言語">10. 表示言語</h2>
-<p>パネル右上の <strong>EN／日本語</strong>
-ボタンで切り替えます。選んだ言語は次回以降も使われます。
-設定画面はアプリ画面と同じ言語で開きます。メニューバーは OS
-の言語に従います。</p>
-<h2 id="11-困ったときは">11. 困ったときは</h2>
+<p>Flightradar24 の CSV と、Flight Dashboard の軌跡 CSV
+はそのまま読み込めます。1 便につき有効な点が 2 点以上必要です。</p>
+<h2 id="3-再生">3. 再生</h2>
+<ul>
+<li>画面下の再生バー：再生／一時停止（Space）、速度
+×0.25〜×300、表示する時間帯</li>
+<li><strong>高度グラフ</strong>：全便の高度の推移。クリック・ドラッグでその時刻へ。▼
+は出来事の位置</li>
+<li><code>[</code> <code>]</code> で 10 秒戻る／進む（Shift で 60
+秒）</li>
+<li>選択中の便の高度・対地速度・昇降率・方位・位置を常に表示します</li>
+</ul>
+<h3 id="時間帯">時間帯</h3>
+<p>最初の位置と日付から現地の時間帯を推定します（日本・米国本土は夏時間を含めて判定、それ以外は経度から推定）。UTC・JST・EDT・EST・PDT・PST・CEST・CET
+にも切り替えられます。</p>
+<h3 id="出来事">出来事</h3>
+<p>CSV の <code>note</code>
+列に書いた内容が「出来事」一覧に時刻順に並びます。クリックするとその 5
+秒前へ移動し、再生中に通過するとバナーで表示します。</p>
+<h2 id="4-視点">4. 視点</h2>
 <table>
 <thead>
 <tr>
-<th>症状</th>
-<th>原因と対処</th>
+<th>視点</th>
+<th>操作</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>v1.1.1 以前から更新したら、認証情報の入力画面が出た</td>
-<td>v1.1.2 から保存先を変えたためです。Client ID / Client Secret
-をもう一度入力してください（キーチェーンの確認は出なくなりました）</td>
+<td>自由</td>
+<td>左ドラッグ＝移動、ホイール＝ズーム、Ctrl＋ドラッグ＝傾き・回転、ダブルクリック＝その地点へ寄る、W/S/A/D・R/F・矢印＝飛行（Shift
+で高速）</td>
 </tr>
 <tr>
-<td>「レート制限中です」と表示される</td>
-<td>その日のクレジットを使い切りました。間隔を長くするか「表示範囲」にしてください（日付が変わると回復）</td>
+<td>追尾</td>
+<td>選択中の機体を画面中央に捉え続けます</td>
 </tr>
 <tr>
-<td>空港の地上に機体がいない</td>
-<td>受信ボランティアのアンテナから空港の地上が見通せない場合、地上の機体は受信できません（例：伊丹）。空中の機体は表示されます</td>
+<td>後方</td>
+<td>機体の後ろから追います。ドラッグか矢印で見回し、ホイールで距離</td>
 </tr>
 <tr>
-<td>機体がまばら・急に消える</td>
-<td>受信網の範囲外です。海上や山間部では受信できないことがあります</td>
-</tr>
-<tr>
-<td>「現在地から見る」が使えない</td>
-<td>初回に出る位置情報の許可で「許可」を選んでください。拒否した場合は
-macOS の「システム設定 → プライバシーとセキュリティ →
-位置情報サービス」（Windows は「設定 → プライバシーとセキュリティ →
-位置情報」）で許可します</td>
-</tr>
-<tr>
-<td>地形に針のようなノイズ</td>
-<td>最新版では修正済みです</td>
+<td>操縦席</td>
+<td>機体の位置から進行方向を見ます。ドラッグか矢印で見回し</td>
 </tr>
 </tbody>
 </table>
-<h2 id="12-データとプライバシー">12. データとプライバシー</h2>
+<p>ボタン：真上／斜め／水平／北を上／全体表示。機体をクリックするとその便を選択します。</p>
+<h2 id="5-表示の設定">5. 表示の設定</h2>
 <ul>
-<li>航空機の位置：<a href="https://opensky-network.org/">OpenSky
-Network</a>（ボランティアの受信網による ADS-B
-データ。非商用・研究目的での利用が前提）</li>
+<li>地図：衛星写真／ダーク／ライト／OpenStreetMap</li>
+<li>地形（標高）を立体表示：日本は国土地理院、海外は AWS Terrain
+Tiles</li>
+<li>全経路を薄く表示、高度の「カーテン」（地面まで垂らした壁）、便名・高度ラベル</li>
+<li>機体の大きさ：見やすく（最小 40px）／実寸</li>
+</ul>
+<h2 id="6-録画">6. 録画</h2>
+<p>「● 録画開始」で地図部分を動画として記録し、「■
+録画停止」で保存します。「時刻・高度を映像に焼き込む」で、日時と選択中の便の情報を映像に書き込みます。保存先は「ダウンロード」フォルダです。</p>
+<h2 id="7-困ったときは">7. 困ったときは</h2>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>対処</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「緯度・経度の列が見つかりません」</td>
+<td>列名を <code>latitude</code> <code>longitude</code>（または
+<code>lat</code> <code>lon</code>）にしてください</td>
+</tr>
+<tr>
+<td>高度がおかしい（約 3 倍／1/3）</td>
+<td>パネルの「高度の単位」をフィート／メートルに切り替えてください</td>
+</tr>
+<tr>
+<td>時刻が数時間ずれる</td>
+<td>タイムゾーンの無い時刻は UTC として扱います。CSV に
+<code>+09:00</code>
+などを付けるか、表示する時間帯を切り替えてください</td>
+</tr>
+<tr>
+<td>旋回が角張って見える</td>
+<td>点と点の間を直線で結ぶため、記録の間隔が粗いと角張ります</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-データについて">8. データについて</h2>
+<ul>
 <li>地図：Esri、OpenStreetMap contributors／地形：国土地理院
 標高タイル、AWS Terrain Tiles</li>
-<li>アプリは
-OpenSky・地図・地形の各サービスにのみ接続します。入力した認証情報は OS
-の保管場所に保存され、外部へ送信されるのは OpenSky
-の認証時だけです。</li>
+<li>フライトデータは、お手元の CSV
+を読み込みます。アプリがフライトデータを取得・販売するものではありません。CSV
+の利用は各データ提供元の規約に従ってください。</li>
+<li>再生される位置は記録の精度に依存します。運航や事故調査などの判断には使用できません。</li>
 </ul>
   </article></main>
 </body>

@@ -1,63 +1,50 @@
-// Flight Dashboard LP: Japanese / English switch and reveal-on-scroll.
+// Flight Viewer LP: Japanese / English switch and reveal-on-scroll.
 // Japanese is the markup; English strings live here. Choice is kept in localStorage (or ?lang=en).
 const EN = {
-  navFeatures: 'Features', navAirports: 'Airports', navData: 'Data & credits', navStart: 'Desktop', navGet: 'Get it',
-  heroTitle: 'The world’s skies,<br><span class="accent">with every plane in flight.</span>',
-  heroLead: 'Live ADS-B positions broadcast by aircraft all over the world, shown in real time on a 3D globe you can spin in any direction. Pick an airport to look down on arrivals and departures as true-scale 3D models, or stand beside the runway or under the approach path and watch them come in. Ride along in the cockpit of any flight, save its track as CSV, and replay it later.',
-  heroGet: 'Get the desktop app', heroMore: 'See what it does', heroPlat: 'macOS (Apple Silicon) · Windows 10 / 11 · 日本語 / English',
-  statLiveN: 'From 5 s', statLive: 'position update interval',
-  statApN: '18 airports', statAp: 'presets for aerial and ground views',
+  navFeatures: 'Features', navCsv: 'CSV formats', navStart: 'Desktop', navGet: 'Get it',
+  heroTitle: 'Your flight CSV,<br><span class="accent">flying again on a 3D globe.</span>',
+  heroLead: 'Open flight data saved from Flightradar24 or similar services (CSV) and a 3D aircraft flies it on the recorded timeline across a 3D globe. Follow the altitude on a chart, jump to recorded events with one click, and retrace the flight from behind the aircraft or from the cockpit, over mountains and airports.',
+  heroGet: 'Get the macOS app', heroMore: 'See what it does', heroPlat: 'macOS (Apple Silicon) · 日本語 / English · No sign-up or API key',
+  statCsvN: 'CSV', statCsv: 'drag & drop to load',
+  statSpeedN: '×0.25–×300', statSpeed: 'playback speed',
   statViewN: '4 views', statView: 'free, follow, chase, cockpit',
-  statCsvN: 'CSV', statCsv: 'save and replay tracks',
-  statFreeN: 'No sign-up', statFree: 'works right away with anonymous access',
-  featTitle: 'That plane you see overhead, on a globe',
-  featLead: 'No account and no setup: start the app and the world’s aircraft are on screen. Zoom in for flight number, altitude and speed, and jump to any airport or place with one click.',
-  f1Title: 'Every aircraft in the world, live',
-  f1Body: 'Aircraft icons turn with their heading and are colored by altitude. Between updates, positions are interpolated from speed and track, so the traffic flows smoothly even with data every few seconds. Set the interval from 5 to 300 seconds, or fetch only the area on screen to save data.',
-  f1c1: 'Colored by altitude', f1c2: 'Search by flight / ICAO24', f1c3: 'Interval 5–300 s',
-  f2Title: 'Airports in true-scale 3D',
-  f2Body: 'Choose an airport to fly above it at an angle, and nearby aircraft turn into true-scale 3D models sized by category, in proportion to the runways and taxiways. Live aircraft are highlighted with color, an outline and a flight-number label, so you can tell them from the parked planes in the satellite photo at a glance.',
-  f2c1: 'True-scale 3D models', f2c2: 'Flight & altitude labels', f2c3: 'Top-down / oblique',
-  f3Title: 'Stand by the runway and watch them land',
-  f3Body: 'Pick “Under the approach” or “Beside the runway” to stand on the ground. Eye height goes from 1.7 m to an observation deck and up to 3,000 m. Zoom up to about 30× with the wheel and click an aircraft to keep it in view. You can also look up from your current location or any spot on the map.',
-  f3c1: 'Zoom up to ~30×', f3c2: 'Click to track', f3c3: 'View from my location',
-  f4Title: 'Ride along over the mountains',
-  f4Body: 'Click a flight and choose “Cockpit” or “Chase” to fly with it. Turn on terrain and Mt. Fuji and the Japan Alps rise in 3D, using GSI 10 m elevation data in Japan and AWS terrain elsewhere. A keyboard-flown free camera is there too.',
-  f4c1: 'Cockpit / chase', f4c2: '3D terrain', f4c3: 'Keyboard flight',
-  f5Title: 'Save tracks and replay them',
-  f5Body: 'Export an aircraft’s track as CSV: either the history the app received (with speed and vertical rate) or the full path since takeoff recorded by OpenSky. Flightradar24 CSV files load as-is, and a 3D model flies them on time at ×1 to ×300. Overlay several flights to compare them, and record video (MP4 / WebM).',
-  f5c1: 'Track CSV export', f5c2: 'Flightradar24 CSV', f5c3: 'Video recording',
-  f6Title: 'Japanese and English, one button',
-  f6Body: 'The button at the top right of the panel switches menus, aircraft details, messages and the settings window between Japanese and English. User manuals in both languages are included.',
-  f6c1: '日本語 / English', f6c2: 'Manuals included', f6c3: 'Full screen',
-  apTitle: '18 airports, from the air and from the ground',
-  apLead: 'Choose an airport to switch between four viewpoints: oblique, top-down, under the approach and beside the runway. Views line up with the landing direction automatically.',
-  ap1a: 'Japan', ap1b: 'Haneda, Narita, Kansai, Itami, Centrair, New Chitose, Fukuoka, Naha',
-  ap2a: 'Asia & Middle East', ap2b: 'Seoul Incheon, Hong Kong, Singapore Changi, Dubai',
-  ap3a: 'Europe', ap3b: 'London Heathrow, Paris Charles de Gaulle, Frankfurt',
-  ap4a: 'United States', ap4b: 'New York JFK, Los Angeles, San Francisco',
-  apCap: 'Tokyo Haneda (HND) from above. Aircraft with flight-number labels are live',
-  osTitle: 'Data from OpenSky Network — no sign-up needed',
-  osLead: 'Aircraft positions are ADS-B data collected by OpenSky Network’s worldwide volunteer receivers. The app fetches them directly from your computer.',
-  osCap: 'Beside the runway at Haneda, from 300 m',
-  o1a: 'Anonymous (no sign-up)', o1b: '400 credits a day — about 3 hours around an airport at a 30-second interval',
-  o2a: 'Free OpenSky account', o2b: '4,000 credits a day — about 16 hours around an airport at 15 seconds. Enter your Client ID / Secret in the app',
-  o3a: 'Kept on your computer', o3b: 'Credentials are saved in the app’s settings folder, readable only by you',
-  o4a: 'Built to save credits', o4b: 'Fetch only the visible area, a live estimate of daily usage, and no fetching while the window is hidden',
-  startTitle: 'Desktop apps', startLead: 'Install and start. A lightweight Tauri app that shows the world’s aircraft the moment it opens.',
-  pkgLabel: 'Package', cpuLabel: 'Runs on', sizeLabel: 'Size', sizeMac: 'about 3 MB', sizeWin: 'about 2 MB', langLabel: 'Languages',
-  winPkg: '.exe installer', getMac: 'Get the macOS app', getWin: 'Get the Windows app',
-  deskNote: '* Aircraft, map and terrain data are fetched live, so an internet connection is required. Track CSV files and recordings are saved to the Downloads folder.',
-  warn: 'Positions come from ADS-B signals received by a volunteer network and can be delayed by seconds to tens of seconds or missing outside coverage (airport surfaces, oceans, mountains). Do not use it for aircraft operations or safety decisions. OpenSky Network data is intended for non-commercial and research use.',
-  ctaTitle: 'The planes above you, <span class="accent">on a globe in your hands.</span>', ctaGet: 'Get the desktop app',
-  credits: 'Sources: OpenSky Network (aircraft positions, ADS-B), Esri (World Imagery, Canvas), OpenStreetMap contributors, GSI Japan elevation tiles, AWS Terrain Tiles (Mapzen) / 3D model: Cesium / Rendering: CesiumJS',
+  statMultiN: 'Multi-flight', statMulti: 'replay several flights together',
+  statFreeN: 'No sign-up', statFree: 'no API key or account needed',
+  featTitle: 'Recorded numbers become a flight in the sky',
+  featLead: 'Climbs, cruise, descents and the geometry of every turn, invisible in a spreadsheet, are clear at a glance on a 3D globe.',
+  f1Title: 'Open a CSV, get a 3D replay',
+  f1Body: 'Drop a CSV onto the window and a 3D aircraft flies it on the recorded timeline, leaving a glowing trail behind it. Show the full path faintly, or an altitude “curtain” hanging to the ground to make climbs and descents three-dimensional. Overlay several flights in different colors to compare them side by side.',
+  f1c1: 'Drag & drop', f1c2: 'Multiple flights in color', f1c3: 'Altitude curtain',
+  f2Title: 'From behind the aircraft, from the cockpit',
+  f2Body: 'Four viewpoints: free, follow, chase and cockpit. Look around by dragging or with the keys, and change the distance with the wheel. Turn on terrain and mountains rise in 3D using GSI data in Japan and AWS elevation data elsewhere, so the approach and the terrain make sense together.',
+  f2c1: 'Chase / cockpit', f2c2: '3D terrain', f2c3: 'Keyboard flight',
+  f3Title: 'Altitude chart and events take you there instantly',
+  f3Body: 'The altitude chart at the bottom shows every flight’s profile; click or drag it to jump to that moment. If the CSV has a “note” column, each note becomes an event in a list — click one to jump 5 seconds before it, and a banner appears as you pass. Altitude, ground speed, vertical rate and track are always on screen.',
+  f3c1: 'Seek on the altitude chart', f3c2: 'Event list', f3c3: 'Speed & vertical rate',
+  f4Title: 'Local time, Japanese and English',
+  f4Body: 'Times are shown in the local time zone estimated from the first position and date (including US daylight saving time), and you can switch to UTC, JST, US Eastern and more. The interface switches between Japanese and English with one button, and you can record the replay as a video with time and altitude burned in.',
+  f4c1: 'Local time estimated', f4c2: '日本語 / English', f4c3: 'Recording with time',
+  csvTitle: 'CSV formats it reads',
+  csvLead: 'Columns are detected by name. With time, latitude and longitude, most CSV files just work.',
+  c1a: 'Flightradar24', c1b: 'Downloaded CSV files (Timestamp, Position, Altitude, …) as-is. Altitude in feet',
+  c2a: 'Flight Dashboard', c2b: 'Track CSV saved from Flight Dashboard (observed history / full path since takeoff)',
+  c3a: 'Generic CSV', c3b: 'time / timestamp, latitude and longitude columns. UNIX time or ISO 8601; altitude unit (m / ft) from the column name',
+  c4a: 'Event notes', c4b: 'Whatever you write in a “note” column appears as events in the list, the chart and banners',
+  csvCap: 'A Flightradar24-format CSV and a Flight Dashboard track CSV replayed together (with altitude curtain)',
+  startTitle: 'Desktop app (macOS)', startLead: 'Install and start. A lightweight Tauri app — no account and no API key needed.',
+  pkgLabel: 'Package', cpuLabel: 'Runs on', sizeLabel: 'Size', sizeMac: 'about 2 MB', langLabel: 'Languages',
+  getMac: 'Get the macOS app',
+  deskNote: '* Maps and terrain are fetched live, so an internet connection is required. Flight data (CSV) comes from your own files; the app does not fetch or sell flight data. Recordings are saved to the Downloads folder.',
+  warn: 'Positions and altitudes are interpolated between the points in your CSV and are only as accurate as the recording. Do not use it for flight operations or accident investigation. Follow each data provider’s terms of use for your CSV files.',
+  ctaTitle: 'Send that flight <span class="accent">back into the sky.</span>', ctaGet: 'Get the macOS app',
+  credits: 'Maps: Esri (World Imagery, Canvas), OpenStreetMap contributors / Terrain: GSI Japan elevation tiles, AWS Terrain Tiles (Mapzen) / 3D model: Cesium / Rendering: CesiumJS',
   fStore: 'Store page', fManualJa: '使用マニュアル (JA)',
 };
 const TITLE = {
-  ja: 'Flight Dashboard | 世界の空を、いま飛んでいる飛行機ごと 3D の地球儀で — リアルタイム航空機トラッカー',
-  en: 'Flight Dashboard | The world’s skies with every plane in flight, on a 3D globe — live aircraft tracker',
+  ja: 'Flight Viewer | フライトの CSV を、3D の地球儀でもう一度飛ばす — フライトデータ再生ビューア',
+  en: 'Flight Viewer | Your flight CSV, flying again on a 3D globe — flight data replay viewer',
 };
-const KEY = 'flightdashboard-lp-lang';
+const KEY = 'flightviewer-lp-lang';
 
 function initialLang() {
   const q = new URLSearchParams(location.search).get('lang');
@@ -67,7 +54,7 @@ function initialLang() {
 }
 
 // 英語表示のときはスクリーンショットも英語版に差し替える（assets/xxx.jpg → assets/xxx_en.jpg）
-const EN_SHOTS = ['hero', 'airport', 'ground', 'terrain', 'replay'];
+const EN_SHOTS = ['hero', 'chase', 'cockpit'];
 function swapShots(lang) {
   document.querySelectorAll('img[src^="assets/"]').forEach((img) => {
     const m = img.getAttribute('src').match(/^assets\/([a-z]+?)(_en)?\.jpg$/);

@@ -1,137 +1,76 @@
-# Flight Dashboard User Manual (English)
+# Flight Viewer User Manual (English)
 
-A desktop app that shows aircraft around the world in real time on a 3D globe.
-Watch takeoffs and landings from above or from the ground at an airport, ride along with an aircraft, and replay past flight data (CSV).
+Open flight data (CSV) and a 3D aircraft flies it on the recorded timeline across a CesiumJS 3D globe.
 
-- Supported OS: macOS 11+ (Apple Silicon) / Windows 10 and 11 (64-bit)
-- Data: OpenSky Network (aircraft positions), Esri / OpenStreetMap (maps), GSI Japan and AWS Terrain Tiles (terrain)
-- Languages: English / 日本語 (toggle with the button at the top right of the panel)
+- OS: macOS 11+ (Apple Silicon)
+- Requirements: an internet connection (maps and terrain). No account or API key needed
+- Languages: English / 日本語 (button at the top right of the panel)
 
 ---
 
 ## 1. Installation
+1. Open `Flight Viewer_x.y.z_aarch64.dmg` and drag `Flight Viewer` into Applications.
+2. The first time, macOS says the developer cannot be verified (the app is not notarized by Apple).
+   - macOS 14 or earlier: right-click the app in Finder → Open
+   - macOS 15 or later: try to open it once, then click “Open Anyway” in System Settings → Privacy & Security
 
-### macOS
-1. Open `Flight Dashboard_x.y.z_aarch64.dmg` and drag `Flight Dashboard` into Applications.
-2. The first time, **right-click the app in Finder → Open** (the app is not notarized by Apple, so a double-click shows a warning).
+## 2. Opening CSV files
+- Click “📂 Open CSV” in the left panel, or drag & drop CSV files onto the window.
+- Check “Add to current” to add flights on top of those already shown. Flights are drawn in different colors.
+- In “Flights” you can show/hide (checkbox), select (click) or close (×) each flight.
 
-### Windows
-1. Run `Flight Dashboard_x.y.z_x64-setup.exe`.
-2. If you see “Windows protected your PC”, click **More info → Run anyway**.
-3. Follow the installer.
-
-## 2. First launch and OpenSky credentials
-
-On launch, the “OpenSky credentials” window opens.
-
-| Choice | Credits per day | Notes |
-| --- | --- | --- |
-| Enter Client ID / Client Secret and click “Verify & save” | 4,000 | Create an API client on your OpenSky account page. The app checks the credentials with OpenSky before saving |
-| “Use anonymously” | 400 | No sign-up needed. Enough for occasional use |
-
-- Credentials are saved in the app’s settings folder on this computer (`settings.json`), readable only by you, and sent only to OpenSky for authentication.
-- To change it later, click **“Anonymous ⚙” / “OpenSky signed in ⚙”** at the top left, or choose “OpenSky Credentials…” (⌘,) from the menu.
-
-### How far the credits go
-Each update costs 1 (small area) to 4 (whole world) credits depending on the area. Below “Fetch area” the panel shows an estimate of daily usage with the current settings, highlighted in yellow when it exceeds the limit.
-
-| Example | Time until the daily limit |
-| --- | --- |
-| Airport area (1 credit), every 15 s, signed in | about 16.7 hours |
-| Whole world (4 credits), every 15 s, signed in | about 4.2 hours |
-| Airport area, every 30 s, anonymous | about 3.3 hours |
-
-## 3. The screen
-
-- **Left panel**: aircraft shown, last/next update, credits left, and settings. Toggle with ☰
-- **Map**: aircraft icons (rotated to heading, colored by altitude: green = low → magenta = high)
-- **Click an aircraft**: details at the bottom right (flight, country, category, altitude, speed, track, vertical rate, position, squawk)
-
-## 4. Live view settings
-
-| Setting | Description |
-| --- | --- |
-| Update interval | 5–300 s (10 s minimum when anonymous). “⏸ Pause”, “↻ Update now” |
-| Fetch area | “Visible area” (only what is on screen — saves credits) / “Whole world” |
-| Interpolate positions from speed | Moves aircraft smoothly between updates |
-| Show aircraft on the ground | Taxiing / parked aircraft (only those that are received) |
-| Map | Dark / Light / OpenStreetMap / Satellite |
-| Show 3D terrain | Mountains and valleys in 3D (10 m mesh in Japan) |
-| Search | e.g. `JAL123`, `ANA`, `86d4a1` |
-
-## 5. Viewpoints
-
-### Free camera
-- Mouse: left-drag = pan, wheel / right-drag = zoom, Ctrl+left-drag / middle-drag = tilt & rotate
-- Double-click = fly closer, Shift+double-click = ground view at that spot
-- Keyboard: W/S forward/back, A/D left/right, R,E up, F,Q down, arrows to look around, Shift = faster
-- Buttons: Top-down / Oblique / Horizon / North up / Japan / World
-
-### Ride an aircraft
-Click an aircraft → “🛫 Cockpit” or “🎥 Chase”. Drag or arrows to look around, wheel for distance (chase), Esc to exit.
-Check “Follow” to keep the aircraft centered while staying in map view.
-
-## 6. Airports
-
-1. Choose an airport under “Airports” to fly above it at an angle (Haneda, Narita, Kansai, Itami, Centrair, New Chitose, Fukuoka, Naha and 10 airports abroad).
-2. Near airports, aircraft are shown as **true-scale 3D models** (sized by category). Live aircraft are highlighted with color, outline and a flight-number label.
-   Note: parked aircraft visible in the satellite photo were there when the photo was taken; they are not live.
-3. Switch views with the buttons: From above (🛩 Oblique / 🛰 Top-down), From the ground (🛬 Under the approach / 🛫 Beside the runway).
-
-### Ground view controls
-- Drag = look around, wheel = zoom (up to ~30×), click an aircraft = follow it with your eyes
-- Height: slider (1.7 m–3,000 m, logarithmic) or “On ground”, “Observation deck”, “300m”, “1500m”; R/F keys also work
-- WASD = walk, double-click = move there, “↻ Turn around”, Esc = exit
-- “🧭 From my location”: look up at the sky above you (location permission required)
-- “📍 From screen center”: stand at the center of the map
-
-## 7. Export tracks to CSV
-
-From “Track CSV” in the aircraft details:
-- **⬇ Observed history**: positions collected since the app started (incl. speed and vertical rate). No credits used
-- **⬇ Full path since takeoff**: fetched from OpenSky records (4 credits per request)
-
-Files are saved to your Downloads folder.
-
-## 8. Replay flight data (CSV)
-
-Click “📂 Open CSV” or drag & drop CSV files onto the window. Live updates pause and replay mode starts.
-
-- Play/pause (Space), speed ×1–×300, slider to seek, Follow, Fit all, “Exit replay”
-- Open several files at once to replay them together in different colors
-- Formats: Flightradar24 CSV, this app’s track CSV, any CSV with time, latitude and longitude columns
-
-### CSV requirements (summary)
+### CSV formats
 | Content | Column names | Notes |
 | --- | --- | --- |
-| Time (required) | `time` `timestamp` `unix_time` `utc` | UNIX seconds / ms, ISO 8601. No time zone = UTC |
-| Latitude/longitude (required) | `latitude`/`lat`, `longitude`/`lon`, or `position` ("lat,lon") | Decimal degrees |
-| Altitude | `altitude_ft` `alt_m` `altitude` | `_m` in the name = meters, otherwise feet (can be changed in the panel) |
-| Flight / aircraft ID | `callsign`, `icao24` | Each aircraft ID is treated as a separate flight |
+| Time (required) | `time` `timestamp` `unix_time` `utc` `datetime` | UNIX seconds / ms, ISO 8601, `2026-11-01 17:49:00`, `2026/11/01 17:49:00`. No time zone = UTC |
+| Latitude/longitude (required) | `latitude`/`lat`, `longitude`/`lon`/`lng`, or `position` ("lat,lon") | Decimal degrees |
+| Altitude | `altitude_ft` `alt_m` `altitude` `baro_altitude_m` | `_m` in the name = meters, `ft` = feet, otherwise feet (can be changed in the panel) |
+| Flight / aircraft ID | `callsign` `flight`, `icao24` `hex` `registration` | Each aircraft ID is treated as a separate flight |
+| On ground | `on_ground` | Rows with `true`/`1`/`yes` get altitude 0 |
+| Events | `note` `event` `remark` | Non-empty rows become “events” |
 
-## 9. Recording
+Flightradar24 CSV and Flight Dashboard track CSV load as-is. Each flight needs at least 2 valid points.
 
-“● Start recording” records the map area as video; “■ Stop recording” saves it (macOS: MP4/WebM, Windows: WebM).
-“Burn date/time and aircraft count into the video” adds a timestamp at the bottom right. Files go to your Downloads folder.
+## 3. Playback
+- Playback bar at the bottom: play/pause (Space), speed ×0.25–×300, time zone
+- **Altitude chart**: every flight’s profile; click or drag to jump to that time. ▼ marks events
+- `[` `]` go back / forward 10 s (Shift = 60 s)
+- Altitude, ground speed, vertical rate, track and position of the selected flight are always shown
 
-## 10. Language
+### Time zone
+The local time zone is estimated from the first position and date (Japan and the contiguous US including daylight saving time; elsewhere from longitude). You can also switch to UTC, JST, EDT, EST, PDT, PST, CEST or CET.
 
-Use the **EN / 日本語** button at the top right of the panel. Your choice is remembered.
-The credentials window opens in the same language as the app. The menu bar follows the OS language.
+### Events
+Text in the CSV’s `note` column is listed as events in time order. Click one to jump 5 seconds before it; a banner appears as you pass it during playback.
 
-## 11. Troubleshooting
-
-| Symptom | Cause and fix |
+## 4. Viewpoints
+| View | Controls |
 | --- | --- |
-| The credentials window appears after updating from v1.1.1 or earlier | v1.1.2 stores credentials differently. Enter your Client ID / Client Secret once more (no more keychain prompts) |
-| “Rate limited” message | You used up today’s credits. Use a longer interval or “Visible area” (credits reset daily) |
-| No aircraft on the ground at an airport | If no volunteer receiver has line of sight to the airport surface, ground traffic cannot be received (e.g. Osaka Itami). Airborne aircraft are still shown |
-| Aircraft sparse or disappearing | Outside receiver coverage — common over oceans and mountains |
-| “From my location” does not work | Choose “Allow” when asked for location access the first time. If you declined, allow Flight Dashboard in macOS System Settings → Privacy & Security → Location Services (Windows: Settings → Privacy & security → Location) |
-| Spiky noise on the terrain | Fixed in the latest version |
+| Free | left-drag = pan, wheel = zoom, Ctrl+drag = tilt & rotate, double-click = fly closer, W/S/A/D, R/F, arrows = fly (Shift = faster) |
+| Follow | keeps the selected aircraft centered |
+| Chase | follows from behind; drag or arrows to look around, wheel for distance |
+| Cockpit | looks ahead from the aircraft’s position; drag or arrows to look around |
 
-## 12. Data and privacy
+Buttons: Top-down / Oblique / Horizon / North up / Fit all. Click an aircraft to select its flight.
 
-- Aircraft positions: [OpenSky Network](https://opensky-network.org/) (ADS-B data from a volunteer receiver network; intended for non-commercial and research use)
+## 5. Display settings
+- Map: Satellite / Dark / Light / OpenStreetMap
+- 3D terrain: GSI Japan elevation tiles in Japan, AWS Terrain Tiles elsewhere
+- Full path (faint), altitude “curtain” (a wall down to the ground), flight & altitude labels
+- Aircraft size: easy to see (min 40 px) / true scale
+
+## 6. Recording
+“● Start recording” records the map area as video; “■ Stop recording” saves it. “Burn time and altitude into the video” writes the time and the selected flight’s data onto the video. Files go to your Downloads folder.
+
+## 7. Troubleshooting
+| Symptom | Fix |
+| --- | --- |
+| “latitude/longitude columns not found” | Name the columns `latitude` `longitude` (or `lat` `lon`) |
+| Altitude looks ~3× too high/low | Switch “Altitude unit” to Feet or Meters in the panel |
+| Times are off by hours | Times without a time zone are treated as UTC. Add an offset such as `+09:00` to the CSV, or change the time zone |
+| Turns look angular | Points are joined with straight lines, so sparse recordings look angular |
+
+## 8. Data
 - Maps: Esri, OpenStreetMap contributors / Terrain: GSI Japan elevation tiles, AWS Terrain Tiles
-- The app connects only to OpenSky and the map/terrain services. Your credentials are kept in the OS secure storage and sent only to OpenSky for authentication.
+- Flight data comes from your own CSV files; the app does not fetch or sell flight data. Follow each data provider’s terms of use.
+- Replayed positions are only as accurate as the recording. Do not use it for flight operations or accident investigation.
