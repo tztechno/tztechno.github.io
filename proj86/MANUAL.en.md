@@ -29,7 +29,7 @@ On launch, the “OpenSky credentials” window opens.
 | Enter Client ID / Client Secret and click “Verify & save” | 4,000 | Create an API client on your OpenSky account page. The app checks the credentials with OpenSky before saving |
 | “Use anonymously” | 400 | No sign-up needed. Enough for occasional use |
 
-- The Client Secret is stored in the OS secure storage (macOS: Keychain / Windows: Credential Manager), never in the app’s files.
+- Credentials are saved in the app’s settings folder on this computer (`settings.json`), readable only by you, and sent only to OpenSky for authentication.
 - To change it later, click **“Anonymous ⚙” / “OpenSky signed in ⚙”** at the top left, or choose “OpenSky Credentials…” (⌘,) from the menu.
 
 ### How far the credits go
@@ -123,11 +123,11 @@ The credentials window opens in the same language as the app. The menu bar follo
 
 | Symptom | Cause and fix |
 | --- | --- |
-| “Flight Dashboard wants to access key … in your keychain” on launch (macOS) | Appears right after replacing the app, when it reads the previously saved Client Secret. Click “Always Allow” |
+| The credentials window appears after updating from v1.1.1 or earlier | v1.1.2 stores credentials differently. Enter your Client ID / Client Secret once more (no more keychain prompts) |
 | “Rate limited” message | You used up today’s credits. Use a longer interval or “Visible area” (credits reset daily) |
 | No aircraft on the ground at an airport | If no volunteer receiver has line of sight to the airport surface, ground traffic cannot be received (e.g. Osaka Itami). Airborne aircraft are still shown |
 | Aircraft sparse or disappearing | Outside receiver coverage — common over oceans and mountains |
-| “From my location” does not work | Allow location access for the app in OS settings (Windows: Location services) |
+| “From my location” does not work | Choose “Allow” when asked for location access the first time. If you declined, allow Flight Dashboard in macOS System Settings → Privacy & Security → Location Services (Windows: Settings → Privacy & security → Location) |
 | Spiky noise on the terrain | Fixed in the latest version |
 
 ## 12. Data and privacy

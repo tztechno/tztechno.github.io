@@ -42,7 +42,7 @@ const EN = {
   osCap: 'Beside the runway at Haneda, from 300 m',
   o1a: 'Anonymous (no sign-up)', o1b: '400 credits a day — about 3 hours around an airport at a 30-second interval',
   o2a: 'Free OpenSky account', o2b: '4,000 credits a day — about 16 hours around an airport at 15 seconds. Enter your Client ID / Secret in the app',
-  o3a: 'Stored securely', o3b: 'The Client Secret is kept in the macOS Keychain / Windows Credential Manager',
+  o3a: 'Kept on your computer', o3b: 'Credentials are saved in the app’s settings folder, readable only by you',
   o4a: 'Built to save credits', o4b: 'Fetch only the visible area, a live estimate of daily usage, and no fetching while the window is hidden',
   startTitle: 'Desktop apps', startLead: 'Install and start. A lightweight Tauri app that shows the world’s aircraft the moment it opens.',
   pkgLabel: 'Package', cpuLabel: 'Runs on', sizeLabel: 'Size', sizeMac: 'about 3 MB', sizeWin: 'about 2 MB', langLabel: 'Languages',

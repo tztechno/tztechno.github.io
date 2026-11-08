@@ -73,8 +73,9 @@ the credentials with OpenSky before saving</td>
 </tbody>
 </table>
 <ul>
-<li>The Client Secret is stored in the OS secure storage (macOS:
-Keychain / Windows: Credential Manager), never in the app’s files.</li>
+<li>Credentials are saved in the app’s settings folder on this computer
+(<code>settings.json</code>), readable only by you, and sent only to
+OpenSky for authentication.</li>
 <li>To change it later, click <strong>“Anonymous ⚙” / “OpenSky signed in
 ⚙”</strong> at the top left, or choose “OpenSky Credentials…” (⌘,) from
 the menu.</li>
@@ -274,10 +275,10 @@ same language as the app. The menu bar follows the OS language.</p>
 </thead>
 <tbody>
 <tr>
-<td>“Flight Dashboard wants to access key … in your keychain” on launch
-(macOS)</td>
-<td>Appears right after replacing the app, when it reads the previously
-saved Client Secret. Click “Always Allow”</td>
+<td>The credentials window appears after updating from v1.1.1 or
+earlier</td>
+<td>v1.1.2 stores credentials differently. Enter your Client ID / Client
+Secret once more (no more keychain prompts)</td>
 </tr>
 <tr>
 <td>“Rate limited” message</td>
@@ -296,8 +297,10 @@ are still shown</td>
 </tr>
 <tr>
 <td>“From my location” does not work</td>
-<td>Allow location access for the app in OS settings (Windows: Location
-services)</td>
+<td>Choose “Allow” when asked for location access the first time. If you
+declined, allow Flight Dashboard in macOS System Settings → Privacy
+&amp; Security → Location Services (Windows: Settings → Privacy &amp;
+security → Location)</td>
 </tr>
 <tr>
 <td>Spiky noise on the terrain</td>
