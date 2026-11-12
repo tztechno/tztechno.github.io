@@ -77,6 +77,8 @@ const translations = {
     f4p1: "nankai_troughアプリの全期間CSV（地震発生 t=0 から）に対応。旧形式の切り出しCSVも読込可",
     f4p2: "水面クリックによる人工波（パルス津波）の発生とリアルタイム波紋伝播",
     f4p3: "シミュレーション経過時間と地震発生後時間（Time since EQ）のデュアルタイマー併記",
+    f4p4: "住所・地名からピンを置き、その場所に1〜3km四方（スマホは1km）の2m詳細タイルを作成。PLATEAUの全建物を障害物にしてGPUで計算",
+    f4p5: "すべてのパネルを見出しから折り畳め、スマホでは地図を広く見せる配置に自動で切り替え",
     badge4: "波源CSV連携 × 人工波発生",
 
     // Scenarios
@@ -208,6 +210,8 @@ const translations = {
     f4p1: "Supports nankai_trough full-timeline CSVs (from the earthquake, t=0); older trimmed CSVs also load",
     f4p2: "Interactive wave maker: click water to inject pulse ripples and observe seawall impact",
     f4p3: "Dual real-time HUD timers: Simulation LAP time alongside time since earthquake origin",
+    f4p4: "Drop a pin from an address or place name and build a 1-3 km (1 km on phones) 2 m detail tile there, computed on the GPU with every PLATEAU building as an obstacle",
+    f4p5: "Every panel folds from its title; on phones the layout switches to keep the map in view",
     badge4: "Wave CSV Coupling & Wave Maker",
 
     // Scenarios
