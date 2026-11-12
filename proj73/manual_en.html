@@ -446,6 +446,67 @@ npm run tauri build  # release build (dmg / exe)
 </tr>
 </tbody></table>
 <p>Change the values and press <strong>Recompute with these values</strong> to rebuild the source with that fault (slip is recomputed from the current magnitude and fault area). Custom sources rupture all at once.</p>
+<h3>5.4 Fault parameter CSV (multiple faults / slip distribution)</h3>
+<p>When a new earthquake is found to have ruptured several faults (or a slip distribution on many subfaults is published), you can give the fault parameters as a CSV file and compute the resulting tsunami.</p>
+<ol>
+<li>Press <strong>📄 Load Fault CSV</strong> and choose a CSV file.</li>
+<li>If there are no errors, the source is built by superposing the displacement of all faults, and the model selector shows &quot;📄 CSV: file name&quot;. If there are errors, the line numbers and reasons are shown and nothing is loaded.</li>
+<li><strong>⬇ Save Fault CSV</strong> saves the current fault model (preset, Cabinet Office model, custom source or loaded CSV) in the same format, so it can serve as a template.</li>
+</ol>
+<p><strong>Columns</strong> (first line is the header; any column order; comma, tab or semicolon separated):</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>—</td>
+<td>Fault name (optional; F1, F2, … if omitted)</td>
+</tr>
+<tr>
+<td><code>lon</code>, <code>lat</code></td>
+<td>deg</td>
+<td>Longitude/latitude of the <strong>center of the surface projection</strong> of the fault plane</td>
+</tr>
+<tr>
+<td><code>top_depth_km</code> or <code>center_depth_km</code></td>
+<td>km</td>
+<td>Depth of the upper edge, or of the center (converted with top = center − width/2 × sin(dip))</td>
+</tr>
+<tr>
+<td><code>length_km</code>, <code>width_km</code></td>
+<td>km</td>
+<td>Length along strike, width along dip</td>
+</tr>
+<tr>
+<td><code>strike_deg</code>, <code>dip_deg</code>, <code>rake_deg</code></td>
+<td>°</td>
+<td>Strike (clockwise from north; the fault dips to the right of strike), dip, rake</td>
+</tr>
+<tr>
+<td><code>slip_m</code> or <code>slip_cm</code></td>
+<td>m / cm</td>
+<td>Slip</td>
+</tr>
+</tbody></table>
+<p>Short names such as <code>strike</code> <code>dip</code> <code>rake</code> <code>length</code> <code>width</code> <code>slip</code> are also accepted. A column named just <code>depth</code> is rejected because it is ambiguous (top or center).</p>
+<p><strong>Hypocenter and rupture propagation (optional)</strong>: lines starting with <code>#</code> are comments. If they contain the values below, the rupture spreads from the hypocenter (otherwise all faults rupture at once).</p>
+<pre><code># hypocenter_lon=142.86, hypocenter_lat=38.10, hypocenter_depth_km=24
+# rupture_velocity_km_s=2.5, rise_time_s=60
+name,lon,lat,top_depth_km,length_km,width_km,strike_deg,dip_deg,rake_deg,slip_m
+Miyagi_trench,143.25,38.15,1,180,70,195,12,90,24
+Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
+</code></pre>
+<ul>
+<li>The displayed magnitude is the Mw from the total seismic moment of all faults with a rigidity of 40 GPa. Moving the magnitude or slip slider and pressing <strong>Recompute Source</strong> scales all slips proportionally, keeping the shape of the slip distribution.</li>
+<li>With 9 or more faults, the map shows them without individual labels, shaded by slip.</li>
+<li>Rows whose fault center lies outside the computational domain (125.6–152.9°E, 22.0–48.0°N) are errors. Up to 5,000 rows are accepted.</li>
+<li>When using a published finite-fault model (e.g. the USGS finite fault subfault list), check whether positions are subfault centers or top edges, whether depths are center or top depths, and the slip unit, and name the columns accordingly.</li>
+</ul>
 <hr>
 <h2>6. Running the Simulation</h2>
 <p>Use &quot;2. Propagation Simulation&quot;.</p>
@@ -504,6 +565,14 @@ npm run tauri build  # release build (dmg / exe)
 <li><strong>⤢ All Japan</strong>: show the whole domain</li>
 <li><strong>Hover</strong>: the top left shows longitude/latitude, depth (elevation on land), and the current water level at that spot</li>
 <li>The map keeps its aspect ratio (it does not stretch with the window shape).</li>
+</ul>
+<p><strong>Phones and small screens</strong></p>
+<ul>
+<li>At widths of 768 px or less (phone in portrait), the map is on top and the control panels (1–4) are below it. In landscape, the left panel becomes narrower.</li>
+<li>The panels and the waveform chart start collapsed so the map gets as much room as possible. Tap a panel heading (e.g. &quot;1. Earthquake Fault Scenario&quot;) to open or close it; the map grows as panels are collapsed. The chart opens and closes with the ▶ / ▼ button left of its title (this also works on a computer).</li>
+<li><strong>🗺 Map only</strong> at the top right of the map hides the panels and chart; <strong>☰ Show panels</strong> brings them back.</li>
+<li><strong>Drag with one finger</strong> to pan and <strong>pinch with two fingers</strong> to zoom. Taps are used for Pick Epicenter and Add Point.</li>
+<li>A narrow waveform chart hides its legend (point names are in the list in &quot;3. Offshore Wave Forecast&quot;).</li>
 </ul>
 <h3>7.2 Display</h3>
 <table>

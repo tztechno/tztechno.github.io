@@ -157,6 +157,41 @@ After Pick Epicenter, the "📐 Custom Fault Parameters" panel opens and shows t
 
 Change the values and press **Recompute with these values** to rebuild the source with that fault (slip is recomputed from the current magnitude and fault area). Custom sources rupture all at once.
 
+### 5.4 Fault parameter CSV (multiple faults / slip distribution)
+When a new earthquake is found to have ruptured several faults (or a slip distribution on many subfaults is published), you can give the fault parameters as a CSV file and compute the resulting tsunami.
+
+1. Press **📄 Load Fault CSV** and choose a CSV file.
+2. If there are no errors, the source is built by superposing the displacement of all faults, and the model selector shows "📄 CSV: file name". If there are errors, the line numbers and reasons are shown and nothing is loaded.
+3. **⬇ Save Fault CSV** saves the current fault model (preset, Cabinet Office model, custom source or loaded CSV) in the same format, so it can serve as a template.
+
+**Columns** (first line is the header; any column order; comma, tab or semicolon separated):
+
+| Column | Unit | Description |
+|---|---|---|
+| `name` | — | Fault name (optional; F1, F2, … if omitted) |
+| `lon`, `lat` | deg | Longitude/latitude of the **center of the surface projection** of the fault plane |
+| `top_depth_km` or `center_depth_km` | km | Depth of the upper edge, or of the center (converted with top = center − width/2 × sin(dip)) |
+| `length_km`, `width_km` | km | Length along strike, width along dip |
+| `strike_deg`, `dip_deg`, `rake_deg` | ° | Strike (clockwise from north; the fault dips to the right of strike), dip, rake |
+| `slip_m` or `slip_cm` | m / cm | Slip |
+
+Short names such as `strike` `dip` `rake` `length` `width` `slip` are also accepted. A column named just `depth` is rejected because it is ambiguous (top or center).
+
+**Hypocenter and rupture propagation (optional)**: lines starting with `#` are comments. If they contain the values below, the rupture spreads from the hypocenter (otherwise all faults rupture at once).
+
+```
+# hypocenter_lon=142.86, hypocenter_lat=38.10, hypocenter_depth_km=24
+# rupture_velocity_km_s=2.5, rise_time_s=60
+name,lon,lat,top_depth_km,length_km,width_km,strike_deg,dip_deg,rake_deg,slip_m
+Miyagi_trench,143.25,38.15,1,180,70,195,12,90,24
+Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
+```
+
+* The displayed magnitude is the Mw from the total seismic moment of all faults with a rigidity of 40 GPa. Moving the magnitude or slip slider and pressing **Recompute Source** scales all slips proportionally, keeping the shape of the slip distribution.
+* With 9 or more faults, the map shows them without individual labels, shaded by slip.
+* Rows whose fault center lies outside the computational domain (125.6–152.9°E, 22.0–48.0°N) are errors. Up to 5,000 rows are accepted.
+* When using a published finite-fault model (e.g. the USGS finite fault subfault list), check whether positions are subfault centers or top edges, whether depths are center or top depths, and the slip unit, and name the columns accordingly.
+
 ---
 
 ## 6. Running the Simulation
@@ -189,6 +224,13 @@ Use "2. Propagation Simulation".
 * **⤢ All Japan**: show the whole domain
 * **Hover**: the top left shows longitude/latitude, depth (elevation on land), and the current water level at that spot
 * The map keeps its aspect ratio (it does not stretch with the window shape).
+
+**Phones and small screens**
+* At widths of 768 px or less (phone in portrait), the map is on top and the control panels (1–4) are below it. In landscape, the left panel becomes narrower.
+* The panels and the waveform chart start collapsed so the map gets as much room as possible. Tap a panel heading (e.g. "1. Earthquake Fault Scenario") to open or close it; the map grows as panels are collapsed. The chart opens and closes with the ▶ / ▼ button left of its title (this also works on a computer).
+* **🗺 Map only** at the top right of the map hides the panels and chart; **☰ Show panels** brings them back.
+* **Drag with one finger** to pan and **pinch with two fingers** to zoom. Taps are used for Pick Epicenter and Add Point.
+* A narrow waveform chart hides its legend (point names are in the list in "3. Offshore Wave Forecast").
 
 ### 7.2 Display
 | Display | Meaning |
