@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>津波 広域伝播シミュレーター (全世界対応) | Tsunami Propagation Simulator</title>
+  <meta name="description" content="世界のどこでも、断層パラメータCSVや地図クリックで指定した震源から津波の広域伝播を計算。全世界の海底地形を持ち歩かず、震源を選んだ時点で必要な範囲だけを自動で取得します。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 12c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+            <path d="M2 17c.6 0 1.2-.4 1.4-1 .9-2.5 3-4 5.6-4 2.1 0 3.8 1 4.8 2.6.5.8 1.4 1.4 2.4 1.4 1.5 0 2.8-.8 3.5-2.1.4-.7 1.2-1.1 2-1.1"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Tsunami Propagation</span>
+          <span class="brand-sub">Simulator</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features" data-i18n="navFeatures">特徴</a>
+        <a href="#architecture" data-i18n="navArchitecture">地形の取得</a>
+        <a href="#scenarios" data-i18n="navScenarios">計算例</a>
+        <a href="#demo" data-i18n="navDemo">デモ</a>
+        <a href="#download" data-i18n="navDownload">入手</a>
+        <a href="#notes" data-i18n="navNotes">注意事項</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-switch">
+          <button id="btn-lang-ja" class="lang-btn active">JA</button>
+          <span class="lang-divider">/</span>
+          <button id="btn-lang-en" class="lang-btn">EN</button>
+        </div>
+        <a href="https://cyber-matrix.netlify.app/products/tsunami_propagation" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="btnGetApp">製品ページ</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-bg-glow"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="heroBadge">v1.0.0: 全世界対応。震源を選ぶと、必要な範囲の海底地形だけを自動で取得</span>
+          </div>
+          <h1 class="hero-title" data-i18n="heroTitle">世界のどこでも、<br>断層CSVから<span class="gradient-text">津波の広がり</span>を計算する。</h1>
+          <p class="hero-desc" data-i18n="heroDesc">断層パラメータCSV、または地図のクリックで震源を指定すると、Okada弾性転位モデルと2次元長波方程式（浅水方程式）で津波の伝播を計算します。全世界の海底地形を事前に読み込むことはせず、震源を選んだ時点でその周囲の地形だけをダウンロードします。</p>
+
+          <div class="hero-cta-group">
+            <a href="https://cyber-matrix.netlify.app/products/tsunami_propagation" target="_blank" rel="noopener noreferrer" class="btn btn-download">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <div class="btn-text-wrap">
+                <span class="btn-subtext" data-i18n="btnStoreSub">macOS デスクトップ版</span>
+                <span class="btn-maintext" data-i18n="btnStoreMain">製品ページで入手する</span>
+              </div>
+            </a>
+
+            <a href="#features" class="btn btn-outline">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <span data-i18n="btnLearnMore">機能の詳細</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-val" data-i18n="statDomainVal">全世界</span>
+              <span class="stat-label" data-i18n="statDomain">地形は必要な範囲だけ取得</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-val" data-i18n="statSizeVal">約5<span class="unit">MB</span></span>
+              <span class="stat-label" data-i18n="statSize">macOS版 DMG</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-val" data-i18n="statTimeVal">最長12<span class="unit">時間</span></span>
+              <span class="stat-label" data-i18n="statTime">地震発生からの計算時間</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <div class="visual-header">
+              <div class="window-controls">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="visual-title" data-i18n="heroVisualTitle">アプリ実画面</span>
+            </div>
+            <div class="visual-img-wrap">
+              <img src="assets/app_maule_2010.jpg" alt="2010年チリ・マウレ地震 (USGS断層モデル) の津波伝播。地震発生から2時間のアプリ画面" data-i18n-alt="altHero" class="hero-render-img">
+              <div class="overlay-badge badge-top-right">
+                <span class="live-indicator"></span>
+                <span data-i18n="heroBadgeScenario">2010年 チリ・マウレ地震 (USGS断層モデル)</span>
+              </div>
+              <div class="overlay-badge badge-bottom-left">
+                <span data-i18n="heroBadgeTime">地震発生から2時間</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="featuresTitle">4つの主な機能</h2>
+          <p class="section-desc" data-i18n="featuresDesc">世界のどこの震源でも計算できること、地形を必要な分だけ取得すること、日本域は同梱の地形でそのまま計算できること、結果をCSVと動画で書き出せることが特徴です。</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon icon-cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat1Title">世界のどこでも、断層CSVから</h3>
+            <p class="feature-desc" data-i18n="feat1Desc">各断層の位置・深さ・大きさ・走向・傾斜・すべり角・すべり量を1行1枚で書いたCSV（最大5,000枚、震源と破壊伝播速度も指定可）を読み込むと、その断層群で波源を作ります。USGSの有限断層モデルをこの形式に変換するスクリプトを同梱。地図をクリックして、マグニチュードに応じた大きさの断層を1枚置くこともできます。</p>
+            <div class="feature-tag-list">
+              <span>Fault CSV</span>
+              <span>USGS Finite Fault</span>
+              <span>Pick Epicenter</span>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon icon-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat2Title">海底地形は必要な範囲だけ取得</h3>
+            <p class="feature-desc" data-i18n="feat2Desc">全世界の地形を同梱すると重すぎるため、震源を選んだ時点で、断層の周囲の地形だけを公開の標高タイルからダウンロードして計算用の格子を作ります。範囲の広さ（断層の周囲 約6°〜45°）と格子のセル数（約50万〜250万）を選べ、日付変更線をまたぐ範囲にも対応。取得したタイルは保存され、同じ範囲は再取得しません。</p>
+            <div class="feature-tag-list">
+              <span>On-demand Bathymetry</span>
+              <span>ETOPO1</span>
+              <span>Dateline OK</span>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon icon-rose">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat3Title">物理モデルに基づく計算</h3>
+            <p class="feature-desc" data-i18n="feat3Desc">Okada (1985) の弾性転位モデルで断層運動による海底の隆起・沈降を求め、Arakawa C格子上の2次元長波方程式を、緯度ごとの格子間隔補正と半陰解法のマニング摩擦で解きます。4次Shapiroフィルターで格子規模の数値ノイズを除き、外周の吸収層で計算範囲の端からの反射を防ぎます。日本域は同梱の1.5分メッシュ（大阪湾は15秒）でそのまま計算できます。</p>
+            <div class="feature-tag-list">
+              <span>Okada 1985</span>
+              <span>Shallow Water Eq.</span>
+              <span>Arakawa C-Grid</span>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon icon-amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="feat4Title">観測地点のCSV出力と動画保存</h3>
+            <p class="feature-desc" data-i18n="feat4Desc">世界の主要46地点と日本の20地点を内蔵し、計算範囲に入る地点の水位・流速・流向を時系列で記録。地図をクリックして任意の地点も追加できます。地震発生（t=0）からの全期間をCSVで出力でき、計算結果は選んだ長さ（10〜60秒）のMP4動画に書き出せます。画面は日本語・英語を切り替えられます。</p>
+            <div class="feature-tag-list">
+              <span>Time-Series CSV</span>
+              <span>MP4 Export</span>
+              <span>JA / EN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- On-demand bathymetry Section -->
+    <section class="section section-dark" id="architecture">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill" data-i18n="archBadge">地形の扱い</div>
+          <h2 class="section-title" data-i18n="archTitle">日本域は同梱、それ以外は震源に合わせて取得</h2>
+          <p class="section-desc" data-i18n="archDesc">断層が同梱の日本域に収まるときはダウンロードなしで計算し、域外のときだけ必要な範囲の地形を取得して切り替えます。</p>
+        </div>
+
+        <div class="architecture-visual-grid">
+          <div class="arch-box">
+            <div class="arch-badge" data-i18n="archPhase1Badge">日本域 (同梱)</div>
+            <h3 data-i18n="archPhase1Title">起動直後から使える日本全国の地形</h3>
+            <p data-i18n="archPhase1Desc">東経125.6°〜152.9°・北緯22.0°〜48.0°を1.5分メッシュ（約2.8km）で同梱。大阪湾・紀伊水道北部は15秒メッシュの入れ子格子で計算します。南海トラフ・東北沖などのプレセットと、既定の沖合20地点をそのまま使えます。</p>
+            <div class="arch-img-box">
+              <img src="assets/app_japan_default.jpg" alt="同梱の日本域の地形で計算する南海トラフ全域連動 (M9.1) の初期水位" data-i18n-alt="altPhase1">
+            </div>
+          </div>
+
+          <div class="arch-arrow">
+            <div class="arrow-line"></div>
+            <div class="arrow-label">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+              <span data-i18n="archArrowLabel">断層が域外なら</span>
+              <span class="sub">(auto download)</span>
+            </div>
+          </div>
+
+          <div class="arch-box">
+            <div class="arch-badge phase2" data-i18n="archPhase2Badge">世界 (オンデマンド)</div>
+            <h3 data-i18n="archPhase2Title">震源の周囲だけを取得して格子を作る</h3>
+            <p data-i18n="archPhase2Desc">「🌐 世界」で全体を表示し、震源をクリックするか断層CSVを読み込むと、水色の枠の範囲の地形をダウンロードして計算に切り替わります。枠の外は概略の世界地図（0.25°）を背景として表示します。</p>
+            <div class="arch-img-box">
+              <img src="assets/app_world_view.jpg" alt="世界全体を表示した画面。水色の枠が現在の計算範囲" data-i18n-alt="altPhase2">
+            </div>
+          </div>
+        </div>
+
+        <div class="csv-comparison-card">
+          <h3 class="comparison-title" data-i18n="compTableTitle">計算範囲の広さと格子</h3>
+          <div class="table-responsive">
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th data-i18n="compThMode">設定</th>
+                  <th data-i18n="compThRange">取得する範囲</th>
+                  <th data-i18n="compThGrid">格子間隔の目安 (約120万セル)</th>
+                  <th data-i18n="compThUse">向いている用途</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-i18n="compModeA"><strong>自動</strong></td>
+                  <td data-i18n="compRangeA">日本域に収まれば同梱地形、域外は断層の周囲 約12°</td>
+                  <td data-i18n="compGridA">日本域 約2.8km / 域外 約3km</td>
+                  <td data-i18n="compUseA">通常はこのまま</td>
+                </tr>
+                <tr>
+                  <td data-i18n="compModeB"><strong>狭い / 標準</strong></td>
+                  <td data-i18n="compRangeB">断層の周囲 約6° / 約12°（約670km / 約1300km）</td>
+                  <td data-i18n="compGridB">約2〜3.5km（下限は1分メッシュ）</td>
+                  <td data-i18n="compUseB">震源に近い沿岸の到達時刻・波高</td>
+                </tr>
+                <tr>
+                  <td data-i18n="compModeC"><strong>広い / 大洋規模</strong></td>
+                  <td data-i18n="compRangeC">断層の周囲 約25° / 約45°（約2800km / 約5000km）</td>
+                  <td data-i18n="compGridC">約6〜10km</td>
+                  <td data-i18n="compUseC">遠地への伝播の概観（6時間・12時間の計算）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="section" id="scenarios">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="scenariosTitle">計算例</h2>
+          <p class="section-desc" data-i18n="scenariosDesc">同梱の断層CSVと震源クリックで実際に計算したときの、計算範囲と格子の例です。</p>
+        </div>
+
+        <div class="scenario-tabs">
+          <button class="scenario-tab-btn active" data-scenario="maule_2010"></button>
+          <button class="scenario-tab-btn" data-scenario="sumatra_2004"></button>
+          <button class="scenario-tab-btn" data-scenario="tonga_custom"></button>
+          <button class="scenario-tab-btn" data-scenario="nankai_full"></button>
+        </div>
+
+        <div class="scenario-content-card" id="scenario-card">
+          <div class="scenario-info">
+            <div class="scenario-header-wrap">
+              <h3 id="sc-name"></h3>
+              <span class="mag-badge" id="sc-mag"></span>
+            </div>
+            <p id="sc-desc"></p>
+
+            <div class="scenario-data-grid">
+              <div class="sc-data-item">
+                <span class="sc-data-label" data-i18n="scLabelFaults">断層モデル</span>
+                <span class="sc-data-val" id="sc-faults"></span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label" data-i18n="scLabelDomain">計算範囲</span>
+                <span class="sc-data-val" id="sc-domain"></span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label" data-i18n="scLabelGrid">格子</span>
+                <span class="sc-data-val" id="sc-grid"></span>
+              </div>
+              <div class="sc-data-item">
+                <span class="sc-data-label" data-i18n="scLabelTiles">地形の取得</span>
+                <span class="sc-data-val" id="sc-tiles"></span>
+              </div>
+            </div>
+            <p class="sc-note" data-i18n="scNote">※v1.0.0 で「格子の細かさ: 標準」として計算したときの値です。Mw は断層CSVのすべり量と面積から剛性率40GPaで求めた値で、公表値とは少し異なることがあります。</p>
+          </div>
+        </div>
+
+        <div class="csv-comparison-card">
+          <div class="arch-img-box">
+            <img src="assets/app_pacific_scale.jpg" alt="トンガ海溝付近をクリックして指定した震源 (Mw8.8) を大洋規模の範囲で6時間計算した画面" data-i18n-alt="altPacific">
+          </div>
+          <p class="img-caption" data-i18n="pacificCaption">トンガ海溝付近をクリックして置いた震源（Mw8.8）を、大洋規模の範囲（東経136°〜西経123°、日付変更線をまたぐ）で6時間計算した画面</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Wave Canvas Section -->
+    <section class="section section-dark" id="demo">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill">Interactive Demo</div>
+          <h2 class="section-title" data-i18n="demoTitle">波の広がりの簡易デモ</h2>
+          <p class="section-desc" data-i18n="demoDesc">クリックした場所から波が広がる様子を、簡易な2次元波動方程式で表示するデモです。実際のアプリとは異なり、断層モデルや実際の海底地形は使っていません（上ほど浅い海として速度だけを変えています）。</p>
+        </div>
+
+        <div class="canvas-interactive-wrapper">
+          <canvas id="waveCanvas" width="900" height="450"></canvas>
+          <div class="canvas-overlay-ui">
+            <div class="canvas-hud">
+              <span class="hud-status" data-i18n="demoHud">● 簡易デモ (2次元波動方程式)</span>
+              <span class="hud-hint" data-i18n="canvasClickHint">👆 クリックすると波が発生します</span>
+            </div>
+            <button id="btn-canvas-reset" class="btn btn-sm btn-outline" data-i18n="canvasReset">波面をリセット</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section" id="download">
+      <div class="container">
+        <div class="section-head text-center">
+          <div class="badge-pill" data-i18n="storeBadge">v1.0.0</div>
+          <h2 class="section-title" data-i18n="downloadTitle">入手方法</h2>
+          <p class="section-desc" data-i18n="downloadDesc">macOS のデスクトップ版を製品ページから入手できます。日本域の外を計算するときは、地形を取得するためインターネット接続が必要です。</p>
+        </div>
+
+        <div class="download-grid" style="grid-template-columns: minmax(0, 420px); justify-content: center;">
+          <div class="download-card featured">
+            <div class="card-featured-ribbon">v1.0.0 Release</div>
+            <div class="platform-icon">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.84c.62-.75 1.04-1.8 1.01-2.84-.89.04-1.98.6-2.61 1.34-.56.64-1.05 1.69-.92 2.71 1 .08 2.01-.52 2.52-1.21z"/>
+              </svg>
+            </div>
+            <h3 data-i18n="macTitle">macOS デスクトップ版</h3>
+            <p class="card-meta" data-i18n="macMeta">Apple Silicon (M1以降) 対応・macOS 10.15以降</p>
+            <p class="card-desc" data-i18n="macDesc">Tauri v2 製のデスクトップアプリ。計算はすべてPC内で行います。CSV・MP4動画は「ダウンロード」フォルダに保存。</p>
+            <div class="file-size-badge" data-i18n="macPkg">パッケージ形式: <strong>DMG (約 5.1 MB / v1.0.0)</strong></div>
+            <a href="https://cyber-matrix.netlify.app/products/tsunami_propagation" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block">
+              <span data-i18n="btnGetMac">製品ページで入手</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="section section-dark" id="notes">
+      <div class="container">
+        <div class="section-head text-center">
+          <h2 class="section-title" data-i18n="notesTitle">ご利用上の注意</h2>
+          <p class="section-desc" data-i18n="notesDesc">計算方法と地形データに由来する制限です。結果は伝播の様子を把握するための目安としてお使いください。</p>
+        </div>
+
+        <div class="docs-cards-grid">
+          <div class="doc-card">
+            <div class="doc-flag">🌊</div>
+            <div class="doc-info">
+              <h4 data-i18n="note1Title">遠地津波の精度</h4>
+              <p data-i18n="note1Desc">コリオリ力と波の分散を含まない長波方程式です。大洋を横断する津波の到達時刻・波高は目安で、海岸での津波高・遡上高は沖合の計算値より大きくなります。</p>
+            </div>
+          </div>
+
+          <div class="doc-card">
+            <div class="doc-flag">🗺️</div>
+            <div class="doc-info">
+              <h4 data-i18n="note2Title">地形データ</h4>
+              <p data-i18n="note2Desc">日本域の外の地形は Mapzen Terrain Tiles（AWS Open Data。海域は ETOPO1 の1分メッシュ）を使います。湾や海峡などの細かい地形は表せません。計算範囲は南北 約78°まで、震源は約72°までです。</p>
+            </div>
+          </div>
+
+          <div class="doc-card">
+            <div class="doc-flag">📐</div>
+            <div class="doc-info">
+              <h4 data-i18n="note3Title">震源クリック時の断層の向き</h4>
+              <p data-i18n="note3Desc">プレート境界の形状（USGS Slab）からの走向・傾斜の自動設定は日本周辺だけです。それ以外の地域では「カスタム断層パラメータ」で走向・傾斜・すべり角を入力してください。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand-title">Tsunami Propagation Simulator</span>
+        <p class="footer-desc">Physics-based simulation of tsunami propagation anywhere in the world, with on-demand bathymetry.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero" data-i18n="footerTop">トップへ戻る</a>
+        <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener noreferrer" data-i18n="footerData">地形データ: Mapzen Terrain Tiles</a>
+        <a href="https://earthquake.usgs.gov/" target="_blank" rel="noopener noreferrer" data-i18n="footerUsgs">断層モデル: USGS</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 Tsunami Propagation Simulator Project. Built with Vite, TypeScript & Tauri.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
