@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shizuoka Breach (Abe River Levee Breach Simulator) — User Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b4f8a%22/%3E%3Cpath d=%22M0 20q8-5 16 0t16 0v12H0z%22 fill=%22%2363c5ff%22/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA BREACH</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#cases">Breach Cases</a></li>
+          <li><a href="index.html#hazard">Hazard Map</a></li>
+          <li><a href="index.html#tech">How It Works</a></li>
+          <li><a href="index.html#start">Get It</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="MANUAL.ja.html" class="lang-btn">JA</a>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-sm btn-primary">Download</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="manual">
+    <div class="container">
+      <article>
+        <h1>Shizuoka Breach (Abe River Levee Breach Simulator) — User Manual</h1>
+        <p>A native macOS desktop application that computes, replays, and records in 3D where floodwaters spread when a levee along the Abe River fails in Shizuoka City, and cross-checks the results against the official flood hazard zones of the national <a href="https://disaportal.gsi.go.jp/maps/?ll=34.967,138.385&z=13&base=pale&vs=c1j0l0u0t0h0z0" target="_blank" rel="noopener">Disaportal Multi-Hazard Map</a> (Planned scale L1 / Maximum assumed scale L2).</p>
+        <p><em>日本語: <a href="MANUAL.ja.html">MANUAL.ja.html</a></em></p>
+        <blockquote>
+          <p><strong>Important Notice</strong>: Results produced by this software are simplified physical calculations under assumed conditions and are not official flood hazard maps under the Flood Control Act. Always consult official hazard maps from Shizuoka City and MLIT for evacuation decisions.</p>
+        </blockquote>
+
+        <h2>1. Installation &amp; Launch</h2>
+        <h3>System Requirements</h3>
+        <ul>
+          <li><strong>OS</strong>: macOS 11 Big Sur or later (Apple Silicon M1 / M2 / M3 / M4 / M5)</li>
+          <li><strong>Installer</strong>: <code>ShizuokaBreach_1.0.1_aarch64.dmg</code> (~143 MB)</li>
+          <li><strong>Network</strong>: Works offline (all terrain, aerial photos, 138,421 buildings, and hazard maps are bundled; internet is only used when querying the online GSI address search)</li>
+        </ul>
+        <h3>Starting the App</h3>
+        <ol>
+          <li>Open <code>ShizuokaBreach_1.0.1_aarch64.dmg</code> and drag <code>Shizuoka Breach.app</code> into your <code>Applications</code> folder.</li>
+          <li>Launch the app. The 3D title screen will appear while the region grid (9.0 × 9.4 km at 4 m resolution, 5.29 million cells, 138,421 buildings) and basin terrain load.</li>
+          <li>Click <strong>START</strong> (or press <code>Enter</code>) to enter the simulator. You can switch the entire interface between Japanese and English at any time using the language button at the top right of the left panel.</li>
+        </ol>
+
+        <h2>2. Basic Workflow</h2>
+        <ol>
+          <li>In <strong>"2. Breach and river flow"</strong>, select a <strong>breach site</strong> and a <strong>river flow</strong> scenario.</li>
+          <li>In <strong>"3. Simulation"</strong>, click <strong>▶ Start</strong> (each 8-hour case takes a few minutes; ~4 min on Apple M5).</li>
+          <li>Use the bottom timeline slider or <strong>▶</strong> button to replay the flood progression.</li>
+          <li>In <strong>"5. Hazard-map comparison"</strong>, compare the simulation with the official L1 / L2 hazard zones.</li>
+          <li>Optionally export an MP4 video in <strong>"6. Recording"</strong>.</li>
+        </ol>
+
+        <h2>3. Breach Conditions &amp; River Flows</h2>
+        <h3>Breach Sites (4 sites + overtopping only)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Case</th>
+              <th>Location</th>
+              <th>Distance from Inlet</th>
+              <th>Levee Crest</th>
+              <th>Land Behind Levee</th>
+              <th>Levee Height</th>
+              <th>River Stage at 4,900 m³/s</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A: Left bank, Anzai</strong></td>
+              <td>Anzai, Aoi Ward (upper urban core)</td>
+              <td>2.7 km</td>
+              <td>33.1 m</td>
+              <td>27.7 m</td>
+              <td>5.4 m</td>
+              <td>29.3 m</td>
+            </tr>
+            <tr>
+              <td><strong>B: Right bank, Mukoshikiji</strong></td>
+              <td>Mukoshikiji, Suruga Ward (below Warashina confluence)</td>
+              <td>4.3 km</td>
+              <td>26.0 m</td>
+              <td>20.8 m</td>
+              <td>5.2 m</td>
+              <td>22.1 m</td>
+            </tr>
+            <tr>
+              <td><strong>C: Left bank, Minami-Abe</strong></td>
+              <td>Minami-Abe, Suruga Ward (near rail crossings)</td>
+              <td>5.7 km</td>
+              <td>19.4 m</td>
+              <td>15.2 m</td>
+              <td>4.2 m</td>
+              <td>16.3 m</td>
+            </tr>
+            <tr>
+              <td><strong>D: Left bank, Nakajima</strong></td>
+              <td>Nakajima, Suruga Ward (near river mouth)</td>
+              <td>8.4 km</td>
+              <td>9.3 m</td>
+              <td>5.4 m</td>
+              <td>3.9 m</td>
+              <td>7.0 m</td>
+            </tr>
+            <tr>
+              <td><strong>No breach (overtopping only)</strong></td>
+              <td>Levees stay intact; water only spills where it overtops</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Breach &amp; Solver Parameters</h3>
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th>Description</th><th>Default</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Breach width (m)</td><td>Final length of the levee opening (20–300 m)</td><td>80 m</td></tr>
+            <tr><td>Time to reach full width (min)</td><td>Time for the breach opening to spread from its centre to full width</td><td>30 min</td></tr>
+            <tr><td>Breach trigger margin (m)</td><td>The levee begins to fail when river stage reaches this distance below the crest</td><td>1 m</td></tr>
+            <tr><td>Roughness n (Manning)</td><td>Manning's bed roughness coefficient</td><td>0.035</td></tr>
+            <tr><td>Save interval (min)</td><td>Interval between stored playback frames</td><td>10 min</td></tr>
+          </tbody>
+        </table>
+        <p><em>Note: If the river never reaches the trigger level, the breach is triggered at the peak of the hydrograph so that a selected breach always occurs.</em></p>
+
+        <h3>River Flow Scenarios (at Tegoshi Reference Point)</h3>
+        <table>
+          <thead>
+            <tr><th>Scenario</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Largest on record: 4,900 m³/s (Oct 1979)</strong></td><td>Observed peak of the October 1979 flood (target of the 2008 River Improvement Plan)</td></tr>
+            <tr><td><strong>Former construction plan: 5,500 m³/s</strong></td><td>Design flood of the 1966 construction plan</td></tr>
+            <tr><td><strong>Basic policy design flood: 6,000 m³/s</strong></td><td>Peak design flood of the 2004 Abe River Basic Policy</td></tr>
+            <tr><td><strong>Any peak flow</strong></td><td>User-specified peak discharge (m³/s), time to peak (h), and duration (h)</td></tr>
+            <tr><td><strong>Custom (10-min intervals)</strong></td><td>Comma- or space-separated discharge values (m³/s) at 10-minute intervals</td></tr>
+          </tbody>
+        </table>
+        <p>All discharges are defined at Tegoshi (downstream of the Warashina confluence) and split by catchment area: <strong>76.5% to the Abe main river</strong> and <strong>23.5% to the Warashina tributary</strong>.</p>
+
+        <h2>4. Simulation &amp; Summary Metrics</h2>
+        <ul>
+          <li><strong>▶ Start</strong>: Runs the currently selected breach and river flow scenario.</li>
+          <li><strong>▶▶ Run all breach sites in turn (same flow)</strong>: Automatically runs Cases A through D in sequence with the same hydrograph and retains each case's maximum flood depth for envelope comparison.</li>
+          <li><strong>Speed (steps / frame)</strong>: Solver steps executed per rendered frame (5–600).</li>
+          <li><strong>Safety factor (CFL)</strong>: Adaptive time-step factor (0.1–0.9, default 0.5).</li>
+        </ul>
+        <p>When a run completes, the summary displays breach time, maximum floodplain depth, peak outflow onto the floodplain, maximum floodwater volume outside the channel, flooded area (&gt;0.1 m and &gt;0.5 m), and the number of buildings with ≥0.5 m (above-floor equivalent) and ≥3 m (first-floor submerged) of surrounding water. Water inside the main river channel and sea is excluded from flood totals.</p>
+
+        <h3>Reference Results (Default: 80 m breach width, 30 min widening, 8 h duration)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Case</th>
+              <th>4,900 m³/s Area (&gt;0.1 m)</th>
+              <th>4,900 m³/s Buildings (≥0.5 m)</th>
+              <th>6,000 m³/s Area (&gt;0.1 m)</th>
+              <th>6,000 m³/s Buildings (≥0.5 m)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>No breach (overtopping only)</td><td>7.8 ha</td><td>1</td><td>10.5 ha</td><td>8</td></tr>
+            <tr><td><strong>A: Left bank, Anzai</strong></td><td>273.2 ha</td><td>5,799</td><td>334.6 ha</td><td>8,959</td></tr>
+            <tr><td><strong>B: Right bank, Mukoshikiji</strong></td><td>149.2 ha</td><td>2,817</td><td>224.1 ha</td><td>4,690</td></tr>
+            <tr><td><strong>C: Left bank, Minami-Abe</strong></td><td>169.2 ha</td><td>2,812</td><td>240.6 ha</td><td>4,601</td></tr>
+            <tr><td><strong>D: Left bank, Nakajima</strong></td><td>141.9 ha</td><td>3,254</td><td>174.4 ha</td><td>4,448</td></tr>
+          </tbody>
+        </table>
+
+        <h2>5. Playback, Display, Point Inspection &amp; CSV Export</h2>
+        <ul>
+          <li><strong>Playback</strong>: Use the bottom <strong>▶</strong> button, timeline slider, and playback speed selector (1 to 30 min/s).</li>
+          <li><strong>Bottom Chart</strong>: Blue area = river inflow (m³/s), orange curve = approximate flow onto the floodplain, red dashed line = breach start time, red solid curve = water depth at the clicked street cell or around the clicked building.</li>
+          <li><strong>Click to Inspect</strong>: Click any building or street cell in the 3D view to inspect coordinates, corrected ground elevation, building class and estimated height, maximum flood depth, arrival time, and official hazard ranks. Click <strong>"📄 Save this point as CSV (results + conditions)"</strong> to export a full time-series CSV.</li>
+          <li><strong>GeoTIFF Exports</strong>: Under "1. Region", export the corrected DEM, DSM with buildings, or raw DEM as GeoTIFF files.</li>
+          <li><strong>Camera Controls</strong>: Left-drag = rotate, right-drag = pan, scroll wheel = zoom to cursor, <strong>double-click = set centre of rotation</strong>, <code>L</code> = lock/unlock view.</li>
+        </ul>
+
+        <h2>6. Comparing with the Official Hazard Map</h2>
+        <p>In <strong>"5. Hazard-map comparison"</strong>, select either <strong>Planned scale (L1)</strong> or <strong>Maximum assumed scale (L2)</strong> from the MLIT / GSI national flood hazard map.</p>
+        <table>
+          <thead>
+            <tr><th>Display Mode</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Paint the difference from the results</strong></td><td>Flooded in both (purple), run only (red), hazard map only (blue), run outside city (grey)</td></tr>
+            <tr><td><strong>Paint the ground with official rank colours</strong></td><td>Drapes the official hazard depth classes on the terrain</td></tr>
+            <tr><td><strong>Paint the ground with assumed depth</strong></td><td>Colours assumed depth using the active depth class set from "4. Display"</td></tr>
+            <tr><td><strong>Show as a 3D water surface</strong></td><td>Renders the hazard map as a 3D water surface with a 0–100% level slider</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Notes on Interpretation</strong>:</p>
+        <ul>
+          <li>The official hazard map is an envelope combining many assumed breach locations. A single breach site covers only one pathway (91–97% of each run's flooded cells fall inside the L2 zone), so use <strong>"Maximum of all sites computed with this flow"</strong> after running all four cases to compare the combined envelope.</li>
+        </ul>
+
+        <h2>7. Video Recording (MP4 / WebM)</h2>
+        <p>In <strong>"6. Recording"</strong>, choose resolution (up to <code>3840×2160</code> 4K), frame rate (<code>24 / 30 / 60</code> fps), duration, time window, and camera mode (<strong>Fixed</strong>, <strong>Interpolate keyframes</strong>, or <strong>Orbit</strong>), then click <strong>● Record and save</strong>.</p>
+
+        <h2>8. Troubleshooting</h2>
+        <table>
+          <thead>
+            <tr><th>Symptom</th><th>Solution</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Simulation runs slowly</td><td>Increase the <strong>Speed</strong> slider in "3. Simulation" and close other GPU-intensive apps</td></tr>
+            <tr><td>High memory usage</td><td>Increase <strong>Save interval (min)</strong> (e.g. from 10 min to 20 min)</td></tr>
+            <tr><td>Local water surface oscillations</td><td>Lower <strong>Safety factor (CFL)</strong> slightly (e.g. from 0.5 to 0.35)</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">SHIZUOKA BREACH</span>
+        </div>
+        <p class="credits">Sources: GSI Tiles (5 m &amp; 10 m DEM, vector tiles, seamless aerial photos) / Abe River Basic Policy &amp; Improvement Plan (MLIT Chubu Regional Bureau) / Disaportal Multi-Hazard Map (MLIT &amp; GSI) / © OpenStreetMap contributors</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">Back to Overview</a></li>
+        <li><a href="MANUAL.ja.html">取扱説明書 (日本語)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/products/shizuoka_breach">Product Page &amp; Download</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

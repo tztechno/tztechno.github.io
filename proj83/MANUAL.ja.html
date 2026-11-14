@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shizuoka Breach（安倍川 決壊浸水シミュレーター）— 取扱説明書</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b4f8a%22/%3E%3Cpath d=%22M0 20q8-5 16 0t16 0v12H0z%22 fill=%22%2363c5ff%22/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA BREACH</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html#features">機能</a></li>
+          <li><a href="index.html#cases">決壊ケース</a></li>
+          <li><a href="index.html#hazard">ハザードマップ比較</a></li>
+          <li><a href="index.html#tech">仕組み</a></li>
+          <li><a href="index.html#start">入手</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="MANUAL.en.html" class="lang-btn">EN</a>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-sm btn-primary">ダウンロード</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="manual">
+    <div class="container">
+      <article>
+        <h1>Shizuoka Breach（安倍川 決壊浸水シミュレーター）— 取扱説明書</h1>
+        <p>安倍川の堤防が静岡市内で決壊したときに、川の水がどこへ広がるかを3Dで計算・再生・録画し、国の<a href="https://disaportal.gsi.go.jp/maps/?ll=34.967,138.385&z=13&base=pale&vs=c1j0l0u0t0h0z0" target="_blank" rel="noopener">重ねるハザードマップ</a>の洪水浸水想定区域（計画規模 L1 / 想定最大規模 L2）と比較するデスクトップアプリケーションです。</p>
+        <p><em>English: <a href="MANUAL.en.html">MANUAL.en.html</a></em></p>
+        <blockquote>
+          <p><strong>ご注意</strong>: 本ソフトウェアの計算結果は仮定条件にもとづく簡易シミュレーションであり、水防法にもとづく公式の洪水浸水想定区域図ではありません。実際の避難判断には必ず静岡市・国土交通省の公式ハザードマップをご利用ください。</p>
+        </blockquote>
+
+        <h2>1. インストールと起動</h2>
+        <h3>動作環境</h3>
+        <ul>
+          <li><strong>対応OS</strong>: macOS 11 Big Sur 以降（Apple Silicon M1 / M2 / M3 / M4 / M5 対応）</li>
+          <li><strong>インストーラ</strong>: <code>ShizuokaBreach_1.0.1_aarch64.dmg</code>（約 143 MB）</li>
+          <li><strong>ネットワーク</strong>: オフライン動作（地域データ・広域地形・空中写真・建物13.8万棟・ハザードマップをすべて内蔵。国土地理院のオンライン住所検索を行うときのみ通信を使用します）</li>
+        </ul>
+        <h3>起動手順</h3>
+        <ol>
+          <li><code>ShizuokaBreach_1.0.1_aarch64.dmg</code> を開き、<code>Shizuoka Breach.app</code> を <code>Applications</code>（アプリケーション）フォルダへドラッグ＆ドロップします。</li>
+          <li>アプリを起動すると表紙（タイトル画面）が表示され、地域データ（9.0 × 9.4 km、4 m格子・529万セル、建物138,421棟）と広域地形の読み込みが進みます。</li>
+          <li>準備が完了したら <strong>「開 始」</strong> ボタン（または <code>Enter</code> キー）を押してメイン画面へ進みます。</li>
+        </ol>
+
+        <h2>2. 基本の流れ</h2>
+        <ol>
+          <li>左パネル <strong>「2. 決壊箇所と河川流量」</strong> で<strong>決壊箇所</strong>と<strong>河川流量</strong>を選ぶ</li>
+          <li><strong>「3. 計算」</strong> の <strong>▶ 計算開始</strong> を押す（1ケース数分。Apple M5 で約4分）</li>
+          <li>画面下部のスライダーや <strong>▶</strong> ボタンで浸水の時間変化を再生する</li>
+          <li><strong>「5. ハザードマップ比較」</strong> で公式の洪水浸水想定区域（L1 / L2）と比べる</li>
+          <li>必要に応じて <strong>「6. 録画」</strong> で MP4 動画として保存する</li>
+        </ol>
+
+        <h2>3. 決壊条件と河川流量</h2>
+        <h3>決壊箇所（4か所 + 越水のみ）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ケース</th>
+              <th>位置</th>
+              <th>河道距離（上流端から）</th>
+              <th>堤防天端</th>
+              <th>堤内地盤</th>
+              <th>堤防高</th>
+              <th>4,900 m³/s 時の堤防際水位</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A 左岸 安西</strong></td>
+              <td>葵区安西・中心市街地上流側</td>
+              <td>2.7 km</td>
+              <td>33.1 m</td>
+              <td>27.7 m</td>
+              <td>5.4 m</td>
+              <td>29.3 m</td>
+            </tr>
+            <tr>
+              <td><strong>B 右岸 向敷地</strong></td>
+              <td>駿河区向敷地（藁科川合流下流）</td>
+              <td>4.3 km</td>
+              <td>26.0 m</td>
+              <td>20.8 m</td>
+              <td>5.2 m</td>
+              <td>22.1 m</td>
+            </tr>
+            <tr>
+              <td><strong>C 左岸 南安倍</strong></td>
+              <td>駿河区南安倍（鉄道交差部付近）</td>
+              <td>5.7 km</td>
+              <td>19.4 m</td>
+              <td>15.2 m</td>
+              <td>4.2 m</td>
+              <td>16.3 m</td>
+            </tr>
+            <tr>
+              <td><strong>D 左岸 中島</strong></td>
+              <td>駿河区中島（河口付近）</td>
+              <td>8.4 km</td>
+              <td>9.3 m</td>
+              <td>5.4 m</td>
+              <td>3.9 m</td>
+              <td>7.0 m</td>
+            </tr>
+            <tr>
+              <td><strong>決壊なし（越水のみ）</strong></td>
+              <td>堤防は切れず、天端を越える水のみ溢れる</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>決壊・計算パラメータ</h3>
+        <table>
+          <thead>
+            <tr><th>項目</th><th>内容</th><th>既定値</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>決壊幅 (m)</td><td>最終的に堤防が切れる長さ（20〜300 m）</td><td>80 m</td></tr>
+            <tr><td>全幅に広がるまでの時間 (分)</td><td>決壊開始後、中央から両側へ全幅に広がるまでの時間</td><td>30 分</td></tr>
+            <tr><td>決壊水位 (m)</td><td>堤防天端からこの高さ下まで河川水位が達したら決壊開始</td><td>1 m</td></tr>
+            <tr><td>粗度係数 n (Manning)</td><td>地表のマニング粗度係数</td><td>0.035</td></tr>
+            <tr><td>保存間隔 (分)</td><td>タイムライン再生用にスナップショットを保存する間隔</td><td>10 分</td></tr>
+          </tbody>
+        </table>
+        <p>※ 河川水位が「天端 − 決壊水位」に届かない場合は、流量ピークの時刻に決壊が始まります（決壊箇所を選んだ場合は必ず決壊します）。</p>
+
+        <h3>河川流量シナリオ（手越基準点）</h3>
+        <table>
+          <thead>
+            <tr><th>河川流量</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>観測史上最大 4,900 m³/s (S54.10 規模)</strong></td><td>昭和54年（1979年）10月洪水の流量（平成20年河川整備計画の目標）</td></tr>
+            <tr><td><strong>工事実施基本計画 5,500 m³/s (旧計画)</strong></td><td>昭和41年（1966年）の工事実施基本計画の計画高水流量</td></tr>
+            <tr><td><strong>基本方針の基本高水 6,000 m³/s</strong></td><td>平成16年（2004年）河川整備基本方針の基本高水ピーク流量</td></tr>
+            <tr><td><strong>任意のピーク流量</strong></td><td>ピーク流量（m³/s）・ピークまでの時間（h）・計算時間（h）を自由に入力</td></tr>
+            <tr><td><strong>カスタム（10分ごとの流量）</strong></td><td>10分ごとの流量（m³/s）をカンマ・空白・改行区切りで直接入力</td></tr>
+          </tbody>
+        </table>
+        <p>流量はいずれも手越（藁科川合流点の下流）の公表値で、流域面積比にもとづき<strong>安倍川本川 76.5%・藁科川 23.5%</strong> に配分して2か所の流入端から与えます。</p>
+
+        <h2>4. 計算と結果の読み方</h2>
+        <ul>
+          <li><strong>▶ 計算開始</strong>: 選択中の条件で計算を開始します。</li>
+          <li><strong>▶▶ 全決壊箇所を連続計算（同じ流量）</strong>: 同じ流量でケースA〜Dを順番に自動計算します。各ケースの最大浸水深はメモリに保持され、ハザードマップとのエンベロープ比較に使えます。</li>
+          <li><strong>計算速度（ステップ/フレーム）</strong>: 1フレームあたりに進める計算ステップ数（5〜600）。大きくすると計算が速く終わります。</li>
+          <li><strong>安全係数（CFL）</strong>: 0.1〜0.9（既定 0.5）。時間刻み Δt の安全率です。</li>
+        </ul>
+        <p>計算が完了すると、決壊時刻、氾濫原の最大浸水深、最大氾濫流量、最大氾濫水量、浸水面積（&gt;0.1 m / &gt;0.5 m）、床上浸水相当（周囲 0.5 m 以上）・1階水没相当（3 m 以上）の建物棟数が表示されます。河道と河川敷（堤防の内側）および海の水は「浸水」に数えません。</p>
+
+        <h3>参考：既定条件（決壊幅 80 m・30分拡大・8時間計算）の計算結果</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ケース</th>
+              <th>4,900 m³/s 浸水面積 (&gt;0.1m)</th>
+              <th>4,900 m³/s 建物 (≥0.5m)</th>
+              <th>6,000 m³/s 浸水面積 (&gt;0.1m)</th>
+              <th>6,000 m³/s 建物 (≥0.5m)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>決壊なし（越水のみ）</td><td>7.8 ha</td><td>1 棟</td><td>10.5 ha</td><td>8 棟</td></tr>
+            <tr><td><strong>A 左岸 安西</strong></td><td>273.2 ha</td><td>5,799 棟</td><td>334.6 ha</td><td>8,959 棟</td></tr>
+            <tr><td><strong>B 右岸 向敷地</strong></td><td>149.2 ha</td><td>2,817 棟</td><td>224.1 ha</td><td>4,690 棟</td></tr>
+            <tr><td><strong>C 左岸 南安倍</strong></td><td>169.2 ha</td><td>2,812 棟</td><td>240.6 ha</td><td>4,601 棟</td></tr>
+            <tr><td><strong>D 左岸 中島</strong></td><td>141.9 ha</td><td>3,254 棟</td><td>174.4 ha</td><td>4,448 棟</td></tr>
+          </tbody>
+        </table>
+
+        <h2>5. 再生・表示・地点クリック・CSV保存</h2>
+        <ul>
+          <li><strong>タイムライン再生</strong>: 下部の <strong>▶</strong> ボタン、スライダー、再生速度（1分/秒〜30分/秒）で任意の時刻の浸水状況を確認できます。</li>
+          <li><strong>下部のグラフ</strong>: 青い面＝河川流量（m³/s）、橙の線＝氾濫原へ出る流量の目安、赤の破線＝決壊時刻、赤い実線＝クリックした地点（または建物周囲）の水深変化を表します。</li>
+          <li><strong>地点・建物のクリック</strong>: 3D画面上の建物や地面をクリックすると、右下に緯度経度・平面直角座標・地盤高・建物種別・最大浸水深・浸水開始時刻・ハザードマップ想定ランクを表示します。<strong>「📄 この地点の結果をCSVで保存（条件つき）」</strong> で計算条件と時系列データをCSV（UTF-8 BOM付き）で出力できます。</li>
+          <li><strong>GeoTIFF 出力</strong>: 左パネル「1. 地域」のリンクから、補正地形 GeoTIFF・建物込み DSM・補正前 DEM を書き出せます。</li>
+          <li><strong>カメラ操作</strong>: 左ドラッグ＝回転、右ドラッグ＝平行移動、ホイール＝カーソル位置へズーム、<strong>ダブルクリック＝その地点を回転の中心（注目点）にする</strong>、<code>L</code> キー＝視点の固定/解除。</li>
+          <li><strong>パネルの折りたたみ</strong>: 左パネル上部の <code>◀</code> ボタンやタイムライン右端の <code>▾</code> ボタンでパネルをたたみ、3D画面を広く表示できます。</li>
+        </ul>
+
+        <h2>6. ハザードマップと比較する</h2>
+        <p>「5. ハザードマップ比較」で、国土交通省・国土地理院「重ねるハザードマップ」の<strong>計画規模（L1）</strong>または<strong>想定最大規模（L2）</strong>を選択します。</p>
+        <table>
+          <thead>
+            <tr><th>表示方法</th><th>内容</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>計算結果との差を地表に塗る</strong></td><td>両方で浸水（紫）/ 計算のみ（赤）/ ハザードマップのみ（青）/ 市外の計算（灰）で色分け</td></tr>
+            <tr><td><strong>地表に公式ランク配色で塗る</strong></td><td>公式の浸水深ランク配色を地表に重ねて表示</td></tr>
+            <tr><td><strong>地表に想定水深で塗る</strong></td><td>推定した水深を「4. 表示」の浸水深区分で塗る</td></tr>
+            <tr><td><strong>3D水面として表示</strong></td><td>想定水深を3D水面として立体表示。水位スライダー（0〜100%）で上昇の様子を確認・録画可能</td></tr>
+          </tbody>
+        </table>
+        <p><strong>比較を読む際のポイント</strong>:</p>
+        <ul>
+          <li>公表ハザードマップは多数の想定破堤点を重ね合わせた包絡線（エンベロープ）です。1か所の決壊で覆えるのはその一部（各ケースの浸水範囲の 91〜97% は L2 想定区域内に収まります）であるため、全体像を比べる際は「全決壊箇所を連続計算」を実行したうえで <strong>「比較する計算結果：同じ流量で計算済みの全ケースの最大」</strong> を選んでください。</li>
+          <li>比較は静岡市内（河道・建物セルを除く）を対象とし、計算水深 0.1 m 以上を浸水と判定します。</li>
+        </ul>
+
+        <h2>7. 動画の録画（MP4 / WebM）</h2>
+        <p>計算完了後（または一時停止中・ハザードマップ3D水面表示中）に「6. 録画」で解像度（最大 3840×2160 4K）、fps（24 / 30 / 60）、動画の長さ、開始・終了時刻、カメラ（現在の視点で固定 / キーフレームを補間 / 旋回）を選び、<strong>「● 録画して保存」</strong> を押します。堤防が徐々に切れていく様子や、地名ラベル・経過時間・流量・凡例も動画に焼き込まれます。</p>
+
+        <h2>8. 住所・地名を探す</h2>
+        <p>「1. 地域」の <strong>「住所・地名を探す」</strong> を開くと、計算範囲内の地名ラベル（306件）・町丁字ポリゴン（768件）・国土地理院の住所検索から場所を探せます。「この場所を表示」を押すとピンまたは町丁目の輪郭線を表示し、その場所へカメラが移動します。</p>
+
+        <h2>9. 困ったとき</h2>
+        <table>
+          <thead>
+            <tr><th>症状</th><th>対処</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>計算が遅い</td><td>「3. 計算」の「計算速度」スライダーを右へ上げる / 他の3D・GPUアプリを閉じる</td></tr>
+            <tr><td>メモリ使用量を抑えたい</td><td>「2. 決壊箇所と河川流量」の「保存間隔 (分)」を長くする（例：10分→20分）</td></tr>
+            <tr><td>水面が局所的に振動する</td><td>「安全係数 (CFL)」を少し下げる（例：0.5→0.35）</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">SHIZUOKA BREACH</span>
+        </div>
+        <p class="credits">出典：地理院タイル（国土地理院）／ 安倍川水系河川整備基本方針・河川整備計画（国土交通省 中部地方整備局）／ 重ねるハザードマップ（国土交通省・国土地理院）／ © OpenStreetMap contributors</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html">トップページへ戻る</a></li>
+        <li><a href="MANUAL.en.html">User Manual (English)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/products/shizuoka_breach">製品ページ・ダウンロード</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

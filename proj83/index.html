@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SHIZUOKA BREACH — 静岡・安倍川の3D堤防決壊シミュレーター</title>
+  <meta name="description" content="安倍川の堤防が切れたら、水はどこへ行くのか。9.0×9.4 km・4 m格子（529万セル）・建物13.8万棟をGPUの2次元浅水流方程式で解き、3Dの市街地で可視化するネイティブアプリ。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230b4f8a%22/%3E%3Cpath d=%22M0 20q8-5 16 0t16 0v12H0z%22 fill=%22%2363c5ff%22/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA BREACH</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="nav_features">機能</a></li>
+          <li><a href="#cases" data-i18n="nav_cases">決壊ケース</a></li>
+          <li><a href="#hazard" data-i18n="nav_hazard">ハザードマップ比較</a></li>
+          <li><a href="#tech" data-i18n="nav_tech">仕組み</a></li>
+          <li><a href="#start" data-i18n="nav_start">入手</a></li>
+          <li><a href="MANUAL.ja.html" id="manualLink" data-i18n="nav_manual">取扱説明書</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="langBtn" class="lang-btn" type="button">EN</button>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-sm btn-primary" data-i18n="nav_cta">ダウンロード</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg" style="background-image:url('assets/hero.jpg')"></div>
+      <div class="hero-rain" aria-hidden="true"></div>
+      <div class="hero-shade"></div>
+      <div class="container hero-content">
+        <p class="eyebrow" data-i18n="hero_eyebrow">3D RIVER LEVEE BREACH SIMULATOR · SHIZUOKA, JAPAN</p>
+        <h1 data-i18n="hero_title">堤防が切れたら、<br><span class="accent">水はどこへ行くのか。</span></h1>
+        <p class="lead" data-i18n="hero_lead">
+          静岡市を貫く一級河川・安倍川と支流の藁科川（賤機〜河口、9.0 × 9.4 km）。
+          4 m格子・529万セルの地形と13.8万棟の建物の上で、本川・藁科川の増水と4か所の堤防決壊（または越水のみ）をGPUの2次元浅水流方程式で解き、
+          市街地を駆け抜ける氾濫流を3Dで再現します。
+        </p>
+        <div class="hero-cta">
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-primary btn-lg" data-i18n="hero_btn_start">アプリを入手する</a>
+          <a href="#features" class="btn btn-ghost btn-lg" data-i18n="hero_btn_more">詳しく見る</a>
+        </div>
+        <p class="platforms" data-i18n="hero_platforms">macOS デスクトップアプリ（Apple Silicon · .dmg） · 日本語 / English</p>
+      </div>
+    </section>
+
+    <!-- Key numbers -->
+    <section class="stats" aria-label="Key figures">
+      <div class="container stats-grid">
+        <div class="stat"><strong>9.0 × 9.4 km</strong><span data-i18n="stat_area">計算範囲（賤機〜河口）</span></div>
+        <div class="stat"><strong data-i18n="stat_bldg_num">13.8万棟</strong><span data-i18n="stat_bldg">国土地理院 建物外形</span></div>
+        <div class="stat"><strong>4 m</strong><span data-i18n="stat_grid">格子（2,250 × 2,350 = 529万セル）</span></div>
+        <div class="stat"><strong data-i18n="stat_cases_num">4か所 + 越水</strong><span data-i18n="stat_cases">安西・向敷地・南安倍・中島</span></div>
+        <div class="stat"><strong>4K MP4</strong><span data-i18n="stat_rec">最大 3840×2160 動画保存</span></div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+      <div class="container">
+        <p class="kicker" data-i18n="feat_kicker">FEATURES</p>
+        <h2 data-i18n="feat_title">河川の増水から破堤・市街地氾濫までを、ひとつの画面で</h2>
+        <p class="section-lead" data-i18n="feat_lead">
+          国土地理院の5m標高（川筋と市街地を100%カバー）・建物外形・シームレス空中写真・重ねるハザードマップを統合。
+          堤防天端が徐々に切り欠かれ、道路網に沿って広がる濁流を、建物の1棟ごとに確かめられます。
+        </p>
+
+        <article class="feature reveal">
+          <figure class="shot">
+            <img src="assets/breach.jpg" alt="安倍川左岸（安西）の堤防決壊と市街地への氾濫流" loading="lazy" />
+            <figcaption data-i18n="f1_cap">ケースA（左岸・安西）決壊時の堤防切り欠きと、旧市街へ流れ込む氾濫水</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">01</span>
+            <h3 data-i18n="f1_title">4か所の決壊箇所と、時間で広がる堤防の切り欠き</h3>
+            <p data-i18n="f1_body">
+              安倍川の左右岸から代表的な4か所（A: 左岸・安西、B: 右岸・向敷地、C: 左岸・南安倍、D: 左岸・中島）と「決壊なし（越水のみ）」を選択可能。
+              河川水位が設定高さ（標準で天端の1m下）に達した瞬間、または流量ピーク時刻に決壊が始まり、中央から指定した決壊幅（20〜300 m）へ時間とともに広がりながら堤内地盤の高さまで切り欠かれます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f1_c1">A: 左岸 安西（2.7 km）</li>
+              <li data-i18n="f1_c2">B: 右岸 向敷地（4.3 km）</li>
+              <li data-i18n="f1_c3">C: 左岸 南安倍（5.7 km）</li>
+              <li data-i18n="f1_c4">D: 左岸 中島（8.4 km）</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <figure class="shot">
+            <img src="assets/flood.jpg" alt="市街地の街路を流れる氾濫水と周囲浸水深による建物の色分け" loading="lazy" />
+            <figcaption data-i18n="f2_cap">13.8万棟の建物を不透過壁として扱い、周囲の道路セルの水深で建物を色分け表示</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">02</span>
+            <h3 data-i18n="f2_title">本川・藁科川の2流入点と、建物13.8万棟を回る浅水流</h3>
+            <p data-i18n="f2_body">
+              手越（基準点）の洪水ハイドログラフを、流域面積比（安倍川本川 76.5%・藁科川 23.5%）で上流端と西端の2か所から流入させ、河口と低地端からは自由流出させます。
+              建物セルは壁として水を遮り、水は道路や空き地を通って流れ、建物の壁面は周囲の水位まで濡れた色で描かれます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f2_c1">観測史上最大 4,900 m³/s</li>
+              <li data-i18n="f2_c2">旧計画 5,500 m³/s</li>
+              <li data-i18n="f2_c3">基本高水 6,000 m³/s</li>
+              <li data-i18n="f2_c4">任意のピーク流量・カスタム波形</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reveal">
+          <figure class="shot">
+            <img src="assets/labels.jpg" alt="建物の選択と時系列水深グラフ・地名ラベル" loading="lazy" />
+            <figcaption data-i18n="f3_cap">建物クリックで属性・最大浸水深・想定ランクを表示し、下部に時系列グラフを描画</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">03</span>
+            <h3 data-i18n="f3_title">住所検索・地名ラベル・地点水深グラフとCSV出力</h3>
+            <p data-i18n="f3_body">
+              町丁・字（範囲の輪郭と面積・建物棟数を表示）や建物の地名ラベル（306件）、国土地理院の住所検索から見たい場所へすぐに移動できます。
+              任意の建物や道路をクリックすると、河川流量・氾濫水量・その地点の水深を1枚のグラフに重ねて表示し、計算条件つきの時系列CSVとして保存できます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f3_c1">町丁・字の範囲表示（768件）</li>
+              <li data-i18n="f3_c2">オクルージョン判定つき地名ラベル</li>
+              <li data-i18n="f3_c3">条件つき時系列CSV保存</li>
+              <li data-i18n="f3_c4">補正地形・建物DSMのGeoTIFF出力</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <figure class="shot">
+            <img src="assets/ui.jpg" alt="全体UIとタイムライン・ハイドログラフ" loading="lazy" />
+            <figcaption data-i18n="f4_cap">左パネル・3Dビュー・広域マップ・下部タイムライン＆ハイドログラフを統合した操作画面</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">04</span>
+            <h3 data-i18n="f4_title">自由なカメラワークと、最大4KのMP4動画書き出し</h3>
+            <p data-i18n="f4_body">
+              ダブルクリックした地点を中心にした回転、複数視点のキーフレーム補間、旋回カメラに対応。
+              計算した8時間の浸水過程を任意の速度で再生でき、地名ラベル・経過時間・河川流量・氾濫水量・凡例を焼き込んだMP4（H.264）またはWebM動画を最大4K（3840×2160）で保存できます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f4_c1">キーフレーム視点補間・旋回</li>
+              <li data-i18n="f4_c2">最大 3840×2160 (4K) · 60 fps</li>
+              <li data-i18n="f4_c3">全決壊箇所の連続自動計算</li>
+              <li data-i18n="f4_c4">日本語 / English ワンクリック切替</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Breach Cases & Simulation Results -->
+    <section id="cases" class="section alt">
+      <div class="container">
+        <div class="split reveal">
+          <div>
+            <p class="kicker" data-i18n="cases_kicker">4 BREACH SITES &amp; RIVER FLOWS</p>
+            <h2 data-i18n="cases_title">どこが切れるかで、<br>浸水する街はまったく違う</h2>
+            <p class="section-lead" data-i18n="cases_lead">
+              安倍川は扇状地を流れる急流河川（平均勾配 約1/210）です。上流側の左岸（安西）が切れれば静岡駅北側の中心市街地へ、右岸（向敷地）が切れれば手越・用宗方面へ、下流の左岸（南安倍・中島）が切れれば駿河区の低地へと、決壊箇所ごとに異なる流路をたどります。
+            </p>
+            <ul class="spec">
+              <li>
+                <b data-i18n="case_a_title">ケースA：左岸・安西（上流端から 2.7 km / 堤防高 5.4 m）</b>
+                <span data-i18n="case_a_desc">天端 33.1 m・堤内地盤 27.7 m。4,900 m³/s 時は浸水面積 273.2 ha・床上浸水相当 5,799 棟（6,000 m³/s 時は 334.6 ha・8,959 棟）。安西から中心市街地・葵区方面へ広く流下します。</span>
+              </li>
+              <li>
+                <b data-i18n="case_b_title">ケースB：右岸・向敷地（上流端から 4.3 km / 堤防高 5.2 m）</b>
+                <span data-i18n="case_b_desc">天端 26.0 m・堤内地盤 20.8 m。4,900 m³/s 時は浸水面積 149.2 ha・床上浸水相当 2,817 棟（6,000 m³/s 時は 224.1 ha・4,690 棟）。藁科川合流点の下流右岸から手越・長田方面へ広がります。</span>
+              </li>
+              <li>
+                <b data-i18n="case_c_title">ケースC：左岸・南安倍（上流端から 5.7 km / 堤防高 4.2 m）</b>
+                <span data-i18n="case_c_desc">天端 19.4 m・堤内地盤 15.2 m。4,900 m³/s 時は浸水面積 169.2 ha・床上浸水相当 2,812 棟（6,000 m³/s 時は 240.6 ha・4,601 棟）。東海道本線・新幹線と交差する中流域左岸から駿河区側へ広がります。</span>
+              </li>
+              <li>
+                <b data-i18n="case_d_title">ケースD：左岸・中島（上流端から 8.4 km / 堤防高 3.9 m）</b>
+                <span data-i18n="case_d_desc">天端 9.3 m・堤内地盤 5.4 m。4,900 m³/s 時は浸水面積 141.9 ha・床上浸水相当 3,254 棟・最大氾濫水量 1.19 百万m³（6,000 m³/s 時は 174.4 ha・4,448 棟・1.96 百万m³）。河口近くの低地で深い浸水となります。</span>
+              </li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <img src="assets/title.jpg" alt="Shizuoka Breach タイトル画面と4つの決壊箇所" loading="lazy" />
+            <figcaption data-i18n="cases_cap">タイトル画面：9.0×9.4 kmの計算範囲と4つの決壊箇所（安西・向敷地・南安倍・中島）</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hazard map comparison -->
+    <section id="hazard" class="section">
+      <div class="container">
+        <p class="kicker" data-i18n="hz_kicker">HAZARD MAP COMPARISON</p>
+        <h2 data-i18n="hz_title">国の洪水ハザードマップ（L1・L2）と重ねて検証する</h2>
+        <p class="section-lead" data-i18n="hz_lead">
+          国土交通省・国土地理院「重ねるハザードマップ」の洪水浸水想定区域（計画規模 L1：1,255.7 ha / 想定最大規模 L2：2,251.3 ha）を収録。
+          公表ハザードマップは多数の想定破堤点を重ね合わせた包絡線（エンベロープ）であるため、単独の決壊ケースだけでなく「全4ケースの最大」とも定量的に比較できます。
+        </p>
+        <div class="split reveal">
+          <figure class="shot">
+            <img src="assets/hazard.jpg" alt="国の洪水ハザードマップとの重ね合わせ比較" loading="lazy" />
+            <figcaption data-i18n="hz_cap">計算結果と洪水浸水想定区域（重ねるハザードマップ）の比較：両方で浸水（紫）・計算のみ（赤）・マップのみ（青）</figcaption>
+          </figure>
+          <ul class="spec">
+            <li>
+              <b data-i18n="hz_s1_title">浸水範囲の91〜97%が想定区域（L2）と一致</b>
+              <span data-i18n="hz_s1_desc">各決壊ケースで0.1 m以上浸水した市内セルのうち、91〜97%が国の想定最大規模（L2）の浸水想定区域内に収まり、微地形に沿った流下経路の整合性を確認できます。</span>
+            </li>
+            <li>
+              <b data-i18n="hz_s2_title">4つの表示モードと3D水面化</b>
+              <span data-i18n="hz_s2_desc">「計算結果との差を地表に塗る」「公式ランク配色で地表に塗る」「想定水深で塗る」「3D水面として表示（0〜100%の水位上昇スライダー付き）」の4通りで切り替えられます。</span>
+            </li>
+            <li>
+              <b data-i18n="hz_s3_title">全決壊箇所の連続計算とエンベロープ比較</b>
+              <span data-i18n="hz_s3_desc">「▶▶ 全決壊箇所を連続計算」ボタンで4ケースを順番に自動計算し、その最大浸水深（エンベロープ）と公的ハザードマップの面積・浸水深ランク一致率・床上浸水棟数を即座に照合できます。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Under the hood -->
+    <section id="tech" class="section alt">
+      <div class="container">
+        <p class="kicker" data-i18n="tech_kicker">HOW IT WORKS</p>
+        <h2 data-i18n="tech_title">透明で検証できる計算モデル</h2>
+        <p class="section-lead" data-i18n="tech_lead">
+          ブラックボックスになりがちな水害シミュレーションを、オープンな公共データと物理法則にもとづいてブラウザ／ネイティブGPU上で直接解いています。
+        </p>
+        <div class="tech-grid reveal">
+          <div class="tech">
+            <h3 data-i18n="t1_title">GPU 2次元浅水流ソルバー（運動量保存）</h3>
+            <p data-i18n="t1_body">4 m格子（2,250 × 2,350 = 5,287,500セル）上で、水深と線流量 (h, hu, hv) の2次元浅水流方程式をWebGL2浮動小数点テクスチャで計算。静水圧勾配・移流項（運動量輸送）・マニング粗度による底面摩擦・CFL条件による適応時間刻み Δt を毎ステップ評価します。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t2_title">河道・堤防の地形再構成と破堤モデル</h3>
+            <p data-i18n="t2_body">国土地理院5m標高（DEM5A）のレーザー計測が水面で反射する特性を補正するため、水面標高から推定水深（1.2 m）を差し引いて河床を復元。堤防天端の欠損も前後区間から補間し、決壊時は時間とともに天端が堤内地盤高まで切り欠かれる動的地形更新を行います。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t3_title">建物13.8万棟の不透過壁と建物浸水深</h3>
+            <p data-i18n="t3_body">国土地理院ベクトルタイルの建物外形（138,421棟）を格子に焼き込み、建物セルへの流入を遮断して道路網に沿った流下を再現。各建物の浸水深は外周1セルの道路水深の最大値として毎フレーム集計し、壁面の濡れ表現と床上（0.5 m以上）・1階水没（3 m以上）棟数を算出します。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t4_title">周辺20 km・広域35 kmの3段階地形描画</h3>
+            <p data-i18n="t4_body">詳細計算タイル（9.0×9.4 km, 4 m格子）の周囲に、国土地理院10m標高と航空写真による周辺地形（±10 km）と広域地形（32.8×35.4 km, 30 m格子）をシームレスに配置。山間部から駿河湾へ抜ける安倍川扇状地の立体構造を一望できます。</p>
+          </div>
+        </div>
+        <figure class="shot wide reveal">
+          <img src="assets/english.jpg" alt="English UI mode" loading="lazy" />
+          <figcaption data-i18n="tech_cap">ワンクリックで UI・地名ラベル・凡例・グラフ・CSV出力をすべて英語表示に切り替え可能</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Get Started -->
+    <section id="start" class="section">
+      <div class="container">
+        <p class="kicker" data-i18n="start_kicker">GET SHIZUOKA BREACH</p>
+        <h2 data-i18n="start_title">デスクトップアプリを入手</h2>
+        <p class="section-lead" data-i18n="start_lead">
+          地域データ・広域地形・空中写真・建物13.8万棟・ハザードマップをすべて内蔵したスタンドアロン版です。インターネット接続なしでそのまま起動・計算できます。
+        </p>
+        <div class="platform-grid reveal" style="grid-template-columns:1fr;max-width:640px;margin-left:auto;margin-right:auto">
+          <div class="platform">
+            <h3 data-i18n="p1_title">デスクトップアプリ版</h3>
+            <ul>
+              <li><span data-i18n="p1_os_k">対応OS</span><strong data-i18n="p1_os_v">macOS 11 Big Sur 以降（Apple Silicon M1〜M5）</strong></li>
+              <li><span data-i18n="p1_inst_k">インストーラ</span><strong data-i18n="p1_inst_v">ShizuokaBreach_1.0.1_aarch64.dmg（約 143 MB）</strong></li>
+              <li><span data-i18n="p1_data_k">内蔵データ</span><strong data-i18n="p1_data_v">安倍川（賤機〜河口）9.0×9.4 km・広域地形・ハザードマップ同梱</strong></li>
+              <li><span data-i18n="p1_net_k">ネットワーク</span><strong data-i18n="p1_net_v">オフライン動作（国土地理院のオンライン住所検索のみ通信を使用）</strong></li>
+            </ul>
+            <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-primary" data-i18n="p1_btn">製品ページ・ダウンロード</a>
+          </div>
+        </div>
+        <p class="note" data-i18n="start_note">
+          ※ 本ソフトウェアは公開データにもとづく簡易的な2次元浅水流シミュレーションであり、水防法にもとづく公式の洪水浸水想定区域図ではありません。実際の避難判断には必ず静岡市および国土交通省が公表する公式ハザードマップ・気象情報をご利用ください。
+        </p>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta">
+      <div class="container">
+        <h2 data-i18n="cta_title">安倍川の堤防決壊シナリオを、あなたのMacで検証する。</h2>
+        <div class="hero-cta" style="justify-content:center">
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_breach" class="btn btn-primary btn-lg" data-i18n="cta_btn1">Shizuoka Breach を入手する</a>
+          <a href="MANUAL.ja.html" id="manualLink2" class="btn btn-ghost btn-lg" data-i18n="cta_btn2">取扱説明書を読む</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">SHIZUOKA BREACH</span>
+        </div>
+        <p class="credits" data-i18n="footer_credits">
+          出典：標高・建物・水部・空中写真：地理院タイル（国土地理院。5m・10m標高・ベクトルタイル・シームレス空中写真）／
+          河川流量：安倍川水系河川整備基本方針・河川整備計画（国土交通省 中部地方整備局）／
+          洪水ハザードマップ：重ねるハザードマップ（国土交通省・国土地理院）／
+          地名：© OpenStreetMap contributors
+        </p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="MANUAL.ja.html">取扱説明書 (日本語)</a></li>
+        <li><a href="MANUAL.en.html">User Manual (English)</a></li>
+        <li><a href="https://disaportal.gsi.go.jp/maps/?ll=34.967,138.385&z=13&base=pale&vs=c1j0l0u0t0h0z0" target="_blank" rel="noopener" data-i18n="footer_hz">重ねるハザードマップ ↗</a></li>
+        <li><a href="https://www.mlit.go.jp/river/basic_info/jigyo_keikaku/gaiyou/seibi/abe_index.html" target="_blank" rel="noopener" data-i18n="footer_mlit">安倍川水系 河川整備基本方針 ↗</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
