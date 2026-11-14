@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fault Propagation User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230d1527%22/%3E%3Cpath d=%22M3 17h4l2-6 3 13 3-17 3 15 2.5-8 2 3H29%22 fill=%22none%22 stroke=%22%23fb923c%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FAULT PROPAGATION</span></a>
+    <ul class="nav-links"><li><a href="index.html?lang=en">Top</a></li><li><a href="MANUAL.ja.html">日本語</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1>Fault Propagation — User Manual (English)</h1>
+<p><a href="MANUAL.ja.html">日本語マニュアル</a></p>
+<p><strong>Fault Propagation (Ground Motion Propagation &amp; Site Evaluation Simulator)</strong> is a desktop app that takes a fault-parameter CSV and, anywhere in the world, shows how earthquake shaking spreads and evaluates the shaking at sites on land that you choose (JMA intensity, peak acceleration, peak velocity, waveforms, and response spectra).</p>
+<p>Use the <strong>JP / EN</strong> button at the top right to switch between Japanese and English.</p>
+<hr>
+<h2>1. Screen layout</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Header</td>
+<td>Elapsed time, max intensity on land, status, JP / EN switch</td>
+</tr>
+<tr>
+<td>Left panel</td>
+<td>1. Source Fault / 2. Domain &amp; Site Conditions / 3. Shaking Propagation / 4. Evaluation Sites on Land / 5. Layers</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Terrain, shaking distributions, faults (colored by slip), rupture start (★), P/S wavefronts, sites</td>
+</tr>
+<tr>
+<td>Bottom chart</td>
+<td>Acceleration and velocity waveforms, response spectrum, and site comparison for the selected site</td>
+</tr>
+</tbody></table>
+<p>Scroll to zoom and drag to pan. &quot;🔍 Domain&quot; shows the whole computation domain and &quot;🌐 World&quot; the whole world. Hover over the map to see elevation, Vs30, rupture distance, intensity, PGV/PGA, and P/S arrival times at that point.</p>
+<h2>2. Giving a fault</h2>
+<h3>Bundled fault models</h3>
+<p>Choosing a model from &quot;Bundled fault models&quot; runs everything automatically: terrain download → Vs30 estimation → intensity map → evaluation of nearby cities → waveform synthesis at the most strongly shaken site (a few seconds to a few tens of seconds).</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2024 Noto Peninsula (GSI model, 3 rectangles)</td>
+<td>Japan, crustal</td>
+</tr>
+<tr>
+<td>2016 Kumamoto mainshock (USGS)</td>
+<td>Japan, crustal</td>
+</tr>
+<tr>
+<td>2011 Tohoku-oki (USGS)</td>
+<td>Japan, subduction</td>
+</tr>
+<tr>
+<td>2023 Türkiye–Syria (USGS)</td>
+<td>World, crustal</td>
+</tr>
+<tr>
+<td>2019 Ridgecrest, USA (USGS)</td>
+<td>World, crustal</td>
+</tr>
+<tr>
+<td>2025 Kamchatka / 2010 Maule / 2015 Illapel / 2004 Sumatra–Andaman (USGS)</td>
+<td>World, subduction</td>
+</tr>
+</tbody></table>
+<h3>Loading a fault CSV</h3>
+<p>Press &quot;📄 Load fault CSV&quot; or drop a file onto the map. Each row is one rectangular fault.</p>
+<pre><code># hypocenter_lon=136.75, hypocenter_lat=37.23, hypocenter_depth_km=12
+# rupture_velocity_km_s=2.5
+name,lon,lat,top_depth_km,length_km,width_km,strike_deg,dip_deg,rake_deg,slip_m
+F1,136.62,37.20,0.5,30,15,40,50,110,3.2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lon</code>, <code>lat</code></td>
+<td>Center of the fault plane&#39;s surface projection (degrees)</td>
+</tr>
+<tr>
+<td><code>top_depth_km</code></td>
+<td>Depth of the upper edge (km); <code>center_depth_km</code> is also accepted</td>
+</tr>
+<tr>
+<td><code>length_km</code>, <code>width_km</code></td>
+<td>Length and width (km)</td>
+</tr>
+<tr>
+<td><code>strike_deg</code>, <code>dip_deg</code>, <code>rake_deg</code></td>
+<td>Strike, dip, rake (degrees)</td>
+</tr>
+<tr>
+<td><code>slip_m</code></td>
+<td>Slip (m); <code>slip_cm</code> is also accepted</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Lines starting with <code>#</code> are comments. <code>hypocenter_lon / lat / depth_km</code> set the rupture start, and <code>rupture_velocity_km_s</code> the rupture velocity (default: near the slip centroid, 2.5 km/s).</li>
+<li>If a comment contains e.g. <code>Mw 9.05</code>, that Mw is used (otherwise it is computed with 40 GPa rigidity).</li>
+<li>&quot;⬇ Save fault CSV&quot; saves the current fault in the same format (handy as a template).</li>
+</ul>
+<h3>Placing a simple fault</h3>
+<p>Open &quot;📐 Place a simple fault&quot;, enter Mw, strike, dip, rake and top depth, press &quot;Click the map to place the fault&quot;, then click the map. Length and width follow Wells &amp; Coppersmith (1994); slip is derived from Mw.</p>
+<h3>Source settings</h3>
+<p>&quot;⚙ Source settings&quot; lets you change Mw, the earthquake type (crustal / interplate / intraslab; auto by default), the rupture start, and the rupture velocity. &quot;🎯 Pick rupture start on map&quot; lets you choose it on the map. Press &quot;Recompute&quot; after changing settings.</p>
+<h2>3. Domain &amp; site conditions</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Domain size</td>
+<td>How far around the fault to compute (auto: ±1° to ±5° depending on Mw)</td>
+</tr>
+<tr>
+<td>Grid resolution</td>
+<td>Light / Standard / Fine</td>
+</tr>
+<tr>
+<td>Vs30 proxy</td>
+<td>Active tectonic (Japan, Pacific Rim…) / stable continent — the relation used to estimate Vs30 from slope</td>
+</tr>
+</tbody></table>
+<p>Terrain is downloaded from AWS Terrain Tiles for the needed area only (<strong>internet connection required</strong>). Downloaded tiles are cached and not fetched again.</p>
+<h2>4. Shaking propagation</h2>
+<ul>
+<li><strong>▶ Play</strong> animates the shaking from the origin time: rupture front (dotted white), P-wave front (dashed blue), S-wave front (red), and the intensity at that moment. When playback ends, the view returns to the maximum-intensity map.</li>
+<li><strong>↺ To 0 s / ⏭ Final</strong> and the time slider show any moment. The space bar also plays / pauses.</li>
+<li><strong>Show</strong>: propagation / max JMA intensity (classes) / max MMI / PGV / PGA / Vs30.</li>
+<li>With &quot;Show maxima only where shaking has arrived&quot; on, maximum values spread with the S-wave arrival.</li>
+</ul>
+<h2>5. Evaluation sites on land</h2>
+<ul>
+<li>When a fault loads, major cities inside the domain are added automatically (&quot;🏙 Nearby cities&quot; adds more).</li>
+<li>Press &quot;＋ Add on map&quot; and click the map, or enter a name, latitude and longitude and press &quot;Add&quot;. Picking a point at sea shows a warning.</li>
+<li>Selecting a site synthesizes its 3-component waveforms and shows the details.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JMA intensity / class</td>
+<td>GMPE value and the value computed from the synthetic waveforms by the JMA procedure</td>
+</tr>
+<tr>
+<td>PGV / PGA / MMI</td>
+<td>Peak velocity, peak acceleration (larger horizontal component), Modified Mercalli Intensity</td>
+</tr>
+<tr>
+<td>Rupture / hypocentral distance</td>
+<td>Closest distance to the rupture area (slip ≥ 10% of max) and distance from the rupture start</td>
+</tr>
+<tr>
+<td>P / S arrival, S−P</td>
+<td>Seconds after origin time</td>
+</tr>
+<tr>
+<td>Int. ≥ 4 for</td>
+<td>How long the synthetic shaking stays at JMA intensity 4 or above</td>
+</tr>
+<tr>
+<td>Site Vs30</td>
+<td>Estimated from terrain; can be overridden by hand (&quot;Reset to estimate&quot; restores it)</td>
+</tr>
+</tbody></table>
+<p>With &quot;Calibrate synthetics to the GMPE (recommended)&quot; on, the synthetic horizontal PGV and PGA/PGV ratio are matched to the GMPE values.</p>
+<h2>6. Charts</h2>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Acceleration / Velocity</td>
+<td>NS, EW, UD components; P and S mark arrival times, the white line marks the current time</td>
+</tr>
+<tr>
+<td>Response spectrum</td>
+<td>5%-damped pseudo-spectral acceleration (periods 0.05–10 s, NS and EW)</td>
+</tr>
+<tr>
+<td>Compare sites</td>
+<td>GMPE intensity and synthetic instrumental intensity for each site</td>
+</tr>
+</tbody></table>
+<h2>7. Saving</h2>
+<table>
+<thead>
+<tr>
+<th>Button</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>📋 Site results CSV</td>
+<td>One row per site (location, Vs30, distances, arrivals, PGV, PGA, intensity, MMI, synthetic results)</td>
+</tr>
+<tr>
+<td>⬇ Waveform CSV</td>
+<td>3-component acceleration and velocity of the selected site at 0.02 s steps</td>
+</tr>
+<tr>
+<td>⬇ Save fault CSV</td>
+<td>The fault model (same format as input)</td>
+</tr>
+</tbody></table>
+<p>The desktop app saves files to your Downloads folder.</p>
+<h2>8. Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Shaking map</td>
+<td>PGV on engineering bedrock (Vs = 600 m/s) from Si &amp; Midorikawa (1999), site amplification of Fujimoto &amp; Midorikawa (2006), JMA intensity from Fujimoto &amp; Midorikawa (2005), MMI from Worden et al. (2012). PGA from Si &amp; Midorikawa (1999)</td>
+</tr>
+<tr>
+<td>Site conditions</td>
+<td>Vs30 from topographic slope (Wald &amp; Allen 2007)</td>
+</tr>
+<tr>
+<td>Arrival times</td>
+<td>Rupture time of each element + travel time (P 6.0 / S 3.5 km/s; 8.0 / 4.6 km/s beyond 150 km)</td>
+</tr>
+<tr>
+<td>Waveforms</td>
+<td>Stochastic finite-fault method (ω² source, geometric spreading, Q(f)=180 f^0.45, κ=0.035)</td>
+</tr>
+<tr>
+<td>Instrumental intensity</td>
+<td>JMA procedure (filter 3 components → vector sum sustained for ≥ 0.3 s)</td>
+</tr>
+</tbody></table>
+<h2>9. Caveats</h2>
+<ul>
+<li>GMPEs give median shaking; real shaking scatters by about ±0.2–0.3 in log10 (roughly ×0.6–1.7).</li>
+<li>Earthquakes above Mw 8.3 are evaluated as Mw 8.3 in the GMPE.</li>
+<li>Slope-based Vs30 is only a guide; reclaimed land, soft valley fills and sedimentary-basin amplification are not captured.</li>
+<li>Synthetic waveforms are statistical; rupture directivity and long-period surface waves are not included.</li>
+<li>This app is for learning and exploration. Refer to official assessments for disaster-management decisions.</li>
+</ul>
+<h2>10. Troubleshooting</h2>
+<ul>
+<li><strong>Nothing computes / terrain fails to download</strong>: check your internet connection; terrain comes from AWS Terrain Tiles.</li>
+<li><strong>CSV won&#39;t load</strong>: check the header names (<code>top_depth_km</code> or <code>center_depth_km</code>, and <code>slip_m</code> or <code>slip_cm</code> are required). The line number and the problem are shown.</li>
+<li><strong>Too slow</strong>: choose a lighter grid resolution or a smaller domain size.</li>
+</ul>
+
+  </article></main>
+</body>
+</html>

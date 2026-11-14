@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fault Propagation | 世界のどこの断層 CSV からでも、地震の揺れの伝播と陸上の各地点の震度・波形を評価 — 地震動シミュレーター</title>
+  <meta name="description" content="断層パラメータ CSV を読み込むだけで、世界のどこでも地震の揺れの広がり (P波・S波・震度分布) をアニメーション表示し、指定した陸上の地点の計測震度・最大加速度・最大速度・3成分波形・応答スペクトルを評価するデスクトップアプリ。必要な範囲の地形だけを自動取得して地盤 (Vs30) を推定。日本語 / English。">
+
+  <meta property="og:title" content="Fault Propagation — 世界対応 地震動 伝播・評価シミュレーター">
+  <meta property="og:description" content="断層 CSV から、揺れの伝播と、あなたが指定した陸上の地点の震度・波形・応答スペクトルを。能登・熊本・東北・トルコ・チリなど 9 つの断層モデルを同梱。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/fault_propagation">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/fault_propagation">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230d1527%22/%3E%3Cpath d=%22M3 17h4l2-6 3 13 3-17 3 15 2.5-8 2 3H29%22 fill=%22none%22 stroke=%22%23fb923c%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/fault_propagation" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">FAULT PROPAGATION</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#models" data-i18n="navModels">同梱の断層モデル</a></li>
+        <li><a href="#tech" data-i18n="navTech">計算のしくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/fault_propagation" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">FAULT CSV × GMPE × STOCHASTIC FINITE-FAULT</p>
+      <h1 data-i18n-html="heroTitle">世界のどこの断層でも、<br><span class="accent">あの街の揺れを。</span></h1>
+      <p class="lead" data-i18n="heroLead">断層パラメータの CSV を読み込むだけで、破壊開始点から広がる断層の破壊、P 波・S 波の到達、そして地表の震度分布の広がりを地図上でアニメーション表示します。さらに、陸上の好きな地点をクリックすれば、その場所の計測震度・最大加速度 (PGA)・最大速度 (PGV)・3 成分の地震動波形・応答スペクトルを評価。必要な範囲の地形だけを自動で取得し、地形の勾配から地盤の硬さ (Vs30) まで推定します。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/fault_propagation" class="btn btn-primary btn-lg" data-i18n="heroGet">macOS デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon .dmg) · 全世界対応 · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statWorldN">全世界</strong><span data-i18n="statWorld">地形を必要な範囲だけ自動取得</span></div>
+      <div class="stat"><strong data-i18n="statModelN">9 地震</strong><span data-i18n="statModel">能登・東北・トルコ・チリほか</span></div>
+      <div class="stat"><strong data-i18n="statIdxN">4 指標</strong><span data-i18n="statIdx">震度・MMI・PGV・PGA の分布</span></div>
+      <div class="stat"><strong data-i18n="statWaveN">3 成分</strong><span data-i18n="statWave">NS・EW・UD の加速度・速度波形</span></div>
+      <div class="stat"><strong data-i18n="statCsvN">CSV 出力</strong><span data-i18n="statCsv">地点の評価結果・波形・断層</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">「どこで、いつ、どれくらい揺れるのか」を、断層から地点まで一続きで</h2>
+      <p class="section-lead" data-i18n="featLead">震度分布の絵を描くだけのツールではありません。断層の大きさと破壊の進み方、波の到達時刻、地盤の増幅、そして地点ごとの揺れの時刻歴までを、一つの画面で追いかけられる地震動シミュレーターです。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">断層 CSV を読み込むだけ。世界のどこでも、すぐに震度分布</h3>
+          <p data-i18n="f1Body">1 行 1 枚の矩形断層 (位置・深さ・長さ・幅・走向・傾斜・すべり角・すべり量) を並べた CSV を読み込むと、断層の周囲の地形を標高タイルから必要な分だけダウンロードして計算用の格子を作り、数秒で推計震度の分布を描きます。CSV がなくても、Mw と走向・傾斜を指定して地図をクリックすれば、スケーリング則から簡易な断層を置けます。日付変更線をまたぐ断層にも対応しています。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">断層 CSV の読込・書出 (ドロップ可)</li>
+            <li data-i18n="f1c2">日付変更線をまたぐ断層に対応</li>
+            <li data-i18n="f1c3">クリックで簡易断層を配置</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/propagation.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">断層の破壊と P 波・S 波の広がりを、時間を追ってアニメーション</h3>
+          <p data-i18n="f2Body">破壊開始点から破壊伝播速度で断層面の破壊が広がり、すべった部分から順に地震波が出ていく様子を再生します。地図には P 波 (青の破線) と S 波 (赤) の波面、破壊フロント、そして「その時刻の震度」の広がりを表示。P 波が届いてから S 波が来るまでの初期微動の時間や、巨大地震で揺れが長く続く様子が一目でわかります。再生が終わると最大震度の分布に切り替わります。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">破壊伝播 (破壊開始点・速度を変更可)</li>
+            <li data-i18n="f2c2">P 波・S 波の波面表示</li>
+            <li data-i18n="f2c3">1x〜40x の再生速度・時刻スライダー</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/site.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">陸上の好きな地点をクリック。その場所の揺れを波形で評価</h3>
+          <p data-i18n="f3Body">周辺の主な都市が評価地点として自動で入り、地図のクリックや緯度・経度の入力で地点を追加できます。各地点では、距離減衰式による震度・PGV・PGA・MMI に加え、確率論的有限断層法で NS・EW・UD の 3 成分の加速度波形を合成し、気象庁と同じ方法で計測震度を計算。断層最短距離、P 波・S 波の到達時刻、初期微動の長さ、震度 4 相当以上の揺れが続く時間まで表示します。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">3 成分の加速度・速度波形</li>
+            <li data-i18n="f3c2">気象庁方式の計測震度</li>
+            <li data-i18n="f3c3">P・S 波到達と継続時間</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/spectrum.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">地形から地盤の硬さ (Vs30) を推定し、応答スペクトルまで</h3>
+          <p data-i18n="f4Body">平野や谷は揺れやすく、山地は揺れにくい。取得した地形の 30 秒間隔の勾配から Wald &amp; Allen (2007) の方法で地盤の平均 S 波速度 Vs30 を推定し、地盤による揺れの増幅を震度分布に反映します。地点ごとの Vs30 はボーリング資料などの値で上書き可能。合成した波形からは、建物の揺れやすさの目安となる減衰 5% の加速度応答スペクトル (周期 0.05〜10 秒) を描きます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">地形勾配から Vs30 を推定</li>
+            <li data-i18n="f4c2">地点の Vs30 を手入力で上書き</li>
+            <li data-i18n="f4c3">減衰 5% の応答スペクトル</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/turkey.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">震度・MMI・PGV・PGA を切り替え、地点を並べて比較</h3>
+          <p data-i18n="f5Body">地図の表示は、日本の震度階級、海外で使われる改正メルカリ震度 (MMI)、最大速度、最大加速度、地盤 Vs30 から選べます。「地点比較」では各地点の距離減衰式の震度と合成波形の計測震度を並べて表示。評価結果は 1 地点 1 行の CSV に、波形は 0.02 秒刻みの 3 成分加速度・速度の CSV に、断層モデルは読み込みと同じ書式の CSV に保存できます。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">震度 / MMI / PGV / PGA / Vs30</li>
+            <li data-i18n="f5c2">地点比較グラフ</li>
+            <li data-i18n="f5c3">評価結果・波形・断層の CSV</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/english.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">06</span>
+          <h3 data-i18n="f6Title">日本語と English を、ボタンひとつで</h3>
+          <p data-i18n="f6Body">画面右上の JP / EN ボタンで、操作パネル・地図の凡例・グラフ・地点の評価結果・メッセージ・都市名までがその場で切り替わります。英語表示では震度階級を 5- / 5+ / 6- / 6+ と表記し、海外の方への説明にもそのまま使えます。日本語・英語のマニュアルも付属しています。</p>
+          <ul class="chips">
+            <li data-i18n="f6c1">日本語 / English 即時切替</li>
+            <li data-i18n="f6c2">約 150 都市の日英名称</li>
+            <li data-i18n="f6c3">日英マニュアル付属</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Bundled models ===== -->
+  <section class="section alt" id="models">
+    <div class="container">
+      <p class="kicker">9 BUNDLED FAULT MODELS</p>
+      <h2 data-i18n="mdTitle">国土地理院・USGS の断層モデルを 9 つ同梱</h2>
+      <p class="section-lead" data-i18n="mdLead">内陸の活断層型からプレート境界の巨大地震まで。選ぶだけで地形の取得から震度分布・地点の波形まで自動で計算します。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="m1a">日本の内陸地震</h3><p data-i18n="m1b">2024 年 能登半島地震 (国土地理院モデル・矩形 3 枚)、2016 年 熊本地震 本震 (USGS 有限断層モデル)。</p></div>
+        <div class="tech"><h3 data-i18n="m2a">日本の海溝型地震</h3><p data-i18n="m2b">2011 年 東北地方太平洋沖地震 (Mw9.0)。長さ約 500 km の破壊が約 150 秒かけて広がり、東日本の広い範囲が長く揺れる様子を再現。</p></div>
+        <div class="tech"><h3 data-i18n="m3a">世界の内陸地震</h3><p data-i18n="m3b">2023 年 トルコ・シリア地震 (Mw7.8)、2019 年 米国リッジクレスト地震 (Mw7.0)。</p></div>
+        <div class="tech"><h3 data-i18n="m4a">世界の海溝型地震</h3><p data-i18n="m4b">2025 年 カムチャツカ半島沖、2010 年 チリ・マウレ、2015 年 チリ・イジャペル、2004 年 スマトラ島沖地震。</p></div>
+      </div>
+      <ul class="intensity-scale" aria-label="JMA intensity scale">
+        <li style="background:#a6c8ec;color:#111827">1</li>
+        <li style="background:#3aa6e8">2</li>
+        <li style="background:#3666e8">3</li>
+        <li style="background:#f2e9a0;color:#111827">4</li>
+        <li style="background:#ffe600;color:#111827" data-i18n="s5l">5弱</li>
+        <li style="background:#ff9900;color:#111827" data-i18n="s5u">5強</li>
+        <li style="background:#ff2800" data-i18n="s6l">6弱</li>
+        <li style="background:#a50021" data-i18n="s6u">6強</li>
+        <li style="background:#b40068">7</li>
+      </ul>
+      <figure class="shot wide"><img src="assets/propagation.jpg" alt="" loading="lazy"><figcaption data-i18n="mdCap">2011 年 東北地方太平洋沖地震。破壊開始から約 64 秒、S 波 (赤) が仙台・福島を通過し、P 波 (青の破線) はすでに関東に到達</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== How it works ===== -->
+  <section class="section" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">断層から地点の揺れまでの 4 つのステップ</h2>
+      <p class="section-lead" data-i18n="techLead">地震調査研究推進本部の全国地震動予測地図などでも使われる距離減衰式と地盤増幅の考え方に、破壊伝播と統計的な波形合成を組み合わせています。</p>
+      <div class="flow">
+        <div class="tech"><h3 data-i18n="t1a">断層の要素分割と破壊伝播</h3><p data-i18n="t1b">CSV の各断層を最大約 420 の小さな要素に分け、すべり量が最大の 10% 以上の範囲を破壊域とします。破壊開始点から一定の速度で破壊が広がり、各要素から P 波・S 波が出ます。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">地形の取得と Vs30</h3><p data-i18n="t2b">断層の周囲の標高タイルを必要な分だけ取得 (キャッシュして再利用)。30 秒間隔の地形勾配から変動帯 / 安定大陸の式で Vs30 を推定します。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">距離減衰式で面的な揺れ</h3><p data-i18n="t3b">断層最短距離から司・翠川 (1999) で工学的基盤の最大速度を求め、地盤増幅 (藤本・翠川 2006) を掛けて計測震度 (藤本・翠川 2005) と MMI (Worden et al. 2012) に換算します。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">確率論的波形合成</h3><p data-i18n="t4b">ω² 震源・幾何減衰・Q 値・κ による統計的グリーン関数で各要素の波を作り、到達時刻をずらして足し合わせます。既定では PGV と PGA/PGV 比を距離減衰式に合わせて補正します。</p></div>
+      </div>
+      <pre class="csv-sample"><span class="c"># hypocenter_lon=136.75, hypocenter_lat=37.23, hypocenter_depth_km=12
+# rupture_velocity_km_s=2.5</span>
+name,lon,lat,top_depth_km,length_km,width_km,strike_deg,dip_deg,rake_deg,slip_m
+F1,136.62,37.20,0.5,30,15,40,50,110,3.2
+F2,136.88,37.36,0.5,40,15,55,50,110,2.8</pre>
+      <p class="note" data-i18n="techNote">※ 距離減衰式は平均的な揺れを表すもので、実際の揺れは常用対数で ±0.2〜0.3 程度 (概ね 0.6〜1.7 倍) ばらつきます。Mw 8.3 を超える地震は 8.3 として評価します。本アプリは学習・検討用です。防災上の判断には公的機関の評価をご参照ください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Start (macOS .dmg only) ===== -->
+  <section class="section alt" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">macOS デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐに使える Tauri 製のネイティブアプリです。同梱の 9 つの断層モデルですぐに試せ、お手持ちの断層 CSV も読み込めます。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 / M2 / M3 / M4)</strong></li>
+            <li><span data-i18n="priceLabel">価格</span><strong data-i18n="priceVal">¥150（買い切り）</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/fault_propagation" class="btn btn-primary" data-i18n="getMac">macOS 版を入手（¥150）</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 地形データ (AWS Terrain Tiles) の取得にインターネット接続が必要です。一度取得した範囲はキャッシュされます。評価結果・波形・断層の CSV はお使いの Mac の「ダウンロード（Downloads）」フォルダに保存されます。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">断層から、あの街の揺れまで。<span class="accent">あなたの手元で確かめる。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/fault_propagation" class="btn btn-primary btn-lg" data-i18n="ctaGet">macOS デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FAULT PROPAGATION</span></div>
+        <p class="credits" data-i18n="credits">距離減衰式: 司・翠川 (1999) ／ 地盤増幅: 藤本・翠川 (2006) ／ 震度換算: 藤本・翠川 (2005), Worden et al. (2012) ／ Vs30: Wald &amp; Allen (2007) ／ 波形合成: 確率論的有限断層法 (Boore 2003 ほか) ／ 地形: Mapzen Terrain Tiles (AWS Open Data) ／ 断層モデル: 国土地理院, USGS</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/fault_propagation" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">User manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261114"></script>
+</body>
+</html>

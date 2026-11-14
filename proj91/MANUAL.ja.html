@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fault Propagation ユーザーマニュアル</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230d1527%22/%3E%3Cpath d=%22M3 17h4l2-6 3 13 3-17 3 15 2.5-8 2 3H29%22 fill=%22none%22 stroke=%22%23fb923c%22 stroke-width=%222.4%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">FAULT PROPAGATION</span></a>
+    <ul class="nav-links"><li><a href="index.html">トップ</a></li><li><a href="MANUAL.en.html">English</a></li></ul>
+  </div></nav>
+  <main class="manual container"><article>
+<h1>Fault Propagation — 使用マニュアル（日本語）</h1>
+<p><a href="MANUAL.en.html">English manual</a></p>
+<p><strong>Fault Propagation（地震動 伝播・評価シミュレーター）</strong> は、断層パラメータの CSV から、世界のどこでも地震の揺れの広がりと、指定した陸上の地点の揺れ（震度・最大加速度・最大速度・波形・応答スペクトル）を評価するデスクトップアプリです。</p>
+<p>画面右上の <strong>JP / EN</strong> ボタンで日本語と英語を切り替えられます。</p>
+<hr>
+<h2>1. 画面の構成</h2>
+<table>
+<thead>
+<tr>
+<th>場所</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ヘッダー</td>
+<td>経過時間、陸域の最大震度、状態、JP / EN 切替</td>
+</tr>
+<tr>
+<td>左パネル</td>
+<td>1. 震源断層 / 2. 計算範囲と地盤 / 3. 揺れの伝播 / 4. 陸上の評価地点 / 5. 表示レイヤー</td>
+</tr>
+<tr>
+<td>地図</td>
+<td>地形、震度などの分布、断層 (すべり量で色分け)、破壊開始点 (★)、P/S 波の波面、評価地点</td>
+</tr>
+<tr>
+<td>下部グラフ</td>
+<td>選んだ地点の加速度・速度波形、応答スペクトル、地点比較</td>
+</tr>
+</tbody></table>
+<p>地図はホイールでズーム、ドラッグで移動します。「🔍 計算範囲」で計算範囲全体、「🌐 世界」で世界全体を表示します。地図にマウスを乗せると、その場所の標高・Vs30・断層最短距離・震度・PGV/PGA・P/S 波の到達時刻が表示されます。</p>
+<h2>2. 断層を与える</h2>
+<h3>同梱の断層モデル</h3>
+<p>「同梱の断層モデル」から選ぶと、地形の取得 → 地盤の推定 → 震度分布の計算 → 周辺の都市の評価 → 最も揺れの強い地点の波形合成 まで自動で行います（数秒〜十数秒）。</p>
+<table>
+<thead>
+<tr>
+<th>モデル</th>
+<th>種類</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2024年 能登半島地震 (国土地理院モデル・矩形3枚)</td>
+<td>日本・内陸</td>
+</tr>
+<tr>
+<td>2016年 熊本地震 本震 (USGS)</td>
+<td>日本・内陸</td>
+</tr>
+<tr>
+<td>2011年 東北地方太平洋沖地震 (USGS)</td>
+<td>日本・海溝型</td>
+</tr>
+<tr>
+<td>2023年 トルコ・シリア地震 (USGS)</td>
+<td>世界・内陸</td>
+</tr>
+<tr>
+<td>2019年 米国リッジクレスト地震 (USGS)</td>
+<td>世界・内陸</td>
+</tr>
+<tr>
+<td>2025年 カムチャツカ半島沖地震 / 2010年 チリ・マウレ / 2015年 チリ・イジャペル / 2004年 スマトラ島沖 (USGS)</td>
+<td>世界・海溝型</td>
+</tr>
+</tbody></table>
+<h3>断層 CSV を読み込む</h3>
+<p>「📄 断層CSV読込」を押すか、ファイルを地図にドロップします。1 行が 1 枚の矩形断層です。</p>
+<pre><code># hypocenter_lon=136.75, hypocenter_lat=37.23, hypocenter_depth_km=12
+# rupture_velocity_km_s=2.5
+name,lon,lat,top_depth_km,length_km,width_km,strike_deg,dip_deg,rake_deg,slip_m
+F1,136.62,37.20,0.5,30,15,40,50,110,3.2
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>lon</code>, <code>lat</code></td>
+<td>断層面の地表投影の中心 (度)</td>
+</tr>
+<tr>
+<td><code>top_depth_km</code></td>
+<td>断層上端の深さ (km)。代わりに <code>center_depth_km</code> (中心深さ) も可</td>
+</tr>
+<tr>
+<td><code>length_km</code>, <code>width_km</code></td>
+<td>長さ・幅 (km)</td>
+</tr>
+<tr>
+<td><code>strike_deg</code>, <code>dip_deg</code>, <code>rake_deg</code></td>
+<td>走向・傾斜・すべり角 (度)</td>
+</tr>
+<tr>
+<td><code>slip_m</code></td>
+<td>すべり量 (m)。代わりに <code>slip_cm</code> も可</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>#</code> で始まる行はコメントです。<code>hypocenter_lon / lat / depth_km</code> で破壊開始点、<code>rupture_velocity_km_s</code> で破壊伝播速度を指定できます（省略時は、すべり分布の重心付近を破壊開始点とし、2.5 km/s とします）。</li>
+<li>コメントに <code>Mw 9.05</code> のように書かれていれば、その Mw を使います（なければ剛性率 40 GPa で計算）。</li>
+<li>「⬇ 断層CSV書出」で現在の断層を同じ書式で保存できます（書式見本として使えます）。</li>
+</ul>
+<h3>簡易断層を置く</h3>
+<p>「📐 簡易断層を置く」で Mw・走向・傾斜・すべり角・上端深さを入れ、「地図をクリックして断層を置く」を押して地図をクリックします。長さ・幅は Wells &amp; Coppersmith (1994) のスケーリング則、すべり量は Mw から決まります。</p>
+<h3>震源の詳細設定</h3>
+<p>「⚙ 震源の詳細設定」で Mw、地震のタイプ（地殻内 / プレート間 / プレート内、既定は自動判定）、破壊開始点、破壊伝播速度を変えられます。「🎯 破壊開始点を地図で指定」で地図から選ぶこともできます。変更後は「この設定で再計算」を押します。</p>
+<h2>3. 計算範囲と地盤</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>計算範囲の広さ</td>
+<td>断層の周囲どこまで計算するか（自動は Mw に応じて ±1°〜±5°）</td>
+</tr>
+<tr>
+<td>格子の細かさ</td>
+<td>軽量 / 標準 / 高精細</td>
+</tr>
+<tr>
+<td>地盤の推定</td>
+<td>変動帯（日本・環太平洋など）/ 安定大陸。地形勾配から Vs30 を推定する式の区分</td>
+</tr>
+</tbody></table>
+<p>地形は AWS Terrain Tiles から必要な範囲だけ取得します（<strong>インターネット接続が必要</strong>）。一度取得したタイルは保存され、次回は再取得しません。</p>
+<h2>4. 揺れの伝播</h2>
+<ul>
+<li><strong>▶ 再生</strong> で、地震発生からの揺れの広がりをアニメーション表示します。破壊フロント（白の点線）、P 波（青の破線）、S 波（赤）の波面と、その時刻の震度の広がりが表示されます。再生が終わると最大震度の分布に戻ります。</li>
+<li><strong>↺ 0秒へ / ⏭ 最終</strong> と時刻スライダーで、好きな時刻を表示できます。スペースキーでも再生・一時停止できます。</li>
+<li><strong>表示する量</strong>: 揺れの伝播 / 最大震度（震度階級）/ 最大 MMI / PGV / PGA / 地盤 Vs30。</li>
+<li>「最大値は揺れが届いた範囲だけ表示」をオンにすると、最大値の表示が S 波の到達とともに広がります。</li>
+</ul>
+<h2>5. 陸上の評価地点</h2>
+<ul>
+<li>断層を読み込むと、計算範囲にある主な都市が自動で追加されます（「🏙 周辺の都市」でさらに追加）。</li>
+<li>「＋ 地図で追加」を押して地図をクリックするか、名前・緯度・経度を入れて「追加」します。海域の点を選ぶと警告が出ます。</li>
+<li>地点を選ぶと、その地点の 3 成分波形を合成して詳細を表示します。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>計測震度・震度階級</td>
+<td>距離減衰式の値と、合成波形から気象庁の方法で求めた値</td>
+</tr>
+<tr>
+<td>PGV / PGA / MMI</td>
+<td>最大速度・最大加速度（水平 2 成分の大きい方）・改正メルカリ震度</td>
+</tr>
+<tr>
+<td>断層最短距離 / 震源距離</td>
+<td>破壊域（すべり量が最大の 10% 以上）までの最短距離と、破壊開始点からの距離</td>
+</tr>
+<tr>
+<td>P 波・S 波の到達、S−P</td>
+<td>地震発生からの秒数</td>
+</tr>
+<tr>
+<td>震度 4 相当以上</td>
+<td>合成波形で震度 4 相当以上の強さが続いた時間</td>
+</tr>
+<tr>
+<td>地盤 Vs30</td>
+<td>地形から推定した値。手入力で上書きでき、「推定値に戻す」で戻せます</td>
+</tr>
+</tbody></table>
+<p>「合成波形を距離減衰式に合わせて補正（推奨）」がオンのときは、合成波形の水平最大速度と PGA/PGV 比を距離減衰式の値に合わせます。</p>
+<h2>6. グラフ</h2>
+<table>
+<thead>
+<tr>
+<th>タブ</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加速度 / 速度</td>
+<td>NS・EW・UD の 3 成分。P・S は到達時刻、白い縦線は現在の時刻</td>
+</tr>
+<tr>
+<td>応答スペクトル</td>
+<td>減衰 5% の擬似加速度応答（周期 0.05〜10 秒、NS・EW）</td>
+</tr>
+<tr>
+<td>地点比較</td>
+<td>各地点の距離減衰式の震度と合成波形の計測震度</td>
+</tr>
+</tbody></table>
+<h2>7. 保存</h2>
+<table>
+<thead>
+<tr>
+<th>ボタン</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>📋 地点の評価結果CSV</td>
+<td>1 地点 1 行（位置・Vs30・距離・到達時刻・PGV・PGA・震度・MMI・合成波形の結果）</td>
+</tr>
+<tr>
+<td>⬇ 波形CSV</td>
+<td>選んだ地点の 0.02 秒刻みの 3 成分加速度・速度</td>
+</tr>
+<tr>
+<td>⬇ 断層CSV書出</td>
+<td>断層モデル（読み込みと同じ書式）</td>
+</tr>
+</tbody></table>
+<p>デスクトップ版では「ダウンロード（Downloads）」フォルダに保存されます。</p>
+<h2>8. 計算方法</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面的な揺れ</td>
+<td>司・翠川 (1999) の距離減衰式で工学的基盤 (Vs=600 m/s) の最大速度、藤本・翠川 (2006) の地盤増幅、藤本・翠川 (2005) で計測震度、Worden et al. (2012) で MMI。PGA は司・翠川 (1999)</td>
+</tr>
+<tr>
+<td>地盤</td>
+<td>地形勾配から Vs30 を推定 (Wald &amp; Allen 2007)</td>
+</tr>
+<tr>
+<td>到達時刻</td>
+<td>要素ごとの破壊時刻 + 走時（P 6.0 / S 3.5 km/s、150 km 以遠は 8.0 / 4.6 km/s）</td>
+</tr>
+<tr>
+<td>波形</td>
+<td>確率論的有限断層法（ω² 震源・幾何減衰・Q(f)=180 f^0.45・κ=0.035）</td>
+</tr>
+<tr>
+<td>計測震度</td>
+<td>気象庁の方法（3 成分にフィルター → ベクトル和が 0.3 秒以上続く値）</td>
+</tr>
+</tbody></table>
+<h2>9. 注意</h2>
+<ul>
+<li>距離減衰式は平均的な揺れを表します。実際の揺れは常用対数で ±0.2〜0.3 程度（概ね 0.6〜1.7 倍）ばらつきます。</li>
+<li>Mw 8.3 を超える地震は、距離減衰式では Mw 8.3 として評価します。</li>
+<li>地形から推定する Vs30 は目安です。埋立地・谷底の軟弱地盤や堆積盆地による増幅は表現できません。</li>
+<li>合成波形は統計的に作ったもので、破壊の向きによる効果（ディレクティビティ）や長周期の表面波は含みません。</li>
+<li>本アプリは学習・検討用です。防災上の判断には公的機関の評価を参照してください。</li>
+</ul>
+<h2>10. 困ったとき</h2>
+<ul>
+<li><strong>計算が始まらない・地形を取得できない</strong>: インターネット接続を確認してください。地形は AWS Terrain Tiles から取得します。</li>
+<li><strong>CSV を読み込めない</strong>: 見出し行の列名を確認してください（<code>top_depth_km</code> か <code>center_depth_km</code>、<code>slip_m</code> か <code>slip_cm</code> が必要です）。エラーの行番号と内容が表示されます。</li>
+<li><strong>計算が重い</strong>: 「格子の細かさ」を軽量にするか、「計算範囲の広さ」を狭くしてください。</li>
+</ul>
+
+  </article></main>
+</body>
+</html>
