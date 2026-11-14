@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shizuoka Flood | 降った雨は、どこへ行くのか — PLATEAU × GPU 浸水シミュレーター</title>
+  <meta name="description" content="静岡市の 3D 都市モデル PLATEAU（建物 約 33 万棟）と地形データで、豪雨による浸水を GPU で計算し、街が水に沈んでいく様子を 3D で見て、録画できる浸水シミュレーター。雨は 79 × 79 km の流域全体に降らせ、選んだ場所を 2 m 格子・建物単位で計算。七夕豪雨・令和4年台風15号の実測雨量、住所からタイル作成、安倍川の洪水ハザードマップとの比較、MP4 録画（最大 4K）、日本語 / English。">
+
+  <meta property="og:title" content="Shizuoka Flood — PLATEAU × GPU 浸水シミュレーター">
+  <meta property="og:description" content="降った雨は、どこへ行くのか。静岡の街が水に沈んでいく様子を、建物単位で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/shizuoka_flood">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/shizuoka_flood">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%230d5ea6%22/%3E%3Cpath d=%22M16 5c-4 6-8 10-8 15a8 8 0 0016 0c0-5-4-9-8-15z%22 fill=%22%2339c6ff%22/%3E%3Cpath d=%22M6 22h20%22 stroke=%22%23ffb000%22 stroke-width=%222.4%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA FLOOD</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#rain" data-i18n="navRain">実測の雨</a></li>
+        <li><a href="#hazard" data-i18n="navHazard">ハザード比較</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-rain" aria-hidden="true"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">PLATEAU × GPU · SHIZUOKA</p>
+      <h1 data-i18n-html="heroTitle">降った雨は、<br><span class="accent">どこへ行くのか。</span></h1>
+      <p class="lead" data-i18n="heroLead">静岡市の 3D 都市モデル PLATEAU（建物 約 33 万棟）と地形データで、豪雨による浸水を GPU で計算する浸水シミュレーター。雨は駿河湾を囲む 79 × 79 km の流域全体に降らせ、山から流れ込む水まで含めて、選んだ場所を 2 m 格子・建物単位で計算します。七夕豪雨（1974 年）と令和4年台風15号（2022 年）の実測の雨も収録。水かさが増して街が沈み、雨が止んで水が引いていく様子を、好きな角度から見て、そのまま動画にできます。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS (Apple Silicon) · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong>79 × 79 km</strong><span data-i18n="statArea">雨を降らせる流域</span></div>
+      <div class="stat"><strong data-i18n="statBldgN">33 万棟</strong><span data-i18n="statBldg">PLATEAU の建物</span></div>
+      <div class="stat"><strong>2 m</strong><span data-i18n="statGrid">詳細計算の格子</span></div>
+      <div class="stat"><strong data-i18n="statTimeN">約 6 分</strong><span data-i18n="statTime">台風15号の 13 時間分（2 km 四方）</span></div>
+      <div class="stat"><strong>4K</strong><span data-i18n="statRec">MP4 で録画</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">雨を降らせて、街の沈み方を見る</h2>
+      <p class="section-lead" data-i18n="featLead">降雨の条件を決めて計算し、浸水が広がって引いていくまでを、建物ひとつひとつの単位で確かめられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/flood.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">建物単位で浸水を計算する</h3>
+          <p data-i18n="f1Body">PLATEAU の地形モデル（住所から作るタイルは国土地理院 5 m 標高）を 2 m 格子にし、建物の底面の高さで地盤を補正。建物は屋根の高さまでの壁として扱い、屋根の雨は縁から道路へ流れ落ちます。水深は浸水の区分ごとに色分けし、建物は周囲の浸水深で塗り分けます（床上浸水相当は周囲 0.5 m 以上）。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">一定・中央集中型・線状降水帯・七夕豪雨・台風15号・カスタム</li>
+            <li data-i18n="f1c2">下水道の排水能力</li>
+            <li data-i18n="f1c3">雨が止んだ後の引き方</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/basin.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">流域全体に降らせ、山から来る水も入れる</h3>
+          <p data-i18n="f2Body">選んだ場所だけに雨を降らせると、周りの山から集まってくる水が抜け落ちます。地形データの範囲全体（79 × 79 km、30 m 格子）にも同じ雨を降らせ、その水位を詳細計算の境界に渡す二段階計算で、窪地や低地の水深を正しく出します。駿河湾・清水港は水位 0 m の海として水を受け止めます。</p>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/labels.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">住所から、どこでも</h3>
+          <p data-i18n="f3Body">住所や地名を入れると、その場所を中心にタイル（1〜3 km 四方）を 10〜20 秒ほどで作成。番地まで入れればその地点に赤いピンが立ち、町名だけなら国勢調査の町丁界で範囲を示します。駅・山・寺社・公共施設など約 1,300 の名前は、実際に見えているものだけラベルを出し、線で建物を指します。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">国土地理院 住所検索</li>
+            <li data-i18n="f3c2">クリックで緯度経度と水深の推移</li>
+            <li data-i18n="f3c3">既定の 7 地域（静岡駅〜清水港）</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/hero.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">好きな角度で見て、そのまま動画に</h3>
+          <p data-i18n="f4Body">ダブルクリックした地点を中心に、真上から地上の見上げまで自由に回転。決めたアングルは固定できます。録画は 1 コマずつ描いてから MP4 にするので、PC の速さに関係なく滑らか。カメラは固定・キーフレーム補間・旋回から選べ、時刻・雨量・凡例・ラベルも動画に入ります。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">最大 3840 × 2160・60 fps</li>
+            <li data-i18n="f4c2">再生・時刻スライダー</li>
+            <li data-i18n="f4c3">地点ごとの水深グラフ</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Observed rain ===== -->
+  <section class="section alt" id="rain">
+    <div class="container">
+      <p class="kicker">OBSERVED RAIN</p>
+      <h2 data-i18n="rainTitle">実測の雨で、あの日を降らせる</h2>
+      <p class="section-lead" data-i18n="rainLead">巴川の流域などに大きな浸水をもたらした 2 つの豪雨を、静岡地方気象台の観測値そのままの時系列で収録しています。倍率を変えて「あの雨がもっと強かったら」も試せます。</p>
+      <div class="split">
+        <figure class="shot"><img src="assets/ui.jpg" alt="" loading="lazy"></figure>
+        <ul class="spec">
+          <li><b data-i18n="rs1a">七夕豪雨（1974 年 7 月 7〜8 日）</b><span data-i18n="rs1b">1 時間ごとの実測値。21 時間で 508 mm、最大 76 mm/h</span></li>
+          <li><b data-i18n="rs2a">令和4年台風15号（2022 年 9 月 23〜24 日）</b><span data-i18n="rs2b">10 分ごとの実測値。12 時間で 404 mm、1 時間最大 107 mm</span></li>
+          <li><b data-i18n="rs3a">倍率</b><span data-i18n="rs3b">波形の形はそのままに、強さだけを変えられます</span></li>
+          <li><b data-i18n="rs4a">設計降雨・カスタム</b><span data-i18n="rs4b">一定強度、中央集中型、線状降水帯型、10 分ごとの自由入力</span></li>
+        </ul>
+      </div>
+      <p class="note" data-i18n="rainNote">※ 観測値は 1 地点（駿河区曲金）のもので、計算範囲全体に一様に降らせます。実際の雨の降り方や被害を再現するものではありません。</p>
+      <figure class="shot wide"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">表紙: 流域の実際の等高線と降る雨のなか、駿府城の巽櫓をイメージした櫓の堀の水位が上がっていく</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Hazard ===== -->
+  <section class="section" id="hazard">
+    <div class="container">
+      <p class="kicker">HAZARD MAP</p>
+      <h2 data-i18n="hzTitle">国のハザードマップと並べる</h2>
+      <article class="feature">
+        <figure class="shot"><img src="assets/hazard.jpg" alt="" loading="lazy"></figure>
+        <div class="feature-text">
+          <p data-i18n="hzBody">PLATEAU に含まれる洪水浸水想定区域（安倍川・藁科川の国管理区間、計画規模 L1 / 想定最大規模 L2）を、公式のランク配色、想定水深の色分け、3D の水面として表示。住所から作ったタイルにも入ります。計算が終わると、浸水範囲の重なりと床上浸水相当の棟数を突き合わせます。想定水面は 0〜100 % までせり上げて録画できます。</p>
+          <p class="note" data-i18n="hzNote">洪水浸水想定区域は河川の氾濫（外水）の想定で、このシミュレーションは大雨による内水氾濫の計算です。比較は危ない場所の傾向を見る参考です。巴川などの県管理河川の想定区域は含まれません。</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">しくみ</h2>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="t1a">GPU の浅水流</h3><p data-i18n="t1b">局所慣性方程式と Manning 摩擦（LISFLOOD-FP 系）を WebGL2 のシェーダーで解きます。時間刻み Δt は安定条件から自動で決まり、画面で安全係数と実際の Δt を確認できます。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">補正した地形</h3><p data-i18n="t2b">PLATEAU の地形モデル（TIN）を 2 m 格子にし、建物の底面の高さで地盤を補正。補正後の地形と建物込みの DSM は GeoTIFF（平面直角座標 VIII 系）で書き出せます。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">二段階の計算</h3><p data-i18n="t3b">流域全体（30 m・約 690 万セル）とタイル（2 m・建物あり）を同時に計算し、境界で水位を受け渡します。地形データの範囲全体の地形と航空写真も、そのまま背景に描きます。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">見えるものだけ名前を出す</h3><p data-i18n="t4b">数フレームごとに画面を低解像度で描き、ラベルの足元が建物や山に隠れていないかを深度で判定します。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="" loading="lazy"><figcaption data-i18n="enCap">英語表示: 画面・地名・住所・録画の文字まで切り替わります</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。既定の 7 地域、流域全体の地形、地名、町丁界、安倍川・藁科川の洪水浸水想定区域のデータをアプリに同梱しています。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>Apple Silicon (M1 〜)</strong></li>
+            <li><span data-i18n="sizeLabel">サイズ</span><strong data-i18n="sizeV">約 150 MB</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" class="btn btn-primary" data-i18n="getMac">macOS 版を入手</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 住所検索、新しいタイルの作成（国土地理院の標高・航空写真、PLATEAU の建物）にはインターネット接続が必要です。GPU（WebGL2）を使います。録画と GeoTIFF は「ダウンロード」フォルダに保存されます。</p>
+      <p class="note" data-i18n="startNote">※ 計算時間の目安は Apple M5 での実測値です（清水区 大内・押切、2 km 四方、流域全体の計算込み）。GPU の性能により変わります。結果は条件を仮定した計算です。避難や防災の判断には、自治体の公式のハザードマップをお使いください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">その雨は、<span class="accent">どこに溜まるのか。</span></h2>
+      <a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHIZUOKA FLOOD</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土交通省 PLATEAU（静岡市 2022）、国土地理院（標高・シームレス空中写真・住所検索）、気象庁（過去の気象データ: 静岡）、総務省統計局 e-Stat（2020 年国勢調査 小地域境界）、© OpenStreetMap contributors ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/shizuoka_flood" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html">Manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261114"></script>
+</body>
+</html>
