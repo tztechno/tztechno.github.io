@@ -96,10 +96,6 @@ https://tztechno.github.io/note04/  https://note.com/stpeteishii/n/n8e072e7b3f53
 
 ## project
 
-01[Pedestrian Movie SLAM with Dual GPUs](https://tztechno.github.io/proj01/)
-
-02[MASt3R IMC2025 cp311→cp312](https://tztechno.github.io/proj02/)
-
 03[Cyber Othello](https://tztechno.github.io/proj03/)
 
 04[Cyber Chess](https://tztechno.github.io/proj04/)
