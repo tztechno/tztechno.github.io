@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kuroshio Tsunami | 黒潮町津波 3Dシミュレーター</title>
-  <meta name="description" content="国土地理院の建物外周線から作った仮想3D建物（20,256棟）と地形・海底水深データ（kuroshio.tif / japan_sea.tif）に基づく高知県黒潮町沿岸（21×21km・15m格子）の津波3Dシミュレーター。南海トラフ巨大地震（内閣府ケース④・⑤等）の波源をnankai_troughの15秒入れ子格子で計算し、領域端13地点から入力。佐賀地区津波避難タワー3Dモデル・2m詳細タイルGPU計算を搭載。">
+  <meta name="description" content="国土地理院の建物外周線から作った仮想3D建物（20,255棟）と地形・海底水深データ（kuroshio.tif / japan_sea.tif）に基づく高知県黒潮町沿岸（21×21km・15m格子）の津波3Dシミュレーター。南海トラフ巨大地震（内閣府ケース④・⑤等）の波源をnankai_troughの15秒入れ子格子で計算し、領域端13地点から入力。佐賀地区津波避難タワー3Dモデル・2m詳細タイルGPU計算を搭載。">
 
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Kuroshio Tsunami — 黒潮町津波 3Dシミュレーター">
@@ -67,13 +67,13 @@
       <h1 data-i18n-html="heroTitle">その波は、どこまで来るのか。<br><span class="text-gradient">土佐湾・黒潮町沿岸を3Dで追う。</span></h1>
 
       <p class="lead" data-i18n="heroLead">
-        南海トラフ巨大地震で日本最大級の津波高が想定される高知県黒潮町。田野浦・入野〜上川口〜佐賀〜鈴の沿岸 21×21km を 15m 格子（196万セル）で再現し、国土地理院の建築物外周線から生成した 20,256棟の仮想3D建物と佐賀地区津波避難タワーを配置。広域シミュレーター nankai_trough で黒潮町沖を15秒メッシュに細かくして計算した領域端13地点の波形を入力し、浅水長波モデルで津波の遡上を可視化する macOS デスクトップアプリです。
+        南海トラフ巨大地震で日本最大級の津波高が想定される高知県黒潮町。田野浦・入野〜上川口〜佐賀〜鈴の沿岸 21×21km を 15m 格子（196万セル）で再現し、国土地理院の建築物外周線から生成した 20,255棟の仮想3D建物と佐賀地区津波避難タワーを配置。広域シミュレーター nankai_trough で黒潮町沖を15秒メッシュに細かくして計算した領域端13地点の波形を入力し、浅水長波モデルで津波の遡上を可視化する macOS デスクトップアプリです。
       </p>
 
       <div class="hero-cta">
         <a href="https://cyber-matrix.netlify.app/products/kuroshio_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          <span data-i18n="heroCtaBuy">macOS デスクトップ版を入手 (¥150)</span>
+          <span data-i18n="heroCtaBuy">macOS デスクトップ版を入手 (¥980)</span>
         </a>
         <a href="#features" class="btn btn-ghost btn-lg">
           <span data-i18n="heroCtaMore">シミュレーションの仕組みを見る</span>
@@ -81,7 +81,7 @@
       </div>
 
       <div class="hero-platforms">
-        <span data-i18n="heroPlatforms">macOS (Apple Silicon .dmg) · 買い切り ¥150 · 日本語 / English</span>
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon .dmg) · 買い切り ¥980 · 日本語 / English</span>
       </div>
     </div>
   </section>
@@ -96,7 +96,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-num text-gradient-amber" data-i18n="statBldgVal">20,256 棟</div>
+        <div class="stat-num text-gradient-amber" data-i18n="statBldgVal">20,255 棟</div>
         <div class="stat-label" data-i18n="statBldgLabel">地理院ベクトルタイル 仮想3D建物</div>
         <div class="stat-desc" data-i18n="statBldgDesc">実際の外周線 × 種類別仮定高 (7m/13m/35m)</div>
       </div>
@@ -140,9 +140,9 @@
         </div>
         <div class="feature-info">
           <div class="feature-num" data-i18n="f1Num">01 / TERRAIN, BATHYMETRY & VIRTUAL 3D BUILDINGS</div>
-          <h3 class="feature-title" data-i18n="f1Title">国土地理院の建物外周線から 20,256棟の仮想3D建物を生成</h3>
+          <h3 class="feature-title" data-i18n="f1Title">国土地理院の建物外周線から 20,255棟の仮想3D建物を生成</h3>
           <p class="feature-text" data-i18n="f1Desc">
-            黒潮町には PLATEAU の 3D 都市モデルがないため、国土地理院ベクトルタイル（experimental_bvmap z16、基盤地図情報の建築物外周線）から 20,256棟の仮想3D建物を構築しています。底面積は実際の外周線から取り、高さは建物の種類からの仮定値（普通建物 7m / 堅ろう建物 13m / 高層建物 35m）を与えています。
+            黒潮町には PLATEAU の 3D 都市モデルがないため、国土地理院ベクトルタイル（experimental_bvmap z16、基盤地図情報の建築物外周線）から 20,255棟の仮想3D建物を構築しています。底面積は実際の外周線から取り、高さは建物の種類からの仮定値（普通建物 7m / 堅ろう建物 13m / 高層建物 35m）を与えています。
           </p>
           <ul class="feature-points">
             <li>
@@ -441,7 +441,7 @@
           </p>
 
           <div class="store-pricing">
-            <span class="store-price">¥150</span>
+            <span class="store-price">¥980</span>
             <span class="store-tax" data-i18n="storeTax">（税込・買い切りライセンス）</span>
           </div>
 
