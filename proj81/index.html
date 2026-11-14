@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SHIZUOKA TSUNAMI — 静岡市沿岸の3D津波シミュレーター</title>
+  <meta name="description" content="南海トラフ巨大地震の津波が駿河湾から静岡市沿岸・清水港へ押し寄せたら。25.5×27 kmを15 m格子で計算し、防潮堤・潮位を変えながら浸水の広がりをPLATEAUの3D都市で確かめるmacOSアプリ。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23122450%22/%3E%3Cpath d=%22M9 16l7-10 7 10z%22 fill=%22%23465f8c%22/%3E%3Cpath d=%22M0 24q6-14 18-12-6 3-4 8 6 1 18-2v14H0z%22 fill=%22%231c78c8%22/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA TSUNAMI</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="nav_features">機能</a></li>
+          <li><a href="#scenarios" data-i18n="nav_scenarios">シナリオ</a></li>
+          <li><a href="#tech" data-i18n="nav_tech">仕組み</a></li>
+          <li><a href="#start" data-i18n="nav_start">入手</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button id="langBtn" class="lang-btn" type="button">EN</button>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_tsunami" class="btn btn-sm btn-primary" data-i18n="nav_cta">ダウンロード</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg" style="background-image:url('assets/hero.jpg')"></div>
+      <div class="hero-shade"></div>
+      <div class="container hero-content">
+        <p class="eyebrow" data-i18n="hero_eyebrow">3D TSUNAMI SIMULATOR · SHIZUOKA CITY COAST, JAPAN</p>
+        <h1 data-i18n="hero_title">駿河湾の津波は、<br><span class="accent">どこまで街に入るのか。</span></h1>
+        <p class="lead" data-i18n="hero_lead">
+          用宗から蒲原まで、静岡市沿岸 25.5 × 27 km を15 m格子で計算。
+          南海トラフ巨大地震の津波が駿河湾から押し寄せ、海岸の防潮堤や清水港の胸壁を越えて低地へ広がる様子を、PLATEAUの3D都市モデルの上で再現します。
+          防潮堤の有無・高さや潮位を変えて、浸水の違いを確かめられます。
+        </p>
+        <div class="hero-cta">
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_tsunami" class="btn btn-primary btn-lg" data-i18n="hero_btn_start">アプリを入手する</a>
+          <a href="#features" class="btn btn-ghost btn-lg" data-i18n="hero_btn_more">詳しく見る</a>
+        </div>
+        <p class="platforms" data-i18n="hero_platforms">macOS デスクトップアプリ（Apple Silicon · .dmg） · 日本語 / English</p>
+      </div>
+    </section>
+
+    <!-- Key numbers -->
+    <section class="stats" aria-label="Key figures">
+      <div class="container stats-grid">
+        <div class="stat"><strong>25.5 × 27 km</strong><span data-i18n="stat_area">計算範囲（用宗〜蒲原）</span></div>
+        <div class="stat"><strong>15 m</strong><span data-i18n="stat_grid">格子（1,700 × 1,800 = 306万セル）</span></div>
+        <div class="stat"><strong data-i18n="stat_bldg_num">31万棟</strong><span data-i18n="stat_bldg">PLATEAU 3D都市モデル</span></div>
+        <div class="stat"><strong data-i18n="stat_src_num">17地点</strong><span data-i18n="stat_src">駿河湾の入れ子計算から取った境界の波形</span></div>
+        <div class="stat"><strong>2 m</strong><span data-i18n="stat_tile">全建物の詳細タイル（GPU）</span></div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+      <div class="container">
+        <p class="kicker" data-i18n="feat_kicker">FEATURES</p>
+        <h2 data-i18n="feat_title">地震の直後から市街地の浸水まで、ひとつの画面で</h2>
+        <p class="section-lead" data-i18n="feat_lead">
+          国土地理院の5 m・10 m標高、駿河湾の水深、航空写真、PLATEAUの建物、e-Statの町丁境界を一つの3D空間に統合。
+          津波の第1波が清水港に届き、三保半島の付け根や巴川沿いの低地へ広がっていく過程を、時間を追って確かめられます。
+        </p>
+
+        <article class="feature reveal">
+          <figure class="shot">
+            <img src="assets/flood.jpg" alt="防潮堤なしの清水港周辺の浸水と建物の色分け" loading="lazy" />
+            <figcaption data-i18n="f1_cap">防潮堤なし・地震後16分の清水港周辺。浸水深は凡例の色で、0.5 m以上つかった建物は赤で表示</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">01</span>
+            <h3 data-i18n="f1_title">駿河湾が波源域の中にある、静岡ならではの津波</h3>
+            <p data-i18n="f1_body">
+              静岡市の沖は、南海トラフ巨大地震の波源域そのものです。地震の直後に湾内の海面が持ち上がり、数分で第1波が海岸に届きます。
+              内閣府（2012）ケース①の断層モデルから、駿河湾を約400 mの入れ子格子にして計算した波を、計算範囲の南端・東端の17地点から場所ごとに入力。湾内の海面の隆起も地震直後に与えます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f1_c1">境界17地点の波形</li>
+              <li data-i18n="f1_c2">湾内の海面の隆起</li>
+              <li data-i18n="f1_c3">伊豆半島で跳ね返る波も含む</li>
+              <li data-i18n="f1_c4">地震後の時刻を表示</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <figure class="shot">
+            <img src="assets/compare.jpg" alt="清水港周辺の防潮堤あり・なしの比較" loading="lazy" />
+            <figcaption data-i18n="f2_cap">清水港周辺の防潮堤あり／なしの比較（既定のケース①・地震後16分）</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">02</span>
+            <h3 data-i18n="f2_title">防潮堤の高さと潮位を変えて、浸水の違いを比べる</h3>
+            <p data-i18n="f2_body">
+              海岸の堤防（T.P.+6.0 m、仮定値）と清水港の胸壁（T.P.+4.0 m、静岡県の資料による）を壁として扱い、越流した水だけが陸へ入ります。
+              「防潮堤なし」や、0〜15 mの高さの指定に切り替え可能。潮位は0〜5 mの範囲で上乗せでき、満潮時の津波も試せます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f2_c1">防潮堤あり / なし / 高さ可変</li>
+              <li data-i18n="f2_c2">清水港の胸壁 T.P.+4.0 m</li>
+              <li data-i18n="f2_c3">潮位 0〜5 m</li>
+              <li data-i18n="f2_c4">越流セル数をリアルタイム表示</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reveal">
+          <figure class="shot">
+            <img src="assets/pin.jpg" alt="地点観察ピンと浸水ハイドログラフ" loading="lazy" />
+            <figcaption data-i18n="f3_cap">住所検索で清水区入船町の範囲を指定し、範囲内の最大水深の時間変化をグラフに表示（防潮堤なし）</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">03</span>
+            <h3 data-i18n="f3_title">住所から地点を探し、水深の時間変化を記録</h3>
+            <p data-i18n="f3_body">
+              国土地理院の住所検索で、番地まで入れればピン、町名・丁目までなら町丁の範囲を枠で表示します。
+              ピンや範囲の水深・最大浸水深・到達時刻をハイドログラフで確かめ、計算条件つきのCSVとして保存できます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f3_c1">住所・地名からピン</li>
+              <li data-i18n="f3_c2">町丁の範囲を表示</li>
+              <li data-i18n="f3_c3">ハイドログラフCSV</li>
+              <li data-i18n="f3_c4">10秒ごとの結果CSV</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="feature reverse reveal">
+          <figure class="shot">
+            <img src="assets/top.jpg" alt="計算範囲全体を真上から見た浸水分布" loading="lazy" />
+            <figcaption data-i18n="f4_cap">真上からの視点。既定の条件では、安倍川河口の東、駿河区の海岸低地に浸水が広がる（地震後16分）</figcaption>
+          </figure>
+          <div class="feature-text">
+            <span class="num">04</span>
+            <h3 data-i18n="f4_title">2 mの詳細タイルと、MP4の動画書き出し</h3>
+            <p data-i18n="f4_body">
+              ピンを置いた場所に1〜3 km四方の2 mタイルを作り、すべての建物を入れてGPUで詳細に計算できます（地形・建物・航空写真をその場で取得）。
+              計算した浸水の過程は好きな速度で再生でき、経過時間・沖合の波・浸水面積を焼き込んだMP4動画として保存できます。
+            </p>
+            <ul class="chips">
+              <li data-i18n="f4_c1">2 mタイル（1〜3 km四方）</li>
+              <li data-i18n="f4_c2">全建物の浸水判定</li>
+              <li data-i18n="f4_c3">MP4録画</li>
+              <li data-i18n="f4_c4">6つの視点とフリーカメラ</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Scenarios -->
+    <section id="scenarios" class="section alt">
+      <div class="container">
+        <div class="split reveal">
+          <div>
+            <p class="kicker" data-i18n="sc_kicker">TSUNAMI SCENARIOS</p>
+            <h2 data-i18n="sc_title">想定する地震を選び、<br>同じ海岸で比べる</h2>
+            <p class="section-lead" data-i18n="sc_lead">
+              南海トラフ巨大地震の津波を軸に、比較用の波源や仮想の想定超過津波、自由に設定できる正弦波を収録しています。
+            </p>
+            <ul class="spec">
+              <li>
+                <b data-i18n="sc1_title">南海トラフ巨大地震 内閣府ケース①（既定）</b>
+                <span data-i18n="sc1_desc">「駿河湾〜紀伊半島沖」に大すべり域を置くケース。境界17地点の波形（最大 約5〜7 m）と湾内の海面の隆起を、静岡県第4次地震被害想定の浸水面積に近づける倍率 0.7 で入力します。</span>
+              </li>
+              <li>
+                <b data-i18n="sc2_title">内閣府ケース①（参考：駿河湾口の波形）</b>
+                <span data-i18n="sc2_desc">同じ計算を駿河湾口の1地点で取り出した波形（最大 5.19 m・地震後 約2分）を、境界全体に入れる比較用のケース。</span>
+              </li>
+              <li>
+                <b data-i18n="sc3_title">東海地震単独 M8.0</b>
+                <span data-i18n="sc3_desc">駿河トラフ〜遠州灘の断層1枚の簡易モデル（領域南端で最大 1.21 m）。</span>
+              </li>
+              <li>
+                <b data-i18n="sc4_title">仮想 想定超過津波 / カスタム</b>
+                <span data-i18n="sc4_desc">沖合10 mの正弦波で防潮堤の越流を確かめるケースと、波高1〜100 m・周期・来襲方向を自由に決められるケース。</span>
+              </li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <img src="assets/title.jpg" alt="Shizuoka Tsunami タイトル画面" loading="lazy" />
+            <figcaption data-i18n="sc_cap">タイトル画面：計算範囲と収録シナリオ</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Under the hood -->
+    <section id="tech" class="section">
+      <div class="container">
+        <p class="kicker" data-i18n="tech_kicker">HOW IT WORKS</p>
+        <h2 data-i18n="tech_title">公開データと物理にもとづく、確かめられる計算</h2>
+        <p class="section-lead" data-i18n="tech_lead">
+          津波の伝わり方と陸への遡上を、公開されている地形・水深・建物データの上で直接解いています。計算の前提と限界もあわせて示します。
+        </p>
+        <div class="tech-grid reveal">
+          <div class="tech">
+            <h3 data-i18n="t1_title">浅水長波（局所慣性）モデル</h3>
+            <p data-i18n="t1_body">15 m格子の306万セルで、水位と流量を局所慣性方程式（Bates et al. 2010 / de Almeida et al. 2012 のθ重み付き流量）で計算。CFL条件による自動の時間刻み、水量が負にならない制限、建物を障害物として扱う流れを、別スレッドで計算しながら再生します。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t2_title">駿河湾の入れ子計算と境界の波</h3>
+            <p data-i18n="t2_body">内閣府ケース①を公表ルールから組み直した断層（Mw 9.1）で、日本全域約2.5 km格子に駿河湾約400 m格子を入れ子にして計算。計算範囲の境界に沿って3 kmごとの17地点で水位を記録し、境界の400 mの帯で各地点の波へ水位と流量を近づけます。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t3_title">地形・水深・建物</h3>
+            <p data-i18n="t3_body">陸の標高と海陸の判定は国土地理院DEM5A/DEM10B、水深は15秒角の海底地形。PLATEAU（2022）の静岡市の建物31万棟から、計算と表示用に3.5万棟を実際の底面積で配置。周辺の静岡平野・駿河湾も背景として表示します。</p>
+          </div>
+          <div class="tech">
+            <h3 data-i18n="t4_title">計算の前提と限界</h3>
+            <p data-i18n="t4_body">波源の倍率0.7は静岡県の想定の浸水面積への当てはめで、区ごとの浸水面積には想定との差が残ります。陸地は隆起させない条件、水深は計算時間のため150 mで打ち切り、海岸堤防の高さは仮定値です。避難の判断には使わないでください。</p>
+          </div>
+        </div>
+        <figure class="shot wide reveal">
+          <img src="assets/english.jpg" alt="English UI mode" loading="lazy" />
+          <figcaption data-i18n="tech_cap">ワンクリックで主な操作画面と地名ラベルを英語表示に切り替え（シナリオ名など一部は日本語のまま）</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Get Started -->
+    <section id="start" class="section alt">
+      <div class="container">
+        <p class="kicker" data-i18n="start_kicker">GET SHIZUOKA TSUNAMI</p>
+        <h2 data-i18n="start_title">デスクトップアプリを入手</h2>
+        <p class="section-lead" data-i18n="start_lead">
+          計算範囲の地形・水深・航空写真・建物と、南海トラフの波源をすべて内蔵したスタンドアロン版です。インストールしてすぐに計算できます。
+        </p>
+        <div class="platform-grid reveal" style="grid-template-columns:1fr;max-width:640px;margin-left:auto;margin-right:auto">
+          <div class="platform">
+            <h3 data-i18n="p1_title">デスクトップアプリ版</h3>
+            <ul>
+              <li><span data-i18n="p1_os_k">対応OS</span><strong data-i18n="p1_os_v">macOS 11 Big Sur 以降（Apple Silicon M1〜M5）</strong></li>
+              <li><span data-i18n="p1_inst_k">インストーラ</span><strong data-i18n="p1_inst_v">ShizuokaTsunami_1.0.0_aarch64.dmg（約 16 MB）</strong></li>
+              <li><span data-i18n="p1_data_k">内蔵データ</span><strong data-i18n="p1_data_v">静岡市沿岸 25.5×27 km・周辺地形・南海トラフの波源</strong></li>
+              <li><span data-i18n="p1_net_k">ネットワーク</span><strong data-i18n="p1_net_v">計算はオフライン（住所検索と2 mタイルの作成のみ通信を使用）</strong></li>
+            </ul>
+            <a href="https://cyber-matrix.netlify.app/products/shizuoka_tsunami" class="btn btn-primary" data-i18n="p1_btn">製品ページ・ダウンロード</a>
+          </div>
+        </div>
+        <p class="note" data-i18n="start_note">
+          ※ 本ソフトウェアは公開データにもとづく簡易的な津波シミュレーションであり、公式の津波浸水想定ではありません。実際の避難判断には、必ず静岡県・静岡市が公表する津波ハザードマップと気象庁の津波情報を確認してください。
+        </p>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta">
+      <div class="container">
+        <h2 data-i18n="cta_title">駿河湾の津波を、あなたのMacで確かめる。</h2>
+        <div class="hero-cta" style="justify-content:center">
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_tsunami" class="btn btn-primary btn-lg" data-i18n="cta_btn1">Shizuoka Tsunami を入手する</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">SHIZUOKA TSUNAMI</span>
+        </div>
+        <p class="credits" data-i18n="footer_credits">
+          出典：標高・航空写真：国土地理院（基盤地図情報 数値標高モデル DEM5A/DEM10B、地理院タイル）／
+          建物：国土交通省 PLATEAU（静岡市 2022）／町丁境界：e-Stat 国勢調査 小地域境界（総務省統計局）／
+          波源：内閣府（2012）南海トラフの巨大地震モデル検討会の設定にもとづく概略モデル／
+          地名：© OpenStreetMap contributors
+        </p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://www.pref.shizuoka.jp/bosaikinkyu/sonae/earthquake/1040810/1029868.html" target="_blank" rel="noopener" data-i18n="footer_pref">静岡県 第4次地震被害想定 ↗</a></li>
+        <li><a href="https://www.bousai.go.jp/jishin/nankai/" target="_blank" rel="noopener" data-i18n="footer_cao">内閣府 南海トラフ地震対策 ↗</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
