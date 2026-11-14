@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuroshio Tsunami | 黒潮町津波 3Dシミュレーター</title>
+  <meta name="description" content="国土地理院の建物外周線から作った仮想3D建物（20,256棟）と地形・海底水深データ（kuroshio.tif / japan_sea.tif）に基づく高知県黒潮町沿岸（21×21km・15m格子）の津波3Dシミュレーター。南海トラフ巨大地震（内閣府ケース④・⑤等）の波源をnankai_troughの15秒入れ子格子で計算し、領域端13地点から入力。佐賀地区津波避難タワー3Dモデル・2m詳細タイルGPU計算を搭載。">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Kuroshio Tsunami — 黒潮町津波 3Dシミュレーター">
+  <meta property="og:description" content="その波は、どこまで来るのか。地理院地図の仮想3D建物 × 南海トラフ巨大地震波源 × 土佐湾・黒潮町沿岸21×21kmを浅水長波モデルで可視化。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/kuroshio_tsunami">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/app-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= Navigation ================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-badge">🌊</div>
+        <div class="logo-text">
+          <span>KUROSHIO TSUNAMI</span>
+          <span class="logo-sub">3D TSUNAMI SIMULATOR</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features" data-i18n="navFeatures">機能・特徴</a></li>
+          <li><a href="#wavesource" data-i18n="navWaveSource">波源と検証</a></li>
+          <li><a href="#scenarios" data-i18n="navScenarios">津波シナリオ</a></li>
+          <li><a href="#notes" data-i18n="navNotes">制約と注意点</a></li>
+          <li><a href="#store" data-i18n="navDownload">デスクトップ版を入手</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-toggle" class="lang-toggle" type="button" data-i18n="langToggle">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/kuroshio_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" data-i18n="navDownload">デスクトップ版を入手</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= Hero Section ================= -->
+  <section class="hero">
+    <div class="hero-bg-layer" style="background-image: url('assets/hero.jpg');"></div>
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-water-glow"></div>
+
+    <div class="container hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-pulse"></span>
+        <span data-i18n="heroTag">国土地理院 仮想3D建物 × nankai_trough 15秒入れ子格子波源 × Tauri v2</span>
+      </div>
+
+      <h1 data-i18n-html="heroTitle">その波は、どこまで来るのか。<br><span class="text-gradient">土佐湾・黒潮町沿岸を3Dで追う。</span></h1>
+
+      <p class="lead" data-i18n="heroLead">
+        南海トラフ巨大地震で日本最大級の津波高が想定される高知県黒潮町。田野浦・入野〜上川口〜佐賀〜鈴の沿岸 21×21km を 15m 格子（196万セル）で再現し、国土地理院の建築物外周線から生成した 20,256棟の仮想3D建物と佐賀地区津波避難タワーを配置。広域シミュレーター nankai_trough で黒潮町沖を15秒メッシュに細かくして計算した領域端13地点の波形を入力し、浅水長波モデルで津波の遡上を可視化する macOS デスクトップアプリです。
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/kuroshio_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span data-i18n="heroCtaBuy">macOS デスクトップ版を入手 (¥150)</span>
+        </a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <span data-i18n="heroCtaMore">シミュレーションの仕組みを見る</span>
+        </a>
+      </div>
+
+      <div class="hero-platforms">
+        <span data-i18n="heroPlatforms">macOS (Apple Silicon .dmg) · 買い切り ¥150 · 日本語 / English</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Key Stats ================= -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statDemVal">21 × 21 km</div>
+        <div class="stat-label" data-i18n="statDemLabel">黒潮町沿岸 15m メッシュ</div>
+        <div class="stat-desc" data-i18n="statDemDesc">1,400 × 1,400 (196万セル) · EPSG:6672</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statBldgVal">20,256 棟</div>
+        <div class="stat-label" data-i18n="statBldgLabel">地理院ベクトルタイル 仮想3D建物</div>
+        <div class="stat-desc" data-i18n="statBldgDesc">実際の外周線 × 種類別仮定高 (7m/13m/35m)</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statTowerVal">高さ 25 m</div>
+        <div class="stat-label" data-i18n="statTowerLabel">佐賀地区津波避難タワー</div>
+        <div class="stat-desc" data-i18n="statTowerDesc">避難フロア地上22m (233m²・230人) 3D再現</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient-amber" data-i18n="statSourceVal">領域端 13地点</div>
+        <div class="stat-label" data-i18n="statSourceLabel">内閣府ケース④・⑤ 計算波源</div>
+        <div class="stat-desc" data-i18n="statSourceDesc">黒潮町沖15秒メッシュ・最大約7〜13m</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-num text-gradient" data-i18n="statAreaVal">58 × 65 km</div>
+        <div class="stat-label" data-i18n="statAreaLabel">周辺地形の広域背景</div>
+        <div class="stat-desc" data-i18n="statAreaDesc">幡多地域・四万十川河口・土佐湾 (kuroshio.tif)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Core Features ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="featKicker">CORE CAPABILITIES</span>
+        <h2 class="section-title" data-i18n="featTitle">PLATEAU未整備地域でも、地理院地図から街並みと津波を3D再現</h2>
+        <p class="section-lead" data-i18n="featLead">
+          土佐湾から入野の浜・上川口・白浜・佐賀漁港へ押し寄せる津波を、国土地理院の標高・建築物外周線・空中写真と海底水深データ（japan_sea.tif）で立体化。さらに気になる地区には 1〜3km 四方の 2m 詳細タイルを作成し、GPU で建物間の流れを計算できます。
+        </p>
+      </div>
+
+      <!-- Feature 1 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/hero.jpg" alt="黒潮町沿岸21×21kmの津波3Dシミュレーション全景">
+          <span class="visual-badge" data-i18n="badge1">黒潮町沿岸 21×21km · 15m格子</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f1Num">01 / TERRAIN, BATHYMETRY & VIRTUAL 3D BUILDINGS</div>
+          <h3 class="feature-title" data-i18n="f1Title">国土地理院の建物外周線から 20,256棟の仮想3D建物を生成</h3>
+          <p class="feature-text" data-i18n="f1Desc">
+            黒潮町には PLATEAU の 3D 都市モデルがないため、国土地理院ベクトルタイル（experimental_bvmap z16、基盤地図情報の建築物外周線）から 20,256棟の仮想3D建物を構築しています。底面積は実際の外周線から取り、高さは建物の種類からの仮定値（普通建物 7m / 堅ろう建物 13m / 高層建物 35m）を与えています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p1">陸地・海陸判定は国土地理院 DEM5A / DEM10B、海底水深は japan_sea.tif（15秒角、域内最深 約125m）</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p2">浸水した建物はリアルタイムに赤色へ変化。陸上の浸水深はハザードマップ準拠の8段階（〜0.3m から 20m〜）で色分け表示</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f1p3">海岸・漁港の防潮堤（T.P.+6.0m 仮定）の「あり / なし（自然海岸） / 高さ可変（0〜15m）」と、潮位スライダー（T.P.+0〜5m）に対応</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/saga_tower.jpg" alt="佐賀地区津波避難タワーと佐賀漁港周辺の浸水3D表示">
+          <span class="visual-badge" data-i18n="badge2">佐賀地区津波避難タワー (全高25m)</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f2Num">02 / SAGA DISTRICT TSUNAMI EVACUATION TOWER</div>
+          <h3 class="feature-title" data-i18n="f2Title">佐賀地区津波避難タワー（高さ25m・避難フロア22m）を3Dモデルで表示</h3>
+          <p class="feature-text" data-i18n="f2Desc">
+            黒潮町佐賀713-1 にある「佐賀地区津波避難タワー」を 3D モデルで配置しています。位置は国土地理院の指定緊急避難場所データ（津波）に基づき、高さは『広報くろしお』（2017年7月号）の記載から全体 25m・避難フロア地上 22m（面積 233m²・収容人数 230人）として再現しています。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p1">視点ボタン「佐賀」で避難タワーと佐賀漁港の周辺へ即座にカメラ移動し、浸水深と避難フロアの高さの関係を観察可能</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p2">鉄骨ブレースと折り返し階段・屋根付きの避難デッキを備えた3Dモデル（形状は一般的な鉄骨タワーの表現で、水流の障害物にはしていません）</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f2p3">起動時（または「表紙」ボタン）には、夜の避難タワーに湾から段波が押し寄せて砕ける3Dタイトル画面を表示</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-block">
+        <div class="feature-visual">
+          <img src="assets/irino.jpg" alt="入野・黒潮町役場周辺の浸水と地点観察ハイドログラフ">
+          <span class="visual-badge" data-i18n="badge3">住所検索 · 町丁境界 · 2m詳細タイル</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f3Num">03 / ADDRESS PIN, HYDROGRAPH & 2M GPU DETAIL TILE</div>
+          <h3 class="feature-title" data-i18n="f3Title">住所・地名からピンと町丁枠を表示し、2m詳細タイルをGPUで計算</h3>
+          <p class="feature-text" data-i18n="f3Desc">
+            地図上のクリックや国土地理院の住所検索（例:「黒潮町入野」「黒潮町佐賀」）で観察地点を指定できます。番地まで入れればピンを置き、町名・字までなら e-Stat（2020年国勢調査 小地域境界）の町丁範囲を赤枠で囲んで、その範囲内の陸地の最大水深をハイドログラフに表示します。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p1">ピンや範囲の位置に 1〜3km 四方の「2m詳細タイル」を作成（国土地理院 DEM5A・建物外周線・航空写真をネットから取得して IndexedDB に保存）</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p2">全域（15m）の計算水位をタイルの外周に与え、建物の間を流れる水を WebGL2（GPU）の2m格子で同時に計算</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f3p3">全体結果や地点ハイドログラフの CSV 出力、および 3D 画面の MP4 動画録画（ダウンロードフォルダへ保存）に対応</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-block reverse">
+        <div class="feature-visual">
+          <img src="assets/region.jpg" alt="幡多地域・四万十川河口・土佐湾を含む広域背景地形">
+          <span class="visual-badge" data-i18n="badge4">kuroshio.tif (1秒角) 広域背景</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="f4Num">04 / REGIONAL BACKDROP & TITLE SCREEN</div>
+          <h3 class="feature-title" data-i18n="f4Title">四万十川河口から幡多の山々まで、58×65km の広域地形の中で観察</h3>
+          <p class="feature-text" data-i18n="f4Desc">
+            計算範囲（21×21km）の周囲には、1秒角 DEM（kuroshio.tif）と空中写真から構築した 58.2×64.7km の周辺地形を配置。南西の四万十川河口・田野浦から、入野の浜、上川口、白浜、佐賀漁港、北東の鈴・中土佐町方面まで、リアスと砂浜が続く土佐湾の地形的なつながりを自由なカメラ視点で確認できます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p1">ワンクリック視点切替: 全景 / 佐賀 / 入野 / 上川口 / 広域 / 真上（WASD・矢印キー・Q/Eキー・ダブルクリック注視点移動）</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p2">黒潮町役場・入野の浜・浮鞭駅・上川口・伊田・灘・白浜・佐賀・佐賀漁港・伊与喜川・鈴・田野浦・出口・四万十川河口の16ラベルを収録</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="f4p3">海面の上下を5倍に強調する表示切替（計算自体は実スケール）により、沖合から湾内へ進む波面を明瞭に把握</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Wave Source & Verification Section ================= -->
+  <section class="section" id="wavesource" style="background: rgba(10, 18, 34, 0.45);">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="wsKicker">WAVE SOURCE & VERIFICATION</span>
+        <h2 class="section-title" data-i18n="wsTitle">波源の決め方：黒潮町沖15秒メッシュ入れ子格子 × 領域端13地点入力</h2>
+        <p class="section-lead" data-i18n="wsLead">
+          広域津波シミュレーター nankai_trough のソルバーをヘッドレスで実行し、黒潮町沖（132.5〜133.7°E、32.4〜33.35°N）だけ 15秒メッシュ（約400m、japan_sea.tif）の入れ子格子にして計算。本領域の南端・東端に沿って3kmごとに採った 13地点の波形を、採った場所の境界から換算なしで直接入力しています。
+        </p>
+      </div>
+
+      <div class="feature-block" style="margin-bottom: 56px;">
+        <div class="feature-visual">
+          <img src="assets/title.jpg" alt="Kuroshio Tsunami タイトル画面 — 夜の佐賀地区津波避難タワーと計算領域マップ">
+          <span class="visual-badge" data-i18n="badgeTitle">タイトル画面（避難タワーと領域マップ）</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="wsSubNum">BOUNDARY WAVEFORMS & TIMING</div>
+          <h3 class="feature-title" data-i18n="wsSubTitle">領域端13地点の最高水位と、第1波の立ち上がりを捉える計算開始</h3>
+          <p class="feature-text" data-i18n="wsSubDesc">
+            高知県が想定に用いる内閣府ケースのうち、黒潮町沖で最も高くなる「ケース④ 四国沖（大すべり域）」を既定にしています（ケース⑤とほぼ同規模）。第1波の立ち上がり（地震後 約9〜16分）を途中で切らないよう、全13地点のうち最初に「全地点の最高水位の5%」に達する時刻の3分前（ケース④では地震後 8.2分）から計算を開始します。
+          </p>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th data-i18n="thScen">シナリオ</th>
+                  <th data-i18n="thAshizuri">足摺岬沖</th>
+                  <th data-i18n="thSouthMid">南端中央</th>
+                  <th data-i18n="thSouthWest">南端西寄り</th>
+                  <th data-i18n="thEast">東端</th>
+                  <th data-i18n="thPeakTime">最大の時刻</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-i18n="tdCase4"><strong>内閣府ケース④ 四国沖 (既定)</strong></td>
+                  <td>6.69 m</td>
+                  <td>8.47 m</td>
+                  <td>12.71 m</td>
+                  <td>11.95 m</td>
+                  <td data-i18n="tdTime4">地震後 約25〜32分</td>
+                </tr>
+                <tr>
+                  <td data-i18n="tdCase5"><strong>内閣府ケース⑤ 四国沖〜九州沖</strong></td>
+                  <td>6.86 m</td>
+                  <td>8.59 m</td>
+                  <td>12.78 m</td>
+                  <td>10.72 m</td>
+                  <td data-i18n="tdTime5">地震後 約25〜32分</td>
+                </tr>
+                <tr>
+                  <td data-i18n="tdM84"><strong>南海地震単独 M8.4 (昭和南海型)</strong></td>
+                  <td>1.57 m</td>
+                  <td>3.31 m</td>
+                  <td>4.64 m</td>
+                  <td>4.78 m</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verification Comparison Box -->
+      <div class="scenario-box" style="margin-top: 20px;">
+        <div class="scenario-header">
+          <div class="scenario-title" data-i18n="verTitle">ヘッドレス検証結果（内閣府ケース④・倍率1.0・防潮堤 T.P.+6.0m・地震後 約83分まで）</div>
+          <div class="scenario-badge" data-i18n="verBadge">倍率当てはめなし (×1.0)</div>
+        </div>
+        <div class="scenario-grid">
+          <div class="scenario-item">
+            <div class="label" data-i18n="ver1Label">黒潮町の浸水面積（計算範囲内）</div>
+            <div class="value">9.9 km²</div>
+            <div class="note" data-i18n="ver1Note">e-Stat 町丁境界で集計</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="ver2Label">黒潮町の陸上最高水位（このアプリ）</div>
+            <div class="value">T.P.+20.6 m</div>
+            <div class="note" data-i18n="ver2Note">白浜地区（内閣府公表の最大津波高は 34.4m）</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="ver3Label">佐賀地区の浸水面積・最高水位</div>
+            <div class="value">1.12 km² / +19.7 m</div>
+            <div class="note" data-i18n="ver3Note">町の資料では最大浸水深 18m・35分</div>
+          </div>
+          <div class="scenario-item">
+            <div class="label" data-i18n="ver4Label">浸水の始まり（このアプリ）</div>
+            <div class="value" data-i18n="ver4Val">地震後 約28分</div>
+            <div class="note" data-i18n="ver4Note">地殻変動（沈降）未考慮のため公的想定（最短約8分）より遅め</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Scenario Section ================= -->
+  <section class="section" id="scenarios">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="scenKicker">TSUNAMI SCENARIOS</span>
+        <h2 class="section-title" data-i18n="scenTitle">収録シナリオと外部CSV連携</h2>
+        <p class="section-lead" data-i18n="scenLead">内閣府ケース④・⑤の領域端13地点入力から、昭和南海型、想定超過の越流検証、nankai_trough 出力CSVのドラッグ＆ドロップまで対応しています。</p>
+      </div>
+
+      <div class="scenarios-grid">
+        <div class="scenario-card highlight" style="border-color: rgba(0, 229, 255, 0.45); background: rgba(0, 229, 255, 0.04);">
+          <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen1Badge">既定 · 領域端13地点</div>
+          <h3 class="scenario-title" data-i18n="scen1Title">南海トラフ 内閣府ケース④ 四国沖</h3>
+          <div class="scenario-meta" data-i18n="scen1Meta">領域端 最大 約7〜13m · 地震後 約25〜32分</div>
+          <p class="scenario-desc" data-i18n="scen1Desc">
+            内閣府(2012)ケース④「四国沖に大すべり域」を黒潮町沖15秒メッシュで計算し、領域の南端・東端に沿って約3kmごとに取り出した13地点の波形を各境界から直接入力。倍率は掛けていません（×1.0）。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;" data-i18n="scen2Badge">領域端13地点 · 比較用1地点</div>
+          <h3 class="scenario-title" data-i18n="scen2Title">内閣府ケース⑤ 四国沖〜九州沖 ／ ケース④ 足摺岬沖</h3>
+          <div class="scenario-meta" data-i18n="scen2Meta">ケース⑤ 最大 約7〜13m ／ 足摺岬沖 最大 6.69m</div>
+          <p class="scenario-desc" data-i18n="scen2Desc">
+            「四国沖〜九州沖に大すべり域」のケース⑤（領域の西側でやや高い）と、比較用として観測点「足摺岬沖」（133.00°E, 32.65°N）の1地点の波形をグリーンの法則で換算して全体から入力するケース④を収録。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;" data-i18n="scen3Badge">歴史地震型 · 想定超過検証</div>
+          <h3 class="scenario-title" data-i18n="scen3Title">南海地震単独 M8.4 ／ 仮想 想定超過（沖合20m）</h3>
+          <div class="scenario-meta" data-i18n="scen3Meta">M8.4 領域端 約3〜5m ／ 仮想正弦波 20m・周期20分</div>
+          <p class="scenario-desc" data-i18n="scen3Desc">
+            1946年昭和南海地震型の単一断層簡易モデル（領域端13地点）と、領域端から沖合波高20mの正弦波を入射させて防潮堤を越流し入野・佐賀の低地へ広がる過程を検証する仮想ケース。
+          </p>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;" data-i18n="scen4Badge">CSV連携 · カスタム波</div>
+          <h3 class="scenario-title" data-i18n="scen4Title">nankai_trough 波源CSVドロップ ＆ カスタム設定</h3>
+          <div class="scenario-meta" data-i18n="scen4Meta">浅水補正・倍率調整 · 波高 1〜100m</div>
+          <p class="scenario-desc" data-i18n="scen4Desc">
+            nankai_trough が出力した任意地点のCSVをドラッグ＆ドロップで読み込み（水深に応じたグリーンの法則の浅水補正と倍率指定に対応）。カスタムモードでは波高・周期・来襲方向を自在に変更できます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Notes / Constraints Section ================= -->
+  <section class="section" id="notes" style="background: rgba(10, 18, 34, 0.45);">
+    <div class="container">
+      <div class="section-header">
+        <span class="kicker" data-i18n="notesKicker">IMPORTANT CONSTRAINTS</span>
+        <h2 class="section-title" data-i18n="notesTitle">必ず知っておくべき制約と注意点</h2>
+        <p class="section-lead" data-i18n="notesLead">
+          本アプリの計算条件と公的な浸水想定との違いを明記しています。避難の判断には使わず、黒潮町・高知県の公的なハザードマップを必ず確認してください。
+        </p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-icon">📐</div>
+          <h3 data-i18n="n1Title">15秒メッシュ境界波形と最大津波高の差</h3>
+          <p data-i18n="n1Desc">境界の波形を約400m（15秒）メッシュの入れ子格子で採っているため、湾奥や岬での局所的な増幅（内閣府想定は最小10m格子・最大津波高 34.4m）は境界波形に入っていません。また、倍率は当てはめていません（×1.0）。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">🌍</div>
+          <h3 data-i18n="n2Title">地殻変動（沈降）を入れていない理由</h3>
+          <p data-i18n="n2Desc">断層モデルでは領域内の海も陸も沈降します（海で最大約0.7m）。陸を動かさずに海だけを沈めると陸に対する水位を低く見積もるため、海も陸も動かさない条件にしています。実際の沿岸沈降（約1m前後）の分、浸水面積や到達時刻（公的想定の最短約8分）は過小・遅めになります。</p>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-icon">🏢</div>
+          <h3 data-i18n="n3Title">建物の高さと海岸堤防は仮定値</h3>
+          <p data-i18n="n3Desc">地理院ベクトルタイルの建築物外周線には高さ属性がないため、建物の種類から仮定しています（この範囲はほぼすべて普通建物 7m）。また、海岸・漁港の防潮堤 T.P.+6.0m も仮定値です（スライダーで変更可能）。避難タワーの鉄骨形状も一般的な表現であり実物構造ではありません。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Store Section ================= -->
+  <section class="section" id="store">
+    <div class="container">
+      <div class="store-box">
+        <div class="store-content">
+          <div class="store-badge" data-i18n="storeBadge">MACOS DESKTOP EDITION</div>
+          <h2 class="store-title" data-i18n="storeTitle">黒潮町津波 3Dシミュレーター デスクトップ版</h2>
+          <p class="store-desc" data-i18n="storeDesc">
+            Tauri v2 で構築された macOS ネイティブアプリ（v1.0.0）。15m格子の全域計算・プリセット波源の再生はオフラインで動作し、住所検索や 2m 詳細タイルの作成（ネット接続時）、CSV・MP4 動画のダウンロードフォルダへの保存に対応しています。
+          </p>
+
+          <div class="store-pricing">
+            <span class="store-price">¥150</span>
+            <span class="store-tax" data-i18n="storeTax">（税込・買い切りライセンス）</span>
+          </div>
+
+          <div class="store-buttons">
+            <a href="https://cyber-matrix.netlify.app/products/kuroshio_tsunami" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span data-i18n="storeBtnBuy">製品ページで購入・ダウンロード（Stripe決済）</span>
+            </a>
+          </div>
+
+          <div class="store-meta">
+            <div class="meta-item">
+              <strong data-i18n="metaOsLabel">対応OS:</strong> <span data-i18n="metaOs">macOS (Apple Silicon M1/M2/M3/M4 · DMG 約13MB)</span>
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaReqLabel">動作要件:</strong> <span data-i18n="metaReq">WebGL2 対応 GPU（住所検索と 2m 詳細タイル作成時のみインターネット接続が必要）</span>
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaSrcLabel">データ出典:</strong> <span data-i18n="metaSrc">国土地理院（標高タイル DEM5A/DEM10B、シームレス空中写真、ベクトルタイル建築物、指定緊急避難場所、住所検索）、e-Stat（2020年国勢調査 小地域境界）、海底水深 japan_sea.tif（15秒角）、周辺地形 kuroshio.tif（1秒角）、広報くろしお 2017年7月号、波源 nankai_trough（内閣府 2012 津波断層モデルの概略再現）</span>
+            </div>
+            <div class="meta-item">
+              <strong data-i18n="metaNoteLabel">ご注意:</strong> <span data-i18n="metaNote">防災学習・可視化用のシミュレーターです。避難の判断には使用せず、黒潮町・高知県の公的なハザードマップをご確認ください。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">KUROSHIO TSUNAMI 3D</div>
+        <div class="footer-copy">© 2026 TZ Techno / Cyber Matrix. All rights reserved.</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://cyber-matrix.netlify.app/products/kuroshio_tsunami" target="_blank" rel="noopener noreferrer">Cyber Matrix Store</a>
+        <a href="https://github.com/tztechno" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
