@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shizuoka Fault | 活断層と南海トラフが動いたら、揺れと被害はどこまで及ぶのか — 静岡 3D 地震シミュレーター</title>
+  <meta name="description" content="静岡市とその周囲の活断層（富士川河口断層帯・身延断層・北伊豆断層帯・1935年静岡地震）および南海トラフ（駿河湾〜日向灘）のプレート境界を、国土地理院の地形・建物・航空写真の 3D 表示に重ね、断層が動いたときの震度・PGV、地表の断層変位と地殻上下変動、建物 1 棟ごとの被害、揺れによる斜面崩壊と土石流を GPU で計算するデスクトップアプリ（津波は扱いません）。">
+
+  <meta property="og:title" content="Shizuoka Fault — 静岡 活断層・南海トラフ 3D 地震シミュレーター">
+  <meta property="og:description" content="活断層と南海トラフが動いたら、揺れと斜面崩壊はどこまで及ぶのか。静岡市の街と山を、2m格子・建物単位で。">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:url" content="https://cyber-matrix.netlify.app/products/shizuoka_fault">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://cyber-matrix.netlify.app/products/shizuoka_fault">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23101a2e%22/%3E%3Cpath d=%22M17 32l6-22 4 4 5-8v26z%22 fill=%22%233f7a4a%22/%3E%3Cpath d=%22M4 32L26 0h4L8 32z%22 fill=%22%23ff3b2f%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="logo">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SHIZUOKA FAULT</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" data-i18n="navFeatures">できること</a></li>
+        <li><a href="#faults" data-i18n="navFaults">断層とプレート境界</a></li>
+        <li><a href="#scenarios" data-i18n="navScen">シナリオ</a></li>
+        <li><a href="#tech" data-i18n="navTech">しくみ</a></li>
+        <li><a href="#start" data-i18n="navStart">デスクトップ版</a></li>
+        <li><a href="MANUAL.ja.html" id="nav-manual" data-i18n="navManual">取扱説明書</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" type="button">English</button>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="btn btn-primary btn-sm" data-i18n="navGet">入手する</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-bg" style="background-image: url('assets/hero.jpg')"></div>
+    <div class="hero-shade"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">ACTIVE FAULTS &amp; NANKAI TROUGH × GPU · SHIZUOKA</p>
+      <h1 data-i18n-html="heroTitle">活断層と南海トラフが動いたら、<br><span class="accent">揺れはどこまで及ぶのか。</span></h1>
+      <p class="lead" data-i18n="heroLead">静岡市とその周囲の活断層（富士川河口断層帯・身延断層・北伊豆断層帯・1935年静岡地震）と、駿河湾から日向灘へ連なる南海トラフのプレート境界。国土地理院の地形・建物・航空写真の 3D 表示に重ね、断層が動いたときの揺れ（震度・最大地動速度 PGV）、地表の断層変位と地殻の上下変動、建物 1 棟ごとの被害、揺れによる斜面崩壊と土石流を GPU で計算します（津波は扱いません）。</p>
+      <div class="hero-cta">
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="btn btn-primary btn-lg" data-i18n="heroGet">デスクトップ版を入手</a>
+        <a href="#features" class="btn btn-ghost btn-lg" data-i18n="heroMore">できることを見る</a>
+      </div>
+      <p class="platforms" data-i18n="heroPlat">macOS デスクトップアプリ (Apple Silicon · .dmg) · 日本語 / English</p>
+    </div>
+  </header>
+
+  <!-- ===== Stats ===== -->
+  <section class="stats">
+    <div class="container stats-grid">
+      <div class="stat"><strong data-i18n="statSecN">5 断層系＋南海</strong><span data-i18n="statSec">富士川河口・駿河トラフほか</span></div>
+      <div class="stat"><strong data-i18n="statScenN">10 シナリオ＋CSV</strong><span data-i18n="statScen">Mw6.2〜9.1 と断層CSV読込</span></div>
+      <div class="stat"><strong data-i18n="statAreaN">7 地区</strong><span data-i18n="statArea">静岡市周辺の既定タイル</span></div>
+      <div class="stat"><strong>2 m</strong><span data-i18n="statGrid">計算の格子（100万セル）</span></div>
+      <div class="stat"><strong>4K MP4</strong><span data-i18n="statRec">動画・GeoTIFF・CSV保存</span></div>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="kicker">FEATURES</p>
+      <h2 data-i18n="featTitle">プレート境界と活断層から、揺れ・建物被害・斜面崩壊まで</h2>
+      <p class="section-lead" data-i18n="featLead">シナリオを選ぶと、動く断層またはプレート境界と規模がまとめて設定されます。距離と地形から揺れと地殻変動を求め、建物と斜面がどうなるかを 3D の街と山の上で確かめられます。</p>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/fault.jpg" alt="蒲原東部・富士川河口断層帯の活断層距離と地表変位危険帯" loading="lazy"><figcaption data-i18n="f1Cap">蒲原東部・富士川西岸：国土地理院「活断層図」のトレースと 20m / 50m / 100m / 300m の距離帯</figcaption></figure>
+        <div class="feature-text">
+          <span class="num">01</span>
+          <h3 data-i18n="f1Title">活断層はどこを通っているか</h3>
+          <p data-i18n="f1Body">国土地理院「活断層図（都市圏活断層図）」の断層線を、航空写真の 3D 地形に重ねます。断層から 20 m 以内（地表ずれ危険帯）・100 m 以内（近傍警戒帯）を塗り分け、地表を「活断層からの距離」で表示すると、富士川河口断層帯が通る蒲原・富士川西岸などで断層のすぐ近くにある家や道路が一目で分かります。</p>
+          <ul class="chips">
+            <li data-i18n="f1c1">国土地理院 活断層図</li>
+            <li data-i18n="f1c2">20 m / 100 m / 300 m 帯</li>
+            <li data-i18n="f1c3">3D 地表断層段差の強調</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/pgv.jpg" alt="最大地動速度 PGV と建物被害の3D表示" loading="lazy"><figcaption data-i18n="f2Cap">地盤増幅と断層距離から求めた最大地動速度 PGV (cm/s) の分布と建物の被害色分け</figcaption></figure>
+        <div class="feature-text">
+          <span class="num">02</span>
+          <h3 data-i18n="f2Title">どこが、どれだけ揺れるか（震度・PGV・地殻変動）</h3>
+          <p data-i18n="f2Body">断層やプレート境界までの最短距離と規模 Mw から司・翠川（1999）の距離減衰式で基盤の揺れを求め、地形勾配から推定した地盤で増幅させて 2 m ごとの計測震度・最大地動速度（PGV）・最大加速度（PGA）を算出します。南海トラフのシナリオでは、165 枚の小断層から Okada（1985）の式で地殻の上下変動（隆起・沈降）も計算します。</p>
+          <ul class="chips">
+            <li data-i18n="f2c1">震度 4〜7・等震度線</li>
+            <li data-i18n="f2c2">Okada 式の地殻上下変動</li>
+            <li data-i18n="f2c3">地震波 3D アニメーション</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/damage.jpg" alt="静岡駅・駿府城公園周辺の想定震度と建物1棟ごとの被害判定" loading="lazy"><figcaption data-i18n="f3Cap">静岡駅・駿府城公園：南海トラフ巨大地震（最大クラス Mw9.1）での想定震度と建物被害判定</figcaption></figure>
+        <div class="feature-text">
+          <span class="num">03</span>
+          <h3 data-i18n="f3Title">建物ひとつひとつの被害と地点の波形を見る</h3>
+          <p data-i18n="f3Body">建物ごとの揺れ（PGV）と構造区分（普通建物・堅ろう建物・高層建物）から、被害率曲線で全壊・半壊・一部損壊を判定し、活断層図の断層線直上で大きなずれを受けた建物は「断層変位による損壊」として色分けします。建物をクリックすると震度・PGV・揺れの到達時刻・模式波形・被害確率が表示され、CSV で保存できます。</p>
+          <ul class="chips">
+            <li data-i18n="f3c1">断層変位・全壊・半壊・一部損壊</li>
+            <li data-i18n="f3c2">加速度・速度の模式波形</li>
+            <li data-i18n="f3c3">地点の結果を CSV で保存</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature reverse">
+        <figure class="shot"><img src="assets/slide.jpg" alt="由比・薩埵峠での地震による斜面崩壊と土石流の流下" loading="lazy"><figcaption data-i18n="f4Cap">清水区 由比・薩埵峠：強い揺れで急斜面が崩れ、土砂が谷や海岸沿いへ流れ下る計算結果</figcaption></figure>
+        <div class="feature-text">
+          <span class="num">04</span>
+          <h3 data-i18n="f4Title">揺れで斜面が崩れ、土砂が流れ下る</h3>
+          <p data-i18n="f4Body">地震波が届いた所から水平震度 kh を加えて無限長斜面の安全率を計算し、崩れた土砂を Voellmy 摩擦の土石流として GPU で流します。由比・薩埵峠や梅ケ島・大谷崩のような急斜面での地震時崩壊に加え、「雨の開始・地震に対して」を時間単位で前後させて豪雨と地震の複合災害も試せます。</p>
+          <ul class="chips">
+            <li data-i18n="f4c1">地震時の斜面安全率 FS</li>
+            <li data-i18n="f4c2">Voellmy 摩擦の土石流</li>
+            <li data-i18n="f4c3">雨と地震の前後タイミング設定</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="feature">
+        <figure class="shot"><img src="assets/zones.jpg" alt="土砂災害警戒区域（イエロー・レッド）との重ね合わせ比較" loading="lazy"><figcaption data-i18n="f5Cap">重ねるハザードマップの土砂災害警戒区域（土石流・急傾斜地・地すべり）を 3D 地形に重ねて比較</figcaption></figure>
+        <div class="feature-text">
+          <span class="num">05</span>
+          <h3 data-i18n="f5Title">警戒区域と比べ、住所からタイルを作り、断層CSVを読む</h3>
+          <p data-i18n="f5Body">静岡県指定の土砂災害警戒区域（イエロー）・特別警戒区域（レッド）を種類ごとに重ねて崩壊範囲と照合できます。住所・地名から新しいタイル（1〜3 km 四方）をアプリ内で作成でき、さらに国土地理院の震源断層モデルなどの矩形断層 CSV（1行1枚）を読み込んで任意の地震を計算できます。</p>
+          <ul class="chips">
+            <li data-i18n="f5c1">土砂災害警戒区域の比較</li>
+            <li data-i18n="f5c2">断層パラメータ CSV 読込・書出</li>
+            <li data-i18n="f5c3">最大 3840 × 2160・60 fps で録画</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Faults & Plate Boundary ===== -->
+  <section class="section alt" id="faults">
+    <div class="container">
+      <p class="kicker">ACTIVE FAULTS &amp; PLATE BOUNDARY</p>
+      <h2 data-i18n="secTitle">静岡市周辺の活断層と駿河トラフ・南海トラフ</h2>
+      <p class="section-lead" data-i18n="secLead">富士川河口断層帯と身延断層は国土地理院「活断層図」から、駿河トラフ・1935年静岡地震の伏在断層・北伊豆断層帯は地震本部の長期評価や論文を目安にした概略トレースとして収録。南海トラフは内閣府（2012）の設定ルールと USGS Slab1.0 の深さ（静岡市下で深さ約 15〜18 km）から 165 枚の小断層を再構成しています。</p>
+      <div class="split">
+        <figure class="shot map"><img src="assets/sections.jpg" alt="広域 86 × 83 km の地形と断層別の色分け" loading="lazy"><figcaption data-i18n="secCap">広域 86 × 83 km（南アルプス南部〜静岡平野〜駿河湾〜富士山〜伊豆半島北西部）。断層ごとに色分けしたトレース</figcaption></figure>
+        <ul class="spec">
+          <li><b><i class="sw" style="background:#f01810"></i><span data-i18n="s1a">富士川河口断層帯（活断層図）</span></b><span data-i18n="s1b">富士宮市〜富士市〜清水区蒲原東部。西側が隆起する逆断層群で、単独活動（M7.2程度）と駿河トラフとの連動（M8.0程度）を収録</span></li>
+          <li><b><i class="sw" style="background:#1e96dc"></i><span data-i18n="s2a">駿河トラフ・南海トラフ（プレート境界）</span></b><span data-i18n="s2b">駿河湾内を走るプレート境界と 165 枚の小断層モデル。最大クラス（Mw9.1）・安政東海型（M8.4）・宝永型（M8.6）の揺れと地殻変動を計算（※津波は計算しません）</span></li>
+          <li><b><i class="sw" style="background:#28aa46"></i><span data-i18n="s3a">1935年 静岡地震の震源断層（伏在・概略）</span></b><span data-i18n="s3b">有度丘陵付近の地下（武尾ほか 1979 のモデルが目安）。地表にずれは出ず、大谷・高松など市の南部の揺れを計算</span></li>
+          <li><b><i class="sw" style="background:#f08c1e"></i><span data-i18n="s4a">身延断層（活断層図＋概略）</span></b><span data-i18n="s4b">静岡市葵区北方の山梨県身延町付近を通る活断層（M7.0程度）。梅ケ島・大谷崩など北部山地の揺れと崩壊の比較に</span></li>
+          <li><b><i class="sw" style="background:#c85ac8"></i><span data-i18n="s5a">北伊豆断層帯（概略＋一部活断層図）</span></b><span data-i18n="s5b">1930年北伊豆地震（M7.3）を起こした丹那断層など。静岡市から東へ約 50 km 離れた内陸地震の揺れの比較に</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Scenarios ===== -->
+  <section class="section" id="scenarios">
+    <div class="container">
+      <p class="kicker">SCENARIOS &amp; PRESET REGIONS</p>
+      <h2 data-i18n="scTitle">10 の地震・豪雨シナリオと 7 つの既定地区</h2>
+      <p class="section-lead" data-i18n="scLead">南海トラフの海溝型地震から直下の伏在断層、富士川河口断層帯の地表破断、豪雨との複合災害まで収録。Mw・断層上端深さ・横ずれ・縦ずれ・パルス増幅率・継続時間は自由に変更でき、断層CSVの読込・書出にも対応しています。</p>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="c1a">南海トラフ巨大地震 最大クラス（Mw9.1）</h3><p data-i18n="c1b">駿河湾〜紀伊半島沖に大すべり域を置いた最大クラス。静岡駅タイルでは約 93% が震度 7、中央で +4.75 m の隆起、建物の約 49% が全壊（耐震化を含まない上限に近い目安）と算出されます。</p></div>
+        <div class="tech"><h3 data-i18n="c2a">1854年 安政東海地震型（M8.4）・1707年 宝永地震型（M8.6）</h3><p data-i18n="c2b">駿河湾奥まで破壊が及んだ安政東海型（静岡駅タイル中央で +1.40 m 隆起）と、駿河湾を除いて遠州灘〜土佐沖が動く宝永型（大谷崩の比較用）を収録しています。</p></div>
+        <div class="tech"><h3 data-i18n="c3a">富士川河口断層帯＋駿河トラフ連動（M8.0）・陸上部単独（M7.2）</h3><p data-i18n="c3b">蒲原東部・富士川西岸タイルを通る活断層図のトレースに沿って西側が隆起し、3D 地形に段差と断層直上の建物被害が現れます。由比の急斜面での崩壊比較にも使えます。</p></div>
+        <div class="tech"><h3 data-i18n="c4a">1935年 静岡地震型（M6.4）・身延断層（M7.0）・北伊豆断層帯（M7.3）</h3><p data-i18n="c4b">有度丘陵付近の伏在断層による直下地震と、北方の身延断層、東方の北伊豆断層帯。震源の深さや距離による揺れの違いを比べられます。</p></div>
+        <div class="tech"><h3 data-i18n="c5a">複合災害：豪雨の後の南海トラフ地震（Mw9.1＋先行降雨）</h3><p data-i18n="c5b">1 時間 75 mm の豪雨が止んだ直後に最大クラスの地震が発生する最悪のケース。由比や梅ケ島・大谷崩の急斜面で崩壊と土石流が広がります。</p></div>
+        <div class="tech"><h3 data-i18n="c6a">断層パラメータ CSV の読込・書出と 7 地区プリセット</h3><p data-i18n="c6b">静岡駅・駿府城公園、登呂・中田、大谷・高松、清水駅・清水港、由比・薩埵峠、蒲原東部・富士川西岸、梅ケ島・大谷崩の 7 地区（各 2 km 四方・2 m 格子）を同梱しています。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/title.jpg" alt="Shizuoka Fault 表紙画面" loading="lazy"><figcaption data-i18n="titleCap">表紙: 静岡の広域地形と 7 つの既定地区（静岡駅・登呂・大谷高松・清水・由比・蒲原東部・大谷崩）</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Tech ===== -->
+  <section class="section alt" id="tech">
+    <div class="container">
+      <p class="kicker">HOW IT WORKS</p>
+      <h2 data-i18n="techTitle">しくみと設計上の配慮</h2>
+      <div class="tech-grid">
+        <div class="tech"><h3 data-i18n="t1a">活断層距離とプレート境界モデル</h3><p data-i18n="t1b">陸の活断層は国土地理院の活断層図から断層線を抽出し、位置の誤差が大きい概略トレースでは「断層変位による損壊」を誤判定しないよう区別しています。南海トラフは 165 枚の小断層から距離と Okada 式の地殻上下変動を計算します。</p></div>
+        <div class="tech"><h3 data-i18n="t2a">揺れの強さと地盤増幅</h3><p data-i18n="t2b">司・翠川（1999）の距離減衰式（内陸地殻内／プレート間）で基盤の PGV を求め、周囲約 50 m の地形勾配から推定した地盤で増幅。断層近傍のパルス、上盤側の増幅、盆地の縁の増幅を加え、翠川ほか（1999）の式で計測震度に換算します。</p></div>
+        <div class="tech"><h3 data-i18n="t3a">建物被害率曲線とモード切替</h3><p data-i18n="t3b">国土地理院の建物外形ごとに PGV の被害率曲線（対数正規分布）で全壊・半壊・一部損壊を判定。地表は航空写真・想定震度・PGV・断層距離・安全率 FS・土壌飽和度・傾斜・標高段彩の 8 モードで切り替えられます。</p></div>
+        <div class="tech"><h3 data-i18n="t4a">地震時の斜面崩壊・土石流（GPU）</h3><p data-i18n="t4b">地震波が断層から約 1.8 km/s で広がり、到達した斜面から水平震度 kh を加えて無限長斜面の安全率を計算。崩れた土砂は Voellmy 摩擦の土石流として WebGL2 のシェーダーで 2 m 格子の上を流れ下ります。</p></div>
+      </div>
+      <figure class="shot wide"><img src="assets/english.jpg" alt="English UI mode" loading="lazy"><figcaption data-i18n="enCap">ワンクリックで日本語 / English を切り替え：画面・凡例・小断層マップ・地点情報・録画の文字まで対応</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Start ===== -->
+  <section class="section" id="start">
+    <div class="container">
+      <p class="kicker">DESKTOP APP</p>
+      <h2 data-i18n="startTitle">デスクトップ版</h2>
+      <p class="section-lead" data-i18n="startLead">インストールしてすぐ使えます。既定の 7 地区、広域 86 × 83 km の地形、活断層・南海トラフ小断層モデル、土砂災害警戒区域、地名、町丁界のデータをすべてアプリに同梱しています。</p>
+      <div class="platform-grid">
+        <div class="platform">
+          <h3>macOS</h3>
+          <ul>
+            <li><span data-i18n="pkgLabel">形式</span><strong>.dmg インストーラー (Tauri v2)</strong></li>
+            <li><span data-i18n="cpuLabel">対応</span><strong>macOS (Apple Silicon M1〜)</strong></li>
+            <li><span data-i18n="dataLabel">同梱データ</span><strong data-i18n="dataVal">静岡 7 地区（2m格子）＋広域 86×83km 地形・断層・警戒区域</strong></li>
+            <li><span data-i18n="langLabel">言語</span><strong>日本語 / English</strong></li>
+          </ul>
+          <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="btn btn-primary" data-i18n="getMac">製品ページ・ダウンロード</a>
+        </div>
+      </div>
+      <p class="note" data-i18n="deskNote">※ 住所検索、新しいタイルの作成（国土地理院の標高・建物・航空写真・活断層図、重ねるハザードマップ）にはインターネット接続が必要です。GPU（WebGL2）を使います。録画（MP4）・CSV・GeoTIFF は「ダウンロード」フォルダに保存されます。</p>
+      <p class="warn" data-i18n="warn">公開データと簡略化した計算式による想定の一例で、国・静岡県・静岡市の公式の被害想定ではありません。南海トラフではプレート境界の動きによる揺れと地殻の上下変動だけを計算し、津波と液状化は計算していません（沿岸や低地の避難判断には使えません）。また距離減衰式を適用範囲外まで使い、建物の耐震化を反映していないため、建物被害の棟数は上限に近い目安として見てください。防災上の判断には、静岡市のハザードマップや公式の情報をお使いください。</p>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2 data-i18n-html="ctaTitle">南海トラフと活断層が動いたら、<span class="accent">静岡の街と山はどう揺れるのか。</span></h2>
+      <div class="hero-cta" style="justify-content:center">
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="btn btn-primary btn-lg" data-i18n="ctaGet">デスクトップ版を入手</a>
+        <a href="MANUAL.ja.html" id="cta-manual" class="btn btn-ghost btn-lg" data-i18n="ctaManual">取扱説明書を読む</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHIZUOKA FAULT</span></div>
+        <p class="credits" data-i18n="credits">出典: 国土地理院（活断層図〈都市圏活断層図〉・標高タイル・建物・シームレス空中写真・重ねるハザードマップ・住所検索）、地震調査研究推進本部 長期評価、内閣府「南海トラフの巨大地震モデル検討会」第二次報告（2012）の設定ルール・USGS Slab1.0・Okada (1985)、気象庁 過去の気象データ（静岡）、総務省統計局 e-Stat（2020年国勢調査 小地域境界）、© OpenStreetMap contributors ／ 描画: three.js</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" data-i18n="fStore">販売ページ</a></li>
+        <li><a href="MANUAL.ja.html" data-i18n="fManualJa">使用マニュアル (JA)</a></li>
+        <li><a href="MANUAL.en.html" data-i18n="fManualEn">User Manual (EN)</a></li>
+        <li><a href="https://cyber-matrix.netlify.app/">Cyber Matrix Store</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="script.js?v=20261114"></script>
+</body>
+</html>

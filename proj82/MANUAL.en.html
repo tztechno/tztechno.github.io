@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shizuoka Fault User Manual</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%23101a2e%22/%3E%3Cpath d=%22M17 32l6-22 4 4 5-8v26z%22 fill=%22%233f7a4a%22/%3E%3Cpath d=%22M4 32L26 0h4L8 32z%22 fill=%22%23ff3b2f%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261114">
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text">SHIZUOKA FAULT</span></a>
+      <ul class="nav-links"><li><a href="index.html">Back to LP</a></li></ul>
+      <div class="nav-actions">
+        <a href="MANUAL.ja.html" class="lang-btn">日本語</a>
+        <a href="https://cyber-matrix.netlify.app/products/shizuoka_fault" class="btn btn-primary btn-sm">Get it</a>
+      </div>
+    </div>
+  </nav>
+  <main class="manual container">
+    <article>
+<h1 id="shizuoka-fault-user-manual">Shizuoka Fault — User Manual</h1>
+<p>A desktop application that overlays the active faults in and around Shizuoka City and the Nankai Trough plate interface on 3D terrain, buildings and aerial photos from the Geospatial Information Authority of Japan (GSI), and computes:</p>
+<ul>
+<li>Strength of ground shaking (JMA instrumental seismic intensity, Peak Ground Velocity PGV, Peak Ground Acceleration PGA)</li>
+<li>Surface fault displacement (strike-slip and vertical scarp steps) and vertical crustal movement from Nankai Trough slip</li>
+<li>Damage to each individual building (fault displacement damage, complete collapse, half collapse, partial damage)</li>
+<li>Coseismic slope failures and debris-flow runout on the GPU</li>
+</ul>
+<blockquote><p><strong>Tsunami is not modelled</strong> — For Nankai Trough earthquakes, only ground shaking and vertical crustal movement from slip on the plate interface are computed. Tsunami height, arrival and inundation are not computed; do not use this app for coastal evacuation decisions.</p></blockquote>
+<blockquote><p><strong>Important Note</strong> — The results represent <strong>one illustrative scenario</strong> derived from open public data and simplified equations. They do not match actual earthquake damage or official projections by the national government, Shizuoka Prefecture or Shizuoka City. Always use official municipal hazard maps and meteorological warnings for disaster preparedness and evacuation.</p></blockquote>
+<p><em>日本語版: <a href="MANUAL.ja.html">MANUAL.ja.md</a></em></p>
+<hr>
+<h2 id="1-starting-the-app">1. Starting the App</h2>
+<ul>
+<li><strong>macOS (Apple Silicon)</strong>: Open the downloaded <code>.dmg</code> (<code>ShizuokaFault_&lt;version&gt;_aarch64.dmg</code> or <code>ShizuokaFault.dmg</code>) and drag <code>ShizuokaFault.app</code> into the Applications folder (on first launch, right-click → Open).</li>
+<li>All 7 preset areas, the 86 × 83 km wide-area terrain, active fault traces, Nankai Trough subfaults, sediment-disaster warning areas, place names and town boundaries are bundled inside the app, so it runs offline. An internet connection is only needed when searching addresses or building new tiles.</li>
+<li>Video recordings (MP4), CSV files and GeoTIFF grids are saved directly to your <code>Downloads</code> folder.</li>
+</ul>
+<hr>
+<h2 id="2-screen-layout">2. Screen Layout</h2>
+<h3 id="title-screen">Title Screen</h3>
+<p>When the app starts, the title screen appears. Click <strong>START</strong> (or press Enter) once loading finishes, or click any of the 7 preset areas on the right to open it directly. Click <strong>Title</strong> at the top left of the side panel at any time to return to the title screen.</p>
+<h3 id="main-view">Main View</h3>
+<table><thead><tr><th>Area</th><th>Contents</th></tr></thead><tbody>
+<tr><td>Left side panel</td><td>Sections 1–7: Region / Active Fault Map &amp; Earthquake / Display Mode / Landslide Run / Soil &amp; Rain / Hazard Map / Video Recording</td></tr>
+<tr><td>Centre</td><td>3D viewport (terrain, buildings, active fault map, seismic intensity / PGV colouring, debris flow)</td></tr>
+<tr><td>Top-left <strong>☰ Menu</strong></td><td>Fold or unfold the entire left panel</td></tr>
+<tr><td>Top-left HUD ("Status")</td><td>Region name, elapsed time, Mw and max JMA intensity, building damage counts, failed slope area</td></tr>
+<tr><td>Top-right Legend</td><td>Automatically updates to match the active terrain, building and hazard-map layers</td></tr>
+<tr><td>Bottom-left Wide-Area Map</td><td>86 × 83 km shaded relief around Shizuoka City and Suruga Bay with colour-coded fault traces; click to pick a location</td></tr>
+<tr><td>Bottom Timeline &amp; Chart</td><td>Playback scrubber and time-series chart for rainfall and the inspected point</td></tr>
+</tbody></table>
+<p>Click <strong>English / 日本語</strong> at the top of the side panel to switch the entire interface, legends, point inspector and video overlay text between Japanese and English.</p>
+<hr>
+<h2 id="3-choosing-or-building-a-region-tile">3. Choosing or Building a Region Tile</h2>
+<h3 id="preset-areas-each-2-km-2-km-on-a-2-m-grid-1000000-cells">Preset Areas (each 2 km × 2 km on a 2 m grid, 1,000,000 cells)</h3>
+<table><thead><tr><th>Area</th><th>Highlights</th></tr></thead><tbody>
+<tr><td>Shizuoka Station / Sunpu Castle Park</td><td>City centre on the Shizuoka plain; compare Nankai Trough shaking and building damage</td></tr>
+<tr><td>Toro / Nakata, Suruga-ku</td><td>Soft ground on the lower Abe River plain; compare site amplification on flat lowlands</td></tr>
+<tr><td>Otani / Takamatsu, Suruga-ku</td><td>SW foot of the Udo Hills; area hardest hit in the 1935 Shizuoka earthquake</td></tr>
+<tr><td>Shimizu Station / Port</td><td>Harbour city nearest the Suruga Trough; compare vertical crustal movement</td></tr>
+<tr><td>Yui / Satta Pass, Shimizu-ku</td><td>Yui landslide area and steep Tokaido coastal slopes; coseismic slope failures</td></tr>
+<tr><td>East Kambara / west bank of the Fuji River</td><td>South end of the Fujikawa-kako fault zone; surveyed GSI fault trace crosses the tile</td></tr>
+<tr><td>Umegashima / Okuzure, Aoi-ku</td><td>Site of the giant Okuzure landslide from the 1707 Hoei earthquake; mountain slope failures</td></tr>
+</tbody></table>
+<h3 id="building-a-new-tile-from-an-address">Building a New Tile from an Address</h3>
+<ol>
+<li>Open <strong>Make a new tile from an address or place name</strong>, enter a place name or address, and click <strong>Search</strong>.</li>
+<li>Pick a result and choose a tile size (1 / 2 / 3 km square).</li>
+<li>Click <strong>Build and show this tile</strong> (requires internet access to fetch GSI 5 m / 10 m DEM, building footprints, aerial photos, active fault map tiles and hazard map tiles).</li>
+</ol>
+<hr>
+<h2 id="4-active-fault-map-overlay">4. Active Fault Map Overlay</h2>
+<ul>
+<li><strong>Red lines (solid / dashed with ticks)</strong>: Surveyed active fault traces from the GSI Active Fault Map (<code>afm</code> tiles).</li>
+<li><strong>Purple bands</strong>: Approximate traces placed from HERP evaluations and research papers where GSI active fault maps are unavailable (offshore or blind faults). <strong>Position uncertainty is ±1 km or greater</strong>; per-building fault-displacement damage is not evaluated along approximate traces.</li>
+<li><strong>Wide-area map colours</strong>: Fujikawa-kako fault zone (red), Minobu fault (orange), Kita-Izu fault zone (violet), Suruga Trough (blue), 1935 Shizuoka EQ blind fault (green).</li>
+</ul>
+<hr>
+<h2 id="5-earthquake-scenarios-custom-fault-csv">5. Earthquake Scenarios &amp; Custom Fault CSV</h2>
+<table><thead><tr><th>Scenario</th><th>Rupturing Source</th><th>Scale</th><th>Notes</th></tr></thead><tbody>
+<tr><td>No fault rupture (default)</td><td>None</td><td>—</td><td>Normal conditions at launch</td></tr>
+<tr><td>Nankai Trough megathrust, maximum class</td><td>Suruga Bay to Hyuganada plate interface</td><td>Mw 9.1</td><td>Rebuilt from Cabinet Office (2012) rules; large-slip patch from Suruga Bay to off Kii</td></tr>
+<tr><td>1854 Ansei-Tokai type</td><td>Suruga Trough to Tonankai</td><td>M 8.4</td><td>Rupture reaching the head of Suruga Bay; uplift along the west coast</td></tr>
+<tr><td>1707 Hoei type</td><td>Enshu-nada to off Tosa (without Suruga Bay)</td><td>M 8.6 (Mw 8.7)</td><td>Long shaking from a more distant source; compare at Okuzure</td></tr>
+<tr><td>Fujikawa-kako + Suruga Trough</td><td>Fujikawa-kako fault zone + Suruga Trough</td><td>~M 8.0</td><td>Long-term evaluation case a (west side up 1–2 m)</td></tr>
+<tr><td>Fujikawa-kako onshore alone</td><td>Fujikawa-kako fault zone</td><td>~M 7.2 / Mw 6.8</td><td>Onshore reverse fault rupturing alone</td></tr>
+<tr><td>1935 Shizuoka EQ type</td><td>Blind fault near the Udo Hills</td><td>M 6.4 / Mw 6.2</td><td>Shallow earthquake beneath the city; no surface break</td></tr>
+<tr><td>Minobu fault EQ</td><td>Minobu fault</td><td>~M 7.0 / Mw 6.7</td><td>Compare mountain slope failures in northern Aoi-ku</td></tr>
+<tr><td>Kita-Izu fault zone EQ</td><td>Kita-Izu fault zone</td><td>~M 7.3 / Mw 6.9</td><td>1930 Kita-Izu type (~50 km east of Shizuoka)</td></tr>
+<tr><td>Compound disaster: heavy rain + Nankai Trough</td><td>Suruga Bay to Hyuganada</td><td>Mw 9.1</td><td>Mw 9.1 earthquake striking right after a 75 mm/h downpour</td></tr>
+<tr><td>Comparison: heavy rain only</td><td>None</td><td>—</td><td>1974 Tanabata flood rain alone (508 mm in 21 h)</td></tr>
+</tbody></table>
+<h3 id="loading-saving-fault-parameter-csvs">Loading &amp; Saving Fault Parameter CSVs</h3>
+<p>Click <strong>📄 Load Fault CSV</strong> to load rectangular fault planes (one fault per row: <code>name, lon, lat, top_depth_km, length_km, width_km, strike_deg, dip_deg, rake_deg, slip_m</code>) in the same format used by GSI source fault models. Click <strong>⬇ Save Fault CSV</strong> to export the active scenario’s fault planes as a CSV template.</p>
+<hr>
+<h2 id="6-coseismic-landslides-rain-timing-point-inspection">6. Coseismic Landslides, Rain Timing &amp; Point Inspection</h2>
+<ul>
+<li>Click <strong>▶ Start Earthquake &amp; Landslide Run</strong> in Section 4 to propagate the seismic waves and compute coseismic slope failures and Voellmy-friction debris flows on the 2 m grid.</li>
+<li>In Section 5, set <strong>Rain start relative to the earthquake (hours)</strong>: negative values (e.g. <code>-3</code>) start rain before the earthquake; positive values (e.g. <code>+6</code>) start rain after the earthquake.</li>
+<li>Click any building or ground point in the 3D view to inspect its fault distance, JMA intensity, PGV, PGA, vertical crustal movement, wave arrival time, schematic acceleration/velocity waveform, slope safety factor FS and building damage probabilities, and click <strong>📄 Save this point to CSV</strong> after a run.</li>
+</ul>
+<hr>
+<h2 id="7-exporting-geotiff-csv-4k-mp4-video">7. Exporting GeoTIFF, CSV &amp; 4K MP4 Video</h2>
+<ul>
+<li><strong>GeoTIFF</strong>: Export JMA seismic intensity, PGV, fault distance, corrected DEM, DSM with buildings, maximum debris depth and failure depth in Japan Plane Rectangular CS VIII (JGD2011, EPSG:6676).</li>
+<li><strong>MP4 Video</strong>: Record in Section 7 up to 3840 × 2160 (4K) at 60 fps with fixed, keyframed or orbiting camera paths.</li>
+</ul>
+<hr>
+<h2 id="8-limitations-sources">8. Limitations &amp; Sources</h2>
+<ul>
+<li><strong>Illustrative scenario only</strong>: Attenuation equations, fragility curves and infinite-slope stability use simplified models without borehole soil profiles or building age/seismic retrofitting data. On the Shizuoka Station tile under the Mw 9.1 maximum-class scenario, about 93% reaches JMA 7 and about 49% of buildings are judged complete collapse; treat building counts as an upper-bound indicator for relative comparison.</li>
+<li><strong>No tsunami or liquefaction</strong>: Neither tsunami inundation nor soil liquefaction is modelled.</li>
+<li><strong>Sources</strong>: GSI Japan (<code>afm</code> active fault maps, 5 m / 10 m DEM, building footprints, seamless aerial photos, hazard map portal, address search), HERP long-term evaluations, Cabinet Office (2012) Nankai Trough model rules, USGS Slab1.0, Okada (1985), JMA past weather data (Shizuoka), Statistics Bureau e-Stat (2020 Census small areas), © OpenStreetMap contributors.</li>
+</ul>
+    </article>
+  </main>
+</body>
+</html>
