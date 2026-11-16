@@ -315,6 +315,35 @@
         </div>
       </div>
 
+      <!-- Fault CSV → boundary waves (v1.1.0) -->
+      <div class="feature-block reverse" style="margin-bottom: 56px;">
+        <div class="feature-visual">
+          <img src="assets/fault_csv.jpg" alt="断層CSVから計算した波源で津波の遡上を計算する画面">
+          <span class="visual-badge" data-i18n="badgeFault">断層CSV → 境界13地点の波形（v1.1.0）</span>
+        </div>
+        <div class="feature-info">
+          <div class="feature-num" data-i18n="wsFaultNum">NEW IN v1.1.0 / FAULT CSV → BOUNDARY WAVES</div>
+          <h3 class="feature-title" data-i18n="wsFaultTitle">断層CSVから、計算範囲の境界の波源をアプリ内で作る</h3>
+          <p class="feature-text" data-i18n="wsFaultDesc">
+            断層パラメータCSV（nankai_trough と同じ形式）をドロップすると、プリセットを作ったのと同じ計算をアプリの中（Web Worker）で行います。日本全域 2.5km 格子と黒潮町沖 15秒メッシュの入れ子格子で地震後 1〜3時間を計算し、計算範囲の南端・東端13地点の波形をシナリオ「断層CSV: ファイル名」として設定。そのまま「計算・再生」で津波の遡上を計算できます。
+          </p>
+          <ul class="feature-points">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="wsFaultP1">Okada (1985) の変位を断層ごとに重ね合わせ（最大 5,000 枚）。コメント行で破壊開始点と破壊伝播速度も指定可能。進み具合・残り時間の表示と中止に対応</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="wsFaultP2">プリセットと同じコード（src/edgeSource.js）で計算。内閣府ケース④のサンプルCSVを読み込むと、プリセットの境界波形と数cm以内で一致</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span data-i18n="wsFaultP3">計算範囲内の海面変化（地殻変動）はチェックで選択。波源が範囲の真下で海面が大きく隆起する断層には入れるよう、沈降する断層では入れると過小評価になる旨を表示。サンプルCSV（内閣府ケース④・昭和南海型 M8.4）同梱</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <!-- Verification Comparison Box -->
       <div class="scenario-box" style="margin-top: 20px;">
         <div class="scenario-header">
@@ -353,7 +382,7 @@
       <div class="section-header">
         <span class="kicker" data-i18n="scenKicker">TSUNAMI SCENARIOS</span>
         <h2 class="section-title" data-i18n="scenTitle">収録シナリオと外部CSV連携</h2>
-        <p class="section-lead" data-i18n="scenLead">内閣府ケース④・⑤の領域端13地点入力から、昭和南海型、想定超過の越流検証、nankai_trough 出力CSVのドラッグ＆ドロップまで対応しています。</p>
+        <p class="section-lead" data-i18n="scenLead">内閣府ケース④・⑤の領域端13地点入力から、昭和南海型、想定超過の越流検証、nankai_trough 出力CSVのドラッグ＆ドロップ、断層CSVからの波源計算（v1.1.0）まで対応しています。</p>
       </div>
 
       <div class="scenarios-grid">
@@ -437,7 +466,7 @@
           <div class="store-badge" data-i18n="storeBadge">MACOS DESKTOP EDITION</div>
           <h2 class="store-title" data-i18n="storeTitle">黒潮町津波 3Dシミュレーター デスクトップ版</h2>
           <p class="store-desc" data-i18n="storeDesc">
-            Tauri v2 で構築された macOS ネイティブアプリ（v1.0.0）。15m格子の全域計算・プリセット波源の再生はオフラインで動作し、住所検索や 2m 詳細タイルの作成（ネット接続時）、CSV・MP4 動画のダウンロードフォルダへの保存に対応しています。
+            Tauri v2 で構築された macOS ネイティブアプリ（v1.1.0）。15m格子の全域計算・プリセット波源の再生・断層CSVからの波源計算はオフラインで動作し、住所検索や 2m 詳細タイルの作成（ネット接続時）、CSV・MP4 動画のダウンロードフォルダへの保存に対応しています。
           </p>
 
           <div class="store-pricing">
@@ -454,7 +483,7 @@
 
           <div class="store-meta">
             <div class="meta-item">
-              <strong data-i18n="metaOsLabel">対応OS:</strong> <span data-i18n="metaOs">macOS (Apple Silicon M1/M2/M3/M4 · DMG 約13MB)</span>
+              <strong data-i18n="metaOsLabel">対応OS:</strong> <span data-i18n="metaOs">macOS (Apple Silicon M1/M2/M3/M4 · DMG 約15MB)</span>
             </div>
             <div class="meta-item">
               <strong data-i18n="metaReqLabel">動作要件:</strong> <span data-i18n="metaReq">WebGL2 対応 GPU（住所検索と 2m 詳細タイル作成時のみインターネット接続が必要）</span>
