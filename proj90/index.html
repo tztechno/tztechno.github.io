@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kuroshio Tsunami | 黒潮町津波 3Dシミュレーター</title>
-  <meta name="description" content="国土地理院の建物外周線から作った仮想3D建物（20,255棟）と地形・海底水深データ（kuroshio.tif / japan_sea.tif）に基づく高知県黒潮町沿岸（21×21km・15m格子）の津波3Dシミュレーター。南海トラフ巨大地震（内閣府ケース④・⑤等）の波源をnankai_troughの15秒入れ子格子で計算し、領域端13地点から入力。佐賀地区津波避難タワー3Dモデル・2m詳細タイルGPU計算を搭載。">
+  <meta name="description" content="国土地理院の建物外周線から作った仮想3D建物（20,255棟）と地形・海底水深データ（kuroshio.tif / japan_sea.tif）に基づく高知県黒潮町沿岸（21×21km・15m格子）の津波3Dシミュレーター。南海トラフ巨大地震（内閣府ケース④・⑤等）の波源をnankai_troughの沿岸タイル（水深200m未満を15秒メッシュ）で計算し、領域端98地点（400m間隔）から入力。佐賀地区津波避難タワー3Dモデル・2m詳細タイルGPU計算を搭載。">
 
   <!-- Open Graph / Social -->
   <meta property="og:title" content="Kuroshio Tsunami — 黒潮町津波 3Dシミュレーター">
@@ -67,7 +67,7 @@
       <h1 data-i18n-html="heroTitle">その波は、どこまで来るのか。<br><span class="text-gradient">土佐湾・黒潮町沿岸を3Dで追う。</span></h1>
 
       <p class="lead" data-i18n="heroLead">
-        南海トラフ巨大地震で日本最大級の津波高が想定される高知県黒潮町。田野浦・入野〜上川口〜佐賀〜鈴の沿岸 21×21km を 15m 格子（196万セル）で再現し、国土地理院の建築物外周線から生成した 20,255棟の仮想3D建物と佐賀地区津波避難タワーを配置。広域シミュレーター nankai_trough で黒潮町沖を15秒メッシュに細かくして計算した領域端13地点の波形を入力し、浅水長波モデルで津波の遡上を可視化する macOS デスクトップアプリです。
+        南海トラフ巨大地震で日本最大級の津波高が想定される高知県黒潮町。田野浦・入野〜上川口〜佐賀〜鈴の沿岸 21×21km を 15m 格子（196万セル）で再現し、国土地理院の建築物外周線から生成した 20,255棟の仮想3D建物と佐賀地区津波避難タワーを配置。広域シミュレーター nankai_trough で水深200m未満の沿岸を15秒メッシュに細かくして計算した、領域端98地点（400m間隔）の波形を入力し、浅水長波モデルで津波の遡上を可視化する macOS デスクトップアプリです。
       </p>
 
       <div class="hero-cta">
@@ -108,9 +108,9 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-num text-gradient-amber" data-i18n="statSourceVal">領域端 13地点</div>
+        <div class="stat-num text-gradient-amber" data-i18n="statSourceVal">領域端 98地点</div>
         <div class="stat-label" data-i18n="statSourceLabel">内閣府ケース④・⑤ 計算波源</div>
-        <div class="stat-desc" data-i18n="statSourceDesc">黒潮町沖15秒メッシュ・最大約7〜13m</div>
+        <div class="stat-desc" data-i18n="statSourceDesc">400m間隔 · 沿岸タイル15秒メッシュ · 最大 約6〜15m</div>
       </div>
 
       <div class="stat-card">
@@ -255,9 +255,9 @@
     <div class="container">
       <div class="section-header">
         <span class="kicker" data-i18n="wsKicker">WAVE SOURCE & VERIFICATION</span>
-        <h2 class="section-title" data-i18n="wsTitle">波源の決め方：黒潮町沖15秒メッシュ入れ子格子 × 領域端13地点入力</h2>
+        <h2 class="section-title" data-i18n="wsTitle">波源の決め方：水深200m未満の沿岸タイル（15秒メッシュ）× 領域端98地点入力</h2>
         <p class="section-lead" data-i18n="wsLead">
-          広域津波シミュレーター nankai_trough のソルバーをヘッドレスで実行し、黒潮町沖（132.5〜133.7°E、32.4〜33.35°N）だけ 15秒メッシュ（約400m、japan_sea.tif）の入れ子格子にして計算。本領域の南端・東端に沿って3kmごとに採った 13地点の波形を、採った場所の境界から換算なしで直接入力しています。
+          広域津波シミュレーター nankai_trough のソルバーで計算。日本全域は約2.5km格子、水深200m未満の海を含む0.25°の沿岸タイルは15秒メッシュ（約400m）の入れ子格子にし、隣のタイルとも境目で水位をやりとりします。本領域の南端・東端に沿って400mごと（15秒メッシュの1マスごと）に採った98地点の波形を、採った場所の境界から換算なしで直接入力しています。
         </p>
       </div>
 
@@ -268,9 +268,9 @@
         </div>
         <div class="feature-info">
           <div class="feature-num" data-i18n="wsSubNum">BOUNDARY WAVEFORMS & TIMING</div>
-          <h3 class="feature-title" data-i18n="wsSubTitle">領域端13地点の最高水位と、第1波の立ち上がりを捉える計算開始</h3>
+          <h3 class="feature-title" data-i18n="wsSubTitle">領域端98地点の最高水位と、地震直後からの計算開始</h3>
           <p class="feature-text" data-i18n="wsSubDesc">
-            高知県が想定に用いる内閣府ケースのうち、黒潮町沖で最も高くなる「ケース④ 四国沖（大すべり域）」を既定にしています（ケース⑤とほぼ同規模）。第1波の立ち上がり（地震後 約9〜16分）を途中で切らないよう、全13地点のうち最初に「全地点の最高水位の5%」に達する時刻の3分前（ケース④では地震後 8.2分）から計算を開始します。
+            高知県が想定に用いる内閣府ケースのうち、黒潮町沖で最も高くなる「ケース④ 四国沖（大すべり域）」を既定にしています（ケース⑤とほぼ同規模）。400m間隔の地点は岸近くの浅い海にもかかり、そこでは地震直後から海面が動くため、どこかの地点の水位が0.1mに達する3分前から計算を開始します（ケース④⑤・M8.4では地震直後から）。
           </p>
           <div class="table-wrap">
             <table class="data-table">
@@ -287,26 +287,26 @@
               <tbody>
                 <tr>
                   <td data-i18n="tdCase4"><strong>内閣府ケース④ 四国沖 (既定)</strong></td>
-                  <td>6.69 m</td>
-                  <td>8.47 m</td>
-                  <td>12.71 m</td>
-                  <td>11.95 m</td>
-                  <td data-i18n="tdTime4">地震後 約25〜32分</td>
+                  <td>6.05 m</td>
+                  <td>7.63 m</td>
+                  <td>15.11 m</td>
+                  <td>10.50 m</td>
+                  <td data-i18n="tdTime4">地震後 約25〜34分</td>
                 </tr>
                 <tr>
                   <td data-i18n="tdCase5"><strong>内閣府ケース⑤ 四国沖〜九州沖</strong></td>
-                  <td>6.86 m</td>
-                  <td>8.59 m</td>
-                  <td>12.78 m</td>
-                  <td>10.72 m</td>
-                  <td data-i18n="tdTime5">地震後 約25〜32分</td>
+                  <td>6.20 m</td>
+                  <td>7.73 m</td>
+                  <td>14.97 m</td>
+                  <td>9.27 m</td>
+                  <td data-i18n="tdTime5">地震後 約25〜34分</td>
                 </tr>
                 <tr>
                   <td data-i18n="tdM84"><strong>南海地震単独 M8.4 (昭和南海型)</strong></td>
-                  <td>1.57 m</td>
-                  <td>3.31 m</td>
-                  <td>4.64 m</td>
-                  <td>4.78 m</td>
+                  <td>1.58 m</td>
+                  <td>2.90 m</td>
+                  <td>5.99 m</td>
+                  <td>5.17 m</td>
                   <td>—</td>
                 </tr>
               </tbody>
@@ -319,13 +319,13 @@
       <div class="feature-block reverse" style="margin-bottom: 56px;">
         <div class="feature-visual">
           <img src="assets/fault_csv.jpg" alt="断層CSVから計算した波源で津波の遡上を計算する画面">
-          <span class="visual-badge" data-i18n="badgeFault">断層CSV → 境界13地点の波形（v1.1.0）</span>
+          <span class="visual-badge" data-i18n="badgeFault">断層CSV → 境界98地点の波形（v1.1.0〜）</span>
         </div>
         <div class="feature-info">
           <div class="feature-num" data-i18n="wsFaultNum">NEW IN v1.1.0 / FAULT CSV → BOUNDARY WAVES</div>
           <h3 class="feature-title" data-i18n="wsFaultTitle">断層CSVから、計算範囲の境界の波源をアプリ内で作る</h3>
           <p class="feature-text" data-i18n="wsFaultDesc">
-            断層パラメータCSV（nankai_trough と同じ形式）をドロップすると、プリセットを作ったのと同じ計算をアプリの中（Web Worker）で行います。日本全域 2.5km 格子と黒潮町沖 15秒メッシュの入れ子格子で地震後 1〜3時間を計算し、計算範囲の南端・東端13地点の波形をシナリオ「断層CSV: ファイル名」として設定。そのまま「計算・再生」で津波の遡上を計算できます。
+            断層パラメータCSV（nankai_trough と同じ形式）をドロップすると、プリセットを作ったのと同じ計算をアプリの中（Web Worker）で行います。日本全域 2.5km 格子と水深200m未満の沿岸タイル（15秒メッシュ）で地震後 1〜3時間を計算し、計算範囲の南端・東端に400mごとに置いた98地点の波形をシナリオ「断層CSV: ファイル名」として設定。そのまま「計算・再生」で津波の遡上を計算できます。
           </p>
           <ul class="feature-points">
             <li>
@@ -347,28 +347,28 @@
       <!-- Verification Comparison Box -->
       <div class="scenario-box" style="margin-top: 20px;">
         <div class="scenario-header">
-          <div class="scenario-title" data-i18n="verTitle">ヘッドレス検証結果（内閣府ケース④・倍率1.0・防潮堤 T.P.+6.0m・地震後 約83分まで）</div>
+          <div class="scenario-title" data-i18n="verTitle">ヘッドレス検証結果（内閣府ケース④・倍率1.0・防潮堤 T.P.+6.0m・地震後 90分まで）</div>
           <div class="scenario-badge" data-i18n="verBadge">倍率当てはめなし (×1.0)</div>
         </div>
         <div class="scenario-grid">
           <div class="scenario-item">
             <div class="label" data-i18n="ver1Label">黒潮町の浸水面積（計算範囲内）</div>
-            <div class="value">9.9 km²</div>
+            <div class="value">9.7 km²</div>
             <div class="note" data-i18n="ver1Note">e-Stat 町丁境界で集計</div>
           </div>
           <div class="scenario-item">
             <div class="label" data-i18n="ver2Label">黒潮町の陸上最高水位（このアプリ）</div>
-            <div class="value">T.P.+20.6 m</div>
+            <div class="value">T.P.+20.5 m</div>
             <div class="note" data-i18n="ver2Note">白浜地区（内閣府公表の最大津波高は 34.4m）</div>
           </div>
           <div class="scenario-item">
             <div class="label" data-i18n="ver3Label">佐賀地区の浸水面積・最高水位</div>
-            <div class="value">1.12 km² / +19.7 m</div>
+            <div class="value">1.08 km² / +19.8 m</div>
             <div class="note" data-i18n="ver3Note">町の資料では最大浸水深 18m・35分</div>
           </div>
           <div class="scenario-item">
             <div class="label" data-i18n="ver4Label">浸水の始まり（このアプリ）</div>
-            <div class="value" data-i18n="ver4Val">地震後 約28分</div>
+            <div class="value" data-i18n="ver4Val">地震後 約25〜30分</div>
             <div class="note" data-i18n="ver4Note">地殻変動（沈降）未考慮のため公的想定（最短約8分）より遅め</div>
           </div>
         </div>
@@ -382,34 +382,34 @@
       <div class="section-header">
         <span class="kicker" data-i18n="scenKicker">TSUNAMI SCENARIOS</span>
         <h2 class="section-title" data-i18n="scenTitle">収録シナリオと外部CSV連携</h2>
-        <p class="section-lead" data-i18n="scenLead">内閣府ケース④・⑤の領域端13地点入力から、昭和南海型、想定超過の越流検証、nankai_trough 出力CSVのドラッグ＆ドロップ、断層CSVからの波源計算（v1.1.0）まで対応しています。</p>
+        <p class="section-lead" data-i18n="scenLead">内閣府ケース④・⑤の領域端98地点入力から、昭和南海型、想定超過の越流検証、nankai_trough 出力CSVのドラッグ＆ドロップ、断層CSVからの波源計算まで対応しています。</p>
       </div>
 
       <div class="scenarios-grid">
         <div class="scenario-card highlight" style="border-color: rgba(0, 229, 255, 0.45); background: rgba(0, 229, 255, 0.04);">
-          <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen1Badge">既定 · 領域端13地点</div>
+          <div class="scenario-badge" style="background: rgba(0, 229, 255, 0.2); color: #00e5ff;" data-i18n="scen1Badge">既定 · 領域端98地点</div>
           <h3 class="scenario-title" data-i18n="scen1Title">南海トラフ 内閣府ケース④ 四国沖</h3>
-          <div class="scenario-meta" data-i18n="scen1Meta">領域端 最大 約7〜13m · 地震後 約25〜32分</div>
+          <div class="scenario-meta" data-i18n="scen1Meta">領域端 最大 約6〜15m · 地震後 約25〜34分</div>
           <p class="scenario-desc" data-i18n="scen1Desc">
-            内閣府(2012)ケース④「四国沖に大すべり域」を黒潮町沖15秒メッシュで計算し、領域の南端・東端に沿って約3kmごとに取り出した13地点の波形を各境界から直接入力。倍率は掛けていません（×1.0）。
+            内閣府(2012)ケース④「四国沖に大すべり域」を、水深200m未満の沿岸タイルを15秒メッシュにして計算し、領域の南端・東端に沿って400mごとに取り出した98地点の波形を各境界から直接入力。倍率は掛けていません（×1.0）。
           </p>
         </div>
 
         <div class="scenario-card">
-          <div class="scenario-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;" data-i18n="scen2Badge">領域端13地点 · 比較用1地点</div>
+          <div class="scenario-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;" data-i18n="scen2Badge">領域端98地点 · 比較用1地点</div>
           <h3 class="scenario-title" data-i18n="scen2Title">内閣府ケース⑤ 四国沖〜九州沖 ／ ケース④ 足摺岬沖</h3>
-          <div class="scenario-meta" data-i18n="scen2Meta">ケース⑤ 最大 約7〜13m ／ 足摺岬沖 最大 6.69m</div>
+          <div class="scenario-meta" data-i18n="scen2Meta">ケース⑤ 最大 約6〜15m ／ 足摺岬沖 最大 6.05m</div>
           <p class="scenario-desc" data-i18n="scen2Desc">
-            「四国沖〜九州沖に大すべり域」のケース⑤（領域の西側でやや高い）と、比較用として観測点「足摺岬沖」（133.00°E, 32.65°N）の1地点の波形をグリーンの法則で換算して全体から入力するケース④を収録。
+            「四国沖〜九州沖に大すべり域」のケース⑤（ケース④とほぼ同規模）と、比較用として観測点「足摺岬沖」（133.00°E, 32.65°N）の1地点の波形をグリーンの法則で換算して全体から入力するケース④を収録。
           </p>
         </div>
 
         <div class="scenario-card">
           <div class="scenario-badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;" data-i18n="scen3Badge">歴史地震型 · 想定超過検証</div>
           <h3 class="scenario-title" data-i18n="scen3Title">南海地震単独 M8.4 ／ 仮想 想定超過（沖合20m）</h3>
-          <div class="scenario-meta" data-i18n="scen3Meta">M8.4 領域端 約3〜5m ／ 仮想正弦波 20m・周期20分</div>
+          <div class="scenario-meta" data-i18n="scen3Meta">M8.4 領域端 約2〜6m ／ 仮想正弦波 20m・周期20分</div>
           <p class="scenario-desc" data-i18n="scen3Desc">
-            1946年昭和南海地震型の単一断層簡易モデル（領域端13地点）と、領域端から沖合波高20mの正弦波を入射させて防潮堤を越流し入野・佐賀の低地へ広がる過程を検証する仮想ケース。
+            1946年昭和南海地震型の単一断層簡易モデル（領域端98地点）と、領域端から沖合波高20mの正弦波を入射させて防潮堤を越流し入野・佐賀の低地へ広がる過程を検証する仮想ケース。
           </p>
         </div>
 
@@ -466,7 +466,7 @@
           <div class="store-badge" data-i18n="storeBadge">MACOS DESKTOP EDITION</div>
           <h2 class="store-title" data-i18n="storeTitle">黒潮町津波 3Dシミュレーター デスクトップ版</h2>
           <p class="store-desc" data-i18n="storeDesc">
-            Tauri v2 で構築された macOS ネイティブアプリ（v1.1.0）。15m格子の全域計算・プリセット波源の再生・断層CSVからの波源計算はオフラインで動作し、住所検索や 2m 詳細タイルの作成（ネット接続時）、CSV・MP4 動画のダウンロードフォルダへの保存に対応しています。
+            Tauri v2 で構築された macOS ネイティブアプリ（v1.2.0）。15m格子の全域計算・プリセット波源の再生・断層CSVからの波源計算はオフラインで動作し、住所検索や 2m 詳細タイルの作成（ネット接続時）、CSV・MP4 動画のダウンロードフォルダへの保存に対応しています。
           </p>
 
           <div class="store-pricing">
@@ -483,7 +483,7 @@
 
           <div class="store-meta">
             <div class="meta-item">
-              <strong data-i18n="metaOsLabel">対応OS:</strong> <span data-i18n="metaOs">macOS (Apple Silicon M1/M2/M3/M4 · DMG 約15MB)</span>
+              <strong data-i18n="metaOsLabel">対応OS:</strong> <span data-i18n="metaOs">macOS (Apple Silicon M1/M2/M3/M4 · DMG 約16MB)</span>
             </div>
             <div class="meta-item">
               <strong data-i18n="metaReqLabel">動作要件:</strong> <span data-i18n="metaReq">WebGL2 対応 GPU（住所検索と 2m 詳細タイル作成時のみインターネット接続が必要）</span>
