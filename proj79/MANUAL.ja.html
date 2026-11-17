@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261114">
+  <link rel="stylesheet" href="style.css?v=20261117">
 </head>
 <body>
   <nav class="nav"><div class="container nav-inner">
@@ -203,8 +203,45 @@
 <td>10分ごとの強度(mm/h)をカンマか改行で区切って入力</td>
 <td>任意の雨</td>
 </tr>
+<tr>
+<td>観測雨量: 地点(CSV)</td>
+<td>雨量計1地点のCSVファイル</td>
+<td>実際の豪雨の再現(計算範囲全体に一様に降らせる)</td>
+</tr>
+<tr>
+<td>観測雨量: 格子(NetCDF)</td>
+<td>格子状の雨量のNetCDFファイル</td>
+<td>場所ごとに違う雨(レーダー雨量など)での再現</td>
+</tr>
 </tbody></table>
-<p>設定すると、下部のグラフに雨の棒グラフ(10分ごと)が表示され、総雨量・ピーク・計算時間がパネルに出ます。</p>
+<p>設定すると、下部のグラフに雨の棒グラフ(データの間隔ごと。シナリオは10分ごと)が表示され、総雨量・ピーク・計算時間がパネルに出ます。</p>
+<h3 id="観測雨量のファイルを読み込む">観測雨量のファイルを読み込む</h3>
+<p>雨のデータは、<strong>地点の雨はCSV、格子の雨はNetCDF</strong>の2種類で受け付けます。GRIB2・GeoTIFF・ASCIIグリッドなど、ほかの形式の格子雨量はNetCDFに変換してから読み込んでください(GDALの <code>gdal_translate -of netCDF</code> や Python の xarray などで変換できます)。</p>
+<p><strong>地点雨量(CSV)</strong></p>
+<ul>
+<li>1列目が日時(日本時間。<code>2022/9/23 23:10</code>、<code>2022-09-23 23:10</code> など)または経過分、2列目が雨量。日時でない行(見出し・注記)は読み飛ばします</li>
+<li>気象庁の「過去の気象データ・ダウンロード」のCSV(Shift_JIS、見出し行・品質情報の列つき)もそのまま読めます。欠測(<code>--</code>、<code>///</code> など)は 0 mm として扱い、件数を表示します</li>
+<li>行は等間隔(10分・1時間など)にしてください</li>
+<li>「値の意味」: <strong>区間の雨量 mm</strong>(気象庁の10分値・1時間値)か <strong>降雨強度 mm/h</strong></li>
+<li>雨は計算範囲全体(タイル・広域)に一様に降らせます</li>
+</ul>
+<p><strong>格子雨量(NetCDF)</strong></p>
+<ul>
+<li>CF規約のNetCDF(NetCDF3 classic / 64-bit offset、NetCDF4)。雨量は <code>(time, y, x)</code> の3次元変数、座標は1次元の緯度・経度(units: degrees_north / degrees_east)か、平面直角座標系VIII系(EPSG:6676、grid_mapping に記載)</li>
+<li>時刻は <code>minutes since 2022-09-23 09:00:00</code> のような単位。時刻帯の記載がないときはCF規約どおりUTCとして読みます(「時刻帯の記載がないとき」で日本時間にも切り替えられます)。等間隔にしてください</li>
+<li>「値の意味」: 既定は単位(units)から判定(<code>mm/h</code>、<code>mm h-1</code>、<code>kg m-2 s-1</code> は強度、<code>mm</code> は区間の雨量)。判定できないときは強度として読み、警告を出します</li>
+<li>欠測値(<code>_FillValue</code> / <code>missing_value</code>)と <code>scale_factor</code> / <code>add_offset</code> に対応します</li>
+<li>計算の各セルは、自分の中心が入る雨の格子の値を使います(雨の格子は元の解像度のまま。1km以上の格子は半分の大きさに分けて計算範囲に合わせます)</li>
+<li><strong>格子の外・欠測のセル</strong>は、任意で読み込む地点雨量(CSV)の値で埋めます(日時で対応づけ)。読み込まなければ雨なし(0 mm/h)です</li>
+<li>計算範囲(shizuoka.tif、約79×79km)を少し超える範囲に切り出したファイルにすると、読み込みが速く、メモリも少なく済みます</li>
+<li>下部のグラフの雨は、地点を選んでいないときは<strong>地域(タイル)内の平均</strong>、地点をクリックしているときは<strong>その地点の格子の雨量</strong>です(グラフの左下に「雨: 地域平均」「雨: この地点の格子」と表示)。左上の情報・パネルの総雨量は地域内の平均、地点のCSVはその地点の格子の雨量です</li>
+</ul>
+<p><strong>共通</strong></p>
+<ul>
+<li>「時刻の付け方」: <strong>区間の終わりの時刻</strong>(気象庁と同じ。14:10 の値 = 14:00〜14:10 の雨)か、区間の始まりの時刻</li>
+<li>日時のあるデータでは、計算の 0:00 がファイルの最初の区間の始まりになり、その日時がパネル・左上の情報・録画に出ます。地点のCSVには日時(日本時間)の列が加わります</li>
+<li>読み込んだファイルはページを開き直す(地域を切り替える)と消えるので、もう一度選んでください</li>
+</ul>
 <h3 id="そのほかの設定">そのほかの設定</h3>
 <table>
 <thead>
@@ -319,7 +356,7 @@
 </tr>
 <tr>
 <td>計算条件</td>
-<td>降雨パターンとその設定値、総雨量、ピーク強度、降雨時間、雨が止んだ後の計算時間、下水道の排水能力、粗度係数、流域からの流入の有無、地域外(広域)の排水能力(流入ありのとき)、安全係数(CFL)、保存間隔</td>
+<td>降雨パターンとその設定値(観測雨量ではファイル名・値の意味・時刻の付け方・データの間隔・計算開始の日時など)、総雨量、ピーク強度、降雨時間、雨が止んだ後の計算時間、下水道の排水能力、粗度係数、流域からの流入の有無、地域外(広域)の排水能力(流入ありのとき)、安全係数(CFL)、保存間隔</td>
 </tr>
 <tr>
 <td>結果</td>
@@ -327,7 +364,7 @@
 </tr>
 <tr>
 <td>時系列</td>
-<td>保存間隔ごとの経過時間・降雨強度・累積雨量・地盤高・水深・水面標高(各行で 地盤高＋水深＝水面標高。建物は、その時刻に周囲の道路で最も深いセルの値)</td>
+<td>保存間隔ごとの経過時間・降雨強度・累積雨量・地盤高・水深・水面標高(各行で 地盤高＋水深＝水面標高。建物は、その時刻に周囲の道路で最も深いセルの値)。日時のある観測雨量では日時(日本時間)の列も</td>
 </tr>
 </tbody></table>
 <p>ファイル名は「地域名_point_緯度_経度.csv」、文字コードはUTF-8(BOM付き)で、Excelでそのまま開けます。画面を英語にしていると、項目名も英語で保存されます。</p>

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261114">
+  <link rel="stylesheet" href="style.css?v=20261117">
 </head>
 <body>
   <nav class="nav"><div class="container nav-inner">
@@ -203,8 +203,45 @@ The links under the region information save the corrected terrain and the terrai
 <td>Intensity every 10 minutes (mm/h), separated by commas or newlines</td>
 <td>Any rainfall</td>
 </tr>
+<tr>
+<td>Observed rain: gauge (CSV)</td>
+<td>A CSV file of one rain gauge</td>
+<td>Reproducing a real storm (rained uniformly over the whole computation)</td>
+</tr>
+<tr>
+<td>Observed rain: grid (NetCDF)</td>
+<td>A NetCDF file of gridded rain</td>
+<td>Reproducing a storm whose rain varies in space (radar rainfall etc.)</td>
+</tr>
 </tbody></table>
-<p>The rain appears as bars (every 10 minutes) in the chart at the bottom, and the total, peak and computed time are shown in the panel.</p>
+<p>The rain appears as bars (one per data interval; 10 minutes for the scenarios) in the chart at the bottom, and the total, peak and computed time are shown in the panel.</p>
+<h3 id="loading-observed-rain-from-a-file">Loading observed rain from a file</h3>
+<p>Rain data is accepted in two forms: <strong>gauge rain as CSV, gridded rain as NetCDF</strong>. Convert gridded rain in other formats (GRIB2, GeoTIFF, ASCII grid…) to NetCDF first (for example with GDAL <code>gdal_translate -of netCDF</code> or Python xarray).</p>
+<p><strong>Gauge rain (CSV)</strong></p>
+<ul>
+<li>Column 1: date-time (Japan time, e.g. <code>2022/9/23 23:10</code>, <code>2022-09-23 23:10</code>) or elapsed minutes; column 2: the rain. Rows whose first column is not a time (headers, notes) are skipped</li>
+<li>CSV files from JMA&#39;s past weather data download (Shift_JIS, with header rows and quality columns) are read as they are. Missing values (<code>--</code>, <code>///</code> …) count as 0 mm and their number is shown</li>
+<li>The rows must be evenly spaced (10 min, 1 h …)</li>
+<li>&quot;Meaning of the values&quot;: <strong>rain in the interval, mm</strong> (JMA 10-minute / hourly values) or <strong>intensity, mm/h</strong></li>
+<li>The rain falls uniformly over the whole computation (tile and basin)</li>
+</ul>
+<p><strong>Gridded rain (NetCDF)</strong></p>
+<ul>
+<li>CF NetCDF (NetCDF3 classic / 64-bit offset, NetCDF4). Rain as a <code>(time, y, x)</code> variable; 1-D coordinates in latitude / longitude (units degrees_north / degrees_east) or JGD2011 plane VIII (EPSG:6676, stated in the grid_mapping variable)</li>
+<li>Time in units like <code>minutes since 2022-09-23 09:00:00</code>. Without a time zone it is read as UTC, as CF prescribes (&quot;When the time zone is not stated&quot; can switch to Japan time). Evenly spaced</li>
+<li>&quot;Meaning of the values&quot;: by default from the units (<code>mm/h</code>, <code>mm h-1</code>, <code>kg m-2 s-1</code> are intensities, <code>mm</code> is rain in the interval). Unknown units are read as intensity with a warning</li>
+<li>Missing values (<code>_FillValue</code> / <code>missing_value</code>) and <code>scale_factor</code> / <code>add_offset</code> are handled</li>
+<li>Each cell of the computation takes the rain of the grid cell its centre falls in (the rain keeps its own resolution; grids of 1 km or coarser are split in half to follow the computation more closely)</li>
+<li><strong>Cells outside the grid or missing</strong> take the value of an optional gauge CSV (matched by date-time); without one they get no rain (0 mm/h)</li>
+<li>A file cut to a little more than the computation (shizuoka.tif, about 79 × 79 km) loads faster and uses less memory</li>
+<li>The rain bars in the chart are the <strong>mean over the region (tile)</strong> while no point is picked, and <strong>the rain of the picked point’s grid cell</strong> once a point is clicked (marked &quot;Rain: region mean&quot; / &quot;Rain: this point’s cell&quot; at the bottom left of the chart). The information at the top left and the totals in the panel are region means; the point CSV has the rain of the point’s cell</li>
+</ul>
+<p><strong>Both</strong></p>
+<ul>
+<li>&quot;Time stamps&quot;: <strong>end of the interval</strong> (as JMA: the 14:10 value is the rain from 14:00 to 14:10) or start of the interval</li>
+<li>With dated data, 0:00 of the run is the start of the file&#39;s first interval; that date-time is shown in the panel, the information at the top left and the recordings, and the point CSV gets a date-time (Japan time) column</li>
+<li>A loaded file is forgotten when the page is reopened (or the region switched): choose it again</li>
+</ul>
 <h3 id="other-settings">Other settings</h3>
 <table>
 <thead>
@@ -319,7 +356,7 @@ The links under the region information save the corrected terrain and the terrai
 </tr>
 <tr>
 <td>Conditions</td>
-<td>Rainfall pattern and its settings, total rainfall, peak intensity, rain duration, time computed after the rain, sewer capacity, roughness, inflow from the basin, drainage outside the region (with inflow), safety factor (CFL), save interval</td>
+<td>Rainfall pattern and its settings (for observed rain: file name, meaning of the values, time stamps, data interval, run start date-time …), total rainfall, peak intensity, rain duration, time computed after the rain, sewer capacity, roughness, inflow from the basin, drainage outside the region (with inflow), safety factor (CFL), save interval</td>
 </tr>
 <tr>
 <td>Results</td>
@@ -327,7 +364,7 @@ The links under the region information save the corrected terrain and the terrai
 </tr>
 <tr>
 <td>Time series</td>
-<td>Elapsed time, rainfall intensity, cumulative rainfall, ground elevation, depth and water-surface elevation at every save interval (on each row ground + depth = water surface; for a building, the street cell around it with the deepest water at that time)</td>
+<td>Elapsed time, rainfall intensity, cumulative rainfall, ground elevation, depth and water-surface elevation at every save interval (on each row ground + depth = water surface; for a building, the street cell around it with the deepest water at that time); with dated observed rain also the date-time (Japan time)</td>
 </tr>
 </tbody></table>
 <p>The file is named &quot;region_point_lat_lon.csv&quot; and is UTF-8 with a BOM, so spreadsheet apps open it directly. With the interface in Japanese, the item names are in Japanese.</p>

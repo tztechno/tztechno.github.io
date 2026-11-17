@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261114">
+  <link rel="stylesheet" href="style.css?v=20261117">
 </head>
 <body>
 
@@ -85,7 +85,7 @@
           <h3 data-i18n="f1Title">建物単位で浸水を計算する</h3>
           <p data-i18n="f1Body">PLATEAU の地形モデル（住所から作るタイルは国土地理院 5 m 標高）を 2 m 格子にし、建物の底面の高さで地盤を補正。建物は屋根の高さまでの壁として扱い、屋根の雨は縁から道路へ流れ落ちます。水深は浸水の区分ごとに色分けし、建物は周囲の浸水深で塗り分けます（床上浸水相当は周囲 0.5 m 以上）。</p>
           <ul class="chips">
-            <li data-i18n="f1c1">一定・中央集中型・線状降水帯・七夕豪雨・台風15号・カスタム</li>
+            <li data-i18n="f1c1">一定・中央集中型・線状降水帯・七夕豪雨・台風15号・カスタム・観測雨量（CSV / NetCDF）</li>
             <li data-i18n="f1c2">下水道の排水能力</li>
             <li data-i18n="f1c3">雨が止んだ後の引き方</li>
           </ul>
@@ -144,9 +144,10 @@
           <li><b data-i18n="rs2a">令和4年台風15号（2022 年 9 月 23〜24 日）</b><span data-i18n="rs2b">10 分ごとの実測値。12 時間で 404 mm、1 時間最大 107 mm</span></li>
           <li><b data-i18n="rs3a">倍率</b><span data-i18n="rs3b">波形の形はそのままに、強さだけを変えられます</span></li>
           <li><b data-i18n="rs4a">設計降雨・カスタム</b><span data-i18n="rs4b">一定強度、中央集中型、線状降水帯型、10 分ごとの自由入力</span></li>
+          <li><b data-i18n="rs5a">観測雨量のファイル</b><span data-i18n="rs5b">雨量計の時系列（CSV、気象庁のダウンロードもそのまま）や、場所ごとに違う格子雨量（NetCDF、レーダー雨量など）を読み込んで計算</span></li>
         </ul>
       </div>
-      <p class="note" data-i18n="rainNote">※ 観測値は 1 地点（駿河区曲金）のもので、計算範囲全体に一様に降らせます。実際の雨の降り方や被害を再現するものではありません。</p>
+      <p class="note" data-i18n="rainNote">※ 収録の 2 つの豪雨は 1 地点（駿河区曲金）の観測値で、計算範囲全体に一様に降らせます。場所ごとの雨は格子雨量（NetCDF）のファイルで与えられます。実際の被害を再現するものではありません。</p>
       <figure class="shot wide"><img src="assets/title.jpg" alt="" loading="lazy"><figcaption data-i18n="titleCap">表紙: 流域の実際の等高線と降る雨のなか、駿府城の巽櫓をイメージした櫓の堀の水位が上がっていく</figcaption></figure>
     </div>
   </section>
@@ -228,6 +229,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261114"></script>
+  <script src="script.js?v=20261117"></script>
 </body>
 </html>
