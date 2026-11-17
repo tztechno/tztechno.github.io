@@ -237,9 +237,9 @@ npm run tauri build  # release build (dmg / exe)
 <td>Bathymetry (japan.tif, 15-arcsec) averaged by a factor of 6 into a 1.5-arcmin grid (about 2.8 km, 1093×1040 cells). A factor of 8 gives a lighter grid of about 3.7 km</td>
 </tr>
 <tr>
-<td><code>bathymetry_osaka_bay.bin</code> / <code>_meta.json</code></td>
-<td><code>node scripts/process_bathymetry.mjs ../japan.tif 1 --bounds 134.55,135.55,34.0,34.75 --name osaka_bay</code></td>
-<td>High-resolution area for Osaka Bay and the northern Kii Channel (cut out at the original 15-arcsec, 240×180 cells)</td>
+<td><code>bathymetry_tiles.bin</code> / <code>_meta.json</code></td>
+<td><code>node scripts/process_tiles.mjs ../japan.tif</code></td>
+<td>Coastal high-resolution tiles (cut out at the original 15-arcsec): the national grid is split into 0.25° tiles and the 1,448 tiles containing water shallower than 200 m are stored with a 2-cell halo (64 × 64 cells)</td>
 </tr>
 <tr>
 <td><code>slab.bin</code> / <code>slab_meta.json</code></td>
@@ -542,8 +542,8 @@ Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
 <td>1x / 5x / 20x / 60x. Roughly the simulated seconds advanced per frame. At 60x and similar speeds, computation per frame is capped to keep the UI responsive, so actual progress is slower depending on the PC</td>
 </tr>
 <tr>
-<td><strong>High resolution for Osaka Bay &amp; northern Kii Channel</strong></td>
-<td>When on (default), only this area is computed on a 15-arcsec grid (about 400 m) (section 11). You can turn it off for comparison. Changing it restarts the simulation</td>
+<td><strong>Coastal waters at high resolution</strong></td>
+<td>When on (default), areas containing water shallower than 200 m (nearly the whole coast) are computed on a 15-arcsec grid (about 400 m) (section 11); each area starts when the wave reaches it. You can turn it off for comparison. Changing it restarts the computation</td>
 </tr>
 <tr>
 <td><strong>Numerical Filter</strong></td>
@@ -566,6 +566,7 @@ Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
 <li><strong>Hover</strong>: the top left shows longitude/latitude, depth (elevation on land), and the current water level at that spot</li>
 <li>The map keeps its aspect ratio (it does not stretch with the window shape).</li>
 </ul>
+<p><strong>Collapsing the left column</strong>: the <strong>☰</strong> button at the left end of the header collapses the whole left column of control panels so the map and waveform chart get more room; press it again to bring the column back (on both computers and phones; the browser remembers the state).</p>
 <p><strong>Phones and small screens</strong></p>
 <ul>
 <li>At widths of 768 px or less (phone in portrait), the map is on top and the control panels (1–4) are below it. In landscape, the left panel becomes narrower.</li>
@@ -593,10 +594,6 @@ Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
 <tr>
 <td>White arrows</td>
 <td>Velocity vectors (where speed ≥ 0.15 m/s)</td>
-</tr>
-<tr>
-<td>Yellow dashed frame</td>
-<td>High-resolution area (Osaka Bay &amp; northern Kii Channel, 15-arcsec). Inside it, terrain, wave height, and velocity come from the fine grid</td>
 </tr>
 <tr>
 <td>Colored dots</td>
@@ -728,7 +725,7 @@ Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
 <td>36.97</td>
 </tr>
 <tr>
-<td>Osaka Bay &amp; northern Kii Channel<br>(high-resolution area)</td>
+<td>Osaka Bay &amp; northern Kii Channel</td>
 <td>Tomogashima Strait (Kitan Strait)</td>
 <td>135.05</td>
 <td>34.28</td>
@@ -765,7 +762,7 @@ Miyagi_deep,142.5,38.3,15,200,80,195,15,90,22
 <li><strong>Focused Point</strong>: the point whose statistics appear in the chart heading. Clicking a card in the list or a point on the map also changes it.</li>
 <li><strong>↺ Reset Points</strong>: restores the 20 default points.</li>
 <li>* Offshore Taro and Miyako Bay Mouth are placed just outside the inflow boundaries of the Taro and Miyako Bay areas of the urban simulator MIYAKO TSUNAMI. Their CSVs can be used as the wave source for each area.</li>
-<li>Points inside the high-resolution area (the 5 default Osaka Bay points and any you add there) record values from the fine grid.</li>
+<li>Points inside the coastal high-resolution tiles (most default points and any coastal points you add) record values from the fine grid.</li>
 <li>Each point in the list shows its max wave height and first arrival time (minutes).</li>
 </ul>
 <h3>8.3 Waveform chart</h3>
@@ -924,7 +921,7 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 <li><strong>Rupture propagation (Cabinet Office model)</strong>: displacement is added over 1 minute starting at (distance from the rupture start point) ÷ 2.5 km/s.</li>
 <li><strong>Shallow water equations</strong>: the 2D nonlinear long-wave equations are solved on an Arakawa C-grid. Because the domain spans 26° of latitude, <strong>the east-west grid spacing varies with latitude and the continuity equation includes a spherical correction</strong>.</li>
 <li><strong>Grid and time step</strong>: 1.5-arcmin grid (about 2.8 km), time step about 3 s (adjusted automatically to satisfy the CFL condition).<ul>
-<li><strong>High-resolution area (nested grid)</strong>: only Osaka Bay and the northern Kii Channel (134.55°E–135.55°E, 34.0°N–34.75°N) are computed on a 15-arcsec grid (about 460 m north-south, 380 m east-west). Every step, the Japan-wide water level is interpolated onto the fine grid&#39;s outer ring and the interior is solved with the same equations (one-way nesting; the fine results are not fed back to the Japan-wide grid). The Naruto, Tomogashima, and Akashi straits are each resolved by about 10 cells.</li>
+<li><strong>Coastal high-resolution tiles (nested grids)</strong>: the national grid is split into 0.25° tiles, and the tiles containing water shallower than 200 m (1,448 tiles, nearly the whole coast) are computed on a 15-arcsec grid (about 460 m north-south, 380 m east-west). Each tile&#39;s boundary takes values from the neighbouring tile&#39;s fine grid when that tile is being computed, and from the national grid otherwise, so adjacent tiles behave almost like one seamless grid (the fine results are not fed back into the national grid). Tiles containing the source or an observation point start at once; the others start when the wave on the national grid reaches them (5 mm or more). The Naruto, Tomogashima and Akashi straits are each about 10 cells wide. With the tiles on, a run takes about 2.5 times as long (about 3 minutes for 120 minutes across Japan).</li>
 </ul>
 </li>
 <li><strong>Bottom friction</strong>: Manning&#39;s roughness 0.025 (semi-implicit).</li>
@@ -936,8 +933,8 @@ Time_sec,Elevation_m,U_velocity_m_s,V_velocity_m_s,Speed_m_s,Direction_deg
 <h2>12. Limitations</h2>
 <ul>
 <li><strong>Offshore values</strong>: wave heights are offshore values (water depth of tens of meters or more), not coastal tsunami heights or run-up.</li>
-<li><strong>Coarse grid</strong>: with about 2.8 km cells, the inside of bays and ports and narrow straits are not resolved. Only Osaka Bay and the northern Kii Channel use the ~400 m high-resolution area, which still cannot represent quay walls or breakwaters inside ports.</li>
-<li><strong>Coast in the high-resolution area</strong>: the fine grid computes cells only a few meters deep near the shore, so water levels raised by reflection at the coast can appear (run-up on land is not computed, so the coast acts as a wall).</li>
+<li><strong>Coarse grid</strong>: with about 2.8 km cells, the inside of bays and ports and narrow straits are not resolved. Coastal waters use the ~400 m high-resolution tiles, which still cannot represent quay walls or breakwaters inside ports.</li>
+<li><strong>Coast in the high-resolution tiles</strong>: the fine grid computes cells only a few meters deep near the shore, so water levels raised by reflection at the coast can appear (run-up on land is not computed, so the coast acts as a wall).</li>
 <li><strong>Simplified fault models</strong>: preset and Pick Epicenter faults are rectangles with uniform slip (or combinations of them). The Cabinet Office model is an approximate reproduction, not the official data.</li>
 <li><strong>Pick Epicenter</strong>: the plate interface is approximated by a single plane, so long faults (about 600 km for Mw9) differ more from the real curved interface. The plate interface data is currently USGS Slab1.0.</li>
 <li><strong>Not modeled</strong>: inundation and run-up on land, tides, Coriolis force, wave dispersion.</li>
