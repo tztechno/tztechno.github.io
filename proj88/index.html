@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TOKYO SOLAR — その場所は、何時に日陰になる？</title>
-  <meta name="description" content="東京23区の実際の建物に、好きな日時の太陽で影を落とすデスクトップアプリ。日の出から日の入までの影の動きを再生し、地上から太陽を見上げ、画像や動画で保存できます。" />
+  <meta name="description" content="東京23区の実際の建物に、好きな日時の太陽で影を落とすデスクトップアプリ。日の出から日の入までの影の動きを再生し、地上から太陽を見上げ、画像や動画で保存できます。建物を消して仮建物を置き、まわりの日照の変化も調べられます。" />
   <meta property="og:title" content="TOKYO SOLAR — その場所は、何時に日陰になる？" />
   <meta property="og:description" content="東京23区の建物に、好きな日時の太陽で影を落とす 3D 日影シミュレーター。" />
   <meta property="og:type" content="website" />
@@ -301,8 +301,35 @@
       </div>
     </section>
 
+    <!-- site study (v1.2) -->
+    <section class="alt" id="site">
+      <div class="wrap">
+        <div class="eyebrow en">NEW — v1.2</div>
+        <h2 data-i18n="siteTitle">ここに建てたら、まわりの日当たりは？</h2>
+        <p class="sec-lead" data-i18n="siteLead">今の建物を消して更地にし、建てたい大きさの「仮建物」を置いてみる。まわりの日照が何時間減るか、どこで増えるかを、変更前と比べて地図の上で確かめられます。</p>
+        <div class="split">
+          <figure class="shot" style="margin:0">
+            <img src="images/site.jpg" data-img="site" width="1600" height="900" loading="lazy" data-i18n-alt="siteAlt" alt="武蔵小山の住宅地で3棟の建物を消し、幅30m・奥行22m・高さ24mの仮建物（オレンジの箱）を置いた3D表示。冬至の正午、仮建物の影が北へ約40m伸びている" />
+            <figcaption data-i18n="siteCap">武蔵小山、冬至の 11:40。3棟を消して、8階建て相当（高さ 24 m）の仮建物を置いたところ。影は北へ約 40 m 伸びます。</figcaption>
+          </figure>
+          <div>
+            <ul class="check">
+              <li data-i18n="site1"><strong>建物を消す</strong>：クリックした建物を次々に消せます（複数可）。消した建物は影を落としません。一覧からいつでも元に戻せます</li>
+              <li data-i18n="site2"><strong>仮建物を置く</strong>：幅・奥行・高さ・向きを数値で指定した直方体を、地図をクリックして置きます。あとから大きさや場所も変えられます</li>
+              <li data-i18n="site3"><strong>自由視点にも反映</strong>：仮建物の陰に入る窓や歩道で、日が当たる時間帯がどう変わるかも確かめられます</li>
+            </ul>
+          </div>
+        </div>
+        <figure class="shot" style="margin:40px 0 0">
+          <img src="images/sunmap.jpg" data-img="sunmap" width="1600" height="900" loading="lazy" data-i18n-alt="sunmapAlt" alt="仮建物のまわり100m四方の日照時間の増減を色分けした地図。北側は青（日照が減る）、東側の一部はオレンジ（増える）。クリックした地点の日照が4時間から10分に減ったことを示すパネル" />
+          <figcaption data-i18n="sunmapCap">日照時間マップ（地上 1.5 m・冬至）。青は日照が減る所、オレンジは消した建物の影がなくなって増える所。仮建物のすぐ北の地点は、1日の日照が 4 時間から 10 分に減ります。</figcaption>
+        </figure>
+        <div class="note-box" data-i18n="siteNote">日照時間マップは、選んだ仮建物のまわり 50〜200 m 四方を、測定面の高さ（日影規制で使う 1.5 m・4 m・6.5 m など）で計算します。変更前と比べる場合は計算に1〜2分ほどかかります。結果は目安で、日影規制の正式な検討の代わりにはなりません。</div>
+      </div>
+    </section>
+
     <!-- how to -->
-    <section class="alt">
+    <section>
       <div class="wrap">
         <h2 data-i18n="stepsTitle">使い方は3ステップ</h2>
         <p class="sec-lead" data-i18n="stepsLead">引っ越し先のマンションの、冬の日当たりを調べる例です。</p>
@@ -344,7 +371,7 @@
     // "-en" variant captured with the app in English.
     const EN = {
       pageTitle: 'TOKYO SOLAR — When does this spot fall into shade?',
-      pageDesc: 'A desktop app that casts shadows on the real buildings of Tokyo’s 23 wards for any date and time. Play the shadows from sunrise to sunset, look up at the sun from the street, and save images and videos.',
+      pageDesc: 'A desktop app that casts shadows on the real buildings of Tokyo’s 23 wards for any date and time. Play the shadows from sunrise to sunset, look up at the sun from the street, save images and videos, and remove buildings or add temporary ones to see how the sunlight around them changes.',
       navBuy: 'Get it',
       heroTitle: '<span class="nb">When does this spot</span><br /><span class="hl nb">fall into shade?</span>',
       heroLead: 'A 3D shadow simulator that lights the real buildings of Tokyo’s 23 wards with the sun of any date and time. Play the shadows from sunrise to sunset, look up at the sun from the street, and save it all as images and videos.',
@@ -400,6 +427,16 @@
       info3: '<strong>Move the time</strong> and the shadow length updates on the spot',
       infoAlt: '3D view of Toranomon with a building clicked and highlighted in orange, and a panel showing a height of 67.8 m, 16 storeys and a shadow about 87 m long toward the north-west',
       infoCap: 'Toranomon at 9:30 on 15 October. The clicked building turns orange and its shadow length at that time is shown.',
+      siteTitle: 'Build here — what happens to the sunlight around it?',
+      siteLead: 'Clear the existing buildings, put up a “temporary building” of the size you have in mind, and see on the map how many hours of sun the neighbourhood loses or gains, compared with today.',
+      siteAlt: '3D view of a residential block in Musashi-Koyama with three buildings removed and an orange box 30 m wide, 22 m deep and 24 m tall placed on the site; at noon on the December solstice its shadow reaches about 40 m to the north',
+      siteCap: 'Musashi-Koyama at 11:40 on the December solstice: three buildings removed and an eight-storey box (24 m) put in their place. Its shadow reaches about 40 m to the north.',
+      site1: '<strong>Remove buildings</strong>: click building after building to clear them. Removed buildings cast no shadow, and you can restore them from the list at any time',
+      site2: '<strong>Put up temporary buildings</strong>: click the map to place a box with the width, depth, height and rotation you enter, then resize or move it later',
+      site3: '<strong>Works in free view too</strong>: check how the sunlit hours change at a window or on a pavement in the new building’s shadow',
+      sunmapAlt: 'Map of the change in sunlight hours over a 100 m square around the box: blue (less sun) to the north and some orange (more sun) to the east, with a panel showing a spot whose sunlight fell from 4 hours to 10 minutes',
+      sunmapCap: 'Sunlight-hours map (1.5 m above ground, December solstice). Blue means less sun; orange means more, where a removed building no longer casts its shadow. Just north of the box, a spot drops from 4 hours of sun to 10 minutes.',
+      siteNote: 'The sunlight-hours map covers a 50–200 m square around the selected box at a measurement height of your choice (such as the 1.5, 4 or 6.5 m used by Japan’s shadow rules). Comparing with today takes one to two minutes. Results are an estimate, not a substitute for a formal shadow-regulation study.',
       stepsTitle: 'Three steps',
       stepsLead: 'For example, to check the winter sunlight at a flat you are thinking of moving to:',
       s1Title: 'Choose the place',
