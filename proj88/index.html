@@ -275,7 +275,7 @@
           <div class="feat"><div class="num" data-i18n="f1Num">23区</div><h3 data-i18n="f1Title">実際の建物で計算</h3><p data-i18n="f1Text">国土交通省 PLATEAU の 3D 都市モデル。建物から地面へ、建物から建物へ落ちる影を描きます。</p></div>
           <div class="feat"><div class="num en">NOAA</div><h3 data-i18n="f2Title">天文計算の太陽位置</h3><p data-i18n="f2Text">米国海洋大気庁（NOAA）の計算式で、日付・時刻・場所から太陽の高度と方位を求めます。大気差も補正します。</p></div>
           <div class="feat"><div class="num en">300 m – 2 km</div><h3 data-i18n="f3Title">調べる範囲を選ぶ</h3><p data-i18n="f3Text">住所検索・主な場所・地図クリック・緯度経度で中心を決め、正方形の範囲を表示します。</p></div>
-          <div class="feat"><div class="num en">PNG / MP4</div><h3 data-i18n="f4Title">画像と動画で保存</h3><p data-i18n="f4Text">今の画面を PNG で、1日の影の動きを MP4 で保存。日時・太陽の高度と方位が画面に入ります。</p></div>
+          <div class="feat"><div class="num en">PNG / MP4 / CSV</div><h3 data-i18n="f4Title">画像・動画・表で保存</h3><p data-i18n="f4Text">今の画面を PNG で、1日の影の動きを MP4 で保存。日時・太陽の高度と方位が画面に入ります。日照時間マップの結果は CSV でも。</p></div>
           <div class="feat"><div class="num" data-i18n="f5Num">軌跡図</div><h3 data-i18n="f5Title">太陽の通り道</h3><p data-i18n="f5Text">その日の太陽の通り道を 3D と天空図で表示。夏至・冬至の軌跡と比べられます。日の出・南中・日の入の時刻も。</p></div>
           <div class="feat"><div class="num en">JA / EN</div><h3 data-i18n="f6Title">日本語と英語</h3><p data-i18n="f6Text">画面の表示と、保存する画像・動画の文字を、ワンクリックで切り替えられます。使い方マニュアルも日英対応。</p></div>
         </div>
@@ -304,7 +304,7 @@
     <!-- site study (v1.2) -->
     <section class="alt" id="site">
       <div class="wrap">
-        <div class="eyebrow en">NEW — v1.2</div>
+        <div class="eyebrow en">NEW — v1.2.1</div>
         <h2 data-i18n="siteTitle">ここに建てたら、まわりの日当たりは？</h2>
         <p class="sec-lead" data-i18n="siteLead">今の建物を消して更地にし、建てたい大きさの「仮建物」を置いてみる。まわりの日照が何時間減るか、どこで増えるかを、変更前と比べて地図の上で確かめられます。</p>
         <div class="split">
@@ -317,6 +317,7 @@
               <li data-i18n="site1"><strong>建物を消す</strong>：クリックした建物を次々に消せます（複数可）。消した建物は影を落としません。一覧からいつでも元に戻せます</li>
               <li data-i18n="site2"><strong>仮建物を置く</strong>：幅・奥行・高さ・向きを数値で指定した直方体を、地図をクリックして置きます。あとから大きさや場所も変えられます</li>
               <li data-i18n="site3"><strong>自由視点にも反映</strong>：仮建物の陰に入る窓や歩道で、日が当たる時間帯がどう変わるかも確かめられます</li>
+              <li data-i18n="site4"><strong>CSV で書き出す</strong>：日照時間マップの結果を、地点ごとの緯度経度・日照時間・日が当たる時間帯・変更前との増減の表として保存。Excel でそのまま開けます</li>
             </ul>
           </div>
         </div>
@@ -324,7 +325,7 @@
           <img src="images/sunmap.jpg" data-img="sunmap" width="1600" height="900" loading="lazy" data-i18n-alt="sunmapAlt" alt="仮建物のまわり100m四方の日照時間の増減を色分けした地図。北側は青（日照が減る）、東側の一部はオレンジ（増える）。クリックした地点の日照が4時間から10分に減ったことを示すパネル" />
           <figcaption data-i18n="sunmapCap">日照時間マップ（地上 1.5 m・冬至）。青は日照が減る所、オレンジは消した建物の影がなくなって増える所。仮建物のすぐ北の地点は、1日の日照が 4 時間から 10 分に減ります。</figcaption>
         </figure>
-        <div class="note-box" data-i18n="siteNote">日照時間マップは、選んだ仮建物のまわり 50〜200 m 四方を、測定面の高さ（日影規制で使う 1.5 m・4 m・6.5 m など）で計算します。変更前と比べる場合は計算に1〜2分ほどかかります。結果は目安で、日影規制の正式な検討の代わりにはなりません。</div>
+        <div class="note-box" data-i18n="siteNote">日照時間マップは、選んだ仮建物のまわり 50〜200 m 四方を、測定面の高さ（日影規制で使う 1.5 m・4 m・6.5 m など）で計算します。変更前と比べる場合は計算に1〜2分ほどかかります。結果は「CSVで保存」で表計算ソフト用に書き出せます。値は目安で、日影規制の正式な検討の代わりにはなりません。</div>
       </div>
     </section>
 
@@ -413,8 +414,8 @@
       f2Text: 'The NOAA (US National Oceanic and Atmospheric Administration) equations give the sun’s altitude and azimuth for any date, time and place, corrected for refraction.',
       f3Title: 'Choose the area',
       f3Text: 'Set the center by address search, landmark, map click or coordinates, and see a square area around it.',
-      f4Title: 'Save images and videos',
-      f4Text: 'Save the view as PNG and a whole day of shadows as MP4, with the date, time and sun position written in.',
+      f4Title: 'Save images, videos and tables',
+      f4Text: 'Save the view as PNG and a whole day of shadows as MP4, with the date, time and sun position written in, and the sunlight-hours map as CSV.',
       f5Num: 'Sun path',
       f5Title: 'The sun’s path',
       f5Text: 'The day’s path of the sun in 3D and on a sky chart, compared with the solstices, plus sunrise, solar noon and sunset.',
@@ -434,9 +435,10 @@
       site1: '<strong>Remove buildings</strong>: click building after building to clear them. Removed buildings cast no shadow, and you can restore them from the list at any time',
       site2: '<strong>Put up temporary buildings</strong>: click the map to place a box with the width, depth, height and rotation you enter, then resize or move it later',
       site3: '<strong>Works in free view too</strong>: check how the sunlit hours change at a window or on a pavement in the new building’s shadow',
+      site4: '<strong>Export to CSV</strong>: save the sunlight-hours map as a table — latitude/longitude, sunlight hours, sunlit periods and the change from today for every point. It opens directly in Excel',
       sunmapAlt: 'Map of the change in sunlight hours over a 100 m square around the box: blue (less sun) to the north and some orange (more sun) to the east, with a panel showing a spot whose sunlight fell from 4 hours to 10 minutes',
       sunmapCap: 'Sunlight-hours map (1.5 m above ground, December solstice). Blue means less sun; orange means more, where a removed building no longer casts its shadow. Just north of the box, a spot drops from 4 hours of sun to 10 minutes.',
-      siteNote: 'The sunlight-hours map covers a 50–200 m square around the selected box at a measurement height of your choice (such as the 1.5, 4 or 6.5 m used by Japan’s shadow rules). Comparing with today takes one to two minutes. Results are an estimate, not a substitute for a formal shadow-regulation study.',
+      siteNote: 'The sunlight-hours map covers a 50–200 m square around the selected box at a measurement height of your choice (such as the 1.5, 4 or 6.5 m used by Japan’s shadow rules). Comparing with today takes one to two minutes, and “Save CSV” exports the results for spreadsheets. Results are an estimate, not a substitute for a formal shadow-regulation study.',
       stepsTitle: 'Three steps',
       stepsLead: 'For example, to check the winter sunlight at a flat you are thinking of moving to:',
       s1Title: 'Choose the place',
