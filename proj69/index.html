@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Volantis Flight Lab | 10 基の噴射で、車を宙へ — 冷ガス噴射カー物理シミュレーター</title>
-  <meta name="description" content="架空の空飛ぶ車 Volantis V-01（実寸 4.45 m・1,800 kg）を、10 基の冷ガス噴射口・250 kg の圧縮空気・床下吸引ファンで飛ばす物理シミュレーター。平地から跳躍して空中 360° ロール、C 型スロープの天井を走って逆さまに射出。AUTO の成功保証、噴射口ごとの出力設定、リプレイと実速度 MP4 書き出し。macOS / Windows。">
+  <title>Volantis Flight Lab | 12 基の噴射で、車を宙へ — 冷ガス噴射カー物理シミュレーター</title>
+  <meta name="description" content="架空の空飛ぶ車 Volantis V-01（実寸 4.45 m・1,800 kg）を、12 基の冷ガス噴射口・250 kg の圧縮空気・床下吸引ファンで飛ばす物理シミュレーター。平地から跳躍して空中 360° ロール、C 型スロープの天井を走って逆さまに射出。AUTO の成功保証とまっすぐ着地、噴射口ごとの出力設定、リプレイと実速度 MP4 書き出し。macOS / Windows。">
 
   <meta property="og:title" content="Volantis Flight Lab — 冷ガス噴射カー物理シミュレーター">
-  <meta property="og:description" content="10 基の噴射口と 250 kg の圧縮空気で、実寸の車を宙へ。跳躍・空中ロール・天井走行を物理計算で。">
+  <meta property="og:description" content="12 基の噴射口と 250 kg の圧縮空気で、実寸の車を宙へ。跳躍・空中ロール・天井走行を物理計算で。">
   <meta property="og:image" content="https://tztechno.github.io/proj69/assets/hero.jpg">
   <meta property="og:url" content="https://tztechno.github.io/proj69/">
   <meta property="og:type" content="website">
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261018">
+  <link rel="stylesheet" href="style.css?v=20261127">
 </head>
 <body>
 
@@ -49,8 +49,8 @@
     <div class="hero-shade"></div>
     <div class="container hero-content">
       <p class="eyebrow">COLD-GAS JET CAR PHYSICS</p>
-      <h1 data-i18n-html="heroTitle">10 基の噴射で、<br><span class="accent">車を宙へ放つ。</span></h1>
-      <p class="lead" data-i18n="heroLead">架空の空飛ぶ車 Volantis V-01 を、10 基の冷ガス噴射口と 250 kg の圧縮空気、床下の吸引ファンで飛ばす物理シミュレーター。平地から跳び上がって空中で 360° ロール、C 型スロープの天井を走って逆さまに射出。重さも噴射口の出力もコースも、自分で変えて試せます。</p>
+      <h1 data-i18n-html="heroTitle">12 基の噴射で、<br><span class="accent">車を宙へ放つ。</span></h1>
+      <p class="lead" data-i18n="heroLead">架空の空飛ぶ車 Volantis V-01 を、12 基の冷ガス噴射口と 250 kg の圧縮空気、床下の吸引ファンで飛ばす物理シミュレーター。平地から跳び上がって空中で 360° ロール、C 型スロープの天井を走って逆さまに射出。重さも噴射口の出力もコースも、自分で変えて試せます。</p>
       <div class="hero-cta">
         <a href="https://cyber-matrix.netlify.app/products/volantis_fly" class="btn btn-primary btn-lg" data-i18n="heroBuy">デスクトップ版を入手</a>
         <a href="#machine" class="btn btn-ghost btn-lg" data-i18n="heroMore">機体を見る</a>
@@ -62,7 +62,7 @@
   <!-- ===== Stats ===== -->
   <section class="stats">
     <div class="container stats-grid">
-      <div class="stat"><strong>10</strong><span data-i18n="statJets">個別に設定できる噴射口</span></div>
+      <div class="stat"><strong>12</strong><span data-i18n="statJets">個別に設定できる噴射口</span></div>
       <div class="stat"><strong>250 kg</strong><span data-i18n="statAir">圧縮空気タンク</span></div>
       <div class="stat"><strong>4.45 m</strong><span data-i18n="statSize">実寸の車体</span></div>
       <div class="stat"><strong>180°</strong><span data-i18n="statRamp">スロープの最大斜度</span></div>
@@ -84,8 +84,9 @@
             <li><i class="j-down"></i><div><b>D1–D4</b> <span data-i18n="jDownName">四隅の下向き噴射 ×4</span><small data-i18n="jDownBody">浮上・ロール・ピッチ・着地の減速</small></div></li>
             <li><i class="j-rear"></i><div><b>R1–R4</b> <span data-i18n="jRearName">ジェットナセルの後方噴射 ×4</span><small data-i18n="jRearBody">ブースト加速</small></div></li>
             <li><i class="j-front"></i><div><b>FL / FR</b> <span data-i18n="jFrontName">向きを変えられる前方噴射 ×2</span><small data-i18n="jFrontBody">逆噴射ブレーキと空中での向き変え。横向き・下向きの角度を設定可能</small></div></li>
+            <li><i class="j-side"></i><div><b>SL / SR</b> <span data-i18n="jSideName">重心の高さの横向き噴射 ×2</span><small data-i18n="jSideBody">車体を回さずに左右へ押し、空中で中心線を保つ</small></div></li>
           </ul>
-          <p data-i18n="macBody">10 基の噴射口は、それぞれの取付位置から力を加えます。左右の推力差でロール、前後の差でピッチが生まれるので、片側だけを強く噴けば車体は回り始めます。噴射口ごとに最大推力を設定でき、不揃いにすれば車体の傾きとして現れます。</p>
+          <p data-i18n="macBody">12 基の噴射口は、それぞれの取付位置から力を加えます。左右の推力差でロール、前後の差でピッチが生まれるので、片側だけを強く噴けば車体は回り始めます。噴射口ごとに最大推力を設定でき、不揃いにすれば車体の傾きとして現れます。</p>
           <ul class="chips">
             <li data-i18n="macC1">噴射口ごとの出力設定</li>
             <li data-i18n="macC2">圧縮空気 250 kg</li>
@@ -145,7 +146,7 @@
       <div class="feature-text">
         <p class="kicker">GUARANTEED AUTO</p>
         <h2 data-i18n="autoTitle">保証範囲内なら、AUTO は必ず成功する</h2>
-        <p data-i18n="autoBody">出発前に、重量・噴射口の出力・コースから助走速度・点火位置・狙う最高高度を計算。飛行中は高度と上昇速度から噴射を止め、ロール角から回転を止め、高さと落下速度から着地噴射の強さを毎ステップ判断します。右パネルのバッジが「AUTO保証内」なら成功、範囲外なら理由（推力不足・空気不足など）を表示します。</p>
+        <p data-i18n="autoBody">出発前に、重量・噴射口の出力・コースから助走速度・点火位置・狙う最高高度を計算。飛行中は高度と上昇速度から噴射を止め、ロール角から回転を止め、高さと落下速度から着地噴射の強さを毎ステップ判断します。ロールで生じる横ずれは横噴射 SL / SR で打ち消し、機首はコースの向きに保つので、コース中心線から約 0.15 m 以内にまっすぐ着地します。右パネルのバッジが「AUTO保証内」なら成功、範囲外なら理由（推力不足・空気不足など）を表示します。</p>
         <ul class="chips">
           <li data-i18n="autoC1">飛行計画 + 閉ループ制御</li>
           <li data-i18n="autoC2">範囲外の理由を表示</li>
@@ -163,7 +164,7 @@
       <div class="feature-text">
         <p class="kicker">REPLAY &amp; VIDEO</p>
         <h2 data-i18n="repTitle">スローで見返し、実速度の MP4 で残す</h2>
-        <p data-i18n="repBody">走行はシミュレーション時刻つきで記録され、0.25×・0.5×・1×・2× で再生できます。動画保存は 1 コマずつ時刻を指定して MP4 に書き出すので、描画の遅いパソコンでも 1× は本当の物理速度。位置・姿勢・10 噴射口の推力は MuJoCo 形式の CSV でも保存できます。</p>
+        <p data-i18n="repBody">走行はシミュレーション時刻つきで記録され、0.25×・0.5×・1×・2× で再生できます。動画保存は 1 コマずつ時刻を指定して MP4 に書き出すので、描画の遅いパソコンでも 1× は本当の物理速度。位置・姿勢・12 噴射口の推力は MuJoCo 形式の CSV でも保存できます。</p>
         <ul class="chips">
           <li data-i18n="repC1">0.25× 〜 2× 再生</li>
           <li data-i18n="repC2">実速度 MP4 書き出し</li>
@@ -181,7 +182,7 @@
       <div class="cards">
         <div class="card">
           <h3 data-i18n="c1Title">取付位置から力を加える</h3>
-          <p data-i18n="c1Body">10 基の噴射口は、それぞれの位置と向きで車体に力とモーメントを加えます。ロールもピッチも、魔法の回転力ではなく推力差から生まれます。</p>
+          <p data-i18n="c1Body">12 基の噴射口は、それぞれの位置と向きで車体に力とモーメントを加えます。ロールもピッチも、魔法の回転力ではなく推力差から生まれます。</p>
         </div>
         <div class="card">
           <h3 data-i18n="c2Title">推力配分</h3>
@@ -197,7 +198,7 @@
         </div>
         <div class="card">
           <h3 data-i18n="c5Title">ぎりぎりの着地噴射</h3>
-          <p data-i18n="c5Body">残りの高さと落下速度から必要な減速を毎回計算し、ぎりぎりまで自由落下してから噴射。空気を節約しながら、秒速 0.8 m で接地します。</p>
+          <p data-i18n="c5Body">残りの高さと落下速度から必要な減速を毎回計算し、ぎりぎりまで自由落下してから噴射。空気を節約しながら、秒速 0.8 m で接地します。横噴射に回すのは着地に必要な分を残した余りの空気だけです。</p>
         </div>
         <div class="card">
           <h3 data-i18n="c6Title">冷ガスの白い蒸気</h3>
@@ -272,6 +273,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20261018"></script>
+  <script src="script.js?v=20261127"></script>
 </body>
 </html>

@@ -103,6 +103,7 @@ kbd { width: 58px; height: 58px; display: grid; place-items: center; border-radi
 .jets .j-down { background: #7fc4ff; box-shadow: 0 0 12px #7fc4ff; }
 .jets .j-rear { background: #ffb347; box-shadow: 0 0 12px #ffb347; }
 .jets .j-front { background: #ff7b98; box-shadow: 0 0 12px #ff7b98; }
+.jets .j-side { background: #9be37a; box-shadow: 0 0 12px #9be37a; }
 .jets b { font-family: 'JetBrains Mono', monospace; margin-right: 6px; }
 .jets small { display: block; font-size: 14px; color: var(--mute); }
 .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }

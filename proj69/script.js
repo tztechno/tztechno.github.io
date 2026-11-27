@@ -2,8 +2,8 @@
 // Japanese is the markup; English texts live here, keyed by data-i18n / data-i18n-html.
 const EN = {
   navMachine: 'Machine', navTasks: 'Stunts', navAuto: 'AUTO', navReplay: 'Replay', navTech: 'How it works', navDesktop: 'Desktop', navBuy: 'Get it',
-  heroTitle: '10 cold-gas jets.<br><span class="accent">One car, airborne.</span>',
-  heroLead: 'A physics simulator of the fictional flying car Volantis V-01, flown with 10 cold-gas nozzles, a 250 kg compressed-air tank and an underbody suction fan. Leap from flat ground and roll 360° in the air, or drive up a C-ramp onto the ceiling and launch upside down. Change the mass, every nozzle\'s thrust and the course, and find what works.',
+  heroTitle: '12 cold-gas jets.<br><span class="accent">One car, airborne.</span>',
+  heroLead: 'A physics simulator of the fictional flying car Volantis V-01, flown with 12 cold-gas nozzles, a 250 kg compressed-air tank and an underbody suction fan. Leap from flat ground and roll 360° in the air, or drive up a C-ramp onto the ceiling and launch upside down. Change the mass, every nozzle\'s thrust and the course, and find what works.',
   heroBuy: 'Get the desktop app', heroMore: 'See the machine',
   statJets: 'individually rated nozzles', statAir: 'compressed-air tank', statSize: 'full-size body', statRamp: 'max ramp slope', statStep: 'thrust allocation step',
   macTitle: 'Volantis V-01 — a full-size coupe that flies on jets',
@@ -11,7 +11,8 @@ const EN = {
   jDownName: 'Downward jets at the corners ×4', jDownBody: 'Lift, roll, pitch and landing deceleration',
   jRearName: 'Rear jets in the nacelles ×4', jRearBody: 'Boost',
   jFrontName: 'Vectorable front jets ×2', jFrontBody: 'Retro-brake and in-air yaw; sideways and downward angles are adjustable',
-  macBody: 'Each of the 10 nozzles pushes from its own mounting point. A left/right thrust difference rolls the car and a front/rear difference pitches it, so firing one side harder starts a roll. Every nozzle has its own thrust rating; uneven ratings show up as the car tilting.',
+  jSideName: 'Side jets at center-of-mass height ×2', jSideBody: 'Push the car left/right without rotating it, holding the centerline in the air',
+  macBody: 'Each of the 12 nozzles pushes from its own mounting point. A left/right thrust difference rolls the car and a front/rear difference pitches it, so firing one side harder starts a roll. Every nozzle has its own thrust rating; uneven ratings show up as the car tilting.',
   macC1: 'Per-nozzle thrust', macC2: '250 kg of compressed air', macC3: 'Underbody suction fan',
   taskTitle: 'Two stunts', taskLead: 'Change the obstacle size and the ramp angle, and find the conditions that work.',
   t1Title: 'Leap from flat ground and roll 360° in the air',
@@ -23,17 +24,17 @@ const EN = {
   invCap: 'Task 1: mid-roll, the jets now pointing up keep the car turning',
   landCap: 'Task 2: launched from a 180° ramp, trailing steam toward the landing',
   autoTitle: 'Inside the guaranteed range, AUTO always succeeds',
-  autoBody: 'Before the run it works out the approach speed, ignition point and target apex from the mass, nozzle ratings and course. In flight it decides every step when to cut the lift from altitude and climb rate, how to stop the roll from the roll angle, and how hard to brake for landing from height and descent rate. When the badge says "AUTO OK" it succeeds; otherwise it tells you why (not enough thrust, not enough air, ...).',
+  autoBody: 'Before the run it works out the approach speed, ignition point and target apex from the mass, nozzle ratings and course. In flight it decides every step when to cut the lift from altitude and climb rate, how to stop the roll from the roll angle, and how hard to brake for landing from height and descent rate. The sideways drift of the roll is cancelled by the SL / SR side jets and the nose is held on the course heading, so it lands straight, within about 0.15 m of the centerline. When the badge says "AUTO OK" it succeeds; otherwise it tells you why (not enough thrust, not enough air, ...).',
   autoC1: 'Flight plan + closed-loop control', autoC2: 'Shows why it is out of range', autoC3: 'Auto-tune power', autoC4: 'SEMI / MANUAL too',
   repTitle: 'Watch it in slow motion, keep it as a real-speed MP4',
-  repBody: 'Runs are recorded with simulation time and replay at 0.25×, 0.5×, 1× or 2×. Video export writes the MP4 frame by frame with exact timestamps, so 1× is true physical speed even on a slow computer. Pose and all 10 nozzle forces can also be saved as a MuJoCo-style CSV.',
+  repBody: 'Runs are recorded with simulation time and replay at 0.25×, 0.5×, 1× or 2×. Video export writes the MP4 frame by frame with exact timestamps, so 1× is true physical speed even on a slow computer. Pose and all 12 nozzle forces can also be saved as a MuJoCo-style CSV.',
   repC1: '0.25× - 2× replay', repC2: 'Real-speed MP4 export', repC3: 'MuJoCo-style CSV',
   techTitle: 'How it flies',
   c1Title: 'Forces from the mounting points', c1Body: 'Every nozzle applies force and moment from its own position and direction. Roll and pitch come from thrust differences, not from magic torques.',
   c2Title: 'Thrust allocation', c2Body: 'The requested lift, roll and pitch are split across D1-D4 within each nozzle\'s limit, every 1/360 s. Weaken one nozzle and the others rebalance.',
   c3Title: '250 kg of compressed air', c3Body: 'With a 500 m/s exhaust velocity, air drains at thrust / 500. When the tank is empty the jets stop, and the car gets lighter as it drains.',
   c4Title: 'Suction and grip', c4Body: 'The fan lowers the underbody pressure to press the car onto the wall. Tires can only push with friction × normal load; too little suction and the car falls off the ceiling.',
-  c5Title: 'Last-moment landing burn', c5Body: 'It recomputes the needed deceleration from height and descent rate, free-falls as long as it can, then fires, saving air and touching down at 0.8 m/s.',
+  c5Title: 'Last-moment landing burn', c5Body: 'It recomputes the needed deceleration from height and descent rate, free-falls as long as it can, then fires, saving air and touching down at 0.8 m/s. The side jets only get the air left over after the landing is covered.',
   c6Title: 'White cold-gas steam', c6Body: 'Expanding, cooling jet gas turns into white fog that spreads across the ground. Adjust the amount with a slider.',
   c7Title: 'Gamepad ready', c7Body: 'By default every action works on a D-pad-and-buttons pad such as the 8BitDo Zero 2. Xbox / PS preset and full remapping included.',
   c8Title: 'Five cameras', c8Body: 'Chase, hood, stunt, overview and a free camera that orbits the car, so you never miss the moment.',
@@ -49,7 +50,7 @@ const EN = {
 };
 const TITLE = {
   ja: document.title,
-  en: 'Volantis Flight Lab | 10 cold-gas jets, one airborne car — jet car physics simulator',
+  en: 'Volantis Flight Lab | 12 cold-gas jets, one airborne car — jet car physics simulator',
 };
 
 function initialLang() {
